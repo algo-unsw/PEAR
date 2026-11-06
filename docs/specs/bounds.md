@@ -104,3 +104,14 @@ The best bounds of a problem (under any chosen filter) are the bounds no other b
 - **B4** Every variable is polynomially bounded in N by default, silently. Exceptions are marked `poly_bounded: false`.
 - **B5** Problems declare parameter constraints, each with a justification.
 - **B6** Bounds equal in O* with incomparable exact forms are both kept. The Details view shows both, and the Overview shows the earlier one.
+
+## Implementation notes (step 5)
+
+Code: `src/pear/bounds/` (`expr.py` parser and renderer, `growth.py` normal form, `compare.py` comparator, `display.py` O* form and folding). Tests: `tests/test_bounds.py`, one group per section above. These choices follow from the agreed rules; none changes them.
+
+- **Supported class.** Inside exponents: sums, products, constant powers, roots, logarithms of single monomials, `O(·)`, `o(·)`, $\varepsilon$, $\delta$. As factors: numbers, variables, powers, logarithms, `\mathrm{poly}(x)`, `O(·)`, sums of positive terms (estimated safely: $a + b \le 2ab$ for an upper bound, $a$ for a lower bound) and $c - \varepsilon$ as a base. Anything else, such as the logarithm of a sum, is outside the class: such a bound is **kept and treated as incomparable**, never rejected and never compared wrongly.
+- **$\omega$.** No `data/constants/` file exists yet, so a bound using $\omega$ is incomparable until one does.
+- **Constraints** use a single variable on the smaller side; the larger side may be $y$, $y^p$, $y - c$ or $y / c$. They are closed transitively ($a \le b$, $b \le c^2$ give $a \le c^2$).
+- **Mixed monomials.** $c\,k\log n$ is compared with a monomial in $k$ alone by lower-bounding $\log n \ge \log k$ through $k \le n$. This is how $2^k$ beats $n^{O(k)}$.
+- **Hidden factors.** Two bounds that are both $O^*$ (or both $\tilde O$) compare their stated parts in exact form. If only one hides a factor, that factor is unknown, which usually gives a tie (B6).
+- **Folding.** $c^{a x}$ is folded when $a$ is an integer (any $c$), or when $c$ is not an integer. So $1.2^{2k}$ becomes $1.44^k$ and $1.5^{n/2}$ becomes $1.2248^n$, while $2^{n/2}$ keeps its natural form. Folded bases are rounded **up** to four decimals. The unrounded expression is kept as the derived bound's exact form.

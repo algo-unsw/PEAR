@@ -9,6 +9,9 @@ from typing import Any
 import yaml
 from pydantic import ValidationError
 
+from .bounds import BoundSyntaxError, build_context, parse_bound, parse_expr
+from .bounds.compare import ConstraintError
+from .bounds.expr import variables
 from .schema import (
     ENTITY_TYPES,
     Algorithm,
@@ -271,9 +274,69 @@ def check_references(data: Dataset) -> list[Issue]:
     return [issue for issue in issues if issue.message not in already]
 
 
+def check_expressions(data: Dataset) -> list[Issue]:
+    """Parse every bound, time, call count, parameter map and constraint (bounds §1)."""
+    issues: list[Issue] = []
+
+    def bound(where: str, problem: Problem | None, b) -> None:
+        if problem is None:
+            return
+        try:
+            parsed = parse_bound(b.as_stated, problem.symbols())
+        except BoundSyntaxError as exc:
+            issues.append(Issue(f"{where}.as_stated", str(exc)))
+            return
+        if (parsed.notation or "O") != b.notation:
+            issues.append(
+                Issue(f"{where}.notation", f"'{b.notation}' does not match the notation of as_stated ('{parsed.notation or 'O'}')")
+            )
+        used = variables(parsed.expr)
+        if used != set(b.parameters):
+            issues.append(
+                Issue(f"{where}.parameters", f"lists {sorted(b.parameters)}, but as_stated uses {sorted(used)}")
+            )
+
+    def expr(where: str, problem: Problem | None, text: str) -> None:
+        if problem is None:
+            return
+        try:
+            parse_expr(text, problem.symbols())
+        except BoundSyntaxError as exc:
+            issues.append(Issue(where, str(exc)))
+
+    for pid, problem in data.problems.items():
+        try:
+            build_context(problem.symbols(), [c.constraint for c in problem.constraints])
+        except (BoundSyntaxError, ConstraintError) as exc:
+            issues.append(Issue(f"problems/{pid}.yaml: constraints", str(exc)))
+
+    for aid, alg in data.entries["algorithms"].items():
+        assert isinstance(alg, Algorithm)
+        bound(f"algorithms/{aid}.yaml: bound", data.problems.get(alg.problem), alg.bound)
+
+    for lid, lb in data.entries["lower-bounds"].items():
+        assert isinstance(lb, LowerBound)
+        bound(f"lower-bounds/{lid}.yaml: bound", data.problems.get(lb.problem), lb.bound)
+
+    for rid, red in data.entries["reductions"].items():
+        assert isinstance(red, Reduction)
+        where = f"reductions/{rid}.yaml"
+        source = data.problems.get(red.from_.problem)
+        if source is not None:
+            try:
+                parse_bound(red.time, source.symbols())
+            except BoundSyntaxError as exc:
+                issues.append(Issue(f"{where}: time", str(exc)))
+        if isinstance(red.calls, str):
+            expr(f"{where}: calls", source, red.calls)
+        for var, rhs in red.parameter_map.items():
+            expr(f"{where}: parameter_map.{var}", source, rhs)
+    return issues
+
+
 def validate_raw(raw: dict[str, dict[str, Any]], redirects: Any = None) -> tuple[Dataset, list[Issue]]:
     data, issues = parse(raw, redirects)
-    return data, issues + check_references(data)
+    return data, issues + check_references(data) + check_expressions(data)
 
 
 def validate_dir(data_dir: Path) -> tuple[Dataset, list[Issue]]:

@@ -1,7 +1,7 @@
 id: problem-a--k--author-example-2000
 problem: problem-a
 proved_for: optimisation
-bound: { as_stated: "O(c^k + k n)", notation: O, parameters: [k, n] }
+bound: { as_stated: "O(1.5^{k} + kn)", notation: O, parameters: [k, n] }
 properties:
   randomized: { error: one-sided }
   space: { class: polynomial }
