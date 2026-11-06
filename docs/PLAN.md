@@ -104,7 +104,7 @@ A problem such as Vertex Cover is one family page with a version switcher: Decis
 
 ## Error flagging and fallback
 
-- Anyone can flag a result, with a reason and a link to evidence (erratum, counterexample).
+- Anyone can flag a result, with a reason and, where available, a link to evidence (erratum, counterexample). The evidence link is never required, not even for wrong-result reports (decided 7 November 2026).
 - Once a flag is confirmed (always by a human), the result is excluded from bound derivation and affected bounds are recomputed, falling back to the next best valid algorithm or chain.
 - Flagged results stay visible with their status.
 - Confirmed errors are graded:
@@ -198,6 +198,12 @@ Clicking a parameter on a problem page opens the history of the best running tim
 - Repository: `pear`, owned by the [algo-unsw](https://github.com/algo-unsw) organisation (moving from `serggasp/pear`).
 - Domain: start on GitHub Pages (`algo-unsw.github.io/pear`). A custom domain is optional; if one is added, do it before entry URLs are announced or cited, since Pages URLs do not redirect.
 - Stack: Python data pipeline (YAML data, pydantic schema, bound parser and comparator, derivation engine, pytest) writing JSON; Eleventy renders the site from that JSON, with KaTeX at build time. GitHub Actions: validate and test on every PR, build and deploy to Pages on merge to `main`.
+
+### Repository skeleton (decided 7 November 2026)
+
+- Code licence: MIT, "Copyright (c) 2026 the PEAR contributors". Data licence: CC0 1.0.
+- The repository stays private until the site is ready to deploy (step 7); it must be public before the Pages deploy, since Pages on a private organisation repository needs a paid GitHub plan.
+- Issue forms label new issues `suggestion` and `error-report`.
 
 ## Usability at scale
 

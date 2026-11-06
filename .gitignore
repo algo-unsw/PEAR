@@ -1,1 +1,12 @@
 .DS_Store
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+.pytest_cache/
+
+# Node / Eleventy
+node_modules/
+_site/

@@ -8,7 +8,8 @@ Read `CLAUDE.md` first (ground rules), then `docs/PLAN.md` (what and why) and `d
 - **Design is chosen.** Encyclopedia look, desktop and phone; static previews in `design/preview/`, sources in `design/source/`.
 - **Name**: "PEAR: Parameterized and Exact Algorithms and Reductions".
 - **Setup (step 1, done)**: repo `algo-unsw/pear`; GitHub Pages first, custom domain optional; Python pipeline + Eleventy + KaTeX. Details in `docs/PLAN.md` → Hosting and implementation → Setup.
-- **Not started**: repository, schema, bound language spec, rulebook spec, any data or code.
+- **Repository skeleton (step 2, done 7 November 2026)**: licences (code MIT, data CC0), issue forms, CI (pytest on every PR), Python package stub. Repository stays private until step 7. The Pages deploy workflow is added with the Eleventy site in step 7. Details in `docs/PLAN.md` → Hosting and implementation → Repository skeleton.
+- **Not started**: schema, bound language spec, rulebook spec, any data or pipeline code.
 - **Drafts exist** for the bound language and chaining rules (in `docs/PLAN.md`); they must be finished **with Serge**.
 
 ## Goal of this session: Phase 1 pilot

@@ -1,0 +1,44 @@
+name: Report an error
+description: A result, citation, definition or page on the site looks wrong.
+title: "[Error] "
+labels: ["error-report"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for checking our work. A reported result stays visible, marked as flagged, until a person has reviewed the report; confirmed errors are excluded from best and derived bounds.
+  - type: input
+    id: entry
+    attributes:
+      label: Page or entry
+      description: Link to the page, or the ID of the problem, algorithm, reduction or paper.
+      placeholder: https://algo-unsw.github.io/pear/…
+    validations:
+      required: true
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What is wrong?
+      options:
+        - A result is wrong or not proved as claimed
+        - Citation, exact statement or paper version is wrong
+        - Problem definition or parameter is wrong
+        - Display problem or broken link
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: reason
+    attributes:
+      label: Explanation
+      description: What is wrong, and what should it be?
+    validations:
+      required: true
+  - type: input
+    id: evidence
+    attributes:
+      label: Evidence
+      description: For a wrong result, link an erratum, counterexample, later paper version or discussion. Optional for other kinds of error.
+      placeholder: https://…
+    validations:
+      required: false
