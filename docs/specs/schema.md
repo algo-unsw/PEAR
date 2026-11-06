@@ -1,6 +1,6 @@
-# PEAR data schema — DRAFT for review
+# PEAR data schema
 
-> **Status: draft, not agreed.** Proposed 7 November 2026 for review with Serge (HANDOFF step 3). Open questions are marked **Q1–Q7** and collected at the end. Nothing here is implemented yet; once agreed, it becomes pydantic models in `src/pear/` and the examples become test fixtures.
+> **Status: agreed with Serge on 7 November 2026** (HANDOFF step 3; decisions Q1–Q7 at the end). Implemented as pydantic models in `src/pear/schema.py`, with the cross-entry checks in `src/pear/validate.py`. Checks that need the bound parser (variables inside bound strings and parameter maps) arrive with step 4. Changing the schema is the owner's decision.
 >
 > All bounds, theorem numbers and years in the examples are **placeholders** (`c`, `X.Y`, `YYYY`), not data.
 
@@ -25,7 +25,7 @@ The repository is the database. Each entry is one YAML file named after its ID:
 - Error flags and their grading (fixed, easily fixable, unrepaired, broken) get their own folder, `data/flags/`, in Phase 2. Phase 1 reserves a `status` field on results (§5) so nothing has to move later.
 - Computed things are not stored: derived bounds, O* normal forms, best-bound sets and OpenAlex counts are build outputs.
 
-**Q1.** Is this file layout and ID scheme right? In particular, should paper IDs be surname+year slugs, or DBLP keys (`journals/tcs/ChenKX10`, which are stable but not available for every paper)? I recommend slugs, with the DBLP key stored as an identifier.
+**Q1 (decided).** File layout and ID scheme as above. Paper IDs are surname+year slugs; the DBLP key, where one exists, is stored under `identifiers`.
 
 ## 2. Problem
 
@@ -37,7 +37,7 @@ aliases: [Node Cover]                 # for search and OpenAlex matching
 category: graph                       # controlled list: graph, satisfiability, sets, numbers, ...
 complexity:
   class: NP-complete
-  source: { paper: karp-YYYY, version: conference, statement: "TODO(verify)" }
+  source: { paper: karp-YYYY, statements: { conference: { statement: "TODO(verify)" } } }   # §4
 
 objects:                              # rule 4: what n, m and N count, for this problem
   n: number of vertices
@@ -86,9 +86,18 @@ review: { approved_by: null, date: null }
 - `generalises` lets bounds flow from a weighted version to its unweighted special case automatically, as the plan requires.
 - `review.approved_by` records that a definition is approved. The Lean exception relies on this ("problem definitions already approved on the site").
 
-**Q2.** For versions that share bounds, should the schema simply declare them (`shared_bounds` with a short reason, as above), or should it express the equivalence as reductions between versions so the derivation engine works it out? Declaring is simpler and enough for the pilot; reductions are more principled but drag the version-to-version reductions (and their polynomial overheads) into the rulebook. I recommend declaring them for now.
+**Q2 (decided).** Versions that share bounds are declared in the problem file (`shared_bounds`, with a short reason), not derived from version-to-version reductions.
 
-**Q3.** Should structural parameters (treewidth, pathwidth, …) live in a shared registry (`data/parameters/`) that problems point to? This gives one place for definitions, the bound history per parameter, and the later parameter relations (treewidth ≤ pathwidth ≤ …, HOPS). Purely local parameters such as `k` stay in the problem file. I recommend yes.
+**Q3 (decided).** Structural parameters (treewidth, pathwidth, …) live in a shared registry, `data/parameters/`, that problems point to. It holds their definitions and, later, the parameter relations (HOPS). Purely local parameters such as `k` stay in the problem file.
+
+```yaml
+# data/parameters/treewidth.yaml
+id: treewidth
+name: Treewidth
+symbol: tw
+aliases: []
+definition: "TODO(verify)"            # Markdown with $…$ maths
+```
 
 ## 3. Paper
 
@@ -143,7 +152,7 @@ source:
   reference: { paper: some-textbook-YYYY, version: book, statement: "Section X.Y" }   # optional
 ```
 
-**Q4.** Rule 2 asks for the exact statement per paper version. Should the validator require a statement for **at least one open-access version** (so a reviewer can always check it without a paywall), with other versions optional? And should we store only the label ("Theorem 3.2", page), rather than the statement's text? I recommend yes to both: storing text adds copyright questions and goes stale between versions.
+**Q4 (decided).** Every paper-sourced result must give a statement for **at least one open-access version** of the paper; other versions are optional. Only the label (and optionally the page) is stored, never the statement's text.
 
 ## 5. Algorithm
 
@@ -174,7 +183,7 @@ status: valid                         # Phase 2 grading via data/flags/
 - `parameters` must match the variables in `as_stated`; the validator checks this once the bound parser exists.
 - Comparisons only ever use the single `randomized` tag (constant success probability). The optional error detail is for display only.
 
-**Q6.** Do we want that optional, information-only error detail (Las Vegas / one-sided / two-sided)? I recommend yes: it costs one optional field, and readers often ask.
+**Q6 (decided).** `randomized` is `false`, `true`, or `{ error: las-vegas | one-sided | two-sided }`. The error detail is optional and display-only.
 
 ## 6. Reduction
 
@@ -219,33 +228,57 @@ implies: [eth]                        # used to record the weakest sufficient hy
 ## 8. Lower bound
 
 ```yaml
-# data/lower-bounds/<problem>--<param>--<paper>.yaml
+# data/lower-bounds/some-problem--n--some-author-YYYY.yaml
+id: some-problem--n--some-author-YYYY
 problem: some-problem
 version: decision
 bound: { as_stated: "TODO", notation: O, parameters: [n] }
-kind: no-algorithm-faster-than        # wording to agree with the bound spec
-conditional_on: [seth]                # weakest hypothesis known to suffice
+conditional_on: [some-hypothesis]     # weakest hypothesis known to suffice
 source: { paper: TODO, statements: { journal: { statement: "Theorem X.Y" } } }
 ```
 
-**Q5.** The plan mentions conditional lower bounds, but the step 3 entity list does not include them, and ETH/SETH are now claimed refuted. Should lower bounds be defined in the schema now but not entered in the pilot? I recommend that: it costs little now and avoids a schema change later.
+How a lower bound is read ("no algorithm in time …", "no $2^{o(n)}$ algorithm", …) is settled with the bound spec in step 4.
+
+**Q5 (decided).** Lower bounds are in the schema now; the pilot enters none. Hypotheses that are not claimed refuted remain valid bases for lower bounds (e.g. the hypothesis that CNF-SAT has no subexponential algorithm). Each lower bound shows its hypothesis's current status.
 
 ## 9. Validation (build and CI)
 
-The pipeline loads everything and fails the build if:
+`python -m pear validate` (run in CI on every PR) loads everything and fails if:
 
-- an ID does not match its file name, or is duplicated, or a reference (problem, version, paper, paper version, hypothesis, shared parameter) does not resolve;
-- a bound, time, call count or parameter map uses a variable the problem does not define;
-- a result has no statement for an open-access paper version (pending Q4), and is not folklore;
-- a reduction type or relation name is not on its controlled list;
-- `shared_bounds` groups overlap, or `generalises` forms a cycle.
+- a file does not match the schema: unknown fields, missing required fields, values off a controlled list (category, version kind, reduction type, relation, status, …);
+- an ID does not match its file name or the ID pattern, or a reference does not resolve (problem, version, paper, paper version, hypothesis, shared parameter, related problem);
+- a bound lists a parameter the problem does not define, or a parameter map sets a parameter the target problem does not define;
+- a paper-sourced result has no statement for an open-access version of its paper;
+- `default_version` or a `shared_bounds` / `generalises` entry names an unknown version, `shared_bounds` groups overlap, or `generalises` forms a cycle;
+- a hypothesis that is not `open` has no status source;
+- `review.approved_by` is set to anyone other than Serge Gaspers, or set without a date;
+- a redirect points to a missing entry or shadows an existing one.
 
-## Open questions
+With the bound parser (step 4): every variable inside `as_stated`, `time`, `calls` and the right-hand sides of `parameter_map` must be defined, and `bound.parameters` must match the variables in `as_stated`.
 
-- **Q1** File layout and ID scheme; paper IDs as surname+year slugs or DBLP keys. *Recommend slugs, DBLP key stored.*
-- **Q2** Versions sharing bounds: declared, or derived from version-to-version reductions. *Recommend declared.*
-- **Q3** Shared registry for structural parameters. *Recommend yes.*
-- **Q4** Statement required for at least one open-access version; labels only, no statement text. *Recommend yes to both.*
-- **Q5** Lower bounds in the schema now, none entered in the pilot. *Recommend yes.*
-- **Q6** Optional, information-only randomized-error field (Las Vegas / one-sided / two-sided). *Recommend yes, optional.*
-- **Q7** Final sign-off on pilot data: Serge alone, or also a second reviewer? This decides what `review` records.
+Redirects:
+
+```yaml
+# data/redirects.yaml
+problems: { old-id: new-id }
+```
+
+## 10. Review record
+
+Every entry has `review: { approved_by, date }`, both `null` until approved. Final sign-off on pilot data is Serge's alone (Q7), so the validator accepts only `approved_by: Serge Gaspers`.
+
+## Decisions (7 November 2026)
+
+- **Q1** Paper IDs are surname+year slugs; DBLP key stored under `identifiers`.
+- **Q2** Versions that share bounds are declared (`shared_bounds`).
+- **Q3** Shared registry for structural parameters in `data/parameters/`.
+- **Q4** A statement is required for at least one open-access version; labels only, no statement text.
+- **Q5** Lower bounds are in the schema; none entered in the pilot. Hypotheses not claimed refuted remain valid bases.
+- **Q6** Optional, display-only randomized-error detail.
+- **Q7** Serge alone gives final sign-off on pilot data.
+
+## Implementation notes
+
+- Fictional fixtures in `tests/fixtures/valid/` exercise every entity; `tests/test_schema.py` has a failing case for each rule above.
+- Run `python -m pear validate [DATA_DIR]` locally; CI runs it on `data/` for every PR.
+- An entry that fails its own checks is reported once; references to it from other files are not reported again.

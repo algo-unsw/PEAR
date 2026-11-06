@@ -24,7 +24,7 @@ Out of scope: approximation algorithms. Only exact algorithms are tracked.
 
 Every algorithm and reduction is tagged with its model and resource properties, and derived bounds inherit them.
 
-- Deterministic or randomized. Comparisons use a single "randomized" tag (constant success probability, amplified as needed). Open: an optional, information-only field for Las Vegas / one-sided / two-sided error.
+- Deterministic or randomized. Comparisons use a single "randomized" tag (constant success probability, amplified as needed). An optional, information-only field records Las Vegas / one-sided / two-sided error (decided 7 November 2026).
 - Space: polynomial or exponential, with the space bound where known.
 - Algebraic or combinatorial (curator-assigned, since "combinatorial" has no formal definition), with an objective sub-tag "uses fast matrix multiplication" (matches conditional lower bounds stated for algorithms that avoid it).
 - Constructive (the algorithm is explicitly known; results relying on e.g. Robertson–Seymour well-quasi-ordering may lack this flag); optional note on impractical constants.
@@ -205,6 +205,18 @@ Clicking a parameter on a problem page opens the history of the best running tim
 - The repository stays private until the site is ready to deploy (step 7); it must be public before the Pages deploy, since Pages on a private organisation repository needs a paid GitHub plan.
 - Issue forms label new issues `suggestion` and `error-report`.
 
+### Data schema (decided 7 November 2026)
+
+The agreed schema is `docs/specs/schema.md`. Decisions:
+
+- Paper IDs are surname+year slugs; DBLP keys are stored as identifiers.
+- Versions that share bounds are declared in the problem file, not derived from reductions between versions.
+- Structural parameters (treewidth, …) live in a shared registry, `data/parameters/`.
+- A statement label is required for at least one open-access version of the cited paper; statement text is not stored.
+- Lower bounds are in the schema; the pilot enters none. Hypotheses not claimed refuted (e.g. that CNF-SAT has no subexponential algorithm) remain valid bases.
+- The randomized-error detail (Las Vegas / one-sided / two-sided) is an optional, display-only field.
+- Serge alone gives final sign-off on pilot data.
+
 ## Usability at scale
 
 - Search is the main entry point: alternative names, typos, shorthand like "vc k". Informal descriptions too ("fewest vertices touching every edge"): at build time a small open-source embedding model embeds each problem's definition and names (free, on Actions); in the browser the same model (about 20–30 MB, cached) embeds the query. No paid API, so bot traffic costs nothing. Google Programmable Search is only a fallback if this proves unfriendly; no Google link for now.
@@ -263,4 +275,4 @@ Garey and Johnson's *Computers and Intractability* (1979) is the natural seed fo
 - [ ] Add relations between parameters (e.g. treewidth ≤ pathwidth ≤ treewidth · O(log n)); HOPS is a possible source.
 - [ ] Contribute improved parameter relations back to HOPS (github.com/vaclavblazej), after checking its contribution docs.
 - [ ] Refine the canonical definition format with the owner.
-- [ ] Decide the optional randomized-error detail field.
+- [x] Decide the optional randomized-error detail field (yes, optional and display-only).

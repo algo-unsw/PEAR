@@ -1,0 +1,18 @@
+id: problem-b
+name: Problem B
+category: sets
+complexity:
+  class: NP-complete
+  source: { folklore: true, note: "Fixture." }
+objects:
+  n: number of elements
+  m: number of sets
+  N: total encoding length of the input
+parameters:
+  k: { meaning: "the integer k in the input" }
+versions:
+  decision:
+    kind: decision
+    input: "A family of sets and an integer $k$."
+    question: "Is there a solution of size at most $k$?"
+default_version: decision

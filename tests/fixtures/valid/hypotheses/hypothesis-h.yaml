@@ -1,0 +1,6 @@
+id: hypothesis-h
+name: Hypothesis H
+short: H
+statement: "A fictional hypothesis used only in tests."
+status: open
+implies: [hypothesis-g]
