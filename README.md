@@ -1,21 +1,37 @@
-# PEAR handoff package
+# PEAR: Parameterized and Exact Algorithms and Reductions
 
-Everything a new Claude Code session needs to start building PEAR (Parameterized and Exact Algorithms and Reductions).
+PEAR catalogues NP-hard problems, the reductions between them, and the fastest known exact and parameterized algorithms for each problem. Some best-known bounds come straight from papers; others are derived automatically by chaining reductions, and each derived bound shows the chain it comes from.
+
+**Status:** under construction (Phase 1 pilot: 12 problems). Nothing here is data yet.
+
+## Contributing
+
+- **Suggest a result**: open an issue with the *Suggest a result (link or DOI)* form. A single link or DOI is enough; at least one reference must be openly readable.
+- **Report an error**: use the *Report an error* form, with a link to evidence where you have one.
+
+## Repository layout
 
 | Path | What it is |
 | --- | --- |
-| `HANDOFF.md` | Current state, Phase 1 goal, step-by-step plan, schema sketch, questions for Serge |
-| `CLAUDE.md` | Standing rules for any Claude Code session in the repo (copy to the repo root) |
-| `docs/PLAN.md` | The full agreed plan |
+| `docs/PLAN.md` | The agreed plan (source of truth) |
 | `docs/DESIGN.md` | Design spec: tokens, type, layout, components, states |
+| `HANDOFF.md` | Current state and next steps of the build |
+| `CLAUDE.md` | Standing rules for Claude Code sessions in this repository |
+| `data/` | The database: YAML files checked against a schema (from step 3) |
+| `src/pear/` | Python pipeline: schema validation, bound language, derivation engine |
+| `tests/` | pytest suite, run on every pull request |
 | `design/preview/` | Static HTML previews of the chosen design (open in a browser) |
 | `design/source/` | Interactive mockup sources (design-canvas component format) |
 | `design/tools/render_dc.py` | Re-renders a source mockup to a static preview (needs Python 3 and Node) |
 
-## How to start
+## Development
 
-1. Create the GitHub repository (suggested name `pear-algorithms`) and clone it.
-2. Unzip this package into the repository root.
-3. Start Claude Code in the repository and say:
+```bash
+pip install -e ".[dev]"
+pytest
+```
 
-   > Read CLAUDE.md, HANDOFF.md, docs/PLAN.md and docs/DESIGN.md, then begin with step 1 of HANDOFF.md. Ask me before deciding anything the brief marks as mine.
+## Licences
+
+- Data (`data/`): [CC0 1.0](data/LICENSE)
+- Code: [MIT](LICENSE)

@@ -1,0 +1,54 @@
+name: Suggest a result (link or DOI)
+description: Point us to a paper with a faster algorithm, a reduction, a lower bound or a problem we should cover.
+title: "[Suggestion] "
+labels: ["suggestion"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        A single link or DOI is enough. We extract the result, the exact statement (e.g. Theorem 3.2) and the paper versions ourselves, and every suggestion is reviewed before anything on the site changes.
+
+        At least one reference for each result must be **openly readable** (arXiv, ECCC, an author copy or another open-access version). If your link is paywalled, add an open version below if you know one.
+  - type: input
+    id: link
+    attributes:
+      label: Link or DOI
+      description: The paper (or other source) the result comes from.
+      placeholder: https://arxiv.org/abs/… or 10.xxxx/…
+    validations:
+      required: true
+  - type: input
+    id: open-link
+    attributes:
+      label: Open-access version (optional)
+      description: Only needed if the link above is not openly readable.
+      placeholder: https://…
+    validations:
+      required: false
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What kind of result is it? (optional)
+      options:
+        - Faster or new exact algorithm
+        - Reduction between problems
+        - Lower bound (conditional or unconditional)
+        - Problem the site should cover
+        - Other
+    validations:
+      required: false
+  - type: input
+    id: problem
+    attributes:
+      label: Problem(s) (optional)
+      placeholder: e.g. Dominating Set
+    validations:
+      required: false
+  - type: textarea
+    id: details
+    attributes:
+      label: Details (optional)
+      description: Which statement in the paper, which parameter, anything else that helps.
+      placeholder: e.g. Theorem 4.1 gives an algorithm parameterized by treewidth.
+    validations:
+      required: false
