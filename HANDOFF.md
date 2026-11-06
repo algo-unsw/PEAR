@@ -10,7 +10,8 @@ Read `CLAUDE.md` first (ground rules), then `docs/PLAN.md` (what and why) and `d
 - **Setup (step 1, done)**: repo `algo-unsw/pear`; GitHub Pages first, custom domain optional; Python pipeline + Eleventy + KaTeX. Details in `docs/PLAN.md` → Hosting and implementation → Setup.
 - **Repository skeleton (step 2, done 7 November 2026)**: licences (code MIT, data CC0), issue forms, CI (pytest on every PR), Python package stub. Repository stays private until step 7. The Pages deploy workflow is added with the Eleventy site in step 7. Details in `docs/PLAN.md` → Hosting and implementation → Repository skeleton.
 - **Schema (step 3, agreed 7 November 2026)**: `docs/specs/schema.md`, implemented as pydantic models plus a cross-entry validator (`python -m pear validate`, run in CI). Checks on variables inside bound strings wait for the bound parser.
-- **Not started**: bound language spec, rulebook spec, any data.
+- **Specs (step 4, agreed 7 November 2026)**: `docs/specs/bounds.md` and `docs/specs/rulebook.md` (rulebook version 1). They added two schema fields: `poly_bounded` on parameters and `constraints` on problems. The SERF definition was checked against the original paper (JCSS 2001, §1.1.4).
+- **Not started**: bound parser, comparator and derivation engine (step 5); any data.
 - **Drafts exist** for the bound language and chaining rules (in `docs/PLAN.md`); they must be finished **with Serge**.
 
 ## Goal of this session: Phase 1 pilot

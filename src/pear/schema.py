@@ -149,6 +149,7 @@ class Objects(Model):
 
 class LocalParameter(Model):
     meaning: Text
+    poly_bounded: bool = True  # bounds B4: O* absorbs polynomial factors in it
 
 
 class SharedParameterRef(Model):
@@ -184,6 +185,13 @@ class Version(Model):
         return self
 
 
+class Constraint(Model):
+    """A relation between a problem's variables (bounds B5), e.g. k \\le n."""
+
+    constraint: Annotated[str, StringConstraints(pattern=r"^.+\\(le|ge)\b.+$|^[^=]+=[^=]+$")]
+    because: Text
+
+
 class SharedBounds(Model):
     versions: list[Id] = Field(min_length=2)
     because: Text
@@ -217,6 +225,7 @@ class Problem(Model):
     parameters: dict[Symbol, ParameterEntry] = {}
     versions: dict[Id, Version] = Field(min_length=1)
     default_version: Id
+    constraints: list[Constraint] = []
     shared_bounds: list[SharedBounds] = []
     related: list[Related] = []
     lean: Lean = Lean()
@@ -274,6 +283,7 @@ class SharedParameter(Model):
     symbol: Symbol
     aliases: list[Text] = []
     definition: Text
+    poly_bounded: bool = True
     review: Review = Review()
 
 

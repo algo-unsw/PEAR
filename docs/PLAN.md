@@ -40,9 +40,9 @@ Every algorithm and reduction is tagged with its model and resource properties, 
 - Running times in several parameters are often incomparable (e.g. 2^k · n vs k^k · log n), so **all incomparable best results are kept and shown**, rather than a single winner.
 - Each problem page shows its best bounds and where each came from (direct paper or reduction chain).
 
-## Bound expression language (draft, to finish with the owner)
+## Bound expression language (agreed 7 November 2026; full spec in `specs/bounds.md`)
 
-Bounds are stored exactly as the paper states them, and shown in O* notation by default.
+Bounds are stored exactly as the paper states them (TeX subset), and shown in O* notation by default, always in their natural form (e.g. $k^k$, never rewritten as $2^{k \log k}$). Bases computed for derived bounds are rounded up.
 
 - A bound is a sum of terms, e.g. 1.2738^k + kn.
 - Each term is a product of an exponential (e.g. 1.2738^k, 2^tw, 2^√k, n^k), powers (e.g. n², m) and log factors.
@@ -50,7 +50,7 @@ Bounds are stored exactly as the paper states them, and shown in O* notation by 
 - Within one parameter, bounds are compared by exponential base first, then polynomial degree, then log factors.
 - Non-explicit constants are kept in comparisons and written as in papers, e.g. (2 − ε)^n for some ε > 0. With no proven size for ε, it is treated as arbitrarily small: (2 − ε)^n beats 2^n, but any explicit base below 2, such as 1.99^n, beats (2 − ε)^n.
 
-## Rules for chaining reductions (draft, to finish with the owner)
+## Rules for chaining reductions (agreed 7 November 2026; full spec in `specs/rulebook.md`, version 1)
 
 A precise, written, versioned rulebook decides when and how a bound transfers along a reduction. Changing it recomputes all derived bounds and is high risk.
 
@@ -270,7 +270,7 @@ Garey and Johnson's *Computers and Intractability* (1979) is the natural seed fo
 
 ## Open to-dos (from the plan)
 
-- [ ] Write the bound expression language and the reduction rulebook — **with the owner**, not alone.
+- [x] Write the bound expression language and the reduction rulebook — **with the owner** (agreed 7 November 2026).
 - [ ] Set up the GitHub repository with the data schema, then enter the 12 pilot problems.
 - [ ] Add relations between parameters (e.g. treewidth ≤ pathwidth ≤ treewidth · O(log n)); HOPS is a possible source.
 - [ ] Contribute improved parameter relations back to HOPS (github.com/vaclavblazej), after checking its contribution docs.

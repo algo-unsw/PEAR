@@ -46,6 +46,10 @@ objects:                              # rule 4: what n, m and N count, for this 
 parameters:                           # further parameters, local or shared
   k: { meaning: "the integer k in the input (solution size)" }
   tw: { shared: treewidth }           # meaning, relations and history live in data/parameters/
+  # t: { meaning: "the target number", poly_bounded: false }   # only for exceptions (bounds B4)
+constraints:                          # used to compare bounds in different variables (bounds B5)
+  - { constraint: "k \\le n", because: "TODO: one-line justification" }
+  - { constraint: "m \\le n^{2}", because: "TODO: one-line justification" }
 
 versions:
   decision:
@@ -83,6 +87,8 @@ review: { approved_by: null, date: null }
 - Text fields are Markdown with `$…$` maths, rendered with KaTeX at build time. **Input** and **Question/Goal** are separate fields, so the page can put them on separate lines.
 - `objects` always has `n` and `N`, and `m` where the problem has a natural relation count. A parameter used in any bound must be defined in `objects` or `parameters`; the validator checks this.
 - The problem names its own versions, so a counting problem such as #3-SAT is a separate problem with `kind: counting`, as the pilot list implies.
+- `poly_bounded` (bounds B4): every variable counts as polynomially bounded in N unless marked `poly_bounded: false`, so O* absorbs polynomial factors in it. It applies to local and shared parameters; `n`, `m` and `N` are always polynomially bounded. Added 7 November 2026.
+- `constraints` (bounds B5): relations between the problem's variables, in the bound language with one of `\le`, `\ge` or `=`, each with a one-line justification. The comparator uses them to compare bounds in different variables (bounds §5.3); the rulebook uses them for projection (rulebook §7). Added 7 November 2026.
 - `generalises` lets bounds flow from a weighted version to its unweighted special case automatically, as the plan requires.
 - `review.approved_by` records that a definition is approved. The Lean exception relies on this ("problem definitions already approved on the site").
 
@@ -96,6 +102,7 @@ id: treewidth
 name: Treewidth
 symbol: tw
 aliases: []
+poly_bounded: true                    # the default; may be omitted
 definition: "TODO(verify)"            # Markdown with $…$ maths
 ```
 
