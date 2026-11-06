@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vertex Cover: encyclopedia, phone (static preview, light)</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+math{font-size:1.08em}
+</style>
+
+</head>
+<body>
+
+
+<div style="position: relative; box-sizing: border-box; width: 390px; min-height: 1900px; background: #FFFFFF; color: #1A1D21; font-family: 'Source Sans 3', system-ui, sans-serif; font-size: 17px; line-height: 1.55">
+<header style="padding: 8px 14px; background: #F2F5F5; border-bottom: 1px solid #D3DBDB; display: flex; align-items: center; gap: 8px">
+<a href="#" aria-label="PEAR: Parameterized and Exact Algorithms and Reductions" style="display: flex; flex-direction: column; line-height: 1.15; color: #1A1D21; text-decoration: none"><span style="font-weight: 700; font-size: 18px; letter-spacing: 0.02em">PEAR</span><span style="font-size: 11px; color: #4D5660">Parameterized and Exact Algorithms and Reductions</span></a>
+<button type="button" aria-label="Search" style="margin-left: auto; width: 44px; height: 44px; border: 1px solid #D3DBDB; border-radius: 4px; background: #FFFFFF; display: flex; align-items: center; justify-content: center">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1A1D21" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>
+</button>
+<button type="button" role="switch" aria-checked="false" aria-label="Dark mode" style="display: flex; align-items: center; min-height: 44px; padding: 0; border: 0; background: transparent; cursor: pointer">
+<span style="position: relative; display: block; width: 52px; height: 28px; box-sizing: border-box; border-radius: 999px; background: #C9D6D5; transition: background 150ms ease">
+<span style="position: absolute; top: 3px; left: 3px; width: 22px; height: 22px; border-radius: 50%; background: #FFFFFF; box-shadow: 0 1px 3px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; transition: transform 150ms ease; transform: translateX(0)">
+
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#B26B00" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"></circle><path d="M12 1.5v3M12 19.5v3M1.5 12h3M19.5 12h3M4.6 4.6l2.1 2.1M17.3 17.3l2.1 2.1M4.6 19.4l2.1-2.1M17.3 6.7l2.1-2.1"></path></svg>
+
+
+</span>
+</span>
+</button>
+</header>
+
+<div style="padding: 18px 16px 0">
+<h1 style="margin: 0; font-size: 30px; font-weight: 700; line-height: 1.15">Vertex Cover</h1>
+<p style="margin: 2px 0 0; font-size: 14px; color: #4D5660">Node Cover · NP-complete · Lean: not yet</p>
+</div>
+
+<nav aria-label="Problem version" style="margin-top: 12px; padding: 0 12px; display: flex; gap: 2px; overflow-x: auto; border-bottom: 1px solid #D3DBDB">
+<button type="button" style="flex: 0 0 auto; font: inherit; font-size: 15px; min-height: 44px; padding: 0 12px; border: 1px solid #D3DBDB; border-bottom: 1px solid #FFFFFF; margin-bottom: -1px; border-radius: 4px 4px 0 0; background: #FFFFFF; color: #1A1D21; font-weight: 700">Decision</button>
+<button type="button" style="flex: 0 0 auto; font: inherit; font-size: 15px; min-height: 44px; padding: 0 12px; border: 1px solid transparent; border-bottom: 1px solid transparent; margin-bottom: -1px; border-radius: 4px 4px 0 0; background: transparent; color: #0B6B66; font-weight: 400">Optimisation</button>
+<button type="button" style="flex: 0 0 auto; font: inherit; font-size: 15px; min-height: 44px; padding: 0 12px; border: 1px solid transparent; border-bottom: 1px solid transparent; margin-bottom: -1px; border-radius: 4px 4px 0 0; background: transparent; color: #0B6B66; font-weight: 400">Search</button>
+<button type="button" style="flex: 0 0 auto; font: inherit; font-size: 15px; min-height: 44px; padding: 0 12px; border: 1px solid transparent; border-bottom: 1px solid transparent; margin-bottom: -1px; border-radius: 4px 4px 0 0; background: transparent; color: #0B6B66; font-weight: 400">Weighted</button>
+</nav>
+
+<div style="padding: 0 16px 24px">
+<h2 style="margin: 18px 0 6px; font-size: 22px; font-weight: 700; border-bottom: 1px solid #D3DBDB; padding-bottom: 4px; display: flex; justify-content: space-between; align-items: baseline; gap: 8px">Fastest known algorithms <button type="button" style="font: inherit; font-size: 15px; font-weight: 400; min-height: 36px; padding: 0 4px; border: 0; background: transparent; color: #0B6B66; text-decoration: underline">filters</button></h2>
+
+<dl style="margin: 0; display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 10px 10px">
+<dt style="color: #0B6B66; text-decoration: underline dotted; padding-top: 2px"><math><mi>k</mi></math></dt>
+<dd style="margin: 0"><math><msup><mi>O</mi><mo>*</mo></msup><mo stretchy="false">(</mo><msup><mn>1.2738</mn><mi>k</mi></msup><mo stretchy="false">)</mo></math><br><span style="font-size: 14px; color: #4D5660">det, poly space <sup><a href="#" style="color: #0B6B66">[1]</a></sup></span></dd>
+<dt style="color: #0B6B66; text-decoration: underline dotted; padding-top: 2px"><math><mi>n</mi></math></dt>
+<dd style="margin: 0"><math><msup><mi>O</mi><mo>*</mo></msup><mo stretchy="false">(</mo><msup><mn>1.1996</mn><mi>n</mi></msup><mo stretchy="false">)</mo></math> <span style="font-size: 13px; font-weight: 600; padding: 1px 6px; background: #E3F1F0; color: #064A46; border-radius: 3px">derived</span><br><span style="font-size: 14px; color: #4D5660">via Max Independent Set <sup><a href="#" style="color: #0B6B66">[2]</a></sup></span></dd>
+<dt style="color: #0B6B66; text-decoration: underline dotted; padding-top: 2px"><math><mi>tw</mi></math></dt>
+<dd style="margin: 0"><math><msup><mi>O</mi><mo>*</mo></msup><mo stretchy="false">(</mo><msup><mn>2</mn><mi>tw</mi></msup><mo stretchy="false">)</mo></math><br><span style="font-size: 14px; color: #4D5660">DP over tree decompositions, exp space</span></dd>
+</dl>
+<p style="margin: 10px 0 0; font-size: 14px; color: #4D5660">Shared by the decision, optimisation and search versions. Tap a parameter for its history.</p>
+
+
+
+<h2 style="margin: 22px 0 0; font-size: 22px; font-weight: 700; border-bottom: 1px solid #D3DBDB">
+<button type="button" aria-expanded="true" style="width: 100%; display: flex; align-items: center; gap: 10px; font: inherit; font-weight: 700; min-height: 48px; padding: 6px 0; border: 0; background: transparent; color: #1A1D21; text-align: left; cursor: pointer"><svg width="13" height="13" viewBox="0 0 12 12" aria-hidden="true" style="flex: 0 0 auto; transition: transform 120ms ease; transform: rotate(90deg)"><path d="M3 1.5 L10 6 L3 10.5 Z" fill="#0B6B66"></path></svg>Definition</button>
+</h2>
+
+<p style="margin: 8px 0 0"><span style="font-weight: 700">Input:</span> a graph <math><mi>G</mi><mo>=</mo><mo stretchy="false">(</mo><mi>V</mi><mo>,</mo><mi>E</mi><mo stretchy="false">)</mo></math> and an integer <math><mi>k</mi></math>.</p>
+<p style="margin: 2px 0 0"><span style="font-weight: 700">Question:</span> is there <math><mi>S</mi><mo>⊆</mo><mi>V</mi></math> with <math><mo>|</mo><mi>S</mi><mo>|</mo><mo>≤</mo><mi>k</mi></math> such that every edge has an endpoint in <math><mi>S</mi></math>?</p>
+<p style="margin: 8px 0 0; font-size: 14px; color: #4D5660"><math><mi>n</mi></math> vertices · <math><mi>m</mi></math> edges · <math><mi>N</mi></math> input size · <math><mi>k</mi></math> solution size · <math><mi>tw</mi></math> treewidth</p>
+
+
+<h2 style="margin: 4px 0 0; font-size: 22px; font-weight: 700; border-bottom: 1px solid #D3DBDB">
+<button type="button" aria-expanded="true" style="width: 100%; display: flex; align-items: center; gap: 10px; font: inherit; font-weight: 700; min-height: 48px; padding: 6px 0; border: 0; background: transparent; color: #1A1D21; text-align: left; cursor: pointer"><svg width="13" height="13" viewBox="0 0 12 12" aria-hidden="true" style="flex: 0 0 auto; transition: transform 120ms ease; transform: rotate(90deg)"><path d="M3 1.5 L10 6 L3 10.5 Z" fill="#0B6B66"></path></svg>Reductions</button>
+</h2>
+
+<ul style="margin: 8px 0 0; padding-left: 20px; font-size: 16px">
+<li>From <a href="#" style="color: #0B6B66">Max Independent Set</a>, <a href="#" style="color: #0B6B66">Clique</a>: <math><mi>k</mi><mo>↦</mo><mi>n</mi><mo>−</mo><mi>k</mi></math></li>
+<li>To <a href="#" style="color: #0B6B66">Set Cover</a>, <a href="#" style="color: #0B6B66">d-Hitting Set</a>: <math><mi>k</mi><mo>↦</mo><mi>k</mi></math></li>
+</ul>
+
+
+<h2 style="margin: 4px 0 0; font-size: 22px; font-weight: 700; border-bottom: 1px solid #D3DBDB">
+<button type="button" aria-expanded="true" style="width: 100%; display: flex; align-items: center; gap: 10px; font: inherit; font-weight: 700; min-height: 48px; padding: 6px 0; border: 0; background: transparent; color: #1A1D21; text-align: left; cursor: pointer"><svg width="13" height="13" viewBox="0 0 12 12" aria-hidden="true" style="flex: 0 0 auto; transition: transform 120ms ease; transform: rotate(90deg)"><path d="M3 1.5 L10 6 L3 10.5 Z" fill="#0B6B66"></path></svg>Related problems</button>
+</h2>
+
+<p style="margin: 8px 0 0; font-size: 16px"><a href="#" style="color: #0B6B66">Independent Set</a>, <a href="#" style="color: #0B6B66">Clique</a>, <a href="#" style="color: #0B6B66">Connected Vertex Cover</a>, <a href="#" style="color: #0B6B66">d-Hitting Set</a>, <a href="#" style="color: #0B6B66">#Vertex Cover</a></p>
+
+
+<h2 style="margin: 4px 0 0; font-size: 22px; font-weight: 700; border-bottom: 1px solid #D3DBDB">
+<button type="button" aria-expanded="true" style="width: 100%; display: flex; align-items: center; gap: 10px; font: inherit; font-weight: 700; min-height: 48px; padding: 6px 0; border: 0; background: transparent; color: #1A1D21; text-align: left; cursor: pointer"><svg width="13" height="13" viewBox="0 0 12 12" aria-hidden="true" style="flex: 0 0 auto; transition: transform 120ms ease; transform: rotate(90deg)"><path d="M3 1.5 L10 6 L3 10.5 Z" fill="#0B6B66"></path></svg>References</button>
+</h2>
+
+<ol style="margin: 8px 0 0; padding-left: 22px; font-size: 15px">
+<li>Chen, Kanj, Xia. TCS 2010, [Thm X.Y]; MFCS 2006. <a href="#" style="color: #0B6B66">Open access</a></li>
+<li>Xiao, Nagamochi. Inf. Comput. 2017. <a href="#" style="color: #0B6B66">Open access</a></li>
+</ol>
+
+
+<section style="margin-top: 24px; padding: 14px; border: 1px solid #D3DBDB; background: #F2F5F5">
+<label for="ecp-submit" style="display: block; font-weight: 700">Know a better result?</label>
+<p style="margin: 2px 0 10px; font-size: 14px; color: #4D5660">Paste a link or DOI. At least one reference must be openly readable.</p>
+<div style="display: flex; gap: 8px">
+<input id="ecp-submit" type="text" placeholder="https:// or 10.xxxx/…" style="flex: 1; min-width: 0; font: inherit; font-size: 15px; padding: 10px 12px; border: 1px solid #D3DBDB; border-radius: 4px; background: #FFFFFF; color: #1A1D21">
+<button type="button" style="font: inherit; font-size: 15px; font-weight: 600; padding: 0 16px; min-height: 44px; border: 0; border-radius: 4px; background: #0B6B66; color: #FFFFFF">Send</button>
+</div>
+</section>
+<p style="margin: 16px 0 0; font-size: 13px; color: #4D5660">Data CC0 · code MIT · <a href="#" style="color: #0B6B66">Cite</a> · <a href="#" style="color: #0B6B66">Report an error</a></p>
+</div>
+
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Vertex Cover: encyclopedia, combined</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+math{font-size:1.08em}
+</style>
+</helmet>
+<div style="box-sizing: border-box; width: 100%; min-height: 100vh; background: {{t.bg}}; color: {{t.text}}; font-family: 'Source Sans 3', system-ui, sans-serif; font-size: 18px; line-height: 1.6">
+
+<header style="background: {{t.band}}; border-bottom: 1px solid {{t.border}}">
+<div style="max-width: 1180px; margin: 0 auto; padding: 10px 32px; display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: center">
+<a href="#" style="display: flex; align-items: baseline; gap: 8px; color: {{t.text}}; text-decoration: none"><span style="font-weight: 700; font-size: 20px; letter-spacing: 0.02em">PEAR</span><span style="font-size: 14px; color: {{t.muted}}">Parameterized and Exact Algorithms and Reductions</span></a>
+<label style="flex: 1 1 300px; display: flex; align-items: center; gap: 8px; font-size: 15px; color: {{t.muted}}">Search
+<input type="search" placeholder="Name, shorthand like “vc k”, or describe the problem" style="flex: 1; min-width: 0; font: inherit; font-size: 15px; padding: 8px 12px; border: 1px solid {{t.border}}; border-radius: 4px; background: {{t.bg}}; color: {{t.text}}">
+</label>
+<nav aria-label="Main" style="display: flex; flex-wrap: wrap; gap: 18px; font-size: 15px">
+<a href="#" style="color: {{t.accent}}">Browse</a><a href="#" style="color: {{t.accent}}">Recently improved</a><a href="#" style="color: {{t.accent}}">Hypotheses</a>
+</nav>
+<button type="button" role="switch" aria-checked="{{ isDark }}" aria-label="Dark mode" onClick="{{ toggleTheme }}" style="margin-left: auto; display: flex; align-items: center; min-height: 44px; padding: 0; border: 0; background: transparent; cursor: pointer">
+<span style="{{ trackStyle }}">
+<span style="{{ knobStyle }}">
+<sc-if value="{{ isLight }}" hint-placeholder-val="{{ true }}">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#B26B00" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"></circle><path d="M12 1.5v3M12 19.5v3M1.5 12h3M19.5 12h3M4.6 4.6l2.1 2.1M17.3 17.3l2.1 2.1M4.6 19.4l2.1-2.1M17.3 6.7l2.1-2.1"></path></svg>
+</sc-if>
+<sc-if value="{{ isDark }}" hint-placeholder-val="{{ false }}">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="#0B6B66" aria-hidden="true"><path d="M20.5 14.6A8.5 8.5 0 0 1 9.4 3.5a8.5 8.5 0 1 0 11.1 11.1z"></path></svg>
+</sc-if>
+</span>
+</span>
+</button>
+</div>
+</header>
+
+<div style="max-width: 1180px; margin: 0 auto; padding: 32px 32px 96px">
+<div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end; justify-content: space-between; border-bottom: 1px solid {{t.border}}; padding-bottom: 10px">
+<div>
+<h1 style="margin: 0; font-size: 42px; font-weight: 700; line-height: 1.15">Vertex Cover</h1>
+<p style="margin: 2px 0 0; font-size: 15px; color: {{t.muted}}">Also known as <span style="font-style: italic">Node Cover</span></p>
+</div>
+<nav aria-label="Page tools" style="display: flex; flex-wrap: wrap; gap: 16px; font-size: 15px">
+<a href="#" style="color: {{t.accent}}">History</a><a href="#" style="color: {{t.accent}}">Watch</a><a href="#" style="color: {{t.accent}}">Report an error</a><a href="#" style="color: {{t.accent}}">Suggest a link or DOI</a><a href="#" style="color: {{t.accent}}">Cite</a>
+</nav>
+</div>
+
+<div style="margin-top: 10px; display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-end; justify-content: space-between; border-bottom: 1px solid {{t.border}}">
+<nav aria-label="Problem version" style="display: flex; flex-wrap: wrap; gap: 2px">
+<button type="button" onClick="{{ setDecision }}" style="{{ tabDecision }}">Decision</button>
+<button type="button" onClick="{{ setOptimisation }}" style="{{ tabOptimisation }}">Optimisation</button>
+<button type="button" onClick="{{ setSearch }}" style="{{ tabSearch }}">Search</button>
+<button type="button" onClick="{{ setWeighted }}" style="{{ tabWeighted }}">Weighted</button>
+</nav>
+<div role="group" aria-label="View" style="display: flex; gap: 2px; margin-bottom: 6px; font-size: 15px">
+<button type="button" onClick="{{ setReading }}" style="{{ viewReading }}">Overview</button>
+<button type="button" onClick="{{ setExpert }}" style="{{ viewExpert }}">Details</button>
+</div>
+</div>
+
+<div style="display: flex; flex-wrap: wrap; gap: 40px; margin-top: 24px; align-items: flex-start">
+<article style="flex: 999 1 560px; min-width: 0">
+
+<sc-if value="{{ isShared }}" hint-placeholder-val="{{ true }}">
+<p style="margin: 0; font-size: 16px; color: {{t.muted}}">The decision, optimisation and search versions are equivalent up to polynomial factors (binary search on <math><mi>k</mi></math>, self-reducibility) and share these bounds; each result names the version its paper proved.</p>
+</sc-if>
+
+<h2 style="margin: 20px 0 8px; font-size: 28px; font-weight: 700; border-bottom: 1px solid {{t.border}}; padding-bottom: 4px">Fastest known algorithms</h2>
+
+<sc-if value="{{ isWeighted }}" hint-placeholder-val="{{ false }}">
+<p style="margin: 0">[Best weighted bounds from the data.] Every weighted algorithm also gives a derived bound for the unweighted versions, never the reverse.</p>
+</sc-if>
+
+<sc-if value="{{ isShared }}" hint-placeholder-val="{{ true }}">
+
+<sc-if value="{{ isReading }}" hint-placeholder-val="{{ true }}">
+<h3 style="margin: 16px 0 2px; font-size: 20px; font-weight: 600">By solution size <button type="button" onClick="{{ histK }}" aria-label="History of the best bound in k" style="{{ paramK }}"><math><mi>k</mi></math></button></h3>
+<p style="margin: 0"><math><msup><mi>O</mi><mo>*</mo></msup><mo stretchy="false">(</mo><msup><mn>1.2738</mn><mi>k</mi></msup><mo stretchy="false">)</mo></math>, deterministic and in polynomial space <sup><a href="#" style="color: {{t.accent}}">[1]</a></sup>. Exact form <math><mi>O</mi><mo stretchy="false">(</mo><msup><mn>1.2738</mn><mi>k</mi></msup><mo>+</mo><mi>k</mi><mi>n</mi><mo stretchy="false">)</mo></math>; proved for the [version].</p>
+
+<h3 style="margin: 18px 0 2px; font-size: 20px; font-weight: 600">By number of vertices <button type="button" onClick="{{ histN }}" aria-label="History of the best bound in n" style="{{ paramN }}"><math><mi>n</mi></math></button></h3>
+<p style="margin: 0"><math><msup><mi>O</mi><mo>*</mo></msup><mo stretchy="false">(</mo><msup><mn>1.1996</mn><mi>n</mi></msup><mo stretchy="false">)</mo></math>, deterministic and in polynomial space, from the algorithm for Maximum Independent Set <sup><a href="#" style="color: {{t.accent}}">[2]</a></sup>. <span style="font-size: 14px; font-weight: 600; padding: 2px 8px; background: {{t.tagBg}}; color: {{t.tagText}}; border-radius: 3px">derived</span></p>
+<button type="button" onClick="{{ toggleChain }}" aria-expanded="{{ chainOpen }}" style="margin-top: 4px; display: inline-flex; align-items: center; gap: 8px; min-height: 36px; padding: 0; font: inherit; font-size: 16px; border: 0; background: transparent; color: {{t.accent}}; cursor: pointer"><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true" style="{{ chainTri }}"><path d="M3 1.5 L10 6 L3 10.5 Z" fill="currentColor"></path></svg>Where this bound comes from</button>
+<sc-if value="{{ chainOpen }}" hint-placeholder-val="{{ false }}">
+<ol style="margin: 4px 0 0; padding: 10px 16px 10px 40px; background: {{t.band}}; border-left: 3px solid {{t.accent}}; font-size: 16px">
+<li>Maximum Independent Set in <math><msup><mi>O</mi><mo>*</mo></msup><mo stretchy="false">(</mo><msup><mn>1.1996</mn><mi>n</mi></msup><mo stretchy="false">)</mo></math> [2], proved for the optimisation version</li>
+<li>Complement reduction, Karp, deterministic, one call: <math><mi>n</mi><mo>↦</mo><mi>n</mi><mo separator="true">,</mo><mspace width="0.4em"></mspace><mi>k</mi><mo>↦</mo><mi>n</mi><mo>−</mo><mi>k</mi></math></li>
+<li>Vertex Cover in <math><msup><mi>O</mi><mo>*</mo></msup><mo stretchy="false">(</mo><msup><mn>1.1996</mn><mi>n</mi></msup><mo stretchy="false">)</mo></math></li>
+</ol>
+</sc-if>
+
+<h3 style="margin: 18px 0 2px; font-size: 20px; font-weight: 600">By treewidth <button type="button" onClick="{{ histTw }}" aria-label="History of the best bound in treewidth" style="{{ paramTw }}"><math><mi>tw</mi></math></button></h3>
+<p style="margin: 0"><math><msup><mi>O</mi><mo>*</mo></msup><mo stretchy="false">(</mo><msup><mn>2</mn><mi>tw</mi></msup><mo stretchy="false">)</mo></math> by dynamic programming over a tree decomposition, in exponential space. Exact form <math><msup><mn>2</mn><mi>tw</mi></msup><mo>⋅</mo><msup><mi>tw</mi><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow></msup><mo>⋅</mo><mi>n</mi></math>.</p>
+</sc-if>
+
+<sc-if value="{{ isExpert }}" hint-placeholder-val="{{ false }}">
+<div style="margin-top: 8px; display: flex; flex-wrap: wrap; gap: 4px 18px; font-size: 15px">
+<span style="font-weight: 600">Show only:</span>
+<label style="display: flex; gap: 6px; align-items: center"><input type="checkbox"> deterministic</label>
+<label style="display: flex; gap: 6px; align-items: center"><input type="checkbox"> polynomial space</label>
+<label style="display: flex; gap: 6px; align-items: center"><input type="checkbox"> constructive</label>
+<label style="display: flex; gap: 6px; align-items: center"><input type="checkbox"> non-algebraic</label>
+<label style="display: flex; gap: 6px; align-items: center"><input type="checkbox"> Lean-verified</label>
+<label style="display: flex; gap: 6px; align-items: center"><input type="checkbox" checked> include derived</label>
+</div>
+<div style="margin-top: 12px; overflow-x: auto">
+<table style="width: 100%; min-width: 820px; border-collapse: collapse; font-size: 15px; border: 1px solid {{t.border}}">
+<thead>
+<tr style="text-align: left; background: {{t.band}}">
+<th style="padding: 8px 12px; border: 1px solid {{t.border}}">Param</th>
+<th style="padding: 8px 12px; border: 1px solid {{t.border}}"><math><msup><mi>O</mi><mo>*</mo></msup></math> bound</th>
+<th style="padding: 8px 12px; border: 1px solid {{t.border}}">Exact form</th>
+<th style="padding: 8px 12px; border: 1px solid {{t.border}}">Properties</th>
+<th style="padding: 8px 12px; border: 1px solid {{t.border}}">Proved for</th>
+<th style="padding: 8px 12px; border: 1px solid {{t.border}}">Source</th>
+<th style="padding: 8px 12px; border: 1px solid {{t.border}}">Origin</th>
+</tr>
+</thead>
+<tbody>
+<tr style="vertical-align: top">
+<td style="padding: 8px 12px; border: 1px solid {{t.border}}"><button type="button" onClick="{{ histK }}" aria-label="History in k" style="{{ paramK }}"><math><mi>k</mi></math></button></td>
+<td style="padding: 8px 12px; border: 1px solid {{t.border}}; white-space: nowrap"><math><msup><mn>1.2738</mn><mi>k</mi></msup></math></td>
+<td style="padding: 8px 12px; border: 1px solid {{t.border}}; white-space: nowrap"><math><mi>O</mi><mo stretchy="false">(</mo><msup><mn>1.2738</mn><mi>k</mi></msup><mo>+</mo><mi>k</mi><mi>n</mi><mo stretchy="false">)</mo></math></td>
+<td style="padding: 8px 12px; border: 1px solid {{t.border}}">det, poly space</td>
+<td style="padding: 8px 12px; border: 1px solid {{t.border}}">[version]</td>
+<td style="padding: 8px 12px; border: 1px solid {{t.border}}">[1], [Thm X.Y]</td>
+<td style="padding: 8px 12px; border: 1px solid {{t.border}}">direct</td>
+</tr>
+<tr style="vertical-align: top">
+<td style="padding: 8px 12px; border: 1px solid {{t.border}}"><button type="button" onClick="{{ histN }}" aria-label="History in n" style="{{ paramN }}"><math><mi>n</mi></math></button></td>
+<td style="padding: 8px 12px; border: 1px solid {{t.border}}; white-space: nowrap"><math><msup><mn>1.1996</mn><mi>n</mi></msup></math></td>
+<td style="padding: 8px 12px; border: 1px solid {{t.border}}; white-space: nowrap"><math><mi>O</mi><mo stretchy="false">(</mo><msup><mn>1.1996</mn><mi>n</mi></msup><mo stretchy="false">)</mo></math></td>
+<td style="padding: 8px 12px; border: 1px solid {{t.border}}">det, poly space</td>
+<td style="padding: 8px 12px; border: 1px solid {{t.border}}">optimisation (MIS)</td>
+<td style="padding: 8px 12px; border: 1px solid {{t.border}}">[2]</td>
+<td style="padding: 8px 12px; border: 1px solid {{t.border}}"><span style="font-weight: 600; color: {{t.tagText}}">derived</span>, 1 step</td>
+</tr>
+<tr style="vertical-align: top">
+<td style="padding: 8px 12px; border: 1px solid {{t.border}}"><button type="button" onClick="{{ histTw }}" aria-label="History in treewidth" style="{{ paramTw }}"><math><mi>tw</mi></math></button></td>
+<td style="padding: 8px 12px; border: 1px solid {{t.border}}; white-space: nowrap"><math><msup><mn>2</mn><mi>tw</mi></msup></math></td>
+<td style="padding: 8px 12px; border: 1px solid {{t.border}}; white-space: nowrap"><math><msup><mn>2</mn><mi>tw</mi></msup><mo>⋅</mo><msup><mi>tw</mi><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow></msup><mo>⋅</mo><mi>n</mi></math></td>
+<td style="padding: 8px 12px; border: 1px solid {{t.border}}">det, exp space</td>
+<td style="padding: 8px 12px; border: 1px solid {{t.border}}">optimisation</td>
+<td style="padding: 8px 12px; border: 1px solid {{t.border}}">folklore</td>
+<td style="padding: 8px 12px; border: 1px solid {{t.border}}">direct</td>
+</tr>
+</tbody>
+</table>
+</div>
+</sc-if>
+
+</sc-if>
+
+<sc-if value="{{ showHistoryK }}" hint-placeholder-val="{{ false }}">
+<div role="region" aria-label="History of the best bound in k" style="margin-top: 16px; padding: 16px 20px; border: 1px solid {{t.border}}; background: {{t.band}}">
+<div style="display: flex; justify-content: space-between; gap: 12px; align-items: baseline">
+<p style="margin: 0; font-weight: 700">History of the best base <math><mi>c</mi></math> in <math><msup><mi>O</mi><mo>*</mo></msup><mo stretchy="false">(</mo><msup><mi>c</mi><mi>k</mi></msup><mo stretchy="false">)</mo></math></p>
+<button type="button" onClick="{{ closeHistory }}" style="font: inherit; font-size: 15px; padding: 0; border: 0; background: transparent; color: {{t.accent}}; text-decoration: underline">close</button>
+</div>
+<svg viewBox="0 0 560 200" width="560" height="200" role="img" aria-label="Step chart: the base fell from 1.3247 in 1998 to 1.2738 in 2006 and has not changed since" style="display: block; margin-top: 8px; max-width: 100%; height: auto">
+<line x1="50" y1="45" x2="540" y2="45" stroke="{{t.grid}}" stroke-width="1"></line>
+<line x1="50" y1="95" x2="540" y2="95" stroke="{{t.grid}}" stroke-width="1"></line>
+<line x1="50" y1="145" x2="540" y2="145" stroke="{{t.grid}}" stroke-width="1"></line>
+<text x="44" y="49" text-anchor="end" font-size="13" fill="{{t.muted}}">1.32</text>
+<text x="44" y="99" text-anchor="end" font-size="13" fill="{{t.muted}}">1.30</text>
+<text x="44" y="149" text-anchor="end" font-size="13" fill="{{t.muted}}">1.28</text>
+<text x="94" y="192" text-anchor="middle" font-size="13" fill="{{t.muted}}">2000</text>
+<text x="264" y="192" text-anchor="middle" font-size="13" fill="{{t.muted}}">2010</text>
+<text x="434" y="192" text-anchor="middle" font-size="13" fill="{{t.muted}}">2020</text>
+<path d="M60 33 H77 V115.5 H111 V132 H196 V160.5 H536" fill="none" stroke="{{t.accent}}" stroke-width="2.5"></path>
+<circle cx="60" cy="33" r="4" fill="{{t.accent}}"></circle>
+<circle cx="77" cy="115.5" r="4" fill="{{t.accent}}"></circle>
+<circle cx="111" cy="132" r="4" fill="{{t.accent}}"></circle>
+<circle cx="196" cy="160.5" r="4" fill="{{t.accent}}"></circle>
+<text x="204" y="154" font-size="13" fill="{{t.text}}">1.2738</text>
+</svg>
+<ol reversed style="margin: 8px 0 0; padding-left: 24px; font-size: 16px">
+<li><math><msup><mn>1.2738</mn><mi>k</mi></msup></math> · Chen, Kanj, Xia · MFCS 2006, TCS 2010</li>
+<li><math><msup><mn>1.2852</mn><mi>k</mi></msup></math> · Chen, Kanj, Jia · J. Algorithms 2001</li>
+<li><math><msup><mn>1.2918</mn><mi>k</mi></msup></math> · Niedermeier, Rossmanith · STACS 1999</li>
+<li><math><msup><mn>1.3247</mn><mi>k</mi></msup></math> · Balasubramanian, Fellows, Raman · IPL 1998</li>
+</ol>
+<p style="margin: 8px 0 0; font-size: 14px; color: {{t.muted}}">Polynomial factors ignored. [Mockup data: values and years to be checked against the sources.]</p>
+</div>
+</sc-if>
+
+<sc-if value="{{ showHistoryOther }}" hint-placeholder-val="{{ false }}">
+<div style="margin-top: 16px; padding: 14px 20px; border: 1px solid {{t.border}}; background: {{t.band}}; display: flex; justify-content: space-between; gap: 12px">
+<p style="margin: 0">History for {{ historyParam }}: [step chart and list of improvements from the data]</p>
+<button type="button" onClick="{{ closeHistory }}" style="font: inherit; font-size: 15px; padding: 0; border: 0; background: transparent; color: {{t.accent}}; text-decoration: underline">close</button>
+</div>
+</sc-if>
+
+<h2 style="margin: 40px 0 8px; font-size: 28px; font-weight: 700; border-bottom: 1px solid {{t.border}}; padding-bottom: 4px">
+<button type="button" onClick="{{ toggleDef }}" aria-expanded="{{ defOpen }}" style="display: flex; align-items: center; gap: 10px; padding: 0; font: inherit; border: 0; background: transparent; color: {{t.text}}; cursor: pointer"><svg width="14" height="14" viewBox="0 0 12 12" aria-hidden="true" style="{{ defTri }}"><path d="M3 1.5 L10 6 L3 10.5 Z" fill="{{t.accent}}"></path></svg>Definition</button>
+</h2>
+<p style="margin: 0"><span style="font-weight: 700">Input:</span> a graph <math><mi>G</mi><mo>=</mo><mo stretchy="false">(</mo><mi>V</mi><mo>,</mo><mi>E</mi><mo stretchy="false">)</mo></math> and an integer <math><mi>k</mi></math>.</p>
+<p style="margin: 2px 0 0"><span style="font-weight: 700">Question:</span> is there a set <math><mi>S</mi><mo>⊆</mo><mi>V</mi></math> with <math><mo>|</mo><mi>S</mi><mo>|</mo><mo>≤</mo><mi>k</mi></math> such that every edge has an endpoint in <math><mi>S</mi></math>?</p>
+<sc-if value="{{ defOpen }}" hint-placeholder-val="{{ false }}">
+<p style="margin: 12px 0 0">Vertex Cover is one of <a href="#" style="color: {{t.accent}}">Karp's 21 NP-complete problems</a> and the complement of <a href="#" style="color: {{t.accent}}">Independent Set</a>: <math><mi>S</mi></math> is a vertex cover exactly when <math><mi>V</mi><mo>∖</mo><mi>S</mi></math> is an independent set.</p>
+<p style="margin: 8px 0 0; font-size: 16px; color: {{t.muted}}">Parameters: <math><mi>n</mi></math> = number of vertices, <math><mi>m</mi></math> = number of edges, <math><mi>N</mi></math> = total input size, <math><mi>k</mi></math> = solution size, <math><mi>tw</mi></math> = treewidth of <math><mi>G</mi></math>.</p>
+</sc-if>
+
+<h2 style="margin: 40px 0 8px; font-size: 28px; font-weight: 700; border-bottom: 1px solid {{t.border}}; padding-bottom: 4px">Reductions</h2>
+<sc-if value="{{ isReading }}" hint-placeholder-val="{{ true }}">
+<ul style="margin: 0; padding-left: 22px">
+<li>From <a href="#" style="color: {{t.accent}}">Maximum Independent Set</a> and <a href="#" style="color: {{t.accent}}">Clique</a>, each with <math><mi>k</mi><mo>↦</mo><mi>n</mi><mo>−</mo><mi>k</mi></math>.</li>
+<li>To <a href="#" style="color: {{t.accent}}">Set Cover</a> and <a href="#" style="color: {{t.accent}}">d-Hitting Set</a>, each with <math><mi>k</mi><mo>↦</mo><mi>k</mi></math>; the Set Cover reduction also works for the weighted version.</li>
+</ul>
+</sc-if>
+<sc-if value="{{ isExpert }}" hint-placeholder-val="{{ false }}">
+<div style="overflow-x: auto">
+<table style="width: 100%; min-width: 720px; border-collapse: collapse; font-size: 15px; border: 1px solid {{t.border}}">
+<thead>
+<tr style="text-align: left; background: {{t.band}}">
+<th style="padding: 8px 12px; border: 1px solid {{t.border}}">Reduction</th>
+<th style="padding: 8px 12px; border: 1px solid {{t.border}}">Type</th>
+<th style="padding: 8px 12px; border: 1px solid {{t.border}}">Parameter map</th>
+<th style="padding: 8px 12px; border: 1px solid {{t.border}}">Variants</th>
+<th style="padding: 8px 12px; border: 1px solid {{t.border}}">Formal status</th>
+</tr>
+</thead>
+<tbody>
+<tr><td style="padding: 8px 12px; border: 1px solid {{t.border}}">Max Independent Set → VC</td><td style="padding: 8px 12px; border: 1px solid {{t.border}}">Karp, det</td><td style="padding: 8px 12px; border: 1px solid {{t.border}}"><math><mi>n</mi><mo>↦</mo><mi>n</mi><mo separator="true">,</mo><mspace width="0.4em"></mspace><mi>k</mi><mo>↦</mo><mi>n</mi><mo>−</mo><mi>k</mi></math></td><td style="padding: 8px 12px; border: 1px solid {{t.border}}">weighted</td><td style="padding: 8px 12px; border: 1px solid {{t.border}}">Isabelle</td></tr>
+<tr><td style="padding: 8px 12px; border: 1px solid {{t.border}}">Clique → VC</td><td style="padding: 8px 12px; border: 1px solid {{t.border}}">Karp, det</td><td style="padding: 8px 12px; border: 1px solid {{t.border}}"><math><mi>n</mi><mo>↦</mo><mi>n</mi><mo separator="true">,</mo><mspace width="0.4em"></mspace><mi>k</mi><mo>↦</mo><mi>n</mi><mo>−</mo><mi>k</mi></math></td><td style="padding: 8px 12px; border: 1px solid {{t.border}}">—</td><td style="padding: 8px 12px; border: 1px solid {{t.border}}">informal</td></tr>
+<tr><td style="padding: 8px 12px; border: 1px solid {{t.border}}">VC → Set Cover</td><td style="padding: 8px 12px; border: 1px solid {{t.border}}">Karp, det</td><td style="padding: 8px 12px; border: 1px solid {{t.border}}"><math><mi>k</mi><mo>↦</mo><mi>k</mi></math></td><td style="padding: 8px 12px; border: 1px solid {{t.border}}">weighted</td><td style="padding: 8px 12px; border: 1px solid {{t.border}}">informal</td></tr>
+</tbody>
+</table>
+</div>
+</sc-if>
+
+<h2 style="margin: 40px 0 8px; font-size: 28px; font-weight: 700; border-bottom: 1px solid {{t.border}}; padding-bottom: 4px">Related problems</h2>
+<p style="margin: 0">Complement: <a href="#" style="color: {{t.accent}}">Independent Set</a>, <a href="#" style="color: {{t.accent}}">Clique</a>. Variants: <a href="#" style="color: {{t.accent}}">Connected Vertex Cover</a>. Generalisations: <a href="#" style="color: {{t.accent}}">d-Hitting Set</a>, <a href="#" style="color: {{t.accent}}">Set Cover</a>. Counting and enumeration: <a href="#" style="color: {{t.accent}}">#Vertex Cover</a>, <a href="#" style="color: {{t.accent}}">minimal vertex covers</a>.</p>
+
+<h2 style="margin: 40px 0 8px; font-size: 28px; font-weight: 700; border-bottom: 1px solid {{t.border}}; padding-bottom: 4px">References</h2>
+<ol style="margin: 0; padding-left: 26px; font-size: 16px">
+<li>J. Chen, I. A. Kanj, G. Xia. Improved upper bounds for vertex cover. TCS 411, 2010, [Thm X.Y]. Conference version: MFCS 2006. <a href="#" style="color: {{t.accent}}">Open access</a></li>
+<li>M. Xiao, H. Nagamochi. Exact algorithms for maximum independent set. Information and Computation, 2017. <a href="#" style="color: {{t.accent}}">Open access</a></li>
+</ol>
+<p style="margin: 32px 0 0; font-size: 14px; color: {{t.muted}}">Data CC0 · code MIT · curated automatically · <a href="#" style="color: {{t.accent}}">JSON</a></p>
+</article>
+
+<aside style="flex: 1 1 280px; max-width: 340px; border: 1px solid {{t.border}}; background: {{t.band}}; font-size: 15px; line-height: 1.5">
+<p style="margin: 0; padding: 10px 16px; background: {{t.boxHead}}; color: #FFFFFF; font-weight: 700; font-size: 17px">Vertex Cover</p>
+<dl style="margin: 0; padding: 12px 16px; display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); gap: 10px 12px">
+<dt style="font-weight: 700">Also known as</dt><dd style="margin: 0">Node Cover</dd>
+<dt style="font-weight: 700">Complexity</dt><dd style="margin: 0">NP-complete (Karp 1972)</dd>
+<dt style="font-weight: 700">Parameters</dt><dd style="margin: 0"><math><mi>n</mi><mo>,</mo><mi>m</mi><mo>,</mo><mi>N</mi><mo>,</mo><mi>k</mi><mo>,</mo><mi>tw</mi></math></dd>
+<dt style="font-weight: 700">Versions</dt><dd style="margin: 0">decision, optimisation, search, weighted</dd>
+<dt style="font-weight: 700">Lean</dt><dd style="margin: 0">not yet formalised</dd>
+<dt style="font-weight: 700">Papers tracked</dt><dd style="margin: 0">[count from OpenAlex]</dd>
+<dt style="font-weight: 700">Last checked</dt><dd style="margin: 0">[DATE]</dd>
+</dl>
+</aside>
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"theme":{"editor":"enum","options":["light","dark"],"default":"light"},"$preview":{"width":1280,"height":2300}}'>
+class Component extends DCLogic {
+constructor(props) {
+super(props);
+this.state = { dark: null, view: 'reading', version: 'decision', defOpen: false, history: null, chainOpen: false };
+}
+renderVals() {
+const s = this.state;
+const dark = s.dark ?? ((this.props.theme ?? 'light') === 'dark');
+const t = dark
+? { bg: '#111514', band: '#1A201F', text: '#E6ECEB', muted: '#A3B0AE', border: '#2F3A39', accent: '#6FD3CA', boxHead: '#0B6B66', tagBg: '#123A37', tagText: '#A7EAE3', grid: '#2F3A39', track: '#0B6B66' }
+: { bg: '#FFFFFF', band: '#F2F5F5', text: '#1A1D21', muted: '#4D5660', border: '#D3DBDB', accent: '#0B6B66', boxHead: '#0B6B66', tagBg: '#E3F1F0', tagText: '#064A46', grid: '#DCE3E3', track: '#C9D6D5' };
+const tab = (on) => 'font: inherit; font-size: 16px; min-height: 44px; padding: 0 16px; border: 1px solid ' + (on ? t.border : 'transparent') + '; border-bottom: 1px solid ' + (on ? t.bg : 'transparent') + '; margin-bottom: -1px; border-radius: 4px 4px 0 0; background: ' + (on ? t.bg : 'transparent') + '; color: ' + (on ? t.text : t.accent) + '; font-weight: ' + (on ? '700' : '400');
+const seg = (on) => 'font: inherit; font-size: 15px; min-height: 36px; padding: 0 12px; border: 1px solid ' + t.border + '; border-radius: 4px; background: ' + (on ? t.boxHead : t.bg) + '; color: ' + (on ? '#FFFFFF' : t.text) + '; font-weight: ' + (on ? '600' : '400');
+const param = (on) => 'font: inherit; font-size: 0.95em; line-height: 1.2; padding: 0 6px; border: 1px solid ' + (on ? t.accent : t.border) + '; border-radius: 3px; background: ' + (on ? t.tagBg : 'transparent') + '; color: ' + t.accent + '; text-decoration: underline dotted; cursor: pointer';
+const tri = (open) => 'flex: 0 0 auto; transition: transform 120ms ease; transform: rotate(' + (open ? '90' : '0') + 'deg)';
+const pick = (p) => () => this.setState({ history: s.history === p ? null : p });
+const isWeighted = s.version === 'weighted';
+return {
+t,
+isDark: dark,
+isLight: !dark,
+toggleTheme: () => this.setState({ dark: !dark }),
+trackStyle: 'position: relative; display: block; width: 56px; height: 30px; box-sizing: border-box; border-radius: 999px; background: ' + t.track + '; transition: background 150ms ease',
+knobStyle: 'position: absolute; top: 3px; left: 3px; width: 24px; height: 24px; border-radius: 50%; background: #FFFFFF; box-shadow: 0 1px 3px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; transition: transform 150ms ease; transform: translateX(' + (dark ? '26px' : '0') + ')',
+isReading: s.view === 'reading',
+isExpert: s.view === 'expert',
+setReading: () => this.setState({ view: 'reading' }),
+setExpert: () => this.setState({ view: 'expert' }),
+viewReading: seg(s.view === 'reading'),
+viewExpert: seg(s.view === 'expert'),
+isWeighted,
+isShared: !isWeighted,
+setDecision: () => this.setState({ version: 'decision' }),
+setOptimisation: () => this.setState({ version: 'optimisation' }),
+setSearch: () => this.setState({ version: 'search' }),
+setWeighted: () => this.setState({ version: 'weighted', history: null }),
+tabDecision: tab(s.version === 'decision'),
+tabOptimisation: tab(s.version === 'optimisation'),
+tabSearch: tab(s.version === 'search'),
+tabWeighted: tab(isWeighted),
+defOpen: s.defOpen,
+defTri: tri(s.defOpen),
+toggleDef: () => this.setState({ defOpen: !s.defOpen }),
+chainOpen: s.chainOpen,
+chainTri: tri(s.chainOpen),
+toggleChain: () => this.setState({ chainOpen: !s.chainOpen }),
+histK: pick('k'),
+histN: pick('n'),
+histTw: pick('tw'),
+closeHistory: () => this.setState({ history: null }),
+showHistoryK: !isWeighted && s.history === 'k',
+showHistoryOther: !isWeighted && (s.history === 'n' || s.history === 'tw'),
+historyParam: s.history === 'tw' ? 'tw' : 'n',
+paramK: param(s.history === 'k'),
+paramN: param(s.history === 'n'),
+paramTw: param(s.history === 'tw')
+};
+}
+}
+</script>
+</body>
+</html>

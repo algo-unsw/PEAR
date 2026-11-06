@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Vertex Cover: encyclopedia, phone</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+math{font-size:1.08em}
+</style>
+</helmet>
+<div style="position: relative; box-sizing: border-box; width: 390px; min-height: 1900px; background: {{t.bg}}; color: {{t.text}}; font-family: 'Source Sans 3', system-ui, sans-serif; font-size: 17px; line-height: 1.55">
+<header style="padding: 8px 14px; background: {{t.band}}; border-bottom: 1px solid {{t.border}}; display: flex; align-items: center; gap: 8px">
+<a href="#" aria-label="PEAR: Parameterized and Exact Algorithms and Reductions" style="display: flex; flex-direction: column; line-height: 1.15; color: {{t.text}}; text-decoration: none"><span style="font-weight: 700; font-size: 18px; letter-spacing: 0.02em">PEAR</span><span style="font-size: 11px; color: {{t.muted}}">Parameterized and Exact Algorithms and Reductions</span></a>
+<button type="button" aria-label="Search" style="margin-left: auto; width: 44px; height: 44px; border: 1px solid {{t.border}}; border-radius: 4px; background: {{t.bg}}; display: flex; align-items: center; justify-content: center">
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="{{t.text}}" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>
+</button>
+<button type="button" role="switch" aria-checked="{{ isDark }}" aria-label="Dark mode" onClick="{{ toggleTheme }}" style="display: flex; align-items: center; min-height: 44px; padding: 0; border: 0; background: transparent; cursor: pointer">
+<span style="{{ trackStyle }}">
+<span style="{{ knobStyle }}">
+<sc-if value="{{ isLight }}" hint-placeholder-val="{{ true }}">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#B26B00" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"></circle><path d="M12 1.5v3M12 19.5v3M1.5 12h3M19.5 12h3M4.6 4.6l2.1 2.1M17.3 17.3l2.1 2.1M4.6 19.4l2.1-2.1M17.3 6.7l2.1-2.1"></path></svg>
+</sc-if>
+<sc-if value="{{ isDark }}" hint-placeholder-val="{{ false }}">
+<svg width="14" height="14" viewBox="0 0 24 24" fill="#0B6B66" aria-hidden="true"><path d="M20.5 14.6A8.5 8.5 0 0 1 9.4 3.5a8.5 8.5 0 1 0 11.1 11.1z"></path></svg>
+</sc-if>
+</span>
+</span>
+</button>
+</header>
+
+<div style="padding: 18px 16px 0">
+<h1 style="margin: 0; font-size: 30px; font-weight: 700; line-height: 1.15">Vertex Cover</h1>
+<p style="margin: 2px 0 0; font-size: 14px; color: {{t.muted}}">Node Cover · NP-complete · Lean: not yet</p>
+</div>
+
+<nav aria-label="Problem version" style="margin-top: 12px; padding: 0 12px; display: flex; gap: 2px; overflow-x: auto; border-bottom: 1px solid {{t.border}}">
+<button type="button" onClick="{{ setDecision }}" style="{{ vDecision }}">Decision</button>
+<button type="button" onClick="{{ setOptimisation }}" style="{{ vOptimisation }}">Optimisation</button>
+<button type="button" onClick="{{ setSearch }}" style="{{ vSearch }}">Search</button>
+<button type="button" onClick="{{ setWeighted }}" style="{{ vWeighted }}">Weighted</button>
+</nav>
+
+<div style="padding: 0 16px 24px">
+<h2 style="margin: 18px 0 6px; font-size: 22px; font-weight: 700; border-bottom: 1px solid {{t.border}}; padding-bottom: 4px; display: flex; justify-content: space-between; align-items: baseline; gap: 8px">Fastest known algorithms <button type="button" onClick="{{ openFilters }}" style="font: inherit; font-size: 15px; font-weight: 400; min-height: 36px; padding: 0 4px; border: 0; background: transparent; color: {{t.accent}}; text-decoration: underline">filters</button></h2>
+<sc-if value="{{ isShared }}" hint-placeholder-val="{{ true }}">
+<dl style="margin: 0; display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 10px 10px">
+<dt style="color: {{t.accent}}; text-decoration: underline dotted; padding-top: 2px"><math><mi>k</mi></math></dt>
+<dd style="margin: 0"><math><msup><mi>O</mi><mo>*</mo></msup><mo stretchy="false">(</mo><msup><mn>1.2738</mn><mi>k</mi></msup><mo stretchy="false">)</mo></math><br><span style="font-size: 14px; color: {{t.muted}}">det, poly space <sup><a href="#" style="color: {{t.accent}}">[1]</a></sup></span></dd>
+<dt style="color: {{t.accent}}; text-decoration: underline dotted; padding-top: 2px"><math><mi>n</mi></math></dt>
+<dd style="margin: 0"><math><msup><mi>O</mi><mo>*</mo></msup><mo stretchy="false">(</mo><msup><mn>1.1996</mn><mi>n</mi></msup><mo stretchy="false">)</mo></math> <span style="font-size: 13px; font-weight: 600; padding: 1px 6px; background: {{t.tagBg}}; color: {{t.tagText}}; border-radius: 3px">derived</span><br><span style="font-size: 14px; color: {{t.muted}}">via Max Independent Set <sup><a href="#" style="color: {{t.accent}}">[2]</a></sup></span></dd>
+<dt style="color: {{t.accent}}; text-decoration: underline dotted; padding-top: 2px"><math><mi>tw</mi></math></dt>
+<dd style="margin: 0"><math><msup><mi>O</mi><mo>*</mo></msup><mo stretchy="false">(</mo><msup><mn>2</mn><mi>tw</mi></msup><mo stretchy="false">)</mo></math><br><span style="font-size: 14px; color: {{t.muted}}">DP over tree decompositions, exp space</span></dd>
+</dl>
+<p style="margin: 10px 0 0; font-size: 14px; color: {{t.muted}}">Shared by the decision, optimisation and search versions. Tap a parameter for its history.</p>
+</sc-if>
+<sc-if value="{{ isWeighted }}" hint-placeholder-val="{{ false }}">
+<p style="margin: 0">[Best weighted bounds from the data.] Weighted algorithms also give derived bounds for the unweighted versions.</p>
+</sc-if>
+
+<h2 style="margin: 22px 0 0; font-size: 22px; font-weight: 700; border-bottom: 1px solid {{t.border}}">
+<button type="button" onClick="{{ toggleDef }}" aria-expanded="{{ defOpen }}" style="{{ sectionBtn }}"><svg width="13" height="13" viewBox="0 0 12 12" aria-hidden="true" style="{{ defTri }}"><path d="M3 1.5 L10 6 L3 10.5 Z" fill="{{t.accent}}"></path></svg>Definition</button>
+</h2>
+<sc-if value="{{ defOpen }}" hint-placeholder-val="{{ false }}">
+<p style="margin: 8px 0 0"><span style="font-weight: 700">Input:</span> a graph <math><mi>G</mi><mo>=</mo><mo stretchy="false">(</mo><mi>V</mi><mo>,</mo><mi>E</mi><mo stretchy="false">)</mo></math> and an integer <math><mi>k</mi></math>.</p>
+<p style="margin: 2px 0 0"><span style="font-weight: 700">Question:</span> is there <math><mi>S</mi><mo>⊆</mo><mi>V</mi></math> with <math><mo>|</mo><mi>S</mi><mo>|</mo><mo>≤</mo><mi>k</mi></math> such that every edge has an endpoint in <math><mi>S</mi></math>?</p>
+<p style="margin: 8px 0 0; font-size: 14px; color: {{t.muted}}"><math><mi>n</mi></math> vertices · <math><mi>m</mi></math> edges · <math><mi>N</mi></math> input size · <math><mi>k</mi></math> solution size · <math><mi>tw</mi></math> treewidth</p>
+</sc-if>
+
+<h2 style="margin: 4px 0 0; font-size: 22px; font-weight: 700; border-bottom: 1px solid {{t.border}}">
+<button type="button" onClick="{{ toggleRed }}" aria-expanded="{{ redOpen }}" style="{{ sectionBtn }}"><svg width="13" height="13" viewBox="0 0 12 12" aria-hidden="true" style="{{ redTri }}"><path d="M3 1.5 L10 6 L3 10.5 Z" fill="{{t.accent}}"></path></svg>Reductions</button>
+</h2>
+<sc-if value="{{ redOpen }}" hint-placeholder-val="{{ false }}">
+<ul style="margin: 8px 0 0; padding-left: 20px; font-size: 16px">
+<li>From <a href="#" style="color: {{t.accent}}">Max Independent Set</a>, <a href="#" style="color: {{t.accent}}">Clique</a>: <math><mi>k</mi><mo>↦</mo><mi>n</mi><mo>−</mo><mi>k</mi></math></li>
+<li>To <a href="#" style="color: {{t.accent}}">Set Cover</a>, <a href="#" style="color: {{t.accent}}">d-Hitting Set</a>: <math><mi>k</mi><mo>↦</mo><mi>k</mi></math></li>
+</ul>
+</sc-if>
+
+<h2 style="margin: 4px 0 0; font-size: 22px; font-weight: 700; border-bottom: 1px solid {{t.border}}">
+<button type="button" onClick="{{ toggleRel }}" aria-expanded="{{ relOpen }}" style="{{ sectionBtn }}"><svg width="13" height="13" viewBox="0 0 12 12" aria-hidden="true" style="{{ relTri }}"><path d="M3 1.5 L10 6 L3 10.5 Z" fill="{{t.accent}}"></path></svg>Related problems</button>
+</h2>
+<sc-if value="{{ relOpen }}" hint-placeholder-val="{{ false }}">
+<p style="margin: 8px 0 0; font-size: 16px"><a href="#" style="color: {{t.accent}}">Independent Set</a>, <a href="#" style="color: {{t.accent}}">Clique</a>, <a href="#" style="color: {{t.accent}}">Connected Vertex Cover</a>, <a href="#" style="color: {{t.accent}}">d-Hitting Set</a>, <a href="#" style="color: {{t.accent}}">#Vertex Cover</a></p>
+</sc-if>
+
+<h2 style="margin: 4px 0 0; font-size: 22px; font-weight: 700; border-bottom: 1px solid {{t.border}}">
+<button type="button" onClick="{{ toggleRefs }}" aria-expanded="{{ refsOpen }}" style="{{ sectionBtn }}"><svg width="13" height="13" viewBox="0 0 12 12" aria-hidden="true" style="{{ refsTri }}"><path d="M3 1.5 L10 6 L3 10.5 Z" fill="{{t.accent}}"></path></svg>References</button>
+</h2>
+<sc-if value="{{ refsOpen }}" hint-placeholder-val="{{ false }}">
+<ol style="margin: 8px 0 0; padding-left: 22px; font-size: 15px">
+<li>Chen, Kanj, Xia. TCS 2010, [Thm X.Y]; MFCS 2006. <a href="#" style="color: {{t.accent}}">Open access</a></li>
+<li>Xiao, Nagamochi. Inf. Comput. 2017. <a href="#" style="color: {{t.accent}}">Open access</a></li>
+</ol>
+</sc-if>
+
+<section style="margin-top: 24px; padding: 14px; border: 1px solid {{t.border}}; background: {{t.band}}">
+<label for="ecp-submit" style="display: block; font-weight: 700">Know a better result?</label>
+<p style="margin: 2px 0 10px; font-size: 14px; color: {{t.muted}}">Paste a link or DOI. At least one reference must be openly readable.</p>
+<div style="display: flex; gap: 8px">
+<input id="ecp-submit" type="text" placeholder="https:// or 10.xxxx/…" style="flex: 1; min-width: 0; font: inherit; font-size: 15px; padding: 10px 12px; border: 1px solid {{t.border}}; border-radius: 4px; background: {{t.bg}}; color: {{t.text}}">
+<button type="button" style="font: inherit; font-size: 15px; font-weight: 600; padding: 0 16px; min-height: 44px; border: 0; border-radius: 4px; background: {{t.boxHead}}; color: #FFFFFF">Send</button>
+</div>
+</section>
+<p style="margin: 16px 0 0; font-size: 13px; color: {{t.muted}}">Data CC0 · code MIT · <a href="#" style="color: {{t.accent}}">Cite</a> · <a href="#" style="color: {{t.accent}}">Report an error</a></p>
+</div>
+
+<sc-if value="{{ filtersOpen }}" hint-placeholder-val="{{ false }}">
+<div style="position: absolute; inset: 0; background: {{t.scrim}}">
+<div role="dialog" aria-label="Filters" style="position: absolute; left: 0; right: 0; top: 200px; padding: 18px 18px 22px; background: {{t.bg}}; border-top: 3px solid {{t.boxHead}}">
+<div style="display: flex; justify-content: space-between; align-items: center">
+<h2 style="margin: 0; font-size: 20px; font-weight: 700">Show only</h2>
+<button type="button" onClick="{{ closeFilters }}" style="font: inherit; font-size: 15px; font-weight: 600; min-height: 44px; padding: 0 16px; border: 0; border-radius: 4px; background: {{t.boxHead}}; color: #FFFFFF">Done</button>
+</div>
+<div style="margin-top: 10px; display: flex; flex-direction: column">
+<label style="display: flex; gap: 10px; align-items: center; min-height: 44px"><input type="checkbox"> deterministic</label>
+<label style="display: flex; gap: 10px; align-items: center; min-height: 44px"><input type="checkbox"> polynomial space</label>
+<label style="display: flex; gap: 10px; align-items: center; min-height: 44px"><input type="checkbox"> constructive</label>
+<label style="display: flex; gap: 10px; align-items: center; min-height: 44px"><input type="checkbox"> non-algebraic</label>
+<label style="display: flex; gap: 10px; align-items: center; min-height: 44px"><input type="checkbox"> Lean-verified</label>
+<label style="display: flex; gap: 10px; align-items: center; min-height: 44px"><input type="checkbox" checked> include derived bounds</label>
+</div>
+</div>
+</div>
+</sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"theme":{"editor":"enum","options":["light","dark"],"default":"light"},"$preview":{"width":390,"height":1900}}'>
+class Component extends DCLogic {
+constructor(props) {
+super(props);
+this.state = { dark: null, version: 'decision', defOpen: false, redOpen: false, relOpen: false, refsOpen: false, filtersOpen: false };
+}
+renderVals() {
+const s = this.state;
+const dark = s.dark ?? ((this.props.theme ?? 'light') === 'dark');
+const t = dark
+? { bg: '#111514', band: '#1A201F', text: '#E6ECEB', muted: '#A3B0AE', border: '#2F3A39', accent: '#6FD3CA', boxHead: '#0B6B66', tagBg: '#123A37', tagText: '#A7EAE3', scrim: 'rgba(0,0,0,0.6)', track: '#0B6B66' }
+: { bg: '#FFFFFF', band: '#F2F5F5', text: '#1A1D21', muted: '#4D5660', border: '#D3DBDB', accent: '#0B6B66', boxHead: '#0B6B66', tagBg: '#E3F1F0', tagText: '#064A46', scrim: 'rgba(17,24,39,0.45)', track: '#C9D6D5' };
+const tab = (on) => 'flex: 0 0 auto; font: inherit; font-size: 15px; min-height: 44px; padding: 0 12px; border: 1px solid ' + (on ? t.border : 'transparent') + '; border-bottom: 1px solid ' + (on ? t.bg : 'transparent') + '; margin-bottom: -1px; border-radius: 4px 4px 0 0; background: ' + (on ? t.bg : 'transparent') + '; color: ' + (on ? t.text : t.accent) + '; font-weight: ' + (on ? '700' : '400');
+const tri = (open) => 'flex: 0 0 auto; transition: transform 120ms ease; transform: rotate(' + (open ? '90' : '0') + 'deg)';
+const isWeighted = s.version === 'weighted';
+const flip = (k) => () => this.setState({ [k]: !s[k] });
+return {
+t,
+isDark: dark,
+isLight: !dark,
+toggleTheme: () => this.setState({ dark: !dark }),
+trackStyle: 'position: relative; display: block; width: 52px; height: 28px; box-sizing: border-box; border-radius: 999px; background: ' + t.track + '; transition: background 150ms ease',
+knobStyle: 'position: absolute; top: 3px; left: 3px; width: 22px; height: 22px; border-radius: 50%; background: #FFFFFF; box-shadow: 0 1px 3px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; transition: transform 150ms ease; transform: translateX(' + (dark ? '24px' : '0') + ')',
+isWeighted,
+isShared: !isWeighted,
+setDecision: () => this.setState({ version: 'decision' }),
+setOptimisation: () => this.setState({ version: 'optimisation' }),
+setSearch: () => this.setState({ version: 'search' }),
+setWeighted: () => this.setState({ version: 'weighted' }),
+vDecision: tab(s.version === 'decision'),
+vOptimisation: tab(s.version === 'optimisation'),
+vSearch: tab(s.version === 'search'),
+vWeighted: tab(isWeighted),
+sectionBtn: 'width: 100%; display: flex; align-items: center; gap: 10px; font: inherit; font-weight: 700; min-height: 48px; padding: 6px 0; border: 0; background: transparent; color: ' + t.text + '; text-align: left; cursor: pointer',
+defOpen: s.defOpen, defTri: tri(s.defOpen), toggleDef: flip('defOpen'),
+redOpen: s.redOpen, redTri: tri(s.redOpen), toggleRed: flip('redOpen'),
+relOpen: s.relOpen, relTri: tri(s.relOpen), toggleRel: flip('relOpen'),
+refsOpen: s.refsOpen, refsTri: tri(s.refsOpen), toggleRefs: flip('refsOpen'),
+filtersOpen: s.filtersOpen,
+openFilters: () => this.setState({ filtersOpen: true }),
+closeFilters: () => this.setState({ filtersOpen: false })
+};
+}
+}
+</script>
+</body>
+</html>

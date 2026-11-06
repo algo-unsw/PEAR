@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vertex Cover: encyclopedia, combined (static preview, light)</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+math{font-size:1.08em}
+</style>
+
+</head>
+<body>
+
+
+<div style="box-sizing: border-box; width: 100%; min-height: 100vh; background: #FFFFFF; color: #1A1D21; font-family: 'Source Sans 3', system-ui, sans-serif; font-size: 18px; line-height: 1.6">
+
+<header style="background: #F2F5F5; border-bottom: 1px solid #D3DBDB">
+<div style="max-width: 1180px; margin: 0 auto; padding: 10px 32px; display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: center">
+<a href="#" style="display: flex; align-items: baseline; gap: 8px; color: #1A1D21; text-decoration: none"><span style="font-weight: 700; font-size: 20px; letter-spacing: 0.02em">PEAR</span><span style="font-size: 14px; color: #4D5660">Parameterized and Exact Algorithms and Reductions</span></a>
+<label style="flex: 1 1 300px; display: flex; align-items: center; gap: 8px; font-size: 15px; color: #4D5660">Search
+<input type="search" placeholder="Name, shorthand like “vc k”, or describe the problem" style="flex: 1; min-width: 0; font: inherit; font-size: 15px; padding: 8px 12px; border: 1px solid #D3DBDB; border-radius: 4px; background: #FFFFFF; color: #1A1D21">
+</label>
+<nav aria-label="Main" style="display: flex; flex-wrap: wrap; gap: 18px; font-size: 15px">
+<a href="#" style="color: #0B6B66">Browse</a><a href="#" style="color: #0B6B66">Recently improved</a><a href="#" style="color: #0B6B66">Hypotheses</a>
+</nav>
+<button type="button" role="switch" aria-checked="false" aria-label="Dark mode" style="margin-left: auto; display: flex; align-items: center; min-height: 44px; padding: 0; border: 0; background: transparent; cursor: pointer">
+<span style="position: relative; display: block; width: 56px; height: 30px; box-sizing: border-box; border-radius: 999px; background: #C9D6D5; transition: background 150ms ease">
+<span style="position: absolute; top: 3px; left: 3px; width: 24px; height: 24px; border-radius: 50%; background: #FFFFFF; box-shadow: 0 1px 3px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; transition: transform 150ms ease; transform: translateX(0)">
+
+<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#B26B00" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"></circle><path d="M12 1.5v3M12 19.5v3M1.5 12h3M19.5 12h3M4.6 4.6l2.1 2.1M17.3 17.3l2.1 2.1M4.6 19.4l2.1-2.1M17.3 6.7l2.1-2.1"></path></svg>
+
+
+</span>
+</span>
+</button>
+</div>
+</header>
+
+<div style="max-width: 1180px; margin: 0 auto; padding: 32px 32px 96px">
+<div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end; justify-content: space-between; border-bottom: 1px solid #D3DBDB; padding-bottom: 10px">
+<div>
+<h1 style="margin: 0; font-size: 42px; font-weight: 700; line-height: 1.15">Vertex Cover</h1>
+<p style="margin: 2px 0 0; font-size: 15px; color: #4D5660">Also known as <span style="font-style: italic">Node Cover</span></p>
+</div>
+<nav aria-label="Page tools" style="display: flex; flex-wrap: wrap; gap: 16px; font-size: 15px">
+<a href="#" style="color: #0B6B66">History</a><a href="#" style="color: #0B6B66">Watch</a><a href="#" style="color: #0B6B66">Report an error</a><a href="#" style="color: #0B6B66">Suggest a link or DOI</a><a href="#" style="color: #0B6B66">Cite</a>
+</nav>
+</div>
+
+<div style="margin-top: 10px; display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-end; justify-content: space-between; border-bottom: 1px solid #D3DBDB">
+<nav aria-label="Problem version" style="display: flex; flex-wrap: wrap; gap: 2px">
+<button type="button" style="font: inherit; font-size: 16px; min-height: 44px; padding: 0 16px; border: 1px solid #D3DBDB; border-bottom: 1px solid #FFFFFF; margin-bottom: -1px; border-radius: 4px 4px 0 0; background: #FFFFFF; color: #1A1D21; font-weight: 700">Decision</button>
+<button type="button" style="font: inherit; font-size: 16px; min-height: 44px; padding: 0 16px; border: 1px solid transparent; border-bottom: 1px solid transparent; margin-bottom: -1px; border-radius: 4px 4px 0 0; background: transparent; color: #0B6B66; font-weight: 400">Optimisation</button>
+<button type="button" style="font: inherit; font-size: 16px; min-height: 44px; padding: 0 16px; border: 1px solid transparent; border-bottom: 1px solid transparent; margin-bottom: -1px; border-radius: 4px 4px 0 0; background: transparent; color: #0B6B66; font-weight: 400">Search</button>
+<button type="button" style="font: inherit; font-size: 16px; min-height: 44px; padding: 0 16px; border: 1px solid transparent; border-bottom: 1px solid transparent; margin-bottom: -1px; border-radius: 4px 4px 0 0; background: transparent; color: #0B6B66; font-weight: 400">Weighted</button>
+</nav>
+<div role="group" aria-label="View" style="display: flex; gap: 2px; margin-bottom: 6px; font-size: 15px">
+<button type="button" style="font: inherit; font-size: 15px; min-height: 36px; padding: 0 12px; border: 1px solid #D3DBDB; border-radius: 4px; background: #0B6B66; color: #FFFFFF; font-weight: 600">Overview</button>
+<button type="button" style="font: inherit; font-size: 15px; min-height: 36px; padding: 0 12px; border: 1px solid #D3DBDB; border-radius: 4px; background: #FFFFFF; color: #1A1D21; font-weight: 400">Details</button>
+</div>
+</div>
+
+<div style="display: flex; flex-wrap: wrap; gap: 40px; margin-top: 24px; align-items: flex-start">
+<article style="flex: 999 1 560px; min-width: 0">
+
+
+<p style="margin: 0; font-size: 16px; color: #4D5660">The decision, optimisation and search versions are equivalent up to polynomial factors (binary search on <math><mi>k</mi></math>, self-reducibility) and share these bounds; each result names the version its paper proved.</p>
+
+
+<h2 style="margin: 20px 0 8px; font-size: 28px; font-weight: 700; border-bottom: 1px solid #D3DBDB; padding-bottom: 4px">Fastest known algorithms</h2>
+
+
+
+
+
+
+<h3 style="margin: 16px 0 2px; font-size: 20px; font-weight: 600">By solution size <button type="button" aria-label="History of the best bound in k" style="font: inherit; font-size: 0.95em; line-height: 1.2; padding: 0 6px; border: 1px solid #D3DBDB; border-radius: 3px; background: transparent; color: #0B6B66; text-decoration: underline dotted; cursor: pointer"><math><mi>k</mi></math></button></h3>
+<p style="margin: 0"><math><msup><mi>O</mi><mo>*</mo></msup><mo stretchy="false">(</mo><msup><mn>1.2738</mn><mi>k</mi></msup><mo stretchy="false">)</mo></math>, deterministic and in polynomial space <sup><a href="#" style="color: #0B6B66">[1]</a></sup>. Exact form <math><mi>O</mi><mo stretchy="false">(</mo><msup><mn>1.2738</mn><mi>k</mi></msup><mo>+</mo><mi>k</mi><mi>n</mi><mo stretchy="false">)</mo></math>; proved for the [version].</p>
+
+<h3 style="margin: 18px 0 2px; font-size: 20px; font-weight: 600">By number of vertices <button type="button" aria-label="History of the best bound in n" style="font: inherit; font-size: 0.95em; line-height: 1.2; padding: 0 6px; border: 1px solid #D3DBDB; border-radius: 3px; background: transparent; color: #0B6B66; text-decoration: underline dotted; cursor: pointer"><math><mi>n</mi></math></button></h3>
+<p style="margin: 0"><math><msup><mi>O</mi><mo>*</mo></msup><mo stretchy="false">(</mo><msup><mn>1.1996</mn><mi>n</mi></msup><mo stretchy="false">)</mo></math>, deterministic and in polynomial space, from the algorithm for Maximum Independent Set <sup><a href="#" style="color: #0B6B66">[2]</a></sup>. <span style="font-size: 14px; font-weight: 600; padding: 2px 8px; background: #E3F1F0; color: #064A46; border-radius: 3px">derived</span></p>
+<button type="button" aria-expanded="false" style="margin-top: 4px; display: inline-flex; align-items: center; gap: 8px; min-height: 36px; padding: 0; font: inherit; font-size: 16px; border: 0; background: transparent; color: #0B6B66; cursor: pointer"><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true" style="flex: 0 0 auto; transition: transform 120ms ease; transform: rotate(0deg)"><path d="M3 1.5 L10 6 L3 10.5 Z" fill="currentColor"></path></svg>Where this bound comes from</button>
+
+
+<h3 style="margin: 18px 0 2px; font-size: 20px; font-weight: 600">By treewidth <button type="button" aria-label="History of the best bound in treewidth" style="font: inherit; font-size: 0.95em; line-height: 1.2; padding: 0 6px; border: 1px solid #D3DBDB; border-radius: 3px; background: transparent; color: #0B6B66; text-decoration: underline dotted; cursor: pointer"><math><mi>tw</mi></math></button></h3>
+<p style="margin: 0"><math><msup><mi>O</mi><mo>*</mo></msup><mo stretchy="false">(</mo><msup><mn>2</mn><mi>tw</mi></msup><mo stretchy="false">)</mo></math> by dynamic programming over a tree decomposition, in exponential space. Exact form <math><msup><mn>2</mn><mi>tw</mi></msup><mo>⋅</mo><msup><mi>tw</mi><mrow><mi>O</mi><mo stretchy="false">(</mo><mn>1</mn><mo stretchy="false">)</mo></mrow></msup><mo>⋅</mo><mi>n</mi></math>.</p>
+
+
+
+
+
+
+
+
+
+
+<h2 style="margin: 40px 0 8px; font-size: 28px; font-weight: 700; border-bottom: 1px solid #D3DBDB; padding-bottom: 4px">
+<button type="button" aria-expanded="false" style="display: flex; align-items: center; gap: 10px; padding: 0; font: inherit; border: 0; background: transparent; color: #1A1D21; cursor: pointer"><svg width="14" height="14" viewBox="0 0 12 12" aria-hidden="true" style="flex: 0 0 auto; transition: transform 120ms ease; transform: rotate(0deg)"><path d="M3 1.5 L10 6 L3 10.5 Z" fill="#0B6B66"></path></svg>Definition</button>
+</h2>
+<p style="margin: 0"><span style="font-weight: 700">Input:</span> a graph <math><mi>G</mi><mo>=</mo><mo stretchy="false">(</mo><mi>V</mi><mo>,</mo><mi>E</mi><mo stretchy="false">)</mo></math> and an integer <math><mi>k</mi></math>.</p>
+<p style="margin: 2px 0 0"><span style="font-weight: 700">Question:</span> is there a set <math><mi>S</mi><mo>⊆</mo><mi>V</mi></math> with <math><mo>|</mo><mi>S</mi><mo>|</mo><mo>≤</mo><mi>k</mi></math> such that every edge has an endpoint in <math><mi>S</mi></math>?</p>
+
+
+<h2 style="margin: 40px 0 8px; font-size: 28px; font-weight: 700; border-bottom: 1px solid #D3DBDB; padding-bottom: 4px">Reductions</h2>
+
+<ul style="margin: 0; padding-left: 22px">
+<li>From <a href="#" style="color: #0B6B66">Maximum Independent Set</a> and <a href="#" style="color: #0B6B66">Clique</a>, each with <math><mi>k</mi><mo>↦</mo><mi>n</mi><mo>−</mo><mi>k</mi></math>.</li>
+<li>To <a href="#" style="color: #0B6B66">Set Cover</a> and <a href="#" style="color: #0B6B66">d-Hitting Set</a>, each with <math><mi>k</mi><mo>↦</mo><mi>k</mi></math>; the Set Cover reduction also works for the weighted version.</li>
+</ul>
+
+
+
+<h2 style="margin: 40px 0 8px; font-size: 28px; font-weight: 700; border-bottom: 1px solid #D3DBDB; padding-bottom: 4px">Related problems</h2>
+<p style="margin: 0">Complement: <a href="#" style="color: #0B6B66">Independent Set</a>, <a href="#" style="color: #0B6B66">Clique</a>. Variants: <a href="#" style="color: #0B6B66">Connected Vertex Cover</a>. Generalisations: <a href="#" style="color: #0B6B66">d-Hitting Set</a>, <a href="#" style="color: #0B6B66">Set Cover</a>. Counting and enumeration: <a href="#" style="color: #0B6B66">#Vertex Cover</a>, <a href="#" style="color: #0B6B66">minimal vertex covers</a>.</p>
+
+<h2 style="margin: 40px 0 8px; font-size: 28px; font-weight: 700; border-bottom: 1px solid #D3DBDB; padding-bottom: 4px">References</h2>
+<ol style="margin: 0; padding-left: 26px; font-size: 16px">
+<li>J. Chen, I. A. Kanj, G. Xia. Improved upper bounds for vertex cover. TCS 411, 2010, [Thm X.Y]. Conference version: MFCS 2006. <a href="#" style="color: #0B6B66">Open access</a></li>
+<li>M. Xiao, H. Nagamochi. Exact algorithms for maximum independent set. Information and Computation, 2017. <a href="#" style="color: #0B6B66">Open access</a></li>
+</ol>
+<p style="margin: 32px 0 0; font-size: 14px; color: #4D5660">Data CC0 · code MIT · curated automatically · <a href="#" style="color: #0B6B66">JSON</a></p>
+</article>
+
+<aside style="flex: 1 1 280px; max-width: 340px; border: 1px solid #D3DBDB; background: #F2F5F5; font-size: 15px; line-height: 1.5">
+<p style="margin: 0; padding: 10px 16px; background: #0B6B66; color: #FFFFFF; font-weight: 700; font-size: 17px">Vertex Cover</p>
+<dl style="margin: 0; padding: 12px 16px; display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); gap: 10px 12px">
+<dt style="font-weight: 700">Also known as</dt><dd style="margin: 0">Node Cover</dd>
+<dt style="font-weight: 700">Complexity</dt><dd style="margin: 0">NP-complete (Karp 1972)</dd>
+<dt style="font-weight: 700">Parameters</dt><dd style="margin: 0"><math><mi>n</mi><mo>,</mo><mi>m</mi><mo>,</mo><mi>N</mi><mo>,</mo><mi>k</mi><mo>,</mo><mi>tw</mi></math></dd>
+<dt style="font-weight: 700">Versions</dt><dd style="margin: 0">decision, optimisation, search, weighted</dd>
+<dt style="font-weight: 700">Lean</dt><dd style="margin: 0">not yet formalised</dd>
+<dt style="font-weight: 700">Papers tracked</dt><dd style="margin: 0">[count from OpenAlex]</dd>
+<dt style="font-weight: 700">Last checked</dt><dd style="margin: 0">[DATE]</dd>
+</dl>
+</aside>
+</div>
+</div>
+</div>
+
+</body>
+</html>
