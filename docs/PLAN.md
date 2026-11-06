@@ -193,6 +193,12 @@ Clicking a parameter on a problem page opens the history of the best running tim
 - GitHub Pages limits are ample: site up to 1 GB, soft bandwidth limit 100 GB/month, no server-side code. Actions minutes on standard runners are free for public repositories. Estimated usage: build 2–5 min per merge, Lean check 10–20 min when Lean files change, curator 10–30 min/day, tracker a few minutes/week.
 - Precedent: HOPS (graph parameter hierarchy) runs on GitHub Pages.
 
+### Setup (decided 6 November 2026)
+
+- Repository: `pear`, owned by the [algo-unsw](https://github.com/algo-unsw) organisation (moving from `serggasp/pear`).
+- Domain: start on GitHub Pages (`algo-unsw.github.io/pear`). A custom domain is optional; if one is added, do it before entry URLs are announced or cited, since Pages URLs do not redirect.
+- Stack: Python data pipeline (YAML data, pydantic schema, bound parser and comparator, derivation engine, pytest) writing JSON; Eleventy renders the site from that JSON, with KaTeX at build time. GitHub Actions: validate and test on every PR, build and deploy to Pages on merge to `main`.
+
 ## Usability at scale
 
 - Search is the main entry point: alternative names, typos, shorthand like "vc k". Informal descriptions too ("fewest vertices touching every edge"): at build time a small open-source embedding model embeds each problem's definition and names (free, on Actions); in the browser the same model (about 20–30 MB, cached) embeds the query. No paid API, so bot traffic costs nothing. Google Programmable Search is only a fallback if this proves unfriendly; no Google link for now.
