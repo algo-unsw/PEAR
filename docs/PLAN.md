@@ -104,7 +104,7 @@ A problem such as Vertex Cover is one family page with a version switcher: Decis
 
 ## Error flagging and fallback
 
-- Anyone can flag a result, with a reason and a link to evidence (erratum, counterexample).
+- Anyone can flag a result, with a reason and, where available, a link to evidence (erratum, counterexample). The evidence link is never required, not even for wrong-result reports (decided 7 November 2026).
 - Once a flag is confirmed (always by a human), the result is excluded from bound derivation and affected bounds are recomputed, falling back to the next best valid algorithm or chain.
 - Flagged results stay visible with their status.
 - Confirmed errors are graded:
