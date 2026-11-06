@@ -1,6 +1,6 @@
 # PEAR reduction rulebook
 
-> **Status: agreed with Serge on 7 November 2026** (HANDOFF step 4; decisions R1–R7 at the end). Expands `docs/PLAN.md` → Rules for chaining reductions. The SERF definition in §5 is still to be checked against the original paper before any SERF is entered.
+> **Status: agreed with Serge on 7 November 2026** (HANDOFF step 4; decisions R1–R7 at the end). Expands `docs/PLAN.md` → Rules for chaining reductions. The SERF definition in §5 was checked against the original paper on 7 November 2026.
 >
 > **Rulebook version: 1.** Every derived bound records the rulebook version it was computed under. Changing an agreed rule is high risk (CLAUDE.md rule 6) and bumps the version, which recomputes all derived bounds.
 
@@ -37,12 +37,20 @@ $$T_A \;=\; T_R + \text{calls}(x_A) \cdot f_B(\varphi(x_A)).$$
 
 ## 5. SERF (subexponential reduction families)
 
-A SERF from A (measure $p$) to B (measure $q$) is a family $\{R_\delta\}_{\delta > 0}$ of Turing reductions in which $R_\delta$ runs in time $\mathrm{poly}(N)\, 2^{\delta p}$ and every query has $q \le C_\delta\, p$. *Paraphrase; to be checked against the original definition before it is used — TODO(verify).*
+**Definition** (Impagliazzo, Paturi, Zane, *Which problems have strongly exponential complexity?*, J. Comput. Syst. Sci. 63 (2001) 512–530, doi:[10.1006/jcss.2001.1774](https://doi.org/10.1006/jcss.2001.1774), §1.1.4, p. 515; [open copy](https://khoury.northeastern.edu/~viola/classes/papers/ImpagliazzoPaturiZane01Which.pdf)). A SERF from $(A, p)$ to $(B, q)$ is a family $\{R_\delta\}_{\delta > 0}$ of **Turing** reductions from A to B such that, for each $\delta > 0$:
 
-**Transfer (proposal, R3):** a SERF transfers only **subexponential** statements:
+- $R_\delta(x)$ runs in time $\mathrm{poly}(|x|)\, 2^{\delta p(x)}$;
+- every query $x'$ to B has $q(x') = O(p(x))$ and $|x'| = |x|^{O(1)}$.
+
+Our paraphrase, not the paper's wording. The paper writes $\varepsilon$; we write $\delta$, because $\varepsilon$ is reserved for non-explicit constants (`bounds.md` §2). The definition does not mention $\delta$ in the $O(\cdot)$. Its proof of Lemma 8 fixes one constant per member of the family, so we read the constant as possibly depending on $\delta$, written $C_\delta$ below. The measures $p$ and $q$ are *complexity parameters*: polynomial-time computable and polynomially bounded in $|x|$ (§1.1.2).
+
+The paper's class SE contains the problems solvable in time $\mathrm{poly}(|x|)\, 2^{\delta m(x)}$ for every fixed $\delta > 0$ (§1.1.2). That is exactly the family form `O(2^{\delta m}) \text{ for every } \delta > 0` of `bounds.md` §2. SERFs compose (Lemma 8, p. 523), and SE is closed under them: if A SERF-reduces to B and B is in SE, then A is in SE (Lemma 9, p. 523). The transfer rule below is Lemma 9.
+
+**Transfer (R3):** a SERF transfers only **subexponential** statements:
 
 - if B has `O(2^{\delta q}) for every δ > 0`, then A has `O(2^{\delta p}) for every δ > 0`;
-- concrete bases ($c^q \Rightarrow c'^p$) do **not** transfer, since $C_\delta$ is unknown and may grow as $\delta \to 0$.
+- concrete bases ($c^q \Rightarrow c'^p$) do **not** transfer, since $C_\delta$ is unknown and may grow as $\delta \to 0$;
+- a SERF chain counts one step per SERF; composition is sound by Lemma 8.
 
 For a SERF, `parameter_map` records only *which* measure maps to which ($q \mapsto p$, linearly); `time` and `calls` are implied by the definition.
 
