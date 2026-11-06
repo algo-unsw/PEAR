@@ -1,0 +1,4 @@
+id: example-width
+name: Example width
+symbol: w
+definition: "A fictional width measure used only in tests."

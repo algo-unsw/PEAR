@@ -1,0 +1,6 @@
+id: problem-a--n--author-example-2000
+problem: problem-a
+version: decision
+bound: { as_stated: "2^{o(n)}", notation: O, parameters: [n] }
+conditional_on: [hypothesis-h]
+source: { paper: author-example-2000, statements: { arxiv-v1: { statement: "Theorem 5" } } }

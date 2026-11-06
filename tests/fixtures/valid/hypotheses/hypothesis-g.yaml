@@ -1,0 +1,6 @@
+id: hypothesis-g
+name: Hypothesis G
+statement: "Another fictional hypothesis."
+status: claimed-refuted
+status_sources:
+  - { url: "https://example.org/fixture", date: 2026-01-01 }

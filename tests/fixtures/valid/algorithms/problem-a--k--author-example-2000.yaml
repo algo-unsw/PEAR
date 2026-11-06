@@ -1,0 +1,17 @@
+id: problem-a--k--author-example-2000
+problem: problem-a
+proved_for: optimisation
+bound: { as_stated: "O(c^k + k n)", notation: O, parameters: [k, n] }
+properties:
+  randomized: { error: one-sided }
+  space: { class: polynomial }
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+conditional_on: [hypothesis-h]
+source:
+  paper: author-example-2000
+  statements:
+    conference: { statement: "Theorem 2" }
+    arxiv-v1: { statement: "Theorem 3", page: 7 }

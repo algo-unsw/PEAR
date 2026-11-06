@@ -1,0 +1,15 @@
+id: author-example-2000
+title: "A fictional paper used only in tests"
+authors: [A. Author, B. Example]
+identifiers: { dblp: null }
+versions:
+  conference:
+    kind: conference
+    venue: "Fixture Conference 2000"
+    year: 2000
+    open_access: false
+  arxiv-v1:
+    kind: preprint
+    arxiv: "0000.00000"
+    year: 2000
+    open_access: true

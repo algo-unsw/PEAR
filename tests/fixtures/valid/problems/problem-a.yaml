@@ -1,0 +1,39 @@
+id: problem-a
+name: Problem A
+aliases: [Fixture Problem A]
+category: graph
+complexity:
+  class: NP-complete
+  source: { paper: author-example-2000, statements: { arxiv-v1: { statement: "Theorem 1" } } }
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  k: { meaning: "the integer k in the input" }
+  w: { shared: example-width }
+versions:
+  decision:
+    kind: decision
+    input: "A graph $G$ and an integer $k$."
+    question: "Does $G$ have property A of size at most $k$?"
+  optimisation:
+    kind: optimisation
+    input: "A graph $G$."
+    goal: "Find the minimum size of property A in $G$."
+  search:
+    kind: search
+    input: "A graph $G$ and an integer $k$."
+    goal: "Find property A of size at most $k$, or report that none exists."
+  weighted:
+    kind: optimisation
+    input: "A graph $G$ with vertex weights."
+    goal: "Find the minimum weight of property A in $G$."
+    generalises: [optimisation]
+default_version: decision
+shared_bounds:
+  - versions: [decision, optimisation, search]
+    because: "binary search on k and self-reducibility"
+related:
+  - { problem: problem-b, relation: complement }
+review: { approved_by: Serge Gaspers, date: 2026-11-07 }

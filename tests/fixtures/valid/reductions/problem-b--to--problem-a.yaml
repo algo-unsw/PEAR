@@ -1,0 +1,11 @@
+id: problem-b--to--problem-a
+from: { problem: problem-b, version: decision }
+to: { problem: problem-a, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(n + m)"
+parameter_map: { n: "n + m", k: "k" }
+variants:
+  - { problem: problem-a, version: weighted, note: "Fixture variant." }
+formal: { status: proved, prover: lean, link: "https://example.org/fixture" }
+source: { folklore: true, note: "Fixture.", reference: { paper: author-example-2000, version: arxiv-v1, statement: "Section 4" } }
