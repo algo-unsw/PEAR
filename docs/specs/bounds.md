@@ -1,10 +1,10 @@
-# PEAR bound expression language — DRAFT for review
+# PEAR bound expression language
 
-> **Status: draft, not agreed.** Proposed 7 November 2026 for the specs session with Serge (HANDOFF step 4), expanding the draft in `docs/PLAN.md` → Bound expression language. Open questions are **B1–B6**, collected at the end. Nothing is implemented until they are settled.
+> **Status: agreed with Serge on 7 November 2026** (HANDOFF step 4; decisions B1–B6 at the end). Expands `docs/PLAN.md` → Bound expression language. Implementation: step 5. Changing it is the owner's decision.
 >
 > Examples use arithmetic only; no bound here is a research claim.
 
-This spec says how a running time is written in a data file, what it means, how it is shown in O* form, and when one bound beats another. How bounds move along reductions is the rulebook (`rulebook.md`).
+This spec says how a running time is written in a data file, what it means, how it is displayed, and when one bound beats another. How bounds move along reductions is the rulebook (`rulebook.md`).
 
 **Design principle: the comparator is sound but incomplete.** When it cannot prove that one bound is at most another, it reports them as incomparable and both stay on the site. Errors can then only make the list of best bounds too long, never drop a correct best bound.
 
@@ -43,12 +43,14 @@ A bound is an upper bound on the worst-case running time, as a function of the v
 - **Asymptotics inside exponents.** `2^{O(\sqrt{k})}` means $2^{c\sqrt{k}}$ for some unknown constant $c > 0$. `n^{O(k)}` means $n^{ck}$ for some $c$. `2^{o(n)}` means one algorithm with time $2^{g(n)}$ for some $g = o(n)$.
 - **Families of algorithms.** "For every $\delta > 0$ there is an $O(2^{\delta n})$-time algorithm" is weaker than `2^{o(n)}` (the algorithm may depend on $\delta$), and is written `O(2^{\delta n}) \text{ for every } \delta > 0`. Both forms beat every $c^n$ with explicit $c > 1$; they are kept distinct because hypotheses such as ETH are stated in the family form.
 - **Non-explicit constants** (plan rule). `(2-\varepsilon)^n` means "for some unknown $\varepsilon > 0$". It is treated as a positive infinitesimal: $(2-\varepsilon)^n$ beats $2^n$, but every explicit $c < 2$ beats $(2-\varepsilon)^n$.
-- **`\omega`** and other named constants (B2) are kept symbolic in the stored and displayed bound. Comparisons use their best known upper bound, recorded with a source in `data/constants/`, so a bound stated in $\omega$ improves automatically when $\omega$'s bound does.
+- **`\omega`** and other named constants are kept symbolic in the stored and displayed bound. Comparisons use their best known upper bound, recorded with a source in `data/constants/`, so a bound stated in $\omega$ improves automatically when $\omega$'s bound does.
 - **`f(k)`** is an unspecified computable function (B3).
 
-## 3. Normal form
+## 3. Internal normal form (for comparison only)
 
-Each term is rewritten as $2^{G}$, where the **growth exponent** $G$ is a sum of monomials
+**Nothing is ever displayed in this form (B2).** Pages show bounds in their most natural form, as papers write them: $k^k$, not $2^{k \log k}$ (§4).
+
+For comparison, the comparator rewrites each term internally as $2^{G}$, where the **growth exponent** $G$ is a sum of monomials
 
 $$c \cdot x^{\alpha} (\log x)^{\beta} (\log\log x)^{\gamma}$$
 
@@ -64,11 +66,23 @@ with one variable $x$ per monomial; real $\alpha, \beta, \gamma \ge 0$; and a co
 
 Mixed monomials (several variables, as in $k \log n$) are allowed and compared only when every variable matches.
 
-## 4. O* form (shown by default)
+## 4. Display
 
-The O* form drops every monomial of $G$ that is $O(\log N)$, i.e. every factor polynomial in the input size. This needs to know which variables are **polynomially bounded in N** (B4): $n$, $m$, a solution size $k$ and treewidth are; a number in the input, such as Subset Sum's target $t$, is not, so $t^2$ and $t$ stay different under O*.
+Bounds are displayed in their **natural form** (B2): the stated factors, as written.
 
-A sum of terms keeps only terms not dominated by another term (§5). `O(1.5^{k} + kn)` becomes $O^*(1.5^k)$; `O(2^{k} + 1.5^{n})` stays a sum unless the problem's parameter constraints decide it.
+**O* form (shown by default).** Start from the stated form, then:
+
+- drop every factor polynomial in the input size N: polynomial and logarithmic factors in variables that are polynomially bounded in N;
+- drop every term dominated by another term (§5). `O(1.5^{k} + kn)` becomes $O^*(1.5^k)$. `O(2^{k} + 1.5^{n})` stays a sum unless the problem's parameter constraints decide it.
+
+**Polynomially bounded variables (B4).** By default every variable is treated as polynomially bounded in N, silently, with no declaration and no note on the page. Only exceptions are marked `poly_bounded: false` in the schema: for example, a number in the input such as Subset Sum's target $t$, so that $t^2$ and $t$ stay different under O*.
+
+**Derived bounds.** Substitution (rulebook §2) produces new expressions, which are simplified only within the natural form:
+
+- folding constants, so $1.2^{2k}$ becomes $1.44^{k}$;
+- collecting like factors.
+
+A computed base is **rounded up**, never down, to four decimal places, so the shown bound is still an upper bound. The unrounded value is kept in the build output. A substituted expression with no simpler natural form stays as it is: $1.5^{\,n-k}$, $(2k)^{2k}$.
 
 ## 5. Comparison
 
@@ -76,16 +90,17 @@ $A \preceq B$ ("$A$ is at least as good as $B$") means $A = O(B)$ on all inputs.
 
 1. **Terms.** $A \preceq B$ if every term of $A$ is dominated by some single term of $B$ (sound; a term dominated only by a sum of terms is reported incomparable).
 2. **Monomials, one variable.** Order by $\alpha$, then $\beta$, then $\gamma$, then coefficient: e.g. $2^{\sqrt{k}} \prec 1.1^k \prec 1.5^k \prec k^k$. Coefficients compare as real numbers with infinitesimal shifts. An unknown constant from `O(·)` compares only against a strictly smaller or larger shape, never against the same shape.
-3. **Several variables.** Two monomials in different variables compare only through the problem's **parameter constraints** (B5), e.g. $k \le n$ gives $1.5^k \preceq 1.5^n$. Without a constraint they are incomparable.
+3. **Several variables.** Two monomials in different variables compare only through the problem's **parameter constraints** (B5), e.g. $k \le n$ gives $1.5^k \preceq 1.5^n$. Without a constraint they are incomparable. Constraints live in the problem file (`schema.md` §2), each with a short justification.
 4. **O* ties.** Bounds equal in O* form are compared on their exact forms by the same rules (the plan's "base, then polynomial degree, then log factors"). If the exact forms are incomparable, both are kept (B6).
+5. **Unspecified functions (B3).** An $f(k)$ term is beaten by every explicit bound in the same parameter and beats nothing.
 
 The best bounds of a problem (under any chosen filter) are the bounds no other bound strictly beats. They are always an antichain, and all of them are shown.
 
-## Open questions
+## Decisions (7 November 2026)
 
-- **B1. Syntax.** Store `as_stated` in a TeX subset, notation included (e.g. `O(1.5^{k} + kn)`), so the page renders the exact form directly? *Recommend yes.*
-- **B2. Coverage.** Is the class in §3 enough for the pilot? It covers: exponential, polynomial, log and log-log factors; $x^x$; roots; `O`/`o` inside exponents; $\varepsilon$; named constants such as $\omega$. Anything you expect that it misses (e.g. towers $2^{2^k}$, Ackermann-type functions, iterated logarithms)? *Recommend this class, extended when data needs it.*
-- **B3. Unspecified `f(k)`.** An FPT result with unspecified $f$ is useful (it shows FPT membership) but is not a running time. Proposal: it is beaten by every explicit bound in the same parameter and beats nothing. *Recommend yes.*
-- **B4. Polynomially bounded variables.** Which variables O* may absorb polynomial factors of needs a per-parameter flag, `poly_bounded: true | false`. That is a small schema addition. *Recommend adding it, default true for `n`, `m`, `N`.*
-- **B5. Parameter constraints.** Comparing across variables needs per-problem constraints such as `k <= n`, `m <= n^2`, `tw <= n`. Another schema addition: `constraints: [...]` in the problem file, each with a short justification. *Recommend adding it.*
-- **B6. O* ties.** When two bounds are equal in O* form and their exact forms are incomparable, keep both? *Recommend yes; the Details table shows both and the Overview shows the earlier one.*
+- **B1** `as_stated` is a TeX subset, notation included, rendered directly.
+- **B2** The coverage of §3 is accepted, and the normal form is internal only. Bounds are always displayed in their natural form ($k^k$, not $2^{k\log k}$). Derived bases are folded and rounded up.
+- **B3** Unspecified $f(k)$ is beaten by every explicit bound in the same parameter and beats nothing.
+- **B4** Every variable is polynomially bounded in N by default, silently. Exceptions are marked `poly_bounded: false`.
+- **B5** Problems declare parameter constraints, each with a justification.
+- **B6** Bounds equal in O* with incomparable exact forms are both kept. The Details view shows both, and the Overview shows the earlier one.

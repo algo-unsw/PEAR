@@ -31,6 +31,9 @@ versions:
     goal: "Find the minimum weight of property A in $G$."
     generalises: [optimisation]
 default_version: decision
+constraints:
+  - { constraint: "k \\le n", because: "Fixture justification." }
+  - { constraint: "w \\le n", because: "Fixture justification." }
 shared_bounds:
   - versions: [decision, optimisation, search]
     because: "binary search on k and self-reducibility"

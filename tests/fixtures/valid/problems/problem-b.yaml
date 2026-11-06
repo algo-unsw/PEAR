@@ -10,6 +10,7 @@ objects:
   N: total encoding length of the input
 parameters:
   k: { meaning: "the integer k in the input" }
+  t: { meaning: "a number in the input", poly_bounded: false }
 versions:
   decision:
     kind: decision

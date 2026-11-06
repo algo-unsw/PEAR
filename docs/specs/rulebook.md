@@ -1,8 +1,8 @@
-# PEAR reduction rulebook — DRAFT for review
+# PEAR reduction rulebook
 
-> **Status: draft, not agreed.** Proposed 7 November 2026 for the specs session with Serge (HANDOFF step 4), expanding `docs/PLAN.md` → Rules for chaining reductions. Open questions are **R1–R7**, collected at the end.
+> **Status: agreed with Serge on 7 November 2026** (HANDOFF step 4; decisions R1–R7 at the end). Expands `docs/PLAN.md` → Rules for chaining reductions. The SERF definition in §5 is still to be checked against the original paper before any SERF is entered.
 >
-> **Rulebook version: 0 (draft).** Every derived bound records the rulebook version it was computed under. Changing an agreed rule is high risk (CLAUDE.md rule 6) and bumps the version, which recomputes all derived bounds.
+> **Rulebook version: 1.** Every derived bound records the rulebook version it was computed under. Changing an agreed rule is high risk (CLAUDE.md rule 6) and bumps the version, which recomputes all derived bounds.
 
 The rulebook decides when an algorithm for a problem B, together with a reduction from A to B, gives a **derived bound** for A. Bounds use the language in `bounds.md`; reductions use the fields in `schema.md` §6.
 
@@ -85,7 +85,19 @@ A derived bound is:
 - **FPT-time parameterized reductions** and other reduction types: adding a type is high risk and needs Serge's approval.
 - **Relations between parameters** (treewidth ≤ pathwidth, …) from HOPS: they will enter as constraints (§7) once agreed.
 
-## Open questions
+## Decisions (7 November 2026)
+
+All seven were agreed as recommended:
+
+- **R1** A1–A3 hold.
+- **R2** `polytime-*` types need polynomial own time and polynomially many calls.
+- **R3** A SERF transfers only subexponential statements.
+- **R4** Composite parameters are kept and projected.
+- **R5** Shared groups are free; "special case" is a counted step.
+- **R6** Property inheritance as in §8.
+- **R7** $T_R$ is kept in the stored exact form and simplified only for display.
+
+The questions as asked:
 
 - **R1. Assumptions A1–A3.** Are parameter maps upper bounds, are stated bounds treated as monotone, and are results excluded or carried as in A3? *Recommend yes to all three.*
 - **R2. Many calls.** Do `polytime-*` types require both polynomial own time **and** polynomially many calls? Reductions with exponentially many calls (branching into many instances of B) would then wait for a new, separately approved type. *Recommend yes (strict), adding an "exponential-time Turing" type when the first such reduction is needed.*
