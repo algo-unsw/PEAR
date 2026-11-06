@@ -6,7 +6,8 @@ Read `CLAUDE.md` first (ground rules), then `docs/PLAN.md` (what and why) and `d
 
 - **Planning is done.** The plan covers scope, data model, derived bounds, curation, hosting, design and phases.
 - **Design is chosen.** Encyclopedia look, desktop and phone; static previews in `design/preview/`, sources in `design/source/`.
-- **Name**: "PEAR: Parameterized and Exact Algorithms and Reductions". Repo name not final; suggested `pear-algorithms` (confirm with Serge).
+- **Name**: "PEAR: Parameterized and Exact Algorithms and Reductions".
+- **Setup (step 1, done)**: repo `algo-unsw/pear`; GitHub Pages first, custom domain optional; Python pipeline + Eleventy + KaTeX. Details in `docs/PLAN.md` → Hosting and implementation → Setup.
 - **Not started**: repository, schema, bound language spec, rulebook spec, any data or code.
 - **Drafts exist** for the bound language and chaining rules (in `docs/PLAN.md`); they must be finished **with Serge**.
 
