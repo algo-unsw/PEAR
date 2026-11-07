@@ -23,3 +23,15 @@ jobs:
       - name: Derive bounds
         run: python -m pear derive --out build/derived.json
       - run: pytest
+      - name: Write site data
+        run: python -m pear site --out build/site
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: site/package-lock.json
+      - name: Build site (KaTeX errors fail the build)
+        working-directory: site
+        run: |
+          npm ci
+          npx eleventy

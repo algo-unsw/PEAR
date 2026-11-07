@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ title }} · PEAR</title>
+{% if description %}<meta name="description" content="{{ description }}">{% endif %}
+<script>
+  // Theme: follow the system unless the reader chose; set before paint.
+  try { var t = localStorage.getItem("pear-theme"); if (t === "light" || t === "dark") document.documentElement.dataset.theme = t; } catch (e) {}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+<link rel="stylesheet" href="{{ '/assets/katex/katex.min.css' | url }}">
+<link rel="stylesheet" href="{{ '/assets/style.css' | url }}">
+<script src="{{ '/assets/site.js' | url }}" defer></script>
+</head>
+<body data-view="overview">
+<header class="band">
+<div class="band-inner">
+<a class="wordmark" href="{{ '/' | url }}"><b>PEAR</b><span>Parameterized and Exact Algorithms and Reductions</span></a>
+<form class="search" role="search" action="{{ '/' | url }}" data-search>
+<label for="search-input">Search</label>
+<input id="search-input" type="search" name="q" list="problem-names" autocomplete="off" placeholder="Name, shorthand like “vc k”, or describe the problem">
+<datalist id="problem-names">
+{%- for e in pear.index %}{% if e.id %}<option value="{{ e.name }}">{% endif %}{% endfor %}
+</datalist>
+</form>
+<nav class="mainnav" aria-label="Main">
+<a href="{{ '/' | url }}">Browse</a><a href="{{ '/cite/' | url }}">How to cite</a>
+</nav>
+<button type="button" class="theme-switch" role="switch" aria-checked="false" aria-label="Dark mode" data-theme-switch>
+<span class="track"><span class="knob">
+<svg class="sun" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#B26B00" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"></circle><path d="M12 1.5v3M12 19.5v3M1.5 12h3M19.5 12h3M4.6 4.6l2.1 2.1M17.3 17.3l2.1 2.1M4.6 19.4l2.1-2.1M17.3 6.7l2.1-2.1"></path></svg>
+<svg class="moon" width="14" height="14" viewBox="0 0 24 24" fill="#0B6B66" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"></path></svg>
+</span></span>
+</button>
+</div>
+</header>
+<script type="application/json" id="search-index">{{ searchIndex | dump | safe }}</script>
+{{ content | safe }}
+</body>
+</html>
