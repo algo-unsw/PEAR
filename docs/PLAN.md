@@ -50,7 +50,7 @@ Bounds are stored exactly as the paper states them (TeX subset), and shown in O*
 - Within one parameter, bounds are compared by exponential base first, then polynomial degree, then log factors.
 - Non-explicit constants are kept in comparisons and written as in papers, e.g. (2 − ε)^n for some ε > 0. With no proven size for ε, it is treated as arbitrarily small: (2 − ε)^n beats 2^n, but any explicit base below 2, such as 1.99^n, beats (2 − ε)^n.
 
-## Rules for chaining reductions (agreed 7 November 2026; full spec in `specs/rulebook.md`, version 1)
+## Rules for chaining reductions (agreed 7 November 2026; full spec in `specs/rulebook.md`, now version 2)
 
 A precise, written, versioned rulebook decides when and how a bound transfers along a reduction. Changing it recomputes all derived bounds and is high risk.
 
