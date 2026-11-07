@@ -20,3 +20,4 @@ bounds:
     sources:
       - folklore: true
         note: "Each of the $n^2$ entries of the product needs at least one arithmetic operation."
+review: { approved_by: Serge Gaspers, date: 2026-11-07 }
