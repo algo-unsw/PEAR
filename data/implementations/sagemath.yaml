@@ -17,3 +17,4 @@ facts:
     source: "https://github.com/sagemath/sage/blob/develop/src/sage/graphs/cliquer.pyx"
   - fact: "Part of a general-purpose open-source mathematics system."
     source: "https://www.sagemath.org/"
+review: { approved_by: Serge Gaspers, date: 2026-11-08 }

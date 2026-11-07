@@ -18,3 +18,4 @@ facts:
     source: "https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.IPEC.2019.25 (Section 4.1); https://arxiv.org/abs/1908.06795"
   - fact: "Archived on Zenodo."
     source: "https://doi.org/10.5281/zenodo.2816116"
+review: { approved_by: Serge Gaspers, date: 2026-11-08 }

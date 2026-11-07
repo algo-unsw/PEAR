@@ -50,3 +50,4 @@ implementations:
   as_of: 2026-11-08
   ranked: [wegotyoucovered, peaty, akiba-iwata-vertex-cover, kamis, sagemath]
   note: "Places 1–2 follow the PACE 2019 Vertex Cover exact track. The rest is a judgement call without a head-to-head benchmark: a dedicated branch-and-reduce solver, then KaMIS (whose exact programs target independent sets), then SageMath (general-purpose, convenient for small graphs)."
+review: { approved_by: Serge Gaspers, date: 2026-11-08 }

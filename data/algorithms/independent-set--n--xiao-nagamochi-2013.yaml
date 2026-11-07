@@ -14,3 +14,4 @@ source:
   statements:
     techreport: { statement: "Theorem 12", page: 13 }
   note: "Section 6.2 states the bound more precisely as $1.19951^n n^{O(1)}$."
+review: { approved_by: Serge Gaspers, date: 2026-11-08 }

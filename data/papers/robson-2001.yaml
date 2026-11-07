@@ -9,3 +9,4 @@ versions:
     url: "https://www.labri.fr/perso/robson/mis/techrep.html"
     open_access: true
 unverified: true                      # unrefereed technical report (decided 8 November 2026)
+review: { approved_by: Serge Gaspers, date: 2026-11-08 }
