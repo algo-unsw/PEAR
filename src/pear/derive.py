@@ -393,29 +393,30 @@ class Engine:
         return out
 
     def projections(self, r: Result) -> list[Result]:
-        """Rulebook §7: project composite derived bounds onto single parameters."""
-        if not r.derived:
-            return []
+        """Rulebook §7: project a bound, direct or derived, onto single parameters through
+        the constraints: 1.5^{n-k} gives 1.5^n, and 1.2^k with k ≤ n gives 1.2^n."""
+        if r.chain and r.chain[-1].kind == "projection":
+            return []  # constraints are closed transitively, so one projection suffices
         ctx = self.out.contexts[r.problem]
         shown = ostar(r.bound, ctx)
         candidates: list[tuple[str, Node]] = []
-        no_sub = _drop_subtractions(shown.expr)
-        if no_sub != shown.expr:
-            candidates.append(("drop-subtractions", no_sub))
-        base = no_sub
+        base = _drop_subtractions(shown.expr)
+        if base != shown.expr:
+            candidates.append(("drop-subtractions", base))
         base_vars = sorted(variables(base))
-        if len(base_vars) >= 2:
-            for y in base_vars:
-                mapping: dict[str, Node] = {}
-                for x in base_vars:
-                    if x == y:
-                        continue
-                    p = ctx.relation(x, y)
-                    if p is None:
-                        break
-                    mapping[x] = Var(y) if p == 1 else Pow(Var(y), Num(p, _num_text(p)))
-                else:
-                    candidates.append((y, simplify(substitute(base, mapping))))
+        for y in sorted(self.data.problems[r.problem].symbols()) if base_vars else []:
+            if base_vars == [y]:
+                continue
+            mapping: dict[str, Node] = {}
+            for x in base_vars:
+                if x == y:
+                    continue
+                p = ctx.relation(x, y)
+                if p is None:
+                    break
+                mapping[x] = Var(y) if p == 1 else Pow(Var(y), Num(p, _num_text(p)))
+            else:
+                candidates.append((y, simplify(substitute(base, mapping))))
         out = []
         for label, expr in candidates:
             proj = Bound("O*", expr, shown.family)
@@ -435,6 +436,9 @@ class Engine:
             r = self.direct(alg)
             if r is not None and self.insert(r):
                 frontier.append(r)
+                for proj in self.projections(r):
+                    if self.insert(proj):
+                        frontier.append(proj)
         reductions = [
             red for _, red in sorted(self.data.entries["reductions"].items()) if isinstance(red, Reduction)
         ]
@@ -511,9 +515,11 @@ class Engine:
         return out
 
     def as_reduction(self, red: Reduction, v: Variant) -> Reduction:
-        """A variant used as a reduction of its own (same problems, versions and type)."""
+        """A variant used as a reduction of its own (same type; problems and versions may differ)."""
         eff = red.model_copy(update={
             "id": f"{red.id}~{v.id}",
+            "from_": v.from_ if v.from_ is not None else red.from_,
+            "to": v.to if v.to is not None else red.to,
             "parameter_map": v.parameter_map,
             "time": v.time if v.time is not None else red.time,
             "calls": v.calls if v.calls is not None else red.calls,

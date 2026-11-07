@@ -65,6 +65,7 @@ Substitution produces bounds in A's own variables, sometimes in combinations. Fo
 
 - The derived bound is stored in that form and appears under the parameter combination it uses (here $n - k$).
 - It is also **projected** onto single parameters using the problem's constraints (`bounds.md` B5) and A2: from $0 \le k \le n$, $1.5^{\,n-k} \le 1.5^n$. The projection competes in "by $n$" and is kept only if it is best or incomparable there (R4).
+- **Every bound is projected** (version 2), direct or derived and in one parameter or several: $1.2^k$ with $k \le n$ gives $1.2^n$, and $1.1^m$ with $m \le n^2$ gives $1.1^{n^2}$. A projection is a derived bound.
 
 ## 8. Property inheritance
 
@@ -111,6 +112,7 @@ Later the same day:
 - **Overview tab**: shows the best non-quantum bound obtained by any means; equivalent bounds cite the earlier (by year), all on a tie (§9).
 - **Long chains** (version 2): followed as long as they improve results; the ten-step limit is dropped (§9).
 - **D2** (version 2): polynomial factors transfer in O\* form when the parameter map does not cover them (§2).
+- **Projections** (version 2): every bound is projected through the constraints, not just composite derived ones (§7).
 
 The questions as asked:
 
@@ -128,7 +130,7 @@ Code: `src/pear/derive.py`, run as `python -m pear derive` (writes `build/derive
 
 **Two choices put to Serge** (they change which bounds are derived or kept):
 
-- **D1. Bounds compete within their parameters.** A derived bound is dropped only by a result whose parameters (the variables of its O* form) are a subset of its own. This is how §7 ("the projection competes in 'by $n$'") and §9 fit together: without it, every projection would be dropped by the bound it was projected from. Consequence: a derived $1.5^n$ stays as the best bound "by $n$" even when $1.2^k$ (with $k \le n$) is better overall. Each result's `beaten_by` list still names every strictly better bound, so the site can show the overall best too.
+- **D1. Bounds compete within their parameters.** A derived bound is dropped only by a result whose parameters (the variables of its O* form) are a subset of its own. This is how §7 ("the projection competes in 'by $n$'") and §9 fit together: without it, every projection would be dropped by the bound it was projected from. Since every bound is projected (§7), the bounds kept "by $n$" are the best bounds expressible in $n$. For example, with $k \le n$, $1.2^k$ gives $1.2^n$, which drops a derived $1.5^n$. The Overview still shows only $1.2^k$, which beats $1.2^n$. Each result's `beaten_by` list names every strictly better bound.
 - **D2. Polynomial factors transfer in O\* form.** If the parameter map misses a variable of B's bound that only occurs in factors polynomial in N (e.g. the $n^3$ in $1.2^k n^3$), the O\* form ($1.2^k$) is transferred instead of nothing. This is sound because a polynomial-time reduction produces instances of polynomial size. A strict reading of §2 would transfer nothing. **Decided 7 November 2026: yes**; now part of §2.
 
 **Choices that follow from the rules:**
@@ -138,7 +140,7 @@ Code: `src/pear/derive.py`, run as `python -m pear derive` (writes `build/derive
 - **Amplification** (§4): only calls to a randomized algorithm for B are amplified, by a factor $\log(\text{calls})$, and only when the number of calls is an expression, not a constant.
 - **SERF** (§5): B's bound transfers when the comparator shows it is at least as good as $O^*(2^{\delta q})$ for every $\delta > 0$. This includes $2^{o(q)}$ and $2^{\sqrt q}$, not $1.01^q$. A derived SERF bound has polynomial space only if the reduction records polynomial space.
 - **Keeping** (§9): the filters are those in DESIGN.md (deterministic, polynomial space, constructive, non-algebraic, Lean-verified, include derived) plus classical vs quantum and the set of hypotheses. A derived result is dropped when another is at least as good in every filter, listed under the same parameters or fewer (D1), and either strictly better in O* form, or equal in O* form, at least as good in exact form, and *earlier*. Equal in O* form and the same year counts as earlier only for the same algorithm by a shorter route, so different papers from the same year are all kept for citation. Direct results are never dropped from the Details list; the Overview may still pass over them.
-- **Projections** (§7) remove subtracted terms (all variables are nonnegative) and substitute other variables through the constraints. A projection is kept only if the comparator proves it is implied by the original. It is a chain step of kind `projection` that does not count towards the chain length.
+- **Projections** (§7) apply to every bound, direct or derived. They remove subtracted terms (all variables are nonnegative), then substitute every variable through the constraints onto any single parameter they reach. A projection is kept only if the comparator proves it is implied by the original. It is a chain step of kind `projection` that does not count towards the chain length. Projections are not projected again, because constraints are closed transitively.
 - **Lean-verified** means every step is `proved` with prover Lean. The `formal` status is the weakest along the chain.
-- **Variants** (schema §6) are used as reductions of their own, cited as `<reduction>~<variant>`, with the variant's note shown in the chain. A derived bound through a variant dates from the later of the reduction's and the variant's papers. Variants written by the site are used only once approved, and flagged.
+- **Variants** (schema §6) are used as reductions of their own, between the variant's problems and versions, cited as `<reduction>~<variant>`, with the variant's note shown in the chain. A derived bound through a variant dates from the later of the reduction's and the variant's papers. Variants written by the site are used only once approved, and flagged.
 - **Not covered:** parameters that exist only in a general version (e.g. a maximum weight set to 1 in the special case) are not substituted, because parameters are defined per problem, not per version.

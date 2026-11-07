@@ -129,6 +129,8 @@ CASES = [
     ("variant time does not parse", RED, _set("variants.0.time", "O(q)"), "variants.0.time"),
     ("variant source paper unknown", RED, _set("variants.0.source.paper", "nope"), "unknown paper 'nope'"),
     ("variant without note", RED, _set("variants.0.note", _DELETE), "note: Field required"),
+    ("variant to unknown problem", RED, _set("variants.0.to", {"problem": "nope", "version": "decision"}), "unknown problem 'nope'"),
+    ("variant map checked against its own target", RED, _set("variants.0.to", {"problem": "problem-b", "version": "decision"}), "parameter 'w' is not defined by problem 'problem-b'"),
     (
         "duplicate variant ids",
         RED,

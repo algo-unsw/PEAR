@@ -239,17 +239,21 @@ def check_references(data: Dataset) -> list[Issue]:
         where = f"reductions/{rid}.yaml"
         problem_version(f"{where}: from", red.from_.problem, red.from_.version)
         target = problem_version(f"{where}: to", red.to.problem, red.to.version)
-        maps = [("parameter_map", red.parameter_map)] + [
-            (f"variants.{i}.parameter_map", v.parameter_map) for i, v in enumerate(red.variants)
-        ]
-        if target is not None:
-            for field_name, pmap in maps:
-                for p in pmap:
-                    if p not in target.symbols():
-                        issues.append(
-                            Issue(f"{where}: {field_name}", f"parameter '{p}' is not defined by problem '{target.id}'")
-                        )
+        def check_map(field_name: str, pmap: dict[str, str], tgt: Problem | None) -> None:
+            if tgt is None:
+                return
+            for p in pmap:
+                if p not in tgt.symbols():
+                    issues.append(Issue(f"{where}: {field_name}", f"parameter '{p}' is not defined by problem '{tgt.id}'"))
+
+        check_map("parameter_map", red.parameter_map, target)
         for i, variant in enumerate(red.variants):
+            v_target = target
+            if variant.from_ is not None:
+                problem_version(f"{where}: variants.{i}.from", variant.from_.problem, variant.from_.version)
+            if variant.to is not None:
+                v_target = problem_version(f"{where}: variants.{i}.to", variant.to.problem, variant.to.version)
+            check_map(f"variants.{i}.parameter_map", variant.parameter_map, v_target)
             source(f"{where}: variants.{i}.source", variant.source)
         source(f"{where}: source", red.source)
 
@@ -362,15 +366,16 @@ def check_expressions(data: Dataset) -> list[Issue]:
         for var, rhs in red.parameter_map.items():
             expr(f"{where}: parameter_map.{var}", source, rhs)
         for i, v in enumerate(red.variants):
-            if v.time is not None and source is not None:
+            v_source = data.problems.get(v.from_.problem) if v.from_ is not None else source
+            if v.time is not None and v_source is not None:
                 try:
-                    parse_bound(v.time, source.symbols())
+                    parse_bound(v.time, v_source.symbols())
                 except BoundSyntaxError as exc:
                     issues.append(Issue(f"{where}: variants.{i}.time", str(exc)))
             if isinstance(v.calls, str):
-                expr(f"{where}: variants.{i}.calls", source, v.calls)
+                expr(f"{where}: variants.{i}.calls", v_source, v.calls)
             for var, rhs in v.parameter_map.items():
-                expr(f"{where}: variants.{i}.parameter_map.{var}", source, rhs)
+                expr(f"{where}: variants.{i}.parameter_map.{var}", v_source, rhs)
     return issues
 
 

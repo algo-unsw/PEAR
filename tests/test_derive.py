@@ -171,13 +171,15 @@ def test_polynomial_factors_transfer_in_ostar_form():
     assert r["shown"] == r"O^*(1.2^{k})"
 
 
-def test_non_monotone_bounds_do_not_transfer():
+def test_non_monotone_bounds_do_not_transfer_but_their_projections_do():
     data = dataset(
         problem("a"), problem("b", constraints=[r"k \le n"]),
         alg("b-alg", "b", r"O^*(1.5^{n-k})"), red("a-to-b", "a", "b", {"n": "n", "k": "k"}),
     )
-    assert derived(data, "a") == []
     assert any("monotone" in line for line in derive(data).log)
+    (r,) = derived(data, "a")
+    assert r["shown"] == r"O^*(1.5^{n})"
+    assert [s["kind"] for s in r["chain"]] == ["projection", "reduction"]
 
 
 # --- §3 Turing reductions, §4 randomness -------------------------------------------------------
@@ -390,7 +392,7 @@ def test_worse_derived_bounds_are_dropped_but_direct_ones_stay():
 
 
 def test_bounds_compete_within_their_parameters():
-    # 1.2^k beats 1.5^n under k <= n, but 1.5^n is still the best bound "by n"
+    # 1.2^k projects to 1.2^n (k <= n), which beats the derived 1.5^n "by n"
     data = dataset(
         problem("a", constraints=[r"k \le n"]), problem("b"),
         alg("a-alg", "a", r"O^*(1.2^{k})"),
@@ -398,8 +400,16 @@ def test_bounds_compete_within_their_parameters():
         red("a-to-b", "a", "b", {"k": "n"}),
     )
     got = {r["shown"]: r for r in rows(data, "a")}
-    assert set(got) == {r"O^*(1.2^{k})", r"O^*(1.5^{n})"}
-    assert got[r"O^*(1.5^{n})"]["beaten_by"] == ["a-alg"]  # for the overall best, in the browser
+    assert set(got) == {r"O^*(1.2^{k})", r"O^*(1.2^{n})"}
+    assert got[r"O^*(1.2^{n})"]["beaten_by"] == ["a-alg"]  # for the overall best, in the browser
+    assert [g["shown"] for g in overview(data, "a")] == [r"O^*(1.2^{k})"]
+
+
+def test_direct_bounds_are_projected():
+    data = dataset(problem("a", constraints=[r"k \le n", r"m \le n^{2}"]), alg("a-alg", "a", r"O^*(1.1^{m})"))
+    got = {r["shown"]: r for r in rows(data, "a")}
+    assert set(got) == {r"O^*(1.1^{m})", r"O^*(1.1^{n^{2}})"}
+    assert got[r"O^*(1.1^{n^{2}})"]["origin"] == "derived" and got[r"O^*(1.1^{n^{2}})"]["steps"] == 0
 
 
 def test_derived_bound_beats_but_does_not_hide_direct_bound():
@@ -475,8 +485,8 @@ def test_cli_writes_json(tmp_path):
     assert main(["derive", "tests/fixtures/valid", "--out", str(out)]) == 0
     payload = json.loads(out.read_text())
     assert payload["rulebook_version"] == 2
-    (r,) = payload["problems"]["problem-b"]["decision"]
-    assert r["origin"] == "derived" and r["chain"][0]["id"] == "problem-b--to--problem-a"
+    chains = [[s["id"] for s in r["chain"]] for r in payload["problems"]["problem-b"]["decision"]]
+    assert ["problem-b--to--problem-a"] in chains
 
 
 # --- Overview tab: best non-quantum bound by any means; earliest cited ----------------------------
@@ -597,3 +607,19 @@ def test_variant_paper_counts_for_year_and_citation():
     )
     (r,) = [r for r in derived(data, "a") if r["shown"] == r"O^*(3^{w})"]
     assert r["year"] == 2012 and r["papers"] == ["p-red", "p-var"]
+
+
+def test_variant_between_other_problems():
+    # the same construction also reduces between the weighted versions
+    data = dataset(
+        problem("a", versions=("optimisation", "weighted")), problem("b", versions=("optimisation", "weighted")),
+        alg("b-weighted", "b", r"O^*(2^{k})", version="weighted"),
+        red("a-to-b", "a", "b", {"k": "k"}, frm_v="optimisation", to_v="optimisation", variants=[
+            {"id": "weighted", "note": "The same construction keeps the weights.",
+             "from": {"problem": "a", "version": "weighted"}, "to": {"problem": "b", "version": "weighted"},
+             "parameter_map": {"k": "k"}, "source": {"folklore": True, "note": "Fixture."}},
+        ]),
+    )
+    (r,) = derived(data, "a", "weighted")
+    assert r["chain"][0]["id"] == "a-to-b~weighted"
+    assert derived(data, "a", "optimisation") == []

@@ -349,12 +349,15 @@ class Algorithm(Model):
 
 
 class Variant(Model):
-    """A slight modification of the reduction that gives another parameter map: a paper
-    focused on one parameter, but a variant also works for another, or a known step
-    (such as a kernelization) has to be added first. Same problems, versions and type."""
+    """A slight modification of the reduction: a paper focused on one parameter but a variant
+    also works for another, a known step (such as a kernelization) has to be added first, or
+    the same construction works between other problems or versions (weighted vs unweighted,
+    Red-Blue Dominating Set vs Set Cover). The reduction type stays the same."""
 
     id: Id
     note: Text  # what is modified
+    from_: VersionRef | None = Field(None, alias="from")  # defaults to the reduction's
+    to: VersionRef | None = None  # defaults to the reduction's
     parameter_map: dict[Symbol, Text] = Field(min_length=1)
     time: Text | None = None  # defaults to the reduction's
     calls: Annotated[int, Field(ge=1, strict=True)] | Text | None = None  # defaults to the reduction's
