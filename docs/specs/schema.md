@@ -274,7 +274,7 @@ problems: { old-id: new-id }
 
 Every entry has `review: { approved_by, date }`, both `null` until approved. Final sign-off on pilot data is Serge's alone (Q7), so the validator accepts only `approved_by: Serge Gaspers`.
 
-## 11. Named constant (proposed 7 November 2026, to confirm)
+## 11. Named constant (agreed 7 November 2026)
 
 Constants that bounds use symbolically, such as $\omega$ (bounds §2). The comparator uses the best lower and upper bounds that are not refuted. Changing a constant's bounds can change best bounds, so it is high risk (CLAUDE.md rule 6).
 
@@ -306,6 +306,7 @@ The validator checks that every constant used in a bound has an entry, that valu
 - **Q5** Lower bounds are in the schema; none entered in the pilot. Hypotheses not claimed refuted remain valid bases.
 - **Q6** Optional, display-only randomized-error detail.
 - **Q7** Serge alone gives final sign-off on pilot data.
+- **Named constants** (§11, agreed later the same day): `data/constants/`, with sourced bounds marked established, claimed or refuted. Claimed bounds count in comparisons. $\omega$ is always written `\omega`, never `\Omega`.
 
 ## Implementation notes
 
