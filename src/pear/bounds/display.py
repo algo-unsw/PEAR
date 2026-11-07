@@ -138,12 +138,46 @@ def simplify(node: Node) -> Node:
         out = nums + rest
         return out[0] if len(out) == 1 else Mul(tuple(out))
     if isinstance(node, Add):
-        return Add(tuple((s, simplify(t)) for s, t in node.terms))
+        return _collect(Add(tuple((s, simplify(t)) for s, t in node.terms)))
     if isinstance(node, Pow):
         return Pow(simplify(node.base), simplify(node.exp))
     if isinstance(node, Div):
         return Div(simplify(node.num), simplify(node.den))
     return node
+
+
+def _collect(node: Add) -> Node:
+    """Collect like terms: n + n becomes 2 n, 3k - k becomes 2 k (order of first use kept)."""
+    coefs: dict[Node, Fraction] = {}
+    for sign, term in node.terms:
+        if isinstance(term, Mul) and isinstance(term.factors[0], Num):
+            c, rest_f = term.factors[0].value, term.factors[1:]
+            rest: Node = rest_f[0] if len(rest_f) == 1 else Mul(rest_f)
+        elif isinstance(term, Num):
+            c, rest = term.value, num(1)
+        else:
+            c, rest = Fraction(1), term
+        coefs[rest] = coefs.get(rest, Fraction(0)) + sign * c
+    if len(coefs) == len(node.terms):
+        return node  # nothing to collect: keep the form as written
+    out: list[tuple[int, Node]] = []
+    for rest, c in coefs.items():
+        if c == 0:
+            continue
+        sign = 1 if c > 0 else -1
+        mag = abs(c)
+        if isinstance(rest, Num) and rest.value == 1:
+            term = num(mag)
+        elif mag == 1:
+            term = rest
+        else:
+            term = Mul((num(mag),) + (rest.factors if isinstance(rest, Mul) else (rest,)))
+        out.append((sign, term))
+    if not out:
+        return num(0)
+    if len(out) == 1 and out[0][0] > 0:
+        return out[0][1]
+    return Add(tuple(out))
 
 
 def fold(node: Node, rounded: bool = False) -> Node:

@@ -114,3 +114,23 @@ The questions as asked:
 - **R5. Versions.** Shared groups are free (no chain step); "special case" via `generalises` is a step, shown in the chain and counted towards the three-step label. *Recommend this.*
 - **R6. Property inheritance.** Is the table in §8 right? In particular: polynomial space through many sequential calls; and conditional hypotheses collected along the chain, dropping any implied by another. *Recommend the table as is.*
 - **R7. Reduction time that dominates.** For the three agreed types this cannot happen under O*, since own time is polynomial. In the exact form, $T_R$ is kept as a term of the sum. Is that the treatment you want, or should the exact form drop $T_R$ when $f_B$'s exact form already dominates it? *Recommend keeping $T_R$ in the stored exact form and letting the comparator simplify for display.*
+
+## Implementation notes (step 5b)
+
+Code: `src/pear/derive.py`, run as `python -m pear derive` (writes `build/derived.json`; CI runs it). Tests: `tests/test_derive.py`, one group per section above, on fictional data.
+
+**Two choices that need Serge's decision** (they change which bounds are derived or kept):
+
+- **D1. Bounds compete within their parameters.** A derived bound is dropped only by a result whose parameters (the variables of its O* form) are a subset of its own. This is how §7 ("the projection competes in 'by $n$'") and §9 fit together: without it, every projection would be dropped by the bound it was projected from. Consequence: a derived $1.5^n$ stays as the best bound "by $n$" even when $1.2^k$ (with $k \le n$) is better overall. Each result's `beaten_by` list still names every strictly better bound, so the site can show the overall best too.
+- **D2. Polynomial factors transfer in O\* form.** If the parameter map misses a variable of B's bound that only occurs in factors polynomial in N (e.g. the $n^3$ in $1.2^k n^3$), the O\* form ($1.2^k$) is transferred instead of nothing. This is sound because a polynomial-time reduction produces instances of polynomial size. A strict reading of §2 would transfer nothing.
+
+**Choices that follow from the rules:**
+
+- **Nodes** are version classes: the versions in a `shared_bounds` group form one node (§6). A result's chain never revisits a node, so cycles terminate.
+- **Exact form** of a polynomial-time transfer: the terms of $T_R$, then $\text{calls} \cdot t$ for each term $t$ of $f_B(\varphi)$ (R7), under $O^*$ or $\tilde O$ if B's bound uses it, otherwise $O$.
+- **Amplification** (§4): only calls to a randomized algorithm for B are amplified, by a factor $\log(\text{calls})$, and only when the number of calls is an expression, not a constant.
+- **SERF** (§5): B's bound transfers when the comparator shows it is at least as good as $O^*(2^{\delta q})$ for every $\delta > 0$. This includes $2^{o(q)}$ and $2^{\sqrt q}$, not $1.01^q$. A derived SERF bound has polynomial space only if the reduction records polynomial space.
+- **Keeping** (§9): the filters are those in DESIGN.md (deterministic, polynomial space, constructive, non-algebraic, Lean-verified, include derived) plus classical vs quantum and the set of hypotheses. A result is kept unless another is at least as good a bound (better or equal), at least as good in every filter, and listed under the same parameters or fewer (D1). Direct results are never dropped. Between equal results, the first found stays: direct ones, then shorter chains.
+- **Projections** (§7) remove subtracted terms (all variables are nonnegative) and substitute other variables through the constraints. A projection is kept only if the comparator proves it is implied by the original. It is a chain step of kind `projection` that does not count towards the chain length.
+- **Lean-verified** means every step is `proved` with prover Lean. The `formal` status is the weakest along the chain.
+- **Not used yet:** reduction `variants` (logged at build time). Parameters that exist only in a general version (e.g. a maximum weight set to 1 in the special case) are not substituted, because parameters are defined per problem, not per version.

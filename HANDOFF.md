@@ -13,7 +13,8 @@ Read `CLAUDE.md` first (ground rules), then `docs/PLAN.md` (what and why) and `d
 - **Specs (step 4, agreed 7 November 2026)**: `docs/specs/bounds.md` and `docs/specs/rulebook.md` (rulebook version 1). They added two schema fields: `poly_bounded` on parameters and `constraints` on problems. The SERF definition was checked against the original paper (JCSS 2001, §1.1.4).
 - **Bound language (step 5a, 7 November 2026)**: parser, comparator, O* display, folding and substitution in `src/pear/bounds/`; the validator now parses every bound string in the data.
 - **First data (7 November 2026)**: `data/constants/omega.yaml` and its two papers. Not yet signed off (`review` empty).
-- **Not started**: derivation engine (step 5b); problem data.
+- **Derivation engine (step 5b, 7 November 2026)**: `src/pear/derive.py`, `python -m pear derive` writes `build/derived.json` (run in CI). Two choices await Serge (rulebook implementation notes D1, D2).
+- **Not started**: problem data (step 6).
 - **Drafts exist** for the bound language and chaining rules (in `docs/PLAN.md`); they must be finished **with Serge**.
 
 ## Goal of this session: Phase 1 pilot
