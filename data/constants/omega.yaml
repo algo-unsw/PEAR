@@ -1,0 +1,22 @@
+id: omega
+name: Matrix multiplication exponent
+symbol: "\\omega"
+definition: "The infimum of the real numbers $\\tau$ such that, for every $\\varepsilon > 0$, two $n \\times n$ matrices over $\\mathbb{C}$ can be multiplied in $O_\\varepsilon(n^{\\tau + \\varepsilon})$ arithmetic operations."
+definition_source:
+  paper: openai-2026
+  statements: { preprint: { statement: "Section 1", page: 1 } }
+bounds:
+  - relation: le
+    value: "9/4"
+    status: claimed
+    sources:
+      - paper: openai-2026
+        statements: { preprint: { statement: "Theorem 1.1", page: 1 } }
+      - paper: pass-2026
+        statements: { arxiv-v1: { statement: "Abstract" } }
+        note: "Constructive proof. Theorem number not yet recorded: TODO(verify)."
+  - relation: ge
+    value: "2"
+    sources:
+      - folklore: true
+        note: "Each of the $n^2$ entries of the product needs at least one arithmetic operation."

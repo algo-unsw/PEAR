@@ -1,7 +1,7 @@
 """The bound expression language (docs/specs/bounds.md)."""
 
 from .compare import Context, Relation, best, build_context, compare
-from .display import derived_tex, fold, ostar, ostar_tex, substitute, substitute_bound
+from .display import Display, display, fold, ostar, ostar_tex, substitute, substitute_bound
 from .expr import Bound, BoundSyntaxError, parse_bound, parse_expr, render, render_bound
 from .growth import UnsupportedBound, is_monotone
 
@@ -14,7 +14,8 @@ __all__ = [
     "best",
     "build_context",
     "compare",
-    "derived_tex",
+    "Display",
+    "display",
     "fold",
     "is_monotone",
     "ostar",

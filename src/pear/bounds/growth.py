@@ -52,8 +52,8 @@ Key = tuple[tuple[str, Shape], ...]  # sorted by variable; () is the constant mo
 
 @dataclass(frozen=True)
 class Coef:
-    kind: str  # exact | big | small | family
-    value: float  # exact: the real value; otherwise the sign, +1 or -1
+    kind: str  # exact | big | small | family | sym:<name> (a named constant such as ω)
+    value: float  # exact: the real value; sym: the multiplier; otherwise the sign, +1 or -1
     shift: int = 0  # exact only: sign of an infinitesimal added to value
 
     @property
@@ -91,12 +91,20 @@ def coef_mul(a: Coef, b: Coef) -> Coef:
     if a.kind == "exact":  # exact · unknown
         if a.sign == 0:
             return exact(0)
+        if b.kind.startswith("sym:"):
+            if a.infinitesimal:
+                return Coef("small", a.sign * b.sign)  # ε · ω
+            return Coef(b.kind, a.value * b.value)
         kind = b.kind
         if b.kind == "big" and a.infinitesimal:
             kind = "small"  # ε · O(1)
         return Coef(kind, a.sign * b.sign)
     if a.kind == b.kind and a.kind in ("big", "small"):
         return Coef(a.kind, a.sign * b.sign)
+    if a.kind.startswith("sym:") != b.kind.startswith("sym:"):
+        other = b if a.kind.startswith("sym:") else a
+        if other.kind in ("big", "small"):
+            return Coef(other.kind, a.sign * b.sign)  # ω · O(1)
     raise UnsupportedBound(f"cannot multiply {a.kind} and {b.kind} constants")
 
 
@@ -111,18 +119,21 @@ class Growth:
 
     def add_term(self, key: Key, c: Coef) -> None:
         bucket = self.terms.setdefault(key, [])
-        if c.kind == "exact":
+        if c.kind == "exact" or c.kind.startswith("sym:"):  # these add up symbolically
             for i, old in enumerate(bucket):
-                if old.kind == "exact":
+                if old.kind == c.kind:
                     v = old.value + c.value
                     s = _sgn(old.shift + c.shift) if (old.shift or c.shift) else 0
-                    bucket[i] = Coef("exact", v, s)
+                    bucket[i] = Coef(c.kind, v, s)
                     break
             else:
                 bucket.append(c)
         else:
             bucket.append(c)
-        bucket[:] = [b for b in bucket if not (b.kind == "exact" and abs(b.value) <= EPS and b.shift == 0)]
+        bucket[:] = [
+            b for b in bucket
+            if not ((b.kind == "exact" or b.kind.startswith("sym:")) and abs(b.value) <= EPS and b.shift == 0)
+        ]
         if not bucket:
             del self.terms[key]
 
@@ -211,7 +222,7 @@ def value_growth(node: Node) -> Growth:
             return const(exact(0, +1))  # bounds §2: a positive infinitesimal
         if node.name == "delta":
             return const(Coef("family", 1))
-        raise UnsupportedBound(f"\\{node.name} needs a value in data/constants, which does not exist yet")
+        return const(Coef(f"sym:{node.name}", 1))  # resolved by the comparator (data/constants)
     if isinstance(node, Add):
         out = Growth()
         for sign, t in node.terms:

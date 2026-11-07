@@ -1,8 +1,12 @@
 """Comparison of bounds (docs/specs/bounds.md §5).
 
-Sound but incomplete: `le(A, B)` returns True only if it can prove A = O(B) on all
-inputs. Anything it cannot prove is treated as incomparable, so mistakes can only
-keep too many bounds, never drop a correct best bound.
+`le(A, B)` holds when A's statement implies B's: for every choice of A's unknowns
+(constants hidden by O(·) and O*, o(·) functions, ε) there is a choice of B's
+unknowns with A = O(B) on all inputs. So a more precise bound beats a less precise
+one: k^k beats n^{O(k)} under k ≤ n, and O(1.5^k + kn) beats O*(1.5^k).
+
+Sound but incomplete: anything the comparator cannot prove is treated as
+incomparable, so mistakes can only keep too many bounds, never drop a correct best one.
 """
 
 from __future__ import annotations
@@ -36,6 +40,8 @@ class Context:
     not_poly_bounded: frozenset[str] = frozenset()  # bounds B4: exceptions only
     # x ≤ y^p, from the problem's constraints (bounds B5), transitively closed
     le: dict[tuple[str, str], Fraction] = field(default_factory=dict)
+    # named constants: (best lower bound, best upper bound), from data/constants
+    constants: dict[str, tuple[float, float]] = field(default_factory=dict)
 
     def poly_bounded(self, var: str) -> bool:
         return var in ALWAYS_POLY or var not in self.not_poly_bounded
@@ -50,7 +56,10 @@ class ConstraintError(ValueError):
 
 
 def build_context(
-    symbols: Iterable[str], constraints: Iterable[str] = (), not_poly_bounded: Iterable[str] = ()
+    symbols: Iterable[str],
+    constraints: Iterable[str] = (),
+    not_poly_bounded: Iterable[str] = (),
+    constants: dict[str, tuple[float, float]] | None = None,
 ) -> Context:
     """Parse constraints such as 'k \\le n', 'm \\le n^{2}', 'n \\ge k', 'tw \\le n - 1'."""
     syms = set(symbols)
@@ -70,7 +79,7 @@ def build_context(
                     if (x, z) not in edges or r < edges[(x, z)]:
                         edges[(x, z)] = r
                         changed = True
-    return Context(frozenset(not_poly_bounded), edges)
+    return Context(frozenset(not_poly_bounded), edges, dict(constants or {}))
 
 
 def _parse_constraint(text: str, syms: set[str]) -> list[tuple[str, str, Fraction]]:
@@ -146,25 +155,55 @@ def visible_vars(term: Term, ctx: Context, mode: str = "ostar") -> set[str]:
     return _reduce(term.hi, ctx, mode).variables()
 
 
-def term_le(a: Term, b: Term, ctx: Context, mode: str, same_hidden: bool = False) -> bool:
-    """mode 'ostar' or 'exact'. With same_hidden, both bounds hide the same kind of factor
-    (both O*, or both Õ), so the hidden factors are left out of the exact comparison."""
+def term_le(a: Term, b: Term, ctx: Context, mode: str) -> bool:
+    """Does term a's statement imply term b's? mode 'ostar' drops polynomial factors;
+    'exact' keeps them, including the factors O* and Õ hide (as unknowns)."""
     if a.unspecified is not None:
         return False  # bounds B3: f(k) beats nothing
     if b.unspecified is not None:  # every explicit bound in the same parameter beats f(k)
         return visible_vars(a, ctx) <= set(b.unspecified)
-    a_hi = a.hi if same_hidden else a.hi + a.hidden
-    diff = _reduce(b.lo, ctx, mode) - _reduce(a_hi, ctx, mode)
+    a_hi, b_lo = (a.hi, b.lo) if mode == "ostar" else (a.hi + a.hidden, b.lo + b.hidden)
+    diff = _reduce(b_lo, ctx, mode) - _reduce(a_hi, ctx, mode)
     return _bounded_below(diff, ctx)
 
 
+N_LOG: Key = (("N", (Fraction(0), Fraction(1), Fraction(0))),)
+
+
+def _resolve(cs: list[Coef], ctx: Context) -> list[Coef] | None:
+    """Replace named constants by their safe value: the lower bound where the term helps
+    (positive), the upper bound where it hurts (negative). None if a value is unknown."""
+    out = [c for c in cs if not c.kind.startswith("sym:")]
+    extra = 0.0
+    for c in cs:
+        if c.kind.startswith("sym:"):
+            name = c.kind[4:]
+            if name not in ctx.constants:
+                return None
+            lo, hi = ctx.constants[name]
+            extra += c.value * (lo if c.value > 0 else hi)
+    if abs(extra) > EPS:
+        for i, c in enumerate(out):
+            if c.kind == "exact":
+                out[i] = Coef("exact", c.value + extra, c.shift)
+                break
+        else:
+            out.append(Coef("exact", extra))
+    return out
+
+
 def _bounded_below(g: Growth, ctx: Context) -> bool:
-    """Is this sum of monomials bounded below on all inputs? (sound, incomplete)"""
+    """Is this sum of monomials bounded below on all inputs? Positive coefficients come
+    from the bound that should be larger (its unknowns may be chosen), negative ones
+    from the other (its unknowns are arbitrary). Sound, incomplete."""
     pos: list[list] = []  # [key, coef]
     neg: list[tuple[Key, Coef]] = []
-    for key, cs in g.terms.items():
+    for key, raw in g.terms.items():
         if not key:
             continue
+        cs = _resolve(raw, ctx)
+        if cs is None:
+            return False
         for c in cs:
             if c.sign > 0:
                 pos.append([key, c])
@@ -174,11 +213,13 @@ def _bounded_below(g: Growth, ctx: Context) -> bool:
     for nkey, ncoef in neg:
         for slot in pos:
             pkey, pcoef = slot
+            if pkey == N_LOG and pcoef.kind == "big" and _hidden(nkey, ctx, "ostar"):
+                break  # the polynomial O* hides absorbs any polynomial factor
             dom = _dominates(pkey, nkey, ctx)
             if dom is None:
                 continue
-            if dom == "strict" and pcoef.kind in ("exact", "big") and not pcoef.infinitesimal:
-                break
+            if dom == "strict" and pcoef.sign > 0:
+                break  # a larger shape with any positive coefficient wins
             absorbed, rest = _absorb_same(pcoef, ncoef)
             if absorbed:
                 slot[1] = rest
@@ -201,9 +242,13 @@ def _absorb_same(p: Coef, n: Coef) -> tuple[bool, Coef]:
             s = p.shift + n.shift
             return True, Coef("exact", v, (s > 0) - (s < 0))
         return False, p
+    if p.kind == "big":
+        return True, p  # an unknown constant can be chosen as large as needed
     if n.infinitesimal and not p.infinitesimal and p.sign > 0:
         return True, p  # any positive constant beats an infinitesimal
-    if p.kind == "family" and n.kind in ("small", "family"):
+    if p.kind == "small":
+        return n.kind == "small", p  # o(x) implies o(x); a family does not give one o(x)
+    if p.sign > 0 and n.kind in ("small", "family"):
         return True, p  # 2^{o(n)} implies the family form; equal families coincide
     return False, p
 
@@ -246,6 +291,8 @@ def _dominates(pkey: Key, nkey: Key, ctx: Context) -> str | None:
                     moved = _transport(shape, p) or (shape[0] * p, shape[1], shape[2])
                     if moved < collapsed:
                         return "strict"
+                    if moved == collapsed:
+                        return "weak"
             if weak and all(any(s) and min(s) >= 0 for y, s in pkey if y not in targets):
                 return "weak"
             if strict_ok and lex_less:
@@ -295,8 +342,7 @@ def le(a: Analysed, b: Analysed, ctx: Context, mode: str) -> bool:
     """A = O(B): every term of A is dominated by a single term of B (bounds §5.1)."""
     if a.terms is None or b.terms is None:
         return False
-    same = a.bound.notation == b.bound.notation and a.bound.notation in ("O*", "Õ")
-    return all(any(term_le(x, y, ctx, mode, same) for y in b.terms) for x in a.terms)
+    return all(any(term_le(x, y, ctx, mode) for y in b.terms) for x in a.terms)
 
 
 def compare(a: Bound | Analysed, b: Bound | Analysed, ctx: Context) -> Relation:

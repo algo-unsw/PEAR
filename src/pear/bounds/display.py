@@ -8,6 +8,7 @@ terms; derived bounds additionally get their constants folded, with bases rounde
 from __future__ import annotations
 
 import math
+from dataclasses import dataclass
 from fractions import Fraction
 
 from .compare import Context, _hidden, term_le
@@ -15,7 +16,6 @@ from .expr import (
     Add,
     Asym,
     Bound,
-    Const,
     Div,
     Func,
     Log,
@@ -78,10 +78,10 @@ def _drop_dominated(terms: list[Node], ctx: Context) -> list[Node]:
     for i, t in enumerate(terms):
         dominated = False
         for j in range(len(terms)):
-            if i == j or not term_le(analysed[i], analysed[j], ctx, "ostar", True):
+            if i == j or not term_le(analysed[i], analysed[j], ctx, "ostar"):
                 continue
             # i ≤ j: drop i, unless they are equal and i comes first
-            if term_le(analysed[j], analysed[i], ctx, "ostar", True) and i < j:
+            if term_le(analysed[j], analysed[i], ctx, "ostar") and i < j:
                 continue
             dominated = True
             break
@@ -146,27 +146,32 @@ def simplify(node: Node) -> Node:
     return node
 
 
-def fold(node: Node) -> Node:
-    """Fold constants into bases: 1.2^{2k} becomes 1.44^{k} (bounds §4).
+def fold(node: Node, rounded: bool = False) -> Node:
+    """Fold constants into bases (bounds §4).
 
-    Folds c^{a·x} when a is an integer, or when c is not an integer (so 2^{n/2}
-    stays as written). A base that is not exact to DECIMALS places is rounded up,
-    so the shown bound is still an upper bound.
+    Exact folding (the default) folds c^{a·x} only when c^a is exactly a number with at
+    most DECIMALS decimal places: 1.2^{2k} becomes 1.44^{k}, 2.25^{n/2} becomes 1.5^{n}.
+    Anything else keeps its exact form, since a rounded base is a weaker bound.
+
+    With rounded=True every c^{a·x} is folded and the base rounded up (for the hover).
     """
     if isinstance(node, Pow):
-        base, exp = fold(node.base), fold(node.exp)
+        base, exp = fold(node.base, rounded), fold(node.exp, rounded)
         if isinstance(base, Num) and base.value > 0:
             a, rest = _numeric_coefficient(exp)
             if a is not None and rest is not None and a > 0 and a != 1:
-                if a.denominator == 1 or base.value.denominator != 1:
+                folded = _exact_power(base.value, a)
+                if folded is not None:
+                    return Pow(folded, rest)
+                if rounded:
                     return Pow(_rounded_up_power(base.value, a), rest)
         return Pow(base, exp)
     if isinstance(node, Mul):
-        return simplify(Mul(tuple(fold(f) for f in node.factors)))
+        return simplify(Mul(tuple(fold(f, rounded) for f in node.factors)))
     if isinstance(node, Add):
-        return Add(tuple((s, fold(t)) for s, t in node.terms))
+        return Add(tuple((s, fold(t, rounded)) for s, t in node.terms))
     if isinstance(node, Div):
-        return Div(fold(node.num), fold(node.den))
+        return Div(fold(node.num, rounded), fold(node.den, rounded))
     return node
 
 
@@ -182,17 +187,29 @@ def _numeric_coefficient(exp: Node) -> tuple[Fraction | None, Node | None]:
     return None, None
 
 
+def _exact_power(c: Fraction, a: Fraction) -> Num | None:
+    """c^a if it is exactly a number with at most DECIMALS decimal places, else None."""
+    scale = 10**DECIMALS
+    if a.denominator == 1:
+        value = c ** int(a)
+    else:
+        guess = Fraction(round(float(c) ** float(a) * scale), scale)
+        if guess <= 0 or guess ** a.denominator != c ** a.numerator:
+            return None
+        value = guess
+    if (value * scale).denominator != 1:
+        return None
+    return num(value)
+
+
 def _rounded_up_power(c: Fraction, a: Fraction) -> Num:
     scale = 10**DECIMALS
     if a.denominator == 1:
-        exact_value = c ** int(a)
-        scaled = exact_value * scale
-        if scaled.denominator == 1:
-            return num(exact_value)
-        return Num(Fraction(math.ceil(scaled), scale), _fixed(Fraction(math.ceil(scaled), scale)))
-    value = float(c) ** float(a)
-    up = math.ceil(value * scale * (1 + 1e-12))
-    return Num(Fraction(up, scale), _fixed(Fraction(up, scale)))
+        up = math.ceil(c ** int(a) * scale)
+    else:
+        up = math.ceil(float(c) ** float(a) * scale * (1 + 1e-12))
+    v = Fraction(up, scale)
+    return Num(v, _fixed(v))
 
 
 def _fixed(v: Fraction) -> str:
@@ -200,9 +217,21 @@ def _fixed(v: Fraction) -> str:
     return text if Fraction(text) == v else format_number(v)
 
 
-def derived_tex(b: Bound, ctx: Context) -> str:
-    """How a derived bound is shown: O* form of the folded expression."""
-    return ostar_tex(Bound(b.notation, fold(b.expr), b.family), ctx)
+@dataclass(frozen=True)
+class Display:
+    """How a bound is shown: the O* form, and an optional hover with folded bases."""
+
+    tex: str
+    hover: str | None = None
+
+
+def display(b: Bound, ctx: Context, derived: bool = False) -> Display:
+    """Stated bounds keep the paper's form; derived bounds get exact folds. If folding
+    with rounded-up bases reads differently, it is offered as the hover (bounds §4)."""
+    shown = Bound(b.notation, fold(b.expr) if derived else b.expr, b.family)
+    tex = ostar_tex(shown, ctx)
+    hover = ostar_tex(Bound(b.notation, fold(b.expr, rounded=True), b.family), ctx)
+    return Display(tex, hover if hover != tex else None)
 
 
 __all__ = [
@@ -212,6 +241,6 @@ __all__ = [
     "substitute_bound",
     "simplify",
     "fold",
-    "derived_tex",
-    "Const",
+    "Display",
+    "display",
 ]

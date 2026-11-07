@@ -1,0 +1,9 @@
+id: pass-2026
+title: "Matrix Multiplication from Polynomial Packings: A Constructive and Elementary Proof of $\\omega \\le 9/4$"
+authors: [Rafael Pass]
+versions:
+  arxiv-v1:
+    kind: preprint
+    arxiv: "2610.28627"
+    year: 2026
+    open_access: true

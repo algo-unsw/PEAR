@@ -23,6 +23,7 @@ HYP_H = ("hypotheses", "hypothesis-h")
 HYP_G = ("hypotheses", "hypothesis-g")
 LB = ("lower-bounds", "problem-a--n--author-example-2000")
 PARAM = ("parameters", "example-width")
+CONST = ("constants", "omega")
 
 
 @pytest.fixture(scope="module")
@@ -134,6 +135,12 @@ CASES = [
     ("parameter map that does not parse", RED, _set("parameter_map.k", "k +"), "parameter_map.k"),
     ("parameter map using target-only variable", RED, _set("parameter_map.k", "w"), "unknown variable"),
     ("constraint with unknown variable", PA, _set("constraints.0.constraint", "k \\le zz"), "constraints"),
+    # named constants (bounds §2)
+    ("constant with unknown symbol", CONST, _set("symbol", "\\theta"), "not a named constant"),
+    ("constant value not a number", CONST, _set("bounds.0.value", "n"), "is not a number"),
+    ("constant without upper bound", CONST, _set("bounds.0.status", "refuted"), "needs at least one upper bound"),
+    ("constant bounds cross", CONST, _set("bounds.1.value", "3"), "exceeds upper bound"),
+    ("constant source paper unknown", CONST, _set("bounds.0.sources.0.paper", "nope"), "unknown paper 'nope'"),
     ("hypothesis implies itself", HYP_H, _set("implies", ["hypothesis-h"]), "cannot imply itself"),
     ("hypothesis implies unknown", HYP_H, _set("implies", ["nope"]), "unknown hypothesis 'nope'"),
     ("lower bound unknown version", LB, _set("version", "search-x"), "has no version 'search-x'"),
@@ -189,3 +196,25 @@ def test_wrong_extension_and_location(tmp_path):
     text = [str(i) for i in issues]
     assert any("use the .yaml extension" in t for t in text)
     assert any("unexpected location" in t for t in text)
+
+
+def test_bound_using_a_constant_needs_its_entry(fixture_raw):
+    raw, redirects = fixture_raw
+    raw = copy.deepcopy(raw)
+    raw["algorithms"]["problem-a--k--author-example-2000"]["bound"]["as_stated"] = "O(1.5^{k} + k n^{\\omega})"
+    _, issues = validate_raw(raw, redirects)
+    assert [str(i) for i in issues] == []
+    del raw["constants"]["omega"]
+    _, issues = validate_raw(raw, redirects)
+    assert any("data/constants/omega.yaml does not exist" in str(i) for i in issues)
+
+
+def test_problem_context_uses_data(fixture_raw):
+    from pear.validate import problem_context
+
+    raw, redirects = fixture_raw
+    data, _ = validate_raw(copy.deepcopy(raw), redirects)
+    ctx = problem_context(data, data.problems["problem-b"])
+    assert not ctx.poly_bounded("t") and ctx.poly_bounded("k")
+    assert ctx.constants == {"omega": (2.0, 2.5)}
+    assert problem_context(data, data.problems["problem-a"]).relation("k", "n") == 1

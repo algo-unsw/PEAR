@@ -418,6 +418,27 @@ class Hypothesis(Model):
         return self
 
 
+class ConstantBound(Model):
+    """One bound on a named constant, e.g. ω ≤ 9/4."""
+
+    relation: Literal["le", "ge"]
+    value: Text  # a number in the bound language, e.g. "9/4" or "2.371339"
+    status: Literal["established", "claimed", "refuted"] = "established"
+    sources: list[Source] = Field(min_length=1)
+
+
+class NamedConstant(Model):
+    """A constant such as ω that bounds may use symbolically (bounds §2)."""
+
+    id: Id
+    name: Text
+    symbol: Text  # the TeX command, e.g. "\\omega"
+    definition: Text
+    definition_source: Source | None = None
+    bounds: list[ConstantBound] = Field(min_length=1)
+    review: Review = Review()
+
+
 class LowerBound(Model):
     id: Id
     problem: Id
@@ -437,4 +458,5 @@ ENTITY_TYPES: dict[str, type[Model]] = {
     "reductions": Reduction,
     "hypotheses": Hypothesis,
     "lower-bounds": LowerBound,
+    "constants": NamedConstant,
 }

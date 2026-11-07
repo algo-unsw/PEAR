@@ -13,7 +13,7 @@ from pear.bounds import (
     best,
     build_context,
     compare,
-    derived_tex,
+    display,
     is_monotone,
     ostar_tex,
     parse_bound,
@@ -24,7 +24,9 @@ from pear.bounds import (
 from pear.bounds.compare import ConstraintError
 
 SYMS = {"n", "m", "N", "k", "tw", "t"}
-CTX = build_context(SYMS, [r"k \le n", r"m \le n^{2}", r"tw \le n - 1"], not_poly_bounded=["t"])
+CTX = build_context(
+    SYMS, [r"k \le n", r"m \le n^{2}", r"tw \le n - 1"], not_poly_bounded=["t"], constants={"omega": (2.0, 2.25)}
+)
 BARE = build_context(SYMS)
 
 
@@ -104,10 +106,10 @@ def rel(a: str, b: str, ctx=CTX) -> str:
         (r"O((2-\varepsilon)^{n})", r"O(2^{n})", "<", "2 - ε beats 2"),
         (r"O(1.99^{n})", r"O((2-\varepsilon)^{n})", "<", "any explicit base below 2 beats 2 - ε"),
         # asymptotics inside exponents (§2, §5.2)
-        (r"O^*(2^{O(\sqrt{k})})", r"O^*(2^{\sqrt{k}})", "?", "unknown constant, same shape"),
-        (r"O^*(2^{O(\sqrt{k})})", r"O^*(2^{O(\sqrt{k})})", "?", "two unknown constants"),
+        (r"O^*(2^{\sqrt{k}})", r"O^*(2^{O(\sqrt{k})})", "<", "more precise beats less precise"),
+        (r"O^*(2^{O(\sqrt{k})})", r"O^*(2^{O(\sqrt{k})})", "=", "the same statement"),
         (r"O^*(2^{O(\sqrt{k})})", r"O^*(1.01^{k})", "<", "unknown constant, smaller shape"),
-        (r"2^{o(n)}", r"O^*(2^{\sqrt{n}})", "?", "o(n) may be larger than sqrt(n)"),
+        (r"O^*(2^{\sqrt{n}})", r"2^{o(n)}", "<", "an explicit o(n) exponent is more precise"),
         # families (§2)
         (r"2^{o(n)}", r"O(2^{\delta n}) \text{ for every } \delta > 0", "<", "one algorithm beats a family"),
         (r"O(2^{\delta n}) \text{ for every } \delta > 0", r"O(1.01^{n})", "<", "family beats any c^n"),
@@ -117,16 +119,23 @@ def rel(a: str, b: str, ctx=CTX) -> str:
         (r"O^*(2^{\mathit{tw}})", r"O^*(2^{n})", "<", "tw ≤ n - 1"),
         (r"O^*(2^{m})", r"O^*(2^{n^{2}})", "<", "m ≤ n^2"),
         (r"O^*(2^{k})", r"n^{O(k)}", "<", "mixed monomial, collapsed through k ≤ n"),
-        (r"O^*(k^{k})", r"n^{O(k)}", "?", "k log k vs c k log n with c unknown"),
+        (r"O^*(k^{k})", r"n^{O(k)}", "<", "k^k ≤ n^k is an instance of n^{O(k)}"),
         (r"O^*(1.5^{n-k})", r"O^*(1.5^{n})", "<", "composite parameter"),
         # terms (§5.1)
         (r"O(1.5^{k} + kn)", r"O(1.5^{k} k n)", "<", "sum dominated term by term"),
         # O* first, then exact forms (§5.4, B6)
         (r"O(2^{n} n)", r"O(2^{n} n^{2})", "<", "equal in O*, smaller polynomial"),
         (r"O(1.5^{k} k)", r"O(1.5^{k} + kn)", "~", "equal in O*, exact forms incomparable"),
-        (r"O(1.5^{k} + kn)", r"O^*(1.5^{k})", "~", "hidden polynomial is unknown"),
-        (r"\tilde{O}(2^{n})", r"O(2^{n} n)", "~", "hidden polylog is unknown"),
-        (r"O^*(2^{k})", r"O^*(2^{k} n^{O(1)})", "<", "both O*: compare what is stated"),
+        (r"O(1.5^{k} + kn)", r"O^*(1.5^{k})", "<", "explicit polynomial beats a hidden one"),
+        (r"O(2^{n} n)", r"\tilde{O}(2^{n})", "<", "explicit factor beats hidden polylog"),
+        (r"O^*(2^{k})", r"O^*(2^{k} n^{O(1)})", "=", "the same statement"),
+        # named constants (§2): symbolic, resolved with data/constants
+        (r"O(n^{\omega})", r"O(n^{\omega})", "=", "the same symbol"),
+        (r"O(n^{\omega})", r"O(n^{\omega} \log n)", "<", "symbol cancels"),
+        (r"O(n^{\omega})", r"O(n^{2.3})", "<", "omega ≤ 2.25"),
+        (r"O(n^{\omega})", r"O(n^{2.2})", "~", "omega may be above 2.2"),
+        (r"O(n^{2})", r"O(n^{\omega})", "<", "omega ≥ 2"),
+        (r"O^*(n^{\omega k/3})", r"O^*(n^{0.76 k})", "<", "omega/3 ≤ 0.75"),
         # polynomially bounded variables (B4)
         (r"O(nt)", r"O(nt^{2})", "<", "t is not polynomially bounded"),
         (r"O(n^{2} t)", r"O(nt^{2})", "<", "O* keeps t but drops n^2"),
@@ -140,6 +149,10 @@ def test_compare(a, b, expected, rule):
     assert rel(a, b) == expected, rule
     mirror = {"<": ">", ">": "<"}.get(expected, expected)
     assert rel(b, a) == mirror, f"{rule} (mirrored)"
+
+
+def test_named_constants_need_values():
+    assert rel(r"O(n^{\omega})", r"O(n^{2.3})", BARE) == "~"
 
 
 def test_constraints_are_needed_across_variables():
@@ -197,27 +210,36 @@ def test_ostar_display(src, shown):
 
 
 @pytest.mark.parametrize(
-    ("bound", "mapping", "exact", "shown"),
+    ("bound", "mapping", "exact", "shown", "hover"),
     [
-        (r"O^*(1.2^{k})", {"k": "2k"}, r"O^*(1.2^{2 k})", r"O^*(1.44^{k})"),  # the plan's example
-        (r"O(1.2738^{k} + kn)", {"k": "2k"}, r"O(1.2738^{2 k} + 2 k n)", r"O^*(1.6226^{k})"),  # rounded up
-        (r"O^*(1.5^{k})", {"k": "n/2"}, r"O^*(1.5^{n/2})", r"O^*(1.2248^{n})"),  # rounded up
-        (r"O^*(2^{k})", {"k": "n/2"}, r"O^*(2^{n/2})", r"O^*(2^{n/2})"),  # natural form kept
-        (r"O^*(3^{k})", {"k": "2k"}, r"O^*(3^{2 k})", r"O^*(9^{k})"),
-        (r"O^*(1.5^{k})", {"k": "n - k"}, r"O^*(1.5^{n - k})", r"O^*(1.5^{n - k})"),
-        (r"O^*(k^{k})", {"k": "2k"}, r"O^*((2 k)^{2 k})", r"O^*((2 k)^{2 k})"),
+        (r"O^*(1.2^{k})", {"k": "2k"}, r"O^*(1.2^{2 k})", r"O^*(1.44^{k})", None),  # the plan's example
+        (r"O^*(3^{k})", {"k": "2k"}, r"O^*(3^{2 k})", r"O^*(9^{k})", None),
+        (r"O^*(2.25^{k})", {"k": "n/2"}, r"O^*(2.25^{n/2})", r"O^*(1.5^{n})", None),  # exact square root
+        # folding would need rounding: keep the exact form, offer the fold on hover
+        (r"O(1.2738^{k} + kn)", {"k": "2k"}, r"O(1.2738^{2 k} + 2 k n)", r"O^*(1.2738^{2 k})", r"O^*(1.6226^{k})"),
+        (r"O^*(1.5^{k})", {"k": "n/2"}, r"O^*(1.5^{n/2})", r"O^*(1.5^{n/2})", r"O^*(1.2248^{n})"),
+        (r"O^*(2^{k})", {"k": "n/2"}, r"O^*(2^{n/2})", r"O^*(2^{n/2})", r"O^*(1.4143^{n})"),
+        (r"O^*(1.5^{k})", {"k": "n - k"}, r"O^*(1.5^{n - k})", r"O^*(1.5^{n - k})", None),
+        (r"O^*(k^{k})", {"k": "2k"}, r"O^*((2 k)^{2 k})", r"O^*((2 k)^{2 k})", None),
     ],
 )
-def test_substitution_and_folding(bound, mapping, exact, shown):
+def test_substitution_and_folding(bound, mapping, exact, shown, hover):
     b = substitute_bound(P(bound), {v: parse_expr(e, SYMS) for v, e in mapping.items()})
     assert render_bound(b) == exact
-    assert derived_tex(b, CTX) == shown
+    d = display(b, CTX, derived=True)
+    assert (d.tex, d.hover) == (shown, hover)
 
 
-def test_rounded_bases_stay_upper_bounds():
+def test_stated_bounds_are_never_folded():
+    d = display(P(r"O^*(1.2^{2k})"), CTX)
+    assert d.tex == r"O^*(1.2^{2 k})" and d.hover == r"O^*(1.44^{k})"
+
+
+def test_shown_bound_is_exact_and_hover_is_an_upper_bound():
     b = substitute_bound(P(r"O^*(1.2738^{k})"), {"k": parse_expr("2k", SYMS)})
-    shown = parse_bound(derived_tex(b, CTX), SYMS)
-    assert compare(b, shown, CTX) in (Relation.BETTER, Relation.EQUAL)
+    d = display(b, CTX, derived=True)
+    assert compare(b, parse_bound(d.tex, SYMS), CTX) == Relation.EQUAL
+    assert compare(b, parse_bound(d.hover, SYMS), CTX) == Relation.BETTER
 
 
 # --- rulebook A2: monotonicity ------------------------------------------------------------

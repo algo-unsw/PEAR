@@ -9,9 +9,10 @@ from typing import Any
 import yaml
 from pydantic import ValidationError
 
-from .bounds import BoundSyntaxError, build_context, parse_bound, parse_expr
+from .bounds import BoundSyntaxError, Context, build_context, parse_bound, parse_expr
 from .bounds.compare import ConstraintError
-from .bounds.expr import variables
+from .bounds.expr import _CONST_CMDS, constants, variables
+from .bounds.growth import UnsupportedBound, value_growth
 from .schema import (
     ENTITY_TYPES,
     Algorithm,
@@ -19,6 +20,7 @@ from .schema import (
     Hypothesis,
     LowerBound,
     Model,
+    NamedConstant,
     Paper,
     PaperSource,
     Problem,
@@ -268,6 +270,14 @@ def check_references(data: Dataset) -> list[Issue]:
         known_hypotheses(f"{where}: conditional_on", lb.conditional_on)
         source(f"{where}: source", lb.source)
 
+    for cid, const in data.entries["constants"].items():
+        assert isinstance(const, NamedConstant)
+        where = f"constants/{cid}.yaml"
+        source(f"{where}: definition_source", const.definition_source)
+        for i, cb in enumerate(const.bounds):
+            for j, s in enumerate(cb.sources):
+                source(f"{where}: bounds.{i}.sources.{j}", s)
+
     # A reference to an entry that failed its own checks is already reported there.
     kinds = {"problems": "problem", "papers": "paper", "hypotheses": "hypothesis", "parameters": "shared parameter"}
     already = {f"unknown {kinds[folder]} '{eid}'" for folder, eid in data.invalid if folder in kinds}
@@ -290,6 +300,9 @@ def check_expressions(data: Dataset) -> list[Issue]:
             issues.append(
                 Issue(f"{where}.notation", f"'{b.notation}' does not match the notation of as_stated ('{parsed.notation or 'O'}')")
             )
+        for name in sorted(constants(parsed.expr) - {"varepsilon", "delta"}):
+            if name not in data.entries["constants"]:
+                issues.append(Issue(f"{where}.as_stated", f"uses \\{name}, but data/constants/{name}.yaml does not exist"))
         used = variables(parsed.expr)
         if used != set(b.parameters):
             issues.append(
@@ -309,6 +322,20 @@ def check_expressions(data: Dataset) -> list[Issue]:
             build_context(problem.symbols(), [c.constraint for c in problem.constraints])
         except (BoundSyntaxError, ConstraintError) as exc:
             issues.append(Issue(f"problems/{pid}.yaml: constraints", str(exc)))
+
+    for cid, const in data.entries["constants"].items():
+        assert isinstance(const, NamedConstant)
+        where = f"constants/{cid}.yaml"
+        if _CONST_CMDS.get(const.symbol) != cid or cid in ("varepsilon", "delta"):
+            issues.append(Issue(f"{where}: symbol", f"'{const.symbol}' is not a named constant the parser knows as '{cid}'"))
+        for i, cb in enumerate(const.bounds):
+            if constant_value(cb.value) is None:
+                issues.append(Issue(f"{where}: bounds.{i}.value", f"'{cb.value}' is not a number"))
+        lo, hi = constant_range(const)
+        if hi is None:
+            issues.append(Issue(f"{where}: bounds", "needs at least one upper bound that is not refuted"))
+        elif lo > hi:
+            issues.append(Issue(f"{where}: bounds", f"lower bound {lo} exceeds upper bound {hi}"))
 
     for aid, alg in data.entries["algorithms"].items():
         assert isinstance(alg, Algorithm)
@@ -332,6 +359,47 @@ def check_expressions(data: Dataset) -> list[Issue]:
         for var, rhs in red.parameter_map.items():
             expr(f"{where}: parameter_map.{var}", source, rhs)
     return issues
+
+
+def constant_value(text: str) -> float | None:
+    try:
+        g = value_growth(parse_expr(text, ()))
+    except (BoundSyntaxError, UnsupportedBound):
+        return None
+    if not g.terms:
+        return 0.0
+    s = g.single()
+    if s is None or s[0] != () or s[1].kind != "exact" or s[1].shift:
+        return None
+    return s[1].value
+
+
+def constant_range(const: NamedConstant) -> tuple[float, float | None]:
+    """Best known (lower, upper) bounds; claimed bounds count, refuted ones do not."""
+    lows = [constant_value(b.value) for b in const.bounds if b.relation == "ge" and b.status != "refuted"]
+    highs = [constant_value(b.value) for b in const.bounds if b.relation == "le" and b.status != "refuted"]
+    lows = [v for v in lows if v is not None]
+    highs = [v for v in highs if v is not None]
+    return (max(lows) if lows else 0.0, min(highs) if highs else None)
+
+
+def problem_context(data: Dataset, problem: Problem) -> Context:
+    """Everything the comparator needs about one problem (bounds B4, B5, §2)."""
+    shared = data.entries["parameters"]
+    not_poly = []
+    for symbol, entry in problem.parameters.items():
+        if isinstance(entry, SharedParameterRef):
+            param = shared.get(entry.shared)
+            if param is not None and not param.poly_bounded:  # type: ignore[attr-defined]
+                not_poly.append(symbol)
+        elif not entry.poly_bounded:
+            not_poly.append(symbol)
+    consts = {}
+    for cid, const in data.entries["constants"].items():
+        lo, hi = constant_range(const)  # type: ignore[arg-type]
+        if hi is not None:
+            consts[cid] = (lo, hi)
+    return build_context(problem.symbols(), [c.constraint for c in problem.constraints], not_poly, consts)
 
 
 def validate_raw(raw: dict[str, dict[str, Any]], redirects: Any = None) -> tuple[Dataset, list[Issue]]:
