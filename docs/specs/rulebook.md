@@ -113,6 +113,7 @@ Later the same day:
 - **Long chains** (version 2): followed as long as they improve results; the ten-step limit is dropped (§9).
 - **D2** (version 2): polynomial factors transfer in O\* form when the parameter map does not cover them (§2).
 - **Projections** (version 2): every bound is projected through the constraints, not just composite derived ones (§7).
+- **D1**: bounds compete within their parameters (implementation notes).
 
 The questions as asked:
 
@@ -128,9 +129,9 @@ The questions as asked:
 
 Code: `src/pear/derive.py`, run as `python -m pear derive` (writes `build/derived.json`: every kept result for the Details tab, and under `overview` what the Overview tab shows, per problem and node; CI runs it). Tests: `tests/test_derive.py`, one group per section above, on fictional data.
 
-**Two choices put to Serge** (they change which bounds are derived or kept):
+**Two choices agreed with Serge on 7 November 2026** (they change which bounds are derived or kept):
 
-- **D1. Bounds compete within their parameters.** A derived bound is dropped only by a result whose parameters (the variables of its O* form) are a subset of its own. This is how §7 ("the projection competes in 'by $n$'") and §9 fit together: without it, every projection would be dropped by the bound it was projected from. Since every bound is projected (§7), the bounds kept "by $n$" are the best bounds expressible in $n$. For example, with $k \le n$, $1.2^k$ gives $1.2^n$, which drops a derived $1.5^n$. The Overview still shows only $1.2^k$, which beats $1.2^n$. Each result's `beaten_by` list names every strictly better bound.
+- **D1. Bounds compete within their parameters.** A derived bound is dropped only by a result whose parameters (the variables of its O* form) are a subset of its own. This is how §7 ("the projection competes in 'by $n$'") and §9 fit together: without it, every projection would be dropped by the bound it was projected from. Since every bound is projected (§7), the bounds kept "by $n$" are the best bounds expressible in $n$. For example, with $k \le n$, $1.2^k$ gives $1.2^n$, which drops a derived $1.5^n$. The Overview still shows only $1.2^k$, which beats $1.2^n$. Each result's `beaten_by` list names every strictly better bound. **Decided 7 November 2026: yes.**
 - **D2. Polynomial factors transfer in O\* form.** If the parameter map misses a variable of B's bound that only occurs in factors polynomial in N (e.g. the $n^3$ in $1.2^k n^3$), the O\* form ($1.2^k$) is transferred instead of nothing. This is sound because a polynomial-time reduction produces instances of polynomial size. A strict reading of §2 would transfer nothing. **Decided 7 November 2026: yes**; now part of §2.
 
 **Choices that follow from the rules:**

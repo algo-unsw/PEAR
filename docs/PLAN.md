@@ -216,6 +216,8 @@ Clicking a parameter on a problem page opens the history of the best running tim
 - The Overview tab (the default view) shows the best non-quantum bound obtained by any means (direct or derived); it is not a separate section. The Details tab keeps the filters. If two bounds are equivalent (equal in O* form), the earlier is cited, by year; all are cited in case of a tie.
 - Chains of reductions are followed as long as they improve results (rulebook version 2).
 - When a reduction's parameter map misses a variable that only occurs in a polynomial factor, the O* form transfers (rulebook version 2, D2).
+- Every bound, direct or derived, is projected onto single parameters through the constraints, and bounds compete within their parameters (rulebook version 2, D1): the bounds kept "by n" are the best expressible in n.
+- Reduction variants are slight modifications of a reduction: another parameter map, an added known step such as a kernelization, or the same construction between other problems or versions. Site-written variants need Serge's approval (schema §6).
 
 ### Data schema (decided 7 November 2026)
 
