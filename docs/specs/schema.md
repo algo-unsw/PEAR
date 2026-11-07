@@ -274,6 +274,29 @@ problems: { old-id: new-id }
 
 Every entry has `review: { approved_by, date }`, both `null` until approved. Final sign-off on pilot data is Serge's alone (Q7), so the validator accepts only `approved_by: Serge Gaspers`.
 
+## 11. Named constant (agreed 7 November 2026)
+
+Constants that bounds use symbolically, such as $\omega$ (bounds §2). The comparator uses the best lower and upper bounds that are not refuted. Changing a constant's bounds can change best bounds, so it is high risk (CLAUDE.md rule 6).
+
+```yaml
+# data/constants/omega.yaml
+id: omega                             # must match the parser's name for the symbol
+name: Matrix multiplication exponent
+symbol: "\\omega"
+definition: "…"
+definition_source: { paper: …, statements: { …: { statement: "Section 1", page: 1 } } }
+bounds:
+  - relation: le                      # le | ge
+    value: "9/4"                      # a number in the bound language
+    status: claimed                   # established | claimed | refuted
+    sources: [ … ]                    # one or more, each as in §4
+  - relation: ge
+    value: "2"
+    sources: [ { folklore: true, note: "…" } ]
+```
+
+The validator checks that every constant used in a bound has an entry, that values are numbers, that at least one upper bound is not refuted, and that the bounds do not cross.
+
 ## Decisions (7 November 2026)
 
 - **Q1** Paper IDs are surname+year slugs; DBLP key stored under `identifiers`.
@@ -283,6 +306,7 @@ Every entry has `review: { approved_by, date }`, both `null` until approved. Fin
 - **Q5** Lower bounds are in the schema; none entered in the pilot. Hypotheses not claimed refuted remain valid bases.
 - **Q6** Optional, display-only randomized-error detail.
 - **Q7** Serge alone gives final sign-off on pilot data.
+- **Named constants** (§11, agreed later the same day): `data/constants/`, with sourced bounds marked established, claimed or refuted. Claimed bounds count in comparisons. The matrix multiplication exponent is always written `\omega`, never `\Omega` (`\Omega` stays available for other uses).
 
 ## Implementation notes
 

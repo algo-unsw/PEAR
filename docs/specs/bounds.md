@@ -43,7 +43,7 @@ A bound is an upper bound on the worst-case running time, as a function of the v
 - **Asymptotics inside exponents.** `2^{O(\sqrt{k})}` means $2^{c\sqrt{k}}$ for some unknown constant $c > 0$. `n^{O(k)}` means $n^{ck}$ for some $c$. `2^{o(n)}` means one algorithm with time $2^{g(n)}$ for some $g = o(n)$.
 - **Families of algorithms.** "For every $\delta > 0$ there is an $O(2^{\delta n})$-time algorithm" is weaker than `2^{o(n)}` (the algorithm may depend on $\delta$), and is written `O(2^{\delta n}) \text{ for every } \delta > 0`. Both forms beat every $c^n$ with explicit $c > 1$; they are kept distinct because hypotheses such as ETH are stated in the family form.
 - **Non-explicit constants** (plan rule). `(2-\varepsilon)^n` means "for some unknown $\varepsilon > 0$". It is treated as a positive infinitesimal: $(2-\varepsilon)^n$ beats $2^n$, but every explicit $c < 2$ beats $(2-\varepsilon)^n$.
-- **`\omega`** and other named constants are kept symbolic in the stored and displayed bound. Comparisons use their best known upper bound, recorded with a source in `data/constants/`, so a bound stated in $\omega$ improves automatically when $\omega$'s bound does.
+- **`\omega`** and other named constants are kept symbolic in the stored and displayed bound. Comparisons cancel them symbolically ($n^\omega$ equals $n^\omega$) and otherwise use the best known lower and upper bounds recorded with sources in `data/constants/` (schema §11). So a bound stated in $\omega$ improves automatically when $\omega$'s bound does. Claimed bounds count; refuted ones do not. Currently: $2 \le \omega \le 9/4$, the upper bound claimed (decided 7 November 2026).
 - **`f(k)`** is an unspecified computable function (B3).
 
 ## 3. Internal normal form (for comparison only)
@@ -79,14 +79,21 @@ Bounds are displayed in their **natural form** (B2): the stated factors, as writ
 
 **Derived bounds.** Substitution (rulebook §2) produces new expressions, which are simplified only within the natural form:
 
-- folding constants, so $1.2^{2k}$ becomes $1.44^{k}$;
+- folding constants **only when the result is exact**, with at most four decimals: $1.2^{2k}$ becomes $1.44^{k}$, and $2.25^{n/2}$ becomes $1.5^n$;
 - collecting like factors.
 
-A computed base is **rounded up**, never down, to four decimal places, so the shown bound is still an upper bound. The unrounded value is kept in the build output. A substituted expression with no simpler natural form stays as it is: $1.5^{\,n-k}$, $(2k)^{2k}$.
+A fold that would need rounding is **not** made, because a rounded-up base is a weaker bound. The exact form is shown, and the fold, with its base rounded up to four decimals, appears on **hover**: $1.5^{n/2}$ shows $1.2248^n$ on hover, and $1.2738^{2k}$ shows $1.6226^k$ (decided 7 November 2026). The same hover is offered for stated bounds such as $2^{n/2}$ (hover $1.4143^n$); stated bounds themselves are never folded. A substituted expression with no simpler natural form stays as it is: $1.5^{\,n-k}$, $(2k)^{2k}$.
 
 ## 5. Comparison
 
-$A \preceq B$ ("$A$ is at least as good as $B$") means $A = O(B)$ on all inputs. The comparator proves it from the normal forms:
+$A \preceq B$ ("$A$ is at least as good as $B$") means **$A$'s statement implies $B$'s**: whatever the unknowns in $A$ are (constants hidden by $O(\cdot)$, the polynomial hidden by $O^*$, an $o(\cdot)$ function, $\varepsilon$), $B$'s unknowns can be chosen so that $A = O(B)$ on all inputs. So **a more precise bound beats a less precise one** (decided 7 November 2026):
+
+- $k^k$ beats $n^{O(k)}$ under $k \le n$;
+- $O(1.5^k + kn)$ beats $O^*(1.5^k)$, and $O(2^n n)$ beats $\tilde O(2^n)$;
+- $2^{\sqrt{k}}$ beats $2^{O(\sqrt{k})}$, and $2^{\sqrt{n}}$ beats $2^{o(n)}$;
+- identical statements, such as two copies of $2^{O(\sqrt{k})}$, are equal.
+
+The comparator proves it from the normal forms:
 
 1. **Terms.** $A \preceq B$ if every term of $A$ is dominated by some single term of $B$ (sound; a term dominated only by a sum of terms is reported incomparable).
 2. **Monomials, one variable.** Order by $\alpha$, then $\beta$, then $\gamma$, then coefficient: e.g. $2^{\sqrt{k}} \prec 1.1^k \prec 1.5^k \prec k^k$. Coefficients compare as real numbers with infinitesimal shifts. An unknown constant from `O(·)` compares only against a strictly smaller or larger shape, never against the same shape.
@@ -99,8 +106,22 @@ The best bounds of a problem (under any chosen filter) are the bounds no other b
 ## Decisions (7 November 2026)
 
 - **B1** `as_stated` is a TeX subset, notation included, rendered directly.
-- **B2** The coverage of §3 is accepted, and the normal form is internal only. Bounds are always displayed in their natural form ($k^k$, not $2^{k\log k}$). Derived bases are folded and rounded up.
+- **B2** The coverage of §3 is accepted, and the normal form is internal only. Bounds are always displayed in their natural form ($k^k$, not $2^{k\log k}$). Derived bases are folded only when exact; a fold that needs rounding is shown on hover, rounded up (amended 7 November 2026).
 - **B3** Unspecified $f(k)$ is beaten by every explicit bound in the same parameter and beats nothing.
 - **B4** Every variable is polynomially bounded in N by default, silently. Exceptions are marked `poly_bounded: false`.
 - **B5** Problems declare parameter constraints, each with a justification.
 - **B6** Bounds equal in O* with incomparable exact forms are both kept. The Details view shows both, and the Overview shows the earlier one.
+- **Precision** (7 November 2026). A more precise bound beats a less precise one: comparison is implication between statements (§5).
+- **$\omega$** (7 November 2026). $\omega \le 9/4$ is recorded as claimed and used in comparisons.
+
+## Implementation notes (step 5)
+
+Code: `src/pear/bounds/` (`expr.py` parser and renderer, `growth.py` normal form, `compare.py` comparator, `display.py` O* form and folding). Tests: `tests/test_bounds.py`, one group per section above. These choices follow from the agreed rules; none changes them.
+
+- **Supported class.** Inside exponents: sums, products, constant powers, roots, logarithms of single monomials, `O(·)`, `o(·)`, $\varepsilon$, $\delta$. As factors: numbers, variables, powers, logarithms, `\mathrm{poly}(x)`, `O(·)`, sums of positive terms (estimated safely: $a + b \le 2ab$ for an upper bound, $a$ for a lower bound) and $c - \varepsilon$ as a base. Anything else, such as the logarithm of a sum, is outside the class: such a bound is **kept and treated as incomparable**, never rejected and never compared wrongly.
+- **Named constants.** A coefficient involving $\omega$ stays symbolic and cancels exactly. Whatever is left is replaced by the safe value: the lower bound where it helps the bound that should be larger, the upper bound where it hurts. Without a `data/constants/` entry, such a comparison is incomparable.
+- **Constraints** use a single variable on the smaller side; the larger side may be $y$, $y^p$, $y - c$ or $y / c$. They are closed transitively ($a \le b$, $b \le c^2$ give $a \le c^2$).
+- **Mixed monomials.** $c\,k\log n$ is compared with a monomial in $k$ alone by lower-bounding $\log n \ge \log k$ through $k \le n$. This is how $2^k$ beats $n^{O(k)}$.
+- **Hidden factors.** Two bounds that are both $O^*$ (or both $\tilde O$) compare their stated parts in exact form. If only one hides a factor, that factor is unknown, which usually gives a tie (B6).
+- **Folding.** $c^{ax}$ is folded only when $c^a$ is exactly a number with at most four decimals. The hover folds every $c^{ax}$ with the base rounded up. `display()` returns both the shown form and the hover (`None` when they agree).
+- **Precision.** In the normal form, unknowns of the bound that should be larger may be chosen: an $O(\cdot)$ constant absorbs anything of the same shape, an $o(\cdot)$ absorbs an $o(\cdot)$, and any positive coefficient wins against a smaller shape. Unknowns of the other bound are arbitrary. The polynomial that $O^*$ hides absorbs every polynomial factor.

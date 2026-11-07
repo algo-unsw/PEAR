@@ -1,0 +1,10 @@
+id: openai-2026
+title: "An Upper Bound of $9/4$ for the Matrix Multiplication Exponent"
+authors: [OpenAI]
+versions:
+  preprint:
+    kind: preprint
+    venue: "OpenAI Math Release preprint, 2 October 2026"
+    year: 2026
+    url: "https://github.com/openai/math/blob/main/preprints/Matrix-Multiplication-Nine-Fourths-October-2-2026/paper.pdf"
+    open_access: true

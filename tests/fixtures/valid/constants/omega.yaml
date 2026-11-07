@@ -1,0 +1,12 @@
+id: omega
+name: Fixture constant
+symbol: "\\omega"
+definition: "A fictional value used only in tests."
+bounds:
+  - relation: le
+    value: "5/2"
+    status: claimed
+    sources: [{ paper: author-example-2000, statements: { arxiv-v1: { statement: "Theorem 9" } } }]
+  - relation: ge
+    value: "2"
+    sources: [{ folklore: true, note: "Fixture." }]

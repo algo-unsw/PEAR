@@ -205,6 +205,12 @@ Clicking a parameter on a problem page opens the history of the best running tim
 - The repository stays private until the site is ready to deploy (step 7); it must be public before the Pages deploy, since Pages on a private organisation repository needs a paid GitHub plan.
 - Issue forms label new issues `suggestion` and `error-report`.
 
+### Bound display and comparison (decided 7 November 2026, after the specs)
+
+- A more precise bound beats a less precise one (comparison is implication between statements): $k^k$ beats $n^{O(k)}$, and $O(1.5^k + kn)$ beats $O^*(1.5^k)$.
+- Derived bases are folded only when exact. A fold that needs rounding is shown on hover, rounded up: $1.5^{n/2}$ shows $1.2248^n$ on hover.
+- $\omega$ is a named constant in `data/constants/`: $2 \le \omega \le 9/4$, the upper bound claimed (OpenAI preprint, 2 October 2026; constructive proof by Pass, arXiv:2610.28627). Claimed bounds are used in comparisons.
+
 ### Data schema (decided 7 November 2026)
 
 The agreed schema is `docs/specs/schema.md`. Decisions:
