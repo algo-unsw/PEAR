@@ -163,7 +163,7 @@ def test_transfer_needs_every_variable_mapped():
 
 
 def test_polynomial_factors_transfer_in_ostar_form():
-    # proposal in the implementation notes: n_B only occurs in a polynomial factor
+    # rulebook §2 (D2): n_B only occurs in a polynomial factor
     data = dataset(problem("a"), problem("b"), alg("b-alg", "b", r"O(1.2^{k} n^{3})"), red("a-to-b", "a", "b", {"k": "k"}))
     (r,) = derived(data, "a")
     assert r["shown"] == r"O^*(1.2^{k})"

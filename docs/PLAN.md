@@ -215,6 +215,7 @@ Clicking a parameter on a problem page opens the history of the best running tim
 
 - The Overview tab (the default view) shows the best non-quantum bound obtained by any means (direct or derived); it is not a separate section. The Details tab keeps the filters. If two bounds are equivalent (equal in O* form), the earlier is cited, by year; all are cited in case of a tie.
 - Chains of reductions are followed as long as they improve results (rulebook version 2).
+- When a reduction's parameter map misses a variable that only occurs in a polynomial factor, the O* form transfers (rulebook version 2, D2).
 
 ### Data schema (decided 7 November 2026)
 

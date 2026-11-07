@@ -313,7 +313,7 @@ class Engine:
         b = r.bound
         mapping = set(red.parameter_map)
         if not variables(b.expr) <= mapping:
-            # Proposal (implementation note): polynomial factors of B are polynomial in N_A,
+            # Rulebook §2 (version 2, D2): polynomial factors of B are polynomial in N_A,
             # so the O* form may transfer when only those are missing from the map.
             b = ostar(b, self.out.contexts[target.id])
             if not variables(b.expr) <= mapping:
