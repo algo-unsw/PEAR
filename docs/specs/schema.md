@@ -306,7 +306,7 @@ The validator checks that every constant used in a bound has an entry, that valu
 - **Q5** Lower bounds are in the schema; none entered in the pilot. Hypotheses not claimed refuted remain valid bases.
 - **Q6** Optional, display-only randomized-error detail.
 - **Q7** Serge alone gives final sign-off on pilot data.
-- **Named constants** (§11, agreed later the same day): `data/constants/`, with sourced bounds marked established, claimed or refuted. Claimed bounds count in comparisons. $\omega$ is always written `\omega`, never `\Omega`.
+- **Named constants** (§11, agreed later the same day): `data/constants/`, with sourced bounds marked established, claimed or refuted. Claimed bounds count in comparisons. The matrix multiplication exponent is always written `\omega`, never `\Omega` (`\Omega` stays available for other uses).
 
 ## Implementation notes
 

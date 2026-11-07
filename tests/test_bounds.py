@@ -76,7 +76,6 @@ def test_family_form():
         (r"O(2^{n}))", "unexpected"),
         (r"\mathrm{zz}", "unknown variable"),
         (r"\foo{n}", "unsupported command"),
-        (r"O(n^{\Omega})", r"as \\omega, not \\Omega"),
     ],
 )
 def test_syntax_errors(src, message):

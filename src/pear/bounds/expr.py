@@ -370,8 +370,6 @@ class _Parser:
                 self.take()
                 power = self.exponent()
             return Log(self.factor(), power, base)
-        if cmd == "\\Omega":
-            raise BoundSyntaxError("write the matrix multiplication exponent as \\omega, not \\Omega")
         raise BoundSyntaxError(f"unsupported command {cmd}")
 
 
