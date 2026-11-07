@@ -366,7 +366,7 @@ def compare(a: Bound | Analysed, b: Bound | Analysed, ctx: Context) -> Relation:
 
 
 def compare_ostar(a: Bound | Analysed, b: Bound | Analysed, ctx: Context) -> Relation:
-    """Compare O* forms only (what the default display shows)."""
+    """Compare O* forms only (what the Overview tab shows)."""
     a = a if isinstance(a, Analysed) else analyse(a)
     b = b if isinstance(b, Analysed) else analyse(b)
     ab, ba = le(a, b, ctx, "ostar"), le(b, a, ctx, "ostar")

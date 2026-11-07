@@ -477,19 +477,19 @@ def test_cli_writes_json(tmp_path):
     assert r["origin"] == "derived" and r["chain"][0]["id"] == "problem-b--to--problem-a"
 
 
-# --- default display: best non-quantum bound by any means; earliest cited -----------------------
+# --- Overview tab: best non-quantum bound by any means; earliest cited ----------------------------
 
 
-def default(data, pid, node="decision"):
+def overview(data, pid, node="decision"):
     out = to_json(data, derive(data))
     by_id = {r["id"]: r for r in out["problems"][pid][node]}
     return [
         {"shown": by_id[g["cite"][0]]["shown"], "cite": sorted(g["cite"]), "members": sorted(g["members"]), "year": g["year"]}
-        for g in out["default"][pid][node]
+        for g in out["overview"][pid][node]
     ]
 
 
-def test_default_is_best_by_any_means_without_quantum():
+def test_overview_is_best_by_any_means_without_quantum():
     data = dataset(
         problem("a"), problem("b"),
         alg("a-direct", "a", r"O^*(3^{k})"),
@@ -497,15 +497,15 @@ def test_default_is_best_by_any_means_without_quantum():
         alg("b-alg", "b", r"O^*(2^{k})", randomized=True, space="exponential"),
         red("a-to-b", "a", "b", {"k": "k"}),
     )
-    (g,) = default(data, "a")
+    (g,) = overview(data, "a")
     assert g["shown"] == r"O^*(2^{k})" and g["cite"] == ["b-alg|a-to-b"]
 
 
-def test_default_keeps_incomparable_bounds():
+def test_overview_keeps_incomparable_bounds():
     data = dataset(
         problem("a"), alg("a-k", "a", r"O^*(2^{k})"), alg("a-n", "a", r"O^*(1.1^{n})"),
     )
-    assert sorted(g["shown"] for g in default(data, "a")) == [r"O^*(1.1^{n})", r"O^*(2^{k})"]
+    assert sorted(g["shown"] for g in overview(data, "a")) == [r"O^*(1.1^{n})", r"O^*(2^{k})"]
 
 
 def test_equal_in_ostar_cites_the_earlier():
@@ -515,7 +515,7 @@ def test_equal_in_ostar_cites_the_earlier():
         alg("a-2005", "a", r"O^*(1.5^{k})", paper="p-2005"),
         alg("a-2010", "a", r"O(1.5^{k} k)", paper="p-2010"),
     )
-    (g,) = default(data, "a")
+    (g,) = overview(data, "a")
     assert g["cite"] == ["a-2005"] and g["members"] == ["a-2005", "a-2010"] and g["year"] == 2005
 
 
@@ -525,7 +525,7 @@ def test_same_year_cites_all():
         alg("a-x", "a", r"O^*(1.5^{k})", paper="p-x"),
         alg("a-y", "a", r"O^*(1.5^{k})", paper="p-y"),
     )
-    (g,) = default(data, "a")
+    (g,) = overview(data, "a")
     assert g["cite"] == ["a-x", "a-y"]
 
 
@@ -538,7 +538,7 @@ def test_derived_year_is_the_latest_ingredient_and_earlier_derivations_are_cited
     )
     got = {r["id"]: r for r in rows(data, "a")}
     assert got["b-alg|a-to-b"]["year"] == 1995 and got["b-alg|a-to-b"]["papers"] == ["p-alg", "p-red"]
-    (g,) = default(data, "a")
+    (g,) = overview(data, "a")
     assert g["cite"] == ["b-alg|a-to-b"] and g["year"] == 1995
 
 

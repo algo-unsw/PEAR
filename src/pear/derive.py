@@ -106,7 +106,7 @@ class Derivation:
     log: list[str] = field(default_factory=list)
     contexts: dict[str, Context] = field(default_factory=dict)
     beaten_by: dict[str, list[str]] = field(default_factory=dict)  # result id -> ids of strictly better bounds
-    default: dict[tuple[str, str], list[dict]] = field(default_factory=dict)  # (problem, node) -> groups
+    overview: dict[tuple[str, str], list[dict]] = field(default_factory=dict)  # (problem, node) -> groups
 
 
 # --- nodes: versions that share bounds ------------------------------------------------
@@ -235,7 +235,7 @@ class Engine:
             return True
         if in_ostar != Relation.EQUAL:
             return False
-        # Equal in O*: the default display cites the earliest, so only an earlier
+        # Equal in O*: the Overview cites the earliest, so only an earlier
         # result (or the same algorithm by a shorter route) may replace r.
         if compare(self.analyse(s), self.analyse(r), ctx) not in (Relation.BETTER, Relation.EQUAL):
             return False
@@ -457,13 +457,14 @@ class Engine:
                                 new.append(proj)
             frontier = new
         self.out.beaten_by = self.beaten_by()
-        self.out.default = self.default_display()
+        self.out.overview = self.overview()
         return self.out
 
-    def default_display(self) -> dict[tuple[str, str], list[dict]]:
-        """The default display: the best non-quantum bounds obtained by any means, compared
-        in O* form. Bounds equal in O* form are grouped; the earliest by year are cited,
-        all of them on a tie (PLAN: default display, decided 7 November 2026)."""
+    def overview(self) -> dict[tuple[str, str], list[dict]]:
+        """What the Overview tab (the default view) shows: the best non-quantum bounds
+        obtained by any means, compared in O* form. Bounds equal in O* form are grouped;
+        the earliest by year are cited, all of them on a tie (decided 7 November 2026).
+        The Details tab lists every kept result, with filters."""
         out: dict[tuple[str, str], list[dict]] = {}
         for key, kept in sorted(self.out.results.items()):
             ctx = self.out.contexts[key[0]]
@@ -593,7 +594,7 @@ def to_json(data: Dataset, d: Derivation) -> dict:
                 }
             )
         nodes.setdefault(pid, {})[node] = rows
-    default: dict[str, dict[str, list[dict]]] = {}
-    for (pid, node), groups in sorted(d.default.items()):
-        default.setdefault(pid, {})[node] = groups
-    return {"rulebook_version": RULEBOOK_VERSION, "problems": nodes, "default": default, "log": d.log}
+    overview: dict[str, dict[str, list[dict]]] = {}
+    for (pid, node), groups in sorted(d.overview.items()):
+        overview.setdefault(pid, {})[node] = groups
+    return {"rulebook_version": RULEBOOK_VERSION, "problems": nodes, "overview": overview, "log": d.log}
