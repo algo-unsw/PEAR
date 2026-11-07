@@ -1,4 +1,4 @@
-"""Derivation engine: the reduction rulebook (docs/specs/rulebook.md, version 1).
+"""Derivation engine: the reduction rulebook (docs/specs/rulebook.md, version 2).
 
 Starting from the algorithms in the data, bounds are transferred backwards along
 reductions (an algorithm for B plus a reduction from A to B gives a bound for A),
@@ -15,16 +15,15 @@ from fractions import Fraction
 from typing import Iterable
 
 from .bounds import Bound, Relation, compare, display, ostar, parse_bound, parse_expr
-from .bounds.compare import Analysed, Context, analyse
+from .bounds.compare import Analysed, Context, analyse, compare_ostar
 from .bounds.display import simplify, substitute
 from .bounds.expr import Add, Const, Log, Mul, Node, Num, Pow, Var, variables
 from .bounds.growth import is_monotone
-from .schema import Algorithm, Hypothesis, Problem, Reduction
+from .schema import Algorithm, FolkloreSource, Hypothesis, PaperSource, Problem, Reduction
 from .validate import Dataset, problem_context
 
-RULEBOOK_VERSION = 1
-MAX_STEPS = 10  # rulebook §9: longer chains are not followed
-LONG_CHAIN = 3  # rulebook §9: longer chains get a label
+RULEBOOK_VERSION = 2
+LONG_CHAIN = 3  # rulebook §9: longer chains get a label (they are followed while they improve results)
 FORMAL_ORDER = {"informal": 0, "statement": 1, "proved": 2}
 
 
@@ -79,6 +78,8 @@ class Result:
     origin: str  # the algorithm the chain starts from
     chain: tuple[Step, ...] = ()  # from the algorithm's node to this node
     flags: frozenset[str] = frozenset()  # adaptive-sizes, claimed-refuted-hypothesis, ...
+    year: int | None = None  # when the bound became known: the latest dated ingredient
+    papers: tuple[str, ...] = ()  # papers along the chain: the algorithm's, then each reduction's
 
     @property
     def derived(self) -> bool:
@@ -105,6 +106,7 @@ class Derivation:
     log: list[str] = field(default_factory=list)
     contexts: dict[str, Context] = field(default_factory=dict)
     beaten_by: dict[str, list[str]] = field(default_factory=dict)  # result id -> ids of strictly better bounds
+    default: dict[tuple[str, str], list[dict]] = field(default_factory=dict)  # (problem, node) -> groups
 
 
 # --- nodes: versions that share bounds ------------------------------------------------
@@ -197,7 +199,8 @@ class Engine:
             conditional_on=self.weakest(alg.conditional_on),
         )
         _, node = node_key(problem, alg.proved_for)
-        return Result(problem.id, node, bound, props, alg.id, (), flags)
+        year, papers = self.dated(alg.source)
+        return Result(problem.id, node, bound, props, alg.id, (), flags, year, papers)
 
     # -- keeping -----------------------------------------------------------------------
 
@@ -211,6 +214,13 @@ class Engine:
         """The parameters a bound is listed under: the variables of its O* form."""
         return frozenset(variables(ostar(r.bound, self.out.contexts[r.problem]).expr))
 
+    def dated(self, src: PaperSource | FolkloreSource) -> tuple[int | None, tuple[str, ...]]:
+        """The year of a source's paper (its first version) and the paper, if any."""
+        if isinstance(src, PaperSource):
+            paper = self.data.papers[src.paper]
+            return min(v.year for v in paper.versions.values()), (src.paper,)
+        return None, ()
+
     def dominates(self, s: Result, r: Result, ctx: Context) -> bool:
         """s makes r redundant: at least as good a bound, at least as good in every filter,
         and listed under the same parameters or fewer (a bound "by n" competes "by n", §7)."""
@@ -220,8 +230,16 @@ class Engine:
             return False
         if not self.parameters(s) <= self.parameters(r):
             return False
-        rel = compare(self.analyse(s), self.analyse(r), ctx)
-        return rel in (Relation.BETTER, Relation.EQUAL)
+        in_ostar = compare_ostar(self.analyse(s), self.analyse(r), ctx)
+        if in_ostar == Relation.BETTER:
+            return True
+        if in_ostar != Relation.EQUAL:
+            return False
+        # Equal in O*: the default display cites the earliest, so only an earlier
+        # result (or the same algorithm by a shorter route) may replace r.
+        if compare(self.analyse(s), self.analyse(r), ctx) not in (Relation.BETTER, Relation.EQUAL):
+            return False
+        return _earlier(s, r) or (s.year == r.year and s.origin == r.origin)
 
     def insert(self, r: Result) -> bool:
         key = (r.problem, r.node)
@@ -238,11 +256,7 @@ class Engine:
     # -- transfers -------------------------------------------------------------------------
 
     def extend_chain(self, r: Result, step: Step) -> tuple[Step, ...] | None:
-        chain = r.chain + (step,)
-        if sum(1 for s in chain if s.counted) > MAX_STEPS:
-            self.log(f"{r.origin}: chain longer than {MAX_STEPS} steps not followed (rulebook §9)")
-            return None
-        return chain
+        return r.chain + (step,)
 
     def via_reduction(self, r: Result, red: Reduction) -> Result | None:
         source = self.data.problems[red.from_.problem]
@@ -287,7 +301,12 @@ class Engine:
         flags = set(r.flags)
         if red.type != "serf" and red.calls != 1 and red.call_sizes is None:
             flags.add("adaptive-sizes")  # rulebook §3: every call assumed to have the largest size
-        return Result(source.id, a_node[1], bound, props, r.origin, chain, frozenset(flags))
+        red_year, red_papers = self.dated(red.source)
+        years = [y for y in (r.year, red_year) if y is not None]
+        return Result(
+            source.id, a_node[1], bound, props, r.origin, chain, frozenset(flags),
+            max(years) if years else None, r.papers + red_papers,
+        )
 
     def polytime_bound(self, r: Result, red: Reduction, source: Problem, target: Problem) -> Bound | None:
         """Rulebook §2 and §3: T_A = T_R + calls · f_B(φ(x_A))."""
@@ -359,7 +378,7 @@ class Engine:
                     step = Step("special-case", f"special-case:{problem.id}:{vid}>{special}", from_tag, f"{problem.id}:{r.node}")
                     chain = self.extend_chain(r, step)
                     if chain is not None:
-                        out.append(Result(problem.id, special_node, r.bound, r.props, r.origin, chain, r.flags))
+                        out.append(replace(r, node=special_node, chain=chain))
         return out
 
     def projections(self, r: Result) -> list[Result]:
@@ -392,7 +411,7 @@ class Engine:
             if compare(analyse(r.bound), analyse(proj), ctx) not in (Relation.BETTER, Relation.EQUAL):
                 continue  # only provably valid projections are kept
             step = Step("projection", f"projection:{label}", f"{r.problem}:{r.node}", f"{r.problem}:{r.node}", counted=False)
-            out.append(Result(r.problem, r.node, proj, r.props, r.origin, r.chain + (step,), r.flags))
+            out.append(replace(r, bound=proj, chain=r.chain + (step,)))
         return out
 
     # -- fixpoint ----------------------------------------------------------------------------
@@ -438,7 +457,43 @@ class Engine:
                                 new.append(proj)
             frontier = new
         self.out.beaten_by = self.beaten_by()
+        self.out.default = self.default_display()
         return self.out
+
+    def default_display(self) -> dict[tuple[str, str], list[dict]]:
+        """The default display: the best non-quantum bounds obtained by any means, compared
+        in O* form. Bounds equal in O* form are grouped; the earliest by year are cited,
+        all of them on a tie (PLAN: default display, decided 7 November 2026)."""
+        out: dict[tuple[str, str], list[dict]] = {}
+        for key, kept in sorted(self.out.results.items()):
+            ctx = self.out.contexts[key[0]]
+            cands = [r for r in kept if not r.props.quantum]
+            best = [
+                r for r in cands
+                if not any(
+                    s is not r and compare_ostar(self.analyse(s), self.analyse(r), ctx) == Relation.BETTER
+                    for s in cands
+                )
+            ]
+            groups: list[list[Result]] = []
+            for r in best:
+                for g in groups:
+                    if compare_ostar(self.analyse(g[0]), self.analyse(r), ctx) == Relation.EQUAL:
+                        g.append(r)
+                        break
+                else:
+                    groups.append([r])
+            entries = []
+            for g in groups:
+                dated = [r.year for r in g if r.year is not None]
+                first = min(dated) if dated else None
+                entries.append({
+                    "members": [r.id for r in g],
+                    "cite": [r.id for r in g if r.year == first],
+                    "year": first,
+                })
+            out[key] = entries
+        return out
 
     def still_kept(self, r: Result) -> bool:
         return any(s.id == r.id for s in self.out.results.get((r.problem, r.node), []))
@@ -453,6 +508,11 @@ class Engine:
                     s.id for s in kept if s is not r and compare(self.analyse(s), self.analyse(r), ctx) == Relation.BETTER
                 ]
         return out
+
+
+def _earlier(s: Result, r: Result) -> bool:
+    """s became known strictly before r (undated counts as latest)."""
+    return s.year is not None and (r.year is None or s.year < r.year)
 
 
 def _drop_subtractions(node: Node) -> Node:
@@ -528,7 +588,12 @@ def to_json(data: Dataset, d: Derivation) -> dict:
                         for s in r.chain
                     ],
                     "beaten_by": d.beaten_by.get(r.id, []),
+                    "year": r.year,
+                    "papers": list(r.papers),
                 }
             )
         nodes.setdefault(pid, {})[node] = rows
-    return {"rulebook_version": RULEBOOK_VERSION, "problems": nodes, "log": d.log}
+    default: dict[str, dict[str, list[dict]]] = {}
+    for (pid, node), groups in sorted(d.default.items()):
+        default.setdefault(pid, {})[node] = groups
+    return {"rulebook_version": RULEBOOK_VERSION, "problems": nodes, "default": default, "log": d.log}

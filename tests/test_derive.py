@@ -12,7 +12,7 @@ import pytest
 from pear.__main__ import main
 from pear.bounds import parse_bound
 from pear.bounds.expr import variables
-from pear.derive import MAX_STEPS, derive, to_json
+from pear.derive import derive, to_json
 from pear.schema import ENTITY_TYPES
 from pear.validate import validate_raw
 
@@ -48,8 +48,22 @@ def problem(pid, params=("k",), versions=("decision",), shared=None, generalises
     return out
 
 
+def paper(pid, year):
+    return {
+        "id": pid,
+        "title": "A fictional paper",
+        "authors": ["A. Author"],
+        "versions": {"arxiv-v1": {"kind": "preprint", "arxiv": "0000.00000", "year": year, "open_access": True}},
+    }
+
+
+def cited(pid):
+    return {"paper": pid, "statements": {"arxiv-v1": {"statement": "Theorem 1"}}}
+
+
 def alg(aid, prob, bound, params=("k",), version="decision", randomized=False, space="polynomial",
-        algebraic=False, constructive=True, quantum=False, conditional_on=(), formal=None, status="valid"):
+        algebraic=False, constructive=True, quantum=False, conditional_on=(), formal=None, status="valid",
+        paper=None):
     b = parse_bound(bound, BASE + tuple(params))
     out = {
         "id": aid,
@@ -65,7 +79,7 @@ def alg(aid, prob, bound, params=("k",), version="decision", randomized=False, s
             "quantum": quantum,
         },
         "conditional_on": list(conditional_on),
-        "source": {"folklore": True, "note": "Fixture."},
+        "source": cited(paper) if paper else {"folklore": True, "note": "Fixture."},
         "status": status,
     }
     if formal:
@@ -74,7 +88,7 @@ def alg(aid, prob, bound, params=("k",), version="decision", randomized=False, s
 
 
 def red(rid, frm, to, pmap, type="polytime-deterministic", calls=1, time="O(n + m)", frm_v="decision",
-        to_v="decision", formal=None, status="valid", properties=None, call_sizes=None):
+        to_v="decision", formal=None, status="valid", properties=None, call_sizes=None, paper=None):
     out = {
         "id": rid,
         "from": {"problem": frm, "version": frm_v},
@@ -83,7 +97,7 @@ def red(rid, frm, to, pmap, type="polytime-deterministic", calls=1, time="O(n + 
         "calls": calls,
         "time": time,
         "parameter_map": pmap,
-        "source": {"folklore": True, "note": "Fixture."},
+        "source": cited(paper) if paper else {"folklore": True, "note": "Fixture."},
         "status": status,
     }
     if formal:
@@ -106,6 +120,7 @@ def dataset(*entries):
     raw = {folder: {} for folder in ENTITY_TYPES}
     for e in entries:
         folder = (
+            "papers" if "authors" in e else
             "problems" if "objects" in e else
             "algorithms" if "proved_for" in e else
             "reductions" if "parameter_map" in e else
@@ -417,6 +432,12 @@ def test_cycles_terminate():
     assert len(derived(data, "a")) == 1 and derived(data, "b") == []
 
 
+def _entries(data):
+    for folder, entries in data.entries.items():
+        for e in entries.values():
+            yield e.model_dump(mode="json", by_alias=True, exclude_none=True)
+
+
 def chain_of(length):
     names = [f"p{i}" for i in range(length + 1)]
     entries = [problem(p) for p in names]
@@ -433,17 +454,99 @@ def test_long_chains_are_labelled():
     assert "long-chain" not in r3["flags"]
 
 
-def test_chains_stop_after_the_limit():
-    data, names = chain_of(MAX_STEPS + 1)
-    assert derived(data, names[0]) == []
-    assert len(derived(data, names[1])) == 1
-    assert any("not followed" in line for line in derive(data).log)
+def test_long_chains_are_followed_while_they_improve():
+    data, names = chain_of(12)
+    (r,) = derived(data, names[0])
+    assert r["steps"] == 12 and "long-chain" in r["flags"]
+
+
+def test_chains_stop_when_nothing_improves():
+    # a direct bound at the start of the chain beats everything the chain could bring
+    data, names = chain_of(5)
+    raw_alg = alg("first-alg", names[0], r"O^*(1.1^{k})")
+    data2 = dataset(*(list(_entries(data)) + [raw_alg]))
+    assert derived(data2, names[0]) == []
 
 
 def test_cli_writes_json(tmp_path):
     out = tmp_path / "derived.json"
     assert main(["derive", "tests/fixtures/valid", "--out", str(out)]) == 0
     payload = json.loads(out.read_text())
-    assert payload["rulebook_version"] == 1
+    assert payload["rulebook_version"] == 2
     (r,) = payload["problems"]["problem-b"]["decision"]
     assert r["origin"] == "derived" and r["chain"][0]["id"] == "problem-b--to--problem-a"
+
+
+# --- default display: best non-quantum bound by any means; earliest cited -----------------------
+
+
+def default(data, pid, node="decision"):
+    out = to_json(data, derive(data))
+    by_id = {r["id"]: r for r in out["problems"][pid][node]}
+    return [
+        {"shown": by_id[g["cite"][0]]["shown"], "cite": sorted(g["cite"]), "members": sorted(g["members"]), "year": g["year"]}
+        for g in out["default"][pid][node]
+    ]
+
+
+def test_default_is_best_by_any_means_without_quantum():
+    data = dataset(
+        problem("a"), problem("b"),
+        alg("a-direct", "a", r"O^*(3^{k})"),
+        alg("a-quantum", "a", r"O^*(1.1^{k})", quantum=True),
+        alg("b-alg", "b", r"O^*(2^{k})", randomized=True, space="exponential"),
+        red("a-to-b", "a", "b", {"k": "k"}),
+    )
+    (g,) = default(data, "a")
+    assert g["shown"] == r"O^*(2^{k})" and g["cite"] == ["b-alg|a-to-b"]
+
+
+def test_default_keeps_incomparable_bounds():
+    data = dataset(
+        problem("a"), alg("a-k", "a", r"O^*(2^{k})"), alg("a-n", "a", r"O^*(1.1^{n})"),
+    )
+    assert sorted(g["shown"] for g in default(data, "a")) == [r"O^*(1.1^{n})", r"O^*(2^{k})"]
+
+
+def test_equal_in_ostar_cites_the_earlier():
+    # the 2010 bound is more precise, but equal in O*: the 2005 one is cited
+    data = dataset(
+        problem("a"), paper("p-2005", 2005), paper("p-2010", 2010),
+        alg("a-2005", "a", r"O^*(1.5^{k})", paper="p-2005"),
+        alg("a-2010", "a", r"O(1.5^{k} k)", paper="p-2010"),
+    )
+    (g,) = default(data, "a")
+    assert g["cite"] == ["a-2005"] and g["members"] == ["a-2005", "a-2010"] and g["year"] == 2005
+
+
+def test_same_year_cites_all():
+    data = dataset(
+        problem("a"), paper("p-x", 2005), paper("p-y", 2005),
+        alg("a-x", "a", r"O^*(1.5^{k})", paper="p-x"),
+        alg("a-y", "a", r"O^*(1.5^{k})", paper="p-y"),
+    )
+    (g,) = default(data, "a")
+    assert g["cite"] == ["a-x", "a-y"]
+
+
+def test_derived_year_is_the_latest_ingredient_and_earlier_derivations_are_cited():
+    data = dataset(
+        problem("a"), problem("b"), paper("p-alg", 1990), paper("p-red", 1995), paper("p-direct", 2005),
+        alg("b-alg", "b", r"O^*(1.5^{k})", paper="p-alg"),
+        red("a-to-b", "a", "b", {"k": "k"}, paper="p-red"),
+        alg("a-direct", "a", r"O(1.5^{k} k)", paper="p-direct"),
+    )
+    got = {r["id"]: r for r in rows(data, "a")}
+    assert got["b-alg|a-to-b"]["year"] == 1995 and got["b-alg|a-to-b"]["papers"] == ["p-alg", "p-red"]
+    (g,) = default(data, "a")
+    assert g["cite"] == ["b-alg|a-to-b"] and g["year"] == 1995
+
+
+def test_later_equal_derivation_is_dropped():
+    data = dataset(
+        problem("a"), problem("b"), paper("p-alg", 2010), paper("p-direct", 2005),
+        alg("b-alg", "b", r"O^*(1.5^{k})", paper="p-alg"),
+        red("a-to-b", "a", "b", {"k": "k"}),
+        alg("a-direct", "a", r"O^*(1.5^{k})", paper="p-direct"),
+    )
+    assert [r["id"] for r in rows(data, "a")] == ["a-direct"]

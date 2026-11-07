@@ -2,7 +2,7 @@
 
 > **Status: agreed with Serge on 7 November 2026** (HANDOFF step 4; decisions R1–R7 at the end). Expands `docs/PLAN.md` → Rules for chaining reductions. The SERF definition in §5 was checked against the original paper on 7 November 2026.
 >
-> **Rulebook version: 1.** Every derived bound records the rulebook version it was computed under. Changing an agreed rule is high risk (CLAUDE.md rule 6) and bumps the version, which recomputes all derived bounds.
+> **Rulebook version: 2** (version 1: 7 November 2026; version 2, the same day: long chains are followed while they improve results). Every derived bound records the rulebook version it was computed under. Changing an agreed rule is high risk (CLAUDE.md rule 6) and bumps the version, which recomputes all derived bounds.
 
 The rulebook decides when an algorithm for a problem B, together with a reduction from A to B, gives a **derived bound** for A. Bounds use the language in `bounds.md`; reductions use the fields in `schema.md` §6.
 
@@ -84,8 +84,9 @@ A derived bound is:
 
 - Derivation is a fixpoint computation over (problem, version) nodes. Starting from direct results, repeatedly apply every reduction to every currently best bound of its target, and keep a new bound only if no existing bound for that node and filter set strictly beats it. Stop when nothing changes.
 - Each derived bound stores its full chain: direct result → reduction → … → result, with each step's type and parameter map.
-- Chains longer than three steps get a small label so readers check more closely. As a safeguard, chains longer than ten steps are not followed, and hitting that limit is reported in the build log.
+- Chains longer than three steps get a small label so readers check more closely. Chains of any length are followed as long as they improve results (version 2): a chain is only extended from a result that is kept, and it never revisits a node, so the computation ends.
 - Worse derived bounds are dropped. Best and incomparable ones are kept, under every filter combination the site offers (so the fastest deterministic polynomial-space bound is kept even when a faster randomized one exists).
+- **Default display** (decided 7 November 2026): the best non-quantum bounds obtained by any means, direct or derived, compared in O* form. Bounds equal in O* form are equivalent; the earlier one is cited, by year, and all of them in case of a tie. A derived bound dates from its latest dated ingredient (the algorithm's paper and each reduction's paper). Undated (folklore) results count as latest.
 
 ## 10. Not covered yet
 
@@ -105,6 +106,11 @@ All seven were agreed as recommended:
 - **R6** Property inheritance as in §8.
 - **R7** $T_R$ is kept in the stored exact form and simplified only for display.
 
+Later the same day:
+
+- **Default display**: the best non-quantum bound obtained by any means; equivalent bounds cite the earlier (by year), all on a tie (§9).
+- **Long chains** (version 2): followed as long as they improve results; the ten-step limit is dropped (§9).
+
 The questions as asked:
 
 - **R1. Assumptions A1–A3.** Are parameter maps upper bounds, are stated bounds treated as monotone, and are results excluded or carried as in A3? *Recommend yes to all three.*
@@ -117,7 +123,7 @@ The questions as asked:
 
 ## Implementation notes (step 5b)
 
-Code: `src/pear/derive.py`, run as `python -m pear derive` (writes `build/derived.json`; CI runs it). Tests: `tests/test_derive.py`, one group per section above, on fictional data.
+Code: `src/pear/derive.py`, run as `python -m pear derive` (writes `build/derived.json`, including a `default` section per problem and node; CI runs it). Tests: `tests/test_derive.py`, one group per section above, on fictional data.
 
 **Two choices that need Serge's decision** (they change which bounds are derived or kept):
 
@@ -130,7 +136,7 @@ Code: `src/pear/derive.py`, run as `python -m pear derive` (writes `build/derive
 - **Exact form** of a polynomial-time transfer: the terms of $T_R$, then $\text{calls} \cdot t$ for each term $t$ of $f_B(\varphi)$ (R7), under $O^*$ or $\tilde O$ if B's bound uses it, otherwise $O$.
 - **Amplification** (§4): only calls to a randomized algorithm for B are amplified, by a factor $\log(\text{calls})$, and only when the number of calls is an expression, not a constant.
 - **SERF** (§5): B's bound transfers when the comparator shows it is at least as good as $O^*(2^{\delta q})$ for every $\delta > 0$. This includes $2^{o(q)}$ and $2^{\sqrt q}$, not $1.01^q$. A derived SERF bound has polynomial space only if the reduction records polynomial space.
-- **Keeping** (§9): the filters are those in DESIGN.md (deterministic, polynomial space, constructive, non-algebraic, Lean-verified, include derived) plus classical vs quantum and the set of hypotheses. A result is kept unless another is at least as good a bound (better or equal), at least as good in every filter, and listed under the same parameters or fewer (D1). Direct results are never dropped. Between equal results, the first found stays: direct ones, then shorter chains.
+- **Keeping** (§9): the filters are those in DESIGN.md (deterministic, polynomial space, constructive, non-algebraic, Lean-verified, include derived) plus classical vs quantum and the set of hypotheses. A derived result is dropped when another is at least as good in every filter, listed under the same parameters or fewer (D1), and either strictly better in O* form, or equal in O* form, at least as good in exact form, and *earlier*. Equal in O* form and the same year counts as earlier only for the same algorithm by a shorter route, so different papers from the same year are all kept for citation. Direct results are never dropped from the list; the default display may still pass over them.
 - **Projections** (§7) remove subtracted terms (all variables are nonnegative) and substitute other variables through the constraints. A projection is kept only if the comparator proves it is implied by the original. It is a chain step of kind `projection` that does not count towards the chain length.
 - **Lean-verified** means every step is `proved` with prover Lean. The `formal` status is the weakest along the chain.
 - **Not used yet:** reduction `variants` (logged at build time). Parameters that exist only in a general version (e.g. a maximum weight set to 1 in the special case) are not substituted, because parameters are defined per problem, not per version.

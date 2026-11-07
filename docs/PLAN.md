@@ -211,6 +211,11 @@ Clicking a parameter on a problem page opens the history of the best running tim
 - Derived bases are folded only when exact. A fold that needs rounding is shown on hover, rounded up: $1.5^{n/2}$ shows $1.2248^n$ on hover.
 - $\omega$ is a named constant in `data/constants/`: $2 \le \omega \le 9/4$, the upper bound claimed (OpenAI preprint, 2 October 2026; constructive proof by Pass, arXiv:2610.28627). Claimed bounds are used in comparisons.
 
+### Default display and long chains (decided 7 November 2026)
+
+- The default display is the best non-quantum bound obtained by any means (direct or derived). If two bounds are equivalent (equal in O* form), the earlier is cited, by year; all are cited in case of a tie.
+- Chains of reductions are followed as long as they improve results (rulebook version 2).
+
 ### Data schema (decided 7 November 2026)
 
 The agreed schema is `docs/specs/schema.md`. Decisions:
