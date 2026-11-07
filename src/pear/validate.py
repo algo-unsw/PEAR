@@ -5,6 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
+from urllib.parse import urlparse
 
 import yaml
 from pydantic import ValidationError
@@ -14,6 +15,7 @@ from .bounds.compare import ConstraintError
 from .bounds.expr import _CONST_CMDS, constants, variables
 from .bounds.growth import UnsupportedBound, value_growth
 from .schema import (
+    ATTESTATIONS,
     ENTITY_TYPES,
     Algorithm,
     FolkloreSource,
@@ -182,9 +184,21 @@ def check_references(data: Dataset) -> list[Issue]:
         for version in src.statements:
             if version not in paper.versions:
                 issues.append(Issue(where, f"paper '{src.paper}' has no version '{version}'"))
-        if not any(paper.versions[v].open_access for v in src.statements if v in paper.versions):
+        if any(paper.versions[v].open_access for v in src.statements if v in paper.versions):
+            return
+        if any(v.open_access for v in paper.versions.values()):
+            issues.append(Issue(where, f"no statement for an open-access version of paper '{src.paper}'"))
+            return
+        # A closed paper: independent web sources must confirm the result (CLAUDE.md rule 2).
+        hosts = {urlparse(u).netloc.lower().removeprefix("www.") for u in src.attested_by}
+        hosts.discard("")
+        if len(hosts) < ATTESTATIONS:
             issues.append(
-                Issue(where, f"no statement for an open-access version of paper '{src.paper}'")
+                Issue(
+                    where,
+                    f"paper '{src.paper}' has no open-access version: give a statement for an open version, "
+                    f"or attested_by with at least {ATTESTATIONS} independent web sources (found {len(hosts)})",
+                )
             )
 
     def paper_version(where: str, paper_id: str, version: str | None) -> None:

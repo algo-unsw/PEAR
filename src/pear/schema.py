@@ -52,10 +52,22 @@ class Statement(Model):
     page: int | Text | None = None
 
 
+ATTESTATIONS = 3  # independent web sources needed for a closed paper (CLAUDE.md rule 2)
+
+
 class PaperSource(Model):
     paper: Id
-    statements: dict[Id, Statement] = Field(min_length=1)  # keyed by paper version
+    statements: dict[Id, Statement] = {}  # keyed by paper version
+    # For a classic result whose paper has no open-access version: independent web sources
+    # (found by a web search) that confirm the paper proved it. They replace the open statement.
+    attested_by: list[Text] = []
     note: Text | None = None
+
+    @model_validator(mode="after")
+    def _statement_or_attestation(self) -> PaperSource:
+        if not self.statements and not self.attested_by:
+            raise ValueError("a paper source needs statements, or attested_by for a closed paper")
+        return self
 
 
 class Reference(Model):
@@ -154,6 +166,7 @@ class LocalParameter(Model):
 
 class SharedParameterRef(Model):
     shared: Id
+    of: Text | None = None  # which graph or object it is measured on, e.g. "the primal graph"
 
 
 def _parameter_tag(value: Any) -> str:

@@ -14,7 +14,8 @@ Read `CLAUDE.md` first (ground rules), then `docs/PLAN.md` (what and why) and `d
 - **Bound language (step 5a, 7 November 2026)**: parser, comparator, O* display, folding and substitution in `src/pear/bounds/`; the validator now parses every bound string in the data.
 - **First data (7 November 2026)**: `data/constants/omega.yaml` and its two papers. Signed off by Serge on 7 November 2026.
 - **Derivation engine (step 5b, 7 November 2026)**: `src/pear/derive.py`, `python -m pear derive` writes `build/derived.json` (run in CI). Rulebook version 2 (long chains followed while they improve results; polynomial factors transfer in O* form, D2). The Overview tab shows the best non-quantum bound by any means, earliest cited. Reduction `variants` are slight modifications of a reduction, possibly between other problems or versions (schema §6). Every bound is projected through the constraints, and bounds compete within their parameters (D1). All agreed with Serge on 7 November 2026.
-- **Not started**: problem data (step 6).
+- **Definition format (step 6, agreed 7 November 2026)**: `docs/specs/definitions.md`; Vertex Cover's definition entered (awaiting Serge's sign-off), with Karp 1972 attested by web sources.
+- **Not started**: Vertex Cover's results; the other 11 pilot problems.
 - **Drafts exist** for the bound language and chaining rules (in `docs/PLAN.md`); they must be finished **with Serge**.
 
 ## Goal of this session: Phase 1 pilot

@@ -230,3 +230,57 @@ def test_problem_context_uses_data(fixture_raw):
     assert not ctx.poly_bounded("t") and ctx.poly_bounded("k")
     assert ctx.constants == {"omega": (2.0, 2.5)}
     assert problem_context(data, data.problems["problem-a"]).relation("k", "n") == 1
+
+
+# --- closed classic papers: attested by independent web sources (CLAUDE.md rule 2) ----------------
+
+CLOSED = {
+    "id": "closed-1970",
+    "title": "A fictional closed paper",
+    "authors": ["C. Closed"],
+    "versions": {"journal": {"kind": "journal", "venue": "Fixture Journal", "year": 1970, "open_access": False}},
+}
+
+
+def with_source(fixture_raw, src, paper=CLOSED):
+    raw, redirects = fixture_raw
+    raw = copy.deepcopy(raw)
+    raw["papers"][paper["id"]] = copy.deepcopy(paper)
+    raw["algorithms"]["problem-a--k--author-example-2000"]["source"] = src
+    _, issues = validate_raw(raw, redirects)
+    return [str(i) for i in issues]
+
+
+URLS = ["https://one.example/a", "https://two.example/b", "https://www.three.example/c"]
+
+
+def test_closed_paper_with_three_attestations_passes(fixture_raw):
+    assert with_source(fixture_raw, {"paper": "closed-1970", "attested_by": URLS}) == []
+
+
+@pytest.mark.parametrize(
+    "urls",
+    [URLS[:2], [URLS[0], URLS[0].replace("/a", "/z"), URLS[1]], [URLS[0], "https://www.one.example/q", URLS[1]]],
+    ids=["two sources", "same page twice", "same host"],
+)
+def test_closed_paper_needs_three_independent_sources(fixture_raw, urls):
+    issues = with_source(fixture_raw, {"paper": "closed-1970", "attested_by": urls})
+    assert any("at least 3 independent web sources" in i for i in issues), issues
+
+
+def test_attestations_do_not_replace_an_open_version(fixture_raw):
+    issues = with_source(fixture_raw, {"paper": "author-example-2000", "attested_by": URLS})
+    assert any("no statement for an open-access version" in i for i in issues), issues
+
+
+def test_paper_source_needs_statements_or_attestations(fixture_raw):
+    issues = with_source(fixture_raw, {"paper": "closed-1970"})
+    assert any("needs statements, or attested_by" in i for i in issues), issues
+
+
+def test_shared_parameter_may_say_which_graph(fixture_raw):
+    raw, redirects = fixture_raw
+    raw = copy.deepcopy(raw)
+    raw["problems"]["problem-a"]["parameters"]["w"] = {"shared": "example-width", "of": "the primal graph"}
+    _, issues = validate_raw(raw, redirects)
+    assert [str(i) for i in issues] == []

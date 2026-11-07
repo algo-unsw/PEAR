@@ -1,6 +1,6 @@
-# Canonical problem definitions — DRAFT for review
+# Canonical problem definitions
 
-> **Status: draft, not agreed.** Proposed 7 November 2026 (HANDOFF step 6, "refine the definition format with the owner" in PLAN.md). The structure of a problem file is already agreed (`schema.md` §2). This spec proposes the **conventions** a definition follows. Worked example: `data/problems/vertex-cover.yaml`. Open questions are **F1–F7**, collected at the end.
+> **Status: agreed with Serge on 7 November 2026** (HANDOFF step 6; decisions F1–F7 at the end). The structure of a problem file is in `schema.md` §2. This spec sets the **conventions** a definition follows. Worked example: `data/problems/vertex-cover.yaml`. Changing it is the owner's decision.
 
 Every problem has exactly one canonical definition, because small differences quietly change bounds (PLAN.md). The conventions below make two definitions written months apart read alike, and make it clear which results apply.
 
@@ -10,6 +10,7 @@ Every problem has exactly one canonical definition, because small differences qu
 - **Set systems** are a finite universe $U$ and a family $\mathcal{F}$ of subsets of $U$: $n = |U|$, $m = |\mathcal{F}|$.
 - **Formulas** are in conjunctive normal form over variables $x_1, \dots, x_n$, with $m$ clauses.
 - **Numbers** in the input are integers given in binary (F6).
+- **Weights** are nonnegative integers in binary by default, with $W$ (maximum weight) as a parameter where results need it (`poly_bounded: false`). A problem may define its weights differently (real, negative, unary, …); its definition then says so explicitly (F6).
 
 ## 2. Sizes
 
@@ -43,10 +44,12 @@ Every problem has exactly one canonical definition, because small differences qu
 
 ## Open questions
 
-- **F1. Graph default.** Finite, simple, undirected unless stated? *Recommend yes.*
-- **F2. Input size.** $N$ is the length of a standard binary encoding, with graphs as adjacency lists and numbers in binary? *Recommend yes.*
-- **F3. Optimisation output.** The optimum *value*, with "find an optimal solution" left to the search version or the *constructive* tag? *Recommend the value.* For self-reducible problems such as Vertex Cover, value and solution are equivalent anyway, as `shared_bounds` records.
-- **F4. Meaning of $k$.** The input integer in decision and search, the optimum in optimisation, under one symbol? *Recommend yes.* Papers' "parameterized by the solution size" results then attach to all three versions, which share bounds.
-- **F5. Shared parameters on a chosen graph.** Add an optional `of` to a shared-parameter reference, such as `tw: { shared: treewidth, of: "the primal graph" }`? *Recommend yes.* This is a small schema addition.
-- **F6. Weights.** Nonnegative integers in binary, with $W$ (maximum weight) as a parameter where results need it (`poly_bounded: false`)? *Recommend yes.*
-- **F7. Preprocessing in constraints,** and **a source for classic NP-completeness results.** Karp's 1972 chapter is not open access (checked on SpringerLink on 7 November 2026), so `complexity.source` for Vertex Cover is `TODO(verify)`. Options: an open-access textbook with a numbered statement, or a Lean formalisation where one exists. Which do you prefer?
+## Decisions (7 November 2026)
+
+- **F1** Graphs are finite, simple and undirected unless stated.
+- **F2** $N$ is the length of a standard binary encoding (graphs as adjacency lists, numbers in binary).
+- **F3** The optimisation version outputs the optimum value.
+- **F4** $k$ is the input integer in decision and search, and the optimum in optimisation, under one symbol.
+- **F5** A shared-parameter reference may say which graph or object it is measured on (`of`, schema §2).
+- **F6** Weights are nonnegative integers in binary by default; a problem may define them differently.
+- **F7** Constraints may rely on trivial polynomial-time preprocessing. A classic result whose paper is not open access (Karp 1972) is cited as such. It needs no reading of the paper when a web search finds independent sources that confirm it: at least three, on different sites, recorded in `attested_by` (schema §4; CLAUDE.md rule 2).

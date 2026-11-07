@@ -71,7 +71,8 @@ Every problem has exactly one canonical definition, because small differences qu
 - State decision, optimisation or search version explicitly; versions link to each other.
 - Natural sizes: n is the number of basic objects (vertices, variables, elements, …) and m the number of relations between them (edges, clauses, constraints, sets, …); each problem states exactly what n and m count. Capital N is the total input size (encoding length). Other parameters such as k or treewidth are defined per problem.
 - Definitions are the basis for Lean statements and for matching results from papers.
-- Open: refine the definition format with the owner.
+- The definition format was agreed on 7 November 2026: `specs/definitions.md`. Defaults: graphs are finite, simple and undirected; $N$ is a binary encoding length; the optimisation version outputs the optimum value; $k$ is the input integer (decision, search) or the optimum (optimisation); weights are nonnegative integers unless a problem says otherwise.
+- Classic results in closed papers (e.g. Karp 1972) are cited as such, confirmed by at least three independent web sources instead of an open statement.
 
 ### Presenting versions of a problem
 
@@ -288,5 +289,5 @@ Garey and Johnson's *Computers and Intractability* (1979) is the natural seed fo
 - [ ] Set up the GitHub repository with the data schema, then enter the 12 pilot problems.
 - [ ] Add relations between parameters (e.g. treewidth ≤ pathwidth ≤ treewidth · O(log n)); HOPS is a possible source.
 - [ ] Contribute improved parameter relations back to HOPS (github.com/vaclavblazej), after checking its contribution docs.
-- [ ] Refine the canonical definition format with the owner.
+- [x] Refine the canonical definition format with the owner (agreed 7 November 2026).
 - [x] Decide the optional randomized-error detail field (yes, optional and display-only).

@@ -5,7 +5,7 @@ PEAR (Parameterized and Exact Algorithms and Reductions) is a research website c
 ## Ground rules
 
 1. **Never invent research facts.** Every bound, reduction, year, venue and theorem number must come from a source you have actually opened. If you can't verify something, leave a `TODO(verify)` and ask; don't fill it in from memory. Mockup content in `design/` is not data.
-2. **Every result needs an openly readable source** (arXiv, ECCC, author copy, open-access version) and the **exact statement** it relies on (e.g. Theorem 3.2 of the journal version), stored per paper version.
+2. **Every result needs an openly readable source** (arXiv, ECCC, author copy, open-access version) and the **exact statement** it relies on (e.g. Theorem 3.2 of the journal version), stored per paper version. Exception: a classic result whose paper has no open-access version (e.g. Karp 1972) is cited as such and needs no reading of the paper when a web search finds at least three independent sources that confirm it; record them in `attested_by`.
 3. **Co-design the core specs with Serge.** The bound expression language, the reduction-chaining rulebook, the data schema and the canonical definition format are drafted and agreed together. Propose drafts and questions; don't treat a draft as settled.
 4. **Canonical definitions**: one per problem, with the version stated (decision / optimisation / search). n = number of basic objects (vertices, variables, elements), m = number of relations (edges, clauses, constraints, sets), N = total input size; other parameters defined per problem.
 5. **Keep all incomparable best bounds**; never force a single winner. Store bounds exactly as stated, display O* by default.
