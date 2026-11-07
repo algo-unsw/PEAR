@@ -8,3 +8,4 @@ versions:
     year: 2001
     url: "https://www.labri.fr/perso/robson/mis/techrep.html"
     open_access: true
+unverified: true                      # unrefereed technical report (decided 8 November 2026)

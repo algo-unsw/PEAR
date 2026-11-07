@@ -4,7 +4,7 @@ proved_for: decision
 bound: { as_stated: "O^*(1.25281^{k})", notation: "O*", parameters: [k] }
 properties:
   randomized: { error: one-sided }
-  space: { class: polynomial, bound: "Not stated in arXiv v1. Educated guess: randomized branching with no memoization, dynamic programming or decompositions; it relies on Harris-Narayanaswamy and Xiao-Nagamochi, which use polynomial space. TODO(verify)" }
+  space: { class: polynomial, bound: "Not stated in arXiv v1; confirmed by a co-author (Serge Gaspers, 8 November 2026)." }
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

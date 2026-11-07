@@ -74,6 +74,7 @@ Every problem has exactly one canonical definition, because small differences qu
 - The definition format was agreed on 7 November 2026: `specs/definitions.md`. Defaults: graphs are finite, simple and undirected; $N$ is a binary encoding length; the optimisation version outputs the optimum value; $k$ is the input integer (decision, search) or the optimum (optimisation); weights are nonnegative integers unless a problem says otherwise.
 - Classic results in closed papers (e.g. Karp 1972) are cited as such, confirmed by at least three independent web sources instead of an open statement. As a general rule, citations of classic results mirror Wikipedia's choice (decided 8 November 2026).
 - A result is dated by the earliest paper version that states it, not by the paper's first version (decided 8 November 2026).
+- Unrefereed reports (e.g. Robson 2001) are tagged unverified: shown in Details, not in the Overview. Treewidth results are stored as stated, with a note that a tree decomposition is given. For historical results, best guesses about properties are fine without human verification (decided 8 November 2026).
 
 ### Presenting versions of a problem
 

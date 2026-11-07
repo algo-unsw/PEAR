@@ -43,6 +43,7 @@ class Props:
     formal: str  # weakest along the chain: informal | statement | proved
     lean: bool  # every step proved in Lean
     conditional_on: frozenset[str] = frozenset()
+    verified: bool = True  # False if any paper along the chain is marked unverified
 
     def at_least(self, other: Props) -> bool:
         """Does self satisfy every filter that `other` satisfies?"""
@@ -55,6 +56,7 @@ class Props:
             and (self.lean or not other.lean)
             and FORMAL_ORDER[self.formal] >= FORMAL_ORDER[other.formal]
             and self.conditional_on <= other.conditional_on
+            and (self.verified or not other.verified)
         )
 
 
@@ -202,7 +204,11 @@ class Engine:
         )
         _, node = node_key(problem, alg.proved_for)
         year, papers = self.dated(alg.source)
-        return Result(problem.id, node, bound, props, alg.id, (), flags, year, papers)
+        flags = set(flags) | {f"given-{g}" for g in alg.given}
+        if any(self.data.papers[p].unverified for p in papers):
+            props = replace(props, verified=False)
+            flags.add("unverified")
+        return Result(problem.id, node, bound, props, alg.id, (), frozenset(flags), year, papers)
 
     # -- keeping -----------------------------------------------------------------------
 
@@ -317,6 +323,9 @@ class Engine:
                 v_year, v_papers = self.dated(variant.source)
                 years += [v_year] if v_year is not None else []
                 red_papers += tuple(p for p in v_papers if p not in red_papers)
+        if any(self.data.papers[p].unverified for p in red_papers):
+            props = replace(props, verified=False)
+            flags.add("unverified")
         return Result(
             source.id, a_node[1], bound, props, r.origin, chain, frozenset(flags),
             max(years) if years else None, r.papers + red_papers,
@@ -489,7 +498,8 @@ class Engine:
         out: dict[tuple[str, str], list[dict]] = {}
         for key, kept in sorted(self.out.results.items()):
             ctx = self.out.contexts[key[0]]
-            cands = [r for r in kept if not r.props.quantum]
+            # the Overview leaves out quantum results and results from unverified papers
+            cands = [r for r in kept if not r.props.quantum and r.props.verified]
             best = [
                 r for r in cands
                 if not any(

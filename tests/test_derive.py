@@ -635,3 +635,30 @@ def test_year_comes_from_the_cited_version():
     )
     (r,) = rows(data, "a")
     assert r["year"] == 2022
+
+
+def test_unverified_results_stay_out_of_the_overview():
+    unverified = paper("p-report", 2001) | {"unverified": True}
+    data = dataset(
+        problem("a"), problem("b"), unverified, paper("p-ok", 2010),
+        alg("a-report", "a", r"O^*(1.1^{k})", paper="p-report"),
+        alg("a-ok", "a", r"O^*(1.5^{k})", paper="p-ok"),
+        red("b-to-a", "b", "a", {"k": "k"}),
+    )
+    got = {r["id"]: r for r in rows(data, "a")}
+    assert set(got) == {"a-report", "a-ok"} and "unverified" in got["a-report"]["flags"]
+    assert [g["cite"] for g in overview(data, "a")] == [["a-ok"]]
+    # derived bounds inherit the tag, and a verified bound is never dropped for an unverified one
+    b = {r["id"]: r for r in rows(data, "b")}
+    assert set(b) == {"a-report|b-to-a", "a-ok|b-to-a"}
+    assert [g["cite"] for g in overview(data, "b")] == [["a-ok|b-to-a"]]
+
+
+def test_given_tree_decomposition_is_carried_along():
+    data = dataset(
+        problem("a", params=("k", "tw")), problem("b", params=("k", "tw")),
+        alg("b-alg", "b", r"O(2^{tw} n)", params=("k", "tw")) | {"given": ["tree-decomposition"]},
+        red("a-to-b", "a", "b", {"tw": "tw", "n": "n"}),
+    )
+    (r,) = derived(data, "a")
+    assert "given-tree-decomposition" in r["flags"]

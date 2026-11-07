@@ -1,0 +1,10 @@
+id: cygan-fomin-kowalik-2016
+title: "Parameterized Algorithms"
+authors: [Marek Cygan, Fedor V. Fomin, Łukasz Kowalik, Daniel Lokshtanov, Dániel Marx, Marcin Pilipczuk, Michał Pilipczuk, Saket Saurabh]
+versions:
+  book-pdf:
+    kind: book
+    venue: "Springer; authors' PDF dated 30 May 2016"
+    year: 2016
+    url: "https://www.mimuw.edu.pl/~malcin/book/parameterized-algorithms.pdf"
+    open_access: true
