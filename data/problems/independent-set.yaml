@@ -5,8 +5,12 @@ category: graph
 complexity:
   class: NP-complete
   source:
-    folklore: true
-    note: "TODO(verify): placeholder; source to be chosen."
+    paper: karp-1972
+    attested_by:
+      - "https://en.wikipedia.org/wiki/Karp%27s_21_NP-complete_problems"
+      - "https://student.cs.uwaterloo.ca/~cs360/Hall/karp.html"
+      - "https://iq.opengenus.org/clique-in-graphs"
+    note: "Clique is one of Karp's 21 NP-complete problems; an independent set of $G$ is a clique of the complement of $G$ (as on Wikipedia)."
 objects:
   n: number of vertices
   m: number of edges

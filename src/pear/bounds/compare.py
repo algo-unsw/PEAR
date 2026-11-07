@@ -162,6 +162,8 @@ def term_le(a: Term, b: Term, ctx: Context, mode: str) -> bool:
         return False  # bounds B3: f(k) beats nothing
     if b.unspecified is not None:  # every explicit bound in the same parameter beats f(k)
         return visible_vars(a, ctx) <= set(b.unspecified)
+    if b.lo is None:
+        return False  # no safe lower estimate of b's term
     a_hi, b_lo = (a.hi, b.lo) if mode == "ostar" else (a.hi + a.hidden, b.lo + b.hidden)
     diff = _reduce(b_lo, ctx, mode) - _reduce(a_hi, ctx, mode)
     return _bounded_below(diff, ctx)

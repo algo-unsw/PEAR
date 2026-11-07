@@ -217,10 +217,13 @@ class Engine:
         return frozenset(variables(ostar(r.bound, self.out.contexts[r.problem]).expr))
 
     def dated(self, src: PaperSource | FolkloreSource) -> tuple[int | None, tuple[str, ...]]:
-        """The year of a source's paper (its first version) and the paper, if any."""
+        """When a source's result became known, and its paper. The year is that of the earliest
+        paper version the statements cite (a result may appear only in a later version);
+        for a closed paper cited without statements, its earliest version."""
         if isinstance(src, PaperSource):
             paper = self.data.papers[src.paper]
-            return min(v.year for v in paper.versions.values()), (src.paper,)
+            cited = [paper.versions[v] for v in src.statements if v in paper.versions]
+            return min(v.year for v in cited or paper.versions.values()), (src.paper,)
         return None, ()
 
     def dominates(self, s: Result, r: Result, ctx: Context) -> bool:

@@ -623,3 +623,15 @@ def test_variant_between_other_problems():
     (r,) = derived(data, "a", "weighted")
     assert r["chain"][0]["id"] == "a-to-b~weighted"
     assert derived(data, "a", "optimisation") == []
+
+
+def test_year_comes_from_the_cited_version():
+    # the result only appears in v2 of the paper
+    p = paper("p-versions", 2020)
+    p["versions"]["arxiv-v2"] = {"kind": "preprint", "arxiv": "0000.00001", "year": 2022, "open_access": True}
+    data = dataset(
+        problem("a"), p,
+        alg("a-alg", "a", r"O^*(2^{k})", paper=None) | {"source": {"paper": "p-versions", "statements": {"arxiv-v2": {"statement": "Theorem 3"}}}},
+    )
+    (r,) = rows(data, "a")
+    assert r["year"] == 2022

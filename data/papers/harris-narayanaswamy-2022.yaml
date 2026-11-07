@@ -9,6 +9,11 @@ versions:
     doi: "10.4230/LIPIcs.STACS.2024.40"
     url: "https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.STACS.2024.40"
     open_access: true
+  arxiv-v4:
+    kind: preprint
+    arxiv: "2205.08022v4"
+    year: 2023
+    open_access: true
   arxiv-v7:
     kind: preprint
     arxiv: "2205.08022v7"

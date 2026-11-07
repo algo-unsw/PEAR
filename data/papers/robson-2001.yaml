@@ -1,0 +1,10 @@
+id: robson-2001
+title: "Finding a maximum independent set in time $O(2^{n/4})$"
+authors: [J. M. Robson]
+versions:
+  techreport:
+    kind: technical-report
+    venue: "Technical report, January 2001 (author's web page)"
+    year: 2001
+    url: "https://www.labri.fr/perso/robson/mis/techrep.html"
+    open_access: true

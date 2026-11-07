@@ -70,15 +70,19 @@ def _is_poly_factor(f: Node, ctx: Context) -> bool:
 def _drop_dominated(terms: list[Node], ctx: Context) -> list[Node]:
     if len(terms) == 1:
         return terms
-    try:
-        analysed = [bound_terms(Bound("O*", t))[0] for t in terms]
-    except UnsupportedBound:
-        return terms
+    analysed = []
+    for t in terms:
+        try:
+            analysed.append(bound_terms(Bound("O*", t))[0])
+        except UnsupportedBound:
+            analysed.append(None)  # kept as it is, and used to drop nothing
     out = []
     for i, t in enumerate(terms):
         dominated = False
         for j in range(len(terms)):
-            if i == j or not term_le(analysed[i], analysed[j], ctx, "ostar"):
+            if i == j or analysed[i] is None or analysed[j] is None:
+                continue
+            if not term_le(analysed[i], analysed[j], ctx, "ostar"):
                 continue
             # i ≤ j: drop i, unless they are equal and i comes first
             if term_le(analysed[j], analysed[i], ctx, "ostar") and i < j:
