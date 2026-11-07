@@ -45,7 +45,8 @@ objects:                              # rule 4: what n, m and N count, for this 
   N: total encoding length of the input
 parameters:                           # further parameters, local or shared
   k: { meaning: "the integer k in the input (solution size)" }
-  tw: { shared: treewidth }           # meaning, relations and history live in data/parameters/
+  tw: { shared: treewidth }           # shared registry; add `of` only when the graph is ambiguous,
+                                      # e.g. SAT: { shared: treewidth, of: "the primal graph" } (definitions F5)
   # t: { meaning: "the target number", poly_bounded: false }   # only for exceptions (bounds B4)
 constraints:                          # used to compare bounds in different variables (bounds B5)
   - { constraint: "k \\le n", because: "TODO: one-line justification" }
@@ -149,6 +150,20 @@ source:
     arxiv-v2: { statement: "Theorem X.Y", page: 12 }
   note: null                          # e.g. "space bound from Lemma X.Y"
 ```
+
+or, for a classic result whose paper has **no open-access version** (decided 7 November 2026, definitions F7):
+
+```yaml
+source:
+  paper: karp-1972
+  attested_by:                        # independent web sources confirming the result; at least 3 sites
+    - "https://…"
+    - "https://…"
+    - "https://…"
+  note: "Vertex Cover is one of Karp's 21 NP-complete problems."
+```
+
+The validator accepts `attested_by` only when the paper has no open-access version, and counts distinct sites. A source needs `statements`, `attested_by`, or both.
 
 or, for an unpublished argument:
 

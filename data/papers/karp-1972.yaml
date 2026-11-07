@@ -1,0 +1,10 @@
+id: karp-1972
+title: "Reducibility among Combinatorial Problems"
+authors: [Richard M. Karp]
+versions:
+  proceedings:
+    kind: conference
+    venue: "Complexity of Computer Computations (R. E. Miller, J. W. Thatcher, J. D. Bohlinger, eds.), Plenum Press, pp. 85–103"
+    year: 1972
+    doi: "10.1007/978-1-4684-2001-2_9"
+    open_access: false
