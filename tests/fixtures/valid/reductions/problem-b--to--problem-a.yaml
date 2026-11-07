@@ -6,6 +6,9 @@ calls: 1
 time: "O(n + m)"
 parameter_map: { n: "n + m", k: "k" }
 variants:
-  - { problem: problem-a, version: weighted, note: "Fixture variant." }
+  - id: by-w
+    note: "Fixture variant: the same construction, analysed for the width."
+    parameter_map: { n: "n + m", w: "k" }
+    source: { paper: author-example-2000, statements: { arxiv-v1: { statement: "Remark 4" } } }
 formal: { status: proved, prover: lean, link: "https://example.org/fixture" }
 source: { folklore: true, note: "Fixture.", reference: { paper: author-example-2000, version: arxiv-v1, statement: "Section 4" } }

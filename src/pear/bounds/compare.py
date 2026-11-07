@@ -365,6 +365,20 @@ def compare(a: Bound | Analysed, b: Bound | Analysed, ctx: Context) -> Relation:
     return Relation.INCOMPARABLE
 
 
+def compare_ostar(a: Bound | Analysed, b: Bound | Analysed, ctx: Context) -> Relation:
+    """Compare O* forms only (what the Overview tab shows)."""
+    a = a if isinstance(a, Analysed) else analyse(a)
+    b = b if isinstance(b, Analysed) else analyse(b)
+    ab, ba = le(a, b, ctx, "ostar"), le(b, a, ctx, "ostar")
+    if ab and ba:
+        return Relation.EQUAL
+    if ab:
+        return Relation.BETTER
+    if ba:
+        return Relation.WORSE
+    return Relation.INCOMPARABLE
+
+
 def best(bounds: Sequence[Bound | Analysed], ctx: Context) -> list[int]:
     """Indices of the bounds no other bound strictly beats (an antichain)."""
     items = [x if isinstance(x, Analysed) else analyse(x) for x in bounds]

@@ -2,7 +2,7 @@
 
 > **Status: agreed with Serge on 7 November 2026** (HANDOFF step 4; decisions R1–R7 at the end). Expands `docs/PLAN.md` → Rules for chaining reductions. The SERF definition in §5 was checked against the original paper on 7 November 2026.
 >
-> **Rulebook version: 1.** Every derived bound records the rulebook version it was computed under. Changing an agreed rule is high risk (CLAUDE.md rule 6) and bumps the version, which recomputes all derived bounds.
+> **Rulebook version: 2** (version 1: 7 November 2026; version 2, the same day: long chains are followed while they improve results, and polynomial factors transfer in O\* form). Every derived bound records the rulebook version it was computed under. Changing an agreed rule is high risk (CLAUDE.md rule 6) and bumps the version, which recomputes all derived bounds.
 
 The rulebook decides when an algorithm for a problem B, together with a reduction from A to B, gives a **derived bound** for A. Bounds use the language in `bounds.md`; reductions use the fields in `schema.md` §6.
 
@@ -20,7 +20,7 @@ $$T_A \;=\; T_R + f_B(\varphi(x_A)).$$
 
 Under O* (the default display) $T_R$ disappears. The stored derived bound keeps the exact form, so it can still be compared on exact forms later (`bounds.md` §5.4). Example from the plan: $f_B = O^*(1.2^{k})$ and $k \mapsto 2k$ give $O^*(1.2^{2k}) = O^*(1.44^{k})$.
 
-**Transfer condition** (from the plan): every variable of $f_B$ must be expressible through $\varphi$. If $f_B$ uses a parameter of B that the map does not cover, nothing transfers.
+**Transfer condition** (from the plan): every variable of $f_B$ must be expressible through $\varphi$. If $f_B$ uses a parameter of B that the map does not cover, nothing transfers, with one exception (version 2): if the uncovered variables only occur in factors polynomial in N (e.g. the $n^3$ in $1.2^k n^3$), the O\* form of $f_B$ ($1.2^k$) transfers. This is sound because a polynomial-time reduction produces instances of polynomial size.
 
 ## 3. Polynomial-time Turing reductions (`calls` > 1)
 
@@ -65,6 +65,7 @@ Substitution produces bounds in A's own variables, sometimes in combinations. Fo
 
 - The derived bound is stored in that form and appears under the parameter combination it uses (here $n - k$).
 - It is also **projected** onto single parameters using the problem's constraints (`bounds.md` B5) and A2: from $0 \le k \le n$, $1.5^{\,n-k} \le 1.5^n$. The projection competes in "by $n$" and is kept only if it is best or incomparable there (R4).
+- **Every bound is projected** (version 2), direct or derived and in one parameter or several: $1.2^k$ with $k \le n$ gives $1.2^n$, and $1.1^m$ with $m \le n^2$ gives $1.1^{n^2}$. A projection is a derived bound.
 
 ## 8. Property inheritance
 
@@ -84,8 +85,9 @@ A derived bound is:
 
 - Derivation is a fixpoint computation over (problem, version) nodes. Starting from direct results, repeatedly apply every reduction to every currently best bound of its target, and keep a new bound only if no existing bound for that node and filter set strictly beats it. Stop when nothing changes.
 - Each derived bound stores its full chain: direct result → reduction → … → result, with each step's type and parameter map.
-- Chains longer than three steps get a small label so readers check more closely. As a safeguard, chains longer than ten steps are not followed, and hitting that limit is reported in the build log.
+- Chains longer than three steps get a small label so readers check more closely. Chains of any length are followed as long as they improve results (version 2): a chain is only extended from a result that is kept, and it never revisits a node, so the computation ends.
 - Worse derived bounds are dropped. Best and incomparable ones are kept, under every filter combination the site offers (so the fastest deterministic polynomial-space bound is kept even when a faster randomized one exists).
+- **Overview tab** (the default view, decided 7 November 2026): shows the best non-quantum bounds obtained by any means, direct or derived, compared in O* form; the Details tab lists every kept result with filters. Bounds equal in O* form are equivalent; the earlier one is cited, by year, and all of them in case of a tie. A derived bound dates from its latest dated ingredient (the algorithm's paper and each reduction's paper). Undated (folklore) results count as latest.
 
 ## 10. Not covered yet
 
@@ -105,6 +107,14 @@ All seven were agreed as recommended:
 - **R6** Property inheritance as in §8.
 - **R7** $T_R$ is kept in the stored exact form and simplified only for display.
 
+Later the same day:
+
+- **Overview tab**: shows the best non-quantum bound obtained by any means; equivalent bounds cite the earlier (by year), all on a tie (§9).
+- **Long chains** (version 2): followed as long as they improve results; the ten-step limit is dropped (§9).
+- **D2** (version 2): polynomial factors transfer in O\* form when the parameter map does not cover them (§2).
+- **Projections** (version 2): every bound is projected through the constraints, not just composite derived ones (§7).
+- **D1**: bounds compete within their parameters (implementation notes).
+
 The questions as asked:
 
 - **R1. Assumptions A1–A3.** Are parameter maps upper bounds, are stated bounds treated as monotone, and are results excluded or carried as in A3? *Recommend yes to all three.*
@@ -114,3 +124,24 @@ The questions as asked:
 - **R5. Versions.** Shared groups are free (no chain step); "special case" via `generalises` is a step, shown in the chain and counted towards the three-step label. *Recommend this.*
 - **R6. Property inheritance.** Is the table in §8 right? In particular: polynomial space through many sequential calls; and conditional hypotheses collected along the chain, dropping any implied by another. *Recommend the table as is.*
 - **R7. Reduction time that dominates.** For the three agreed types this cannot happen under O*, since own time is polynomial. In the exact form, $T_R$ is kept as a term of the sum. Is that the treatment you want, or should the exact form drop $T_R$ when $f_B$'s exact form already dominates it? *Recommend keeping $T_R$ in the stored exact form and letting the comparator simplify for display.*
+
+## Implementation notes (step 5b)
+
+Code: `src/pear/derive.py`, run as `python -m pear derive` (writes `build/derived.json`: every kept result for the Details tab, and under `overview` what the Overview tab shows, per problem and node; CI runs it). Tests: `tests/test_derive.py`, one group per section above, on fictional data.
+
+**Two choices agreed with Serge on 7 November 2026** (they change which bounds are derived or kept):
+
+- **D1. Bounds compete within their parameters.** A derived bound is dropped only by a result whose parameters (the variables of its O* form) are a subset of its own. This is how §7 ("the projection competes in 'by $n$'") and §9 fit together: without it, every projection would be dropped by the bound it was projected from. Since every bound is projected (§7), the bounds kept "by $n$" are the best bounds expressible in $n$. For example, with $k \le n$, $1.2^k$ gives $1.2^n$, which drops a derived $1.5^n$. The Overview still shows only $1.2^k$, which beats $1.2^n$. Each result's `beaten_by` list names every strictly better bound. **Decided 7 November 2026: yes.**
+- **D2. Polynomial factors transfer in O\* form.** If the parameter map misses a variable of B's bound that only occurs in factors polynomial in N (e.g. the $n^3$ in $1.2^k n^3$), the O\* form ($1.2^k$) is transferred instead of nothing. This is sound because a polynomial-time reduction produces instances of polynomial size. A strict reading of §2 would transfer nothing. **Decided 7 November 2026: yes**; now part of §2.
+
+**Choices that follow from the rules:**
+
+- **Nodes** are version classes: the versions in a `shared_bounds` group form one node (§6). A result's chain never revisits a node, so cycles terminate.
+- **Exact form** of a polynomial-time transfer: the terms of $T_R$, then $\text{calls} \cdot t$ for each term $t$ of $f_B(\varphi)$ (R7), under $O^*$ or $\tilde O$ if B's bound uses it, otherwise $O$.
+- **Amplification** (§4): only calls to a randomized algorithm for B are amplified, by a factor $\log(\text{calls})$, and only when the number of calls is an expression, not a constant.
+- **SERF** (§5): B's bound transfers when the comparator shows it is at least as good as $O^*(2^{\delta q})$ for every $\delta > 0$. This includes $2^{o(q)}$ and $2^{\sqrt q}$, not $1.01^q$. A derived SERF bound has polynomial space only if the reduction records polynomial space.
+- **Keeping** (§9): the filters are those in DESIGN.md (deterministic, polynomial space, constructive, non-algebraic, Lean-verified, include derived) plus classical vs quantum and the set of hypotheses. A derived result is dropped when another is at least as good in every filter, listed under the same parameters or fewer (D1), and either strictly better in O* form, or equal in O* form, at least as good in exact form, and *earlier*. Equal in O* form and the same year counts as earlier only for the same algorithm by a shorter route, so different papers from the same year are all kept for citation. Direct results are never dropped from the Details list; the Overview may still pass over them.
+- **Projections** (§7) apply to every bound, direct or derived. They remove subtracted terms (all variables are nonnegative), then substitute every variable through the constraints onto any single parameter they reach. A projection is kept only if the comparator proves it is implied by the original. It is a chain step of kind `projection` that does not count towards the chain length. Projections are not projected again, because constraints are closed transitively.
+- **Lean-verified** means every step is `proved` with prover Lean. The `formal` status is the weakest along the chain.
+- **Variants** (schema §6) are used as reductions of their own, between the variant's problems and versions, cited as `<reduction>~<variant>`, with the variant's note shown in the chain. A derived bound through a variant dates from the later of the reduction's and the variant's papers. Variants written by the site are used only once approved, and flagged.
+- **Not covered:** parameters that exist only in a general version (e.g. a maximum weight set to 1 in the special case) are not substituted, because parameters are defined per problem, not per version.

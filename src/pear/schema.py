@@ -349,10 +349,21 @@ class Algorithm(Model):
 
 
 class Variant(Model):
-    problem: Id
-    version: Id
-    note: Text
-    source: Source | None = None
+    """A slight modification of the reduction: a paper focused on one parameter but a variant
+    also works for another, a known step (such as a kernelization) has to be added first, or
+    the same construction works between other problems or versions (weighted vs unweighted,
+    Red-Blue Dominating Set vs Set Cover). The reduction type stays the same."""
+
+    id: Id
+    note: Text  # what is modified
+    from_: VersionRef | None = Field(None, alias="from")  # defaults to the reduction's
+    to: VersionRef | None = None  # defaults to the reduction's
+    parameter_map: dict[Symbol, Text] = Field(min_length=1)
+    time: Text | None = None  # defaults to the reduction's
+    calls: Annotated[int, Field(ge=1, strict=True)] | Text | None = None  # defaults to the reduction's
+    source: Source | None = None  # None: written by the site, used only once approved (rule 6)
+    formal: Formal = Formal()
+    review: Review = Review()
 
 
 class ReductionProperties(Model):
@@ -382,6 +393,9 @@ class Reduction(Model):
     def _call_sizes_for_turing(self) -> Reduction:
         if self.call_sizes is not None and self.calls == 1:
             raise ValueError("call_sizes only applies to reductions with several calls")
+        ids = [v.id for v in self.variants]
+        if len(ids) != len(set(ids)):
+            raise ValueError("variant ids must be unique within a reduction")
         return self
 
 

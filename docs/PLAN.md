@@ -50,7 +50,7 @@ Bounds are stored exactly as the paper states them (TeX subset), and shown in O*
 - Within one parameter, bounds are compared by exponential base first, then polynomial degree, then log factors.
 - Non-explicit constants are kept in comparisons and written as in papers, e.g. (2 − ε)^n for some ε > 0. With no proven size for ε, it is treated as arbitrarily small: (2 − ε)^n beats 2^n, but any explicit base below 2, such as 1.99^n, beats (2 − ε)^n.
 
-## Rules for chaining reductions (agreed 7 November 2026; full spec in `specs/rulebook.md`, version 1)
+## Rules for chaining reductions (agreed 7 November 2026; full spec in `specs/rulebook.md`, now version 2)
 
 A precise, written, versioned rulebook decides when and how a bound transfers along a reduction. Changing it recomputes all derived bounds and is high risk.
 
@@ -210,6 +210,14 @@ Clicking a parameter on a problem page opens the history of the best running tim
 - A more precise bound beats a less precise one (comparison is implication between statements): $k^k$ beats $n^{O(k)}$, and $O(1.5^k + kn)$ beats $O^*(1.5^k)$.
 - Derived bases are folded only when exact. A fold that needs rounding is shown on hover, rounded up: $1.5^{n/2}$ shows $1.2248^n$ on hover.
 - $\omega$ is a named constant in `data/constants/`: $2 \le \omega \le 9/4$, the upper bound claimed (OpenAI preprint, 2 October 2026; constructive proof by Pass, arXiv:2610.28627). Claimed bounds are used in comparisons.
+
+### Overview tab and long chains (decided 7 November 2026)
+
+- The Overview tab (the default view) shows the best non-quantum bound obtained by any means (direct or derived); it is not a separate section. The Details tab keeps the filters. If two bounds are equivalent (equal in O* form), the earlier is cited, by year; all are cited in case of a tie.
+- Chains of reductions are followed as long as they improve results (rulebook version 2).
+- When a reduction's parameter map misses a variable that only occurs in a polynomial factor, the O* form transfers (rulebook version 2, D2).
+- Every bound, direct or derived, is projected onto single parameters through the constraints, and bounds compete within their parameters (rulebook version 2, D1): the bounds kept "by n" are the best expressible in n.
+- Reduction variants are slight modifications of a reduction: another parameter map, an added known step such as a kernelization, or the same construction between other problems or versions. Site-written variants need Serge's approval (schema §6).
 
 ### Data schema (decided 7 November 2026)
 
