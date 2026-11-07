@@ -322,6 +322,41 @@ bounds:
 
 The validator checks that every constant used in a bound has an entry, that values are numbers, that at least one upper bound is not refuted, and that the bounds do not cross.
 
+## 12. Implementation (draft, 8 November 2026; awaiting Serge's sign-off)
+
+Publicly available code that solves a problem. One file per implementation in `data/implementations/<id>.yaml`; one implementation can solve several problems.
+
+```yaml
+id: wegotyoucovered
+name: WeGotYouCovered
+url: "https://github.com/sebalamm/pace-2019"   # code or download page
+language: C++
+licence: GPL-2.0
+solves:
+  - problem: vertex-cover
+    versions: [decision, optimisation, search]   # empty: the default version
+    exact: true          # true: exact; false: heuristic; omitted: not stated
+    note: "…"           # e.g. "via the complement"
+facts:                   # positive, sourced facts only
+  - fact: "Winner of the PACE 2019 Vertex Cover exact track (87 instances solved)."
+    source: "https://drops.dagstuhl.de/… (Table 4)"
+    as_of: 2026-11-08    # for facts that change: citation counts, stars
+review: { approved_by: …, date: … }
+```
+
+The ranking lives in the problem file, best first, because "best" depends on the problem:
+
+```yaml
+implementations:
+  as_of: 2026-11-08
+  ranked: [wegotyoucovered, peaty, …]
+  note: "What the order rests on (competition results, benchmarks) and where it is a judgement call."
+```
+
+The ranking is subjective but informed by data (competition results, published benchmarks); the note says which places rest on data. Facts are positive and sourced: competition placings, citation counts (OpenAlex, with `as_of`), wide use in a named field. Where to look for implementations: `docs/implementations.md`.
+
+The validator checks that ranked ids exist, appear once and solve the problem, and that every `solves` entry names a known problem and version.
+
 ## Decisions (7 November 2026)
 
 - **Q1** Paper IDs are surname+year slugs; DBLP key stored under `identifiers`.

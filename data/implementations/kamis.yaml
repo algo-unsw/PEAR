@@ -1,0 +1,17 @@
+id: kamis
+name: KaMIS (Karlsruhe Maximum Independent Sets)
+url: "https://github.com/KarlsruheMIS/KaMIS"
+language: C++
+licence: MIT (some kernelization files BSD-3-Clause)
+solves:
+  - problem: independent-set
+    versions: [optimisation, search, weighted]
+    exact: true
+    note: "Exact through its branch-and-reduce programs (struction; weighted_branch_reduce for the weighted version); its other programs (redumis, onlinemis, mmwis, weighted_local_search) are evolutionary or local-search heuristics."
+  - problem: vertex-cover
+    versions: [optimisation, search, weighted]
+    exact: true
+    note: "Via the complement of a maximum (weight) independent set."
+facts:
+  - fact: "Suite for maximum independent sets and vertex covers of large sparse graphs; its README links to WeGotYouCovered as the solver that won the PACE Vertex Cover track."
+    source: "https://github.com/KarlsruheMIS/KaMIS"

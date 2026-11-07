@@ -228,6 +228,15 @@ class Lean(Model):
         return self
 
 
+class Ranking(Model):
+    """Publicly available implementations for a problem, best performing first. Editorial,
+    but informed by data: competition results, benchmarks, citations and use."""
+
+    as_of: dt.date
+    ranked: list[Id] = Field(min_length=1)
+    note: Text | None = None
+
+
 class Problem(Model):
     id: Id
     name: Text
@@ -241,6 +250,7 @@ class Problem(Model):
     constraints: list[Constraint] = []
     shared_bounds: list[SharedBounds] = []
     related: list[Related] = []
+    implementations: Ranking | None = None
     lean: Lean = Lean()
     review: Review = Review()
 
@@ -472,6 +482,32 @@ class NamedConstant(Model):
     review: Review = Review()
 
 
+class Solves(Model):
+    problem: Id
+    versions: list[Id] = []  # empty: the problem's default version
+    exact: bool | None = None  # None: not stated (e.g. a mix of exact and heuristic solvers)
+    note: Text | None = None  # e.g. "via the complement (minimum vertex cover)"
+
+
+class Fact(Model):
+    """A positive, sourced fact: a competition won, a citation count, notable use."""
+
+    fact: Text
+    source: Text  # a URL that states it
+    as_of: dt.date | None = None  # for facts that change, such as citation counts
+
+
+class Implementation(Model):
+    id: Id
+    name: Text
+    url: Text  # code or download page
+    language: Text | None = None
+    licence: Text | None = None
+    solves: list[Solves] = Field(min_length=1)
+    facts: list[Fact] = []
+    review: Review = Review()
+
+
 class LowerBound(Model):
     id: Id
     problem: Id
@@ -492,4 +528,5 @@ ENTITY_TYPES: dict[str, type[Model]] = {
     "hypotheses": Hypothesis,
     "lower-bounds": LowerBound,
     "constants": NamedConstant,
+    "implementations": Implementation,
 }

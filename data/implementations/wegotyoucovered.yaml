@@ -1,0 +1,20 @@
+id: wegotyoucovered
+name: WeGotYouCovered
+url: "https://github.com/sebalamm/pace-2019"
+language: C++
+licence: GPL-2.0
+solves:
+  - problem: vertex-cover
+    versions: [decision, optimisation, search]
+    exact: true
+  - problem: independent-set
+    versions: [decision, optimisation, search]
+    exact: true
+    note: "Outputs a minimum vertex cover; its complement is a maximum independent set."
+facts:
+  - fact: "Winner of the PACE 2019 Vertex Cover exact track (87 instances solved)."
+    source: "https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.IPEC.2019.25 (Table 4)"
+  - fact: "Portfolio of aggressive kernelization with all known reduction rules, local search and branch-and-reduce, plus techniques from maximum independent set and maximum clique solvers."
+    source: "https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.IPEC.2019.25 (Section 4.1); https://arxiv.org/abs/1908.06795"
+  - fact: "Archived on Zenodo."
+    source: "https://doi.org/10.5281/zenodo.2816116"

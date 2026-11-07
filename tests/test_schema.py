@@ -24,6 +24,7 @@ HYP_G = ("hypotheses", "hypothesis-g")
 LB = ("lower-bounds", "problem-a--n--author-example-2000")
 PARAM = ("parameters", "example-width")
 CONST = ("constants", "omega")
+IMPL = ("implementations", "example-solver")
 
 
 @pytest.fixture(scope="module")
@@ -156,6 +157,15 @@ CASES = [
     ("hypothesis implies itself", HYP_H, _set("implies", ["hypothesis-h"]), "cannot imply itself"),
     ("hypothesis implies unknown", HYP_H, _set("implies", ["nope"]), "unknown hypothesis 'nope'"),
     ("lower bound unknown version", LB, _set("version", "search-x"), "has no version 'search-x'"),
+    # implementations (schema §12)
+    ("ranking unknown implementation", PA, _set("implementations.ranked", ["example-solver", "nope"]), "unknown implementation 'nope'"),
+    ("ranking lists twice", PA, _set("implementations.ranked", ["example-solver", "example-solver"]), "ranked twice"),
+    ("ranking empty", PA, _set("implementations.ranked", []), "implementations.ranked"),
+    ("ranking without date", PA, _set("implementations.as_of", _DELETE), "implementations.as_of"),
+    ("implementation solves unknown problem", IMPL, _set("solves.1.problem", "nope"), "unknown problem 'nope'"),
+    ("implementation solves unknown version", IMPL, _set("solves.0.versions", ["counting"]), "has no version 'counting'"),
+    ("implementation solves nothing", IMPL, _set("solves", []), "solves"),
+    ("implementation fact without source", IMPL, _set("facts.0.source", _DELETE), "facts.0.source"),
 ]
 
 
@@ -284,3 +294,11 @@ def test_shared_parameter_may_say_which_graph(fixture_raw):
     raw["problems"]["problem-a"]["parameters"]["w"] = {"shared": "example-width", "of": "the primal graph"}
     _, issues = validate_raw(raw, redirects)
     assert [str(i) for i in issues] == []
+
+
+def test_ranked_implementation_must_solve_the_problem(fixture_raw):
+    def drop_problem_a(impl: dict) -> None:
+        impl["solves"] = [s for s in impl["solves"] if s["problem"] != "problem-a"]
+
+    issues = issues_after(fixture_raw, IMPL, drop_problem_a)
+    assert any("does not solve 'problem-a'" in i for i in issues), issues

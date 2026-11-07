@@ -239,6 +239,23 @@ def check_references(data: Dataset) -> list[Issue]:
                 issues.append(Issue(f"{where}: related", "a problem cannot be related to itself"))
             elif rel.problem not in data.problems:
                 issues.append(Issue(f"{where}: related", f"unknown problem '{rel.problem}'"))
+        if problem.implementations is not None:
+            ranked = problem.implementations.ranked
+            if len(ranked) != len(set(ranked)):
+                issues.append(Issue(f"{where}: implementations", "an implementation is ranked twice"))
+            for iid in ranked:
+                impl = data.entries["implementations"].get(iid)
+                if impl is None:
+                    issues.append(Issue(f"{where}: implementations", f"unknown implementation '{iid}'"))
+                elif not any(s.problem == pid for s in impl.solves):  # type: ignore[attr-defined]
+                    issues.append(Issue(f"{where}: implementations", f"implementation '{iid}' does not solve '{pid}'"))
+
+    for iid, impl in data.entries["implementations"].items():
+        where = f"implementations/{iid}.yaml"
+        for i, s in enumerate(impl.solves):  # type: ignore[attr-defined]
+            problem_version(f"{where}: solves.{i}", s.problem, None)
+            for v in s.versions:
+                problem_version(f"{where}: solves.{i}.versions", s.problem, v)
 
     for aid, alg in data.entries["algorithms"].items():
         assert isinstance(alg, Algorithm)

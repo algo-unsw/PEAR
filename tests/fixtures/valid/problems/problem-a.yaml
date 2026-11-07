@@ -39,4 +39,8 @@ shared_bounds:
     because: "binary search on k and self-reducibility"
 related:
   - { problem: problem-b, relation: complement }
+implementations:
+  as_of: 2026-11-08
+  ranked: [example-solver]
+  note: "Only one implementation."
 review: { approved_by: Serge Gaspers, date: 2026-11-07 }

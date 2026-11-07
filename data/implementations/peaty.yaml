@@ -1,0 +1,18 @@
+id: peaty
+name: Peaty
+url: "https://github.com/jamestrimble/peaty"
+language: C++
+licence: GPL-3.0
+solves:
+  - problem: vertex-cover
+    versions: [decision, optimisation, search]
+    exact: true
+  - problem: independent-set
+    versions: [decision, optimisation, search]
+    exact: true
+    note: "Outputs a minimum vertex cover; its complement is a maximum independent set."
+facts:
+  - fact: "Second place in the PACE 2019 Vertex Cover exact track (77 instances solved)."
+    source: "https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.IPEC.2019.25 (Table 4)"
+  - fact: "Uses kernelization, local search, branch-and-bound and a branch-and-bound maximum clique solver."
+    source: "https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.IPEC.2019.25 (Section 4.1)"
