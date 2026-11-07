@@ -34,6 +34,7 @@ All text pairs meet WCAG AA (4.5:1) in both themes; keep it that way when adding
 - H1 42px/700 (phone 30px). Section H2 28px/700 with a 1px bottom rule (phone 22px). H3 20px/600.
 - Mathematics: render with **KaTeX or MathJax** on the real site (the mockup uses native MathML only because the design canvas blocks external scripts). Bounds in O* notation, e.g. `O^*(1.2738^k)`; non-stretchy parentheses inline.
 - Parameter names (k, n, tw) are maths, not code.
+- Greek letters, above all the matrix multiplication exponent $\omega$, are always rendered through KaTeX/MathJax (`\omega`), never as plain Unicode characters in page text: some fonts and pages show a plain lowercase omega as an uppercase Omega (decided 7 November 2026).
 
 ## Layout (desktop, max width 1180px)
 
