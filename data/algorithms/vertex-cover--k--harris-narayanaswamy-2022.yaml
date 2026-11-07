@@ -1,0 +1,17 @@
+id: vertex-cover--k--harris-narayanaswamy-2022
+problem: vertex-cover
+proved_for: decision
+bound: { as_stated: "O^*(1.25284^{k})", notation: "O*", parameters: [k] }
+properties:
+  randomized: false
+  space: { class: polynomial }
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: harris-narayanaswamy-2022
+  statements:
+    stacs: { statement: "Theorem 1", page: "40:2" }
+    arxiv-v4: { statement: "Theorem 3" }
+  note: "Deterministic and polynomial space: stated on p. 40:2 (STACS). First stated in arXiv v4 (30 April 2023); v1, v2 and v3 give 1.25400^k, 1.25298^k and 1.25288^k."

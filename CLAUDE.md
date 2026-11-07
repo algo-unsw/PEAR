@@ -22,3 +22,6 @@ PEAR (Parameterized and Exact Algorithms and Reductions) is a research website c
 - Small, reviewable pull requests; tests for the bound language and derivation engine before data entry depends on them.
 - When a decision is the owner's (scope, schema, notation, risk rules), ask concisely and offer a recommendation.
 - Keep `docs/PLAN.md` the source of truth; update it when Serge changes a decision.
+- **Check, don't assume.** For example, read the paper version a result is dated by: a bound can change between arXiv versions.
+- **Space usage not stated:** check the algorithm and the subroutines it calls for exponential-space techniques (memoization, dynamic programming, tree or path decompositions, inclusion–exclusion tables, …) and make an educated guess. When asking Serge, always say which such techniques you found, if any, together with the guess.
+- **Citations of classic results:** mirror Wikipedia's choice of source (e.g. a problem's NP-completeness).

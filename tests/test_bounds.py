@@ -257,3 +257,15 @@ def test_shown_bound_is_exact_and_hover_is_an_upper_bound():
 )
 def test_monotone(src, monotone):
     assert is_monotone(P(src)) is monotone
+
+
+def test_subtraction_in_a_factor_is_bounded_above():
+    # (n - k) <= n is polynomial, so it disappears under O*
+    assert ostar_tex(P(r"O(n + m + 1.2738^{n - k} + (n - k) n)"), CTX) == r"O^*(1.2738^{n - k})"
+
+
+def test_term_without_lower_estimate_does_not_block_the_bound():
+    # (n - k) n has no safe lower estimate, but the 1.2738^{n-k} term still compares
+    a = P(r"O^*(1.25281^{n - k})")
+    b = P(r"O(n + m + 1.2738^{n - k} + (n - k) n)")
+    assert compare(a, b, CTX) == Relation.BETTER

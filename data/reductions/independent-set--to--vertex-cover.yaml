@@ -1,0 +1,10 @@
+id: independent-set--to--vertex-cover
+from: { problem: independent-set, version: decision }
+to: { problem: vertex-cover, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(n + m)"
+parameter_map: { n: "n", m: "m", k: "n - k" }
+source:
+  folklore: true
+  note: "$S$ is an independent set of $G$ if and only if $V \\setminus S$ is a vertex cover of $G$, so $(G, k) \\mapsto (G, n - k)$."

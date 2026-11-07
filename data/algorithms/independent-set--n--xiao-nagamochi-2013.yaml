@@ -1,0 +1,16 @@
+id: independent-set--n--xiao-nagamochi-2013
+problem: independent-set
+proved_for: optimisation
+bound: { as_stated: "1.1996^{n} n^{O(1)}", notation: O, parameters: [n] }
+properties:
+  randomized: false
+  space: { class: polynomial }
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: xiao-nagamochi-2013
+  statements:
+    techreport: { statement: "Theorem 12", page: 13 }
+  note: "Section 6.2 states the bound more precisely as $1.19951^n n^{O(1)}$."

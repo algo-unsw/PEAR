@@ -1,0 +1,10 @@
+id: xiao-nagamochi-2013
+title: "Exact Algorithms for Maximum Independent Set"
+authors: [Mingyu Xiao, Hiroshi Nagamochi]
+versions:
+  techreport:
+    kind: technical-report
+    venue: "Technical Report 2013-006, Department of Applied Mathematics and Physics, Kyoto University"
+    year: 2013
+    url: "http://www.amp.i.kyoto-u.ac.jp/tecrep/ps_file/2013/2013-006.pdf"
+    open_access: true

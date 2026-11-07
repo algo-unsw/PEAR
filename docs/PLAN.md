@@ -27,7 +27,7 @@ Every algorithm and reduction is tagged with its model and resource properties, 
 - Deterministic or randomized. Comparisons use a single "randomized" tag (constant success probability, amplified as needed). An optional, information-only field records Las Vegas / one-sided / two-sided error (decided 7 November 2026).
 - Space: polynomial or exponential, with the space bound where known.
 - Algebraic or combinatorial (curator-assigned, since "combinatorial" has no formal definition), with an objective sub-tag "uses fast matrix multiplication" (matches conditional lower bounds stated for algorithms that avoid it).
-- Constructive (the algorithm is explicitly known; results relying on e.g. Robertson–Seymour well-quasi-ordering may lack this flag); optional note on impractical constants.
+- Constructive: the algorithm or reduction can actually be written down. It is non-constructive when a paper proves that it exists but gives no way to write it down, even taking known results into account (e.g. results relying on Robertson–Seymour well-quasi-ordering). Optional note on impractical constants.
 - Classical or quantum.
 - Unconditional or conditional on a hypothesis.
 - Reductions carry the same tags; e.g. a randomized reduction yields only a randomized derived bound.
@@ -72,7 +72,9 @@ Every problem has exactly one canonical definition, because small differences qu
 - Natural sizes: n is the number of basic objects (vertices, variables, elements, …) and m the number of relations between them (edges, clauses, constraints, sets, …); each problem states exactly what n and m count. Capital N is the total input size (encoding length). Other parameters such as k or treewidth are defined per problem.
 - Definitions are the basis for Lean statements and for matching results from papers.
 - The definition format was agreed on 7 November 2026: `specs/definitions.md`. Defaults: graphs are finite, simple and undirected; $N$ is a binary encoding length; the optimisation version outputs the optimum value; $k$ is the input integer (decision, search) or the optimum (optimisation); weights are nonnegative integers unless a problem says otherwise.
-- Classic results in closed papers (e.g. Karp 1972) are cited as such, confirmed by at least three independent web sources instead of an open statement.
+- Classic results in closed papers (e.g. Karp 1972) are cited as such, confirmed by at least three independent web sources instead of an open statement. As a general rule, citations of classic results mirror Wikipedia's choice (decided 8 November 2026).
+- A result is dated by the earliest paper version that states it, not by the paper's first version (decided 8 November 2026).
+- Unrefereed reports (e.g. Robson 2001) are tagged unverified: shown in Details, not in the Overview. Treewidth results are stored as stated, with a note that a tree decomposition is given. For historical results, best guesses about properties are fine without human verification (decided 8 November 2026).
 
 ### Presenting versions of a problem
 

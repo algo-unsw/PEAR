@@ -15,7 +15,8 @@ Read `CLAUDE.md` first (ground rules), then `docs/PLAN.md` (what and why) and `d
 - **First data (7 November 2026)**: `data/constants/omega.yaml` and its two papers. Signed off by Serge on 7 November 2026.
 - **Derivation engine (step 5b, 7 November 2026)**: `src/pear/derive.py`, `python -m pear derive` writes `build/derived.json` (run in CI). Rulebook version 2 (long chains followed while they improve results; polynomial factors transfer in O* form, D2). The Overview tab shows the best non-quantum bound by any means, earliest cited. Reduction `variants` are slight modifications of a reduction, possibly between other problems or versions (schema §6). Every bound is projected through the constraints, and bounds compete within their parameters (D1). All agreed with Serge on 7 November 2026.
 - **Definition format (step 6, agreed 7 November 2026)**: `docs/specs/definitions.md`; Vertex Cover's definition entered (signed off by Serge on 7 Nov 2026), with Karp 1972 attested by web sources.
-- **Not started**: Vertex Cover's results; the other 11 pilot problems.
+- **Vertex Cover results (step 6, in review)**: by $k$: Chen–Kanj–Xia 2006 (history, attested), Harris–Narayanaswamy (arXiv v4 2023 / STACS 2024, deterministic), Clinch–Gaspers–He–Mackenzie–Zhang 2025 (randomized); by $n$: derived from Independent Set (Robson 2001, exponential space; Xiao–Nagamochi 2013, polynomial space) through the complement reduction. Independent Set gets $1.25281^{n-k}$ through the reverse reduction. By treewidth (tree decomposition given): Cygan et al., Theorem 7.5 and Corollary 7.6. Robson's report is tagged unverified.
+- **Not started**: the Vertex Cover page (site, step 7); the other 10 pilot problems.
 - **Drafts exist** for the bound language and chaining rules (in `docs/PLAN.md`); they must be finished **with Serge**.
 
 ## Goal of this session: Phase 1 pilot

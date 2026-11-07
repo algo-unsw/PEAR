@@ -1,0 +1,21 @@
+id: harris-narayanaswamy-2022
+title: "A Faster Algorithm for Vertex Cover Parameterized by Solution Size"
+authors: [David G. Harris, N. S. Narayanaswamy]
+versions:
+  stacs:
+    kind: conference
+    venue: "41st International Symposium on Theoretical Aspects of Computer Science (STACS 2024), LIPIcs 289, 40:1–40:18"
+    year: 2024
+    doi: "10.4230/LIPIcs.STACS.2024.40"
+    url: "https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.STACS.2024.40"
+    open_access: true
+  arxiv-v4:
+    kind: preprint
+    arxiv: "2205.08022v4"
+    year: 2023
+    open_access: true
+  arxiv-v7:
+    kind: preprint
+    arxiv: "2205.08022v7"
+    year: 2025
+    open_access: true

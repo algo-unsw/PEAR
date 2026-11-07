@@ -383,7 +383,12 @@ def _base_log(node: Node, upper: bool) -> Growth:
                     out = out + g
                 return out
             return logs[0]  # any one term is a lower bound
-        raise UnsupportedBound("a base with subtraction, other than c - ε")
+        positive = [t for s, t in nums if s > 0]
+        if upper and positive:
+            # every subtracted term is nonnegative (variables and positive numbers), so
+            # dropping it gives an upper bound: n - k <= n
+            return _base_log(positive[0] if len(positive) == 1 else Add(tuple((1, t) for t in positive)), True)
+        raise UnsupportedBound("a lower bound for a base with subtraction, other than c - ε")
     return log_growth(node, upper)
 
 
@@ -393,7 +398,7 @@ def _base_log(node: Node, upper: bool) -> Growth:
 @dataclass(frozen=True)
 class Term:
     hi: Growth
-    lo: Growth
+    lo: Growth | None  # None: no safe lower estimate, so the term never dominates another
     hidden: Growth = field(default_factory=Growth)  # factors hidden by O* or Õ, unknown
     unspecified: frozenset[str] | None = None  # variables of an f(k) factor
     vars: frozenset[str] = frozenset()
@@ -411,7 +416,11 @@ def bound_terms(b: Bound) -> list[Term]:
     out = []
     for p in pieces:
         try:
-            hi, lo = log_growth(p, True), log_growth(p, False)
+            hi = log_growth(p, True)
+            try:
+                lo: Growth | None = log_growth(p, False)
+            except UnsupportedBound:
+                lo = None  # e.g. a factor n - k: bounded above by n, but not below
             unspec = None
         except Unspecified as u:
             hi, lo, unspec = Growth(), Growth(), frozenset(u.var_names)
@@ -434,7 +443,7 @@ def is_monotone(b: Bound) -> bool:
     for t in terms:
         if t.unspecified is not None:
             continue
-        for g in (t.hi, t.lo):
+        for g in (t.hi, t.lo) if t.lo is not None else (t.hi,):
             for key, cs in g.terms.items():
                 if not key:
                     continue

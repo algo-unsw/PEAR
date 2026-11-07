@@ -136,7 +136,8 @@ versions:
     open_access: true
 ```
 
-- A version is `open_access: true` only if it can be read without a paywall or bot block (rule 2). The validator checks that every result cites at least one open-access version.
+- A version is `open_access: true` only if it can be read without a paywall or bot block (rule 2).
+- `unverified: true` marks a paper that is not peer reviewed or otherwise verified, such as an unrefereed technical report. Its results, and bounds derived from them, appear in Details but never in the Overview (decided 8 November 2026). The validator checks that every result cites at least one open-access version.
 - Version keys (`conference`, `journal`, `arxiv-v2`) are local to the paper and are what statements refer to, because numbering differs between versions.
 - Books (e.g. textbooks with open-access PDFs) and theses use the same entity.
 
@@ -202,6 +203,7 @@ status: valid                         # Phase 2 grading via data/flags/
 ```
 
 - The site never states a bound that is not in `as_stated`. The O* form and comparisons are computed.
+- `given: [tree-decomposition]` records that the input comes with a tree decomposition of width at most $\mathrm{tw}$, as is usual for results parameterized by treewidth. The result is stored as stated, and the site shows the note (decided 8 November 2026).
 - `parameters` must match the variables in `as_stated`; the validator checks this once the bound parser exists.
 - Comparisons only ever use the single `randomized` tag (constant success probability). The optional error detail is for display only.
 

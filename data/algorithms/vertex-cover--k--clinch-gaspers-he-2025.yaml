@@ -1,0 +1,16 @@
+id: vertex-cover--k--clinch-gaspers-he-2025
+problem: vertex-cover
+proved_for: decision
+bound: { as_stated: "O^*(1.25281^{k})", notation: "O*", parameters: [k] }
+properties:
+  randomized: { error: one-sided }
+  space: { class: polynomial, bound: "Not stated in arXiv v1; confirmed by a co-author (Serge Gaspers, 8 November 2026)." }
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: clinch-gaspers-he-2025
+  statements:
+    arxiv-v1: { statement: "Lemma 18" }
+  note: "One-sided error: no-instances always get No; yes-instances get Yes with positive probability, amplified by repetition."

@@ -1,0 +1,9 @@
+id: clinch-gaspers-he-2025
+title: "A Faster Randomized Algorithm for Vertex Cover: An Automated Approach"
+authors: [Katie Clinch, Serge Gaspers, Tao Zixu He, Simon Mackenzie, Tiankuang Zhang]
+versions:
+  arxiv-v1:
+    kind: preprint
+    arxiv: "2510.09027v1"
+    year: 2025
+    open_access: true

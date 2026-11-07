@@ -1,0 +1,10 @@
+id: chen-kanj-xia-2006
+title: "Improved Parameterized Upper Bounds for Vertex Cover"
+authors: [Jianer Chen, Iyad A. Kanj, Ge Xia]
+versions:
+  mfcs:
+    kind: conference
+    venue: "Mathematical Foundations of Computer Science 2006 (MFCS 2006), LNCS 4162, pp. 238–249"
+    year: 2006
+    doi: "10.1007/11821069_21"
+    open_access: false

@@ -329,6 +329,9 @@ class Paper(Model):
     authors: list[Text] = Field(min_length=1)
     identifiers: Identifiers = Identifiers()
     versions: dict[Id, PaperVersion] = Field(min_length=1)
+    # Not peer reviewed or otherwise verified (e.g. an unrefereed technical report): its
+    # results, and bounds derived from them, appear in Details but never in the Overview.
+    unverified: bool = False
     review: Review = Review()
 
 
@@ -355,6 +358,9 @@ class Algorithm(Model):
     bound: Bound
     properties: Properties
     conditional_on: list[Id] = []
+    # What the input comes with beyond the problem's definition, e.g. a tree decomposition
+    # of width at most tw (definitions §4); shown as a note, carried along derivations.
+    given: list[Literal["tree-decomposition"]] = []
     source: Source
     formal: Formal = Formal()
     status: ResultStatus = "valid"
