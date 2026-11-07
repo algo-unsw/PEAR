@@ -16,3 +16,4 @@ source:
     - "https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.STACS.2024.40"
     - "https://arxiv.org/html/2205.08022v6"
   note: "Closed paper, cited as on Wikipedia (Vertex cover). The publisher's abstract calls it a polynomial-space algorithm. Deterministic: an educated guess (a branching algorithm; randomness is not mentioned)."
+review: { approved_by: Serge Gaspers, date: 2026-11-08 }

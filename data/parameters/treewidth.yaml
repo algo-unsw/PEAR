@@ -3,3 +3,4 @@ name: Treewidth
 symbol: tw
 aliases: [tree-width]
 definition: "The minimum width of a tree decomposition of the graph. A tree decomposition is a tree $T$ with a bag $B_t \\subseteq V$ for each node $t$ such that every vertex is in some bag, both endpoints of every edge are in a common bag, and for each vertex the nodes whose bags contain it form a connected subtree. Its width is $\\max_t |B_t| - 1$."
+review: { approved_by: Serge Gaspers, date: 2026-11-08 }

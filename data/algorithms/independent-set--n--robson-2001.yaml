@@ -14,3 +14,4 @@ source:
   statements:
     techreport: { statement: "Title and abstract" }
   note: "Unrefereed technical report. Section 1.2.1 gives $O(a'^n)$ with $a' \\approx 1.188805$. It computes the size of a maximum independent set; the report says it can be modified to find one in the same time."
+review: { approved_by: Serge Gaspers, date: 2026-11-08 }

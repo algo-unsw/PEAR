@@ -15,3 +15,4 @@ solves:
 facts:
   - fact: "Suite for maximum independent sets and vertex covers of large sparse graphs; its README links to WeGotYouCovered as the solver that won the PACE Vertex Cover track."
     source: "https://github.com/KarlsruheMIS/KaMIS"
+review: { approved_by: Serge Gaspers, date: 2026-11-08 }

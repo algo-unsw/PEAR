@@ -8,3 +8,4 @@ parameter_map: { n: "n", m: "m", k: "n - k" }
 source:
   folklore: true
   note: "$S$ is a vertex cover of $G$ if and only if $V \\setminus S$ is an independent set of $G$, so $(G, k) \\mapsto (G, n - k)$."
+review: { approved_by: Serge Gaspers, date: 2026-11-08 }

@@ -15,3 +15,4 @@ source:
   statements:
     book-pdf: { statement: "Corollary 7.6", page: 166 }
   note: "Stated as $2^k k^{O(1)} n$ for a tree decomposition of width at most $k$, given with the input; $k$ is written $tw$ here."
+review: { approved_by: Serge Gaspers, date: 2026-11-08 }

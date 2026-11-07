@@ -16,3 +16,4 @@ facts:
     source: "https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.IPEC.2019.25 (Table 4)"
   - fact: "Uses kernelization, local search, branch-and-bound and a branch-and-bound maximum clique solver."
     source: "https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.IPEC.2019.25 (Section 4.1)"
+review: { approved_by: Serge Gaspers, date: 2026-11-08 }

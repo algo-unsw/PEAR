@@ -14,3 +14,4 @@ source:
   statements:
     arxiv-v1: { statement: "Lemma 18" }
   note: "One-sided error: no-instances always get No; yes-instances get Yes with positive probability, amplified by repetition."
+review: { approved_by: Serge Gaspers, date: 2026-11-08 }
