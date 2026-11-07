@@ -19,7 +19,7 @@ from .bounds.compare import Analysed, Context, analyse, compare_ostar
 from .bounds.display import simplify, substitute
 from .bounds.expr import Add, Const, Log, Mul, Node, Num, Pow, Var, variables
 from .bounds.growth import is_monotone
-from .schema import Algorithm, FolkloreSource, Hypothesis, PaperSource, Problem, Reduction
+from .schema import Algorithm, FolkloreSource, Hypothesis, PaperSource, Problem, Reduction, Variant
 from .validate import Dataset, problem_context
 
 RULEBOOK_VERSION = 2
@@ -67,6 +67,7 @@ class Step:
     type: str | None = None  # reduction type
     parameter_map: tuple[tuple[str, str], ...] = ()
     counted: bool = True  # counts towards the chain length (projections do not)
+    note: str | None = None  # for a reduction variant: what is modified
 
 
 @dataclass(frozen=True)
@@ -135,6 +136,7 @@ class Engine:
         for pid, problem in data.problems.items():
             self.out.contexts[pid] = problem_context(data, problem)
         self._logged: set[str] = set()
+        self.variant_of: dict[str, Variant] = {}  # effective reduction id -> its variant
 
     def log(self, message: str) -> None:
         if message not in self._logged:
@@ -265,6 +267,7 @@ class Engine:
         from_tag = f"{a_node[0]}:{a_node[1]}"
         if from_tag in r.nodes():
             return None  # never revisit a node: cycles cannot improve a chain
+        variant = self.variant_of.get(red.id)
         step = Step(
             "reduction",
             red.id,
@@ -272,6 +275,7 @@ class Engine:
             f"{r.problem}:{r.node}",
             red.type,
             tuple(sorted(red.parameter_map.items())),
+            note=variant.note if variant else None,
         )
         chain = self.extend_chain(r, step)
         if chain is None:
@@ -303,6 +307,13 @@ class Engine:
             flags.add("adaptive-sizes")  # rulebook §3: every call assumed to have the largest size
         red_year, red_papers = self.dated(red.source)
         years = [y for y in (r.year, red_year) if y is not None]
+        if variant is not None:
+            if variant.source is None:
+                flags.add("site-written-variant")
+            else:
+                v_year, v_papers = self.dated(variant.source)
+                years += [v_year] if v_year is not None else []
+                red_papers += tuple(p for p in v_papers if p not in red_papers)
         return Result(
             source.id, a_node[1], bound, props, r.origin, chain, frozenset(flags),
             max(years) if years else None, r.papers + red_papers,
@@ -431,10 +442,13 @@ class Engine:
         for red in reductions:
             if not self.usable(red.status):
                 self.log(f"{red.id}: status '{red.status}', not used (rulebook A3)")
-            else:
-                usable.append(red)
-            if red.variants:
-                self.log(f"{red.id}: variants are listed but not used for derivation yet")
+                continue
+            usable.append(red)
+            for v in red.variants:
+                if v.source is None and v.review.approved_by is None:
+                    self.log(f"{red.id}: variant '{v.id}' is written by the site and awaits approval (rule 6)")
+                    continue
+                usable.append(self.as_reduction(red, v))
         while frontier:
             new: list[Result] = []
             for r in frontier:
@@ -495,6 +509,20 @@ class Engine:
                 })
             out[key] = entries
         return out
+
+    def as_reduction(self, red: Reduction, v: Variant) -> Reduction:
+        """A variant used as a reduction of its own (same problems, versions and type)."""
+        eff = red.model_copy(update={
+            "id": f"{red.id}~{v.id}",
+            "parameter_map": v.parameter_map,
+            "time": v.time if v.time is not None else red.time,
+            "calls": v.calls if v.calls is not None else red.calls,
+            "call_sizes": red.call_sizes if v.calls is None else None,
+            "formal": v.formal,
+            "variants": [],
+        })
+        self.variant_of[eff.id] = v
+        return eff
 
     def still_kept(self, r: Result) -> bool:
         return any(s.id == r.id for s in self.out.results.get((r.problem, r.node), []))
@@ -585,6 +613,7 @@ def to_json(data: Dataset, d: Derivation) -> dict:
                             "to": s.to_node,
                             "type": s.type,
                             "parameter_map": dict(s.parameter_map),
+                            "note": s.note,
                         }
                         for s in r.chain
                     ],

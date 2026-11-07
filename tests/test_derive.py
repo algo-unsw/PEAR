@@ -88,7 +88,7 @@ def alg(aid, prob, bound, params=("k",), version="decision", randomized=False, s
 
 
 def red(rid, frm, to, pmap, type="polytime-deterministic", calls=1, time="O(n + m)", frm_v="decision",
-        to_v="decision", formal=None, status="valid", properties=None, call_sizes=None, paper=None):
+        to_v="decision", formal=None, status="valid", properties=None, call_sizes=None, paper=None, variants=()):
     out = {
         "id": rid,
         "from": {"problem": frm, "version": frm_v},
@@ -106,6 +106,8 @@ def red(rid, frm, to, pmap, type="polytime-deterministic", calls=1, time="O(n + 
         out["properties"] = properties
     if call_sizes:
         out["call_sizes"] = call_sizes
+    if variants:
+        out["variants"] = list(variants)
     return out
 
 
@@ -550,3 +552,48 @@ def test_later_equal_derivation_is_dropped():
         alg("a-direct", "a", r"O^*(1.5^{k})", paper="p-direct"),
     )
     assert [r["id"] for r in rows(data, "a")] == ["a-direct"]
+
+
+# --- reduction variants ---------------------------------------------------------------------------
+
+
+def two_parameter_problems(*variants, extra_paper=None):
+    return dataset(
+        problem("a", params=("k", "w")), problem("b", params=("k", "w")),
+        *([paper(*extra_paper)] if extra_paper else []),
+        paper("p-red", 2000),
+        alg("b-k", "b", r"O^*(2^{k})", params=("k", "w")),
+        alg("b-w", "b", r"O^*(3^{w})", params=("k", "w")),
+        red("a-to-b", "a", "b", {"k": "k"}, paper="p-red", variants=variants),
+    )
+
+
+def test_variant_gives_a_result_for_another_parameter():
+    data = two_parameter_problems(
+        {"id": "by-w", "note": "The same construction keeps the width.", "parameter_map": {"w": "w"},
+         "source": {"folklore": True, "note": "Fixture."}},
+    )
+    got = {r["shown"]: r for r in derived(data, "a")}
+    assert set(got) == {r"O^*(2^{k})", r"O^*(3^{w})"}
+    step = got[r"O^*(3^{w})"]["chain"][0]
+    assert step["id"] == "a-to-b~by-w" and step["note"] == "The same construction keeps the width."
+
+
+def test_site_written_variant_needs_approval():
+    variant = {"id": "kernel-first", "note": "Run a kernelization for w first.", "parameter_map": {"w": "w"}}
+    data = two_parameter_problems(variant)
+    assert [r["shown"] for r in derived(data, "a")] == [r"O^*(2^{k})"]
+    assert any("awaits approval" in line for line in derive(data).log)
+    approved = dict(variant, review={"approved_by": "Serge Gaspers", "date": "2026-11-07"})
+    data = two_parameter_problems(approved)
+    by_w = [r for r in derived(data, "a") if r["shown"] == r"O^*(3^{w})"]
+    assert len(by_w) == 1 and "site-written-variant" in by_w[0]["flags"]
+
+
+def test_variant_paper_counts_for_year_and_citation():
+    data = two_parameter_problems(
+        {"id": "by-w", "note": "Variant from a later paper.", "parameter_map": {"w": "w"}, "source": cited("p-var")},
+        extra_paper=("p-var", 2012),
+    )
+    (r,) = [r for r in derived(data, "a") if r["shown"] == r"O^*(3^{w})"]
+    assert r["year"] == 2012 and r["papers"] == ["p-red", "p-var"]

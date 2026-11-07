@@ -207,8 +207,13 @@ parameter_map:                        # each of B's parameters as an expression 
   n: "n"
   m: "m"
   k: "n - k"
-variants:
-  - { problem: vertex-cover, version: weighted, note: "TODO(verify)", source: null }
+variants:                             # slight modifications giving another parameter map (proposed, see below)
+  - id: by-treewidth                  # local; the variant is cited as <reduction>~<id>
+    note: "TODO: what is modified, e.g. a kernelization step is added first"
+    parameter_map: { tw: "TODO" }     # replaces the reduction's map
+    time: null                        # optional; defaults to the reduction's
+    calls: null                       # optional; defaults to the reduction's
+    source: null                      # a paper or folklore; null = written by the site
 formal: { status: proved, prover: isabelle, link: "TODO(verify)" }
 source: { folklore: true, note: "TODO(verify)" }
 status: valid
@@ -217,6 +222,7 @@ status: valid
 - `type` names only the three reduction types agreed for the first phase. Adding a type is a high-risk change (rule 6), so the validator rejects unknown types.
 - SERF-specific fields (how the family depends on ε) are left to the rulebook spec.
 - Reductions carry the same property tags as algorithms where they apply (randomized via `type`; space, constructive).
+- **Variants** (proposed 7 November 2026, to confirm) are slight modifications of the reduction that give a result for another parameter. For example, a paper focused on one parameter but a slight variant works for another, or a known step such as a kernelization has to be added first. A variant keeps the reduction's problems, versions and type. It replaces the parameter map, and may override `time` and `calls`. It has its own `formal` status and `review`. A variant with no `source` is written by the site, which is a high-risk addition (rule 6): it is used for derivation only once Serge approves it (`review`), and derived bounds through it are flagged. Variant ids are unique within the reduction.
 
 ## 7. Hypothesis
 

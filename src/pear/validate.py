@@ -239,14 +239,17 @@ def check_references(data: Dataset) -> list[Issue]:
         where = f"reductions/{rid}.yaml"
         problem_version(f"{where}: from", red.from_.problem, red.from_.version)
         target = problem_version(f"{where}: to", red.to.problem, red.to.version)
+        maps = [("parameter_map", red.parameter_map)] + [
+            (f"variants.{i}.parameter_map", v.parameter_map) for i, v in enumerate(red.variants)
+        ]
         if target is not None:
-            for p in red.parameter_map:
-                if p not in target.symbols():
-                    issues.append(
-                        Issue(f"{where}: parameter_map", f"parameter '{p}' is not defined by problem '{target.id}'")
-                    )
+            for field_name, pmap in maps:
+                for p in pmap:
+                    if p not in target.symbols():
+                        issues.append(
+                            Issue(f"{where}: {field_name}", f"parameter '{p}' is not defined by problem '{target.id}'")
+                        )
         for i, variant in enumerate(red.variants):
-            problem_version(f"{where}: variants.{i}", variant.problem, variant.version)
             source(f"{where}: variants.{i}.source", variant.source)
         source(f"{where}: source", red.source)
 
@@ -358,6 +361,16 @@ def check_expressions(data: Dataset) -> list[Issue]:
             expr(f"{where}: calls", source, red.calls)
         for var, rhs in red.parameter_map.items():
             expr(f"{where}: parameter_map.{var}", source, rhs)
+        for i, v in enumerate(red.variants):
+            if v.time is not None and source is not None:
+                try:
+                    parse_bound(v.time, source.symbols())
+                except BoundSyntaxError as exc:
+                    issues.append(Issue(f"{where}: variants.{i}.time", str(exc)))
+            if isinstance(v.calls, str):
+                expr(f"{where}: variants.{i}.calls", source, v.calls)
+            for var, rhs in v.parameter_map.items():
+                expr(f"{where}: variants.{i}.parameter_map.{var}", source, rhs)
     return issues
 
 

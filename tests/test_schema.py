@@ -124,7 +124,17 @@ CASES = [
     ("folklore reference to unknown version", RED, _set("source.reference.version", "journal"), "has no version 'journal'"),
     ("unknown reduction target version", RED, _set("to.version", "weighted-search"), "has no version 'weighted-search'"),
     ("parameter map sets unknown parameter", RED, _set("parameter_map.tw", "k"), "parameter 'tw' is not defined by problem 'problem-a'"),
-    ("variant with unknown version", RED, _set("variants.0.version", "nope"), "has no version 'nope'"),
+    ("variant map sets unknown parameter", RED, _set("variants.0.parameter_map.tw", "k"), "variants.0.parameter_map"),
+    ("variant map does not parse", RED, _set("variants.0.parameter_map.w", "k +"), "variants.0.parameter_map.w"),
+    ("variant time does not parse", RED, _set("variants.0.time", "O(q)"), "variants.0.time"),
+    ("variant source paper unknown", RED, _set("variants.0.source.paper", "nope"), "unknown paper 'nope'"),
+    ("variant without note", RED, _set("variants.0.note", _DELETE), "note: Field required"),
+    (
+        "duplicate variant ids",
+        RED,
+        _set("variants", [{"id": "v", "note": "x", "parameter_map": {"k": "k"}}, {"id": "v", "note": "y", "parameter_map": {"k": "k"}}]),
+        "variant ids must be unique",
+    ),
     # bound strings (bounds §1)
     ("bound with unknown variable", ALG, _set("bound.as_stated", "O(2^{x})"), "unknown variable"),
     ("bound that does not parse", ALG, _set("bound.as_stated", "O(1.5^{k}"), "unbalanced"),
