@@ -1,0 +1,263 @@
+---
+pagination:
+  data: pageList
+  size: 1
+  alias: p
+permalink: "/problems/{{ p.id }}/"
+layout: base.njk
+eleventyComputed:
+  title: "{{ p.name }}"
+  description: "Fastest known exact and parameterized algorithms for {{ p.name }}, with reductions and derived bounds."
+---
+{%- set tri -%}<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 1.5 L10 6 L3 10.5 Z"></path></svg>{%- endset -%}
+{%- set tri14 -%}<svg width="14" height="14" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 1.5 L10 6 L3 10.5 Z"></path></svg>{%- endset -%}
+{%- set pageUrl = ("/problems/" + p.id + "/") | url -%}
+{%- macro bound(r) -%}
+{%- if r.hover -%}<span class="hover" tabindex="0">{{ r.shown | tex | safe }}<span class="tip" role="tooltip">{{ r.hover | tex | safe }}</span></span>{%- else -%}{{ r.shown | tex | safe }}{%- endif -%}
+{%- endmacro -%}
+{%- macro tags(r) -%}
+{%- if r.origin == "derived" %} <span class="tag" title="Obtained by combining an algorithm with reductions or other derivation steps; expand “Where this bound comes from”.">derived</span>{% endif -%}
+{%- for f in r.flags %}{% if f == "given-tree-decomposition" %} <span class="tag" title="A tree decomposition of width tw is given with the input.">tree decomposition given</span>{% elif f == "unverified" %} <span class="tag warn" title="From an unrefereed source; listed in Details only, never in the Overview.">unverified</span>{% elif f == "long-chain" %} <span class="tag warn" title="The derivation chain is long; check each step.">long chain</span>{% else %} <span class="tag warn" title="{{ f }}">{{ f }}</span>{% endif %}{% endfor -%}
+{%- if not r.properties.constructive %} <span class="tag" title="The paper proves that an algorithm exists but gives no way to write it down.">non-constructive</span>{% endif -%}
+{%- endmacro -%}
+{%- macro chain(r, cid) -%}
+<button type="button" class="disclose chain" aria-expanded="false" aria-controls="{{ cid }}">{{ tri | safe }}Where this bound comes from</button>
+{{ chainList(r, cid, true) }}
+{%- endmacro -%}
+{%- macro chainList(r, cid, hide) -%}
+<ol class="chain"{% if cid %} id="{{ cid }}"{% endif %}{% if hide %} hidden{% endif %}>
+{%- for i in r.chain_items %}
+{%- if i.kind == "start" %}
+<li><a href="{{ ('/problems/' + i.problem_id + '/') | url }}">{{ i.problem }}</a> in {{ i.shown | tex | safe }} {{ i.refs | refs | safe }}{% if i.statements.length %} ({{ i.statements | join("; ") }}){% endif %}, proved for the {{ i.proved_for }} version</li>
+{%- elif i.kind == "reduction" %}
+<li>Reduction from <a href="{{ ('/problems/' + i.from_id + '/') | url }}">{{ i.from }}</a> to <a href="{{ ('/problems/' + i.to_id + '/') | url }}">{{ i.to }}</a>, {{ i.type }}, {{ i.calls }}: {{ i.map | tex | safe }}{% if i.folklore %} (folklore){% endif %}{% if i.refs.length %} {{ i.refs | refs | safe }}{% endif %}{% if i.note %}<span class="cellnote">{{ i.note | mathtext | safe }}</span>{% endif %}</li>
+{%- elif i.kind == "special-case" %}
+<li>The bound for the {{ i.general }} version also holds for the {{ i.special }} version, a special case</li>
+{%- elif i.kind == "projection" %}
+<li>{% if i.text %}{{ i.text }}{% else %}Expressed in {{ i.onto | tex | safe }} alone, using {% for c in i.constraints %}{{ c | tex | safe }}{% if not loop.last %} and {% endif %}{% endfor %}{% endif %}</li>
+{%- elif i.kind == "end" %}
+<li>{{ i.problem }} in {{ i.shown | tex | safe }}</li>
+{%- endif %}
+{%- endfor %}
+</ol>
+{%- endmacro -%}
+<main class="page" data-problem="{{ p.id }}" data-default-version="{{ p.default_version }}">
+<div class="titlerow">
+<div>
+<h1>{{ p.name }}</h1>
+<p class="phone-facts">{% if p.aliases.length %}{{ p.aliases[0] }} · {% endif %}{{ p.complexity.class }} · {% if p.lean.status == "none" %}Lean: not yet formalised{% else %}Lean: {{ p.lean.status }}{% endif %}</p>
+{% if p.aliases.length %}<p class="aka">Also known as {% for a in p.aliases %}<i>{{ a }}</i>{% if not loop.last %}, {% endif %}{% endfor %}</p>{% endif %}
+</div>
+<nav class="tools" aria-label="Page tools">
+<a href="{{ repo }}/commits/main/data/problems/{{ p.id }}.yaml">History</a><a href="{{ repo }}/issues/new?template=report-error.yml&amp;entry={{ p.name | urlencode }}">Report an error</a><a href="{{ repo }}/issues/new?template=suggest-result.yml&amp;title={{ ('Result for ' + p.name) | urlencode }}">Suggest a link or DOI</a><a href="#cite">Cite</a>
+</nav>
+</div>
+
+<div class="tabrow">
+<div class="versions" role="tablist" aria-label="Problem version">
+{%- for v in p.versions %}
+<button type="button" role="tab" id="tab-{{ v.id }}" aria-controls="panel-{{ v.id }}" aria-selected="{{ 'true' if v.default else 'false' }}" data-version="{{ v.id }}">{{ v.label }}</button>
+{%- endfor %}
+</div>
+<div class="views" role="group" aria-label="View">
+<button type="button" aria-pressed="true" data-view-button="overview">Overview</button>
+<button type="button" aria-pressed="false" data-view-button="details">Details</button>
+</div>
+</div>
+
+<div class="columns">
+<article>
+{%- for v in p.versions %}
+{%- set node = p.nodes[v.node] %}
+<div class="version-panel" role="tabpanel" id="panel-{{ v.id }}" aria-labelledby="tab-{{ v.id }}" data-version="{{ v.id }}"{% if not v.default %} hidden{% endif %}>
+{% if node.note %}<p class="note">{{ node.note | mathtext | safe }}</p>{% endif %}
+
+<h2 class="first">Fastest known algorithms</h2>
+{%- if not node.rows.length %}
+<p>No results recorded for this version yet. <a href="{{ repo }}/issues/new?template=suggest-result.yml&amp;title={{ ('Result for ' + p.name + ' (' + v.label + ')') | urlencode }}">Suggest one</a>.</p>
+{%- endif %}
+
+<div class="overview-only">
+{%- for g in node.overview %}
+<h3>{{ g.heading }} {% if g.history_param and node.history[g.history_param] %}<button type="button" class="param" aria-expanded="false" aria-controls="hist-{{ v.id }}-{{ g.history_param }}" aria-label="History of the best bound in {{ g.history_param }}">{{ g.symbols_tex[0] | tex | safe }}</button>{% else %}{% for s in g.symbols_tex %}{{ s | tex | safe }}{% if not loop.last %} and {% endif %}{% endfor %}{% endif %}</h3>
+{%- for e in g.entries %}{% for r in e.cite %}
+<p class="bound">{{ bound(r) }}, {{ r.props.sentence }}{% if r.from_problem %}, from the algorithm for <a href="{{ ('/problems/' + r.from_problem.id + '/') | url }}">{{ r.from_problem.name }}</a>{% endif %} {{ r.refs | refs | safe }}.{{ tags(r) }}{% if r.origin == "direct" %}{% if r.as_stated != r.shown %} Exact form {{ r.as_stated | tex | safe }}; proved{% else %} Proved{% endif %} for the {{ r.proved_for }} version.{% endif %}</p>
+{%- if r.chain_items.length %}{{ chain(r, "chain-" + v.id + "-" + r.id) }}{% endif %}
+{%- endfor %}{% endfor %}
+{%- endfor %}
+</div>
+
+{%- for param, h in node.history %}
+<div class="history" role="region" id="hist-{{ v.id }}-{{ param }}" aria-label="History of the best bound in {{ param }}" hidden>
+<div class="top">
+<p><b>History of the best base {{ "c" | tex | safe }} in {{ ("O^*(c^{" + h.param_tex + "})") | tex | safe }}</b></p>
+<button type="button" class="close" data-close="hist-{{ v.id }}-{{ param }}">close</button>
+</div>
+{% historyChart h.steps, h.param_tex, h.name %}
+<ol reversed>
+{%- for s in h.steps | reverse %}
+<li>{{ s.shown | tex | safe }} · {% for n in s.refs %}{{ p.references[n - 1].authors }}{% endfor %} · {{ s.year }} {{ s.refs | refs | safe }}{% if s.derived %} <span class="tag">derived</span>{% endif %}</li>
+{%- endfor %}
+</ol>
+<p class="small muted" style="margin-top: 8px">Polynomial factors ignored. Only results entered in PEAR so far.</p>
+</div>
+{%- endfor %}
+
+<div class="details-only">
+{%- if node.rows.length %}
+<div class="filters" role="group" aria-label="Show only">
+<span style="font-weight: 600">Show only:</span>
+<label><input type="checkbox" data-filter="det"> deterministic</label>
+<label><input type="checkbox" data-filter="poly"> polynomial space</label>
+<label><input type="checkbox" data-filter="constr"> constructive</label>
+<label><input type="checkbox" data-filter="nonalg"> non-algebraic</label>
+<label><input type="checkbox" data-filter="lean"> Lean-verified</label>
+<label><input type="checkbox" data-filter="derived" checked> include derived</label>
+</div>
+<div class="tablewrap">
+<table class="results">
+<thead><tr><th>Param</th><th>{{ "O^*" | tex | safe }} bound</th><th>Exact form</th><th>Properties</th><th>Proved for</th><th>Source</th><th>Origin</th></tr></thead>
+<tbody>
+{%- for r in node.rows %}
+{%- set rid = v.id + "-" + r.id %}
+<tr data-row="{{ rid }}" data-det="{{ r.properties.deterministic }}" data-poly="{{ r.properties.polynomial_space }}" data-constr="{{ r.properties.constructive }}" data-nonalg="{{ not r.properties.algebraic }}" data-lean="{{ r.properties.lean_verified }}" data-derived="{{ r.origin == 'derived' }}">
+<td>{{ r.param_tex | tex | safe }}</td>
+<td class="nowrap">{{ bound(r) }}</td>
+<td class="nowrap">{{ r.as_stated | tex | safe }}</td>
+<td>{{ r.props.short }}</td>
+<td>{{ r.proved_for }}{% if r.proved_for_problem %} ({{ r.proved_for_problem }}){% endif %}</td>
+<td>{{ r.refs | refs | safe }}{% if r.statements.length %}, {{ r.statements | join("; ") }}{% endif %}{% if r.source_note %}<br><button type="button" class="disclose small" aria-expanded="false" aria-controls="note-{{ rid }}">{{ tri | safe }}Note</button>{% endif %}</td>
+<td>{% if r.origin == "derived" %}<span class="tag" title="Obtained by combining an algorithm with reductions or other derivation steps.">derived</span>, {{ r.steps }} step{% if r.steps != 1 %}s{% endif %}{% else %}direct{% endif %}{% for f in r.flags %}{% if f == "given-tree-decomposition" %}<span class="cellnote">tree decomposition given</span>{% elif f == "unverified" %} <span class="tag warn" title="From an unrefereed source; listed in Details only.">unverified</span>{% else %}<span class="cellnote">{{ f }}</span>{% endif %}{% endfor %}
+{%- if r.chain_items.length %}<br><button type="button" class="disclose small" aria-expanded="false" aria-controls="chainrow-{{ rid }}">{{ tri | safe }}Chain</button>{% endif %}</td>
+</tr>
+{%- if r.source_note %}
+<tr class="extra" id="note-{{ rid }}" data-parent="{{ rid }}" hidden><td colspan="7"><b>Note:</b> {{ r.source_note | mathtext | safe }}</td></tr>
+{%- endif %}
+{%- if r.chain_items.length %}
+<tr class="extra" id="chainrow-{{ rid }}" data-parent="{{ rid }}" hidden><td colspan="7">{{ chainList(r, null, false) }}</td></tr>
+{%- endif %}
+{%- endfor %}
+</tbody>
+</table>
+</div>
+<p class="small muted" style="margin-top: 6px" data-filter-empty hidden>No result matches these filters.</p>
+{%- endif %}
+</div>
+
+<h2>
+<button type="button" class="disclose" aria-expanded="false" aria-controls="def-{{ v.id }}">{{ tri14 | safe }}Definition</button>
+</h2>
+<p><b>Input:</b> {{ v.input | lcfirst | mathtext | safe }}</p>
+{% if v.question %}<p style="margin-top: 2px"><b>Question:</b> {{ v.question | lcfirst | mathtext | safe }}</p>{% else %}<p style="margin-top: 2px"><b>Goal:</b> {{ v.goal | lcfirst | mathtext | safe }}</p>{% endif %}
+<div id="def-{{ v.id }}" hidden>
+{% if p.complexity.note %}<p style="margin-top: 12px">{{ p.complexity.note | mathtext | safe }} {{ p.complexity.refs | refs | safe }}</p>{% endif %}
+<p class="note" style="margin-top: 8px">Parameters: {% for q in p.parameters %}{{ q.tex | tex | safe }} = {{ q.meaning | mathtext | safe }}{% if not loop.last %}; {% endif %}{% endfor %}.</p>
+{% if p.constraints.length %}<p class="note" style="margin-top: 4px">Relations used when comparing bounds: {% for c in p.constraints %}{{ c.tex | tex | safe }}{% if not loop.last %}, {% endif %}{% endfor %}.</p>{% endif %}
+</div>
+</div>
+{%- endfor %}
+
+<section class="collapsible">
+<h2><span class="label">Reductions</span><button type="button" class="disclose phone-toggle" aria-expanded="false">{{ tri14 | safe }}Reductions</button></h2>
+<div class="body">
+{%- if not (p.reductions.from.length or p.reductions.to.length) %}<p>No reductions recorded yet.</p>{% endif %}
+<ul class="plain overview-only">
+{%- for r in p.reductions.from %}
+<li>From <a href="{{ ('/problems/' + r.from.id + '/') | url }}">{{ r.from.name }}</a>{% if r.changed_tex %}, with {{ r.changed_tex | tex | safe }}{% endif %}{% if r.folklore %} (folklore){% endif %}{% if r.refs.length %} {{ r.refs | refs | safe }}{% endif %}.</li>
+{%- endfor %}
+{%- for r in p.reductions.to %}
+<li>To <a href="{{ ('/problems/' + r.to.id + '/') | url }}">{{ r.to.name }}</a>{% if r.changed_tex %}, with {{ r.changed_tex | tex | safe }}{% endif %}{% if r.folklore %} (folklore){% endif %}{% if r.refs.length %} {{ r.refs | refs | safe }}{% endif %}.</li>
+{%- endfor %}
+</ul>
+{%- if p.reductions.from.length or p.reductions.to.length %}
+<div class="tablewrap details-only">
+<table class="reductions">
+<thead><tr><th>Reduction</th><th>Type</th><th>Parameter map</th><th>Variants</th><th>Formal status</th></tr></thead>
+<tbody>
+{%- for r in p.reductions.from.concat(p.reductions.to) %}
+<tr><td><a href="{{ ('/problems/' + r.from.id + '/') | url }}">{{ r.from.name }}</a> ({{ r.from.version }}) → <a href="{{ ('/problems/' + r.to.id + '/') | url }}">{{ r.to.name }}</a> ({{ r.to.version }}){% if r.folklore %}, folklore{% endif %} {{ r.refs | refs | safe }}{% if r.note %}<span class="cellnote">{{ r.note | mathtext | safe }}</span>{% endif %}</td>
+<td>{{ r.type }}, {{ r.calls }} call{% if r.calls != 1 %}s{% endif %}, time {{ r.time | tex | safe }}</td>
+<td class="nowrap">{{ r.map_tex | tex | safe }}</td>
+<td>{% if r.variants.length %}{% for n in r.variants %}{{ n | mathtext | safe }}{% if not loop.last %}<br>{% endif %}{% endfor %}{% else %}none{% endif %}</td>
+<td>{{ r.formal }}</td></tr>
+{%- endfor %}
+</tbody>
+</table>
+</div>
+{%- endif %}
+</div>
+</section>
+
+<section class="collapsible">
+<h2><span class="label">Related problems</span><button type="button" class="disclose phone-toggle" aria-expanded="false">{{ tri14 | safe }}Related problems</button></h2>
+<div class="body">
+{%- if p.related.length %}
+<p>{% for r in p.related %}{{ r.relation | capitalize }}: <a href="{{ ('/problems/' + r.id + '/') | url }}">{{ r.name }}</a>.{% if not loop.last %} {% endif %}{% endfor %}</p>
+{%- else %}<p>None recorded yet.</p>{% endif %}
+</div>
+</section>
+
+{%- if p.implementations %}
+<section class="collapsible details-only">
+<h2><span class="label">Implementations</span><button type="button" class="disclose phone-toggle" aria-expanded="false">{{ tri14 | safe }}Implementations</button></h2>
+<div class="body">
+<p class="note" style="margin-bottom: 8px">Publicly available exact implementations, best first.</p>
+<ol class="impls">
+{%- for i in p.implementations.items %}
+<li><a href="{{ i.url }}">{{ i.name }}</a>{% if i.language or i.licence %} <span class="muted">· {{ [i.language, i.licence] | select | join(" · ") }}</span>{% endif %}<br>
+<span class="small">Solves the {{ i.versions | join(", ") }} version{% if i.versions.length > 1 %}s{% endif %}.{% if i.note %} {{ i.note | mathtext | safe }}{% endif %}</span>
+{%- if i.facts.length %}
+<ul>
+{%- for f in i.facts %}
+<li>{{ f.fact | mathtext | safe }}{% for u in f.urls %} <a href="{{ u }}">[source{% if f.urls.length > 1 %} {{ loop.index }}{% endif %}]</a>{% endfor %}{% if f.label %} <span class="muted">({{ f.label }})</span>{% endif %}{% if f.as_of %} <span class="muted">As of {{ f.as_of }}.</span>{% endif %}</li>
+{%- endfor %}
+</ul>
+{%- endif %}
+</li>
+{%- endfor %}
+</ol>
+{% if p.implementations.note %}<p class="small muted" style="margin-top: 8px">{{ p.implementations.note | mathtext | safe }}</p>{% endif %}
+<p class="small muted">Ranking as of {{ p.implementations.as_of }}.</p>
+</div>
+</section>
+{%- endif %}
+
+<section class="collapsible">
+<h2><span class="label">References</span><button type="button" class="disclose phone-toggle" aria-expanded="false">{{ tri14 | safe }}References</button></h2>
+<div class="body">
+<ol class="refs">
+{%- for r in p.references %}
+<li id="ref-{{ r.n }}">{{ r.authors }}. {{ r.title | mathtext | safe }}. {{ r.versions | join("; ") }}.{% for l in r.links %} <a href="{{ l.url }}">{{ "Open access" if l.label == "open access" else l.label }}</a>{% endfor %}{% if r.unverified %} <span class="tag warn" title="Not peer reviewed; its results appear in Details only.">unverified</span>{% endif %}</li>
+{%- endfor %}
+</ol>
+</div>
+</section>
+
+<form class="submit" data-suggest data-problem-name="{{ p.name }}" action="{{ repo }}/issues/new" method="get">
+<input type="hidden" name="template" value="suggest-result.yml">
+<input type="hidden" name="title" value="Result for {{ p.name }}">
+<label for="suggest-link">Know a better result?</label>
+<p class="small">Paste a link or DOI. At least one reference must be openly readable.</p>
+<div class="row">
+<input id="suggest-link" name="link" type="text" required placeholder="https:// or 10.xxxx/…">
+<button type="submit">Send</button>
+</div>
+</form>
+
+<p class="footer" id="cite">Cite this page: PEAR contributors, “{{ p.name }}”, <i>PEAR: Parameterized and Exact Algorithms and Reductions</i>, data of {{ pear.generated }}. <a href="{{ '/cite/' | url }}">How to cite</a></p>
+<p class="footer" style="margin-top: 4px">Data CC0 · code MIT · <a href="{{ ('/data/problems/' + p.id + '.json') | url }}">JSON</a></p>
+</article>
+
+<aside class="infobox" aria-label="Summary">
+<p class="head">{{ p.name }}</p>
+<dl>
+{% if p.aliases.length %}<dt>Also known as</dt><dd>{{ p.aliases | join(", ") }}</dd>{% endif %}
+<dt>Complexity</dt><dd>{{ p.complexity.class }}{% if p.complexity.short %} ({{ p.complexity.short }}){% endif %} {{ p.complexity.refs | refs | safe }}</dd>
+<dt>Parameters</dt><dd>{% for q in p.parameters %}{{ q.tex | tex | safe }}{% if not loop.last %}, {% endif %}{% endfor %}</dd>
+<dt>Versions</dt><dd>{% for v in p.versions %}{{ v.label | lower }}{% if not loop.last %}, {% endif %}{% endfor %}</dd>
+<dt>Lean</dt><dd>{% if p.lean.status == "none" %}not yet formalised{% elif p.lean.status == "statement" %}<a href="{{ p.lean.link }}">statement formalised</a>{% else %}<a href="{{ p.lean.link }}">formalised</a>{% endif %}</dd>
+<dt>Data</dt><dd><a href="{{ ('/data/problems/' + p.id + '.json') | url }}">JSON</a> (CC0)</dd>
+</dl>
+</aside>
+</div>
+</main>

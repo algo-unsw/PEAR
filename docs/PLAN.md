@@ -224,6 +224,13 @@ Clicking a parameter on a problem page opens the history of the best running tim
 - Derived bases are folded only when exact. A fold that needs rounding is shown on hover, rounded up: $1.5^{n/2}$ shows $1.2248^n$ on hover.
 - $\omega$ is a named constant in `data/constants/`: $2 \le \omega \le 9/4$, the upper bound claimed (OpenAI preprint, 2 October 2026; constructive proof by Pass, arXiv:2610.28627). Claimed bounds are used in comparisons.
 
+### Site build (step 7, 8 November 2026; in review)
+
+- `python -m pear site` runs validation and the derivation engine and writes `build/site/site.json` (one page object per problem: overview groups, Details rows with chains, references numbered in order of first citation, reductions, related problems, implementations, bound history) and one JSON file per entry (`build/site/entries/`, served under `/data/`).
+- Eleventy (`site/`) renders it; KaTeX typesets maths at build time and a TeX error fails the build. Pages: start page (pilot problems with best classical bounds), `/problems/<id>/`, `/cite/`.
+- CI builds the site on every PR. `.github/workflows/pages.yml` deploys to GitHub Pages on merges to `main` once Pages is enabled and the repository variable `PAGES_ENABLED` is `true`.
+- Bound history: from the results entered so far, verified and non-quantum, single-parameter bounds of the form $c^{a x}$; a step chart when there are at least two improvements.
+
 ### Overview tab and long chains (decided 7 November 2026)
 
 - The Overview tab (the default view) shows the best non-quantum bound obtained by any means (direct or derived); it is not a separate section. The Details tab keeps the filters. If two bounds are equivalent (equal in O* form), the earlier is cited, by year; all are cited in case of a tie.

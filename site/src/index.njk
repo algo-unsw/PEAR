@@ -1,0 +1,27 @@
+---
+layout: base.njk
+title: Fastest known algorithms for NP-hard problems
+description: "PEAR catalogues NP-hard problems, the reductions between them and the fastest known exact and parameterized algorithms, including bounds derived by chaining reductions."
+permalink: /
+---
+<main class="page">
+<h1>Parameterized and Exact Algorithms and Reductions</h1>
+<p style="margin-top: 12px; max-width: 760px">PEAR catalogues NP-hard problems, the reductions between them and the fastest known exact and parameterized algorithms, including bounds derived automatically by chaining reductions. Every result cites an openly readable source and the exact statement it relies on.</p>
+
+<h2>Pilot problems</h2>
+<p class="note">Best classical bounds for the default version: randomized and non-constructive algorithms allowed, quantum algorithms and results from unrefereed sources left out.</p>
+<div class="tablewrap">
+<table class="problems">
+<thead><tr><th>Problem</th><th>Best known bounds</th></tr></thead>
+<tbody>
+{%- for e in pear.index %}
+<tr>
+<td>{% if e.id %}<a href="{{ ('/problems/' + e.id + '/') | url }}">{{ e.name }}</a>{% else %}{{ e.name }}{% endif %}</td>
+<td>{% if e.id %}{% for b in e.bounds %}{{ b.shown | tex | safe }}{% if not b.deterministic %} <span class="tag" title="Randomized algorithm">randomized</span>{% endif %}{% if b.derived %} <span class="tag" title="Obtained by chaining reductions">derived</span>{% endif %}{% if not loop.last %}<br>{% endif %}{% else %}<span class="muted">No results yet.</span>{% endfor %}{% else %}<span class="muted">Not entered yet.</span>{% endif %}</td>
+</tr>
+{%- endfor %}
+</tbody>
+</table>
+</div>
+<p class="footer">Data CC0 · code MIT · rulebook version {{ pear.rulebook_version }} · data of {{ pear.generated }}</p>
+</main>

@@ -2,6 +2,7 @@
 
     python -m pear validate [DATA_DIR]
     python -m pear derive [DATA_DIR] [--out build/derived.json]
+    python -m pear site [DATA_DIR] [--out build/site]
 """
 
 from __future__ import annotations
@@ -22,6 +23,9 @@ def main(argv: list[str] | None = None) -> int:
     derive = sub.add_parser("derive", help="compute best and derived bounds (rulebook)")
     derive.add_argument("data_dir", nargs="?", default="data", type=Path)
     derive.add_argument("--out", type=Path, default=Path("build/derived.json"))
+    site = sub.add_parser("site", help="write the page data for the static site")
+    site.add_argument("data_dir", nargs="?", default="data", type=Path)
+    site.add_argument("--out", type=Path, default=Path("build/site"))
     args = parser.parse_args(argv)
 
     data, issues = validate_dir(args.data_dir)
@@ -38,6 +42,12 @@ def main(argv: list[str] | None = None) -> int:
     from .derive import derive as run, to_json
 
     result = run(data)
+    if args.command == "site":
+        from .site import build
+
+        site_data = build(data, result, args.out)
+        print(f"OK: {len(site_data['pages'])} problem pages, written to {args.out}.")
+        return 0
     args.out.parent.mkdir(parents=True, exist_ok=True)
     args.out.write_text(json.dumps(to_json(data, result), indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     kept = sum(len(v) for v in result.results.values())
