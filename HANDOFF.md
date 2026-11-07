@@ -15,7 +15,8 @@ Read `CLAUDE.md` first (ground rules), then `docs/PLAN.md` (what and why) and `d
 - **First data (7 November 2026)**: `data/constants/omega.yaml` and its two papers. Signed off by Serge on 7 November 2026.
 - **Derivation engine (step 5b, 7 November 2026)**: `src/pear/derive.py`, `python -m pear derive` writes `build/derived.json` (run in CI). Rulebook version 2 (long chains followed while they improve results; polynomial factors transfer in O* form, D2). The Overview tab shows the best non-quantum bound by any means, earliest cited. Reduction `variants` are slight modifications of a reduction, possibly between other problems or versions (schema §6). Every bound is projected through the constraints, and bounds compete within their parameters (D1). All agreed with Serge on 7 November 2026.
 - **Definition format (step 6, agreed 7 November 2026)**: `docs/specs/definitions.md`; Vertex Cover's definition entered (signed off by Serge on 7 Nov 2026), with Karp 1972 attested by web sources.
-- **Not started**: Vertex Cover's results; the other 11 pilot problems.
+- **Vertex Cover results (step 6, in review)**: best bounds by $k$ (deterministic: Harris and Narayanaswamy, STACS 2024; randomized: Clinch, Gaspers, He, Mackenzie, Zhang, arXiv 2025) and by $n$ (derived from Xiao and Nagamochi's Independent Set algorithm through the complement reduction). Independent Set entered alongside. Open items listed in the PR.
+- **Not started**: the Vertex Cover page (site, step 7); the other 10 pilot problems.
 - **Drafts exist** for the bound language and chaining rules (in `docs/PLAN.md`); they must be finished **with Serge**.
 
 ## Goal of this session: Phase 1 pilot

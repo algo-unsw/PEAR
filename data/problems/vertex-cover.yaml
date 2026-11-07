@@ -44,3 +44,5 @@ default_version: decision
 shared_bounds:
   - versions: [decision, optimisation, search]
     because: "Binary search on $k$ and self-reducibility."
+related:
+  - { problem: independent-set, relation: complement }

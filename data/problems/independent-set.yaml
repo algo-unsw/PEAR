@@ -1,0 +1,44 @@
+id: independent-set
+name: Independent Set
+aliases: [Maximum Independent Set, MIS, Stable Set]
+category: graph
+complexity:
+  class: NP-complete
+  source:
+    folklore: true
+    note: "TODO(verify): placeholder; source to be chosen."
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  k: { meaning: "the solution size: the integer $k$ in the input (decision, search), or the maximum size of an independent set (optimisation)" }
+  tw: { shared: treewidth }
+constraints:
+  - { constraint: "k \\le n", because: "Every instance with $k > n$ is a no-instance, answered in polynomial time." }
+  - { constraint: "m \\le n^{2}", because: "A simple graph has at most $n(n-1)/2$ edges." }
+  - { constraint: "tw \\le n", because: "A single bag containing all vertices is a tree decomposition of width $n - 1$." }
+versions:
+  decision:
+    kind: decision
+    input: "A graph $G = (V, E)$ and an integer $k$."
+    question: "Is there a set $S \\subseteq V$ with $|S| \\ge k$ such that no edge has both endpoints in $S$?"
+  optimisation:
+    kind: optimisation
+    input: "A graph $G = (V, E)$."
+    goal: "Find the maximum size of a set $S \\subseteq V$ such that no edge has both endpoints in $S$."
+  search:
+    kind: search
+    input: "A graph $G = (V, E)$ and an integer $k$."
+    goal: "Find a set $S \\subseteq V$ with $|S| \\ge k$ such that no edge has both endpoints in $S$, or report that none exists."
+  weighted:
+    kind: optimisation
+    input: "A graph $G = (V, E)$ and vertex weights $w \\colon V \\to \\mathbb{Z}_{\\ge 0}$."
+    goal: "Find the maximum weight $\\sum_{v \\in S} w(v)$ of a set $S \\subseteq V$ such that no edge has both endpoints in $S$."
+    generalises: [optimisation]
+default_version: decision
+shared_bounds:
+  - versions: [decision, optimisation, search]
+    because: "Binary search on $k$ and self-reducibility."
+related:
+  - { problem: vertex-cover, relation: complement }
