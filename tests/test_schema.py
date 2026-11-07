@@ -162,6 +162,8 @@ CASES = [
     ("ranking lists twice", PA, _set("implementations.ranked", ["example-solver", "example-solver"]), "ranked twice"),
     ("ranking empty", PA, _set("implementations.ranked", []), "implementations.ranked"),
     ("ranking without date", PA, _set("implementations.as_of", _DELETE), "implementations.as_of"),
+    ("ranking lists a heuristic", IMPL, _set("solves.0.exact", False), "is not marked exact for 'problem-a'"),
+    ("ranking needs exactness stated", IMPL, _set("solves.0.exact", _DELETE), "is not marked exact for 'problem-a'"),
     ("implementation solves unknown problem", IMPL, _set("solves.1.problem", "nope"), "unknown problem 'nope'"),
     ("implementation solves unknown version", IMPL, _set("solves.0.versions", ["counting"]), "has no version 'counting'"),
     ("implementation solves nothing", IMPL, _set("solves", []), "solves"),

@@ -322,7 +322,7 @@ bounds:
 
 The validator checks that every constant used in a bound has an entry, that values are numbers, that at least one upper bound is not refuted, and that the bounds do not cross.
 
-## 12. Implementation (draft, 8 November 2026; awaiting Serge's sign-off)
+## 12. Implementation (agreed 8 November 2026)
 
 Publicly available code that solves a problem. One file per implementation in `data/implementations/<id>.yaml`; one implementation can solve several problems.
 
@@ -353,9 +353,11 @@ implementations:
   note: "What the order rests on (competition results, benchmarks) and where it is a judgement call."
 ```
 
+Only exact implementations are listed (agreed 8 November 2026): a ranked implementation must have `exact: true` for the problem; heuristics are out of scope. One ranking per problem, not per version; support for a version (e.g. weights) is shown through `solves.versions` and the facts. An implementation for a closely related problem may be listed when the problem is solved through a trivial transformation, such as a vertex cover solver for Independent Set through the complement, with a `note` saying so.
+
 The ranking is subjective but informed by data (competition results, published benchmarks); the note says which places rest on data. Facts are positive and sourced: competition placings, citation counts (OpenAlex, with `as_of`), wide use in a named field. Where to look for implementations: `docs/implementations.md`.
 
-The validator checks that ranked ids exist, appear once and solve the problem, and that every `solves` entry names a known problem and version.
+The validator checks that ranked ids exist, appear once and solve the problem exactly, and that every `solves` entry names a known problem and version.
 
 ## Decisions (7 November 2026)
 

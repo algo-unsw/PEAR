@@ -92,10 +92,14 @@ A problem such as Vertex Cover is one family page with a version switcher: Decis
 - Reduction variants: a reduction records which problem variants it also works for (e.g. the weighted version), with a note on how the referenced construction is modified.
 - A variant keeps the original's citation and adds its own source where the adaptation is published; unpublished adaptations are marked as folklore and reviewed like any submission.
 
-## Implementations (requested 8 November 2026; schema draft in `specs/schema.md` §12)
+## Implementations (agreed 8 November 2026; schema in `specs/schema.md` §12)
 
 - Each problem page has a section listing publicly available implementations, ranked from best performing to worst. The ranking is subjective but informed by data (competition results, published benchmarks); a note says which places rest on data.
 - Each implementation shows positive, sourced facts: competition placings (e.g. winner of PACE 2019), citation counts above a threshold worth mentioning (OpenAlex, dated), wide use in a named field.
+- Exact implementations only; heuristics are out of scope.
+- One ranking per problem (not per version).
+- Solvers for a closely related problem may be listed when a trivial transformation solves this one (e.g. vertex cover solvers for Independent Set via the complement), with a note.
+- Shown in an Implementations section of the Details view only (not in the Overview).
 - `docs/implementations.md` keeps the list of places to look (PACE and other competitions, SageMath, NetworkX, igraph, OR-Tools, KaMIS, Zenodo, GitHub, …) and the exclusions (dead links).
 
 ## Hypotheses and conditional results

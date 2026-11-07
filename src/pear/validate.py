@@ -249,6 +249,9 @@ def check_references(data: Dataset) -> list[Issue]:
                     issues.append(Issue(f"{where}: implementations", f"unknown implementation '{iid}'"))
                 elif not any(s.problem == pid for s in impl.solves):  # type: ignore[attr-defined]
                     issues.append(Issue(f"{where}: implementations", f"implementation '{iid}' does not solve '{pid}'"))
+                elif not any(s.problem == pid and s.exact is True for s in impl.solves):  # type: ignore[attr-defined]
+                    # agreed 8 November 2026: only exact implementations are listed
+                    issues.append(Issue(f"{where}: implementations", f"implementation '{iid}' is not marked exact for '{pid}'"))
 
     for iid, impl in data.entries["implementations"].items():
         where = f"implementations/{iid}.yaml"

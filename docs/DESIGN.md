@@ -5,7 +5,7 @@ The chosen design is the "Encyclopedia combined" mockup for Vertex Cover, deskto
 ## Principles
 
 - Experts come for bounds: **best bounds first**, right under the title. The definition follows, compact and collapsible.
-- Two views of the same facts: **Overview** (default, prose-style) and **Details** (filters and tables). Details adds tools, not new facts.
+- Two views of the same facts: **Overview** (default, prose-style) and **Details** (filters and tables). Details adds tools, not new facts, with one exception: the Implementations section appears only in Details.
 - Every page stays the same length as the site grows; history, long reduction lists and details sit behind a click.
 - No reduction-graph diagram. Each derived bound expands to its own chain instead.
 - Lean status is a small label only.
@@ -43,7 +43,7 @@ All text pairs meet WCAG AA (4.5:1) in both themes; keep it that way when adding
 3. **Tab row**: version tabs on the left (Decision default, Optimisation, Search, Weighted; encyclopedia-style tabs); **Overview / Details** segmented control on the right.
 4. **Two columns**: article (flexible) + info box (280–340px) on the right; the info box wraps below on narrow screens.
    - Info box: also known as, complexity, parameters, versions, Lean status, papers tracked (OpenAlex), last checked.
-5. **Article sections, in order**: equivalence note (for decision/optimisation/search) → Fastest known algorithms → Definition → Reductions → Related problems → References → footer line (Data CC0 · code MIT · curated automatically · JSON).
+5. **Article sections, in order**: equivalence note (for decision/optimisation/search) → Fastest known algorithms → Definition → Reductions → Related problems → Implementations (Details only) → References → footer line (Data CC0 · code MIT · curated automatically · JSON).
 
 ### Fastest known algorithms
 
@@ -51,6 +51,12 @@ All text pairs meet WCAG AA (4.5:1) in both themes; keep it that way when adding
 - **Details**: a "Show only" filter row (deterministic, polynomial space, constructive, non-algebraic, Lean-verified, include derived) and a bordered table: Param · O* bound · Exact form · Properties · Proved for · Source · Origin (direct / derived, n steps).
 - **Bound history** (opened from a parameter): a step chart of the best base over the years plus a reversed list of improvements (bound · authors · venues). Polynomial factors ignored in the chart. Flagged results stay in the list, marked.
 - **Weighted tab**: its own bounds; note that weighted algorithms also give derived bounds for unweighted versions, never the reverse.
+
+### Implementations (Details only; agreed 8 November 2026)
+
+- H2 "Implementations", placed after Related problems and before References; not shown in Overview.
+- Numbered list, best first, as ranked in the data: name (linked), language · licence, versions solved, a note when solved through a transformation (e.g. "via the complement"), then the facts as short bullets with their sources as footnotes. Dated facts show "as of".
+- Under the list, the ranking note in muted text ("Places 1–2 follow …; the rest is a judgement call") and "Ranking as of <date>".
 
 ### Definition
 
