@@ -45,7 +45,8 @@ objects:                              # rule 4: what n, m and N count, for this 
   N: total encoding length of the input
 parameters:                           # further parameters, local or shared
   k: { meaning: "the integer k in the input (solution size)" }
-  tw: { shared: treewidth, of: "$G$" }  # shared registry; `of` says which graph (definitions F5)
+  tw: { shared: treewidth }           # shared registry; add `of` only when the graph is ambiguous,
+                                      # e.g. SAT: { shared: treewidth, of: "the primal graph" } (definitions F5)
   # t: { meaning: "the target number", poly_bounded: false }   # only for exceptions (bounds B4)
 constraints:                          # used to compare bounds in different variables (bounds B5)
   - { constraint: "k \\le n", because: "TODO: one-line justification" }

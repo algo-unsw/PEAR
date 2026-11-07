@@ -17,7 +17,7 @@ objects:
   N: total encoding length of the input
 parameters:
   k: { meaning: "the solution size: the integer $k$ in the input (decision, search), or the minimum size of a vertex cover (optimisation)" }
-  tw: { shared: treewidth, of: "$G$" }
+  tw: { shared: treewidth }
 constraints:
   - { constraint: "k \\le n", because: "Every instance with $k \\ge n$ is a yes-instance ($S = V$), answered in polynomial time." }
   - { constraint: "m \\le n^{2}", because: "A simple graph has at most $n(n-1)/2$ edges." }

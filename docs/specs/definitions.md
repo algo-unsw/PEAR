@@ -32,7 +32,7 @@ Every problem has exactly one canonical definition, because small differences qu
 ## 4. Parameters
 
 - A parameter means the same thing in every version, with one exception. The **solution size** $k$ is the integer in the input for decision and search, and the optimum for optimisation (F4).
-- Structural parameters point to the shared registry (`data/parameters/`) and say **which graph** they are measured on, where there is a choice. For example, for SAT the primal graph and the incidence graph give different treewidths (F5).
+- Structural parameters point to the shared registry (`data/parameters/`) and say **which graph** they are measured on only where there is a choice; with a single input graph, as in Vertex Cover, it is left out. For example, for SAT the primal graph and the incidence graph give different treewidths (F5).
 - Constraints between parameters (`bounds.md` B5) may rely on **trivial polynomial-time preprocessing**, said so in their justification. For Vertex Cover, $k \le n$ holds after answering "yes" whenever $k \ge n$ (F7).
 
 ## 5. Wording
