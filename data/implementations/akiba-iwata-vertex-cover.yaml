@@ -1,0 +1,17 @@
+id: akiba-iwata-vertex-cover
+name: "Akiba–Iwata vertex cover solver"
+url: "https://github.com/wata-orz/vertex_cover"
+language: Java
+licence: MIT
+solves:
+  - problem: vertex-cover
+    versions: [decision, optimisation, search]
+    exact: true
+  - problem: independent-set
+    versions: [decision, optimisation, search]
+    exact: true
+    note: "Outputs a minimum vertex cover; its complement is a maximum independent set."
+facts:
+  - fact: "Branch-and-reduce solver accompanying “Branch-and-reduce exponential/FPT algorithms in practice: A case study of vertex cover” (Theoretical Computer Science), cited 143 times."
+    source: "https://api.openalex.org/works/doi:10.1016/j.tcs.2015.09.023"
+    as_of: 2026-11-08

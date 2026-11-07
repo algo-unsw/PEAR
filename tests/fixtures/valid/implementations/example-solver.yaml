@@ -1,0 +1,17 @@
+id: example-solver
+name: Example Solver
+url: "https://example.org/example-solver"
+language: C++
+licence: MIT
+solves:
+  - problem: problem-a
+    versions: [decision, optimisation]
+    exact: true
+  - problem: problem-b
+    exact: false
+facts:
+  - fact: "Winner of the Example Challenge 2000."
+    source: "https://example.org/challenge-2000"
+  - fact: "Cited 600 times."
+    source: "https://example.org/citations"
+    as_of: 2026-11-08

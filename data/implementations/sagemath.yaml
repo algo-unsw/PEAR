@@ -1,0 +1,19 @@
+id: sagemath
+name: SageMath
+url: "https://www.sagemath.org/"
+language: Python, Cython
+licence: GPL-3.0
+solves:
+  - problem: vertex-cover
+    versions: [decision, optimisation, search]
+    exact: true
+    note: "Graph.vertex_cover(); algorithm Cliquer (default), MILP or mcqd, with kernelization rules as preprocessing by default."
+  - problem: independent-set
+    versions: [decision, optimisation, search]
+    exact: true
+    note: "Graph.independent_set(); algorithm Cliquer (default), MILP or mcqd."
+facts:
+  - fact: "Default algorithm is Cliquer, an exact branch-and-bound algorithm by Patric R. J. Östergård."
+    source: "https://github.com/sagemath/sage/blob/develop/src/sage/graphs/cliquer.pyx"
+  - fact: "Part of a general-purpose open-source mathematics system."
+    source: "https://www.sagemath.org/"
