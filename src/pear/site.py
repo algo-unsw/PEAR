@@ -20,7 +20,7 @@ import re
 from pathlib import Path
 from typing import Any
 
-from .bounds import display, ostar, parse_bound, parse_expr, render, render_bound
+from .bounds import display, ostar, parse_bound, parse_expr, render
 from .bounds.expr import Add, Div, Mul, Node, Num, Pow, Var, variables
 from .derive import Derivation, node_key, to_json
 from .schema import (
@@ -395,7 +395,6 @@ def problem_page(data: Dataset, d: Derivation, derived: dict[str, Any], pid: str
         out["statements"] = src["statements"]
         out["source_note"] = src["note"]
         out["props"] = property_words(row, alg, chain_randomized)
-        out["as_stated"] = render_as_stated(alg, problem) if row["origin"] == "direct" else row["exact"]
         out["proved_for"] = version_label(alg.proved_for).lower()
         out["proved_for_problem"] = None if alg.problem == pid else data.problems[alg.problem].name
         out["from_problem"] = None if alg.problem == pid else {"id": alg.problem, "name": data.problems[alg.problem].name}
@@ -438,15 +437,20 @@ def problem_page(data: Dataset, d: Derivation, derived: dict[str, Any], pid: str
                 "parameters": list(key),
                 "heading": "By " + _join(names),
                 "symbols_tex": [by_symbol[p]["tex"] for p in key if p in by_symbol],
-                "history_param": key[0] if len(key) == 1 else None,
                 "entries": entries,
             })
         bases = {}
-        for res in d.results.get((pid, node), []):
+        results = d.results.get((pid, node), []) + [res for res, _ in d.superseded.get((pid, node), [])]
+        for res in results:
             b = single_base(ostar(res.bound, d.contexts[pid]).expr)
             if b is not None:
                 bases[res.id] = b
-        hist = history(detail_rows, bases)
+        # beaten direct results are not in Details (rulebook version 3) but belong to the history
+        older = []
+        for row in derived.get("superseded", {}).get(pid, {}).get(node, []):
+            alg_old: Algorithm = data.entries["algorithms"][row["algorithm"]]  # type: ignore[assignment]
+            older.append({**row, "refs": refs.source(alg_old.source)["refs"]})
+        hist = history(detail_rows + older, bases)
         members = node_versions(node)
         group = next((g for g in problem.shared_bounds if sorted(g.versions) == sorted(members)), None)
         note = None
@@ -518,11 +522,6 @@ def problem_page(data: Dataset, d: Derivation, derived: dict[str, Any], pid: str
     }
 
 
-def render_as_stated(alg: Algorithm, problem: Problem) -> str:
-    """The bound exactly as stated, typeset through the parser (so tw becomes \\mathit{tw})."""
-    return render_bound(parse_bound(alg.bound.as_stated, problem.symbols()))
-
-
 def reduction_lists(data: Dataset, problem: Problem, refs: References) -> dict[str, list[dict[str, Any]]]:
     out: dict[str, list[dict[str, Any]]] = {"from": [], "to": []}
     for rid, red in sorted(data.entries["reductions"].items()):
@@ -574,11 +573,12 @@ def implementations(data: Dataset, problem: Problem) -> dict[str, Any] | None:
             "language": impl.language,
             "licence": impl.licence,
             "versions": [version_label(v).lower() for v in solves.versions] or [version_label(problem.default_version).lower()],
+            "versions_text": _join([version_label(v).lower() for v in solves.versions] or [version_label(problem.default_version).lower()]),
             "note": solves.note,
             "facts": [
                 {"fact": f.fact, "source": f.source, "as_of": f.as_of.isoformat() if f.as_of else None,
                  "urls": re.findall(r"https?://[^\s;)]+", f.source),
-                 "label": re.sub(r"https?://\S+\s*", "", f.source).strip(" ;") or None}
+                 "label": re.sub(r"https?://\S+\s*", "", f.source).strip(" ;").strip("()") or None}
                 for f in impl.facts
             ],
         })

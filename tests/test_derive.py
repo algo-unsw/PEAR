@@ -378,7 +378,13 @@ def test_slower_deterministic_bound_is_kept_next_to_faster_randomized():
     assert {r["shown"] for r in derived(data, "a")} == {r"O^*(1.5^{k})", r"O^*(2^{k})"}
 
 
-def test_worse_derived_bounds_are_dropped_but_direct_ones_stay():
+def superseded(data, pid, node="decision"):
+    out = to_json(data, derive(data))
+    return {r["id"]: r for r in out["superseded"].get(pid, {}).get(node, [])}
+
+
+def test_beaten_results_leave_details_and_direct_ones_go_to_history():
+    # rulebook version 3 (10 November 2026): beaten direct results leave the Details list
     data = dataset(
         problem("a"), problem("b"),
         alg("a-slow", "a", r"O^*(3^{k})"),
@@ -386,9 +392,48 @@ def test_worse_derived_bounds_are_dropped_but_direct_ones_stay():
         alg("b-alg", "b", r"O^*(2^{k})"),
         red("a-to-b", "a", "b", {"k": "k"}),
     )
+    assert {r["id"] for r in rows(data, "a")} == {"a-fast"}  # the derived 2^k is dropped too
+    old = superseded(data, "a")
+    assert set(old) == {"a-slow"}  # derived results are not kept for the history
+    assert old["a-slow"]["superseded_by"] == ["a-fast"]
+    assert old["a-slow"]["shown"] == r"O^*(3^{k})"
+
+
+def test_beaten_direct_result_is_dropped_whatever_the_insertion_order():
+    # a-1 is inserted before its better rival, z-2 after (ids are sorted)
+    data = dataset(
+        problem("a"),
+        alg("a-1-slow", "a", r"O^*(3^{k})"),
+        alg("a-2-fast", "a", r"O^*(1.1^{k})"),
+        alg("z-3-slow", "a", r"O^*(2^{k})"),
+    )
+    assert {r["id"] for r in rows(data, "a")} == {"a-2-fast"}
+    assert set(superseded(data, "a")) == {"a-1-slow", "z-3-slow"}
+
+
+def test_direct_result_best_under_some_filter_stays():
+    # the faster bound is randomized: the deterministic one is best when "deterministic" is ticked
+    data = dataset(
+        problem("a"),
+        alg("a-det", "a", r"O^*(1.3^{k})"),
+        alg("a-rand", "a", r"O^*(1.2^{k})", randomized=True),
+        alg("a-exp", "a", r"O^*(1.1^{k})", space="exponential"),
+    )
+    assert {r["id"] for r in rows(data, "a")} == {"a-det", "a-rand", "a-exp"}
+    assert superseded(data, "a") == {}
+
+
+def test_derived_bound_never_drops_a_direct_one():
+    # "include derived" can be unticked, so a direct result beaten only by derived ones stays
+    data = dataset(
+        problem("a"), problem("b"),
+        alg("a-alg", "a", r"O^*(3^{k})"),
+        alg("b-alg", "b", r"O^*(2^{k})"),
+        red("a-to-b", "a", "b", {"k": "k"}),
+    )
     got = {r["id"]: r for r in rows(data, "a")}
-    assert set(got) == {"a-slow", "a-fast"}  # the derived 2^k is beaten by a-fast
-    assert "a-fast" in got["a-slow"]["beaten_by"]
+    assert "a-alg" in got and len(derived(data, "a")) == 1
+    assert got["a-alg"]["beaten_by"] == [derived(data, "a")[0]["id"]]
 
 
 def test_bounds_compete_within_their_parameters():
@@ -484,7 +529,7 @@ def test_cli_writes_json(tmp_path):
     out = tmp_path / "derived.json"
     assert main(["derive", "tests/fixtures/valid", "--out", str(out)]) == 0
     payload = json.loads(out.read_text())
-    assert payload["rulebook_version"] == 2
+    assert payload["rulebook_version"] == 3
     chains = [[s["id"] for s in r["chain"]] for r in payload["problems"]["problem-b"]["decision"]]
     assert ["problem-b--to--problem-a"] in chains
 

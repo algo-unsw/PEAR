@@ -26,30 +26,17 @@
   window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", syncSwitch);
   syncSwitch();
 
-  // Disclosures (filled triangles) and history panels: aria-controls points at the content.
+  // Disclosures (filled triangles): aria-controls points at the content.
   document.addEventListener("click", (ev) => {
     const btn = ev.target.closest("button[aria-controls]");
     if (btn && !btn.matches("[role=tab]")) {
       const target = document.getElementById(btn.getAttribute("aria-controls"));
       if (target) {
         const open = btn.getAttribute("aria-expanded") !== "true";
-        if (btn.classList.contains("param")) {
-          // one history panel at a time
-          $$(".history").forEach((h) => { h.hidden = true; });
-          $$("button.param").forEach((b) => b.setAttribute("aria-expanded", "false"));
-        }
         btn.setAttribute("aria-expanded", String(open));
         target.hidden = !open;
-        // keep the same disclosure in both views in step
         return;
       }
-    }
-    const close = ev.target.closest("[data-close]");
-    if (close) {
-      const panel = document.getElementById(close.dataset.close);
-      if (panel) panel.hidden = true;
-      $$(`button[aria-controls="${close.dataset.close}"]`).forEach((b) => b.setAttribute("aria-expanded", "false"));
-      return;
     }
     const toggle = ev.target.closest(".phone-toggle");
     if (toggle) toggle.setAttribute("aria-expanded", String(toggle.getAttribute("aria-expanded") !== "true"));
