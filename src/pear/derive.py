@@ -22,7 +22,7 @@ from .bounds.growth import is_monotone
 from .schema import Algorithm, FolkloreSource, Hypothesis, PaperSource, Problem, Reduction, Variant
 from .validate import Dataset, problem_context
 
-RULEBOOK_VERSION = 2
+RULEBOOK_VERSION = 3
 LONG_CHAIN = 3  # rulebook §9: longer chains get a label (they are followed while they improve results)
 FORMAL_ORDER = {"informal": 0, "statement": 1, "proved": 2}
 
@@ -110,6 +110,8 @@ class Derivation:
     contexts: dict[str, Context] = field(default_factory=dict)
     beaten_by: dict[str, list[str]] = field(default_factory=dict)  # result id -> ids of strictly better bounds
     overview: dict[tuple[str, str], list[dict]] = field(default_factory=dict)  # (problem, node) -> groups
+    # direct results beaten in every filter (version 3): not in Details, kept for the bound history
+    superseded: dict[tuple[str, str], list[tuple[Result, list[str]]]] = field(default_factory=dict)
 
 
 # --- nodes: versions that share bounds ------------------------------------------------
@@ -256,13 +258,30 @@ class Engine:
         key = (r.problem, r.node)
         kept = self.out.results.setdefault(key, [])
         ctx = self.out.contexts[r.problem]
-        if r.derived and any(self.dominates(s, r, ctx) for s in kept):
-            return False
         if any(s.id == r.id for s in kept):
             return False
-        kept[:] = [s for s in kept if not (s.derived and self.dominates(r, s, ctx))]
+        dominators = [s for s in kept if self.dominates(s, r, ctx)]
+        if dominators:
+            self.supersede(key, r, dominators)
+            return False
+        removed = [s for s in kept if self.dominates(r, s, ctx)]
+        for s in removed:
+            self.supersede(key, s, [r])
+        kept[:] = [s for s in kept if s not in removed]
         kept.append(r)
         return True
+
+    def supersede(self, key: tuple[str, str], r: Result, by: list[Result]) -> None:
+        """Rulebook §9 (version 3): a beaten direct result leaves the Details list but stays
+        in the bound history. Beaten derived results are simply dropped."""
+        if r.derived:
+            return
+        entries = self.out.superseded.setdefault(key, [])
+        for i, (old, ids) in enumerate(entries):
+            if old.id == r.id:
+                entries[i] = (old, sorted(set(ids) | {s.id for s in by}))
+                return
+        entries.append((r, sorted(s.id for s in by)))
 
     # -- transfers -------------------------------------------------------------------------
 
@@ -594,55 +613,67 @@ def derive(data: Dataset) -> Derivation:
 
 
 def to_json(data: Dataset, d: Derivation) -> dict:
-    from .bounds import render_bound
-
     nodes: dict[str, dict[str, list[dict]]] = {}
     for (pid, node), kept in sorted(d.results.items()):
         ctx = d.contexts[pid]
-        rows = []
-        for r in kept:
-            shown = display(r.bound, ctx, derived=r.derived)
-            rows.append(
-                {
-                    "id": r.id,
-                    "origin": "derived" if r.derived else "direct",
-                    "algorithm": r.origin,
-                    "exact": render_bound(r.bound),
-                    "shown": shown.tex,
-                    "hover": shown.hover,
-                    "parameters": sorted(variables(ostar(r.bound, ctx).expr)),
-                    "properties": {
-                        "deterministic": r.props.deterministic,
-                        "polynomial_space": r.props.poly_space,
-                        "constructive": r.props.constructive,
-                        "algebraic": r.props.algebraic,
-                        "fast_matrix_multiplication": r.props.fast_matrix_multiplication,
-                        "quantum": r.props.quantum,
-                        "formal": r.props.formal,
-                        "lean_verified": r.props.lean,
-                    },
-                    "conditional_on": sorted(r.props.conditional_on),
-                    "flags": sorted(r.flags | ({"long-chain"} if r.steps > LONG_CHAIN else set())),
-                    "steps": r.steps,
-                    "chain": [
-                        {
-                            "kind": s.kind,
-                            "id": s.id,
-                            "from": s.from_node,
-                            "to": s.to_node,
-                            "type": s.type,
-                            "parameter_map": dict(s.parameter_map),
-                            "note": s.note,
-                        }
-                        for s in r.chain
-                    ],
-                    "beaten_by": d.beaten_by.get(r.id, []),
-                    "year": r.year,
-                    "papers": list(r.papers),
-                }
-            )
+        rows = [_row(r, ctx, d.beaten_by.get(r.id, [])) for r in kept]
         nodes.setdefault(pid, {})[node] = rows
     overview: dict[str, dict[str, list[dict]]] = {}
     for (pid, node), groups in sorted(d.overview.items()):
         overview.setdefault(pid, {})[node] = groups
-    return {"rulebook_version": RULEBOOK_VERSION, "problems": nodes, "overview": overview, "log": d.log}
+    superseded: dict[str, dict[str, list[dict]]] = {}
+    for (pid, node), entries in sorted(d.superseded.items()):
+        ctx = d.contexts[pid]
+        superseded.setdefault(pid, {})[node] = [
+            {**_row(r, ctx, []), "superseded_by": ids} for r, ids in entries
+        ]
+    return {
+        "rulebook_version": RULEBOOK_VERSION,
+        "problems": nodes,
+        "overview": overview,
+        "superseded": superseded,
+        "log": d.log,
+    }
+
+
+def _row(r: Result, ctx: Context, beaten_by: list[str]) -> dict:
+    from .bounds import render_bound
+
+    shown = display(r.bound, ctx, derived=r.derived)
+    return {
+        "id": r.id,
+        "origin": "derived" if r.derived else "direct",
+        "algorithm": r.origin,
+        "exact": render_bound(r.bound),
+        "shown": shown.tex,
+        "hover": shown.hover,
+        "parameters": sorted(variables(ostar(r.bound, ctx).expr)),
+        "properties": {
+            "deterministic": r.props.deterministic,
+            "polynomial_space": r.props.poly_space,
+            "constructive": r.props.constructive,
+            "algebraic": r.props.algebraic,
+            "fast_matrix_multiplication": r.props.fast_matrix_multiplication,
+            "quantum": r.props.quantum,
+            "formal": r.props.formal,
+            "lean_verified": r.props.lean,
+        },
+        "conditional_on": sorted(r.props.conditional_on),
+        "flags": sorted(r.flags | ({"long-chain"} if r.steps > LONG_CHAIN else set())),
+        "steps": r.steps,
+        "chain": [
+            {
+                "kind": s.kind,
+                "id": s.id,
+                "from": s.from_node,
+                "to": s.to_node,
+                "type": s.type,
+                "parameter_map": dict(s.parameter_map),
+                "note": s.note,
+            }
+            for s in r.chain
+        ],
+        "beaten_by": beaten_by,
+        "year": r.year,
+        "papers": list(r.papers),
+    }

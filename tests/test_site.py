@@ -116,3 +116,11 @@ def test_fixture_data_builds(tmp_path):
     assert issues == []
     site = build(data, derive(data), tmp_path)
     assert set(site["pages"]) == set(data.problems)
+
+
+def test_beaten_direct_result_only_in_history(real):
+    # rulebook version 3: Chen–Kanj–Xia 2006 is beaten in every filter by Harris–Narayanaswamy
+    _, site, _ = real
+    node = site["pages"]["vertex-cover"]["nodes"]["decision+optimisation+search"]
+    assert not any("chen-kanj-xia" in r["id"] for r in node["rows"])
+    assert [s["year"] for s in node["history"]["k"]["steps"]] == [2006, 2023, 2025]

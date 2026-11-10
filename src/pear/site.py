@@ -440,11 +440,17 @@ def problem_page(data: Dataset, d: Derivation, derived: dict[str, Any], pid: str
                 "entries": entries,
             })
         bases = {}
-        for res in d.results.get((pid, node), []):
+        results = d.results.get((pid, node), []) + [res for res, _ in d.superseded.get((pid, node), [])]
+        for res in results:
             b = single_base(ostar(res.bound, d.contexts[pid]).expr)
             if b is not None:
                 bases[res.id] = b
-        hist = history(detail_rows, bases)
+        # beaten direct results are not in Details (rulebook version 3) but belong to the history
+        older = []
+        for row in derived.get("superseded", {}).get(pid, {}).get(node, []):
+            alg_old: Algorithm = data.entries["algorithms"][row["algorithm"]]  # type: ignore[assignment]
+            older.append({**row, "refs": refs.source(alg_old.source)["refs"]})
+        hist = history(detail_rows + older, bases)
         members = node_versions(node)
         group = next((g for g in problem.shared_bounds if sorted(g.versions) == sorted(members)), None)
         note = None
