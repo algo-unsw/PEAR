@@ -5,7 +5,7 @@ The chosen design is the "Encyclopedia combined" mockup for Vertex Cover, deskto
 ## Principles
 
 - Experts come for bounds: **best bounds first**, right under the title. The definition follows, compact and collapsible.
-- Two views of the same facts: **Overview** (default, prose-style) and **Details** (filters and tables). Details adds tools, not new facts, with one exception: the Implementations section appears only in Details.
+- Two views of the same facts: **Overview** (default, prose-style) and **Details** (filters and tables). Details adds tools, not new facts, with two exceptions that appear only in Details: the Implementations section and the bound history.
 - Every page stays the same length as the site grows; history, long reduction lists and details sit behind a click.
 - No reduction-graph diagram. Each derived bound expands to its own chain instead.
 - Lean status is a small label only.
@@ -47,16 +47,15 @@ All text pairs meet WCAG AA (4.5:1) in both themes; keep it that way when adding
 
 ### Fastest known algorithms
 
-- **Overview**: one H3 per parameter ("By solution size k", "By number of vertices n", "By treewidth tw"). The parameter is a button; clicking it opens the bound history. Under it: the O* bound, properties in words, footnote reference, exact form, "proved for the … version". Derived bounds get a "derived" tag and a disclosure "Where this bound comes from" that expands to the numbered chain (source problem and bound → reduction with type and parameter map → result).
-- **Details**: a "Show only" filter row (deterministic, polynomial space, constructive, non-algebraic, Lean-verified, include derived) and a bordered table: Param · O* bound · Exact form · Properties · Proved for · Source · Origin (direct / derived, n steps).
-- **Bound history** (opened from a parameter): a step chart of the best base over the years plus a reversed list of improvements (bound · authors · venues). Polynomial factors ignored in the chart. Flagged results stay in the list, marked.
+- **Overview**: one H3 per parameter ("By solution size k", "By number of vertices n", "By treewidth tw"). Under it: the O* bound, properties in words, footnote reference, "proved for the … version". No bound history in the Overview (decided 10 November 2026). Derived bounds get a "derived" tag and a disclosure "Where this bound comes from" that expands to the numbered chain (source problem and bound → reduction with type and parameter map → result).
+- **Details**: a "Show only" filter row (deterministic, polynomial space, constructive, non-algebraic, Lean-verified, include derived) and a bordered table: Param · Bound · Properties · Proved for · Source · Origin (direct / derived, n steps). Source notes and derivation chains open in a full-width row below their result.
+- **Bound history** (Details only, decided 10 November 2026; one card per parameter, below the results table): a step chart of the best base over the years plus a reversed list of improvements (bound · authors · venues). Polynomial factors ignored in the chart. Flagged results stay in the list, marked.
 - **Weighted tab**: its own bounds; note that weighted algorithms also give derived bounds for unweighted versions, never the reverse.
 
-### Implementations (Details only; agreed 8 November 2026)
+### Implementations (Details only; agreed 8 November 2026, revised 10 November 2026)
 
 - H2 "Implementations", placed after Related problems and before References; not shown in Overview.
-- Numbered list, best first, as ranked in the data: name (linked), language · licence, versions solved, a note when solved through a transformation (e.g. "via the complement"), then the facts as short bullets with their sources as footnotes. Dated facts show "as of".
-- Under the list, the ranking note in muted text ("Places 1–2 follow …; the rest is a judgement call") and "Ranking as of <date>".
+- Bulleted list in the order stored in the data, with no claim that it is a ranking (decided 10 November 2026): name (linked), language · licence, versions solved, a note when solved through a transformation (e.g. "via the complement"), then the facts as short bullets with their sources as footnotes. Dated facts show "as of".
 
 ### Definition
 

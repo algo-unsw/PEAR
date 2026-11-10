@@ -79,29 +79,13 @@ eleventyComputed:
 
 <div class="overview-only">
 {%- for g in node.overview %}
-<h3>{{ g.heading }} {% if g.history_param and node.history[g.history_param] %}<button type="button" class="param" aria-expanded="false" aria-controls="hist-{{ v.id }}-{{ g.history_param }}" aria-label="History of the best bound in {{ g.history_param }}">{{ g.symbols_tex[0] | tex | safe }}</button>{% else %}{% for s in g.symbols_tex %}{{ s | tex | safe }}{% if not loop.last %} and {% endif %}{% endfor %}{% endif %}</h3>
+<h3>{{ g.heading }} {% for s in g.symbols_tex %}{{ s | tex | safe }}{% if not loop.last %} and {% endif %}{% endfor %}</h3>
 {%- for e in g.entries %}{% for r in e.cite %}
-<p class="bound">{{ bound(r) }}, {{ r.props.sentence }}{% if r.from_problem %}, from the algorithm for <a href="{{ ('/problems/' + r.from_problem.id + '/') | url }}">{{ r.from_problem.name }}</a>{% endif %} {{ r.refs | refs | safe }}.{{ tags(r) }}{% if r.origin == "direct" %}{% if r.as_stated != r.shown %} Exact form {{ r.as_stated | tex | safe }}; proved{% else %} Proved{% endif %} for the {{ r.proved_for }} version.{% endif %}</p>
+<p class="bound">{{ bound(r) }}, {{ r.props.sentence }}{% if r.from_problem %}, from the algorithm for <a href="{{ ('/problems/' + r.from_problem.id + '/') | url }}">{{ r.from_problem.name }}</a>{% endif %} {{ r.refs | refs | safe }}.{{ tags(r) }}{% if r.origin == "direct" %} Proved for the {{ r.proved_for }} version.{% endif %}</p>
 {%- if r.chain_items.length %}{{ chain(r, "chain-" + v.id + "-" + r.id) }}{% endif %}
 {%- endfor %}{% endfor %}
 {%- endfor %}
 </div>
-
-{%- for param, h in node.history %}
-<div class="history" role="region" id="hist-{{ v.id }}-{{ param }}" aria-label="History of the best bound in {{ param }}" hidden>
-<div class="top">
-<p><b>History of the best base {{ "c" | tex | safe }} in {{ ("O^*(c^{" + h.param_tex + "})") | tex | safe }}</b></p>
-<button type="button" class="close" data-close="hist-{{ v.id }}-{{ param }}">close</button>
-</div>
-{% historyChart h.steps, h.param_tex, h.name %}
-<ol reversed>
-{%- for s in h.steps | reverse %}
-<li>{{ s.shown | tex | safe }} · {% for n in s.refs %}{{ p.references[n - 1].authors }}{% endfor %} · {{ s.year }} {{ s.refs | refs | safe }}{% if s.derived %} <span class="tag">derived</span>{% endif %}</li>
-{%- endfor %}
-</ol>
-<p class="small muted" style="margin-top: 8px">Polynomial factors ignored. Only results entered in PEAR so far.</p>
-</div>
-{%- endfor %}
 
 <div class="details-only">
 {%- if node.rows.length %}
@@ -116,14 +100,13 @@ eleventyComputed:
 </div>
 <div class="tablewrap">
 <table class="results">
-<thead><tr><th>Param</th><th>{{ "O^*" | tex | safe }} bound</th><th>Exact form</th><th>Properties</th><th>Proved for</th><th>Source</th><th>Origin</th></tr></thead>
+<thead><tr><th>Param</th><th>Bound</th><th>Properties</th><th>Proved for</th><th>Source</th><th>Origin</th></tr></thead>
 <tbody>
 {%- for r in node.rows %}
 {%- set rid = v.id + "-" + r.id %}
 <tr data-row="{{ rid }}" data-det="{{ r.properties.deterministic }}" data-poly="{{ r.properties.polynomial_space }}" data-constr="{{ r.properties.constructive }}" data-nonalg="{{ not r.properties.algebraic }}" data-lean="{{ r.properties.lean_verified }}" data-derived="{{ r.origin == 'derived' }}">
 <td>{{ r.param_tex | tex | safe }}</td>
 <td class="nowrap">{{ bound(r) }}</td>
-<td class="nowrap">{{ r.as_stated | tex | safe }}</td>
 <td>{{ r.props.short }}</td>
 <td>{{ r.proved_for }}{% if r.proved_for_problem %} ({{ r.proved_for_problem }}){% endif %}</td>
 <td>{{ r.refs | refs | safe }}{% if r.statements.length %}, {{ r.statements | join("; ") }}{% endif %}{% if r.source_note %}<br><button type="button" class="disclose small" aria-expanded="false" aria-controls="note-{{ rid }}">{{ tri | safe }}Note</button>{% endif %}</td>
@@ -131,16 +114,31 @@ eleventyComputed:
 {%- if r.chain_items.length %}<br><button type="button" class="disclose small" aria-expanded="false" aria-controls="chainrow-{{ rid }}">{{ tri | safe }}Chain</button>{% endif %}</td>
 </tr>
 {%- if r.source_note %}
-<tr class="extra" id="note-{{ rid }}" data-parent="{{ rid }}" hidden><td colspan="7"><b>Note:</b> {{ r.source_note | mathtext | safe }}</td></tr>
+<tr class="extra" id="note-{{ rid }}" data-parent="{{ rid }}" hidden><td colspan="6"><b>Note:</b> {{ r.source_note | mathtext | safe }}</td></tr>
 {%- endif %}
 {%- if r.chain_items.length %}
-<tr class="extra" id="chainrow-{{ rid }}" data-parent="{{ rid }}" hidden><td colspan="7">{{ chainList(r, null, false) }}</td></tr>
+<tr class="extra" id="chainrow-{{ rid }}" data-parent="{{ rid }}" hidden><td colspan="6">{{ chainList(r, null, false) }}</td></tr>
 {%- endif %}
 {%- endfor %}
 </tbody>
 </table>
 </div>
 <p class="small muted" style="margin-top: 6px" data-filter-empty hidden>No result matches these filters.</p>
+{%- endif %}
+{%- if node.history | length %}
+<h3>History</h3>
+{%- for param, h in node.history %}
+<div class="history" role="region" id="hist-{{ v.id }}-{{ param }}" aria-label="History of the best bound in {{ param }}">
+<p><b>Best base {{ "c" | tex | safe }} in {{ ("O^*(c^{" + h.param_tex + "})") | tex | safe }} over time</b></p>
+{% historyChart h.steps, h.param_tex, h.name %}
+<ol reversed>
+{%- for s in h.steps | reverse %}
+<li>{{ s.shown | tex | safe }} · {% for n in s.refs %}{{ p.references[n - 1].authors }}{% endfor %} · {{ s.year }} {{ s.refs | refs | safe }}{% if s.derived %} <span class="tag">derived</span>{% endif %}</li>
+{%- endfor %}
+</ol>
+<p class="small muted" style="margin-top: 8px">Polynomial factors ignored. Only results entered in PEAR so far.</p>
+</div>
+{%- endfor %}
 {%- endif %}
 </div>
 
@@ -201,11 +199,11 @@ eleventyComputed:
 <section class="collapsible details-only">
 <h2><span class="label">Implementations</span><button type="button" class="disclose phone-toggle" aria-expanded="false">{{ tri14 | safe }}Implementations</button></h2>
 <div class="body">
-<p class="note" style="margin-bottom: 8px">Publicly available exact implementations, best first.</p>
-<ol class="impls">
+<p class="note" style="margin-bottom: 8px">Publicly available exact implementations.</p>
+<ul class="impls">
 {%- for i in p.implementations.items %}
 <li><a href="{{ i.url }}">{{ i.name }}</a>{% if i.language or i.licence %} <span class="muted">· {{ [i.language, i.licence] | select | join(" · ") }}</span>{% endif %}<br>
-<span class="small">Solves the {{ i.versions | join(", ") }} version{% if i.versions.length > 1 %}s{% endif %}.{% if i.note %} {{ i.note | mathtext | safe }}{% endif %}</span>
+<span class="small">Solves the {{ i.versions_text }} version{% if i.versions.length > 1 %}s{% endif %}.{% if i.note %} {{ i.note | mathtext | safe }}{% endif %}</span>
 {%- if i.facts.length %}
 <ul>
 {%- for f in i.facts %}
@@ -215,9 +213,7 @@ eleventyComputed:
 {%- endif %}
 </li>
 {%- endfor %}
-</ol>
-{% if p.implementations.note %}<p class="small muted" style="margin-top: 8px">{{ p.implementations.note | mathtext | safe }}</p>{% endif %}
-<p class="small muted">Ranking as of {{ p.implementations.as_of }}.</p>
+</ul>
 </div>
 </section>
 {%- endif %}

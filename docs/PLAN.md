@@ -100,6 +100,7 @@ A problem such as Vertex Cover is one family page with a version switcher: Decis
 - One ranking per problem (not per version).
 - Solvers for a closely related problem may be listed when a trivial transformation solves this one (e.g. vertex cover solvers for Independent Set via the complement), with a note.
 - Shown in an Implementations section of the Details view only (not in the Overview).
+- Decided 10 November 2026: the page shows the implementations in the stored order without calling it a ranking: no "best first", no note on how the order was chosen, no ranking date.
 - `docs/implementations.md` keeps the list of places to look (PACE and other competitions, SageMath, NetworkX, igraph, OR-Tools, KaMIS, Zenodo, GitHub, …) and the exclusions (dead links).
 
 ## Hypotheses and conditional results
@@ -175,7 +176,7 @@ A short dashboard of the most referenced problems, each with its best classical 
 
 ## Bound history per parameter
 
-Clicking a parameter on a problem page opens the history of the best running time in that parameter.
+The Details view of a problem page shows the history of the best running time in each parameter (decided 10 November 2026: Details only, not the Overview).
 
 - A small step chart of the best bound by year (e.g. the base c of c^k for Vertex Cover in k). Polynomial factors ignored in the chart, shown in the list.
 - Below it, every improvement: year, bound, paper (version and exact statement), published or derived.
@@ -229,6 +230,7 @@ Clicking a parameter on a problem page opens the history of the best running tim
 - `python -m pear site` runs validation and the derivation engine and writes `build/site/site.json` (one page object per problem: overview groups, Details rows with chains, references numbered in order of first citation, reductions, related problems, implementations, bound history) and one JSON file per entry (`build/site/entries/`, served under `/data/`).
 - Eleventy (`site/`) renders it; KaTeX typesets maths at build time and a TeX error fails the build. Pages: start page (pilot problems with best classical bounds), `/problems/<id>/`, `/cite/`.
 - CI builds the site on every PR. `.github/workflows/pages.yml` deploys to GitHub Pages on merges to `main` once Pages is enabled and the repository variable `PAGES_ENABLED` is `true`.
+- Bounds are displayed in O* form everywhere on the site (decided 10 November 2026); the exact form as stated stays in the data and the JSON.
 - Bound history: from the results entered so far, verified and non-quantum, single-parameter bounds of the form $c^{a x}$; a step chart when there are at least two improvements.
 
 ### Overview tab and long chains (decided 7 November 2026)
@@ -266,7 +268,7 @@ Encyclopedia look, for desktop and mobile. See `DESIGN.md` and `../design/`.
 
 - Best bounds first, right under the title; definition after, compact and collapsible.
 - Overview view by default (prose-style results); Details view one click away (filters, tables with "proved for", origin, formal status).
-- Version switcher tabs; parameter buttons open the bound history; derived bounds expand to their chain.
+- Version switcher tabs; the bound history is in the Details view; derived bounds expand to their chain.
 - Dropped: Lean-first layout (too technical) and the reduction-map diagram (too busy).
 
 ## Licensing and citation

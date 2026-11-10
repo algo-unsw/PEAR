@@ -49,5 +49,4 @@ related:
 implementations:
   as_of: 2026-11-08
   ranked: [wegotyoucovered, peaty, akiba-iwata-vertex-cover, kamis, sagemath]
-  note: "Vertex cover solvers solve Independent Set through the complement, so the order follows Vertex Cover: places 1–2 from the PACE 2019 Vertex Cover exact track, the rest a judgement call without a head-to-head benchmark. KaMIS is the only one listed that handles weights."
 review: { approved_by: Serge Gaspers, date: 2026-11-08 }

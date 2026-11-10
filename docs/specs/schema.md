@@ -350,12 +350,11 @@ The ranking lives in the problem file, best first, because "best" depends on the
 implementations:
   as_of: 2026-11-08
   ranked: [wegotyoucovered, peaty, …]
-  note: "What the order rests on (competition results, benchmarks) and where it is a judgement call."
 ```
 
 Only exact implementations are listed (agreed 8 November 2026): a ranked implementation must have `exact: true` for the problem; heuristics are out of scope. One ranking per problem, not per version; support for a version (e.g. weights) is shown through `solves.versions` and the facts. An implementation for a closely related problem may be listed when the problem is solved through a trivial transformation, such as a vertex cover solver for Independent Set through the complement, with a `note` saying so.
 
-The ranking is subjective but informed by data (competition results, published benchmarks); the note says which places rest on data. Facts are positive and sourced: competition placings, citation counts (OpenAlex, with `as_of`), wide use in a named field. Where to look for implementations: `docs/implementations.md`.
+The order is subjective but informed by data (competition results, published benchmarks). The site shows the list in this order without calling it a ranking and without saying how the order was chosen (decided 10 November 2026), so problem files carry no ranking note. Facts are positive and sourced: competition placings, citation counts (OpenAlex, with `as_of`), wide use in a named field. Where to look for implementations: `docs/implementations.md`.
 
 The validator checks that ranked ids exist, appear once and solve the problem exactly, and that every `solves` entry names a known problem and version.
 
