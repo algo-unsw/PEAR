@@ -229,7 +229,7 @@ The Details view of a problem page shows the history of the best running time in
 
 - `python -m pear site` runs validation and the derivation engine and writes `build/site/site.json` (one page object per problem: overview groups, Details rows with chains, references numbered in order of first citation, reductions, related problems, implementations, bound history) and one JSON file per entry (`build/site/entries/`, served under `/data/`).
 - Eleventy (`site/`) renders it; KaTeX typesets maths at build time and a TeX error fails the build. Pages: start page (pilot problems with best classical bounds), `/problems/<id>/`, `/cite/`.
-- CI builds the site on every PR. `.github/workflows/pages.yml` deploys to GitHub Pages on merges to `main` once Pages is enabled and the repository variable `PAGES_ENABLED` is `true`.
+- CI builds the site on every PR. `.github/workflows/pages.yml` deploys to GitHub Pages (algo-unsw.github.io/PEAR/) on merges to `main`. Public since 11 November 2026.
 - Details lists only results that are best under some filter combination; beaten direct results appear only in the bound history (rulebook version 3, decided 10 November 2026).
 - Bounds are displayed in O* form everywhere on the site (decided 10 November 2026); the exact form as stated stays in the data and the JSON.
 - Bound history: from the results entered so far, verified and non-quantum, single-parameter bounds of the form $c^{a x}$; a step chart when there are at least two improvements.
