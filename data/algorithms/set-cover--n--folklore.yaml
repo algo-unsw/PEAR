@@ -1,0 +1,22 @@
+id: set-cover--n--folklore
+problem: set-cover
+proved_for: weighted
+bound:
+  as_stated: 2^{n} m N
+  notation: O
+  parameters:
+  - n
+  - m
+  - N
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: A table indexed by the $2^n$ subsets of $U$.
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  folklore: true
+  note: 'Dynamic programming over subsets of the universe: for each $X \subseteq U$, the minimum weight of a subfamily covering $X$, adding one set at a time.'

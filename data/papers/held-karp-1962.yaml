@@ -1,0 +1,12 @@
+id: held-karp-1962
+title: A Dynamic Programming Approach to Sequencing Problems
+authors:
+- Michael Held
+- Richard M. Karp
+versions:
+  journal:
+    kind: journal
+    venue: Journal of the Society for Industrial and Applied Mathematics 10(1), pp. 196–210
+    year: 1962
+    doi: 10.1137/0110015
+    open_access: false
