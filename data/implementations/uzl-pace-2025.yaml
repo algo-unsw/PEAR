@@ -1,0 +1,23 @@
+id: uzl-pace-2025
+name: UzL Solver
+url: "https://github.com/mwien/PACE2025"
+language: Rust, C++
+licence: GPL-3.0
+solves:
+  - problem: dominating-set
+    versions: [decision, optimisation, search]
+    exact: true
+  - problem: hitting-set
+    versions: [decision, optimisation, search]
+    exact: true
+  - problem: set-cover
+    versions: [decision, optimisation, search]
+    exact: true
+    note: "Through the transpose: a set cover instance is a hitting set instance with the roles of elements and sets swapped."
+facts:
+  - fact: "Winner of the PACE 2025 Dominating Set exact track (81 instances solved)."
+    source: "https://drops.dagstuhl.de/storage/00lipics/lipics-vol358-ipec2025/LIPIcs.IPEC.2025.32/LIPIcs.IPEC.2025.32.pdf (Section 5.1.1)"
+  - fact: "Winner of the PACE 2025 Hitting Set exact track (79 instances solved)."
+    source: "https://drops.dagstuhl.de/storage/00lipics/lipics-vol358-ipec2025/LIPIcs.IPEC.2025.32/LIPIcs.IPEC.2025.32.pdf (Section 5.3.1)"
+  - fact: "Reduction rules for hitting set, then a MaxSAT formulation solved with EvalMaxSAT."
+    source: "https://drops.dagstuhl.de/storage/00lipics/lipics-vol358-ipec2025/html/LIPIcs.IPEC.2025.39/LIPIcs.IPEC.2025.39.html"

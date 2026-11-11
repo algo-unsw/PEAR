@@ -1,0 +1,12 @@
+id: cadical
+name: CaDiCaL
+url: "https://github.com/arminbiere/cadical"
+language: C++
+licence: MIT
+solves:
+  - problem: sat
+    versions: [decision, search]
+    exact: true
+facts:
+  - fact: "Winner of the SAT Competition 2025 Main Track on unsatisfiable instances (as CaDiCaL-SC2025)."
+    source: "https://satcompetition.github.io/2025/satcomp25slides.pdf"

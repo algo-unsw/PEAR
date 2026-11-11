@@ -35,3 +35,6 @@ shared_bounds:
     because: "Self-reducibility: fix variables one at a time."
 related:
   - { problem: sharp-3-sat, relation: counting }
+implementations:
+  as_of: 2026-11-11
+  ranked: [kissat, cadical]

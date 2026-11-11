@@ -1,0 +1,23 @@
+id: bad-dominating-set-maker
+name: Bad Dominating Set Maker
+url: "https://github.com/Doblalex/pace2025"
+language: C++
+licence: GPL-3.0
+solves:
+  - problem: dominating-set
+    versions: [decision, optimisation, search]
+    exact: true
+  - problem: hitting-set
+    versions: [decision, optimisation, search]
+    exact: true
+  - problem: set-cover
+    versions: [decision, optimisation, search]
+    exact: true
+    note: "Through the transpose: a set cover instance is a hitting set instance with the roles of elements and sets swapped."
+facts:
+  - fact: "Second place in the PACE 2025 Dominating Set exact track (80 instances solved)."
+    source: "https://drops.dagstuhl.de/storage/00lipics/lipics-vol358-ipec2025/LIPIcs.IPEC.2025.32/LIPIcs.IPEC.2025.32.pdf (Section 5.1.1)"
+  - fact: "Second place in the PACE 2025 Hitting Set exact track (79 instances solved)."
+    source: "https://drops.dagstuhl.de/storage/00lipics/lipics-vol358-ipec2025/LIPIcs.IPEC.2025.32/LIPIcs.IPEC.2025.32.pdf (Section 5.3.1)"
+  - fact: "Reduction rules, dynamic programming over tree decompositions, the Peaty vertex cover solver and EvalMaxSAT."
+    source: "https://drops.dagstuhl.de/storage/00lipics/lipics-vol358-ipec2025/html/LIPIcs.IPEC.2025.35/LIPIcs.IPEC.2025.35.html"

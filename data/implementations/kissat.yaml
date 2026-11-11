@@ -1,0 +1,12 @@
+id: kissat
+name: Kissat
+url: "https://github.com/arminbiere/kissat"
+language: C
+licence: MIT
+solves:
+  - problem: sat
+    versions: [decision, search]
+    exact: true
+facts:
+  - fact: "Second place in the SAT Competition 2025 Main Track (as Kissat-public); the winner, AE-Kissat-MAB, is built on Kissat."
+    source: "https://satcompetition.github.io/2025/satcomp25slides.pdf"
