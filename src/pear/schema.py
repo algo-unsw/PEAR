@@ -98,11 +98,17 @@ class Formal(Model):
     status: Literal["informal", "statement", "proved"] = "informal"
     prover: Text | None = None  # e.g. lean, isabelle
     link: Text | None = None
+    # who checked the formal statement against the canonical definition and the parameter
+    # mapping, and when; a proved, checked result counts as verified even if its paper is
+    # marked unverified (decided 12 November 2026)
+    statement_checked: Text | None = None
 
     @model_validator(mode="after")
     def _link_when_formal(self) -> Formal:
         if self.status != "informal" and (self.prover is None or self.link is None):
             raise ValueError(f"formal status '{self.status}' needs a prover and a link")
+        if self.statement_checked is not None and self.status != "proved":
+            raise ValueError("statement_checked needs formal status 'proved'")
         return self
 
 

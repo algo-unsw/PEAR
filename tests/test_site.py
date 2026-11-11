@@ -131,9 +131,20 @@ def test_beaten_direct_result_only_in_history(real):
 def test_unverified_results_can_be_switched_into_the_overview(real):
     # decided 12 November 2026: unverified results are off by default, each can be included
     _, site, _ = real
-    groups = site["pages"]["sharp-3-sat"]["nodes"]["counting"]["overview"]
+    groups = site["pages"]["3-coloring"]["nodes"]["decision+search"]["overview"]
     entries = [e for g in groups for e in g["entries"]]
     optional = {e["cite"][0]["id"] for e in entries if e.get("optional")}
-    assert "sharp-3-sat--n--openai-2026" in optional
-    kutzkov = next(e for e in entries if "sharp-3-sat--n--kutzkov-2026" in e["members"])
-    assert "sharp-3-sat--n--openai-2026" in kutzkov["beaten_by"]
+    assert "3-coloring--n--openai-2026" in optional
+    beigel = next(e for e in entries if "3-coloring--n--beigel-eppstein-2000" in e["members"])
+    assert "3-coloring--n--openai-2026" in beigel["beaten_by"]
+
+
+def test_lean_proved_checked_results_count_as_verified(real):
+    # decided 12 November 2026: a Lean-proved result whose statement was checked against our
+    # definition counts as verified even though its paper is marked unverified
+    _, site, _ = real
+    groups = site["pages"]["sharp-3-sat"]["nodes"]["counting"]["overview"]
+    entries = [e for g in groups for e in g["entries"]]
+    shown = {e["cite"][0]["id"] for e in entries if not e.get("optional")}
+    assert {"sharp-3-sat--n--anthropic-2026", "sharp-3-sat--m--anthropic-2026"} <= shown
+    assert not any(e.get("optional") for e in entries)

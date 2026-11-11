@@ -19,5 +19,10 @@ source:
   paper: anthropic-2026-eth
   statements:
     hexagon-v1:
-      statement: Theorem 1
-  note: Theorem 1 states $2^{O(\min\{k^2 n \log\log n/\sqrt{\log n},\ km/\sqrt{\log m}\})}$ for $k$-CNF, with an absolute constant; deterministic, word RAM. Entered as two bounds, one per term of the minimum, with $k = 3$. The paper states that the result is formalized in Lean 4 (https://github.com/anthropics/formal-math/tree/main/eth); which bound the Lean proof covers is not yet checked.
+      statement: 'Theorem 1; Lean theorem MainResults.mainTheorem'
+  note: Theorem 1 states $2^{O(\min\{k^2 n \log\log n/\sqrt{\log n},\ km/\sqrt{\log m}\})}$ for $k$-CNF, with an absolute constant; deterministic, word RAM. Entered as two bounds, one per term of the minimum, with $k = 3$. Lean theorem MainResults.mainTheorem (eth/MainResults.lean) proves the full bound of Theorem 1, both terms of the minimum, on a deterministic multi-stack Turing machine (Mathlib Turing.FinTM2, finite alphabets) with no polynomial factor and one constant $C$ for all $k$, for formulas in which every variable occurs, no clause is repeated, $m \ge 2$ and $n \ge 4$; clauses are encoded with $\lfloor\log_2 2n\rfloor + 1$ bits per literal. Our input is brought to that form in time polynomial in $N$ (drop repeated clauses, rename the occurring variables, multiply the count by $2$ to the number of variables that do not occur, small cases directly); Lean proves this renaming step for its corollary (NamesInOrder.generalFormFollowsAsPropositions), not for this statement. Checked against commit 16a5ce4 of github.com/anthropics/formal-math (26 October 2026); the proof files have no sorry and declare no axioms. The Lean statement says nothing about space.
+formal:
+  status: proved
+  prover: lean
+  link: https://github.com/anthropics/formal-math/blob/16a5ce4/eth/MainResults.lean
+  statement_checked: 'Claude, 12 November 2026, at Serge Gaspers'' request: same problem (count over all $2^n$ assignments; clauses with at most 3 literals) after the polynomial-time preprocessing in the note; $n$ and $m$ as in our definition.'

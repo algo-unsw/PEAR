@@ -304,3 +304,11 @@ def test_ranked_implementation_must_solve_the_problem(fixture_raw):
 
     issues = issues_after(fixture_raw, IMPL, drop_problem_a)
     assert any("does not solve 'problem-a'" in i for i in issues), issues
+
+
+def test_statement_checked_needs_a_proof():
+    from pear.schema import Formal
+
+    Formal(status="proved", prover="lean", link="x", statement_checked="checked")
+    with pytest.raises(ValueError):
+        Formal(status="statement", prover="lean", link="x", statement_checked="checked")

@@ -2,7 +2,7 @@ id: sharp-3-sat--n--openai-2026-lean
 problem: sharp-3-sat
 proved_for: counting
 bound:
-  as_stated: (N + 1)^{O(1)} 2^{O(n (\log\log n)^{2} / \sqrt{\log n})}
+  as_stated: (n + N)^{O(1)} 2^{O(n (\log\log n)^{2} / \sqrt{\log n})}
   notation: O
   parameters:
   - n
@@ -11,7 +11,7 @@ properties:
   randomized: false
   space:
     class: polynomial
-    bound: 'Proved in Lean: at most $(L+1)^{O_k(1)}$ tape cells.'
+    bound: 'Proved in Lean: at every step, at most $S (L+1)^{e}$ visited tape cells, $L$ the bit length of the canonical encoding.'
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true
@@ -20,9 +20,10 @@ source:
   paper: openai-2026-eth
   statements:
     preprint:
-      statement: Lean formalization (scope document 378)
-  note: 'The bound the Lean formalization proves, for every fixed $k \ge 2$ (here $k = 3$): a deterministic machine counts the satisfying assignments of a canonically encoded $k$-CNF in $(L+1)^{O_k(1)} 2^{O_k(n(\log\log n)^2/\sqrt{\log n})}$ time, $L$ the bit length of the encoding (here $N$), visiting at most $(L+1)^{O_k(1)}$ tape cells. Scope: https://github.com/openai/math/blob/main/lean/docs/378.md'
+      statement: 'Lean theorem OAI.Algorithms.SubexponentialSAT.SqrtLogSpace.exact_count_and_sat (lean/ComparatorChallenges/SubexponentialSAT.lean; scope document 378)'
+  note: 'The Lean theorem, for every fixed $k \ge 2$ (here $k = 3$): one deterministic multi-tape Turing machine, given the canonical encoding of a CNF over $n$ variables with at most $k$ literals per clause, writes the number of satisfying assignments in at most $C (L+1)^{d} 2^{A n (\log\log(n+16))^{2}/\sqrt{\log(n+16)}}$ steps, $L$ the bit length of the encoding, and visits at most $S (L+1)^{e}$ tape cells at every step. The canonical encoding writes $n$ and the literal codes $2i + [\text{positive}]$ in unary, with clauses and formulas as sorted sets; $L = O(n + mn)$ is polynomial in $n + N$, and our input is brought to that form in time polynomial in $n + N$, which gives $(n + N)^{O(1)}$. Checked against commit 4eaee87 of github.com/openai/math (29 October 2026); the proof file has no sorry and declares no axioms.'
 formal:
   status: proved
   prover: lean
-  link: https://github.com/openai/math/blob/main/lean/docs/378.md
+  link: https://github.com/openai/math/blob/4eaee87/lean/ComparatorChallenges/SubexponentialSAT.lean
+  statement_checked: 'Claude, 12 November 2026, at Serge Gaspers'' request: same problem (count over all $2^n$ assignments of $x_1, \dots, x_n$; clauses with at most 3 literals), bound in $n$ and the encoding length; definitions in the challenge file read in full.'

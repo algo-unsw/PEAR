@@ -210,7 +210,8 @@ class Engine:
         _, node = node_key(problem, alg.proved_for)
         year, papers = self.dated(alg.source)
         flags = set(flags) | {f"given-{g}" for g in alg.given}
-        if any(self.data.papers[p].unverified for p in papers):
+        checked = alg.formal.status == "proved" and alg.formal.statement_checked is not None
+        if any(self.data.papers[p].unverified for p in papers) and not checked:
             props = replace(props, verified=False)
             flags.add("unverified")
         return Result(problem.id, node, bound, props, alg.id, (), frozenset(flags), year, papers)
