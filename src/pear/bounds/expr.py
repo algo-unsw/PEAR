@@ -208,9 +208,37 @@ def _tokenize(src: str, symbols: frozenset[str]) -> list[_Tok]:
         while j < len(raw) and raw[j].kind == "letter":
             j += 1
         word = "".join(t.text for t in raw[i:j])
+        sub, after = _subscript(raw, j)
+        base = next((s.split("_", 1)[0] for s in sorted(symbols, key=len, reverse=True)
+                     if sub and s == f"{s.split('_', 1)[0]}_{sub}" and word.endswith(s.split("_", 1)[0])), None)
+        if base is not None:
+            # a subscripted symbol such as tw_p (primal treewidth), written tw_p or tw_{p}
+            if len(word) > len(base):
+                out.extend(_split_word(word[: -len(base)], symbols))
+            out.append(_Tok("var", f"{base}_{sub}"))
+            i = after
+            continue
         out.extend(_split_word(word, symbols))
         i = j
     return out
+
+
+def _subscript(raw: list[_Tok], j: int) -> tuple[str | None, int]:
+    """The letters of a subscript starting at raw[j] ('_p' or '_{pd}'), and the index after it."""
+    if j >= len(raw) or raw[j].kind != "sym" or raw[j].text != "_":
+        return None, j
+    k = j + 1
+    if k < len(raw) and raw[k].kind == "letter":
+        return raw[k].text, k + 1
+    if k < len(raw) and raw[k].kind == "sym" and raw[k].text == "{":
+        m = k + 1
+        letters = []
+        while m < len(raw) and raw[m].kind == "letter":
+            letters.append(raw[m].text)
+            m += 1
+        if letters and m < len(raw) and raw[m].kind == "sym" and raw[m].text == "}":
+            return "".join(letters), m + 1
+    return None, j
 
 
 _RESERVED = {"O", "o", "f", "g"}
@@ -486,7 +514,9 @@ def _render(node: Node) -> str:
     if isinstance(node, Num):
         return node.text
     if isinstance(node, Var):
-        return node.name if len(node.name) == 1 else f"\\mathit{{{node.name}}}"
+        base, _, sub = node.name.partition("_")
+        tex = base if len(base) == 1 else f"\\mathit{{{base}}}"
+        return f"{tex}_{{{sub}}}" if sub else tex
     if isinstance(node, Const):
         return "e" if node.name == "e" else f"\\{node.name}"
     if isinstance(node, Add):

@@ -15,8 +15,14 @@ objects:
   n: number of variables
   m: number of clauses
   N: total encoding length of the input
-parameters: {}
+parameters:
+  tw_p: { shared: primal-treewidth }
+  tw_d: { shared: dual-treewidth }
+  tw_i: { shared: incidence-treewidth }
 constraints:
+  - { constraint: "tw_p \\le n", because: "The primal graph has $n$ vertices." }
+  - { constraint: "tw_d \\le m", because: "The dual graph has $m$ vertices." }
+  - { constraint: "tw_i \\le n + m", because: "The incidence graph has $n + m$ vertices." }
   - { constraint: "m \\le 8 n^{3}", because: "Up to duplicates, there are at most $(2n)^3$ clauses with at most three literals; duplicate clauses can be removed." }
 versions:
   counting:
