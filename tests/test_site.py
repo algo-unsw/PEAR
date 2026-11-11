@@ -90,11 +90,17 @@ def test_vertex_cover_page(real):
     assert page["implementations"]["items"][0]["id"] == "wegotyoucovered"
 
 
-def test_projection_names_only_the_constraint_used(real):
-    _, site, _ = real
-    rows = site["pages"]["independent-set"]["nodes"]["weighted"]["rows"]
-    proj = next(i for r in rows for i in r["chain_items"] if i["kind"] == "projection")
-    assert proj["constraints"] == ["tw \\le n"]
+def test_projection_names_only_the_constraint_used(tmp_path):
+    from test_derive import alg, dataset, problem
+
+    data = dataset(
+        problem("a", params=("k", "tw"), constraints=[r"k \le n", r"tw \le n", r"m \le n^{2}"]),
+        alg("a-tw", "a", r"O^*(2^{tw})", params=("tw",)),
+    )
+    site = build(data, derive(data), tmp_path)
+    rows = site["pages"]["a"]["nodes"]["decision"]["rows"]
+    proj = [i for r in rows for i in r["chain_items"] if i["kind"] == "projection"]
+    assert proj and proj[0]["constraints"] == ["tw \\le n"]
 
 
 def test_entries_written_as_json(real):
@@ -124,3 +130,12 @@ def test_beaten_direct_result_only_in_history(real):
     node = site["pages"]["vertex-cover"]["nodes"]["decision+optimisation+search"]
     assert not any("chen-kanj-xia" in r["id"] for r in node["rows"])
     assert [s["year"] for s in node["history"]["k"]["steps"]] == [2006, 2023, 2025]
+
+
+def test_flawed_result_is_listed_but_not_used(real):
+    # Fomin–Gaspers–Saurabh 2006, Theorem 2: marked flawed by Serge (11 November 2026)
+    _, site, _ = real
+    node = site["pages"]["independent-set"]["nodes"]["weighted"]
+    assert not any("fomin-gaspers-saurabh" in r["id"] for r in node["rows"])
+    flagged = {f["id"]: f for f in node["flagged"]}
+    assert flagged["independent-set--n--fomin-gaspers-saurabh-2006"]["status"] == "unrepaired"

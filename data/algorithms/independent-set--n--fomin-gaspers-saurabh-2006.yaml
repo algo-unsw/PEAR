@@ -1,0 +1,18 @@
+id: independent-set--n--fomin-gaspers-saurabh-2006
+problem: independent-set
+proved_for: weighted
+bound: { as_stated: "1.2431^{n}", notation: O, parameters: [n] }
+properties:
+  randomized: false
+  space: { class: exponential, bound: "Educated guess: the algorithm switches from branching to dynamic programming over a tree or path decomposition (Proposition 3), which uses exponential space." }
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: fomin-gaspers-saurabh-2006
+  statements:
+    isaac: { statement: "Theorem 2" }
+  note: "Algorithm #MWIS returns the maximum weight of an independent set together with the number of independent sets of that weight. Weights are positive reals; vertices of weight 0 can be deleted first."
+status: unrepaired
+status_note: "Marked as flawed by Serge Gaspers, a co-author, on 11 November 2026."
