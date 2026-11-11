@@ -9,10 +9,9 @@
     set(k, v) { try { localStorage.setItem(k, v); } catch (e) { /* private mode */ } },
   };
 
-  // Theme: follow the system until the reader chooses.
+  // Theme: dark by default; the reader's choice is remembered.
   const root = document.documentElement;
-  const dark = () => root.dataset.theme === "dark" ||
-    (!root.dataset.theme && window.matchMedia("(prefers-color-scheme: dark)").matches);
+  const dark = () => root.dataset.theme !== "light";
   function syncSwitch() {
     $$("[data-theme-switch]").forEach((b) => b.setAttribute("aria-checked", String(dark())));
   }
@@ -23,7 +22,6 @@
       store.set("pear-theme", next);
       syncSwitch();
     }));
-  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", syncSwitch);
   syncSwitch();
 
   // Disclosures (filled triangles): aria-controls points at the content.
