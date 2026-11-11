@@ -1,0 +1,4 @@
+id: incidence-treewidth
+name: Incidence treewidth
+symbol: tw_i
+definition: "The treewidth of the incidence graph of a CNF formula: the bipartite graph on the variables and the clauses in which a variable is adjacent to the clauses it occurs in."
