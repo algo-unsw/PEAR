@@ -276,7 +276,7 @@ def test_term_without_lower_estimate_does_not_block_the_bound():
     [
         (r"2^{tw_p}", r"2^{\mathit{tw}_{p}}"),
         (r"2^{tw_{i}} n", r"2^{\mathit{tw}_{i}} n"),
-        (r"ntw_d", r"n \cdot \mathit{tw}_{d}"),
+        (r"ntw_d", r"n \mathit{tw}_{d}"),
     ],
 )
 def test_subscripted_symbols(text, tex):
