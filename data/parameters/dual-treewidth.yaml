@@ -1,0 +1,4 @@
+id: dual-treewidth
+name: Dual treewidth
+symbol: tw_d
+definition: "The treewidth of the dual graph of a CNF formula: its vertices are the clauses, and two clauses are adjacent if they share a variable."
