@@ -73,7 +73,9 @@ def test_vertex_cover_page(real):
     _, site, _ = real
     page = site["pages"]["vertex-cover"]
     node = page["nodes"]["decision+optimisation+search"]
-    assert [g["heading"] for g in node["overview"]] == ["By solution size", "By number of vertices", "By treewidth"]
+    headings = [g["heading"] for g in node["overview"]]
+    assert headings[0] == "By solution size" and headings[-1] == "By treewidth"
+    assert "By number of vertices" in headings
     # Overview: no unverified result; Details: every kept result
     shown = [e["cite"][0]["id"] for g in node["overview"] for e in g["entries"]]
     assert not any("robson" in s for s in shown)

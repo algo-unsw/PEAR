@@ -1,0 +1,12 @@
+id: horowitz-sahni-1974
+title: Computing Partitions with Applications to the Knapsack Problem
+authors:
+- Ellis Horowitz
+- Sartaj Sahni
+versions:
+  journal:
+    kind: journal
+    venue: Journal of the ACM 21(2), pp. 277–292
+    year: 1974
+    doi: 10.1145/321812.321823
+    open_access: false

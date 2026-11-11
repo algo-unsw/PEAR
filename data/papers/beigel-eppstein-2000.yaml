@@ -1,0 +1,17 @@
+id: beigel-eppstein-2000
+title: 3-Coloring in Time $O(1.3289^n)$
+authors:
+- Richard Beigel
+- David Eppstein
+versions:
+  arxiv:
+    kind: preprint
+    year: 2000
+    arxiv: cs/0006046
+    open_access: true
+  journal:
+    kind: journal
+    venue: Journal of Algorithms 54(2), pp. 168–204
+    year: 2005
+    doi: 10.1016/j.jalgor.2004.06.008
+    open_access: false

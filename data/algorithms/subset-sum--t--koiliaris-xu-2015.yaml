@@ -1,0 +1,24 @@
+id: subset-sum--t--koiliaris-xu-2015
+problem: subset-sum
+proved_for: decision
+bound:
+  as_stated: \sqrt{n} t \log^{5/2} t
+  notation: O
+  parameters:
+  - n
+  - t
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: '$O(t)$ space (Table 1.1): pseudo-polynomial, exponential in the input size.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: koiliaris-xu-2015
+  statements:
+    arxiv-v3:
+      statement: Theorem 2.17
+  note: Computes all subset sums up to $u = t$ in $O(\min\{\sqrt{n'}\, u \log^{5/2} u,\ u^{4/3} \log^2 u,\ \sigma \log \sigma \log(n' \log u)\})$ time, with $n' \le n$ distinct elements; stored as the first term. Positive integers; zeros can be removed first. Year from arXiv v1 (2015); statement read in v3.

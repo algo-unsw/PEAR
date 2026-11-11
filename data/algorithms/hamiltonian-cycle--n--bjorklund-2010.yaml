@@ -1,0 +1,24 @@
+id: hamiltonian-cycle--n--bjorklund-2010
+problem: hamiltonian-cycle
+proved_for: decision
+bound:
+  as_stated: O^*(1.657^{n})
+  notation: O*
+  parameters:
+  - n
+properties:
+  randomized:
+    error: one-sided
+  space:
+    class: polynomial
+    bound: 'Stated in the abstract: both algorithms can be implemented in polynomial space.'
+  algebraic: true
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: bjorklund-2010
+  statements:
+    arxiv:
+      statement: Theorem 1
+  note: 'Monte Carlo: no false positives; false negatives with probability exponentially small in $n$.'

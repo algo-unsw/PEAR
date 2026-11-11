@@ -1,0 +1,24 @@
+id: subset-sum--n--horowitz-sahni-1974
+problem: subset-sum
+proved_for: decision
+bound:
+  as_stated: O^*(2^{n/2})
+  notation: O*
+  parameters:
+  - n
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: Stores the $2^{n/2}$ subset sums of each half (as the attesting sources describe).
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: horowitz-sahni-1974
+  attested_by:
+  - https://drops.dagstuhl.de/opus/volltexte/2023/18864
+  - https://lacker.io/complexity/problems/subset-sum-below-2-n-over-2.html
+  - https://rjlipton.com/2010/02/05/a-2010-algorithm-for-the-knapsack-problem/
+  note: 'Meet in the middle: all subset sums of each half, sorted. No open copy found.'
