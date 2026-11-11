@@ -1,0 +1,36 @@
+id: 3-coloring
+name: 3-Coloring
+aliases: [3-Colouring, 3-Colorability, 3-COL]
+category: graph
+complexity:
+  class: NP-complete
+  source:
+    paper: garey-johnson-stockmeyer-1974
+    attested_by:
+      - "https://en.wikipedia.org/wiki/Graph_coloring"
+      - "https://www.iitg.ac.in/rinkulu/note/npprobs-note.pdf"
+      - "https://www.otfried.org/courses/cs500/notes-reductions.pdf"
+    note: "As on Wikipedia, which cites Garey, Johnson and Stockmeyer (1974) and Garey and Johnson (1979)."
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  tw: { shared: treewidth }
+constraints:
+  - { constraint: "m \\le n^{2}", because: "A simple graph has at most $n(n-1)/2$ edges." }
+  - { constraint: "tw \\le n", because: "A single bag containing all vertices is a tree decomposition of width $n - 1$." }
+versions:
+  decision:
+    kind: decision
+    input: "A graph $G = (V, E)$."
+    question: "Is there a map $c \\colon V \\to \\{1, 2, 3\\}$ such that $c(u) \\ne c(v)$ for every edge $uv$?"
+  search:
+    kind: search
+    input: "A graph $G = (V, E)$."
+    goal: "Find a map $c \\colon V \\to \\{1, 2, 3\\}$ such that $c(u) \\ne c(v)$ for every edge $uv$, or report that none exists."
+default_version: decision
+shared_bounds:
+  - versions: [decision, search]
+    because: "Self-reducibility: merge two non-adjacent vertices or add an edge, and test again."
+related: []

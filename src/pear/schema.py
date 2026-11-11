@@ -135,6 +135,7 @@ Category = Literal["graph", "satisfiability", "sets", "numbers"]
 VersionKind = Literal["decision", "optimisation", "search", "counting", "enumeration"]
 Relation = Literal[
     "complement",
+    "dual",
     "variant",
     "generalisation",
     "special-case",

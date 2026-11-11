@@ -1,0 +1,19 @@
+id: set-cover--to--hitting-set
+from: { problem: set-cover, version: decision }
+to: { problem: hitting-set, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(N)"
+parameter_map: { n: "m", m: "n", k: "k" }
+variants:
+  - id: weighted
+    note: "Weighted versions: the same construction, keeping the weights."
+    from: { problem: set-cover, version: weighted }
+    to: { problem: hitting-set, version: weighted }
+    parameter_map: { n: "m", m: "n" }
+    source:
+      folklore: true
+      note: "Set weights become element weights."
+source:
+  folklore: true
+  note: "Transpose the incidence matrix: the sets of $\\mathcal{F}$ become elements, and each element $u$ becomes the set of members of $\\mathcal{F}$ containing $u$; covers become hitting sets of the same size."

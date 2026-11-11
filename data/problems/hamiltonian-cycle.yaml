@@ -1,0 +1,36 @@
+id: hamiltonian-cycle
+name: Hamiltonian Cycle
+aliases: [Hamiltonian Circuit, HAM-CYCLE, Undirected Hamiltonian Cycle]
+category: graph
+complexity:
+  class: NP-complete
+  source:
+    paper: karp-1972
+    attested_by:
+      - "https://en.wikipedia.org/wiki/List_of_NP-complete_problems"
+      - "https://arxiv.org/pdf/1902.10349"
+      - "https://www.iitg.ac.in/rinkulu/note/npprobs-note.pdf"
+    note: "Undirected Hamiltonian Circuit is one of Karp's 21 NP-complete problems."
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  tw: { shared: treewidth }
+constraints:
+  - { constraint: "m \\le n^{2}", because: "A simple graph has at most $n(n-1)/2$ edges." }
+  - { constraint: "tw \\le n", because: "A single bag containing all vertices is a tree decomposition of width $n - 1$." }
+versions:
+  decision:
+    kind: decision
+    input: "A graph $G = (V, E)$."
+    question: "Is there a cycle in $G$ that contains every vertex exactly once?"
+  search:
+    kind: search
+    input: "A graph $G = (V, E)$."
+    goal: "Find a cycle in $G$ that contains every vertex exactly once, or report that none exists."
+default_version: decision
+shared_bounds:
+  - versions: [decision, search]
+    because: "Self-reducibility: delete edges one at a time while a Hamiltonian cycle remains."
+related: []
