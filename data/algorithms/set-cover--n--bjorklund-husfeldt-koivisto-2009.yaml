@@ -1,0 +1,24 @@
+id: set-cover--n--bjorklund-husfeldt-koivisto-2009
+problem: set-cover
+proved_for: decision
+bound:
+  as_stated: m 2^{n} n^{O(1)}
+  notation: O
+  parameters:
+  - n
+  - m
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Stated: polynomial space (Section 1.2).'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: bjorklund-husfeldt-koivisto-2009
+  statements:
+    journal:
+      statement: Section 1.2, after Equation (1.1)
+  note: Inclusion–exclusion counts the $k$-covers; stated as an $|\mathcal{F}| 2^n n^{O(1)}$ time, polynomial space algorithm. Theorem 1 counts set covers in $O^*(2^n)$ time with the fast zeta transform (exponential space).

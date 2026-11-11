@@ -1,0 +1,13 @@
+id: bjorklund-husfeldt-koivisto-2009
+title: Set Partitioning via Inclusion–Exclusion
+authors:
+- Andreas Björklund
+- Thore Husfeldt
+- Mikko Koivisto
+versions:
+  journal:
+    kind: journal
+    venue: SIAM Journal on Computing (author copy; an earlier version appeared at FOCS 2006)
+    year: 2009
+    url: https://www.cs.helsinki.fi/u/mkhkoivi/publications/sicomp-200Y.pdf
+    open_access: true

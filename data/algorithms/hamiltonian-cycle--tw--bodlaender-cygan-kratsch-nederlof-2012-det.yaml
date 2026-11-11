@@ -1,0 +1,26 @@
+id: hamiltonian-cycle--tw--bodlaender-cygan-kratsch-nederlof-2012-det
+problem: hamiltonian-cycle
+proved_for: decision
+bound:
+  as_stated: \tilde{O}(15^{tw} tw^{O(1)} n^{2})
+  notation: Õ
+  parameters:
+  - n
+  - tw
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Educated guess: exponential; dynamic programming over the tree decomposition with tables of representative sets (rank-based approach) or determinant computations; the paper does not state the space.'
+  algebraic: true
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+given:
+- tree-decomposition
+source:
+  paper: bodlaender-cygan-kratsch-nederlof-2012
+  statements:
+    arxiv-v1:
+      statement: Theorem 4.3
+  note: Determinant approach; counts Hamiltonian cycles, deterministically, given a tree decomposition of width $tw$.

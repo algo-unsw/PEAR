@@ -1,0 +1,23 @@
+id: sharp-3-sat--n--anthropic-2026
+problem: sharp-3-sat
+proved_for: counting
+bound:
+  as_stated: 2^{O(n \log\log n / \sqrt{\log n})}
+  notation: O
+  parameters:
+  - n
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Educated guess: polynomial. The paper does not state the space; its tables are procedures evaluated when queried, not arrays (Section 8), and the recursion depth is constant for fixed parameters; no memoization or dynamic programming found.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: anthropic-2026-eth
+  statements:
+    hexagon-v1:
+      statement: Theorem 1
+  note: Theorem 1 states $2^{O(\min\{k^2 n \log\log n/\sqrt{\log n},\ km/\sqrt{\log m}\})}$ for $k$-CNF, with an absolute constant; deterministic, word RAM. Entered as two bounds, one per term of the minimum, with $k = 3$. The paper states that the result is formalized in Lean 4 (https://github.com/anthropics/formal-math/tree/main/eth); which bound the Lean proof covers is not yet checked.
