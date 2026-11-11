@@ -6,8 +6,7 @@ Papers Claude wants to read for PEAR but has not (fully) read yet, with why. Rem
 
 | Paper | Link | Why it matters | Status |
 |---|---|---|---|
-| OpenAI. *The Exponential Time Hypothesis is False.* Preprint, 26 October 2026. | [paper.pdf](https://github.com/openai/math/blob/main/preprints/The-Exponential-Time-Hypothesis-is-False-October-25-2026/paper.pdf) | Subexponential 3-SAT / #3-SAT algorithm (ETH refutation, Lean-checked). | Not read yet. |
-| Claude and Anthropic. *A $2^{o(n)}$ Time Algorithm for 3-SAT.* Hexagon preprint 2610.00577v1, 26 October 2026. | [hexagon:2610.00577v1](https://hexagonmath.org/2610.00577v1) · [PDF](https://hexagonmath.org/pdf/2610.00577v1) | Deterministic $2^{o(n)}$ algorithm that also counts (#3-SAT); Theorem 1 gives $2^{O(\min\{k^2 n \log\log n/\sqrt{\log n},\ km/\sqrt{\log m}\})}$, Theorem 2 $O(2^{\delta n})$ for every $\delta > 0$. | First half read; the Theorem 1 formula was garbled in the text extraction and must be checked in the PDF. |
+| Claude and Anthropic. *A $2^{o(n)}$ Time Algorithm for 3-SAT.* Hexagon preprint 2610.00577v1, 26 October 2026. | [hexagon:2610.00577v1](https://hexagonmath.org/2610.00577v1) · [PDF](https://hexagonmath.org/pdf/2610.00577v1) | Deterministic $2^{o(n)}$ algorithm that also counts (#3-SAT); Theorem 1 gives $2^{O(\min\{k^2 n \log\log n/\sqrt{\log n},\ km/\sqrt{\log m}\})}$, Theorem 2 $O(2^{\delta n})$ for every $\delta > 0$. | Read and entered (Theorem 1). Still to check: which bound the Lean proof covers ([anthropics/formal-math/eth](https://github.com/anthropics/formal-math/tree/main/eth)). |
 | *Reverse Reductions.* STOC 2027 submission. | Not found yet; candidates are tracked in [cslib-frontier issue #2527](https://github.com/cslib-community/cslib-frontier/issues/2527). | Subexponential #3-SAT algorithms (per Serge). | Need a link. |
 | *Faster Exact Algorithms for 3- and 4-Coloring: Deterministic Improvements and Further Randomized Speedups.* arXiv:2611.03115v1, November 2026. | [arXiv:2611.03115](https://arxiv.org/abs/2611.03115v1) | May beat Meijer's $O^*(1.3217^n)$ for 3-Coloring. | arXiv rate-limited the page every time. |
 | Faisal N. Abu-Khzam, Amer E. Mouawad, Mathieu Liedloff. *An exact algorithm for connected red-blue dominating set.* Journal of Discrete Algorithms, 2011. | [HAL hal-00607125](https://hal.archives-ouvertes.fr/hal-00607125) | Connected Dominating Set in $O(1.8619^n)$ (best known per arXiv:2205.00086). | HAL blocks Claude's fetcher; too few attestations. |
@@ -20,6 +19,14 @@ Papers Claude wants to read for PEAR but has not (fully) read yet, with why. Rem
 | Ellis Horowitz, Sartaj Sahni. *Computing Partitions with Applications to the Knapsack Problem.* J. ACM 21(2), pp. 277–292, 1974. | [doi:10.1145/321812.321823](https://doi.org/10.1145/321812.321823) | Subset Sum in $O^*(2^{n/2})$; entered as attested. | No open copy found. |
 | Richard Bellman. *Dynamic Programming Treatment of the Travelling Salesman Problem.* J. ACM 9(1), pp. 61–63, 1962. | [doi:10.1145/321105.321111](https://doi.org/10.1145/321105.321111) | Hamiltonian Cycle in $O(n^2 2^n)$; entered as attested. | No open copy found. |
 | Michael Held, Richard M. Karp. *A Dynamic Programming Approach to Sequencing Problems.* J. SIAM 10(1), pp. 196–210, 1962. | [doi:10.1137/0110015](https://doi.org/10.1137/0110015) | Same bound, found independently. | Closed. |
+
+## Read, worth a decision (new parameters or problems)
+
+| Paper | Link | Why it matters |
+|---|---|---|
+| Sanjay Jain, Tzeh Yuan Neoh, Frank Stephan. *An Improved Algorithm for Sparse Instances of SAT.* arXiv:2411.07389. | [arXiv:2411.07389](https://arxiv.org/pdf/2411.07389) | SAT in $O^*(1.1199^{(d-2)n})$, $d$ = maximum or average number of occurrences of a variable: needs a parameter $d$ for SAT. |
+| Shiva Kintali. *A simplified proof of ETH is false.* 26 October 2026. | [PDF](https://shivakintali.github.io/papers/ETH.pdf) | 3-SAT (decision) in $2^{\varepsilon n}$ for every $\varepsilon > 0$: 3-SAT is not a pilot problem. |
+| Ruhollah Majdoddin. *Lowered crossover points of Anthropic's subexponential 3-SAT algorithm.* arXiv:2610.41622. | [arXiv:2610.41622](https://arxiv.org/abs/2610.41622) | Practical crossover points; no new asymptotic bound for #3-SAT. |
 
 ## Still to search
 
