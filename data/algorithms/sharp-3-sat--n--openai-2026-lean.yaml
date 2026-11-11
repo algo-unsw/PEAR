@@ -1,0 +1,28 @@
+id: sharp-3-sat--n--openai-2026-lean
+problem: sharp-3-sat
+proved_for: counting
+bound:
+  as_stated: (N + 1)^{O(1)} 2^{O(n (\log\log n)^{2} / \sqrt{\log n})}
+  notation: O
+  parameters:
+  - n
+  - N
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Proved in Lean: at most $(L+1)^{O_k(1)}$ tape cells.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: openai-2026-eth
+  statements:
+    preprint:
+      statement: Lean formalization (scope document 378)
+  note: 'The bound the Lean formalization proves, for every fixed $k \ge 2$ (here $k = 3$): a deterministic machine counts the satisfying assignments of a canonically encoded $k$-CNF in $(L+1)^{O_k(1)} 2^{O_k(n(\log\log n)^2/\sqrt{\log n})}$ time, $L$ the bit length of the encoding (here $N$), visiting at most $(L+1)^{O_k(1)}$ tape cells. Scope: https://github.com/openai/math/blob/main/lean/docs/378.md'
+formal:
+  status: proved
+  prover: lean
+  link: https://github.com/openai/math/blob/main/lean/docs/378.md

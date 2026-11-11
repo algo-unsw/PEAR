@@ -424,7 +424,20 @@ def problem_page(data: Dataset, d: Derivation, derived: dict[str, Any], pid: str
                 enriched_by_id[rid] = enrich(row)
                 cited.append(enriched_by_id[rid])
             params_key = tuple(cited[0]["parameters"])
-            groups.setdefault(params_key, []).append({"cite": cited, "year": entry["year"], "members": entry["members"]})
+            groups.setdefault(params_key, []).append({"cite": cited, "year": entry["year"], "members": entry["members"], "beaten_by": []})
+        # unverified results a reader can switch into the Overview (browser-stored, per result)
+        for opt in derived.get("overview_optional", {}).get(pid, {}).get(node, []):
+            row = next((r for r in rows if r["id"] == opt["id"]), None)
+            if row is None:
+                continue
+            enriched_by_id[row["id"]] = enrich(row)
+            beats = set(opt["beats"])
+            for entries in groups.values():
+                for e in entries:
+                    if beats & set(e["members"]):
+                        e["beaten_by"].append(row["id"])
+            groups.setdefault(tuple(row["parameters"]), []).append(
+                {"cite": [enriched_by_id[row["id"]]], "year": row["year"], "members": [row["id"]], "beaten_by": [], "optional": True})
         for row in rows:
             if row["id"] not in enriched_by_id:
                 enriched_by_id[row["id"]] = enrich(row)
@@ -434,6 +447,7 @@ def problem_page(data: Dataset, d: Derivation, derived: dict[str, Any], pid: str
         for key, entries in ordered_groups:
             names = [by_symbol[p]["short"] for p in key if p in by_symbol]
             overview_out.append({
+                "only_optional": all(e.get("optional") for e in entries),
                 "parameters": list(key),
                 "heading": "By " + _join(names),
                 "symbols_tex": [by_symbol[p]["tex"] for p in key if p in by_symbol],

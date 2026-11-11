@@ -113,6 +113,30 @@
     });
   }
 
+  // Unverified results: each reader chooses which to include in the Overview (stored in
+  // this browser only). An included result shows in its group and hides the entries it beats.
+  const KEY = "pear-include-unverified";
+  let included = new Set();
+  try { included = new Set(JSON.parse(localStorage.getItem(KEY) || "[]")); } catch (e) { /* none */ }
+  function applyUnverified() {
+    $$("[data-include-unverified]").forEach((c) => { c.checked = included.has(c.dataset.includeUnverified); });
+    $$("[data-optional]").forEach((el) => { el.hidden = !included.has(el.dataset.optional); });
+    $$("[data-beaten-by]").forEach((el) => {
+      el.hidden = el.dataset.beatenBy.split(" ").some((id) => included.has(id));
+    });
+    $$(".ov-group").forEach((g) => {
+      if (g.hasAttribute("data-only-optional")) {
+        g.hidden = !$$("[data-optional]", g).some((el) => !el.hidden);
+      }
+    });
+  }
+  $$("[data-include-unverified]").forEach((c) => c.addEventListener("change", () => {
+    if (c.checked) included.add(c.dataset.includeUnverified); else included.delete(c.dataset.includeUnverified);
+    try { localStorage.setItem(KEY, JSON.stringify(Array.from(included))); } catch (e) { /* private mode */ }
+    applyUnverified();
+  }));
+  applyUnverified();
+
   // Search: names and aliases; "vc k" style shorthand picks the problem from the first words.
   const form = document.querySelector("[data-search]");
   const indexEl = document.getElementById("search-index");

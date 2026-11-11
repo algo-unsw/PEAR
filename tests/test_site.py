@@ -77,7 +77,7 @@ def test_vertex_cover_page(real):
     assert headings[0] == "By solution size" and headings[-1] == "By treewidth"
     assert "By number of vertices" in headings
     # Overview: no unverified result; Details: every kept result
-    shown = [e["cite"][0]["id"] for g in node["overview"] for e in g["entries"]]
+    shown = [e["cite"][0]["id"] for g in node["overview"] for e in g["entries"] if not e.get("optional")]
     assert not any("robson" in s for s in shown)
     assert any("robson" in r["id"] for r in node["rows"])
     # every cited paper has a reference, numbered from 1 without gaps
@@ -126,3 +126,14 @@ def test_beaten_direct_result_only_in_history(real):
     node = site["pages"]["vertex-cover"]["nodes"]["decision+optimisation+search"]
     assert not any("chen-kanj-xia" in r["id"] for r in node["rows"])
     assert [s["year"] for s in node["history"]["k"]["steps"]] == [2006, 2023, 2025]
+
+
+def test_unverified_results_can_be_switched_into_the_overview(real):
+    # decided 12 November 2026: unverified results are off by default, each can be included
+    _, site, _ = real
+    groups = site["pages"]["sharp-3-sat"]["nodes"]["counting"]["overview"]
+    entries = [e for g in groups for e in g["entries"]]
+    optional = {e["cite"][0]["id"] for e in entries if e.get("optional")}
+    assert "sharp-3-sat--n--openai-2026" in optional
+    kutzkov = next(e for e in entries if "sharp-3-sat--n--kutzkov-2026" in e["members"])
+    assert "sharp-3-sat--n--openai-2026" in kutzkov["beaten_by"]

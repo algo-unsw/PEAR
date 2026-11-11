@@ -22,4 +22,4 @@ source:
     preprint:
       statement: Theorem 1.1
       page: 2
-  note: 'Stated for every fixed $k \ge 2$ (here $k = 3$); deterministic, in bit operations. For $m \le Dn$ with fixed $D$: $(n+m)^{O(1)} 2^{O(n/\sqrt{\log n})}$. The accompanying Lean formalization proves the weaker bound $(L+1)^{O(1)} 2^{O(n (\log\log n)^2/\sqrt{\log n})}$ (https://github.com/openai/math/blob/main/lean/docs/378.md).'
+  note: 'Stated for every fixed $k \ge 2$ (here $k = 3$); deterministic, in bit operations. For $m \le Dn$ with fixed $D$: $(n+m)^{O(1)} 2^{O(n/\sqrt{\log n})}$. Not covered by the Lean formalization, which proves a weaker bound (separate entry).'

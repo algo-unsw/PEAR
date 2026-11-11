@@ -110,6 +110,9 @@ class Derivation:
     contexts: dict[str, Context] = field(default_factory=dict)
     beaten_by: dict[str, list[str]] = field(default_factory=dict)  # result id -> ids of strictly better bounds
     overview: dict[tuple[str, str], list[dict]] = field(default_factory=dict)  # (problem, node) -> groups
+    # unverified results a reader may add to the Overview (decided 12 November 2026), with the
+    # Overview members each one beats in O* form
+    optional: dict[tuple[str, str], list[dict]] = field(default_factory=dict)
     # direct results beaten in every filter (version 3): not in Details, kept for the bound history
     superseded: dict[tuple[str, str], list[tuple[Result, list[str]]]] = field(default_factory=dict)
 
@@ -507,6 +510,7 @@ class Engine:
             frontier = new
         self.out.beaten_by = self.beaten_by()
         self.out.overview = self.overview()
+        self.out.optional = self.optional_overview()
         return self.out
 
     def overview(self) -> dict[tuple[str, str], list[dict]]:
@@ -544,6 +548,29 @@ class Engine:
                     "year": first,
                 })
             out[key] = entries
+        return out
+
+    def optional_overview(self) -> dict[tuple[str, str], list[dict]]:
+        """Kept non-quantum results from unverified papers that a reader can switch into the
+        Overview (browser-stored, per result). Each lists the Overview members it beats in O*
+        form; one that a verified Overview member beats or equals would change nothing and is
+        left out."""
+        out: dict[tuple[str, str], list[dict]] = {}
+        for key, kept in sorted(self.out.results.items()):
+            ctx = self.out.contexts[key[0]]
+            members = {m for e in self.out.overview.get(key, []) for m in e["members"]}
+            best = [r for r in kept if r.id in members]
+            entries = []
+            for u in kept:
+                if u.props.verified or u.props.quantum:
+                    continue
+                rel = [compare_ostar(self.analyse(b), self.analyse(u), ctx) for b in best]
+                if any(x in (Relation.BETTER, Relation.EQUAL, Relation.TIE) for x in rel):
+                    continue
+                beats = [b.id for b, x in zip(best, rel) if x == Relation.WORSE]
+                entries.append({"id": u.id, "beats": beats, "year": u.year})
+            if entries:
+                out[key] = entries
         return out
 
     def as_reduction(self, red: Reduction, v: Variant) -> Reduction:
@@ -631,6 +658,10 @@ def to_json(data: Dataset, d: Derivation) -> dict:
         "rulebook_version": RULEBOOK_VERSION,
         "problems": nodes,
         "overview": overview,
+        "overview_optional": {
+            pid: {node: e for (p2, node), e in sorted(d.optional.items()) if p2 == pid}
+            for pid in sorted({p for p, _ in d.optional})
+        },
         "superseded": superseded,
         "log": d.log,
     }

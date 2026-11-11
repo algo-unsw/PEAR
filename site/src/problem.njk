@@ -17,7 +17,7 @@ eleventyComputed:
 {%- endmacro -%}
 {%- macro tags(r) -%}
 {%- if r.origin == "derived" %} <span class="tag" title="Obtained by combining an algorithm with reductions or other derivation steps; expand “Where this bound comes from”.">derived</span>{% endif -%}
-{%- for f in r.flags %}{% if f == "given-tree-decomposition" %} <span class="tag" title="A tree decomposition of width tw is given with the input.">tree decomposition given</span>{% elif f == "unverified" %} <span class="tag warn" title="From an unrefereed source; listed in Details only, never in the Overview.">unverified</span>{% elif f == "long-chain" %} <span class="tag warn" title="The derivation chain is long; check each step.">long chain</span>{% else %} <span class="tag warn" title="{{ f }}">{{ f }}</span>{% endif %}{% endfor -%}
+{%- for f in r.flags %}{% if f == "given-tree-decomposition" %} <span class="tag" title="A tree decomposition of width tw is given with the input.">tree decomposition given</span>{% elif f == "unverified" %} <span class="tag warn" title="From an unrefereed source; in the Overview only when you include it (Details, Origin column).">unverified</span>{% elif f == "long-chain" %} <span class="tag warn" title="The derivation chain is long; check each step.">long chain</span>{% else %} <span class="tag warn" title="{{ f }}">{{ f }}</span>{% endif %}{% endfor -%}
 {%- if not r.properties.constructive %} <span class="tag" title="The paper proves that an algorithm exists but gives no way to write it down.">non-constructive</span>{% endif -%}
 {%- endmacro -%}
 {%- macro chain(r, cid) -%}
@@ -79,11 +79,17 @@ eleventyComputed:
 
 <div class="overview-only">
 {%- for g in node.overview %}
+<div class="ov-group"{% if g.only_optional %} data-only-optional hidden{% endif %}>
 <h3>{{ g.heading }} {% for s in g.symbols_tex %}{{ s | tex | safe }}{% if not loop.last %} and {% endif %}{% endfor %}</h3>
-{%- for e in g.entries %}{% for r in e.cite %}
+{%- for e in g.entries %}
+<div class="ov-entry"{% if e.optional %} data-optional="{{ e.cite[0].id }}" hidden{% endif %}{% if e.beaten_by.length %} data-beaten-by="{{ e.beaten_by | join(' ') }}"{% endif %}>
+{%- for r in e.cite %}
 <p class="bound">{{ bound(r) }}, {{ r.props.sentence }}{% if r.from_problem %}, from the algorithm for <a href="{{ ('/problems/' + r.from_problem.id + '/') | url }}">{{ r.from_problem.name }}</a>{% endif %} {{ r.refs | refs | safe }}.{{ tags(r) }}{% if r.origin == "direct" %} Proved for the {{ r.proved_for }} version.{% endif %}</p>
 {%- if r.chain_items.length %}{{ chain(r, "chain-" + v.id + "-" + r.id) }}{% endif %}
-{%- endfor %}{% endfor %}
+{%- endfor %}
+</div>
+{%- endfor %}
+</div>
 {%- endfor %}
 </div>
 
@@ -110,7 +116,7 @@ eleventyComputed:
 <td>{{ r.props.short }}</td>
 <td>{{ r.proved_for }}{% if r.proved_for_problem %} ({{ r.proved_for_problem }}){% endif %}</td>
 <td>{{ r.refs | refs | safe }}{% if r.statements.length %}, {{ r.statements | join("; ") }}{% endif %}{% if r.source_note %}<br><button type="button" class="disclose small" aria-expanded="false" aria-controls="note-{{ rid }}">{{ tri | safe }}Note</button>{% endif %}</td>
-<td>{% if r.origin == "derived" %}<span class="tag" title="Obtained by combining an algorithm with reductions or other derivation steps.">derived</span>, {{ r.steps }} step{% if r.steps != 1 %}s{% endif %}{% else %}direct{% endif %}{% for f in r.flags %}{% if f == "given-tree-decomposition" %}<span class="cellnote">tree decomposition given</span>{% elif f == "unverified" %} <span class="tag warn" title="From an unrefereed source; listed in Details only.">unverified</span>{% else %}<span class="cellnote">{{ f }}</span>{% endif %}{% endfor %}
+<td>{% if r.origin == "derived" %}<span class="tag" title="Obtained by combining an algorithm with reductions or other derivation steps.">derived</span>, {{ r.steps }} step{% if r.steps != 1 %}s{% endif %}{% else %}direct{% endif %}{% for f in r.flags %}{% if f == "given-tree-decomposition" %}<span class="cellnote">tree decomposition given</span>{% elif f == "unverified" %} <span class="tag warn" title="From an unrefereed source; not in the Overview unless you include it.">unverified</span><label class="cellnote include"><input type="checkbox" data-include-unverified="{{ r.id }}"> include in Overview</label>{% else %}<span class="cellnote">{{ f }}</span>{% endif %}{% endfor %}
 {%- if r.chain_items.length %}<br><button type="button" class="disclose small" aria-expanded="false" aria-controls="chainrow-{{ rid }}">{{ tri | safe }}Chain</button>{% endif %}</td>
 </tr>
 {%- if r.source_note %}
@@ -223,7 +229,7 @@ eleventyComputed:
 <div class="body">
 <ol class="refs">
 {%- for r in p.references %}
-<li id="ref-{{ r.n }}">{{ r.authors }}. {{ r.title | mathtext | safe }}. {{ r.versions | join("; ") }}.{% for l in r.links %} <a href="{{ l.url }}">{{ "Open access" if l.label == "open access" else l.label }}</a>{% endfor %}{% if r.unverified %} <span class="tag warn" title="Not peer reviewed; its results appear in Details only.">unverified</span>{% endif %}</li>
+<li id="ref-{{ r.n }}">{{ r.authors }}. {{ r.title | mathtext | safe }}. {{ r.versions | join("; ") }}.{% for l in r.links %} <a href="{{ l.url }}">{{ "Open access" if l.label == "open access" else l.label }}</a>{% endfor %}{% if r.unverified %} <span class="tag warn" title="Not peer reviewed; its results appear in the Overview only when you include them in Details.">unverified</span>{% endif %}</li>
 {%- endfor %}
 </ol>
 </div>

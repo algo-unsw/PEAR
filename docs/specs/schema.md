@@ -137,7 +137,7 @@ versions:
 ```
 
 - A version is `open_access: true` only if it can be read without a paywall or bot block (rule 2).
-- `unverified: true` marks a paper that is not peer reviewed or otherwise verified, such as an unrefereed technical report. Its results, and bounds derived from them, appear in Details but never in the Overview (decided 8 November 2026). The validator checks that every result cites at least one open-access version.
+- `unverified: true` marks a paper that is not peer reviewed or otherwise verified, such as an unrefereed technical report. Its results, and bounds derived from them, appear in Details and are left out of the Overview by default (decided 8 November 2026); each reader can include them one by one, stored in their browser (12 November 2026). The validator checks that every result cites at least one open-access version.
 - Version keys (`conference`, `journal`, `arxiv-v2`) are local to the paper and are what statements refer to, because numbering differs between versions.
 - Books (e.g. textbooks with open-access PDFs) and theses use the same entity.
 
