@@ -90,11 +90,17 @@ def test_vertex_cover_page(real):
     assert page["implementations"]["items"][0]["id"] == "wegotyoucovered"
 
 
-def test_projection_names_only_the_constraint_used(real):
-    _, site, _ = real
-    rows = site["pages"]["independent-set"]["nodes"]["weighted"]["rows"]
-    proj = next(i for r in rows for i in r["chain_items"] if i["kind"] == "projection")
-    assert proj["constraints"] == ["tw \\le n"]
+def test_projection_names_only_the_constraint_used(tmp_path):
+    from test_derive import alg, dataset, problem
+
+    data = dataset(
+        problem("a", params=("k", "tw"), constraints=[r"k \le n", r"tw \le n", r"m \le n^{2}"]),
+        alg("a-tw", "a", r"O^*(2^{tw})", params=("tw",)),
+    )
+    site = build(data, derive(data), tmp_path)
+    rows = site["pages"]["a"]["nodes"]["decision"]["rows"]
+    proj = [i for r in rows for i in r["chain_items"] if i["kind"] == "projection"]
+    assert proj and proj[0]["constraints"] == ["tw \\le n"]
 
 
 def test_entries_written_as_json(real):
