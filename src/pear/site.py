@@ -377,6 +377,38 @@ def chain_items(data: Dataset, d: Derivation, row: dict[str, Any], refs: Referen
     return items
 
 
+STATUS_LABELS = {
+    "flagged": "flagged, under review",
+    "unrepaired": "flawed: no fix known",
+    "broken": "broken: the claim is false",
+    "easily-fixable": "flawed: easily fixable",
+}
+
+
+def flagged_rows(data: Dataset, d: Derivation, problem: Problem, node: str, refs: References) -> list[dict[str, Any]]:
+    """Results whose status keeps them out of derivation (rulebook A3); they stay visible."""
+    out = []
+    for aid, alg in sorted(data.entries["algorithms"].items()):
+        assert isinstance(alg, Algorithm)
+        if alg.problem != problem.id or alg.status in ("valid", "fixed"):
+            continue
+        if node_key(problem, alg.proved_for)[1] != node:
+            continue
+        shown = display(parse_bound(alg.bound.as_stated, problem.symbols()), d.contexts[problem.id])
+        src = refs.source(alg.source)
+        out.append({
+            "id": aid,
+            "shown": shown.tex,
+            "status": alg.status,
+            "status_label": STATUS_LABELS.get(alg.status, alg.status),
+            "status_note": alg.status_note,
+            "refs": src["refs"],
+            "statements": src["statements"],
+            "proved_for": version_label(alg.proved_for).lower(),
+        })
+    return out
+
+
 def problem_page(data: Dataset, d: Derivation, derived: dict[str, Any], pid: str) -> dict[str, Any]:
     problem = data.problems[pid]
     refs = References(data)
@@ -467,6 +499,7 @@ def problem_page(data: Dataset, d: Derivation, derived: dict[str, Any], pid: str
         nodes[node] = {
             "overview": overview_out,
             "rows": detail_rows,
+            "flagged": flagged_rows(data, d, problem, node, refs),
             "note": note,
             "history": {
                 p: {"param_tex": by_symbol[p]["tex"], "name": by_symbol[p]["short"], "steps": steps}

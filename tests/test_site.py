@@ -130,3 +130,12 @@ def test_beaten_direct_result_only_in_history(real):
     node = site["pages"]["vertex-cover"]["nodes"]["decision+optimisation+search"]
     assert not any("chen-kanj-xia" in r["id"] for r in node["rows"])
     assert [s["year"] for s in node["history"]["k"]["steps"]] == [2006, 2023, 2025]
+
+
+def test_flawed_result_is_listed_but_not_used(real):
+    # Fomin–Gaspers–Saurabh 2006, Theorem 2: marked flawed by Serge (11 November 2026)
+    _, site, _ = real
+    node = site["pages"]["independent-set"]["nodes"]["weighted"]
+    assert not any("fomin-gaspers-saurabh" in r["id"] for r in node["rows"])
+    flagged = {f["id"]: f for f in node["flagged"]}
+    assert flagged["independent-set--n--fomin-gaspers-saurabh-2006"]["status"] == "unrepaired"

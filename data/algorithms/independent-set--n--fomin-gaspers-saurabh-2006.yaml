@@ -14,3 +14,5 @@ source:
   statements:
     isaac: { statement: "Theorem 2" }
   note: "Algorithm #MWIS returns the maximum weight of an independent set together with the number of independent sets of that weight. Weights are positive reals; vertices of weight 0 can be deleted first."
+status: unrepaired
+status_note: "Marked as flawed by Serge Gaspers, a co-author, on 11 November 2026."
