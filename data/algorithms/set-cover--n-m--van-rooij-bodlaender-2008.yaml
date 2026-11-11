@@ -1,0 +1,24 @@
+id: set-cover--n-m--van-rooij-bodlaender-2008
+problem: set-cover
+proved_for: optimisation
+bound:
+  as_stated: 1.2302^{n + m}
+  notation: O
+  parameters:
+  - n
+  - m
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Stated: polynomial space (Theorem 3.1).'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: van-rooij-bodlaender-2008
+  statements:
+    arxiv:
+      statement: Theorem 3.1
+  note: Stated for the dimension $d = |\mathcal{S}| + |\mathcal{U}|$, the number of sets plus the number of elements. Corollary 3.2 gives Dominating Set in $O(1.5134^n)$ through $d = 2n$.

@@ -1,0 +1,24 @@
+id: dominating-set--n--iwata-2011-exp
+problem: dominating-set
+proved_for: optimisation
+bound:
+  as_stated: 1.4689^{n}
+  notation: O
+  parameters:
+  - n
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Stated: exponential space (dynamic programming precalculation).'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: iwata-2011
+  attested_by:
+  - https://arxiv.org/pdf/1404.0753
+  - https://ijcai.org/proceedings/2024/0780.pdf
+  - https://link.springer.com/chapter/10.1007/978-3-642-28050-4_4
+  note: No open copy found; the abstract (publisher page) and two later papers state $O(1.4689^n)$ time and space, combining the algorithm with a precalculation by dynamic programming.

@@ -1,0 +1,13 @@
+id: peng-sheng-xiao-2025
+title: 'New Algorithms for #2-SAT and #3-SAT'
+authors:
+- Junqiang Peng
+- Zimo Sheng
+- Mingyu Xiao
+versions:
+  ijcai:
+    kind: conference
+    venue: IJCAI 2025, pp. 2666–2674
+    year: 2025
+    url: https://ijcai.org/proceedings/2025/0297.pdf
+    open_access: true

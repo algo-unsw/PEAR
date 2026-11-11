@@ -1,0 +1,11 @@
+id: kutzkov-2007
+title: 'New upper bound for the #3-SAT problem'
+authors:
+- Konstantin Kutzkov
+versions:
+  journal:
+    kind: journal
+    venue: Information Processing Letters 105(1), pp. 1–5
+    year: 2007
+    url: https://konstantinkutzkov.github.io/papers/3-sat.pdf
+    open_access: true

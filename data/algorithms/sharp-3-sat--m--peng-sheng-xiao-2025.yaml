@@ -1,0 +1,23 @@
+id: sharp-3-sat--m--peng-sheng-xiao-2025
+problem: sharp-3-sat
+proved_for: counting
+bound:
+  as_stated: O^*(1.4423^{m})
+  notation: O*
+  parameters:
+  - m
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Educated guess: a branching algorithm; no memoization, dynamic programming or decomposition-based techniques found.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: peng-sheng-xiao-2025
+  statements:
+    ijcai:
+      statement: Theorem 5
+  note: 'Stated for weighted model counting on 3-CNF formulas, which includes #3-SAT.'
