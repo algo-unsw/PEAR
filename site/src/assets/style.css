@@ -1,23 +1,16 @@
 /* PEAR: Encyclopedia look (docs/DESIGN.md). Tokens first; both themes meet WCAG AA. */
 :root {
-  --bg: #FFFFFF; --band: #F2F5F5; --text: #1A1D21; --muted: #4D5660; --border: #D3DBDB;
-  --accent: #0B6B66; --boxHead: #0B6B66; --tagBg: #E3F1F0; --tagText: #064A46;
-  --grid: #DCE3E3; --track: #C9D6D5; --warnBg: #FFF4E0; --warnText: #6B4200;
-  color-scheme: light;
-}
-:root[data-theme="dark"] {
   --bg: #111514; --band: #1A201F; --text: #E6ECEB; --muted: #A3B0AE; --border: #2F3A39;
   --accent: #6FD3CA; --boxHead: #0B6B66; --tagBg: #123A37; --tagText: #A7EAE3;
   --grid: #2F3A39; --track: #0B6B66; --warnBg: #3A2C12; --warnText: #F3D9A6;
   color-scheme: dark;
 }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #111514; --band: #1A201F; --text: #E6ECEB; --muted: #A3B0AE; --border: #2F3A39;
-    --accent: #6FD3CA; --boxHead: #0B6B66; --tagBg: #123A37; --tagText: #A7EAE3;
-    --grid: #2F3A39; --track: #0B6B66; --warnBg: #3A2C12; --warnText: #F3D9A6;
-    color-scheme: dark;
-  }
+/* Dark is the default (decided 11 November 2026); light only when the reader chooses it. */
+:root[data-theme="light"] {
+  --bg: #FFFFFF; --band: #F2F5F5; --text: #1A1D21; --muted: #4D5660; --border: #D3DBDB;
+  --accent: #0B6B66; --boxHead: #0B6B66; --tagBg: #E3F1F0; --tagText: #064A46;
+  --grid: #DCE3E3; --track: #C9D6D5; --warnBg: #FFF4E0; --warnText: #6B4200;
+  color-scheme: light;
 }
 
 * { box-sizing: border-box; }
