@@ -1,0 +1,19 @@
+id: independent-set--to--clique
+from: { problem: independent-set, version: decision }
+to: { problem: clique, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(n^{2})"
+parameter_map: { n: "n", m: "n (n - 1) / 2 - m", k: "k" }
+variants:
+  - id: weighted
+    note: "Weighted versions: the same construction, keeping the weights."
+    from: { problem: independent-set, version: weighted }
+    to: { problem: clique, version: weighted }
+    parameter_map: { n: "n", m: "n (n - 1) / 2 - m" }
+    source:
+      folklore: true
+      note: "Vertex weights are kept on the complement graph."
+source:
+  folklore: true
+  note: "$S$ is an independent set of $G$ if and only if $S$ is a clique of the complement $\\overline{G}$, so $(G, k) \\mapsto (\\overline{G}, k)$."

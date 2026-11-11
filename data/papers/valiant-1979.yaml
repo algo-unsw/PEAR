@@ -1,0 +1,10 @@
+id: valiant-1979
+title: "The Complexity of Enumeration and Reliability Problems"
+authors: [Leslie G. Valiant]
+versions:
+  journal:
+    kind: journal
+    venue: "SIAM Journal on Computing 8(3), pp. 410–421"
+    year: 1979
+    doi: "10.1137/0208032"
+    open_access: false

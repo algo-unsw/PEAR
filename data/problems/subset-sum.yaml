@@ -1,0 +1,33 @@
+id: subset-sum
+name: Subset Sum
+aliases: [SSP]
+category: numbers
+complexity:
+  class: NP-complete
+  source:
+    paper: garey-johnson-1979
+    attested_by:
+      - "https://en.wikipedia.org/wiki/List_of_NP-complete_problems"
+      - "https://www.cs.toronto.edu/~lalla/373s16/notes/SS.pdf"
+      - "https://cs.ecu.edu/abrahamsonk/6420/spr16/Notes/NPcomplete/ss.html"
+    note: "Problem SP13 in Garey and Johnson, as on Wikipedia's list of NP-complete problems."
+objects:
+  n: number of input integers
+  N: total encoding length of the input
+parameters:
+  t: { meaning: "the target $t$", poly_bounded: false }
+constraints: []
+versions:
+  decision:
+    kind: decision
+    input: "Nonnegative integers $a_1, \\dots, a_n$ and a target $t$."
+    question: "Is there a set $S \\subseteq \\{1, \\dots, n\\}$ such that $\\sum_{i \\in S} a_i = t$?"
+  search:
+    kind: search
+    input: "Nonnegative integers $a_1, \\dots, a_n$ and a target $t$."
+    goal: "Find a set $S \\subseteq \\{1, \\dots, n\\}$ such that $\\sum_{i \\in S} a_i = t$, or report that none exists."
+default_version: decision
+shared_bounds:
+  - versions: [decision, search]
+    because: "Self-reducibility: decide for each $a_i$ in turn whether it can be dropped."
+related: []

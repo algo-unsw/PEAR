@@ -1,0 +1,43 @@
+id: connected-dominating-set
+name: Connected Dominating Set
+aliases: [Minimum Connected Dominating Set, MCDS, CDS]
+category: graph
+complexity:
+  class: NP-complete
+  source:
+    paper: garey-johnson-1979
+    attested_by:
+      - "https://en.wikipedia.org/wiki/Connected_dominating_set"
+      - "https://scispace.com/pdf/solving-connected-dominating-set-faster-than-2-n-2fundti2xc.pdf"
+      - "https://twiki.di.uniroma1.it/pub/Algoreti/SlidesDelleLezioni/7ConnDominatingSet_22_23_4pp.pdf"
+    note: "Listed in Garey and Johnson (problem ND2), as on Wikipedia's list of NP-complete problems."
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  k: { meaning: "the solution size: the integer $k$ in the input (decision, search), or the minimum size of a connected dominating set (optimisation)" }
+  tw: { shared: treewidth }
+constraints:
+  - { constraint: "k \\le n", because: "Every instance with $k \\ge n$ is a yes-instance ($S = V$; the graph is connected), answered in polynomial time." }
+  - { constraint: "m \\le n^{2}", because: "A simple graph has at most $n(n-1)/2$ edges." }
+  - { constraint: "tw \\le n", because: "A single bag containing all vertices is a tree decomposition of width $n - 1$." }
+versions:
+  decision:
+    kind: decision
+    input: "A connected graph $G = (V, E)$ and an integer $k$."
+    question: "Is there a set $S \\subseteq V$ with $|S| \\le k$ such that $G[S]$ is connected and every vertex is in $S$ or has a neighbour in $S$?"
+  optimisation:
+    kind: optimisation
+    input: "A connected graph $G = (V, E)$."
+    goal: "Find the minimum size of a set $S \\subseteq V$ such that $G[S]$ is connected and every vertex is in $S$ or has a neighbour in $S$."
+  search:
+    kind: search
+    input: "A connected graph $G = (V, E)$ and an integer $k$."
+    goal: "Find a set $S \\subseteq V$ with $|S| \\le k$ such that $G[S]$ is connected and every vertex is in $S$ or has a neighbour in $S$, or report that none exists."
+default_version: decision
+shared_bounds:
+  - versions: [decision, optimisation, search]
+    because: "Binary search on $k$ and self-reducibility."
+related:
+  - { problem: dominating-set, relation: variant }

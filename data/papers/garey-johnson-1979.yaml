@@ -1,0 +1,9 @@
+id: garey-johnson-1979
+title: "Computers and Intractability: A Guide to the Theory of NP-Completeness"
+authors: [Michael R. Garey, David S. Johnson]
+versions:
+  book:
+    kind: book
+    venue: "W. H. Freeman and Company, New York"
+    year: 1979
+    open_access: false
