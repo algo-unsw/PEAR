@@ -1,0 +1,15 @@
+id: cygan-et-al-2011
+title: Solving connectivity problems parameterized by treewidth in single exponential time
+authors:
+- Marek Cygan
+- Jesper Nederlof
+- Marcin Pilipczuk
+- Michał Pilipczuk
+- Johan M. M. van Rooij
+- Jakub Onufry Wojtaszczyk
+versions:
+  arxiv-v1:
+    kind: preprint
+    year: 2011
+    arxiv: 1103.0534v1
+    open_access: true

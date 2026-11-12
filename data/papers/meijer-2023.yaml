@@ -1,0 +1,11 @@
+id: meijer-2023
+title: 3-coloring in Time $O^*(1.3217^n)$
+authors:
+- Lucas Meijer
+versions:
+  arxiv-v1:
+    kind: preprint
+    year: 2023
+    arxiv: 2302.13644v1
+    open_access: true
+unverified: true

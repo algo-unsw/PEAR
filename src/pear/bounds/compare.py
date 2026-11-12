@@ -142,8 +142,12 @@ def _hidden(key: Key, ctx: Context, mode: str) -> bool:
     if mode != "ostar" or len(key) != 1:
         return False
     var, (a, b, d) = key[0]
-    if not ctx.poly_bounded(var) or a != 0:
+    if a != 0:
         return False
+    if not ctx.poly_bounded(var):
+        # A number given in binary has log x <= N, so polylog(x) is polynomial in N even
+        # when x itself is not (e.g. log t for Subset Sum's target t).
+        return b == 0 and d <= 1
     return b < 1 or (b == 1 and d <= 0)
 
 

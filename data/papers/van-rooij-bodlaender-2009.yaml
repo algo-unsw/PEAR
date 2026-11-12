@@ -1,0 +1,12 @@
+id: van-rooij-bodlaender-2009
+title: 'Design by Measure and Conquer: Exact algorithms for dominating set'
+authors:
+- Johan M. M. van Rooij
+- Hans L. Bodlaender
+versions:
+  techreport:
+    kind: technical-report
+    venue: Technical Report UU-CS-2009-025, Utrecht University
+    year: 2009
+    url: https://ics-archive.science.uu.nl/research/techreps/repo/CS-2009/2009-025.pdf
+    open_access: true

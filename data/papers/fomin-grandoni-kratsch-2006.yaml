@@ -1,0 +1,14 @@
+id: fomin-grandoni-kratsch-2006
+title: Solving Connected Dominating Set Faster than $2^n$
+authors:
+- Fedor V. Fomin
+- Fabrizio Grandoni
+- Dieter Kratsch
+versions:
+  fsttcs:
+    kind: conference
+    venue: FSTTCS 2006, LNCS 4337, pp. 152–163
+    year: 2006
+    doi: 10.1007/11944836_16
+    url: https://scispace.com/pdf/solving-connected-dominating-set-faster-than-2-n-2fundti2xc.pdf
+    open_access: true

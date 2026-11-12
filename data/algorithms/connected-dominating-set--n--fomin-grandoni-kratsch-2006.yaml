@@ -1,0 +1,23 @@
+id: connected-dominating-set--n--fomin-grandoni-kratsch-2006
+problem: connected-dominating-set
+proved_for: optimisation
+bound:
+  as_stated: 1.9407^{n}
+  notation: O
+  parameters:
+  - n
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Stated in the introduction: the recursive algorithm takes polynomial space.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: fomin-grandoni-kratsch-2006
+  statements:
+    fsttcs:
+      statement: Theorem 2
+  note: Read in an undated copy of the conference version. A journal version appeared in Algorithmica (2008).

@@ -1,0 +1,22 @@
+id: sharp-3-sat--n--kutzkov-2026
+problem: sharp-3-sat
+proved_for: counting
+bound:
+  as_stated: O^*(1.637^{n})
+  notation: O*
+  parameters:
+  - n
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Educated guess: a branching algorithm; no memoization, dynamic programming or decomposition-based techniques found.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: kutzkov-2026
+  statements:
+    ijcai:
+      statement: Theorem 3

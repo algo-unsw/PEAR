@@ -1,0 +1,12 @@
+id: openai-2026-eth
+title: The Exponential Time Hypothesis is False
+authors:
+- OpenAI
+versions:
+  preprint:
+    kind: preprint
+    venue: OpenAI Math Release preprint (17 October 2026, revised 25 October 2026)
+    year: 2026
+    url: https://github.com/openai/math/blob/main/preprints/The-Exponential-Time-Hypothesis-is-False-October-25-2026/paper.pdf
+    open_access: true
+unverified: true

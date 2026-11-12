@@ -1,0 +1,11 @@
+id: kutzkov-2026
+title: 'Complementary Branching for #SAT: Bounded-Degree Bounds and Faster #3-SAT'
+authors:
+- Konstantin Kutzkov
+versions:
+  ijcai:
+    kind: conference
+    venue: IJCAI 2026
+    year: 2026
+    url: https://www.ijcai.org/proceedings/2026/0254.pdf
+    open_access: true

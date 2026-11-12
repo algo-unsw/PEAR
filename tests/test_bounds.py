@@ -196,6 +196,10 @@ def test_bad_constraints(bad):
         (r"O^*(k^{k})", r"O^*(k^{k})"),  # natural form, never 2^{k log k} (B2)
         (r"n^{O(k)}", r"O^*(n^{O(k)})"),
         (r"O(n^{2} t)", r"O^*(t)"),  # t is not polynomially bounded (B4)
+        (r"O(\sqrt{n} t \log^{5/2} t)", r"O^*(t)"),  # log t <= N: polylog(t) is polynomial in N
+        (r"O(n 2^{\log^{2} t})", r"O^*(2^{\log^{2} t})"),  # quasi-polynomial in t stays
+        (r"O(n^{2} n^{\omega k / 3})", r"O^*(n^{\omega k/3})"),
+        (r"O(n + m + n^{2} n^{\omega (n - k) / 3})", r"O^*(n^{\omega (n - k)/3})"),  # O*(1) terms vanish
         (r"f(k) \cdot n^{O(1)}", r"O^*(f(k))"),
         (r"O(2^{k} + 1.5^{n})", r"O^*(2^{k} + 1.5^{n})"),  # incomparable terms stay
         (r"O(1.5^{k} + 1.5^{n})", r"O^*(1.5^{n})"),  # k ≤ n decides

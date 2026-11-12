@@ -1,0 +1,23 @@
+id: sharp-3-sat--n--kutzkov-2007
+problem: sharp-3-sat
+proved_for: counting
+bound:
+  as_stated: 1.6423^{n}
+  notation: O
+  parameters:
+  - n
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Educated guess: a branching algorithm; no memoization, dynamic programming or decomposition-based techniques found.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: kutzkov-2007
+  statements:
+    journal:
+      statement: Theorem 1
+  note: Read in the author's copy.

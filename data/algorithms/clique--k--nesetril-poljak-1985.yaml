@@ -1,0 +1,24 @@
+id: clique--k--nesetril-poljak-1985
+problem: clique
+proved_for: decision
+bound:
+  as_stated: n^{2} n^{\omega k / 3}
+  notation: O
+  parameters:
+  - n
+  - k
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'The auxiliary graph has $O(n^{\ell})$ vertices: polynomial for each fixed $k$, $n^{O(k)}$ in general.'
+  algebraic: true
+  fast_matrix_multiplication: true
+  constructive: true
+  quantum: false
+source:
+  paper: nesetril-poljak-1985
+  statements:
+    journal:
+      statement: Section 1.3
+  note: 'Exact running time as stated: $O(n^{\omega \ell + i})$ for $k = 3\ell + i$ with $i \in \{0, 1, 2\}$, i.e. $O(n^{\omega \lfloor k/3 \rfloor + (k \bmod 3)})$ (Section 1.3; Section 1.2 for $i = 0$). Stored as the upper bound $n^{2} n^{\omega k/3}$. Reduces to triangle detection in an auxiliary graph on $O(n^{\ell})$ vertices by fast matrix multiplication.'

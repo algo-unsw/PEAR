@@ -1,0 +1,12 @@
+id: van-rooij-bodlaender-2008
+title: Design by Measure and Conquer, A Faster Exact Algorithm for Dominating Set
+authors:
+- Johan M. M. van Rooij
+- Hans L. Bodlaender
+versions:
+  arxiv:
+    kind: conference
+    venue: 25th International Symposium on Theoretical Aspects of Computer Science (STACS 2008)
+    year: 2008
+    arxiv: '0802.2827'
+    open_access: true

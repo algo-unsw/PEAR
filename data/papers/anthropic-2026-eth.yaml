@@ -1,0 +1,13 @@
+id: anthropic-2026-eth
+title: A $2^{o(n)}$ Time Algorithm for 3-SAT
+authors:
+- Claude
+- Anthropic
+versions:
+  hexagon-v1:
+    kind: preprint
+    venue: Hexagon preprint 2610.00577v1 (26 October 2026)
+    year: 2026
+    url: https://hexagonmath.org/2610.00577v1
+    open_access: true
+unverified: true

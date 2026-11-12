@@ -1,0 +1,11 @@
+id: bellman-1962
+title: Dynamic Programming Treatment of the Travelling Salesman Problem
+authors:
+- Richard Bellman
+versions:
+  journal:
+    kind: journal
+    venue: Journal of the ACM 9(1), pp. 61–63
+    year: 1962
+    doi: 10.1145/321105.321111
+    open_access: false

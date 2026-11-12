@@ -73,9 +73,11 @@ def test_vertex_cover_page(real):
     _, site, _ = real
     page = site["pages"]["vertex-cover"]
     node = page["nodes"]["decision+optimisation+search"]
-    assert [g["heading"] for g in node["overview"]] == ["By solution size", "By number of vertices", "By treewidth"]
+    headings = [g["heading"] for g in node["overview"]]
+    assert headings[0] == "By solution size" and headings[-1] == "By treewidth"
+    assert "By number of vertices" in headings
     # Overview: no unverified result; Details: every kept result
-    shown = [e["cite"][0]["id"] for g in node["overview"] for e in g["entries"]]
+    shown = [e["cite"][0]["id"] for g in node["overview"] for e in g["entries"] if not e.get("optional")]
     assert not any("robson" in s for s in shown)
     assert any("robson" in r["id"] for r in node["rows"])
     # every cited paper has a reference, numbered from 1 without gaps
@@ -130,6 +132,28 @@ def test_beaten_direct_result_only_in_history(real):
     node = site["pages"]["vertex-cover"]["nodes"]["decision+optimisation+search"]
     assert not any("chen-kanj-xia" in r["id"] for r in node["rows"])
     assert [s["year"] for s in node["history"]["k"]["steps"]] == [2006, 2023, 2025]
+
+
+def test_unverified_results_can_be_switched_into_the_overview(real):
+    # decided 12 November 2026: unverified results are off by default, each can be included
+    _, site, _ = real
+    groups = site["pages"]["3-coloring"]["nodes"]["decision+search"]["overview"]
+    entries = [e for g in groups for e in g["entries"]]
+    optional = {e["cite"][0]["id"] for e in entries if e.get("optional")}
+    assert "3-coloring--n--openai-2026" in optional
+    beigel = next(e for e in entries if "3-coloring--n--beigel-eppstein-2000" in e["members"])
+    assert "3-coloring--n--openai-2026" in beigel["beaten_by"]
+
+
+def test_lean_proved_checked_results_count_as_verified(real):
+    # decided 12 November 2026: a Lean-proved result whose statement was checked against our
+    # definition counts as verified even though its paper is marked unverified
+    _, site, _ = real
+    groups = site["pages"]["sharp-3-sat"]["nodes"]["counting"]["overview"]
+    entries = [e for g in groups for e in g["entries"]]
+    shown = {e["cite"][0]["id"] for e in entries if not e.get("optional")}
+    assert {"sharp-3-sat--n--anthropic-2026", "sharp-3-sat--m--anthropic-2026"} <= shown
+    assert not any(e.get("optional") for e in entries)
 
 
 def test_flawed_result_is_listed_but_not_used(real):

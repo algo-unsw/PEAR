@@ -42,6 +42,10 @@ def ostar(b: Bound, ctx: Context) -> Bound:
     """The O* form: drop factors polynomial in N, then terms dominated by another term."""
     terms = [t for _, t in b.expr.terms] if isinstance(b.expr, Add) else [b.expr]
     kept = [_drop_poly_factors(t, ctx) for t in terms]
+    if len(kept) > 1:
+        # a term that was only polynomial factors is O*(1); a running time is at least 1,
+        # so it adds nothing next to another term
+        kept = [t for t in kept if t != num(1)] or [num(1)]
     kept = _drop_dominated(kept, ctx)
     expr = kept[0] if len(kept) == 1 else Add(tuple((1, t) for t in kept))
     return Bound("O*", expr, b.family)

@@ -1,0 +1,11 @@
+id: iwata-2011
+title: A Faster Algorithm for Dominating Set Analyzed by the Potential Method
+authors:
+- Yoichi Iwata
+versions:
+  ipec:
+    kind: conference
+    venue: Parameterized and Exact Computation (IPEC 2011), LNCS 7112, pp. 41–54
+    year: 2011
+    doi: 10.1007/978-3-642-28050-4_4
+    open_access: false

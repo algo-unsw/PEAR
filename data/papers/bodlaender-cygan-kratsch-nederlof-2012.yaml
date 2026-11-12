@@ -1,0 +1,13 @@
+id: bodlaender-cygan-kratsch-nederlof-2012
+title: Solving weighted and counting variants of connectivity problems parameterized by treewidth deterministically in single exponential time
+authors:
+- Hans L. Bodlaender
+- Marek Cygan
+- Stefan Kratsch
+- Jesper Nederlof
+versions:
+  arxiv-v1:
+    kind: preprint
+    year: 2012
+    arxiv: '1211.1505'
+    open_access: true

@@ -1,0 +1,23 @@
+id: 3-coloring--n--beigel-eppstein-2000
+problem: 3-coloring
+proved_for: decision
+bound:
+  as_stated: 1.3289^{n}
+  notation: O
+  parameters:
+  - n
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Educated guess: depth-first backtracking search with a matching algorithm (Theorem 1); no memoization or dynamic programming found.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: beigel-eppstein-2000
+  statements:
+    arxiv:
+      statement: Theorem 2
+  note: Stated as $O((2^{3/49} 3^{4/49} \Lambda^{24/49})^n) \approx 1.3289^n$. A preliminary version was presented at FOCS 1995.

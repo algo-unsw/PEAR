@@ -45,3 +45,6 @@ shared_bounds:
 related:
   - { problem: hitting-set, relation: dual }
   - { problem: dominating-set, relation: special-case }
+implementations:
+  as_of: 2026-11-11
+  ranked: [uzl-pace-2025, bad-dominating-set-maker]

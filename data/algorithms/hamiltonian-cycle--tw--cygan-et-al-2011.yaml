@@ -1,0 +1,27 @@
+id: hamiltonian-cycle--tw--cygan-et-al-2011
+problem: hamiltonian-cycle
+proved_for: decision
+bound:
+  as_stated: 4^{tw} n^{O(1)}
+  notation: O
+  parameters:
+  - n
+  - tw
+properties:
+  randomized:
+    error: one-sided
+  space:
+    class: exponential
+    bound: 'Educated guess: dynamic programming over the tree decomposition; the paper states polynomial space only for its Feedback Vertex Set algorithm.'
+  algebraic: true
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+given:
+- tree-decomposition
+source:
+  paper: cygan-et-al-2011
+  statements:
+    arxiv-v1:
+      statement: Theorem 1.2, item 9
+  note: 'Stated for undirected Longest Cycle, which gives the same time for Hamiltonian Cycle; Cut & Count. Stated as $4^t |V|^{O(1)}$ for a tree decomposition of width $t$, given with the input. Monte Carlo: no false positives; false negatives with probability at most 1/2.'

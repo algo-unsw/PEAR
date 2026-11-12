@@ -1,0 +1,24 @@
+id: 3-coloring--n--openai-2026
+problem: 3-coloring
+proved_for: decision
+bound:
+  as_stated: 2^{o(n)}
+  notation: O
+  parameters:
+  - n
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Stated: $\mathrm{poly}_q(v, e)$ space (Corollary 1.3).'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: openai-2026-eth
+  statements:
+    preprint:
+      statement: Corollary 1.3
+      page: 2
+  note: Stated for counting proper $q$-colorings, for each fixed $q \ge 2$, in $2^{o(v)}$ time and $\mathrm{poly}_q(v, e)$ space, by a counting-preserving $q$-CNF encoding and Theorem 1.1; a positive count decides 3-Coloring.

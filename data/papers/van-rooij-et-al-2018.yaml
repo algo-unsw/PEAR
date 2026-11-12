@@ -1,0 +1,14 @@
+id: van-rooij-et-al-2018
+title: Fast Dynamic Programming on Graph Decompositions
+authors:
+- Johan M. M. van Rooij
+- Hans L. Bodlaender
+- Erik Jan van Leeuwen
+- Peter Rossmanith
+- Martin Vatshelle
+versions:
+  arxiv-v1:
+    kind: preprint
+    year: 2018
+    arxiv: '1806.01667'
+    open_access: true

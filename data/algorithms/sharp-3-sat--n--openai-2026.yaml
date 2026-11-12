@@ -1,0 +1,25 @@
+id: sharp-3-sat--n--openai-2026
+problem: sharp-3-sat
+proved_for: counting
+bound:
+  as_stated: (n + m)^{O(1)} 2^{O(n \log\log n / \sqrt{\log n})}
+  notation: O
+  parameters:
+  - n
+  - m
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Stated: $(n + m)^{O_k(1)}$ bits of space (Theorem 1.1).'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: openai-2026-eth
+  statements:
+    preprint:
+      statement: Theorem 1.1
+      page: 2
+  note: 'Stated for every fixed $k \ge 2$ (here $k = 3$); deterministic, in bit operations. For $m \le Dn$ with fixed $D$: $(n+m)^{O(1)} 2^{O(n/\sqrt{\log n})}$. Not covered by the Lean formalization, which proves a weaker bound (separate entry).'

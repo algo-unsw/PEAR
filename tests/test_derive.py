@@ -707,3 +707,17 @@ def test_given_tree_decomposition_is_carried_along():
     )
     (r,) = derived(data, "a")
     assert "given-tree-decomposition" in r["flags"]
+
+
+def test_unverified_result_is_optional_in_the_overview():
+    # decided 12 November 2026: readers can include unverified results in the Overview
+    data = dataset(
+        problem("a"), paper("p-report", 2026) | {"unverified": True}, paper("p-ok", 2010),
+        alg("a-report", "a", r"O^*(1.1^{k})", paper="p-report"),
+        alg("a-ok", "a", r"O^*(1.5^{k})", paper="p-ok"),
+        alg("a-worse", "a", r"O^*(1.6^{k})", paper="p-report"),
+    )
+    out = to_json(data, derive(data))
+    assert [e["cite"] for e in out["overview"]["a"]["decision"]] == [["a-ok"]]
+    # a-worse is beaten by a verified result, so including it would change nothing
+    assert out["overview_optional"]["a"]["decision"] == [{"id": "a-report", "beats": ["a-ok"], "year": 2026}]

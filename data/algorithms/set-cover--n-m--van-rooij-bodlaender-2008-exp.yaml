@@ -1,0 +1,24 @@
+id: set-cover--n-m--van-rooij-bodlaender-2008-exp
+problem: set-cover
+proved_for: optimisation
+bound:
+  as_stated: 1.2273^{n + m}
+  notation: O
+  parameters:
+  - n
+  - m
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Stated: exponential time and space (Theorem 3.3).'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: van-rooij-bodlaender-2008
+  statements:
+    arxiv:
+      statement: Theorem 3.3
+  note: Algorithm 1 modified with dynamic programming; $d = |\mathcal{S}| + |\mathcal{U}|$. Corollary 3.4 gives Dominating Set in $O(1.5063^n)$.

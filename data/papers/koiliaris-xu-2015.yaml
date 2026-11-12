@@ -1,0 +1,11 @@
+id: koiliaris-xu-2015
+title: A Faster Pseudopolynomial Time Algorithm for Subset Sum
+authors:
+- Konstantinos Koiliaris
+- Chao Xu
+versions:
+  arxiv-v3:
+    kind: preprint
+    year: 2015
+    arxiv: 1507.02318v3
+    open_access: true

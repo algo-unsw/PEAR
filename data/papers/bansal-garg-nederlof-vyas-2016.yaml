@@ -1,0 +1,13 @@
+id: bansal-garg-nederlof-vyas-2016
+title: Faster Space-Efficient Algorithms for Subset Sum, k-Sum and Related Problems
+authors:
+- Nikhil Bansal
+- Shashwat Garg
+- Jesper Nederlof
+- Nikhil Vyas
+versions:
+  arxiv-v1:
+    kind: preprint
+    year: 2016
+    arxiv: 1612.02788v1
+    open_access: true
