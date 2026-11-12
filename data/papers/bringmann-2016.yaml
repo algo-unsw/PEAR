@@ -1,0 +1,10 @@
+id: bringmann-2016
+title: A Near-Linear Pseudopolynomial Time Algorithm for Subset Sum
+authors:
+- Karl Bringmann
+versions:
+  arxiv-v2:
+    kind: preprint
+    year: 2016
+    arxiv: 1610.04712v2
+    open_access: true
