@@ -1,0 +1,11 @@
+id: fomin-gaspers-saurabh-2006
+title: "Branching and Treewidth Based Exact Algorithms"
+authors: [Fedor V. Fomin, Serge Gaspers, Saket Saurabh]
+versions:
+  isaac:
+    kind: conference
+    venue: "Algorithms and Computation (ISAAC 2006), LNCS 4288, pp. 16–25"
+    year: 2006
+    doi: "10.1007/11940128_4"
+    url: "https://cgi.cse.unsw.edu.au/~sergeg/papers/Isaac2006.pdf"
+    open_access: true

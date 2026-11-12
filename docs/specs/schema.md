@@ -200,6 +200,7 @@ conditional_on: []                    # hypothesis IDs; the weakest known to suf
 source: { paper: chen-kanj-xia-YYYY, statements: { journal: { statement: "Theorem X.Y" } } }
 formal: { status: informal }          # informal | statement | proved; prover, link; statement_checked (proved only)
 status: valid                         # Phase 2 grading via data/flags/
+status_note: "…"                     # why the status is not valid (Phase 1)
 ```
 
 - The site never states a bound that is not in `as_stated`. The O* form and comparisons are computed.

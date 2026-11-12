@@ -131,6 +131,15 @@ eleventyComputed:
 </div>
 <p class="small muted" style="margin-top: 6px" data-filter-empty hidden>No result matches these filters.</p>
 {%- endif %}
+{%- if node.flagged.length %}
+<h3>Flagged results</h3>
+<p class="note">Not used for any bound on this site, shown for reference.</p>
+<ul class="plain">
+{%- for f in node.flagged %}
+<li>{{ f.shown | tex | safe }} <span class="tag warn" title="{{ f.status_label }}">{{ f.status_label }}</span> {{ f.refs | refs | safe }}{% if f.statements.length %}, {{ f.statements | join("; ") }}{% endif %}; proved for the {{ f.proved_for }} version.{% if f.status_note %} {{ f.status_note | mathtext | safe }}{% endif %}</li>
+{%- endfor %}
+</ul>
+{%- endif %}
 {%- if node.history | length %}
 <h3>History</h3>
 {%- for param, h in node.history %}

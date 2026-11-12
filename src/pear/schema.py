@@ -381,6 +381,8 @@ class Algorithm(Model):
     source: Source
     formal: Formal = Formal()
     status: ResultStatus = "valid"
+    # why the result is not valid (Phase 1; Phase 2 moves flags to data/flags/)
+    status_note: Text | None = None
     review: Review = Review()
 
 

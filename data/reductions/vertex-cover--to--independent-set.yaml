@@ -8,4 +8,13 @@ parameter_map: { n: "n", m: "m", k: "n - k" }
 source:
   folklore: true
   note: "$S$ is a vertex cover of $G$ if and only if $V \\setminus S$ is an independent set of $G$, so $(G, k) \\mapsto (G, n - k)$."
+variants:
+  - id: weighted
+    note: "Weighted versions: the same complementation, on the same graph and weights."
+    from: { problem: vertex-cover, version: weighted }
+    to: { problem: independent-set, version: weighted }
+    parameter_map: { n: "n", m: "m", tw: "tw" }
+    source:
+      folklore: true
+      note: "The minimum weight of a vertex cover is $w(V)$ minus the maximum weight of an independent set of the same graph."
 review: { approved_by: Serge Gaspers, date: 2026-11-08 }
