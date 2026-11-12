@@ -1,8 +1,8 @@
 # Implementations: where to look
 
-Each problem page lists publicly available implementations, best first (schema §12). This is the checklist for finding them and the facts that back the ranking. Re-check rankings when a new competition or benchmark appears; date every changing fact (`as_of`).
+Each problem page lists publicly available exact implementations (schema §12), in no particular order. This is the checklist for finding them and the facts shown with them. Re-check when a new competition or benchmark appears; date every changing fact (`as_of`).
 
-## Competitions (the strongest evidence for a ranking)
+## Competitions
 
 - **PACE Challenge** (pacechallenge.org): one or two problems a year, with exact and heuristic tracks; the website lists past challenges. Use the final ranking in the PACE report (LIPIcs, IPEC proceedings), not the "preliminary results" on the website. Solvers are usually archived on Zenodo or GitHub.
 - **SAT Competition**, **MaxSAT Evaluation**, **Pseudo-Boolean Competition**, **Model Counting Competition**, **QBF Evaluation**: for SAT, MaxSAT, #SAT and problems encoded into them.

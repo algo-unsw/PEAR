@@ -1,0 +1,15 @@
+id: sharpsat-td
+name: SharpSAT-TD
+url: "https://github.com/Laakeri/sharpsat-td"
+language: C++
+licence: MIT
+solves:
+  - problem: sharp-3-sat
+    versions: [counting]
+    exact: true
+    note: "Exact model counting of CNF formulas (also weighted); 3-CNF is a special case."
+facts:
+  - fact: "First in the exact model counting track of the Model Counting Competitions 2021 (78 instances) and 2023 (82 instances); third in 2022, when SharpSAT-TD-Arjun was first."
+    source: "https://arxiv.org/pdf/2504.13842 (Fichte and Hecher, The Model Counting Competitions 2021–2023, Section 4.2 and Table 4)"
+  - fact: "By Tuukka Korhonen and Matti Järvisalo; uses tree decompositions in its decision heuristics (CP 2021)."
+    source: "https://github.com/Laakeri/sharpsat-td/blob/main/README.md"

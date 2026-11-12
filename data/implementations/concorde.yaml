@@ -1,0 +1,15 @@
+id: concorde
+name: Concorde TSP Solver
+url: "https://www.math.uwaterloo.ca/tsp/concorde.html"
+language: C
+licence: "Free for academic research use; other uses by licence from William Cook"
+solves:
+  - problem: hamiltonian-cycle
+    versions: [decision, search]
+    exact: true
+    note: "Through the symmetric Travelling Salesman Problem: give edges weight 1 and non-edges weight 2; the graph is Hamiltonian exactly when an optimal tour has length n."
+facts:
+  - fact: "Used to obtain the optimal solutions to all 110 TSPLIB instances."
+    source: "https://www.math.uwaterloo.ca/tsp/concorde.html"
+  - fact: "By David Applegate, Robert E. Bixby, Vašek Chvátal and William J. Cook."
+    source: "https://en.wikipedia.org/wiki/Concorde_TSP_Solver"
