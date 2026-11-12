@@ -1,0 +1,4 @@
+id: primal-treewidth
+name: Primal treewidth
+symbol: tw_p
+definition: "The treewidth of the primal graph of a CNF formula: its vertices are the variables, and two variables are adjacent if they occur together in a clause."

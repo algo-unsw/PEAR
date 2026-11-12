@@ -1,0 +1,19 @@
+id: vertex-cover--to--hitting-set
+from: { problem: vertex-cover, version: decision }
+to: { problem: hitting-set, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(n + m)"
+parameter_map: { n: "n", m: "m", k: "k" }
+variants:
+  - id: weighted
+    note: "Weighted versions: the same construction, keeping the weights."
+    from: { problem: vertex-cover, version: weighted }
+    to: { problem: hitting-set, version: weighted }
+    parameter_map: { n: "n", m: "m" }
+    source:
+      folklore: true
+      note: "Vertex weights become element weights."
+source:
+  folklore: true
+  note: "Universe $V$ and family $E$ of edges (two-element sets); vertex covers are exactly the hitting sets."

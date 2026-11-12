@@ -1,0 +1,46 @@
+id: clique
+name: Clique
+aliases: [Maximum Clique, Max Clique, k-Clique]
+category: graph
+complexity:
+  class: NP-complete
+  source:
+    paper: karp-1972
+    attested_by:
+      - "https://en.wikipedia.org/wiki/List_of_NP-complete_problems"
+      - "https://arxiv.org/pdf/1902.10349"
+      - "https://www.iitg.ac.in/rinkulu/note/npprobs-note.pdf"
+    note: "Clique is one of Karp's 21 NP-complete problems."
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  k: { meaning: "the solution size: the integer $k$ in the input (decision, search), or the maximum size of a clique (optimisation)" }
+constraints:
+  - { constraint: "k \\le n", because: "Every instance with $k > n$ is a no-instance, answered in polynomial time." }
+  - { constraint: "m \\le n^{2}", because: "A simple graph has at most $n(n-1)/2$ edges." }
+versions:
+  decision:
+    kind: decision
+    input: "A graph $G = (V, E)$ and an integer $k$."
+    question: "Is there a set $S \\subseteq V$ with $|S| \\ge k$ such that every two vertices of $S$ are adjacent?"
+  optimisation:
+    kind: optimisation
+    input: "A graph $G = (V, E)$."
+    goal: "Find the maximum size of a set $S \\subseteq V$ such that every two vertices of $S$ are adjacent."
+  search:
+    kind: search
+    input: "A graph $G = (V, E)$ and an integer $k$."
+    goal: "Find a set $S \\subseteq V$ with $|S| \\ge k$ such that every two vertices of $S$ are adjacent, or report that none exists."
+  weighted:
+    kind: optimisation
+    input: "A graph $G = (V, E)$ and vertex weights $w \\colon V \\to \\mathbb{Z}_{\\ge 0}$."
+    goal: "Find the maximum weight $\\sum_{v \\in S} w(v)$ of a set $S \\subseteq V$ such that every two vertices of $S$ are adjacent."
+    generalises: [optimisation]
+default_version: decision
+shared_bounds:
+  - versions: [decision, optimisation, search]
+    because: "Binary search on $k$ and self-reducibility."
+related:
+  - { problem: independent-set, relation: complement }

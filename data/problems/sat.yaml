@@ -1,0 +1,43 @@
+id: sat
+name: SAT
+aliases: [CNF-SAT, Satisfiability, Boolean Satisfiability]
+category: satisfiability
+complexity:
+  class: NP-complete
+  source:
+    paper: cook-1971
+    attested_by:
+      - "https://en.wikipedia.org/wiki/Cook%E2%80%93Levin_theorem"
+      - "https://www.cs.umd.edu/~gasarch/COURSES/452/F14/cookpaper.pdf"
+      - "https://webhome.cs.uvic.ca/~wendym/courses/425/16/notes/425_05_np-complete.pdf"
+    note: "The Cook–Levin theorem; Cook's Theorem 1 is stated for DNF tautologies, the complement of CNF satisfiability."
+objects:
+  n: number of variables
+  m: number of clauses
+  N: total encoding length of the input
+parameters:
+  L: { meaning: "the length of the formula: the total number of literal occurrences" }
+  tw_p: { shared: primal-treewidth }
+  tw_d: { shared: dual-treewidth }
+  tw_i: { shared: incidence-treewidth }
+constraints:
+  - { constraint: "tw_p \\le n", because: "The primal graph has $n$ vertices." }
+  - { constraint: "tw_d \\le m", because: "The dual graph has $m$ vertices." }
+  - { constraint: "tw_i \\le n + m", because: "The incidence graph has $n + m$ vertices." }
+  - { constraint: "m \\le L", because: "Every clause is nonempty after removing empty clauses (an empty clause makes the formula unsatisfiable)." }
+  - { constraint: "n \\le L", because: "Variables that occur in no clause can be removed." }
+versions:
+  decision:
+    kind: decision
+    input: "A formula $\\varphi$ in conjunctive normal form over variables $x_1, \\dots, x_n$."
+    question: "Is there an assignment of the variables that satisfies every clause of $\\varphi$?"
+  search:
+    kind: search
+    input: "A formula $\\varphi$ in conjunctive normal form over variables $x_1, \\dots, x_n$."
+    goal: "Find an assignment of the variables that satisfies every clause of $\\varphi$, or report that none exists."
+default_version: decision
+shared_bounds:
+  - versions: [decision, search]
+    because: "Self-reducibility: fix variables one at a time."
+related:
+  - { problem: sharp-3-sat, relation: counting }

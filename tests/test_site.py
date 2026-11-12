@@ -114,7 +114,7 @@ def test_index_lists_all_pilot_problems(real):
     _, site, _ = real
     names = [e["name"] for e in site["index"]]
     assert names[:2] == ["Vertex Cover", "Independent Set"] and len(names) >= 12
-    assert site["index"][2]["id"] is None  # not entered yet
+    assert all(e["id"] for e in site["index"][:12])  # all pilot problems entered
 
 
 def test_fixture_data_builds(tmp_path):

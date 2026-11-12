@@ -1,0 +1,10 @@
+id: garey-johnson-stockmeyer-1974
+title: "Some Simplified NP-Complete Problems"
+authors: [Michael R. Garey, David S. Johnson, Larry Stockmeyer]
+versions:
+  stoc:
+    kind: conference
+    venue: "Proceedings of the Sixth Annual ACM Symposium on Theory of Computing (STOC 1974), pp. 47–63"
+    year: 1974
+    doi: "10.1145/800119.803884"
+    open_access: false

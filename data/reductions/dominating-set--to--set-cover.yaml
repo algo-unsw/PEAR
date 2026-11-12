@@ -1,0 +1,19 @@
+id: dominating-set--to--set-cover
+from: { problem: dominating-set, version: decision }
+to: { problem: set-cover, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(n + m)"
+parameter_map: { n: "n", m: "n", k: "k" }
+variants:
+  - id: weighted
+    note: "Weighted versions: the same construction, keeping the weights."
+    from: { problem: dominating-set, version: weighted }
+    to: { problem: set-cover, version: weighted }
+    parameter_map: { n: "n", m: "n" }
+    source:
+      folklore: true
+      note: "The weight of $v$ becomes the weight of $N[v]$."
+source:
+  folklore: true
+  note: "Universe $V$ and family $\\{N[v] : v \\in V\\}$ of closed neighbourhoods; a set $S \\subseteq V$ dominates $G$ if and only if $\\{N[v] : v \\in S\\}$ covers $V$."

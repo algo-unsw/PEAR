@@ -1,0 +1,34 @@
+id: sharp-3-sat
+name: "#3-SAT"
+aliases: ["#3SAT", "Counting 3-SAT", "Model counting for 3-CNF"]
+category: satisfiability
+complexity:
+  class: "#P-complete"
+  source:
+    paper: valiant-1979
+    attested_by:
+      - "https://en.wikipedia.org/wiki/%E2%99%AFP-complete"
+      - "https://www.csie.ntu.edu.tw/~tonytan/teaching/2022b-cot/2022b-cot-note-06.pdf"
+      - "https://arxiv.org/pdf/1506.06107"
+    note: "Valiant showed #SAT #P-complete; #3-SAT is #P-complete as well (as on Wikipedia)."
+objects:
+  n: number of variables
+  m: number of clauses
+  N: total encoding length of the input
+parameters:
+  tw_p: { shared: primal-treewidth }
+  tw_d: { shared: dual-treewidth }
+  tw_i: { shared: incidence-treewidth }
+constraints:
+  - { constraint: "tw_p \\le n", because: "The primal graph has $n$ vertices." }
+  - { constraint: "tw_d \\le m", because: "The dual graph has $m$ vertices." }
+  - { constraint: "tw_i \\le n + m", because: "The incidence graph has $n + m$ vertices." }
+  - { constraint: "m \\le 8 n^{3}", because: "Up to duplicates, there are at most $(2n)^3$ clauses with at most three literals; duplicate clauses can be removed." }
+versions:
+  counting:
+    kind: counting
+    input: "A formula $\\varphi$ in conjunctive normal form over variables $x_1, \\dots, x_n$, with at most three literals per clause."
+    goal: "Find the number of assignments of the variables that satisfy every clause of $\\varphi$."
+default_version: counting
+related:
+  - { problem: sat, relation: counting }

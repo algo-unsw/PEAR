@@ -1,0 +1,10 @@
+id: cook-1971
+title: "The Complexity of Theorem-Proving Procedures"
+authors: [Stephen A. Cook]
+versions:
+  stoc:
+    kind: conference
+    venue: "Proceedings of the Third Annual ACM Symposium on Theory of Computing (STOC 1971), pp. 151–158"
+    year: 1971
+    doi: "10.1145/800157.805047"
+    open_access: false
