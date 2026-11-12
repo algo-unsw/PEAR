@@ -12,9 +12,27 @@ solves:
     versions: [decision, optimisation, search]
     exact: true
     note: "Graph.independent_set(); algorithm Cliquer (default), MILP or mcqd."
+  - problem: clique
+    versions: [decision, optimisation, search]
+    exact: true
+    note: "Graph.clique_number() and Graph.clique_maximum(); algorithm Cliquer (default), networkx (Bron–Kerbosch), MILP or mcqd."
+  - problem: 3-coloring
+    versions: [decision, search]
+    exact: true
+    note: "sage.graphs.graph_coloring.vertex_coloring(g, k=3) tests 3-colourability with a mixed integer linear program and returns a colouring."
+  - problem: hamiltonian-cycle
+    versions: [decision, search]
+    exact: true
+    note: "Graph.hamiltonian_cycle(algorithm='tsp') (default), a mixed integer linear program; algorithm='backtrack' may miss a Hamiltonian cycle."
+  - problem: connected-dominating-set
+    versions: [decision, optimisation, search]
+    exact: true
+    note: "dominating_set(g, connected=True) in sage.graphs.domination, a mixed integer linear program."
 facts:
   - fact: "Default algorithm is Cliquer, an exact branch-and-bound algorithm by Patric R. J. Östergård."
     source: "https://github.com/sagemath/sage/blob/develop/src/sage/graphs/cliquer.pyx"
   - fact: "Part of a general-purpose open-source mathematics system."
     source: "https://www.sagemath.org/"
+  - fact: "Clique, colouring, Hamiltonian cycle and dominating set methods and their algorithms as documented in the source (graph.py, graph_coloring.pyx, generic_graph.py, domination.py), checked 13 November 2026."
+    source: "https://github.com/sagemath/sage/tree/develop/src/sage/graphs"
 review: { approved_by: Serge Gaspers, date: 2026-11-08 }

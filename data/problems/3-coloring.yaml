@@ -34,3 +34,6 @@ shared_bounds:
   - versions: [decision, search]
     because: "Self-reducibility: merge two non-adjacent vertices or add an edge, and test again."
 related: []
+implementations:
+  as_of: 2026-11-13
+  ranked: [sagemath]
