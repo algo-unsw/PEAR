@@ -78,8 +78,8 @@ def test_vertex_cover_page(real):
     assert "By number of vertices" in headings
     # Overview: no unverified result; Details: every kept result
     shown = [e["cite"][0]["id"] for g in node["overview"] for e in g["entries"] if not e.get("optional")]
-    assert not any("robson" in s for s in shown)
-    assert any("robson" in r["id"] for r in node["rows"])
+    assert not any("robson" in s or "kundu" in s for s in shown)
+    assert any("kundu" in r["id"] for r in node["rows"])
     # every cited paper has a reference, numbered from 1 without gaps
     assert [r["n"] for r in page["references"]] == list(range(1, len(page["references"]) + 1))
     cited = {n for r in node["rows"] for n in r["refs"]}
@@ -140,9 +140,10 @@ def test_unverified_results_can_be_switched_into_the_overview(real):
     groups = site["pages"]["3-coloring"]["nodes"]["decision+search"]["overview"]
     entries = [e for g in groups for e in g["entries"]]
     optional = {e["cite"][0]["id"] for e in entries if e.get("optional")}
-    assert "3-coloring--n--openai-2026" in optional
+    kundu = "3-coloring--n--kundu-panolan-saurabh-xue-zehavi-2026"
+    assert kundu in optional
     beigel = next(e for e in entries if "3-coloring--n--beigel-eppstein-2000" in e["members"])
-    assert "3-coloring--n--openai-2026" in beigel["beaten_by"]
+    assert kundu in beigel["beaten_by"]
 
 
 def test_lean_proved_checked_results_count_as_verified(real):
@@ -163,3 +164,12 @@ def test_flawed_result_is_listed_but_not_used(real):
     assert not any("fomin-gaspers-saurabh" in r["id"] for r in node["rows"])
     flagged = {f["id"]: f for f in node["flagged"]}
     assert flagged["independent-set--n--fomin-gaspers-saurabh-2006"]["status"] == "unrepaired"
+
+
+def test_results_list_what_they_use(real):
+    # decided 13 November 2026: `uses`, shown in the Source column
+    _, site, _ = real
+    node = site["pages"]["vertex-cover"]["nodes"]["decision+optimisation+search"]
+    row = next(r for r in node["rows"] if r["id"] == "vertex-cover--k--kundu-panolan-saurabh-xue-zehavi-2026")
+    assert [u["id"] for u in row["uses"]] == ["sharp-3-sat--n--anthropic-2026"]
+    assert row["uses"][0]["problem"] == "#3-SAT" and not row["uses"][0]["same"]

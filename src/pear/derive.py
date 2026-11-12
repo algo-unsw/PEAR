@@ -185,12 +185,35 @@ class Engine:
 
         return frozenset(h for h in hs if not any(h in implied_by(g) for g in hs if g != h))
 
+    def used(self, alg: Algorithm) -> list[Algorithm]:
+        """Every result alg relies on through `uses`, transitively (validated acyclic)."""
+        algorithms = self.data.entries["algorithms"]
+        seen: dict[str, Algorithm] = {}
+        todo = list(alg.uses)
+        while todo:
+            u = todo.pop()
+            if u not in seen and u in algorithms:
+                seen[u] = algorithms[u]  # type: ignore[assignment]
+                todo.extend(seen[u].uses)
+        return [seen[k] for k in sorted(seen)]
+
+    def unverified(self, alg: Algorithm) -> bool:
+        papers = {alg.source.paper} if alg.source.paper else set()
+        checked = alg.formal.status == "proved" and alg.formal.statement_checked is not None
+        return not checked and any(self.data.papers[p].unverified for p in papers if p in self.data.papers)
+
     def direct(self, alg: Algorithm) -> Result | None:
         problem = self.data.problems[alg.problem]
         if not self.usable(alg.status):
             self.log(f"{alg.id}: status '{alg.status}', not used (rulebook A3)")
             return None
-        excluded, flags = self.hypothesis_flags(alg.conditional_on)
+        used = self.used(alg)
+        bad = [u.id for u in used if not self.usable(u.status)]
+        if bad:
+            self.log(f"{alg.id}: uses {', '.join(bad)}, whose status keeps it out; not used (rulebook A3)")
+            return None
+        hyps = set(alg.conditional_on).union(*(u.conditional_on for u in used))
+        excluded, flags = self.hypothesis_flags(hyps)
         if excluded:
             self.log(f"{alg.id}: relies on a refuted hypothesis, not used (rulebook A3)")
             return None
@@ -205,13 +228,14 @@ class Engine:
             quantum=p.quantum,
             formal=alg.formal.status,
             lean=alg.formal.status == "proved" and (alg.formal.prover or "").lower() == "lean",
-            conditional_on=self.weakest(alg.conditional_on),
+            conditional_on=self.weakest(hyps),
         )
         _, node = node_key(problem, alg.proved_for)
         year, papers = self.dated(alg.source)
         flags = set(flags) | {f"given-{g}" for g in alg.given}
         checked = alg.formal.status == "proved" and alg.formal.statement_checked is not None
-        if any(self.data.papers[p].unverified for p in papers) and not checked:
+        if (any(self.data.papers[p].unverified for p in papers) and not checked) or any(
+                self.unverified(u) for u in used):
             props = replace(props, verified=False)
             flags.add("unverified")
         return Result(problem.id, node, bound, props, alg.id, (), frozenset(flags), year, papers)
