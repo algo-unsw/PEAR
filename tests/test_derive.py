@@ -721,3 +721,47 @@ def test_unverified_result_is_optional_in_the_overview():
     assert [e["cite"] for e in out["overview"]["a"]["decision"]] == [["a-ok"]]
     # a-worse is beaten by a verified result, so including it would change nothing
     assert out["overview_optional"]["a"]["decision"] == [{"id": "a-report", "beats": ["a-ok"], "year": 2026}]
+
+
+# --- uses (decided 13 November 2026) -----------------------------------------------------------------
+
+
+def test_uses_makes_a_result_unverified_when_a_used_result_is():
+    data = dataset(
+        problem("a"), problem("sat"), paper("p-ok", 2010), paper("p-report", 2026) | {"unverified": True},
+        alg("sat-alg", "sat", r"O^*(1.1^{k})", paper="p-report"),
+        alg("a-alg", "a", r"O^*(1.2^{k})", paper="p-ok") | {"uses": ["sat-alg"]},
+    )
+    got = {r["id"]: r for r in rows(data, "a")}
+    assert "unverified" in got["a-alg"]["flags"]
+
+
+def test_uses_a_verified_result_keeps_the_result_verified():
+    data = dataset(
+        problem("a"), problem("sat"), paper("p-ok", 2010),
+        alg("sat-alg", "sat", r"O^*(1.1^{k})", paper="p-ok"),
+        alg("a-alg", "a", r"O^*(1.2^{k})", paper="p-ok") | {"uses": ["sat-alg"]},
+    )
+    got = {r["id"]: r for r in rows(data, "a")}
+    assert "unverified" not in got["a-alg"]["flags"]
+
+
+@pytest.mark.parametrize("status", ["flagged", "unrepaired", "broken"])
+def test_uses_a_flagged_result_keeps_the_result_out(status):
+    data = dataset(
+        problem("a"), problem("sat"), problem("c"), paper("p-ok", 2010),
+        alg("sat-alg", "sat", r"O^*(1.1^{k})", paper="p-ok", status=status),
+        alg("c-alg", "c", r"O^*(1.15^{k})", paper="p-ok") | {"uses": ["sat-alg"]},
+        alg("a-alg", "a", r"O^*(1.2^{k})", paper="p-ok") | {"uses": ["c-alg"]},  # transitively
+    )
+    assert derived(data, "a") == [] and derived(data, "c") == []
+
+
+def test_uses_carries_the_hypotheses_of_used_results():
+    data = dataset(
+        problem("a"), problem("sat"), paper("p-ok", 2010), hyp("h"),
+        alg("sat-alg", "sat", r"O^*(1.1^{k})", paper="p-ok", conditional_on=["h"]),
+        alg("a-alg", "a", r"O^*(1.2^{k})", paper="p-ok") | {"uses": ["sat-alg"]},
+    )
+    got = {r["id"]: r for r in rows(data, "a")}
+    assert got["a-alg"]["conditional_on"] == ["h"]

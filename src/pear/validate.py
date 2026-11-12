@@ -267,6 +267,26 @@ def check_references(data: Dataset) -> list[Issue]:
         bound_parameters(f"{where}: bound.parameters", problem, alg.bound.parameters)
         known_hypotheses(f"{where}: conditional_on", alg.conditional_on)
         source(f"{where}: source", alg.source)
+        for u in alg.uses:
+            if u == aid or u not in data.entries["algorithms"]:
+                issues.append(Issue(f"{where}: uses", f"unknown or self reference '{u}'"))
+
+    # `uses` must not form a cycle (a result cannot rely on itself)
+    def uses_cycle(start: str) -> bool:
+        seen, todo = set(), list(getattr(data.entries["algorithms"][start], "uses", []))
+        while todo:
+            u = todo.pop()
+            if u == start:
+                return True
+            if u in seen or u not in data.entries["algorithms"]:
+                continue
+            seen.add(u)
+            todo.extend(data.entries["algorithms"][u].uses)  # type: ignore[attr-defined]
+        return False
+
+    for aid in data.entries["algorithms"]:
+        if uses_cycle(aid):
+            issues.append(Issue(f"algorithms/{aid}.yaml: uses", "the uses relation has a cycle through this result"))
 
     for rid, red in data.entries["reductions"].items():
         assert isinstance(red, Reduction)
