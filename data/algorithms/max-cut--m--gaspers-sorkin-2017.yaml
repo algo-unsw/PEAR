@@ -1,0 +1,23 @@
+id: max-cut--m--gaspers-sorkin-2017
+problem: max-cut
+proved_for: optimisation
+bound:
+  as_stated: '2^{9m/50 + o(m)}'
+  notation: O
+  parameters:
+  - m
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Polynomial space, as stated.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: gaspers-sorkin-2017
+  statements:
+    arxiv-v2:
+      statement: 'Theorem 3.1 with $r = 2$'
+  note: 'Theorem 3.1: Max 2-CSP with $r$ colours in $r^{9m/50+o(m)}$ time and polynomial space; Max Cut is the case $r = 2$ (Section 1.1). Branching, no randomization. arXiv v1 3 April 2014, v2 17 November 2017 (read); ICALP 2015.'

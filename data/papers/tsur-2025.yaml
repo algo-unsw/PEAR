@@ -1,0 +1,10 @@
+id: tsur-2025
+title: Faster parameterized algorithm for 3-Hitting Set
+authors:
+- Dekel Tsur
+versions:
+  arxiv-v1:
+    kind: preprint
+    year: 2025
+    arxiv: 2501.06452v1
+    open_access: true

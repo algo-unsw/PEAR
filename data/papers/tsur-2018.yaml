@@ -1,0 +1,10 @@
+id: tsur-2018
+title: Faster deterministic parameterized algorithm for k-Path
+authors:
+- Dekel Tsur
+versions:
+  arxiv-v2:
+    kind: preprint
+    year: 2018
+    arxiv: 1808.04185v2
+    open_access: true

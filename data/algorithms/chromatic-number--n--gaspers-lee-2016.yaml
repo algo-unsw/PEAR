@@ -1,0 +1,23 @@
+id: chromatic-number--n--gaspers-lee-2016
+problem: chromatic-number
+proved_for: optimisation
+bound:
+  as_stated: '2.2356^{n}'
+  notation: O
+  parameters:
+  - n
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Polynomial space, as stated.'
+  algebraic: true
+  fast_matrix_multiplication: false
+  constructive: false
+  quantum: false
+source:
+  paper: gaspers-lee-2016
+  statements:
+    arxiv-v2:
+      statement: 'Section 1 (Our Results), from Theorem 1 (#IS in $O^*(1.2356^n)$ and polynomial space)'
+  note: 'Polynomial space; deterministic branching for counting independent sets, combined with inclusion–exclusion. arXiv v1 21 July 2016, v2 13 October 2016 (read; the PDF prints 1 September 2018); COCOON 2017, Algorithmica 2022.'
