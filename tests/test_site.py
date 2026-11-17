@@ -173,3 +173,75 @@ def test_results_list_what_they_use(real):
     row = next(r for r in node["rows"] if r["id"] == "vertex-cover--k--kundu-panolan-saurabh-xue-zehavi-2026")
     assert [u["id"] for u in row["uses"]] == ["sharp-3-sat--n--anthropic-2026"]
     assert row["uses"][0]["problem"] == "#3-SAT" and not row["uses"][0]["same"]
+
+
+def test_references_name_the_journal_version_and_the_cited_statement(real):
+    # decided 17 November 2026: a reference names the journal version, else the conference
+    # version, else a technical report or preprint; the cited statement is shown with the
+    # version it is in, and the other versions follow.
+    _, site, _ = real
+    refs = {r["id"]: r for r in site["pages"]["feedback-vertex-set"]["references"]}
+    kp = refs["kociumaka-pilipczuk-2014"]
+    assert kp["primary"] == "Information Processing Letters 114(10), pp. 556–560, 2014"
+    assert kp["cited"] == ["Theorem 2 of arXiv v1"]
+    assert kp["others"] == ["arXiv:1306.3566v1, 2013"]
+    assert kp["links"][0]["url"] == "https://doi.org/10.1016/j.ipl.2014.05.001"
+    # journal over conference; a retitled journal version brings its own title
+    refs = {r["id"]: r for r in site["pages"]["vertex-cover"]["references"]}
+    ckx = refs["chen-kanj-xia-2006"]
+    assert ckx["primary"].startswith("Theoretical Computer Science 411")
+    assert ckx["title"] == "Improved upper bounds for vertex cover"
+    # other versions show their own title (and authors) where they differ from the named one's
+    assert ckx["others"][0].startswith("Improved Parameterized Upper Bounds for Vertex Cover. Mathematical Foundations")
+    # conference over preprint
+    hn = refs["harris-narayanaswamy-2022"]
+    assert "STACS 2024" in hn["primary"]
+    assert any(c.endswith("arXiv v7") or "arXiv v" in c for c in hn["cited"])
+
+
+def test_primary_version_order():
+    from pear.schema import Paper
+    from pear.site import primary_version
+
+    def paper(**kinds):
+        return Paper.model_validate({"id": "p", "title": "T", "authors": ["A"], "versions": {
+            vid: {"kind": kind, "year": year, "open_access": False} for vid, (kind, year) in kinds.items()}})
+
+    assert primary_version(paper(a=("preprint", 2020), b=("conference", 2021), c=("journal", 2023))) == "c"
+    assert primary_version(paper(a=("preprint", 2020), b=("technical-report", 2019))) == "b"
+    assert primary_version(paper(a=("preprint", 2020), b=("workshop", 2019), c=("conference", 2018))) == "c"
+    assert primary_version(paper(a=("preprint", 2020), b=("preprint", 2022))) == "b"
+
+
+def test_merged_journal_version_brings_its_authors(real):
+    # decided 18 November 2026: Fomin, Gaspers and Saurabh (ISAAC 2006) was merged with
+    # another paper into Fomin, Gaspers, Saurabh and Stepanov (Algorithmica 2009), which
+    # counts as its journal version; the reference names that version, with its authors.
+    _, site, _ = real
+    refs = {r["id"]: r for r in site["pages"]["independent-set"]["references"]}
+    fgs = refs["fomin-gaspers-saurabh-2006"]
+    assert fgs["authors"] == "Fedor V. Fomin, Serge Gaspers, Saket Saurabh and Alexey A. Stepanov"
+    assert fgs["title"] == "On Two Techniques of Combining Branching and Treewidth"
+    assert fgs["primary"] == "Algorithmica 54(2), pp. 181–207, 2009"
+    assert fgs["cited"] == ["Theorem 2 of ISAAC 2006"]
+
+
+def test_corrected_deterministic_fvs_uses_kociumaka_pilipczuk(real):
+    # decided 18 November 2026: Theorem 2 of Fomin et al. with the journal bound (2 + phi)^k
+    _, site, _ = real
+    node = site["pages"]["feedback-vertex-set"]["nodes"]["decision+optimisation+search"]
+    row = next(r for r in node["rows"] if r["id"] == "feedback-vertex-set--n--fomin-gaspers-lokshtanov-saurabh-2015-deterministic")
+    assert row["shown"] == "O^*(1.7237^{n})"
+    assert [u["id"] for u in row["uses"]] == ["feedback-vertex-set--k--kociumaka-pilipczuk-2014"]
+
+
+def test_preliminary_version_by_fewer_authors(real):
+    # decided 18 November 2026: STACS 2012 (Narayanaswamy, Raman, Ramanujan, Saurabh) is the
+    # conference version of Lokshtanov et al. (TALG 2014), as its authors say
+    _, site, _ = real
+    refs = {r["id"]: r for r in site["pages"]["odd-cycle-transversal"]["references"]}
+    lp = refs["lokshtanov-narayanaswamy-raman-ramanujan-saurabh-2012"]
+    assert lp["primary"].startswith("ACM Transactions on Algorithms 11(2)")
+    assert lp["authors"].startswith("Daniel Lokshtanov, ")
+    assert ("N. S. Narayanaswamy, Venkatesh Raman, M. S. Ramanujan and Saket Saurabh. "
+            "LP can be a cure for Parameterized Problems. 29th International Symposium") in lp["others"][1]

@@ -17,7 +17,7 @@ from enum import Enum
 from fractions import Fraction
 from typing import Iterable, Sequence
 
-from .expr import Bound, Var, parse_expr
+from .expr import Bound, Var, fixed_parameters, parse_expr
 from .growth import (
     EPS,
     Coef,
@@ -335,18 +335,24 @@ def _transport(shape: Shape, p: Fraction) -> Shape | None:
 class Analysed:
     bound: Bound
     terms: tuple[Term, ...] | None  # None: outside the supported class, so incomparable
+    fixed: frozenset[str] = frozenset()  # stated for every fixed value of these (ε_k)
 
 
 def analyse(b: Bound) -> Analysed:
+    fixed = fixed_parameters(b.expr)
     try:
-        return Analysed(b, tuple(bound_terms(b)))
+        return Analysed(b, tuple(bound_terms(b)), fixed)
     except UnsupportedBound:
-        return Analysed(b, None)
+        return Analysed(b, None, fixed)
 
 
 def le(a: Analysed, b: Analysed, ctx: Context, mode: str) -> bool:
     """A = O(B): every term of A is dominated by a single term of B (bounds §5.1)."""
     if a.terms is None or b.terms is None:
+        return False
+    if a.fixed != b.fixed:
+        # a bound for every fixed k (ε_k, hidden constants depending on k) is compared only
+        # with bounds fixed in the same parameters (bounds §2, 17 November 2026)
         return False
     return all(any(term_le(x, y, ctx, mode) for y in b.terms) for x in a.terms)
 

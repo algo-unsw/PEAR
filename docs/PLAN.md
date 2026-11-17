@@ -313,3 +313,9 @@ Garey and Johnson's *Computers and Intractability* (1979) is the natural seed fo
 - [ ] Contribute improved parameter relations back to HOPS (github.com/vaclavblazej), after checking its contribution docs.
 - [x] Refine the canonical definition format with the owner (agreed 7 November 2026).
 - [x] Decide the optional randomized-error detail field (yes, optional and display-only).
+
+## Decisions log
+
+- 18 November 2026: the two van Rooij–Bodlaender entries (STACS 2008, technical report 2009) are one paper, whose journal version is DAM 2011; Fomin–Gaspers–Saurabh (ISAAC 2006) was merged with another paper into Fomin–Gaspers–Saurabh–Stepanov (Algorithmica 2009), which counts as its journal version, so a version may carry its own `authors` (approved; schema.md §3); likewise STACS 2012 (Narayanaswamy, Raman, Ramanujan, Saurabh), which its authors call a preliminary version, is the conference version of Lokshtanov et al. (TALG 2014); Garey–Johnson–Stockmeyer, "Some Simplified NP-Complete Graph Problems" (Theoretical Computer Science 1976) is the journal version of their STOC 1974 paper; the deterministic Feedback Vertex Set bound of Fomin–Gaspers–Lokshtanov–Saurabh is corrected to $O(1.7237^n)$: Theorem 2 with the journal bound $(2+\phi)^k$ of Kociumaka–Pilipczuk instead of $3.592^k$.
+- 17 November 2026: references name the journal version, else the conference version, else a technical report or preprint, with the cited statements and the version each is in ("Theorem 2 of arXiv v1"); a general rule (DESIGN.md, References). A version whose title differs from the paper's gives its own `title`, shown when the reference names that version (approved 17 November 2026; schema.md §3).
+- 17 November 2026: Meijer's 3-Coloring bound is flagged (Yamano–Shibuya, Appendix F); for Kociumaka–Pilipczuk use the journal version, $(2+\phi)^k$; new notation $\varepsilon_k$ for bounds that hold for every fixed $k$ (bounds.md §2).

@@ -1,0 +1,13 @@
+id: lokshtanov-nederlof-2010
+title: Saving Space by Algebraization
+authors:
+- Daniel Lokshtanov
+- Jesper Nederlof
+versions:
+  stoc:
+    kind: conference
+    venue: "42nd ACM Symposium on Theory of Computing (STOC 2010), pp. 321–330"
+    doi: "10.1145/1806689.1806735"
+    year: 2010
+    url: 'https://sites.cs.ucsb.edu/~daniello/papers/SaveSpace.pdf'
+    open_access: true

@@ -1,0 +1,10 @@
+id: connected-dominating-set--to--max-leaf-spanning-tree
+from: { problem: connected-dominating-set, version: decision }
+to: { problem: max-leaf-spanning-tree, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(n + m)"
+parameter_map: { n: "n", m: "m", tw: "tw", k: "n - k" }
+source:
+  folklore: true
+  note: "For a connected graph with $n \\ge 3$ vertices, $\\gamma_c(G) = n - \\ell(G)$, where $\\ell(G)$ is the maximum number of leaves of a spanning tree (see the reverse reduction). Graphs with $n \\le 2$ are solved directly."

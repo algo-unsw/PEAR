@@ -14,3 +14,9 @@ versions:
     year: 2010
     doi: 10.1109/FOCS.2010.24
     open_access: false
+  journal:
+    kind: journal
+    venue: "SIAM Journal on Computing 43(1), pp. 280–299"
+    year: 2014
+    doi: "10.1137/110839229"
+    open_access: false

@@ -8,4 +8,11 @@ versions:
     year: 2006
     doi: "10.1007/11821069_21"
     open_access: false
+  journal:
+    kind: journal
+    title: "Improved upper bounds for vertex cover"
+    venue: "Theoretical Computer Science 411(40–42), pp. 3736–3756"
+    year: 2010
+    doi: "10.1016/j.tcs.2010.06.026"
+    open_access: false
 review: { approved_by: Serge Gaspers, date: 2026-11-08 }

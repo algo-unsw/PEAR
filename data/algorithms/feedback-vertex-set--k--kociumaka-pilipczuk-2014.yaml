@@ -1,0 +1,24 @@
+id: feedback-vertex-set--k--kociumaka-pilipczuk-2014
+problem: feedback-vertex-set
+proved_for: search
+bound:
+  as_stated: '(2 + (1 + \sqrt{5})/2)^{k} n^{O(1)}'
+  notation: O
+  parameters:
+  - k
+  - n
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Polynomial space, as stated.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: kociumaka-pilipczuk-2014
+  statements:
+    arxiv-v1:
+      statement: Theorem 2
+  note: 'Stated as $O^*((2+\phi)^k) \le O^*(3.619^k)$, $\phi$ the golden ratio; deterministic, polynomial space. The journal version (Information Processing Letters 2014) gives this bound; the $O^*(3.592^k)$ of arXiv v1 Theorem 1 is not used (decided 17 November 2026).'

@@ -1,0 +1,43 @@
+id: max-leaf-spanning-tree
+name: Max Leaf Spanning Tree
+aliases: [Maximum Leaf Spanning Tree, MLST, Spanning Tree with Many Leaves]
+category: graph
+complexity:
+  class: NP-complete
+  source:
+    paper: garey-johnson-1979
+    attested_by:
+      - "https://en.wikipedia.org/wiki/List_of_NP-complete_problems"
+      - "https://tcs.rwth-aachen.de/users/langer/pub/maxleaf-exact-tcs.pdf"
+      - "https://lsec.cc.ac.cn/~optim/ReformulationsandSolutionAlgorithmsfortheMaximumLeafSpanningTreeProblem.pdf"
+    note: "Garey and Johnson (1979) list it as NP-complete; the two papers cite them for it."
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  k: { meaning: "the number of leaves: the integer $k$ in the input (decision, search), or the maximum number of leaves of a spanning tree (optimisation)" }
+  tw: { shared: treewidth }
+constraints:
+  - { constraint: "k \\le n", because: "A spanning tree has at most $n - 1$ leaves (for $n \\ge 2$)." }
+  - { constraint: "m \\le n^{2}", because: "A simple graph has at most $n(n-1)/2$ edges." }
+  - { constraint: "tw \\le n", because: "A single bag containing all vertices is a tree decomposition of width $n - 1$." }
+versions:
+  decision:
+    kind: decision
+    input: "A connected graph $G = (V, E)$ and an integer $k$."
+    question: "Does $G$ have a spanning tree with at least $k$ leaves?"
+  optimisation:
+    kind: optimisation
+    input: "A connected graph $G = (V, E)$."
+    goal: "Find the maximum number of leaves of a spanning tree of $G$."
+  search:
+    kind: search
+    input: "A connected graph $G = (V, E)$ and an integer $k$."
+    goal: "Find a spanning tree of $G$ with at least $k$ leaves, or report that none exists."
+default_version: decision
+shared_bounds:
+  - versions: [decision, optimisation, search]
+    because: "Binary search on $k$ and self-reducibility."
+related:
+  - { problem: connected-dominating-set, relation: complement }

@@ -1,0 +1,12 @@
+id: yamano-shibuya-2026
+title: 'Faster Exact Algorithms for 3- and 4-Coloring: Deterministic Improvements and Further Randomized Speedups'
+authors:
+- Ryosuke Yamano
+- Tetsuo Shibuya
+versions:
+  arxiv-v1:
+    kind: preprint
+    year: 2026
+    arxiv: 2611.03115v1
+    open_access: true
+unverified: true

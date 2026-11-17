@@ -1,0 +1,29 @@
+id: lokshtanov-narayanaswamy-raman-ramanujan-saurabh-2012
+title: Faster Parameterized Algorithms using Linear Programming
+authors:
+- Daniel Lokshtanov
+- N. S. Narayanaswamy
+- Venkatesh Raman
+- M. S. Ramanujan
+- Saket Saurabh
+versions:
+  arxiv-v2:
+    kind: preprint
+    year: 2012
+    arxiv: 1203.0833v2
+    open_access: true
+  stacs:
+    kind: conference
+    title: "LP can be a cure for Parameterized Problems"
+    authors: [N. S. Narayanaswamy, Venkatesh Raman, M. S. Ramanujan, Saket Saurabh]
+    venue: "29th International Symposium on Theoretical Aspects of Computer Science (STACS 2012), LIPIcs 14, pp. 338–349"
+    year: 2012
+    doi: "10.4230/LIPIcs.STACS.2012.338"
+    url: "https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.STACS.2012.338"
+    open_access: true
+  journal:
+    kind: journal
+    venue: "ACM Transactions on Algorithms 11(2), Article 15"
+    year: 2014
+    doi: "10.1145/2566616"
+    open_access: false

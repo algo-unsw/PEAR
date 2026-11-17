@@ -285,3 +285,63 @@ def test_term_without_lower_estimate_does_not_block_the_bound():
 )
 def test_subscripted_symbols(text, tex):
     assert render_bound(parse_bound(text, {"n", "tw", "tw_p", "tw_d", "tw_i"})) == tex
+
+
+def test_power_of_a_logarithm_keeps_its_parentheses():
+    from pear.bounds import parse_bound
+    from pear.bounds.expr import render_bound
+
+    tex = render_bound(parse_bound(r"2^{O(k (\log\log k)^{1/9} / (\log k)^{1/54})}", ("k",)))
+    assert r"(\log \log k)^{1/9}" in tex and r"(\log k)^{1/54}" in tex
+
+
+# --- ε depending on parameters: bounds for every fixed k (decided 17 November 2026) -----------
+
+
+def _fixed_ctx():
+    from pear.bounds.compare import build_context
+
+    return build_context(("n", "k"), ("k \\le n",))
+
+
+def test_epsilon_with_subscript_parses_and_renders():
+    from pear.bounds import parse_bound
+    from pear.bounds.expr import fixed_parameters, render_bound, variables
+
+    b = parse_bound(r"O((2 - \varepsilon_{k})^{n})", ("n", "k"))
+    assert render_bound(b) == r"O((2 - \varepsilon_{k})^{n})"
+    assert variables(b.expr) == {"n", "k"} and fixed_parameters(b.expr) == {"k"}
+    assert render_bound(parse_bound(r"(2 - \varepsilon_k)^{n}", ("n", "k"))) == r"(2 - \varepsilon_{k})^{n}"
+
+
+def test_epsilon_subscript_must_name_parameters():
+    from pear.bounds import BoundSyntaxError, parse_bound
+
+    with pytest.raises(BoundSyntaxError):
+        parse_bound(r"(2 - \varepsilon_{3})^{n}", ("n", "k"))
+
+
+def test_fixed_k_bound_is_incomparable_with_uniform_bounds():
+    from pear.bounds import parse_bound
+    from pear.bounds.compare import Relation, compare_ostar
+
+    fixed = parse_bound(r"O((2 - \varepsilon_{k})^{n})", ("n", "k"))
+    for other in (r"O^*(2^{n})", r"O^*(1.5^{n})", r"O^*(3^{n})"):
+        assert compare_ostar(fixed, parse_bound(other, ("n", "k")), _fixed_ctx()) is Relation.INCOMPARABLE
+
+
+def test_fixed_k_bounds_compare_among_themselves():
+    from pear.bounds import parse_bound
+    from pear.bounds.compare import Relation, compare_ostar
+
+    a = parse_bound(r"O((2 - \varepsilon_{k})^{n})", ("n", "k"))
+    b = parse_bound(r"O^*((2 - \varepsilon_{k})^{n})", ("n", "k"))
+    assert compare_ostar(a, b, _fixed_ctx()) is Relation.EQUAL
+
+
+def test_plain_epsilon_still_beats_two_to_the_n():
+    from pear.bounds import parse_bound
+    from pear.bounds.compare import Relation, compare_ostar
+
+    a = parse_bound(r"O^*((2 - \varepsilon)^{n})", ("n",))
+    assert compare_ostar(a, parse_bound(r"O^*(2^{n})", ("n",)), _fixed_ctx()) is Relation.BETTER

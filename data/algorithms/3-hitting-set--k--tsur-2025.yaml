@@ -1,0 +1,24 @@
+id: 3-hitting-set--k--tsur-2025
+problem: 3-hitting-set
+proved_for: decision
+bound:
+  as_stated: '2.0409^{k} n^{O(1)}'
+  notation: O
+  parameters:
+  - k
+  - n
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Not stated; educated guess: polynomial. Branching with reduction rules; no memoization or dynamic programming found.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: tsur-2025
+  statements:
+    arxiv-v1:
+      statement: Theorem 31
+  note: 'Deterministic branching. Earlier bounds listed in Section 1: Wahlström $2.0755^k$, Fernau $2.179^k$, Niedermeier–Rossmanith $2.270^k$.'

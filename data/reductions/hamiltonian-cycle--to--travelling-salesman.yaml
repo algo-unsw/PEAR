@@ -1,0 +1,10 @@
+id: hamiltonian-cycle--to--travelling-salesman
+from: { problem: hamiltonian-cycle, version: decision }
+to: { problem: travelling-salesman, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(n^{2})"
+parameter_map: { n: "n", W: "2" }
+source:
+  folklore: true
+  note: "Weight 1 on the edges of $G$ and 2 on the non-edges, with $B = n$: a Hamiltonian cycle of $G$ is exactly a tour of weight at most $n$."

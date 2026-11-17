@@ -238,7 +238,7 @@ eleventyComputed:
 <div class="body">
 <ol class="refs">
 {%- for r in p.references %}
-<li id="ref-{{ r.n }}">{{ r.authors }}. {{ r.title | mathtext | safe }}. {{ r.versions | join("; ") }}.{% for l in r.links %} <a href="{{ l.url }}">{{ "Open access" if l.label == "open access" else l.label }}</a>{% endfor %}{% if r.unverified %} <span class="tag warn" title="Not peer reviewed; its results appear in the Overview only when you include them in Details.">unverified</span>{% endif %}</li>
+<li id="ref-{{ r.n }}">{{ r.authors }}. {{ r.title | mathtext | safe }}. {{ r.primary }}.{% if r.cited.length %} Cited: {{ r.cited | join("; ") | mathtext | safe }}.{% endif %}{% if r.others.length %} <span class="small">Also: {{ r.others | join("; ") | mathtext | safe }}.</span>{% endif %}{% for l in r.links %} <a href="{{ l.url }}">{{ "Open access" if l.label == "open access" else l.label }}</a>{% endfor %}{% if r.unverified %} <span class="tag warn" title="Not peer reviewed; its results appear in the Overview only when you include them in Details.">unverified</span>{% endif %}</li>
 {%- endfor %}
 </ol>
 </div>

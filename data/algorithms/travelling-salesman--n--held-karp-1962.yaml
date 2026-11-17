@@ -1,0 +1,24 @@
+id: travelling-salesman--n--held-karp-1962
+problem: travelling-salesman
+proved_for: optimisation
+bound:
+  as_stated: 'n^{2} 2^{n}'
+  notation: O
+  parameters:
+  - n
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Stores a value for every subset and end vertex, as the attesting sources state.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: held-karp-1962
+  attested_by:
+  - https://arxiv.org/pdf/1008.0541
+  - https://www.cs.helsinki.fi/u/mkhkoivi/publications/talg-2011.pdf
+  - https://en.wikipedia.org/wiki/Travelling_salesman_problem
+  note: 'Bellman and, independently, Held and Karp gave a dynamic programming recurrence that solves the general TSP in $O(n^2 2^n)$ time (Björklund, FOCS 2010, Section 1); time and space are within a polynomial factor of $2^n$ (Björklund–Husfeldt–Kaski–Koivisto, TALG). No open copy found.'

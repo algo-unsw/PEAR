@@ -18,6 +18,6 @@ properties:
 source:
   paper: peng-xiao-2021
   statements:
-    arxiv:
+    arxiv-v2:
       statement: Theorem 1
-  note: $L$ is the sum of the clause lengths. Statement read in the current arXiv version (11 November 2026), which extends a conference version.
+  note: '$L$ is the sum of the clause lengths. Statement read in the current arXiv version, v2 of 17 August 2022 (11 November 2026); v1 (13 May 2021, SAT 2021) gives $O^*(1.0646^L)$.'

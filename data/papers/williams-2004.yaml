@@ -1,0 +1,24 @@
+id: williams-2004
+title: A new algorithm for optimal constraint satisfaction and its implications
+authors:
+- Ryan Williams
+versions:
+  eccc:
+    kind: preprint
+    venue: ECCC TR04-032
+    year: 2004
+    url: 'https://eccc.weizmann.ac.il/report/2004/032'
+    open_access: true
+  icalp:
+    kind: conference
+    venue: "Automata, Languages and Programming (ICALP 2004), LNCS 3142, pp. 1227–1237"
+    year: 2004
+    doi: "10.1007/978-3-540-27836-8_101"
+    open_access: false
+  journal:
+    kind: journal
+    title: "A new algorithm for optimal 2-constraint satisfaction and its implications"
+    venue: "Theoretical Computer Science 348(2–3), pp. 357–365"
+    year: 2005
+    doi: "10.1016/j.tcs.2005.09.023"
+    open_access: false

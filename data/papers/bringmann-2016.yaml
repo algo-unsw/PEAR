@@ -8,3 +8,9 @@ versions:
     year: 2016
     arxiv: 1610.04712v2
     open_access: true
+  soda:
+    kind: conference
+    venue: "28th ACM-SIAM Symposium on Discrete Algorithms (SODA 2017), pp. 1073–1084"
+    year: 2017
+    doi: "10.1137/1.9781611974782.69"
+    open_access: false

@@ -1,0 +1,17 @@
+id: kociumaka-pilipczuk-2014
+title: Faster deterministic Feedback Vertex Set
+authors:
+- Tomasz Kociumaka
+- Marcin Pilipczuk
+versions:
+  arxiv-v1:
+    kind: preprint
+    year: 2013
+    arxiv: 1306.3566v1
+    open_access: true
+  journal:
+    kind: journal
+    venue: 'Information Processing Letters 114(10), pp. 556–560'
+    year: 2014
+    doi: 10.1016/j.ipl.2014.05.001
+    open_access: false

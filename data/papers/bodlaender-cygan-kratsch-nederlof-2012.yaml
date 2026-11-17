@@ -11,3 +11,17 @@ versions:
     year: 2012
     arxiv: '1211.1505'
     open_access: true
+  icalp:
+    kind: conference
+    title: "Deterministic Single Exponential Time Algorithms for Connectivity Problems Parameterized by Treewidth"
+    venue: "Automata, Languages, and Programming (ICALP 2013), LNCS 7965, pp. 196–207"
+    year: 2013
+    doi: "10.1007/978-3-642-39206-1_17"
+    open_access: false
+  journal:
+    kind: journal
+    title: "Deterministic single exponential time algorithms for connectivity problems parameterized by treewidth"
+    venue: "Information and Computation 243, pp. 86–111"
+    year: 2015
+    doi: "10.1016/j.ic.2014.12.008"
+    open_access: false

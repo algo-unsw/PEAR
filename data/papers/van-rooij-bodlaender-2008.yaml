@@ -4,9 +4,24 @@ authors:
 - Johan M. M. van Rooij
 - Hans L. Bodlaender
 versions:
-  arxiv:
+  stacs:
     kind: conference
-    venue: 25th International Symposium on Theoretical Aspects of Computer Science (STACS 2008)
+    venue: "25th International Symposium on Theoretical Aspects of Computer Science (STACS 2008), LIPIcs 1, pp. 657–668"
     year: 2008
     arxiv: '0802.2827'
+    doi: "10.4230/LIPIcs.STACS.2008.1329"
     open_access: true
+  techreport:
+    kind: technical-report
+    title: 'Design by Measure and Conquer: Exact algorithms for dominating set'
+    venue: Technical Report UU-CS-2009-025, Utrecht University
+    year: 2009
+    url: https://ics-archive.science.uu.nl/research/techreps/repo/CS-2009/2009-025.pdf
+    open_access: true
+  journal:
+    kind: journal
+    title: "Exact algorithms for dominating set"
+    venue: "Discrete Applied Mathematics 159(17), pp. 2147–2164"
+    year: 2011
+    doi: "10.1016/j.dam.2011.07.001"
+    open_access: false

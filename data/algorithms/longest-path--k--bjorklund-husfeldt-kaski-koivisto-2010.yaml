@@ -1,0 +1,25 @@
+id: longest-path--k--bjorklund-husfeldt-kaski-koivisto-2010
+problem: longest-path
+proved_for: decision
+bound:
+  as_stated: '1.66^{k} n^{O(1)}'
+  notation: O
+  parameters:
+  - k
+  - n
+properties:
+  randomized:
+    error: one-sided
+  space:
+    class: polynomial
+    bound: Polynomial space (abstract).
+  algebraic: true
+  fast_matrix_multiplication: false
+  constructive: false
+  quantum: false
+source:
+  paper: bjorklund-husfeldt-kaski-koivisto-2010
+  statements:
+    arxiv-v1:
+      statement: Theorem 1
+  note: 'Undirected $k$-path, randomized with constant one-sided error (never a false positive); polynomial space (abstract). The constant is 1.6569 (Section 2.13).'

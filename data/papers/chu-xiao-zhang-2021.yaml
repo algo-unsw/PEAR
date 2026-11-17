@@ -10,3 +10,15 @@ versions:
     year: 2020
     arxiv: '2007.03829'
     open_access: true
+  aaai:
+    kind: conference
+    venue: "35th AAAI Conference on Artificial Intelligence (AAAI 2021), pp. 3707–3714"
+    year: 2021
+    doi: "10.1609/aaai.v35i5.16487"
+    open_access: false
+  journal:
+    kind: journal
+    venue: "Theoretical Computer Science 887, pp. 51–62"
+    year: 2021
+    doi: "10.1016/j.tcs.2021.06.045"
+    open_access: false

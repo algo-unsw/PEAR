@@ -1,0 +1,23 @@
+id: max-leaf-spanning-tree--n--binkele-raible-fernau-2014
+problem: max-leaf-spanning-tree
+proved_for: optimisation
+bound:
+  as_stated: '1.89615^{n} n^{O(1)}'
+  notation: O
+  parameters:
+  - n
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Polynomial space, as stated.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: binkele-raible-fernau-2014
+  statements:
+    journal:
+      statement: Theorem 17
+  note: 'Branching algorithm analysed by measure and conquer; deterministic, polynomial space (as stated). Equivalent to Connected Dominating Set by $n$ (the folklore reduction $k \mapsto n - k$).'

@@ -1,0 +1,24 @@
+id: max-cut--n--williams-2004
+problem: max-cut
+proved_for: optimisation
+bound:
+  as_stated: 'm^{3} 2^{\omega n / 3}'
+  notation: O
+  parameters:
+  - m
+  - n
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Not stated; educated guess: exponential. The algorithm lists the $2^{n/3}$ partial assignments of each third of the variables and counts triangles with matrix multiplication.'
+  algebraic: true
+  fast_matrix_multiplication: true
+  constructive: false
+  quantum: false
+source:
+  paper: williams-2004
+  statements:
+    eccc:
+      statement: 'Corollary 3.1 (abstract: $O(m^3 2^{\omega n/3})$)'
+  note: 'Counts the optimal cuts; $2^{\omega/3} < 1.732$ for $\omega < 2.376$. ICALP 2004; Theoretical Computer Science 2005.'

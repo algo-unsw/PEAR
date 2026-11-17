@@ -7,7 +7,8 @@ authors:
 versions:
   journal:
     kind: journal
-    venue: SIAM Journal on Computing (author copy; an earlier version appeared at FOCS 2006)
+    venue: "SIAM Journal on Computing 39(2), pp. 546–563"
+    doi: "10.1137/070683933"
     year: 2009
     url: https://www.cs.helsinki.fi/u/mkhkoivi/publications/sicomp-200Y.pdf
     open_access: true

@@ -1,4 +1,4 @@
-id: dominating-set--n--van-rooij-bodlaender-2009
+id: dominating-set--n--van-rooij-bodlaender-2008
 problem: dominating-set
 proved_for: optimisation
 bound:
@@ -16,7 +16,7 @@ properties:
   constructive: true
   quantum: false
 source:
-  paper: van-rooij-bodlaender-2009
+  paper: van-rooij-bodlaender-2008
   statements:
     techreport:
       statement: Theorem 1
