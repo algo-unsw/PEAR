@@ -1,0 +1,26 @@
+id: sharp-3-sat--tw-i--slivovsky-szeider-2020
+problem: sharp-3-sat
+proved_for: counting
+bound:
+  as_stated: 2^{tw_i} N^{O(1)}
+  notation: O
+  parameters:
+  - tw_i
+  - N
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Not stated; educated guess: dynamic programming over a nice tree decomposition, with a table of up to $2^{k}$ entries per node.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: false
+  quantum: false
+given:
+- tree-decomposition
+source:
+  paper: slivovsky-szeider-2020
+  statements:
+    sat-2020:
+      statement: Theorem 4, for 3-CNF formulas
+  note: 'Computes the number of satisfying assignments #(F) of a CNF formula in time $O^*(2^k)$, given a nice tree decomposition of width $k$ of its incidence graph. Open-access chapter.'

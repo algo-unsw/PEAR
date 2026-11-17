@@ -11,3 +11,6 @@ __pycache__/
 node_modules/
 _site/
 build/
+
+# Claude Code personal settings
+.claude/settings.local.json

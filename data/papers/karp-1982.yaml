@@ -1,0 +1,10 @@
+id: karp-1982
+title: Dynamic programming meets the principle of inclusion and exclusion
+authors:
+- Richard M. Karp
+versions:
+  journal:
+    kind: journal
+    venue: Operations Research Letters 1(2), pp. 49–51
+    year: 1982
+    open_access: false

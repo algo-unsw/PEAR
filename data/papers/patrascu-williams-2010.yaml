@@ -1,0 +1,12 @@
+id: patrascu-williams-2010
+title: On the Possibility of Faster SAT Algorithms
+authors:
+- Mihai Pătraşcu
+- Ryan Williams
+versions:
+  soda:
+    kind: conference
+    venue: SODA 2010
+    year: 2010
+    url: https://khoury.northeastern.edu/~viola/classes/papers/PatrascuWilliamsSODA.pdf
+    open_access: true
