@@ -100,9 +100,19 @@ VERSION_RANK = {"journal": 0, "book": 1, "conference": 2, "workshop": 3, "thesis
                 "technical-report": 5, "preprint": 6}
 
 
+def named_versions(paper: Paper) -> list[str]:
+    """The ids of the versions a reference names: all versions of the best kind, earliest
+    first, since a paper can be based on several conference papers (decided 18 November
+    2026); of preprints and technical reports only the latest, as they are drafts of one text."""
+    best = min(VERSION_RANK[v.kind] for v in paper.versions.values())
+    ids = sorted((vid for vid, v in paper.versions.items() if VERSION_RANK[v.kind] == best),
+                 key=lambda vid: (paper.versions[vid].year, vid))
+    return ids[-1:] if paper.versions[ids[0]].kind in ("preprint", "technical-report") else ids
+
+
 def primary_version(paper: Paper) -> str:
-    """The id of the version a reference names: best kind first, then the latest."""
-    return min(paper.versions, key=lambda vid: (VERSION_RANK[paper.versions[vid].kind], -paper.versions[vid].year))
+    """The version a reference names first (its authors, title and year lead the reference)."""
+    return named_versions(paper)[0]
 
 
 def _where(v) -> str:
@@ -114,8 +124,8 @@ def _where(v) -> str:
 
 def paper_links(paper: Paper) -> list[dict[str, Any]]:
     links = []
-    main = primary_version(paper)
-    for vid, v in sorted(paper.versions.items(), key=lambda kv: (kv[0] != main, kv[1].year)):
+    named = named_versions(paper)
+    for vid, v in sorted(paper.versions.items(), key=lambda kv: (kv[0] not in named, kv[1].year)):
         if v.arxiv:
             links.append({"label": f"arXiv:{v.arxiv}", "url": f"https://arxiv.org/abs/{v.arxiv}", "open": True})
         if v.doi:
@@ -141,13 +151,18 @@ def paper_reference(paper: Paper) -> dict[str, Any]:
         what = v.title or paper.title
         return (f"{who}. " if who != authors else "") + (f"{what}. " if what.casefold() != title.casefold() else "") + _where(v)
 
-    others = [other(v) for vid, v in sorted(paper.versions.items(), key=lambda kv: kv[1].year) if vid != main]
-    versions = [_where(paper.versions[main])] + others
+    named = named_versions(paper)
+    # further versions of the best kind are named too: "…; and Authors. Title. Venue"
+    primary = "; and ".join([_where(paper.versions[main])] + [
+        f"{_join(paper.versions[vid].authors or paper.authors)}. {paper.versions[vid].title or paper.title}. "
+        f"{_where(paper.versions[vid])}" for vid in named[1:]])
+    others = [other(v) for vid, v in sorted(paper.versions.items(), key=lambda kv: kv[1].year) if vid not in named]
+    versions = [_where(paper.versions[vid]) for vid in named] + others
     return {
         "id": paper.id,
         "authors": authors,
         "title": title,
-        "primary": _where(paper.versions[main]),
+        "primary": primary,
         "others": others,
         "versions": versions,
         "links": paper_links(paper),
@@ -181,7 +196,7 @@ class References:
     @staticmethod
     def _statement_in(paper: Paper, vid: str | None, statement: str) -> str:
         """'Theorem 2 of arXiv v1'; just 'Theorem 2' when the reference names that version."""
-        if vid is None or vid == primary_version(paper):
+        if vid is None or vid in named_versions(paper):
             return statement
         return f"{statement} of {paper_version_label(paper, vid)}"
 

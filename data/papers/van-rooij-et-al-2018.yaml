@@ -12,3 +12,19 @@ versions:
     year: 2018
     arxiv: '1806.01667'
     open_access: true
+  esa:
+    kind: conference
+    title: "Dynamic Programming on Tree Decompositions Using Generalised Fast Subset Convolution"
+    authors: [Johan M. M. van Rooij, Hans L. Bodlaender, Peter Rossmanith]
+    venue: "Algorithms (ESA 2009), LNCS 5757, pp. 566–577"
+    year: 2009
+    doi: "10.1007/978-3-642-04128-0_51"
+    open_access: false
+  mfcs:
+    kind: conference
+    title: "Faster Algorithms on Branch and Clique Decompositions"
+    authors: [Hans L. Bodlaender, Erik Jan van Leeuwen, Johan M. M. van Rooij, Martin Vatshelle]
+    venue: "Mathematical Foundations of Computer Science 2010 (MFCS 2010), LNCS 6281, pp. 174–185"
+    year: 2010
+    doi: "10.1007/978-3-642-15155-2_17"
+    open_access: false

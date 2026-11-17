@@ -268,3 +268,18 @@ def test_preprints_are_optional_in_the_overview_and_on_the_front_page(real):
     assert any(not b["optional"] and b["id"] == "vertex-cover--k--harris-narayanaswamy-2022" for b in vc)
     # every problem on the front page lists its bounds, not only the pilot problems
     assert front["feedback-vertex-set"]["bounds"]
+
+
+def test_reference_names_every_conference_paper_a_paper_is_based_on(real):
+    # decided 18 November 2026: ESA 2009 and MFCS 2010 are conference versions of van Rooij et al.
+    # (arXiv 2018); with no journal version, the reference names both, earliest first, and the
+    # paper is no longer a preprint, so its result is in the default Overview
+    _, site, _ = real
+    page = site["pages"]["dominating-set"]
+    ref = {r["id"]: r for r in page["references"]}["van-rooij-et-al-2018"]
+    assert ref["authors"] == "Johan M. M. van Rooij, Hans L. Bodlaender and Peter Rossmanith"
+    assert ref["primary"].startswith("Algorithms (ESA 2009), LNCS 5757, pp. 566–577; and Hans L. Bodlaender, ")
+    assert ref["others"][0].endswith("Fast Dynamic Programming on Graph Decompositions. arXiv:1806.01667, 2018")
+    node = page["nodes"]["decision+optimisation+search"]
+    shown = [e["cite"][0]["id"] for g in node["overview"] for e in g["entries"] if not e.get("optional")]
+    assert "dominating-set--tw--van-rooij-et-al-2018" in shown
