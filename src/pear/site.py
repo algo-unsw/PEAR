@@ -132,12 +132,21 @@ def paper_links(paper: Paper) -> list[dict[str, Any]]:
 
 def paper_reference(paper: Paper) -> dict[str, Any]:
     main = primary_version(paper)
-    others = [_where(v) for vid, v in sorted(paper.versions.items(), key=lambda kv: kv[1].year) if vid != main]
+    authors = _join(paper.versions[main].authors or paper.authors)
+    title = paper.versions[main].title or paper.title
+
+    def other(v) -> str:
+        """Another version; its authors and title too where they differ from the named one's."""
+        who = _join(v.authors or paper.authors)
+        what = v.title or paper.title
+        return (f"{who}. " if who != authors else "") + (f"{what}. " if what.casefold() != title.casefold() else "") + _where(v)
+
+    others = [other(v) for vid, v in sorted(paper.versions.items(), key=lambda kv: kv[1].year) if vid != main]
     versions = [_where(paper.versions[main])] + others
     return {
         "id": paper.id,
-        "authors": _join(paper.versions[main].authors or paper.authors),
-        "title": paper.versions[main].title or paper.title,
+        "authors": authors,
+        "title": title,
         "primary": _where(paper.versions[main]),
         "others": others,
         "versions": versions,

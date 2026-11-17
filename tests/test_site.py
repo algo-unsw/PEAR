@@ -191,7 +191,8 @@ def test_references_name_the_journal_version_and_the_cited_statement(real):
     ckx = refs["chen-kanj-xia-2006"]
     assert ckx["primary"].startswith("Theoretical Computer Science 411")
     assert ckx["title"] == "Improved upper bounds for vertex cover"
-    assert ckx["others"][0].startswith("Mathematical Foundations of Computer Science 2006")
+    # other versions show their own title (and authors) where they differ from the named one's
+    assert ckx["others"][0].startswith("Improved Parameterized Upper Bounds for Vertex Cover. Mathematical Foundations")
     # conference over preprint
     hn = refs["harris-narayanaswamy-2022"]
     assert "STACS 2024" in hn["primary"]
@@ -232,3 +233,15 @@ def test_corrected_deterministic_fvs_uses_kociumaka_pilipczuk(real):
     row = next(r for r in node["rows"] if r["id"] == "feedback-vertex-set--n--fomin-gaspers-lokshtanov-saurabh-2015-deterministic")
     assert row["shown"] == "O^*(1.7237^{n})"
     assert [u["id"] for u in row["uses"]] == ["feedback-vertex-set--k--kociumaka-pilipczuk-2014"]
+
+
+def test_preliminary_version_by_fewer_authors(real):
+    # decided 18 November 2026: STACS 2012 (Narayanaswamy, Raman, Ramanujan, Saurabh) is the
+    # conference version of Lokshtanov et al. (TALG 2014), as its authors say
+    _, site, _ = real
+    refs = {r["id"]: r for r in site["pages"]["odd-cycle-transversal"]["references"]}
+    lp = refs["lokshtanov-narayanaswamy-raman-ramanujan-saurabh-2012"]
+    assert lp["primary"].startswith("ACM Transactions on Algorithms 11(2)")
+    assert lp["authors"].startswith("Daniel Lokshtanov, ")
+    assert ("N. S. Narayanaswamy, Venkatesh Raman, M. S. Ramanujan and Saket Saurabh. "
+            "LP can be a cure for Parameterized Problems. 29th International Symposium") in lp["others"][1]
