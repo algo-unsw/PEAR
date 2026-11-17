@@ -1,5 +1,5 @@
 id: li-nederlof-2019
-title: 'Detecting Feedback Vertex Sets of Size k in O*(2.7^k) Time'
+title: "Detecting Feedback Vertex Sets of Size $k$ in $O^*(2.7^k)$ Time"
 authors:
 - Jason Li
 - Jesper Nederlof
@@ -9,3 +9,15 @@ versions:
     year: 2019
     arxiv: 1906.12298v2
     open_access: true
+  soda:
+    kind: conference
+    venue: "31st ACM-SIAM Symposium on Discrete Algorithms (SODA 2020), pp. 971–989"
+    year: 2020
+    doi: "10.1137/1.9781611975994.58"
+    open_access: false
+  journal:
+    kind: journal
+    venue: "ACM Transactions on Algorithms 18(4), Article 34"
+    year: 2022
+    doi: "10.1145/3504027"
+    open_access: false

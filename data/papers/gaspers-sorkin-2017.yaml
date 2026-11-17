@@ -9,3 +9,15 @@ versions:
     year: 2017
     arxiv: 1404.0753v2
     open_access: true
+  icalp:
+    kind: conference
+    venue: "Automata, Languages, and Programming (ICALP 2015), LNCS 9134, pp. 567–579"
+    year: 2015
+    doi: "10.1007/978-3-662-47672-7_46"
+    open_access: false
+  journal:
+    kind: journal
+    venue: "ACM Transactions on Algorithms 13(4), Article 44"
+    year: 2017
+    doi: "10.1145/3111499"
+    open_access: false

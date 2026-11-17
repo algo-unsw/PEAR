@@ -10,3 +10,9 @@ versions:
     year: 2019
     doi: 10.4230/LIPIcs.IPEC.2019.22
     open_access: true
+  journal:
+    kind: journal
+    venue: "Algorithmica 83(8), pp. 2503–2520"
+    year: 2021
+    doi: "10.1007/s00453-021-00815-w"
+    open_access: false

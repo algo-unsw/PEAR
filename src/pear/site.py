@@ -84,16 +84,38 @@ def paper_version_label(paper: Paper, vid: str) -> str:
         m = re.search(r"v(\d+)$", v.arxiv)
         return f"arXiv v{m.group(1)}" if m else "arXiv"
     if v.venue:
-        m = re.search(r"\(([A-Z][A-Za-z]*\s\d{4})\)", v.venue)
+        m = re.search(r"\(([A-Z][A-Za-z]*\s\d{4})\)", v.venue) or re.match(r"([A-Z][A-Z]+\s\d{4})\b", v.venue)
         if m:
             return m.group(1)
+        if len(v.venue.split()) <= 3:  # a short venue names itself: 'ECCC TR04-032'
+            return v.venue
     return {"technical-report": "technical report", "conference": "conference version",
             "journal": "journal version", "preprint": "preprint"}.get(v.kind, v.kind)
 
 
+# Which version a reference names (decided 17 November 2026): the journal version, else the
+# conference version, else a technical report, else a preprint; the cited statement is shown
+# next to it with the version it is in ("Theorem 2 of arXiv v1").
+VERSION_RANK = {"journal": 0, "book": 1, "conference": 2, "workshop": 3, "thesis": 4,
+                "technical-report": 5, "preprint": 6}
+
+
+def primary_version(paper: Paper) -> str:
+    """The id of the version a reference names: best kind first, then the latest."""
+    return min(paper.versions, key=lambda vid: (VERSION_RANK[paper.versions[vid].kind], -paper.versions[vid].year))
+
+
+def _where(v) -> str:
+    where = v.venue or ({"preprint": "Preprint"}.get(v.kind) or v.kind.replace("-", " ").capitalize())
+    if v.arxiv and not v.venue:
+        where = f"arXiv:{v.arxiv}"
+    return f"{where}, {v.year}" if str(v.year) not in where else where
+
+
 def paper_links(paper: Paper) -> list[dict[str, Any]]:
     links = []
-    for vid, v in paper.versions.items():
+    main = primary_version(paper)
+    for vid, v in sorted(paper.versions.items(), key=lambda kv: (kv[0] != main, kv[1].year)):
         if v.arxiv:
             links.append({"label": f"arXiv:{v.arxiv}", "url": f"https://arxiv.org/abs/{v.arxiv}", "open": True})
         if v.doi:
@@ -109,16 +131,15 @@ def paper_links(paper: Paper) -> list[dict[str, Any]]:
 
 
 def paper_reference(paper: Paper) -> dict[str, Any]:
-    versions = []
-    for vid, v in sorted(paper.versions.items(), key=lambda kv: kv[1].year):
-        where = v.venue or ({"preprint": "Preprint"}.get(v.kind) or v.kind.replace("-", " ").capitalize())
-        if v.arxiv and not v.venue:
-            where = f"arXiv:{v.arxiv}"
-        versions.append(f"{where}, {v.year}" if str(v.year) not in where else where)
+    main = primary_version(paper)
+    others = [_where(v) for vid, v in sorted(paper.versions.items(), key=lambda kv: kv[1].year) if vid != main]
+    versions = [_where(paper.versions[main])] + others
     return {
         "id": paper.id,
         "authors": _join(paper.authors),
-        "title": paper.title,
+        "title": paper.versions[main].title or paper.title,
+        "primary": _where(paper.versions[main]),
+        "others": others,
         "versions": versions,
         "links": paper_links(paper),
         "unverified": paper.unverified,
@@ -139,6 +160,19 @@ class References:
     def __init__(self, data: Dataset):
         self.data = data
         self.order: list[str] = []
+        self.cited: dict[str, list[str]] = {}  # the statements cited from each paper, in order
+
+    def _pointer(self, paper_id: str, label: str) -> None:
+        seen = self.cited.setdefault(paper_id, [])
+        if label not in seen:
+            seen.append(label)
+
+    @staticmethod
+    def _statement_in(paper: Paper, vid: str | None, statement: str) -> str:
+        """'Theorem 2 of arXiv v1'; just 'Theorem 2' when the reference names that version."""
+        if vid is None or vid == primary_version(paper):
+            return statement
+        return f"{statement} of {paper_version_label(paper, vid)}"
 
     def cite(self, paper_id: str) -> int:
         if paper_id not in self.order:
@@ -155,16 +189,21 @@ class References:
                 refs.append(self.cite(src.reference.paper))
                 paper = self.data.papers[src.reference.paper]
                 statements.append(f"{src.reference.statement}, {paper_version_label(paper, src.reference.version)}")
+                self._pointer(src.reference.paper, self._statement_in(paper, src.reference.version, src.reference.statement))
             return {"refs": refs, "statements": statements, "folklore": True, "note": src.note}
         paper = self.data.papers[src.paper]
         statements = []
         for vid, st in src.statements.items():
             page = f", p. {st.page}" if st.page is not None else ""
             statements.append(f"{st.statement}, {paper_version_label(paper, vid)}{page}")
+            self._pointer(src.paper, self._statement_in(paper, vid, st.statement) + page)
+        if not src.statements and getattr(src, "attested_by", None):
+            self._pointer(src.paper, "attested by independent sources")
         return {"refs": [self.cite(src.paper)], "statements": statements, "folklore": False, "note": src.note}
 
     def listing(self) -> list[dict[str, Any]]:
-        return [{"n": i + 1, **paper_reference(self.data.papers[pid])} for i, pid in enumerate(self.order)]
+        return [{"n": i + 1, **paper_reference(self.data.papers[pid]), "cited": self.cited.get(pid, [])}
+                for i, pid in enumerate(self.order)]
 
 
 # --- parameters -------------------------------------------------------------------------------

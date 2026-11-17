@@ -173,3 +173,40 @@ def test_results_list_what_they_use(real):
     row = next(r for r in node["rows"] if r["id"] == "vertex-cover--k--kundu-panolan-saurabh-xue-zehavi-2026")
     assert [u["id"] for u in row["uses"]] == ["sharp-3-sat--n--anthropic-2026"]
     assert row["uses"][0]["problem"] == "#3-SAT" and not row["uses"][0]["same"]
+
+
+def test_references_name_the_journal_version_and_the_cited_statement(real):
+    # decided 17 November 2026: a reference names the journal version, else the conference
+    # version, else a technical report or preprint; the cited statement is shown with the
+    # version it is in, and the other versions follow.
+    _, site, _ = real
+    refs = {r["id"]: r for r in site["pages"]["feedback-vertex-set"]["references"]}
+    kp = refs["kociumaka-pilipczuk-2014"]
+    assert kp["primary"] == "Information Processing Letters 114(10), pp. 556–560, 2014"
+    assert kp["cited"] == ["Theorem 2 of arXiv v1"]
+    assert kp["others"] == ["arXiv:1306.3566v1, 2013"]
+    assert kp["links"][0]["url"] == "https://doi.org/10.1016/j.ipl.2014.05.001"
+    # journal over conference; a retitled journal version brings its own title
+    refs = {r["id"]: r for r in site["pages"]["vertex-cover"]["references"]}
+    ckx = refs["chen-kanj-xia-2006"]
+    assert ckx["primary"].startswith("Theoretical Computer Science 411")
+    assert ckx["title"] == "Improved upper bounds for vertex cover"
+    assert ckx["others"][0].startswith("Mathematical Foundations of Computer Science 2006")
+    # conference over preprint
+    hn = refs["harris-narayanaswamy-2022"]
+    assert "STACS 2024" in hn["primary"]
+    assert any(c.endswith("arXiv v7") or "arXiv v" in c for c in hn["cited"])
+
+
+def test_primary_version_order():
+    from pear.schema import Paper
+    from pear.site import primary_version
+
+    def paper(**kinds):
+        return Paper.model_validate({"id": "p", "title": "T", "authors": ["A"], "versions": {
+            vid: {"kind": kind, "year": year, "open_access": False} for vid, (kind, year) in kinds.items()}})
+
+    assert primary_version(paper(a=("preprint", 2020), b=("conference", 2021), c=("journal", 2023))) == "c"
+    assert primary_version(paper(a=("preprint", 2020), b=("technical-report", 2019))) == "b"
+    assert primary_version(paper(a=("preprint", 2020), b=("workshop", 2019), c=("conference", 2018))) == "c"
+    assert primary_version(paper(a=("preprint", 2020), b=("preprint", 2022))) == "b"

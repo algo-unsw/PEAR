@@ -13,3 +13,15 @@ versions:
     year: 2011
     arxiv: 1103.0534v1
     open_access: true
+  focs:
+    kind: conference
+    venue: "52nd IEEE Symposium on Foundations of Computer Science (FOCS 2011), pp. 150–159"
+    year: 2011
+    doi: "10.1109/FOCS.2011.23"
+    open_access: false
+  journal:
+    kind: journal
+    venue: "ACM Transactions on Algorithms 18(2), Article 17"
+    year: 2022
+    doi: "10.1145/3506707"
+    open_access: false

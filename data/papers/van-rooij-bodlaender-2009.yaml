@@ -10,3 +10,10 @@ versions:
     year: 2009
     url: https://ics-archive.science.uu.nl/research/techreps/repo/CS-2009/2009-025.pdf
     open_access: true
+  journal:
+    kind: journal
+    title: "Exact algorithms for dominating set"
+    venue: "Discrete Applied Mathematics 159(17), pp. 2147–2164"
+    year: 2011
+    doi: "10.1016/j.dam.2011.07.001"
+    open_access: false

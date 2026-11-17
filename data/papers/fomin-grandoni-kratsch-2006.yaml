@@ -12,3 +12,9 @@ versions:
     doi: 10.1007/11944836_16
     url: https://scispace.com/pdf/solving-connected-dominating-set-faster-than-2-n-2fundti2xc.pdf
     open_access: true
+  journal:
+    kind: journal
+    venue: "Algorithmica 52(2), pp. 153–166"
+    year: 2008
+    doi: "10.1007/s00453-007-9145-z"
+    open_access: false

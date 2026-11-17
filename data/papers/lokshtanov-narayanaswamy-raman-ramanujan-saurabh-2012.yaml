@@ -12,3 +12,9 @@ versions:
     year: 2012
     arxiv: 1203.0833v2
     open_access: true
+  journal:
+    kind: journal
+    venue: "ACM Transactions on Algorithms 11(2), Article 15"
+    year: 2014
+    doi: "10.1145/2566616"
+    open_access: false

@@ -8,4 +8,16 @@ versions:
     year: 2013
     url: "http://www.amp.i.kyoto-u.ac.jp/tecrep/ps_file/2013/2013-006.pdf"
     open_access: true
+  isaac:
+    kind: conference
+    venue: "Algorithms and Computation (ISAAC 2013), LNCS 8283, pp. 328–338"
+    year: 2013
+    doi: "10.1007/978-3-642-45030-3_31"
+    open_access: false
+  journal:
+    kind: journal
+    venue: "Information and Computation 255, pp. 126–146"
+    year: 2017
+    doi: "10.1016/j.ic.2017.06.001"
+    open_access: false
 review: { approved_by: Serge Gaspers, date: 2026-11-08 }

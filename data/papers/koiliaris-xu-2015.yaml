@@ -9,3 +9,16 @@ versions:
     year: 2015
     arxiv: 1507.02318v3
     open_access: true
+  soda:
+    kind: conference
+    venue: "28th ACM-SIAM Symposium on Discrete Algorithms (SODA 2017), pp. 1062–1072"
+    year: 2017
+    doi: "10.1137/1.9781611974782.68"
+    open_access: false
+  journal:
+    kind: journal
+    title: "Faster Pseudopolynomial Time Algorithms for Subset Sum"
+    venue: "ACM Transactions on Algorithms 15(3), Article 40"
+    year: 2019
+    doi: "10.1145/3329863"
+    open_access: false

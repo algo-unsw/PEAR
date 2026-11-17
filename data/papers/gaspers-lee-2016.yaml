@@ -9,3 +9,15 @@ versions:
     year: 2016
     arxiv: 1607.06201v2
     open_access: true
+  cocoon:
+    kind: conference
+    venue: "Computing and Combinatorics (COCOON 2017), LNCS 10392, pp. 371–383"
+    year: 2017
+    doi: "10.1007/978-3-319-62389-4_31"
+    open_access: false
+  journal:
+    kind: journal
+    venue: "Algorithmica 85(2), pp. 584–609"
+    year: 2023
+    doi: "10.1007/s00453-022-01034-7"
+    open_access: false

@@ -316,4 +316,5 @@ Garey and Johnson's *Computers and Intractability* (1979) is the natural seed fo
 
 ## Decisions log
 
+- 17 November 2026: references name the journal version, else the conference version, else a technical report or preprint, with the cited statements and the version each is in ("Theorem 2 of arXiv v1"); a general rule (DESIGN.md, References). Versions may carry their own `title` (proposed; schema.md §3).
 - 17 November 2026: Meijer's 3-Coloring bound is flagged (Yamano–Shibuya, Appendix F); for Kociumaka–Pilipczuk use the journal version, $(2+\phi)^k$; new notation $\varepsilon_k$ for bounds that hold for every fixed $k$ (bounds.md §2).

@@ -11,3 +11,9 @@ versions:
     year: 2006
     arxiv: cs/0611101v1
     open_access: true
+  stoc:
+    kind: conference
+    venue: "39th ACM Symposium on Theory of Computing (STOC 2007), pp. 67–74"
+    year: 2007
+    doi: "10.1145/1250790.1250801"
+    open_access: false

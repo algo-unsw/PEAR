@@ -69,6 +69,13 @@ All text pairs meet WCAG AA (4.5:1) in both themes; keep it that way when adding
 - Overview: short list grouped "From …" / "To …" with parameter maps.
 - Details: table: Reduction · Type · Parameter map · Variants · Formal status.
 
+### References (decided 17 November 2026)
+
+- Numbered list, in order of first citation on the page.
+- Each reference names one version of the paper: the journal version, else a book, else the conference version, else a workshop version, else a thesis, else a technical report, else a preprint; the latest one of that kind. Its title is that version's title.
+- After it: **Cited:** the statements the page relies on, each with the version it is in when that is not the named version ("Theorem 2 of arXiv v1"). Then, in small print, **Also:** the other versions, then links (the named version's DOI first, then arXiv and open-access copies).
+- Example: Kociumaka and Pilipczuk. Faster deterministic Feedback Vertex Set. Information Processing Letters 114(10), pp. 556–560, 2014. Cited: Theorem 2 of arXiv v1. Also: arXiv:1306.3566v1, 2013.
+
 ## Phone (390px)
 
 - Header: wordmark with small full name; search icon button; theme switch rightmost.

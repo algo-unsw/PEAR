@@ -11,3 +11,15 @@ versions:
     year: 2015
     arxiv: 1512.01621v1
     open_access: true
+  stoc:
+    kind: conference
+    venue: "48th ACM Symposium on Theory of Computing (STOC 2016), pp. 764–775"
+    year: 2016
+    doi: "10.1145/2897518.2897551"
+    open_access: false
+  journal:
+    kind: journal
+    venue: "Journal of the ACM 66(2), Article 8"
+    year: 2019
+    doi: "10.1145/3284176"
+    open_access: false

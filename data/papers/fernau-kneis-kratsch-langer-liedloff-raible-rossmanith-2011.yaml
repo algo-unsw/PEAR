@@ -15,3 +15,15 @@ versions:
     year: 2011
     url: 'https://tcs.rwth-aachen.de/users/langer/pub/maxleaf-exact-tcs.pdf'
     open_access: true
+  iwpec:
+    kind: workshop
+    venue: "Parameterized and Exact Computation (IWPEC 2009), LNCS 5917, pp. 161–172"
+    year: 2009
+    doi: "10.1007/978-3-642-11269-0_13"
+    open_access: false
+  journal:
+    kind: journal
+    venue: "Theoretical Computer Science 412(45), pp. 6290–6302"
+    year: 2011
+    doi: "10.1016/j.tcs.2011.07.011"
+    open_access: false

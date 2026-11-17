@@ -9,3 +9,16 @@ versions:
     year: 2021
     arxiv: '2105.06131'
     open_access: true
+  sat:
+    kind: conference
+    title: "A Fast Algorithm for SAT in Terms of Formula Length"
+    venue: "Theory and Applications of Satisfiability Testing (SAT 2021), LNCS 12831, pp. 436–452"
+    year: 2021
+    doi: "10.1007/978-3-030-80223-3_30"
+    open_access: false
+  journal:
+    kind: journal
+    venue: "Information and Computation 294, Article 105085"
+    year: 2023
+    doi: "10.1016/j.ic.2023.105085"
+    open_access: false

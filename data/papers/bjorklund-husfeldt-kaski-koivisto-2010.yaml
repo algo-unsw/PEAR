@@ -11,3 +11,9 @@ versions:
     year: 2010
     arxiv: 1007.1161v1
     open_access: true
+  journal:
+    kind: journal
+    venue: "Journal of Computer and System Sciences 87, pp. 119–139"
+    year: 2017
+    doi: "10.1016/j.jcss.2017.03.003"
+    open_access: false
