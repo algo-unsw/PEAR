@@ -32,3 +32,6 @@ versions:
 default_version: counting
 related:
   - { problem: sat, relation: counting }
+implementations:
+  as_of: 2026-11-13
+  ranked: [sharpsat-td]

@@ -34,3 +34,6 @@ shared_bounds:
   - versions: [decision, search]
     because: "Self-reducibility: delete edges one at a time while a Hamiltonian cycle remains."
 related: []
+implementations:
+  as_of: 2026-11-13
+  ranked: [concorde, sagemath]

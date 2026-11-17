@@ -44,3 +44,6 @@ shared_bounds:
     because: "Binary search on $k$ and self-reducibility."
 related:
   - { problem: independent-set, relation: complement }
+implementations:
+  as_of: 2026-11-13
+  ranked: [sagemath]
