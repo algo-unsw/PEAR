@@ -1,0 +1,10 @@
+id: 3-coloring--to--chromatic-number
+from: { problem: 3-coloring, version: decision }
+to: { problem: chromatic-number, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(n + m)"
+parameter_map: { n: "n", m: "m", tw: "tw", k: "3" }
+source:
+  folklore: true
+  note: "3-Coloring is the case $k = 3$."

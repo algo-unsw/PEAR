@@ -1,0 +1,47 @@
+id: max-cut
+name: Max Cut
+aliases: [Maximum Cut, MaxCut, Simple Max Cut]
+category: graph
+complexity:
+  class: NP-complete
+  source:
+    paper: karp-1972
+    attested_by:
+      - "https://en.wikipedia.org/wiki/List_of_NP-complete_problems"
+      - "https://www.iitg.ac.in/rinkulu/note/npprobs-note.pdf"
+      - "https://arxiv.org/pdf/1902.10349"
+    note: "Max Cut is one of Karp's 21 NP-complete problems (Garey–Johnson ND16); Karp's version has edge weights. TODO(verify): the unweighted version is usually credited to Garey, Johnson and Stockmeyer (1976); confirm which citation to show."
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  k: { meaning: "the cut size: the integer $k$ in the input (decision, search), or the maximum number of edges in a cut (optimisation)" }
+  tw: { shared: treewidth }
+constraints:
+  - { constraint: "k \\le m", because: "A cut has at most $m$ edges." }
+  - { constraint: "m \\le n^{2}", because: "A simple graph has at most $n(n-1)/2$ edges." }
+  - { constraint: "tw \\le n", because: "A single bag containing all vertices is a tree decomposition of width $n - 1$." }
+versions:
+  decision:
+    kind: decision
+    input: "A graph $G = (V, E)$ and an integer $k$."
+    question: "Is there a set $S \\subseteq V$ such that at least $k$ edges have exactly one endpoint in $S$?"
+  optimisation:
+    kind: optimisation
+    input: "A graph $G = (V, E)$."
+    goal: "Find the maximum number of edges with exactly one endpoint in $S$, over all sets $S \\subseteq V$."
+  search:
+    kind: search
+    input: "A graph $G = (V, E)$ and an integer $k$."
+    goal: "Find a set $S \\subseteq V$ such that at least $k$ edges have exactly one endpoint in $S$, or report that none exists."
+  weighted:
+    kind: optimisation
+    input: "A graph $G = (V, E)$ and edge weights $w \\colon E \\to \\mathbb{Z}_{\\ge 0}$."
+    goal: "Find the maximum total weight of the edges with exactly one endpoint in $S$, over all sets $S \\subseteq V$."
+    generalises: [optimisation]
+default_version: decision
+shared_bounds:
+  - versions: [decision, optimisation, search]
+    because: "Binary search on $k$ and self-reducibility."
+related: []

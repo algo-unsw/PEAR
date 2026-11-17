@@ -1,0 +1,10 @@
+id: max-leaf-spanning-tree--to--connected-dominating-set
+from: { problem: max-leaf-spanning-tree, version: decision }
+to: { problem: connected-dominating-set, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(n + m)"
+parameter_map: { n: "n", m: "m", tw: "tw", k: "n - k" }
+source:
+  folklore: true
+  note: "For a connected graph with $n \\ge 3$ vertices, the internal vertices of a spanning tree form a connected dominating set, and a spanning tree of $G[D]$ for a connected dominating set $D$ extends to a spanning tree whose leaves include $V \\setminus D$; so the maximum number of leaves is $n - \\gamma_c(G)$. Graphs with $n \\le 2$ are solved directly."

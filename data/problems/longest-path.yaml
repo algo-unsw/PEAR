@@ -1,0 +1,39 @@
+id: longest-path
+name: Longest Path
+aliases: [k-Path, k-PATH, Long Path]
+category: graph
+complexity:
+  class: NP-complete
+  source:
+    folklore: true
+    note: "With $k = n$ the question asks for a Hamiltonian path; Hamiltonian Cycle (Karp 1972, NP-complete) reduces to it by a standard construction (pick a vertex $v$, add a copy $v'$ with the same neighbours, and pendant vertices at $v$ and $v'$)."
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  k: { meaning: "the path length in vertices: the integer $k$ in the input (decision, search), or the maximum number of vertices of a path (optimisation)" }
+  tw: { shared: treewidth }
+constraints:
+  - { constraint: "k \\le n", because: "A path has at most $n$ vertices; every instance with $k > n$ is a no-instance." }
+  - { constraint: "m \\le n^{2}", because: "A simple graph has at most $n(n-1)/2$ edges." }
+  - { constraint: "tw \\le n", because: "A single bag containing all vertices is a tree decomposition of width $n - 1$." }
+versions:
+  decision:
+    kind: decision
+    input: "A graph $G = (V, E)$ and an integer $k$."
+    question: "Does $G$ contain a path with $k$ vertices (as a subgraph)?"
+  optimisation:
+    kind: optimisation
+    input: "A graph $G = (V, E)$."
+    goal: "Find the maximum number of vertices of a path in $G$."
+  search:
+    kind: search
+    input: "A graph $G = (V, E)$ and an integer $k$."
+    goal: "Find a path with $k$ vertices in $G$, or report that none exists."
+default_version: decision
+shared_bounds:
+  - versions: [decision, optimisation, search]
+    because: "Search over $k$ and self-reducibility (delete a vertex or an edge and test again)."
+related:
+  - { problem: hamiltonian-cycle, relation: variant }

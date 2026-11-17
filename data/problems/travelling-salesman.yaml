@@ -1,0 +1,34 @@
+id: travelling-salesman
+name: Travelling Salesman
+aliases: [TSP, Traveling Salesman, Travelling Salesman Problem, Traveling Salesperson]
+category: graph
+complexity:
+  class: NP-complete
+  source:
+    folklore: true
+    note: "Hamiltonian Cycle (Karp 1972, NP-complete) is the special case with weights 1 on edges and 2 on non-edges and bound $B = n$."
+objects:
+  n: number of vertices (cities)
+  N: total encoding length of the input
+parameters:
+  W: { meaning: "the largest edge weight", poly_bounded: false }
+constraints: []
+versions:
+  decision:
+    kind: decision
+    input: "A complete graph on a vertex set $V$ with edge weights $w \\colon \\binom{V}{2} \\to \\mathbb{Z}_{\\ge 0}$, and an integer $B$."
+    question: "Is there a Hamiltonian cycle $C$ with $\\sum_{e \\in C} w(e) \\le B$?"
+  optimisation:
+    kind: optimisation
+    input: "A complete graph on a vertex set $V$ with edge weights $w \\colon \\binom{V}{2} \\to \\mathbb{Z}_{\\ge 0}$."
+    goal: "Find the minimum weight $\\sum_{e \\in C} w(e)$ of a Hamiltonian cycle $C$."
+  search:
+    kind: search
+    input: "A complete graph on a vertex set $V$ with edge weights $w \\colon \\binom{V}{2} \\to \\mathbb{Z}_{\\ge 0}$, and an integer $B$."
+    goal: "Find a Hamiltonian cycle $C$ with $\\sum_{e \\in C} w(e) \\le B$, or report that none exists."
+default_version: optimisation
+shared_bounds:
+  - versions: [decision, optimisation, search]
+    because: "Binary search on $B$ (at most $\\log_2(nW) + 1$ steps) and self-reducibility (raise the weight of an edge and test again)."
+related:
+  - { problem: hamiltonian-cycle, relation: generalisation }
