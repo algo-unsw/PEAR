@@ -137,7 +137,7 @@ versions:
 ```
 
 - A version is `open_access: true` only if it can be read without a paywall or bot block (rule 2).
-- `unverified: true` marks a paper that is not peer reviewed or otherwise verified, such as an unrefereed technical report. Its results, and bounds derived from them, appear in Details and are left out of the Overview by default (decided 8 November 2026); each reader can include them one by one, stored in their browser (12 November 2026). Exception: a result whose `formal` status is `proved` and whose `formal.statement_checked` records who checked the formal statement against the canonical definition and parameter mapping, and when, counts as verified (12 November 2026). The validator checks that every result cites at least one open-access version.
+- `unverified: true` marks a paper that is not peer reviewed or otherwise verified, such as an unrefereed technical report. Its results, and bounds derived from them, appear in Details and are left out of the Overview by default (decided 8 November 2026); each reader can include them one by one, stored in their browser (12 November 2026). A result that relies on other results as black boxes lists them in `uses` (decided 13 November 2026), for example a theorem proved under an algorithmic assumption that another result establishes: Reverse Reductions (Kundu et al.) assume a fixed-width SAT algorithm, which the Lean-checked OpenAI and Anthropic theorems provide. Such a result is unverified if any result it uses (transitively) is, carries their hypotheses, and stays out of derivation if any of them has a status other than valid or fixed; it is then listed under Flagged results as relying on such a result. Exception: a result whose `formal` status is `proved` and whose `formal.statement_checked` records who checked the formal statement against the canonical definition and parameter mapping, and when, counts as verified (12 November 2026). The validator checks that every result cites at least one open-access version.
 - Version keys (`conference`, `journal`, `arxiv-v2`) are local to the paper and are what statements refer to, because numbering differs between versions.
 - Books (e.g. textbooks with open-access PDFs) and theses use the same entity.
 
@@ -197,6 +197,7 @@ properties:
   impractical_constants: null         # optional note
   quantum: false
 conditional_on: []                    # hypothesis IDs; the weakest known to suffice
+uses: []                              # algorithm IDs this result relies on as black boxes (13 November 2026)
 source: { paper: chen-kanj-xia-YYYY, statements: { journal: { statement: "Theorem X.Y" } } }
 formal: { status: informal }          # informal | statement | proved; prover, link; statement_checked (proved only)
 status: valid                         # Phase 2 grading via data/flags/

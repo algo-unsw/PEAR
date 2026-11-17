@@ -1,0 +1,26 @@
+id: connected-dominating-set--n--kundu-panolan-saurabh-xue-zehavi-2026
+problem: connected-dominating-set
+proved_for: search
+bound:
+  as_stated: 2^{O(n (\log\log n)^{3} / \sqrt{\log n})}
+  notation: O
+  parameters:
+  - n
+properties:
+  randomized:
+    error: one-sided
+  space:
+    class: polynomial
+    bound: 'Educated guess: polynomial. The reduction builds polynomial-size formulas and calls the counting algorithm of the Counting d-SAT Assumption; OpenAI''s Lean theorem proves polynomial space for that algorithm. No memoization or dynamic programming found in the reduction.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+uses:
+- sharp-3-sat--n--openai-2026-lean
+source:
+  paper: kundu-panolan-saurabh-xue-zehavi-2026
+  statements:
+    stoc-submission:
+      statement: Theorem 8.3, under the Counting d-SAT Assumption (Assumption 4.5)
+  note: 'Stated as $2^{O(n\eta(n)^3/\sqrt{\lambda(n)})}$ ($\lambda(t) = \log_2(t+2)$, $\eta(t) = \log_2\log_2(t+4)$). On a yes-instance it returns a valid solution with probability at least 2/3; on a no-instance it always reports NO. Small-weight Cut\&Count with $2^{O(n/\log n)}$ isolation trials; the formulas have width at most four, and OpenAI''s Lean theorem covers every fixed width (Section 4.2 cites it for this assumption). Inputs have at least one edge (Section 8.2).'

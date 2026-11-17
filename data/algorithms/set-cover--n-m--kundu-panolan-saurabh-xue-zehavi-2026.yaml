@@ -1,0 +1,26 @@
+id: set-cover--n-m--kundu-panolan-saurabh-xue-zehavi-2026
+problem: set-cover
+proved_for: decision
+bound:
+  as_stated: 2^{O((n + m) (\log\log (n + m))^{2} / \sqrt{\log (n + m)})}
+  notation: O
+  parameters:
+  - n
+  - m
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Educated guess: polynomial. The reduction builds polynomial-size formulas and calls the counting algorithm of the Counting d-SAT Assumption; OpenAI''s Lean theorem proves polynomial space for that algorithm. No memoization or dynamic programming found in the reduction.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+uses:
+- sharp-3-sat--n--openai-2026-lean
+source:
+  paper: kundu-panolan-saurabh-xue-zehavi-2026
+  statements:
+    stoc-submission:
+      statement: Theorem 8.1, under the Counting d-SAT Assumption (Assumption 4.5)
+  note: 'Counts the index sets of size at most $b$ that cover the universe, deterministically, in time $2^{O(t\eta(t)^2/\sqrt{\lambda(t)})}$ with $t = |U| + q$ (here $n + m$); the count is positive exactly on yes-instances, and a cover is recovered with at most $q + 1$ counting calls (after Theorem 8.1). The formulas have width at most three. Assumption 4.5 is OpenAI''s theorem (Section 4.2), whose Lean statement was checked on 12 November 2026. The paper also states the Hitting Set case through the cardinality-preserving bijection after Theorem 8.1.'

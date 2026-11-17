@@ -378,6 +378,7 @@ def chain_items(data: Dataset, d: Derivation, row: dict[str, Any], refs: Referen
 
 
 STATUS_LABELS = {
+    "relies-on-flagged": "relies on a result whose status keeps it out",
     "flagged": "flagged, under review",
     "unrepaired": "flawed: no fix known",
     "broken": "broken: the claim is false",
@@ -385,13 +386,43 @@ STATUS_LABELS = {
 }
 
 
+def used_results(data: Dataset, alg: Algorithm) -> list[Algorithm]:
+    """Every result alg relies on through `uses`, transitively."""
+    algorithms = data.entries["algorithms"]
+    seen: dict[str, Algorithm] = {}
+    todo = list(alg.uses)
+    while todo:
+        u = todo.pop()
+        if u not in seen and u in algorithms:
+            seen[u] = algorithms[u]  # type: ignore[assignment]
+            todo.extend(seen[u].uses)
+    return [seen[k] for k in sorted(seen)]
+
+
+def uses_items(data: Dataset, alg: Algorithm, refs: References) -> list[dict[str, Any]]:
+    out = []
+    for uid in alg.uses:
+        u: Algorithm = data.entries["algorithms"][uid]  # type: ignore[assignment]
+        src = refs.source(u.source)
+        out.append({"id": uid, "problem_id": u.problem, "problem": data.problems[u.problem].name,
+                    "refs": src["refs"], "statements": src["statements"]})
+    return out
+
+
 def flagged_rows(data: Dataset, d: Derivation, problem: Problem, node: str, refs: References) -> list[dict[str, Any]]:
-    """Results whose status keeps them out of derivation (rulebook A3); they stay visible."""
+    """Results whose status keeps them out of derivation (rulebook A3), or that use such a
+    result; they stay visible."""
     out = []
     for aid, alg in sorted(data.entries["algorithms"].items()):
         assert isinstance(alg, Algorithm)
-        if alg.problem != problem.id or alg.status in ("valid", "fixed"):
+        if alg.problem != problem.id:
             continue
+        status, note = alg.status, alg.status_note
+        if status in ("valid", "fixed"):
+            bad = [u.id for u in used_results(data, alg) if u.status not in ("valid", "fixed")]
+            if not bad:
+                continue
+            status, note = "relies-on-flagged", "Uses " + ", ".join(bad) + "."
         if node_key(problem, alg.proved_for)[1] != node:
             continue
         shown = display(parse_bound(alg.bound.as_stated, problem.symbols()), d.contexts[problem.id])
@@ -399,9 +430,9 @@ def flagged_rows(data: Dataset, d: Derivation, problem: Problem, node: str, refs
         out.append({
             "id": aid,
             "shown": shown.tex,
-            "status": alg.status,
-            "status_label": STATUS_LABELS.get(alg.status, alg.status),
-            "status_note": alg.status_note,
+            "status": status,
+            "status_label": STATUS_LABELS.get(status, status),
+            "status_note": note,
             "refs": src["refs"],
             "statements": src["statements"],
             "proved_for": version_label(alg.proved_for).lower(),
@@ -426,6 +457,7 @@ def problem_page(data: Dataset, d: Derivation, derived: dict[str, Any], pid: str
         out["refs"] = src["refs"]
         out["statements"] = src["statements"]
         out["source_note"] = src["note"]
+        out["uses"] = [{**u, "same": u["problem_id"] == pid} for u in uses_items(data, alg, refs)]
         out["props"] = property_words(row, alg, chain_randomized)
         out["proved_for"] = version_label(alg.proved_for).lower()
         out["proved_for_problem"] = None if alg.problem == pid else data.problems[alg.problem].name

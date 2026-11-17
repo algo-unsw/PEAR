@@ -1,0 +1,16 @@
+id: kundu-panolan-saurabh-xue-zehavi-2026
+title: 'Reverse Reductions: From Faster SAT to Subexponential Algorithms'
+authors:
+- Madhumita Kundu
+- Fahad Panolan
+- Saket Saurabh
+- Jie Xue
+- Meirav Zehavi
+versions:
+  stoc-submission:
+    kind: preprint
+    venue: STOC 2027 submission 1683 (PDF dated 3 November 2026)
+    year: 2026
+    url: https://github.com/sigact-stoc/stoc2027/releases/download/papers-2/1683.pdf
+    open_access: true
+unverified: true

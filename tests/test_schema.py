@@ -312,3 +312,21 @@ def test_statement_checked_needs_a_proof():
     Formal(status="proved", prover="lean", link="x", statement_checked="checked")
     with pytest.raises(ValueError):
         Formal(status="statement", prover="lean", link="x", statement_checked="checked")
+
+
+def test_uses_must_resolve_and_be_acyclic():
+    from pear.validate import validate_raw
+    from test_derive import alg, paper, problem
+
+    raw = {
+        "problems": {"a": problem("a")},
+        "papers": {"p": paper("p", 2020)},
+        "algorithms": {
+            "x": alg("x", "a", r"O^*(1.1^{k})", paper="p") | {"uses": ["y"]},
+            "y": alg("y", "a", r"O^*(1.2^{k})", paper="p") | {"uses": ["x"]},
+            "z": alg("z", "a", r"O^*(1.3^{k})", paper="p") | {"uses": ["missing"]},
+        },
+    }
+    _, issues = validate_raw(raw)
+    text = " ".join(str(i) for i in issues)
+    assert "cycle" in text and "missing" in text

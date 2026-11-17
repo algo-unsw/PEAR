@@ -1,0 +1,26 @@
+id: hitting-set--n-m--kundu-panolan-saurabh-xue-zehavi-2026
+problem: hitting-set
+proved_for: decision
+bound:
+  as_stated: 2^{O((n + m) (\log\log (n + m))^{2} / \sqrt{\log (n + m)})}
+  notation: O
+  parameters:
+  - n
+  - m
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Educated guess: polynomial. The reduction builds polynomial-size formulas and calls the counting algorithm of the Counting d-SAT Assumption; OpenAI''s Lean theorem proves polynomial space for that algorithm. No memoization or dynamic programming found in the reduction.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+uses:
+- sharp-3-sat--n--openai-2026-lean
+source:
+  paper: kundu-panolan-saurabh-xue-zehavi-2026
+  statements:
+    stoc-submission:
+      statement: Paragraph after Theorem 8.1 (Hitting Set through a cardinality-preserving bijection to Set Cover), under the Counting d-SAT Assumption (Assumption 4.5)
+  note: 'The universe of $m$ sets and one indexed set per element turn a Hitting Set instance into a Set Cover instance with $t = n + m$, with the same solutions; Theorem 8.1 then counts the hitting sets of size at most $b$ deterministically in time $2^{O(t\eta(t)^2/\sqrt{\lambda(t)})}$ and recovers one with at most $n + 1$ counting calls. Width at most three. Assumption 4.5 is OpenAI''s theorem (Section 4.2), whose Lean statement was checked on 12 November 2026.'

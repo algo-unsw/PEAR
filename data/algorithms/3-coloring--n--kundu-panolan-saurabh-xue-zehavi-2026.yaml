@@ -1,0 +1,25 @@
+id: 3-coloring--n--kundu-panolan-saurabh-xue-zehavi-2026
+problem: 3-coloring
+proved_for: search
+bound:
+  as_stated: 2^{O(n \log\log n / \sqrt{\log n})} n^{O(1)}
+  notation: O
+  parameters:
+  - n
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Educated guess: polynomial. The reduction builds one polynomial-size formula (plus polynomially many recovery queries) and calls the SAT algorithm of the Quantitative d-SAT Assumption, Anthropic''s algorithm, whose space we also guess to be polynomial; no memoization or dynamic programming found in the reduction.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+uses:
+- sharp-3-sat--n--anthropic-2026
+source:
+  paper: kundu-panolan-saurabh-xue-zehavi-2026
+  statements:
+    stoc-submission:
+      statement: Corollary 7.2 with $q = 3$ (the vertex-cover number is at most $n$), under the Quantitative d-SAT Assumption (Assumption 4.2); also stated after Theorem 1.4
+  note: 'Corollary 7.2: $2^{O_q(k\eta(k)/\sqrt{\lambda(k)})} n^{O_q(1)}$ for q-Coloring with vertex-cover number $k$; after Theorem 1.4 the paper states the $2^{O_q(n \log\log n/\sqrt{\log n})} n^{O_q(1)}$ bound for $X = V(G)$. The formula (Lemma 7.1) has width $q = 3$, so Assumption 4.2 at width three is used: the Anthropic theorem for 3-CNF. A coloring is recovered by further decision queries (proof of Corollary 7.2).'

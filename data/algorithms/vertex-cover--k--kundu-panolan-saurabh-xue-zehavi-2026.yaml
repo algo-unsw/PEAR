@@ -1,0 +1,26 @@
+id: vertex-cover--k--kundu-panolan-saurabh-xue-zehavi-2026
+problem: vertex-cover
+proved_for: search
+bound:
+  as_stated: 2^{O(k \log\log k / \sqrt{\log k})} N^{O(1)}
+  notation: O
+  parameters:
+  - k
+  - N
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Educated guess: polynomial. The reduction builds one polynomial-size formula (plus polynomially many recovery queries) and calls the SAT algorithm of the Quantitative d-SAT Assumption, Anthropic''s algorithm, whose space we also guess to be polynomial; no memoization or dynamic programming found in the reduction.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+uses:
+- sharp-3-sat--n--anthropic-2026
+source:
+  paper: kundu-panolan-saurabh-xue-zehavi-2026
+  statements:
+    stoc-submission:
+      statement: Theorem 5.3, under the Quantitative d-SAT Assumption (Assumption 4.2)
+  note: 'Stated as $2^{O(k\eta(k)/\sqrt{\lambda(k)})} |I|^{O(1)}$ with $\lambda(t) = \log_2(t+2)$ and $\eta(t) = \log_2\log_2(t+4)$; decides and finds a cover. Nemhauser–Trotter kernel (at most $2k$ vertices), then a 3-CNF formula with $O(k)$ variables (Lemma 5.2). Assumption 4.2 at width three is the Anthropic theorem for 3-CNF (the paper cites it for this assumption, Section 4.1); its Lean statement was checked on 12 November 2026.'

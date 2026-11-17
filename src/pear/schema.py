@@ -375,6 +375,10 @@ class Algorithm(Model):
     bound: Bound
     properties: Properties
     conditional_on: list[Id] = []
+    # results this one relies on as black boxes, e.g. a theorem proved under an algorithmic
+    # assumption that another result establishes (decided 13 November 2026): verified only if
+    # they all are, out of derivation if one of them is
+    uses: list[Id] = []
     # What the input comes with beyond the problem's definition, e.g. a tree decomposition
     # of width at most tw (definitions §4); shown as a note, carried along derivations.
     given: list[Literal["tree-decomposition"]] = []
