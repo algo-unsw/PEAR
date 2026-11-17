@@ -240,7 +240,11 @@ def test_problem_context_uses_data(fixture_raw):
     data, _ = validate_raw(copy.deepcopy(raw), redirects)
     ctx = problem_context(data, data.problems["problem-b"])
     assert not ctx.poly_bounded("t") and ctx.poly_bounded("k")
-    assert ctx.constants == {"omega": (2.0, 2.5)}
+    # ω takes its best upper bound as its value (decided 18 November 2026): published, claimed,
+    # or anywhere between the two when keeping results
+    assert ctx.constants == {"omega": (2.5, 2.5)}
+    assert problem_context(data, data.problems["problem-b"], "claimed").constants == {"omega": (2.5, 2.5)}
+    assert problem_context(data, data.problems["problem-b"], "published").constants == {}  # only a claim
     assert problem_context(data, data.problems["problem-a"]).relation("k", "n") == 1
 
 

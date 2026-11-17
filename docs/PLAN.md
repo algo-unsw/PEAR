@@ -316,6 +316,7 @@ Garey and Johnson's *Computers and Intractability* (1979) is the natural seed fo
 
 ## Decisions log
 
+- 18 November 2026: comparisons use the current best value of $\omega$: published ($2.371339$, Alman et al., SODA 2025) by default, claimed ($9/4$) when preprints and unverified results are included; results are kept unless beaten at both. The bound history uses solid lines in different colours.
 - 18 November 2026: whatever common sense decides, the engine should decide (bounds.md §5): nonnegative expressions from constraints and parameter maps, exact edge bound $m \le n(n-1)/2$ for graph problems, constant bases evaluated (with interval arithmetic for named constants), and a numeric cross-check that lists undecided pairs for Claude to resolve with a fact or rule; a test keeps it empty. Clique no longer lists $O^*(2^{n(n-1)/2-m})$.
 - 18 November 2026: polynomial-space results are stronger than exponential-space ones, as deterministic ones are stronger than randomized ones (records and Overview ties). Kociumaka–Pilipczuk's $O^*(3.592^k)$ (arXiv v1, Theorem 1; not in the journal version) is entered as an unverified result: results can now be marked `unverified` themselves (schema.md §5).
 - 18 November 2026: Vertex Cover and Independent Set get the constraint $n \le m$ without loss of generality (delete degree-0 and degree-1 vertices, with the weighted variant of the degree-1 rule), so the trivial $2^m$ is no longer a record: by $m$ they get $O^*(1.1996^m)$ from the algorithm in $n$ (Serge's suggestion).

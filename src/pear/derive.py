@@ -130,9 +130,17 @@ class Result:
 class Derivation:
     results: dict[tuple[str, str], list[Result]] = field(default_factory=dict)  # (problem, node) -> kept
     log: list[str] = field(default_factory=list)
+    # comparisons with named constants (decided 18 November 2026): keeping a result uses ω
+    # anywhere between its best claimed and best published value; the default Overview and
+    # the browser filters use the published value; the Overview with preprints and
+    # unverified results included uses the claimed value
     contexts: dict[str, Context] = field(default_factory=dict)
+    published: dict[str, Context] = field(default_factory=dict)
+    claimed: dict[str, Context] = field(default_factory=dict)
     beaten_by: dict[str, list[str]] = field(default_factory=dict)  # result id -> ids of strictly better bounds
     overview: dict[tuple[str, str], list[dict]] = field(default_factory=dict)  # (problem, node) -> groups
+    # the Overview with preprints and unverified results included (claimed constants)
+    overview_all: dict[tuple[str, str], list[dict]] = field(default_factory=dict)
     # unverified results a reader may add to the Overview (decided 12 November 2026), with the
     # Overview members each one beats in O* form
     optional: dict[tuple[str, str], list[dict]] = field(default_factory=dict)
@@ -167,7 +175,9 @@ class Engine:
         self.analysed: dict[str, Analysed] = {}
         self.hypotheses: dict[str, Hypothesis] = data.entries["hypotheses"]  # type: ignore[assignment]
         for pid, problem in data.problems.items():
-            self.out.contexts[pid] = problem_context(data, problem)
+            self.out.contexts[pid] = problem_context(data, problem, "between")
+            self.out.published[pid] = problem_context(data, problem, "published")
+            self.out.claimed[pid] = problem_context(data, problem, "claimed")
         self._logged: set[str] = set()
         self.variant_of: dict[str, Variant] = {}  # effective reduction id -> its variant
 
@@ -574,6 +584,7 @@ class Engine:
             frontier = new
         self.out.beaten_by = self.beaten_by()
         self.out.overview = self.overview()
+        self.out.overview_all = self.overview(include_all=True)
         self.out.optional = self.optional_overview()
         self.out.undecided = self.undecided()
         return self.out
@@ -584,12 +595,16 @@ class Engine:
         problem's constraints. Numeric evidence decides nothing; it shows where the engine
         lacks a fact (a constraint) or a comparison rule (decided 18 November 2026)."""
         out: list[dict] = []
-        for key, entries in sorted(self.out.overview.items()):
+        views = [(key, entries, False) for key, entries in sorted(self.out.overview.items())]
+        views += [(key, entries, True) for key, entries in sorted(self.out.overview_all.items())]
+        for key, entries, include_all in views:
             pid, node = key
             problem = self.data.problems[pid]
-            ctx = self.out.contexts[pid]
+            ctx = (self.out.claimed if include_all else self.out.published)[pid]
             kept = {r.id: r for r in self.out.results.get(key, [])}
-            ids = [m for e in entries for m in e["members"]] + [e["id"] for e in self.out.optional.get(key, [])]
+            ids = [m for e in entries for m in e["members"]]
+            if not include_all:
+                ids += [e["id"] for e in self.out.optional.get(key, [])]
             rs = [kept[i] for i in dict.fromkeys(ids) if i in kept and not kept[i].props.quantum]
             if len(rs) < 2:
                 continue
@@ -603,8 +618,10 @@ class Engine:
                         both = dominates(exprs[b.id], exprs[a.id], points)
                         if both and a.id > b.id:
                             continue  # report an apparent equality once
-                        out.append({"problem": pid, "node": node, "smaller": a.id, "larger": b.id,
-                                    "equal": bool(both), "samples": len(points)})
+                        item = {"problem": pid, "node": node, "smaller": a.id, "larger": b.id,
+                                "equal": bool(both), "samples": len(points)}
+                        if item not in out:
+                            out.append(item)
         return out
 
     def beats_ostar(self, s: Result, r: Result, ctx: Context) -> bool:
@@ -615,17 +632,19 @@ class Engine:
         rel = compare_ostar(self.analyse(s), self.analyse(r), ctx)
         return rel == Relation.BETTER or (rel in (Relation.EQUAL, Relation.TIE) and stronger(s.props, r.props))
 
-    def overview(self) -> dict[tuple[str, str], list[dict]]:
+    def overview(self, include_all: bool = False) -> dict[tuple[str, str], list[dict]]:
         """What the Overview tab (the default view) shows: the best non-quantum bounds
         obtained by any means, compared in O* form. Bounds equal in O* form are grouped;
         the earliest by year are cited, all of them on a tie (decided 7 November 2026).
-        The Details tab lists every kept result, with filters."""
+        The Details tab lists every kept result, with filters. With include_all, results
+        from preprints and unverified papers count too, and named constants take their best
+        claimed value instead of the best published one (18 November 2026)."""
         out: dict[tuple[str, str], list[dict]] = {}
         for key, kept in sorted(self.out.results.items()):
-            ctx = self.out.contexts[key[0]]
+            ctx = (self.out.claimed if include_all else self.out.published)[key[0]]
             # the Overview leaves out quantum results and results from unverified papers or
-            # preprints; readers can include those (optional_overview)
-            cands = [r for r in kept if not r.props.quantum and r.props.verified and r.props.reviewed]
+            # preprints; readers can include those (optional_overview, overview_all)
+            cands = [r for r in kept if not r.props.quantum and (include_all or (r.props.verified and r.props.reviewed))]
             best = [
                 r for r in cands
                 if not any(
@@ -661,7 +680,7 @@ class Engine:
         left out."""
         out: dict[tuple[str, str], list[dict]] = {}
         for key, kept in sorted(self.out.results.items()):
-            ctx = self.out.contexts[key[0]]
+            ctx = self.out.published[key[0]]
             members = {m for e in self.out.overview.get(key, []) for m in e["members"]}
             best = [r for r in kept if r.id in members]
             entries = []
@@ -704,7 +723,7 @@ class Engine:
         """For filters in the browser: which kept results have strictly better bounds."""
         out: dict[str, list[str]] = {}
         for (pid, _), kept in self.out.results.items():
-            ctx = self.out.contexts[pid]
+            ctx = self.out.published[pid]
             for r in kept:
                 out[r.id] = [
                     s.id for s in kept if s is not r and compare(self.analyse(s), self.analyse(r), ctx) == Relation.BETTER
@@ -756,6 +775,9 @@ def to_json(data: Dataset, d: Derivation) -> dict:
     overview: dict[str, dict[str, list[dict]]] = {}
     for (pid, node), groups in sorted(d.overview.items()):
         overview.setdefault(pid, {})[node] = groups
+    overview_all: dict[str, dict[str, list[dict]]] = {}
+    for (pid, node), groups in sorted(d.overview_all.items()):
+        overview_all.setdefault(pid, {})[node] = groups
     superseded: dict[str, dict[str, list[dict]]] = {}
     for (pid, node), entries in sorted(d.superseded.items()):
         ctx = d.contexts[pid]
@@ -766,6 +788,7 @@ def to_json(data: Dataset, d: Derivation) -> dict:
         "rulebook_version": RULEBOOK_VERSION,
         "problems": nodes,
         "overview": overview,
+        "overview_all": overview_all,
         "overview_optional": {
             pid: {node: e for (p2, node), e in sorted(d.optional.items()) if p2 == pid}
             for pid in sorted({p for p, _ in d.optional})

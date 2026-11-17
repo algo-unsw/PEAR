@@ -124,6 +124,7 @@ def dataset(*entries):
     raw = {folder: {} for folder in ENTITY_TYPES}
     for e in entries:
         folder = (
+            "constants" if "symbol" in e else
             "papers" if "authors" in e else
             "problems" if "objects" in e else
             "algorithms" if "proved_for" in e else
@@ -838,3 +839,27 @@ def test_the_real_data_leaves_nothing_to_common_sense():
     data, issues = validate_dir(Path(__file__).resolve().parents[1] / "data")
     assert issues == []
     assert derive(data).undecided == []
+
+
+def test_omega_takes_its_best_published_or_claimed_value():
+    # decided 18 November 2026: comparisons use the current best upper bound on ω, published
+    # in the default Overview and claimed in the Overview with everything included; a result is
+    # kept unless it is beaten at both values
+    omega = {
+        "id": "omega", "name": "Matrix multiplication exponent", "symbol": "\\omega",
+        "definition": "A test constant.",
+        "bounds": [
+            {"relation": "le", "value": "2.4", "status": "established", "sources": [{"folklore": True, "note": "Test."}]},
+            {"relation": "le", "value": "2.2", "status": "claimed", "sources": [{"folklore": True, "note": "Test."}]},
+            {"relation": "ge", "value": "2", "sources": [{"folklore": True, "note": "Test."}]},
+        ],
+    }
+    data = dataset(
+        omega, problem("a"), paper("p1", 2000), paper("p2", 2010),
+        alg("a-omega", "a", r"O^*(2^{\omega k})", paper="p1"),
+        alg("a-plain", "a", r"O^*(2^{2.3 k})", paper="p2"),
+    )
+    out = to_json(data, derive(data))
+    assert {r["id"] for r in out["problems"]["a"]["decision"]} == {"a-omega", "a-plain"}
+    assert [e["cite"] for e in out["overview"]["a"]["decision"]] == [["a-plain"]]
+    assert [e["cite"] for e in out["overview_all"]["a"]["decision"]] == [["a-omega"]]

@@ -85,7 +85,7 @@ eleventyComputed:
 <div class="ov-group"{% if g.only_optional %} data-only-optional hidden{% endif %}>
 <h3>{{ g.heading }} {% for s in g.symbols_tex %}{{ s | tex | safe }}{% if not loop.last %} and {% endif %}{% endfor %}</h3>
 {%- for e in g.entries %}
-<div class="ov-entry"{% if e.optional %} data-optional="{{ e.cite[0].id }}" hidden{% endif %}{% if e.beaten_by.length %} data-beaten-by="{{ e.beaten_by | join(' ') }}"{% endif %}>
+<div class="ov-entry" data-all="{{ '1' if e.in_all else '0' }}"{% if e.optional %} data-optional="{{ e.cite[0].id }}" hidden{% endif %}{% if e.only_all %} data-only-all hidden{% endif %}{% if e.beaten_by.length %} data-beaten-by="{{ e.beaten_by | join(' ') }}"{% endif %}>
 {%- for r in e.cite %}
 <p class="bound">{{ bound(r) }}, {{ r.props.sentence }}{% if r.from_problem %}, from the algorithm for <a href="{{ ('/problems/' + r.from_problem.id + '/') | url }}">{{ r.from_problem.name }}</a>{% endif %} {{ r.refs | refs | safe }}.{{ tags(r) }}{% if r.origin == "direct" %} Proved for the {{ r.proved_for }} version.{% endif %}</p>
 {%- if r.chain_items.length %}{{ chain(r, "chain-" + v.id + "-" + r.id) }}{% endif %}

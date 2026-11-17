@@ -1,0 +1,20 @@
+id: alman-duan-vassilevska-williams-xu-xu-zhou-2024
+title: "More Asymmetry Yields Faster Matrix Multiplication"
+authors: [Josh Alman, Ran Duan, Virginia Vassilevska Williams, Yinzhan Xu, Zixuan Xu, Renfei Zhou]
+versions:
+  arxiv-v2:
+    kind: preprint
+    arxiv: "2404.16349v2"
+    year: 2024
+    open_access: true
+  soda:
+    kind: conference
+    venue: "Proceedings of the 2025 ACM-SIAM Symposium on Discrete Algorithms (SODA 2025), pp. 2005–2039"
+    year: 2025
+    doi: "10.1137/1.9781611978322.63"
+    open_access: false
+  arxiv-v3:
+    kind: preprint
+    arxiv: "2404.16349v3"
+    year: 2026
+    open_access: true

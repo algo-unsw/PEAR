@@ -21,7 +21,7 @@ from pathlib import Path
 from typing import Any
 
 from .bounds import display, ostar, parse_bound, parse_expr, render
-from .bounds.expr import Add, Div, Mul, Node, Num, Pow, Sqrt, Var, variables
+from .bounds.expr import Add, Const, Div, Mul, Node, Num, Pow, Sqrt, Var, variables
 from .derive import Derivation, node_key, to_json
 from .schema import (
     Algorithm,
@@ -34,7 +34,7 @@ from .schema import (
     SharedParameter,
     SharedParameterRef,
 )
-from .validate import Dataset
+from .validate import Dataset, constant_best
 
 # The pilot problems of Phase 1 (HANDOFF.md), in the order the brief lists them.
 PILOT = [
@@ -340,6 +340,8 @@ def _value(node: Node, x: float) -> float | None:
     if isinstance(node, Sqrt):
         a = _value(node.arg, x)
         return None if a is None or a < 0 else math.sqrt(a)
+    if isinstance(node, Const):
+        return CONSTANT_VALUES.get(node.name)
     return None
 
 
@@ -356,6 +358,10 @@ def single_base(expr: Node) -> float | None:
 
 
 KINDS = [(True, True), (True, False), (False, True), (False, False)]  # (deterministic, polynomial space)
+
+# Named constants in the bound history: their best published value, as in the default
+# Overview (decided 18 November 2026); set by build().
+CONSTANT_VALUES: dict[str, float] = {}
 
 
 def history(rows: list[dict[str, Any]], bases: dict[str, float]) -> dict[str, list[dict[str, Any]]]:
@@ -590,6 +596,24 @@ def problem_page(data: Dataset, d: Derivation, derived: dict[str, Any], pid: str
                         e["beaten_by"].append(row["id"])
             groups.setdefault(tuple(row["parameters"]), []).append(
                 {"cite": [enriched_by_id[row["id"]]], "year": row["year"], "members": [row["id"]], "beaten_by": [], "optional": True})
+        # the Overview with preprints and unverified results included, with ω at its best
+        # claimed value (18 November 2026): which entries it shows, and the entries only it shows
+        all_groups = derived.get("overview_all", {}).get(pid, {}).get(node, [])
+        all_members = {m for g in all_groups for m in g["members"]}
+        for entries in groups.values():
+            for e in entries:
+                e["in_all"] = bool(set(e["members"]) & all_members)
+        known = {m for entries in groups.values() for e in entries for m in e["members"]}
+        for g in all_groups:
+            if set(g["members"]) & known:
+                continue
+            cited = []
+            for rid in g["cite"]:
+                row = next(r for r in rows if r["id"] == rid)
+                enriched_by_id[rid] = enrich(row)
+                cited.append(enriched_by_id[rid])
+            groups.setdefault(tuple(cited[0]["parameters"]), []).append(
+                {"cite": cited, "year": g["year"], "members": g["members"], "beaten_by": [], "in_all": True, "only_all": True})
         for row in rows:
             if row["id"] not in enriched_by_id:
                 enriched_by_id[row["id"]] = enrich(row)
@@ -599,7 +623,7 @@ def problem_page(data: Dataset, d: Derivation, derived: dict[str, Any], pid: str
         for key, entries in ordered_groups:
             names = [by_symbol[p]["short"] for p in key if p in by_symbol]
             overview_out.append({
-                "only_optional": all(e.get("optional") for e in entries),
+                "only_optional": all(e.get("optional") or e.get("only_all") for e in entries),
                 "parameters": list(key),
                 "heading": "By " + _join(names),
                 "symbols_tex": [by_symbol[p]["tex"] for p in key if p in by_symbol],
@@ -634,7 +658,8 @@ def problem_page(data: Dataset, d: Derivation, derived: dict[str, Any], pid: str
                 note = f"Bounds for this version also hold for its special case ({names}), never the reverse."
         nodes[node] = {
             "overview": overview_out,
-            "has_optional": any(e.get("optional") for g in overview_out for e in g["entries"]),
+            "has_optional": any(e.get("optional") or e.get("only_all") or not e.get("in_all")
+                                for g in overview_out for e in g["entries"]),
             "rows": detail_rows,
             "flagged": flagged_rows(data, d, problem, node, refs),
             "note": note,
@@ -763,6 +788,11 @@ def _slug(name: str) -> str:
 
 
 def build(data: Dataset, d: Derivation, out_dir: Path) -> dict[str, Any]:
+    CONSTANT_VALUES.clear()
+    for cid, const in data.entries["constants"].items():
+        v = constant_best(const, claimed=False)  # type: ignore[arg-type]
+        if v is not None:
+            CONSTANT_VALUES[cid] = v
     derived = to_json(data, d)
     pages = {pid: problem_page(data, d, derived, pid) for pid in sorted(data.problems)}
     def front_bounds(pid: str) -> list[dict[str, Any]]:
@@ -777,7 +807,8 @@ def build(data: Dataset, d: Derivation, out_dir: Path) -> dict[str, Any]:
                 bounds.append({"shown": r["shown"], "params": group["symbols_tex"], "derived": r["origin"] == "derived",
                                "deterministic": r["properties"]["deterministic"], "year": entry["year"],
                                "optional": bool(entry.get("optional")), "id": r["id"],
-                               "beaten_by": entry["beaten_by"], "flags": r["flags"]})
+                               "beaten_by": entry["beaten_by"], "flags": r["flags"],
+                               "in_all": bool(entry.get("in_all")), "only_all": bool(entry.get("only_all"))})
         return bounds
 
     index = []

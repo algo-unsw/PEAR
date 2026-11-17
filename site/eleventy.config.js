@@ -51,7 +51,7 @@ function historyChart(steps, paramTex, label) {
   const kindOf = (s) => [s.deterministic !== false, s.polynomial_space !== false];
   const kinds = [[true, true], [true, false], [false, true], [false, false]];
   const names = ["deterministic, polynomial space", "deterministic", "polynomial space", "any"];
-  const styles = ["", "rand", "space", "both"];
+  const styles = ["k1", "k2", "k3", "k4"]; // solid lines, one colour each
   const present = kinds.map((k) => steps.some((s) => { const q = kindOf(s); return q[0] === k[0] && q[1] === k[1]; }));
   const lines = [];
   kinds.forEach((k, i) => {
@@ -78,21 +78,22 @@ function historyChart(steps, paramTex, label) {
     svg += `<text x="${x(t).toFixed(1)}" y="${H - 8}" text-anchor="middle" class="axis">${t}</text>`;
   }
   if (lines.length > 1) {
+    // weakest kind first, so where lines coincide the strongest kind's colour shows
+    for (const l of lines.slice().reverse()) svg += `<path d="${path(l.pts)}" class="line ${l.style}"/>`;
     let lx = left + 8, ly = 10;
     for (const l of lines) {
       const w = 40 + 7 * l.name.length;
       if (lx + w > W && lx > left + 8) { lx = left + 8; ly += 16; }
-      svg += `<path d="${path(l.pts)}" class="line ${l.style}"/>`;
       svg += `<line x1="${lx}" y1="${ly}" x2="${lx + 22}" y2="${ly}" class="line ${l.style}"/><text x="${lx + 28}" y="${ly + 4}" class="axis">${l.name}</text>`;
       lx += w;
     }
   } else {
-    svg += `<path d="${path(lines[0].pts)}" class="line"/>`;
+    svg += `<path d="${path(lines[0].pts)}" class="line k1"/>`;
   }
   for (const s of steps) {
     const q = kindOf(s);
     const st = styles[kinds.findIndex((k) => k[0] === q[0] && k[1] === q[1])];
-    svg += `<circle cx="${x(s.year).toFixed(1)}" cy="${y(s.base).toFixed(1)}" r="4" class="dot${st ? " hollow" : ""}"/>`;
+    svg += `<circle cx="${x(s.year).toFixed(1)}" cy="${y(s.base).toFixed(1)}" r="4" class="dot ${lines.length > 1 ? st : "k1"}"/>`;
   }
   // value labels at the right end of each line, kept at least 14px apart
   const ends = [...new Set(lines.map((l) => l.pts[l.pts.length - 1].base))].sort((a, b) => b - a);
