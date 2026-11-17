@@ -5,12 +5,12 @@ category: graph
 complexity:
   class: NP-complete
   source:
-    paper: karp-1972
+    paper: garey-johnson-stockmeyer-1974
     attested_by:
-      - "https://en.wikipedia.org/wiki/List_of_NP-complete_problems"
-      - "https://www.iitg.ac.in/rinkulu/note/npprobs-note.pdf"
-      - "https://arxiv.org/pdf/1902.10349"
-    note: "Max Cut is one of Karp's 21 NP-complete problems (Garey–Johnson ND16); Karp's version has edge weights. TODO(verify): the unweighted version is usually credited to Garey, Johnson and Stockmeyer (1976); confirm which citation to show."
+      - "https://math.mit.edu/~goemans/PAPERS/maxcut-jacm.pdf"
+      - "https://pesc.coppe.ufrj.br/~celina/ftp/j/jgt.22948.pdf"
+      - "https://www.csie.ntu.edu.tw/~lyuu/complexity/2006/20060608.pdf"
+    note: "Simple Max Cut (all edge weights 1) is NP-complete by Garey, Johnson and Stockmeyer, Theoretical Computer Science 1976 (chosen by Serge Gaspers, 18 November 2026). The three sources (Goemans and Williamson's MAX CUT paper, a J. Graph Theory paper on MaxCut on permutation graphs, and Lyuu's lecture notes) credit it to that paper. Karp (1972) proved the weighted version NP-complete (Garey–Johnson ND16); Wikipedia cites Karp and Garey–Johnson (1979)."
 objects:
   n: number of vertices
   m: number of edges

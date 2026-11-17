@@ -157,10 +157,12 @@ def paper_reference(paper: Paper) -> dict[str, Any]:
 
 
 def short_citation(paper: Paper) -> str:
-    """'Karp 1972', 'Chen and Kanj 2001', 'Chen et al. 2006'."""
-    surnames = [a.split()[-1] for a in paper.authors]
+    """'Karp 1972', 'Chen and Kanj 2001', 'Chen et al. 2006': the version a reference names
+    (journal first, decided 17 November 2026), so it matches the reference list."""
+    v = paper.versions[primary_version(paper)]
+    surnames = [a.split()[-1] for a in (v.authors or paper.authors)]
     who = surnames[0] if len(surnames) == 1 else " and ".join(surnames) if len(surnames) == 2 else f"{surnames[0]} et al."
-    return f"{who} {min(v.year for v in paper.versions.values())}"
+    return f"{who} {v.year}"
 
 
 class References:
