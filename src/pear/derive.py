@@ -30,6 +30,17 @@ FORMAL_ORDER = {"informal": 0, "statement": 1, "proved": 2}
 # --- results ----------------------------------------------------------------------
 
 
+# Kinds of paper version that are peer reviewed (or examined). A paper with none of them is a
+# preprint: like a result from an unverified paper, a result from a preprint is left out of the
+# Overview unless the reader includes it (decided 18 November 2026).
+REVIEWED_KINDS = frozenset({"journal", "conference", "workshop", "book", "thesis"})
+
+
+def is_preprint(paper) -> bool:
+    """No peer-reviewed version (only preprints or technical reports)."""
+    return not any(v.kind in REVIEWED_KINDS for v in paper.versions.values())
+
+
 @dataclass(frozen=True)
 class Props:
     """The properties the site filters on (rulebook §8), plus hypotheses."""
@@ -44,6 +55,7 @@ class Props:
     lean: bool  # every step proved in Lean
     conditional_on: frozenset[str] = frozenset()
     verified: bool = True  # False if any paper along the chain is marked unverified
+    reviewed: bool = True  # False if any paper along the chain is a preprint
 
     def at_least(self, other: Props) -> bool:
         """Does self satisfy every filter that `other` satisfies?"""
@@ -57,6 +69,7 @@ class Props:
             and FORMAL_ORDER[self.formal] >= FORMAL_ORDER[other.formal]
             and self.conditional_on <= other.conditional_on
             and (self.verified or not other.verified)
+            and (self.reviewed or not other.reviewed)
         )
 
 
@@ -202,6 +215,11 @@ class Engine:
         checked = alg.formal.status == "proved" and alg.formal.statement_checked is not None
         return not checked and any(self.data.papers[p].unverified for p in papers if p in self.data.papers)
 
+    def preprint(self, alg: Algorithm) -> bool:
+        papers = {alg.source.paper} if alg.source.paper else set()
+        checked = alg.formal.status == "proved" and alg.formal.statement_checked is not None
+        return not checked and any(is_preprint(self.data.papers[p]) for p in papers if p in self.data.papers)
+
     def direct(self, alg: Algorithm) -> Result | None:
         problem = self.data.problems[alg.problem]
         if not self.usable(alg.status):
@@ -238,6 +256,10 @@ class Engine:
                 self.unverified(u) for u in used):
             props = replace(props, verified=False)
             flags.add("unverified")
+        if (any(is_preprint(self.data.papers[p]) for p in papers) and not checked) or any(
+                self.preprint(u) for u in used):
+            props = replace(props, reviewed=False)
+            flags.add("preprint")
         return Result(problem.id, node, bound, props, alg.id, (), frozenset(flags), year, papers)
 
     # -- keeping -----------------------------------------------------------------------
@@ -373,6 +395,9 @@ class Engine:
         if any(self.data.papers[p].unverified for p in red_papers):
             props = replace(props, verified=False)
             flags.add("unverified")
+        if any(is_preprint(self.data.papers[p]) for p in red_papers):
+            props = replace(props, reviewed=False)
+            flags.add("preprint")
         return Result(
             source.id, a_node[1], bound, props, r.origin, chain, frozenset(flags),
             max(years) if years else None, r.papers + red_papers,
@@ -546,8 +571,9 @@ class Engine:
         out: dict[tuple[str, str], list[dict]] = {}
         for key, kept in sorted(self.out.results.items()):
             ctx = self.out.contexts[key[0]]
-            # the Overview leaves out quantum results and results from unverified papers
-            cands = [r for r in kept if not r.props.quantum and r.props.verified]
+            # the Overview leaves out quantum results and results from unverified papers or
+            # preprints; readers can include those (optional_overview)
+            cands = [r for r in kept if not r.props.quantum and r.props.verified and r.props.reviewed]
             best = [
                 r for r in cands
                 if not any(
@@ -576,8 +602,9 @@ class Engine:
         return out
 
     def optional_overview(self) -> dict[tuple[str, str], list[dict]]:
-        """Kept non-quantum results from unverified papers that a reader can switch into the
-        Overview (browser-stored, per result). Each lists the Overview members it beats in O*
+        """Kept non-quantum results from unverified papers or preprints that a reader can switch
+        into the Overview (browser-stored: all at once from the Overview or the front page, or
+        one by one in Details for unverified results). Each lists the Overview members it beats in O*
         form; one that a verified Overview member beats or equals would change nothing and is
         left out."""
         out: dict[tuple[str, str], list[dict]] = {}
@@ -587,7 +614,7 @@ class Engine:
             best = [r for r in kept if r.id in members]
             entries = []
             for u in kept:
-                if u.props.verified or u.props.quantum:
+                if (u.props.verified and u.props.reviewed) or u.props.quantum:
                     continue
                 rel = [compare_ostar(self.analyse(b), self.analyse(u), ctx) for b in best]
                 if any(x in (Relation.BETTER, Relation.EQUAL, Relation.TIE) for x in rel):

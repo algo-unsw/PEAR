@@ -53,7 +53,9 @@ def paper(pid, year):
         "id": pid,
         "title": "A fictional paper",
         "authors": ["A. Author"],
-        "versions": {"arxiv-v1": {"kind": "preprint", "arxiv": "0000.00000", "year": year, "open_access": True}},
+        "versions": {"arxiv-v1": {"kind": "preprint", "arxiv": "0000.00000", "year": year, "open_access": True},
+                     # a peer-reviewed version: a paper with preprints only counts as unrefereed
+                     "journal": {"kind": "journal", "venue": "A Journal", "year": year, "open_access": False}},
     }
 
 
@@ -721,6 +723,25 @@ def test_unverified_result_is_optional_in_the_overview():
     assert [e["cite"] for e in out["overview"]["a"]["decision"]] == [["a-ok"]]
     # a-worse is beaten by a verified result, so including it would change nothing
     assert out["overview_optional"]["a"]["decision"] == [{"id": "a-report", "beats": ["a-ok"], "year": 2026}]
+
+
+def test_preprint_result_is_optional_in_the_overview():
+    # decided 18 November 2026: a paper with no peer-reviewed version is a preprint; its results
+    # stay out of the Overview by default, are never preferred over a published result when
+    # keeping, and carry the "preprint" flag (not "unverified")
+    pre = paper("p-pre", 2026)
+    pre["versions"] = {"arxiv-v1": pre["versions"]["arxiv-v1"]}
+    data = dataset(
+        problem("a"), pre, paper("p-ok", 2010),
+        alg("a-pre", "a", r"O^*(1.1^{k})", paper="p-pre"),
+        alg("a-ok", "a", r"O^*(1.5^{k})", paper="p-ok"),
+    )
+    out = to_json(data, derive(data))
+    rows = {r["id"]: r for r in out["problems"]["a"]["decision"]}
+    assert set(rows) == {"a-pre", "a-ok"}
+    assert "preprint" in rows["a-pre"]["flags"] and "unverified" not in rows["a-pre"]["flags"]
+    assert [e["cite"] for e in out["overview"]["a"]["decision"]] == [["a-ok"]]
+    assert out["overview_optional"]["a"]["decision"] == [{"id": "a-pre", "beats": ["a-ok"], "year": 2026}]
 
 
 # --- uses (decided 13 November 2026) -----------------------------------------------------------------

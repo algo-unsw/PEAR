@@ -100,9 +100,19 @@ VERSION_RANK = {"journal": 0, "book": 1, "conference": 2, "workshop": 3, "thesis
                 "technical-report": 5, "preprint": 6}
 
 
+def named_versions(paper: Paper) -> list[str]:
+    """The ids of the versions a reference names: all versions of the best kind, earliest
+    first, since a paper can be based on several conference papers (decided 18 November
+    2026); of preprints and technical reports only the latest, as they are drafts of one text."""
+    best = min(VERSION_RANK[v.kind] for v in paper.versions.values())
+    ids = sorted((vid for vid, v in paper.versions.items() if VERSION_RANK[v.kind] == best),
+                 key=lambda vid: (paper.versions[vid].year, vid))
+    return ids[-1:] if paper.versions[ids[0]].kind in ("preprint", "technical-report") else ids
+
+
 def primary_version(paper: Paper) -> str:
-    """The id of the version a reference names: best kind first, then the latest."""
-    return min(paper.versions, key=lambda vid: (VERSION_RANK[paper.versions[vid].kind], -paper.versions[vid].year))
+    """The version a reference names first (its authors, title and year lead the reference)."""
+    return named_versions(paper)[0]
 
 
 def _where(v) -> str:
@@ -114,8 +124,8 @@ def _where(v) -> str:
 
 def paper_links(paper: Paper) -> list[dict[str, Any]]:
     links = []
-    main = primary_version(paper)
-    for vid, v in sorted(paper.versions.items(), key=lambda kv: (kv[0] != main, kv[1].year)):
+    named = named_versions(paper)
+    for vid, v in sorted(paper.versions.items(), key=lambda kv: (kv[0] not in named, kv[1].year)):
         if v.arxiv:
             links.append({"label": f"arXiv:{v.arxiv}", "url": f"https://arxiv.org/abs/{v.arxiv}", "open": True})
         if v.doi:
@@ -141,13 +151,18 @@ def paper_reference(paper: Paper) -> dict[str, Any]:
         what = v.title or paper.title
         return (f"{who}. " if who != authors else "") + (f"{what}. " if what.casefold() != title.casefold() else "") + _where(v)
 
-    others = [other(v) for vid, v in sorted(paper.versions.items(), key=lambda kv: kv[1].year) if vid != main]
-    versions = [_where(paper.versions[main])] + others
+    named = named_versions(paper)
+    # further versions of the best kind are named too: "…; and Authors. Title. Venue"
+    primary = "; and ".join([_where(paper.versions[main])] + [
+        f"{_join(paper.versions[vid].authors or paper.authors)}. {paper.versions[vid].title or paper.title}. "
+        f"{_where(paper.versions[vid])}" for vid in named[1:]])
+    others = [other(v) for vid, v in sorted(paper.versions.items(), key=lambda kv: kv[1].year) if vid not in named]
+    versions = [_where(paper.versions[vid]) for vid in named] + others
     return {
         "id": paper.id,
         "authors": authors,
         "title": title,
-        "primary": _where(paper.versions[main]),
+        "primary": primary,
         "others": others,
         "versions": versions,
         "links": paper_links(paper),
@@ -181,7 +196,7 @@ class References:
     @staticmethod
     def _statement_in(paper: Paper, vid: str | None, statement: str) -> str:
         """'Theorem 2 of arXiv v1'; just 'Theorem 2' when the reference names that version."""
-        if vid is None or vid == primary_version(paper):
+        if vid is None or vid in named_versions(paper):
             return statement
         return f"{statement} of {paper_version_label(paper, vid)}"
 
@@ -287,7 +302,8 @@ def property_words(row: dict[str, Any], alg: Algorithm, chain_randomized: bool) 
 
 
 FLAG_TEXT = {
-    "unverified": "from an unrefereed source; shown in Details only",
+    "unverified": "from an unrefereed source; in the Overview only when the reader includes it",
+    "preprint": "from a preprint; in the Overview only when the reader includes preprints and unverified results",
     "given-tree-decomposition": "a tree decomposition of width $tw$ is given with the input",
     "long-chain": "long derivation chain",
     "adaptive-sizes": "Turing reduction: every call assumed to have the largest size",
@@ -598,6 +614,7 @@ def problem_page(data: Dataset, d: Derivation, derived: dict[str, Any], pid: str
                 note = f"Bounds for this version also hold for its special case ({names}), never the reverse."
         nodes[node] = {
             "overview": overview_out,
+            "has_optional": any(e.get("optional") for g in overview_out for e in g["entries"]),
             "rows": detail_rows,
             "flagged": flagged_rows(data, d, problem, node, refs),
             "note": note,
@@ -728,12 +745,9 @@ def _slug(name: str) -> str:
 def build(data: Dataset, d: Derivation, out_dir: Path) -> dict[str, Any]:
     derived = to_json(data, d)
     pages = {pid: problem_page(data, d, derived, pid) for pid in sorted(data.problems)}
-    index = []
-    for name in PILOT:
-        pid = next((p for p, prob in data.problems.items() if prob.name == name), None)
-        if pid is None:
-            index.append({"name": name, "id": None, "slug": _slug(name), "bounds": []})
-            continue
+    def front_bounds(pid: str) -> list[dict[str, Any]]:
+        """The default version's Overview entries; those from preprints and unverified papers
+        are marked optional, shown only when the reader includes them (decided 18 November 2026)."""
         page = pages[pid]
         default_node = node_key(data.problems[pid], data.problems[pid].default_version)[1]
         bounds = []
@@ -741,11 +755,21 @@ def build(data: Dataset, d: Derivation, out_dir: Path) -> dict[str, Any]:
             for entry in group["entries"]:
                 r = entry["cite"][0]
                 bounds.append({"shown": r["shown"], "params": group["symbols_tex"], "derived": r["origin"] == "derived",
-                               "deterministic": r["properties"]["deterministic"], "year": entry["year"]})
-        index.append({"name": name, "id": pid, "slug": pid, "bounds": bounds})
+                               "deterministic": r["properties"]["deterministic"], "year": entry["year"],
+                               "optional": bool(entry.get("optional")), "id": r["id"],
+                               "beaten_by": entry["beaten_by"], "flags": r["flags"]})
+        return bounds
+
+    index = []
+    for name in PILOT:
+        pid = next((p for p, prob in data.problems.items() if prob.name == name), None)
+        if pid is None:
+            index.append({"name": name, "id": None, "slug": _slug(name), "bounds": []})
+            continue
+        index.append({"name": name, "id": pid, "slug": pid, "bounds": front_bounds(pid)})
     others = [pid for pid in sorted(pages) if data.problems[pid].name not in PILOT]
     for pid in others:
-        index.append({"name": data.problems[pid].name, "id": pid, "slug": pid, "bounds": []})
+        index.append({"name": data.problems[pid].name, "id": pid, "slug": pid, "bounds": front_bounds(pid)})
     site = {
         "generated": dt.date.today().isoformat(),
         "rulebook_version": derived["rulebook_version"],

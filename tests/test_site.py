@@ -245,3 +245,41 @@ def test_preliminary_version_by_fewer_authors(real):
     assert lp["authors"].startswith("Daniel Lokshtanov, ")
     assert ("N. S. Narayanaswamy, Venkatesh Raman, M. S. Ramanujan and Saket Saurabh. "
             "LP can be a cure for Parameterized Problems. 29th International Symposium") in lp["others"][1]
+
+
+def test_preprints_are_optional_in_the_overview_and_on_the_front_page(real):
+    # decided 18 November 2026: results from preprints (no peer-reviewed version) are left out of
+    # the Overview by default, like unverified ones; one browser-stored switch includes them all,
+    # in the Overview and on the front page
+    _, site, _ = real
+    node = site["pages"]["vertex-cover"]["nodes"]["decision+optimisation+search"]
+    assert node["has_optional"]
+    entries = [e for g in node["overview"] for e in g["entries"]]
+    clinch = next(e for e in entries if e["cite"][0]["id"] == "vertex-cover--k--clinch-gaspers-he-2025")
+    assert clinch.get("optional") and "preprint" in clinch["cite"][0]["flags"]
+    shown = [e["cite"][0]["id"] for e in entries if not e.get("optional")]
+    assert "vertex-cover--k--harris-narayanaswamy-2022" in shown
+    # Details keeps every result and the history still counts preprints (Details unchanged)
+    assert any(r["id"] == "vertex-cover--k--clinch-gaspers-he-2025" for r in node["rows"])
+    assert [s["year"] for s in node["history"]["k"]["steps"]] == [2006, 2023, 2025]
+    front = {e["id"]: e for e in site["index"] if e["id"]}
+    vc = front["vertex-cover"]["bounds"]
+    assert any(b["optional"] and b["id"] == "vertex-cover--k--clinch-gaspers-he-2025" for b in vc)
+    assert any(not b["optional"] and b["id"] == "vertex-cover--k--harris-narayanaswamy-2022" for b in vc)
+    # every problem on the front page lists its bounds, not only the pilot problems
+    assert front["feedback-vertex-set"]["bounds"]
+
+
+def test_reference_names_every_conference_paper_a_paper_is_based_on(real):
+    # decided 18 November 2026: ESA 2009 and MFCS 2010 are conference versions of van Rooij et al.
+    # (arXiv 2018); with no journal version, the reference names both, earliest first, and the
+    # paper is no longer a preprint, so its result is in the default Overview
+    _, site, _ = real
+    page = site["pages"]["dominating-set"]
+    ref = {r["id"]: r for r in page["references"]}["van-rooij-et-al-2018"]
+    assert ref["authors"] == "Johan M. M. van Rooij, Hans L. Bodlaender and Peter Rossmanith"
+    assert ref["primary"].startswith("Algorithms (ESA 2009), LNCS 5757, pp. 566–577; and Hans L. Bodlaender, ")
+    assert ref["others"][0].endswith("Fast Dynamic Programming on Graph Decompositions. arXiv:1806.01667, 2018")
+    node = page["nodes"]["decision+optimisation+search"]
+    shown = [e["cite"][0]["id"] for g in node["overview"] for e in g["entries"] if not e.get("optional")]
+    assert "dominating-set--tw--van-rooij-et-al-2018" in shown

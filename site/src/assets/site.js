@@ -111,16 +111,24 @@
     });
   }
 
-  // Unverified results: each reader chooses which to include in the Overview (stored in
-  // this browser only). An included result shows in its group and hides the entries it beats.
+  // Results from preprints and unverified papers are left out of the Overview and the front
+  // page unless the reader includes them: all at once (one switch for the whole site, in the
+  // Overview and on the front page) or, for unverified results, one by one in Details. Both
+  // choices are stored in this browser only. An included result shows in its group and hides
+  // the entries it beats.
   const KEY = "pear-include-unverified";
+  const ALL = "pear-include-preprints-unverified";
   let included = new Set();
+  let all = false;
   try { included = new Set(JSON.parse(localStorage.getItem(KEY) || "[]")); } catch (e) { /* none */ }
+  try { all = localStorage.getItem(ALL) === "1"; } catch (e) { /* none */ }
+  const on = (id) => all || included.has(id);
   function applyUnverified() {
+    $$("[data-include-all]").forEach((c) => { c.checked = all; });
     $$("[data-include-unverified]").forEach((c) => { c.checked = included.has(c.dataset.includeUnverified); });
-    $$("[data-optional]").forEach((el) => { el.hidden = !included.has(el.dataset.optional); });
+    $$("[data-optional]").forEach((el) => { el.hidden = !on(el.dataset.optional); });
     $$("[data-beaten-by]").forEach((el) => {
-      el.hidden = el.dataset.beatenBy.split(" ").some((id) => included.has(id));
+      el.hidden = el.dataset.beatenBy.split(" ").some(on);
     });
     $$(".ov-group").forEach((g) => {
       if (g.hasAttribute("data-only-optional")) {
@@ -128,6 +136,11 @@
       }
     });
   }
+  $$("[data-include-all]").forEach((c) => c.addEventListener("change", () => {
+    all = c.checked;
+    try { localStorage.setItem(ALL, all ? "1" : "0"); } catch (e) { /* private mode */ }
+    applyUnverified();
+  }));
   $$("[data-include-unverified]").forEach((c) => c.addEventListener("change", () => {
     if (c.checked) included.add(c.dataset.includeUnverified); else included.delete(c.dataset.includeUnverified);
     try { localStorage.setItem(KEY, JSON.stringify(Array.from(included))); } catch (e) { /* private mode */ }
