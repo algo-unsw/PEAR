@@ -19,6 +19,6 @@ properties:
 source:
   paper: van-rooij-bodlaender-2008
   statements:
-    arxiv:
+    stacs:
       statement: Theorem 3.3
   note: Algorithm 1 modified with dynamic programming; $d = |\mathcal{S}| + |\mathcal{U}|$. Corollary 3.4 gives Dominating Set in $O(1.5063^n)$.

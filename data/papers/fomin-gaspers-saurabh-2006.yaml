@@ -9,3 +9,11 @@ versions:
     doi: "10.1007/11940128_4"
     url: "https://cgi.cse.unsw.edu.au/~sergeg/papers/Isaac2006.pdf"
     open_access: true
+  journal:
+    kind: journal
+    title: "On Two Techniques of Combining Branching and Treewidth"
+    authors: [Fedor V. Fomin, Serge Gaspers, Saket Saurabh, Alexey A. Stepanov]
+    venue: "Algorithmica 54(2), pp. 181–207"
+    year: 2009
+    doi: "10.1007/s00453-007-9133-3"
+    open_access: false

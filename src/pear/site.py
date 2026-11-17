@@ -136,7 +136,7 @@ def paper_reference(paper: Paper) -> dict[str, Any]:
     versions = [_where(paper.versions[main])] + others
     return {
         "id": paper.id,
-        "authors": _join(paper.authors),
+        "authors": _join(paper.versions[main].authors or paper.authors),
         "title": paper.versions[main].title or paper.title,
         "primary": _where(paper.versions[main]),
         "others": others,

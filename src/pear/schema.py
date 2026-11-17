@@ -324,6 +324,9 @@ class PaperVersion(Model):
     # This version's title, only when it differs from the paper's title (journal versions are
     # often retitled); a reference that names this version shows this title.
     title: Text | None = None
+    # This version's authors, only when they differ from the paper's: a journal version that
+    # merges two papers (Fomin, Gaspers, Saurabh and Stepanov 2009); proposed 18 November 2026.
+    authors: list[Text] | None = None
     venue: Text | None = None
     year: int = Field(ge=1800, le=2100)
     doi: Text | None = None

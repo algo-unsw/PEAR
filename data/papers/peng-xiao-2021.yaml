@@ -4,10 +4,10 @@ authors:
 - Junqiang Peng
 - Mingyu Xiao
 versions:
-  arxiv:
+  arxiv-v2:
     kind: preprint
-    year: 2021
-    arxiv: '2105.06131'
+    year: 2022
+    arxiv: '2105.06131v2'
     open_access: true
   sat:
     kind: conference

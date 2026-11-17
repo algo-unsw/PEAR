@@ -210,3 +210,25 @@ def test_primary_version_order():
     assert primary_version(paper(a=("preprint", 2020), b=("technical-report", 2019))) == "b"
     assert primary_version(paper(a=("preprint", 2020), b=("workshop", 2019), c=("conference", 2018))) == "c"
     assert primary_version(paper(a=("preprint", 2020), b=("preprint", 2022))) == "b"
+
+
+def test_merged_journal_version_brings_its_authors(real):
+    # decided 18 November 2026: Fomin, Gaspers and Saurabh (ISAAC 2006) was merged with
+    # another paper into Fomin, Gaspers, Saurabh and Stepanov (Algorithmica 2009), which
+    # counts as its journal version; the reference names that version, with its authors.
+    _, site, _ = real
+    refs = {r["id"]: r for r in site["pages"]["independent-set"]["references"]}
+    fgs = refs["fomin-gaspers-saurabh-2006"]
+    assert fgs["authors"] == "Fedor V. Fomin, Serge Gaspers, Saket Saurabh and Alexey A. Stepanov"
+    assert fgs["title"] == "On Two Techniques of Combining Branching and Treewidth"
+    assert fgs["primary"] == "Algorithmica 54(2), pp. 181–207, 2009"
+    assert fgs["cited"] == ["Theorem 2 of ISAAC 2006"]
+
+
+def test_corrected_deterministic_fvs_uses_kociumaka_pilipczuk(real):
+    # decided 18 November 2026: Theorem 2 of Fomin et al. with the journal bound (2 + phi)^k
+    _, site, _ = real
+    node = site["pages"]["feedback-vertex-set"]["nodes"]["decision+optimisation+search"]
+    row = next(r for r in node["rows"] if r["id"] == "feedback-vertex-set--n--fomin-gaspers-lokshtanov-saurabh-2015-deterministic")
+    assert row["shown"] == "O^*(1.7237^{n})"
+    assert [u["id"] for u in row["uses"]] == ["feedback-vertex-set--k--kociumaka-pilipczuk-2014"]
