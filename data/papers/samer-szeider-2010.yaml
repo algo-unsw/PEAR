@@ -10,3 +10,15 @@ versions:
     year: 2009
     url: https://www.ac.tuwien.ac.at/files/pub/SamerSzeider10.pdf
     open_access: true
+  lpar:
+    kind: conference
+    venue: "Logic for Programming, Artificial Intelligence, and Reasoning (LPAR 2007), LNCS 4790, pp. 484–498"
+    year: 2007
+    doi: "10.1007/978-3-540-75560-9_35"
+    open_access: false
+  journal:
+    kind: journal
+    venue: "Journal of Discrete Algorithms 8(1), pp. 50–64"
+    year: 2010
+    doi: "10.1016/j.jda.2009.06.002"
+    open_access: false
