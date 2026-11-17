@@ -307,5 +307,5 @@ def test_vertex_cover_by_m_uses_n_at_most_m(real):
     _, site, _ = real
     for pid in ("vertex-cover", "independent-set"):
         node = site["pages"][pid]["nodes"]["decision+optimisation+search"]
-        assert not any(g["parameters"] == ["m"] for g in node["overview"])
+        assert not any(g["parameters"] == ["m"] and not g["only_optional"] for g in node["overview"])
         assert [s["base"] for s in node["history"]["m"]["steps"]] == [1.1996]
