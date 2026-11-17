@@ -19,7 +19,7 @@ parameters:
   k: { meaning: "the solution size: the integer $k$ in the input (decision, search), or the maximum size of a clique (optimisation)" }
 constraints:
   - { constraint: "k \\le n", because: "Every instance with $k > n$ is a no-instance, answered in polynomial time." }
-  - { constraint: "m \\le n^{2}", because: "A simple graph has at most $n(n-1)/2$ edges." }
+  - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
 versions:
   decision:
     kind: decision

@@ -825,3 +825,16 @@ def test_uses_carries_the_hypotheses_of_used_results():
     )
     got = {r["id"]: r for r in rows(data, "a")}
     assert got["a-alg"]["conditional_on"] == ["h"]
+
+
+def test_the_real_data_leaves_nothing_to_common_sense():
+    # decided 18 November 2026: whatever common sense decides, the engine decides. The numeric
+    # cross-check lists Overview bounds that the comparator cannot order although one is at
+    # most the other at every sample point; each needs a fact (constraint) or a rule.
+    from pathlib import Path
+
+    from pear.validate import validate_dir
+
+    data, issues = validate_dir(Path(__file__).resolve().parents[1] / "data")
+    assert issues == []
+    assert derive(data).undecided == []

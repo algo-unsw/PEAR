@@ -345,3 +345,54 @@ def test_plain_epsilon_still_beats_two_to_the_n():
 
     a = parse_bound(r"O^*((2 - \varepsilon)^{n})", ("n",))
     assert compare_ostar(a, parse_bound(r"O^*(2^{n})", ("n",)), _fixed_ctx()) is Relation.BETTER
+
+
+# --- common sense (18 November 2026) ----------------------------------------------------------
+
+
+def _cmp(a, b, syms, constraints=(), constants=None, nonneg=()):
+    from pear.bounds.compare import build_context
+
+    ctx = build_context(syms, constraints, constants=constants or {}, nonneg=nonneg)
+    return compare(parse_bound(a, syms), parse_bound(b, syms), ctx)
+
+
+def test_same_exponent_with_a_nonnegative_difference():
+    # 1.1996^{X} beats 2^{X} only because X = n(n-1)/2 - m >= 0, from the exact edge bound
+    syms = ("n", "m")
+    a, b = r"O^*(1.1996^{n (n - 1)/2 - m})", r"O^*(2^{n (n - 1)/2 - m})"
+    assert _cmp(a, b, syms, [r"m \le n^{2}"]) == Relation.INCOMPARABLE
+    assert _cmp(a, b, syms, [r"m \le n(n - 1)/2"]) == Relation.BETTER
+    # or from a reduction's parameter map, which bounds a parameter of the produced instance
+    assert _cmp(a, b, syms, [r"m \le n^{2}"], nonneg=[r"n (n - 1)/2 - m"]) == Relation.BETTER
+
+
+def test_exact_edge_bound_still_gives_m_at_most_n_squared():
+    from pear.bounds.compare import build_context
+
+    assert build_context(("n", "m"), [r"m \le n(n - 1)/2"]).relation("m", "n") == 2
+
+
+def test_constant_bases_are_evaluated():
+    syms = ("k", "tw")
+    golden = r"O^*((2 + (1 + \sqrt{5})/2)^{k})"
+    assert _cmp(r"O^*(2.69998^{k})", golden, syms) == Relation.BETTER
+    assert _cmp(r"O^*(3.7^{k})", golden, syms) == Relation.WORSE
+    # with named constants, from their known range: 1 + 3 \cdot 2^{\omega - 1} >= 7 > 3
+    rank = r"O^*((1 + 2^{\omega - 1} \cdot 3)^{tw})"
+    assert _cmp(r"O^*(3^{tw})", rank, syms, constants={"omega": (2.0, 2.371339)}) == Relation.BETTER
+    assert _cmp(r"O^*(3^{tw})", rank, syms) == Relation.INCOMPARABLE  # no range: no proof
+
+
+def test_numeric_cross_check_finds_what_the_comparator_misses():
+    from pear.bounds.expr import parse_expr
+    from pear.bounds.numeric import dominates, samples
+
+    syms = ["n", "m", "k"]
+    pts = samples(syms, [r"k \le n", r"m \le n(n - 1)/2"], {}, count=100)
+    assert pts and all(p["k"] <= p["n"] and p["m"] <= p["n"] * (p["n"] - 1) / 2 for p in pts)
+    e = lambda s: parse_expr(s, syms)  # noqa: E731
+    assert dominates(e(r"1.1996^{n}"), e(r"2^{n}"), pts)
+    # k close to n is sampled, so 1.25^k is not taken to be below n^{n - k}
+    assert not dominates(e(r"1.25^{k}"), e(r"n^{n - k}"), pts)
+    assert not dominates(e(r"2^{n}"), e(r"1.1996^{n}"), pts)

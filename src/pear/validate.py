@@ -471,7 +471,17 @@ def problem_context(data: Dataset, problem: Problem) -> Context:
         lo, hi = constant_range(const)  # type: ignore[arg-type]
         if hi is not None:
             consts[cid] = (lo, hi)
-    return build_context(problem.symbols(), [c.constraint for c in problem.constraints], not_poly, consts)
+    # parameter-map expressions of reductions from this problem are nonnegative: each bounds
+    # a parameter of the produced instance (18 November 2026)
+    nonneg = []
+    for red in data.entries["reductions"].values():
+        maps = [(red.from_, red.parameter_map)] + [  # type: ignore[attr-defined]
+            (v.from_ or red.from_, v.parameter_map) for v in red.variants]  # type: ignore[attr-defined]
+        for frm, pmap in maps:
+            if frm.problem == problem.id:
+                nonneg += [e for e in pmap.values() if e not in problem.symbols()]
+    return build_context(problem.symbols(), [c.constraint for c in problem.constraints], not_poly, consts,
+                         sorted(set(nonneg)))
 
 
 def validate_raw(raw: dict[str, dict[str, Any]], redirects: Any = None) -> tuple[Dataset, list[Issue]]:

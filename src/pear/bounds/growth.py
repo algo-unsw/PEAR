@@ -369,8 +369,53 @@ def _is_constant(g: Growth) -> bool:
     return all(k == () for k in g.terms)
 
 
+# Constant bases with named constants, such as 1 + 3 \\cdot 2^{\\omega - 1}: log2 of the base is
+# the coefficient "sym:expr#<id>", which the comparator bounds from the constants' ranges.
+CONST_EXPRS: dict[str, Node] = {}
+
+
+def _constant_base(node: Node) -> Growth | None:
+    """log2 of a base without variables: exact if it has no named constants (2 + (1+√5)/2),
+    else a symbolic coefficient resolved from data/constants (18 November 2026)."""
+    from .numeric import value  # local import: numeric is a leaf module
+
+    if variables(node) or _has_unknowns(node):
+        return None
+    v = value(node, {})
+    if v is not None:
+        if v <= 0:
+            raise UnsupportedBound("bases must be positive")
+        return const(exact(math.log2(v)))
+    key = f"expr#{abs(hash(node))}"
+    CONST_EXPRS[key] = node
+    return const(Coef(f"sym:{key}", 1))
+
+
+def _has_unknowns(node: Node) -> bool:
+    """ε, δ, O(·), o(·), f(·), poly(·): not a fixed number."""
+    if isinstance(node, Const):
+        return node.name in ("varepsilon", "delta") or bool(node.deps)
+    if isinstance(node, (Asym, Func, Poly)):
+        return True
+    if isinstance(node, Add):
+        return any(_has_unknowns(t) for _, t in node.terms)
+    if isinstance(node, Mul):
+        return any(_has_unknowns(f) for f in node.factors)
+    if isinstance(node, Div):
+        return _has_unknowns(node.num) or _has_unknowns(node.den)
+    if isinstance(node, Pow):
+        return _has_unknowns(node.base) or _has_unknowns(node.exp)
+    if isinstance(node, (Sqrt, Log)):
+        return _has_unknowns(node.arg)
+    return False
+
+
 def _base_log(node: Node, upper: bool) -> Growth:
-    """log2 of a power's base. Handles c - ε and sums of positive terms."""
+    """log2 of a power's base. Handles constants, c - ε and sums of positive terms."""
+    if isinstance(node, (Add, Mul, Div, Pow, Sqrt)):
+        known = _constant_base(node)
+        if known is not None:
+            return known
     if isinstance(node, Add):
         nums = [(s, t) for s, t in node.terms]
         if len(nums) == 2 and isinstance(nums[0][1], Num) and nums[1][0] == -1 and isinstance(nums[1][1], Const) and nums[1][1].name == "varepsilon" and nums[0][0] > 0:

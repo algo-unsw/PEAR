@@ -19,6 +19,7 @@ from .bounds.compare import Analysed, Context, analyse, compare_ostar
 from .bounds.display import simplify, substitute
 from .bounds.expr import Add, Const, Log, Mul, Node, Num, Pow, Var, variables
 from .bounds.growth import is_monotone
+from .bounds.numeric import dominates, samples
 from .schema import Algorithm, FolkloreSource, Hypothesis, PaperSource, Problem, Reduction, Variant
 from .validate import Dataset, problem_context
 
@@ -137,6 +138,9 @@ class Derivation:
     optional: dict[tuple[str, str], list[dict]] = field(default_factory=dict)
     # direct results beaten in every filter (version 3): not in Details, kept for the bound history
     superseded: dict[tuple[str, str], list[tuple[Result, list[str]]]] = field(default_factory=dict)
+    # common-sense check (18 November 2026): Overview bounds the comparator calls incomparable
+    # although one is at most the other at every sample point; each needs a fact or a rule
+    undecided: list[dict] = field(default_factory=list)
 
 
 # --- nodes: versions that share bounds ------------------------------------------------
@@ -571,7 +575,37 @@ class Engine:
         self.out.beaten_by = self.beaten_by()
         self.out.overview = self.overview()
         self.out.optional = self.optional_overview()
+        self.out.undecided = self.undecided()
         return self.out
+
+    def undecided(self) -> list[dict]:
+        """Pairs among the Overview bounds (with the optional ones) that the comparator cannot
+        order although one is at most the other at every sample point satisfying the
+        problem's constraints. Numeric evidence decides nothing; it shows where the engine
+        lacks a fact (a constraint) or a comparison rule (decided 18 November 2026)."""
+        out: list[dict] = []
+        for key, entries in sorted(self.out.overview.items()):
+            pid, node = key
+            problem = self.data.problems[pid]
+            ctx = self.out.contexts[pid]
+            kept = {r.id: r for r in self.out.results.get(key, [])}
+            ids = [m for e in entries for m in e["members"]] + [e["id"] for e in self.out.optional.get(key, [])]
+            rs = [kept[i] for i in dict.fromkeys(ids) if i in kept and not kept[i].props.quantum]
+            if len(rs) < 2:
+                continue
+            points = samples(problem.symbols(), [c.constraint for c in problem.constraints], ctx.constants, count=200)
+            exprs = {r.id: ostar(r.bound, ctx).expr for r in rs}
+            for a in rs:
+                for b in rs:
+                    if a is b or compare_ostar(self.analyse(a), self.analyse(b), ctx) != Relation.INCOMPARABLE:
+                        continue
+                    if dominates(exprs[a.id], exprs[b.id], points):
+                        both = dominates(exprs[b.id], exprs[a.id], points)
+                        if both and a.id > b.id:
+                            continue  # report an apparent equality once
+                        out.append({"problem": pid, "node": node, "smaller": a.id, "larger": b.id,
+                                    "equal": bool(both), "samples": len(points)})
+        return out
 
     def beats_ostar(self, s: Result, r: Result, ctx: Context) -> bool:
         """s beats r in the Overview: a better bound in O* form, or the same bound and s is
@@ -737,6 +771,7 @@ def to_json(data: Dataset, d: Derivation) -> dict:
             for pid in sorted({p for p, _ in d.optional})
         },
         "superseded": superseded,
+        "undecided": d.undecided,
         "log": d.log,
     }
 

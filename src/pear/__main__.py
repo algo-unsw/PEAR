@@ -54,6 +54,10 @@ def main(argv: list[str] | None = None) -> int:
     derived = sum(1 for v in result.results.values() for r in v if r.derived)
     for line in result.log:
         print(f"note: {line}")
+    for u in result.undecided:
+        rel = "equal to" if u["equal"] else "at most"
+        print(f"undecided: {u['problem']} ({u['node']}): {u['smaller']} looks {rel} {u['larger']} "
+              f"at all {u['samples']} sample points, but the comparator cannot prove it; add the missing fact or rule")
     print(f"OK: {kept} results kept ({derived} derived), written to {args.out}.")
     return 0
 
