@@ -1,0 +1,27 @@
+id: max-leaf-spanning-tree--k--kundu-panolan-saurabh-xue-zehavi-2026
+problem: max-leaf-spanning-tree
+proved_for: search
+bound:
+  as_stated: '2^{O(k (\log\log k)^{3} / \sqrt{\log k})} n^{O(1)}'
+  notation: O
+  parameters:
+  - k
+  - n
+properties:
+  randomized:
+    error: one-sided
+  space:
+    class: polynomial
+    bound: 'Educated guess: polynomial. The reduction builds polynomial-size formulas and calls the counting algorithm of the Counting d-SAT Assumption; OpenAI''s Lean theorem proves polynomial space for that algorithm. No memoization or dynamic programming found in the reduction.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+uses:
+- sharp-3-sat--n--openai-2026-lean
+source:
+  paper: kundu-panolan-saurabh-xue-zehavi-2026
+  statements:
+    stoc-submission:
+      statement: 'Theorem 8.7, under the Counting d-SAT Assumption (Assumption 4.5)'
+  note: 'Randomized: on a yes-instance it returns a valid tree with probability at least 2/3, on a no-instance it always reports NO. Stated as $2^{O(k\eta(k)^3/\sqrt{\lambda(k)})}\operatorname{poly}(n)$ ($\lambda(t) = \log_2(t+2)$, $\eta(t) = \log_2\log_2(t+4)$).'

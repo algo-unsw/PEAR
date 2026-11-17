@@ -1,0 +1,23 @@
+id: chromatic-number--n--bjorklund-husfeldt-koivisto-2009
+problem: chromatic-number
+proved_for: optimisation
+bound:
+  as_stated: '2^{n} n^{O(1)}'
+  notation: O
+  parameters:
+  - n
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: '$O(2^n n)$ space, as stated.'
+  algebraic: true
+  fast_matrix_multiplication: false
+  constructive: false
+  quantum: false
+source:
+  paper: bjorklund-husfeldt-koivisto-2009
+  statements:
+    journal:
+      statement: Proposition 1 and the remark after it
+  note: 'Proposition 1: $O(2^n n^k \operatorname{polylog}(nk))$ time and $O(2^n n)$ space; the paper notes that $O^*(2^n)$ is immediate from Theorem 1. Inclusion–exclusion; deterministic.'

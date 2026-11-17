@@ -1,0 +1,24 @@
+id: steiner-tree--t--nederlof-2013
+problem: steiner-tree
+proved_for: optimisation
+bound:
+  as_stated: '2^{t} n^{O(1)}'
+  notation: O
+  parameters:
+  - t
+  - n
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: '$O^*(c)$ space, as stated; polynomial for unit weights.'
+  algebraic: true
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: nederlof-2013
+  statements:
+    journal:
+      statement: 'Theorem 3, with $c = 1$'
+  note: 'Theorem 3: $O^*(2^k c)$ time and $O^*(c)$ space for edge weights at most $c$, so polynomial space for unit weights. Inclusion–exclusion over branching walks; deterministic. Preliminary version ICALP 2009.'

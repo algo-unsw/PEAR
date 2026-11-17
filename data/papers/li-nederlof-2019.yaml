@@ -1,0 +1,11 @@
+id: li-nederlof-2019
+title: 'Detecting Feedback Vertex Sets of Size k in O*(2.7^k) Time'
+authors:
+- Jason Li
+- Jesper Nederlof
+versions:
+  arxiv-v2:
+    kind: preprint
+    year: 2019
+    arxiv: 1906.12298v2
+    open_access: true

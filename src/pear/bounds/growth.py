@@ -373,7 +373,7 @@ def _base_log(node: Node, upper: bool) -> Growth:
     """log2 of a power's base. Handles c - ε and sums of positive terms."""
     if isinstance(node, Add):
         nums = [(s, t) for s, t in node.terms]
-        if len(nums) == 2 and isinstance(nums[0][1], Num) and nums[1] == (-1, Const("varepsilon")) and nums[0][0] > 0:
+        if len(nums) == 2 and isinstance(nums[0][1], Num) and nums[1][0] == -1 and isinstance(nums[1][1], Const) and nums[1][1].name == "varepsilon" and nums[0][0] > 0:
             return const(exact(math.log2(float(nums[0][1].value)), -1))  # log2(c - ε)
         if all(s > 0 for s, _ in nums):
             logs = [log_growth(t, upper) for _, t in nums]

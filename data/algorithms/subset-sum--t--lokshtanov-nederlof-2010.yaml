@@ -1,0 +1,24 @@
+id: subset-sum--t--lokshtanov-nederlof-2010
+problem: subset-sum
+proved_for: decision
+bound:
+  as_stated: '\tilde{O}(n^{3} t \log t)'
+  notation: Õ
+  parameters:
+  - n
+  - t
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: '$\tilde O(n^2)$ space, as stated.'
+  algebraic: true
+  fast_matrix_multiplication: false
+  constructive: false
+  quantum: false
+source:
+  paper: lokshtanov-nederlof-2010
+  statements:
+    stoc:
+      statement: Theorem 4.4
+  note: 'Deterministic: evaluates a discrete Fourier transform with truncated complex numbers and rounds. $\tilde O(n^2)$ space. Positive integers $w_1, \dots, w_n$ and target $w$ ($t$ in the bound).'

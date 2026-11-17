@@ -1,0 +1,10 @@
+id: cygan-2012
+title: Deterministic parameterized connected vertex cover
+authors:
+- Marek Cygan
+versions:
+  arxiv-v1:
+    kind: preprint
+    year: 2012
+    arxiv: 1202.6642v1
+    open_access: true

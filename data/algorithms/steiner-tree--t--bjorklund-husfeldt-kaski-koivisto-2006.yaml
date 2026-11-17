@@ -1,0 +1,25 @@
+id: steiner-tree--t--bjorklund-husfeldt-kaski-koivisto-2006
+problem: steiner-tree
+proved_for: optimisation
+bound:
+  as_stated: 'O^*(2^{t} n^{2} + n m)'
+  notation: 'O*'
+  parameters:
+  - t
+  - n
+  - m
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Not stated; educated guess: exponential. Dynamic programming over subsets of terminals with fast subset convolution.'
+  algebraic: true
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: bjorklund-husfeldt-kaski-koivisto-2006
+  statements:
+    arxiv-v1:
+      statement: 'Theorem 4 (Section 4.1.2), weights in $\{1, \dots, M\}$ with $M = 1$'
+  note: 'Theorem 4: $O^*(2^k n^2 M + nm \log M)$ for edge weights in $\{1, \dots, M\}$; Section 1.2 states $O^*(2^k n^2 + nm)$ for small integer weights. Dynamic programming with fast subset convolution. STOC 2007.'

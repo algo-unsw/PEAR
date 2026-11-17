@@ -1,0 +1,24 @@
+id: feedback-vertex-set--n--fomin-gaspers-lokshtanov-saurabh-2015
+problem: feedback-vertex-set
+proved_for: decision
+bound:
+  as_stated: '1.6667^{n} n^{O(1)}'
+  notation: O
+  parameters:
+  - n
+properties:
+  randomized:
+    error: one-sided
+  space:
+    class: exponential
+    bound: 'Not stated; educated guess: exponential. The extension step is the randomized $3^k$ Cut&Count algorithm, whose space we have not checked; the sampling itself uses polynomial space.'
+  algebraic: true
+  fast_matrix_multiplication: false
+  constructive: false
+  quantum: false
+source:
+  paper: fomin-gaspers-lokshtanov-saurabh-2015
+  statements:
+    arxiv-v1:
+      statement: 'Table 1 (Theorem 1 with the $3^k$ algorithm of Cygan et al.)'
+  note: 'Monotone Local Search: randomized, one-sided error. STOC 2016; J. ACM 2019.'

@@ -1,0 +1,26 @@
+id: vertex-cover--k--sukruth-2026
+problem: vertex-cover
+proved_for: search
+bound:
+  as_stated: '2^{O(k \log\log k / \sqrt{\log k})} + n^{O(1)}'
+  notation: O
+  parameters:
+  - k
+  - n
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Educated guess: polynomial. Polynomial-time kernelization, then one call to the counting algorithm on a CNF with $O(k)$ variables; no memoization or dynamic programming found.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+uses:
+- sharp-3-sat--n--anthropic-2026
+source:
+  paper: sukruth-2026
+  statements:
+    github:
+      statement: 'Theorem 1.1(a) (proved in Section 3), assuming the counting theorem (Theorem 2.1 of the note)'
+  note: 'Deterministic; decides and finds a vertex cover. Nemhauser–Trotter kernel, then a 3-CNF with $O(k)$ variables and $O(k^2)$ clauses. The note takes OpenAI''s Theorem 1.1 as a black box and shows that Anthropic''s Theorem 1 implies it in the needed form; the variable-based bound used here is Anthropic''s Lean-checked theorem. AI-assisted (stated in the README).'

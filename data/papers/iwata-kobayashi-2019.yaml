@@ -1,0 +1,12 @@
+id: iwata-kobayashi-2019
+title: Improved Analysis of Highest-Degree Branching for Feedback Vertex Set
+authors:
+- Yoichi Iwata
+- Yusuke Kobayashi
+versions:
+  ipec:
+    kind: conference
+    venue: 'IPEC 2019, LIPIcs 148, Article 22'
+    year: 2019
+    doi: 10.4230/LIPIcs.IPEC.2019.22
+    open_access: true

@@ -1,0 +1,11 @@
+id: nederlof-2013
+title: 'Fast polynomial-space algorithms using inclusion-exclusion: improving on Steiner tree and related problems'
+authors:
+- Jesper Nederlof
+versions:
+  journal:
+    kind: journal
+    venue: 'Algorithmica 65(4), pp. 868–884'
+    year: 2013
+    doi: 10.1007/s00453-012-9630-x
+    open_access: true

@@ -1,0 +1,11 @@
+id: garey-johnson-1977
+title: The Rectilinear Steiner Tree Problem is NP-Complete
+authors:
+- Michael R. Garey
+- David S. Johnson
+versions:
+  journal:
+    kind: journal
+    venue: SIAM Journal on Applied Mathematics 32(4), pp. 826–834
+    year: 1977
+    open_access: false

@@ -1,0 +1,19 @@
+id: 3-hitting-set--to--hitting-set
+from: { problem: 3-hitting-set, version: decision }
+to: { problem: hitting-set, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(N)"
+parameter_map: { n: "n", m: "m", k: "k" }
+variants:
+  - id: weighted
+    note: "Weighted versions: the same instance."
+    from: { problem: 3-hitting-set, version: weighted }
+    to: { problem: hitting-set, version: weighted }
+    parameter_map: { n: "n", m: "m" }
+    source:
+      folklore: true
+      note: "The same instance with the same weights."
+source:
+  folklore: true
+  note: "3-Hitting Set is the special case of Hitting Set with sets of size at most 3; the instance is unchanged."

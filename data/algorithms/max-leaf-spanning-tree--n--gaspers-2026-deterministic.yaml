@@ -1,0 +1,23 @@
+id: max-leaf-spanning-tree--n--gaspers-2026-deterministic
+problem: max-leaf-spanning-tree
+proved_for: search
+bound:
+  as_stated: '(\sqrt{5} - 1/2)^{n} 2^{o(n)}'
+  notation: O
+  parameters:
+  - n
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Polynomial space, as stated.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: gaspers-2026
+  statements:
+    arxiv-v1:
+      statement: Theorem 1.2 (Theorem 10.4)
+  note: 'Deterministic, polynomial space; stated as $(\sqrt5 - \frac12)^n 2^{o(n)} = O(1.7361^n)$. arXiv v1, 1 November 2026; unrefereed preprint.'

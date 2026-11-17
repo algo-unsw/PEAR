@@ -1,0 +1,26 @@
+id: max-cut--k--sukruth-2026
+problem: max-cut
+proved_for: search
+bound:
+  as_stated: '2^{O(k / \sqrt{\log k})} + n^{O(1)}'
+  notation: O
+  parameters:
+  - k
+  - n
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Educated guess: polynomial. Polynomial-time kernelization, then one call to the counting algorithm on a CNF with $O(k)$ variables; no memoization or dynamic programming found.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+uses:
+- sharp-3-sat--m--anthropic-2026
+source:
+  paper: sukruth-2026
+  statements:
+    github:
+      statement: 'Theorem 1.1(b) (proved in Section 4), assuming the counting theorem (Theorem 2.1 of the note)'
+  note: 'Deterministic; decides and finds a cut with at least $k$ edges. If $m \ge 2k$ local search answers yes; otherwise a 3-CNF with $O(k)$ variables and $O(k)$ clauses, so the clause-count bound $2^{O(M/\sqrt{\log M})}$ of Anthropic''s Lean-checked theorem gives the rate. AI-assisted (stated in the README).'

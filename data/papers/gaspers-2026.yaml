@@ -1,0 +1,11 @@
+id: gaspers-2026
+title: Monotone Local Search with Sample-Dependent Running Times
+authors:
+- Serge Gaspers
+versions:
+  arxiv-v1:
+    kind: preprint
+    year: 2026
+    arxiv: 2611.01774v1
+    open_access: true
+unverified: true

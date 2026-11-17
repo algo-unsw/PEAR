@@ -34,6 +34,9 @@ class Var:
 @dataclass(frozen=True)
 class Const:
     name: str  # varepsilon | omega | delta
+    # \varepsilon_{k}: some ε > 0 that depends only on the parameters listed; the bound then
+    # holds for every fixed value of them, with hidden constants depending on them (bounds §2)
+    deps: tuple[str, ...] = ()
 
 
 @dataclass(frozen=True)
@@ -106,6 +109,8 @@ class Bound:
 def variables(node: Node) -> set[str]:
     if isinstance(node, Var):
         return {node.name}
+    if isinstance(node, Const):
+        return set(node.deps)
     out: set[str] = set()
     for child in children(node):
         out |= variables(child)
@@ -126,6 +131,16 @@ def children(node: Node) -> Iterable[Node]:
     if isinstance(node, (Sqrt, Asym, Func, Poly)):
         return [node.arg]
     return []
+
+
+def fixed_parameters(node: Node) -> frozenset[str]:
+    """The parameters a bound is stated for every fixed value of (the subscripts of ε)."""
+    if isinstance(node, Const):
+        return frozenset(node.deps)
+    out: frozenset[str] = frozenset()
+    for child in children(node):
+        out |= fixed_parameters(child)
+    return out
 
 
 def constants(node: Node) -> set[str]:
@@ -381,7 +396,27 @@ class _Parser:
 
     def command(self, cmd: str) -> Node:
         if cmd in _CONST_CMDS:
-            return Const(_CONST_CMDS[cmd])
+            name = _CONST_CMDS[cmd]
+            if name == "varepsilon" and self.at("_"):
+                self.take()
+                deps: list[str] = []
+                if self.at("{"):
+                    self.take()
+                    while not self.at("}"):
+                        tok = self.take()
+                        if tok.kind != "var":
+                            raise BoundSyntaxError(f"\\varepsilon_{{...}} lists parameters, found {tok.text!r}")
+                        deps.append(tok.text)
+                    self.expect("}")
+                else:
+                    tok = self.take()
+                    if tok.kind != "var":
+                        raise BoundSyntaxError(f"\\varepsilon_ needs a parameter, found {tok.text!r}")
+                    deps.append(tok.text)
+                if not deps:
+                    raise BoundSyntaxError("\\varepsilon_{} needs at least one parameter")
+                return Const(name, tuple(sorted(set(deps))))
+            return Const(name)
         if cmd == "\\sqrt":
             return Sqrt(self.group("{", "}"))
         if cmd == "\\frac":
@@ -518,6 +553,8 @@ def _render(node: Node) -> str:
         tex = base if len(base) == 1 else f"\\mathit{{{base}}}"
         return f"{tex}_{{{sub}}}" if sub else tex
     if isinstance(node, Const):
+        if node.deps:
+            return f"\\{node.name}_{{{', '.join(_render(Var(d)) for d in node.deps)}}}"
         return "e" if node.name == "e" else f"\\{node.name}"
     if isinstance(node, Add):
         out = ""
@@ -539,7 +576,9 @@ def _render(node: Node) -> str:
     if isinstance(node, Div):
         return f"{_wrap(node.num, _PREC_MUL)}/{_wrap(node.den, _PREC_POW)}"
     if isinstance(node, Pow):
-        return f"{_wrap(node.base, _PREC_ATOM)}^{{{_render(node.exp)}}}"
+        # a power of a logarithm keeps its parentheses: (\log\log k)^{1/9}, not \log\log k^{1/9}
+        base = f"({_render(node.base)})" if isinstance(node.base, Log) else _wrap(node.base, _PREC_ATOM)
+        return f"{base}^{{{_render(node.exp)}}}"
     if isinstance(node, Sqrt):
         return f"\\sqrt{{{_render(node.arg)}}}"
     if isinstance(node, Log):

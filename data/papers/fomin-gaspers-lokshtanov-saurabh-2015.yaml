@@ -1,0 +1,13 @@
+id: fomin-gaspers-lokshtanov-saurabh-2015
+title: Exact Algorithms via Monotone Local Search
+authors:
+- Fedor V. Fomin
+- Serge Gaspers
+- Daniel Lokshtanov
+- Saket Saurabh
+versions:
+  arxiv-v1:
+    kind: preprint
+    year: 2015
+    arxiv: 1512.01621v1
+    open_access: true

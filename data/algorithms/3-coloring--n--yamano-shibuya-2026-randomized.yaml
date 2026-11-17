@@ -1,0 +1,24 @@
+id: 3-coloring--n--yamano-shibuya-2026-randomized
+problem: 3-coloring
+proved_for: decision
+bound:
+  as_stated: '1.3159^{n} n^{O(1)}'
+  notation: O
+  parameters:
+  - n
+properties:
+  randomized:
+    error: one-sided
+  space:
+    class: exponential
+    bound: 'Not stated; educated guess: exponential. The algorithms combine constraint satisfaction algorithms with dynamic programming over tree and path decompositions, whose tables are exponential.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: false
+  quantum: false
+source:
+  paper: yamano-shibuya-2026
+  statements:
+    arxiv-v1:
+      statement: Theorem 1.2
+  note: 'One-sided Monte Carlo: always rejects no-instances, accepts yes-instances with constant probability (Section 2). arXiv v1, 2 November 2026; unrefereed preprint.'

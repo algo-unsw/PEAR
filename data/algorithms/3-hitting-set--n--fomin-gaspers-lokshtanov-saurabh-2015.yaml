@@ -1,0 +1,24 @@
+id: 3-hitting-set--n--fomin-gaspers-lokshtanov-saurabh-2015
+problem: 3-hitting-set
+proved_for: decision
+bound:
+  as_stated: '1.5182^{n} n^{O(1)}'
+  notation: O
+  parameters:
+  - n
+properties:
+  randomized:
+    error: one-sided
+  space:
+    class: polynomial
+    bound: 'Not stated; educated guess: polynomial. Random sampling and a polynomial-space branching extension step; no memoization found.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: false
+  quantum: false
+source:
+  paper: fomin-gaspers-lokshtanov-saurabh-2015
+  statements:
+    arxiv-v1:
+      statement: 'Table 1 (Theorem 1 with Wahlström''s $2.0755^k$ algorithm)'
+  note: 'Monotone Local Search, randomized with one-sided error. Theorem 2 gives the same base deterministically with an extra $2^{o(n)}$ factor in time and space. STOC 2016; J. ACM 2019.'

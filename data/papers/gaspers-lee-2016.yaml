@@ -1,0 +1,11 @@
+id: gaspers-lee-2016
+title: Faster Graph Coloring in Polynomial Space
+authors:
+- Serge Gaspers
+- Edward J. Lee
+versions:
+  arxiv-v2:
+    kind: preprint
+    year: 2016
+    arxiv: 1607.06201v2
+    open_access: true

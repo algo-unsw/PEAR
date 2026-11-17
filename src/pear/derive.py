@@ -694,6 +694,7 @@ def to_json(data: Dataset, d: Derivation) -> dict:
 
 def _row(r: Result, ctx: Context, beaten_by: list[str]) -> dict:
     from .bounds import render_bound
+    from .bounds.expr import fixed_parameters
 
     shown = display(r.bound, ctx, derived=r.derived)
     return {
@@ -704,6 +705,7 @@ def _row(r: Result, ctx: Context, beaten_by: list[str]) -> dict:
         "shown": shown.tex,
         "hover": shown.hover,
         "parameters": sorted(variables(ostar(r.bound, ctx).expr)),
+        "fixed": sorted(fixed_parameters(r.bound.expr)),
         "properties": {
             "deterministic": r.props.deterministic,
             "polynomial_space": r.props.poly_space,

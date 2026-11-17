@@ -1,0 +1,12 @@
+id: binkele-raible-fernau-2014
+title: A Parameterized Measure-and-Conquer Analysis for Finding a k-Leaf Spanning Tree in an Undirected Graph
+authors:
+- Daniel Binkele-Raible
+- Henning Fernau
+versions:
+  journal:
+    kind: journal
+    venue: 'Discrete Mathematics & Theoretical Computer Science 16(1), pp. 179–200'
+    year: 2014
+    doi: 10.46298/dmtcs.1256
+    open_access: true

@@ -1,0 +1,14 @@
+id: lokshtanov-narayanaswamy-raman-ramanujan-saurabh-2012
+title: Faster Parameterized Algorithms using Linear Programming
+authors:
+- Daniel Lokshtanov
+- N. S. Narayanaswamy
+- Venkatesh Raman
+- M. S. Ramanujan
+- Saket Saurabh
+versions:
+  arxiv-v2:
+    kind: preprint
+    year: 2012
+    arxiv: 1203.0833v2
+    open_access: true

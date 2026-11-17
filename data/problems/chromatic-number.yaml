@@ -1,0 +1,43 @@
+id: chromatic-number
+name: Chromatic Number
+aliases: [Graph Coloring, Graph Colouring, Vertex Coloring, k-Coloring]
+category: graph
+complexity:
+  class: NP-complete
+  source:
+    paper: karp-1972
+    attested_by:
+      - "https://en.wikipedia.org/wiki/List_of_NP-complete_problems"
+      - "https://www.iitg.ac.in/rinkulu/note/npprobs-note.pdf"
+      - "https://arxiv.org/pdf/1902.10349"
+    note: "Chromatic Number is one of Karp's 21 NP-complete problems (Garey–Johnson GT4)."
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  k: { meaning: "the number of colours: the integer $k$ in the input (decision, search), or the chromatic number $\\chi(G)$ (optimisation)" }
+  tw: { shared: treewidth }
+constraints:
+  - { constraint: "k \\le n", because: "Every instance with $k \\ge n$ is a yes-instance (one colour per vertex)." }
+  - { constraint: "m \\le n^{2}", because: "A simple graph has at most $n(n-1)/2$ edges." }
+  - { constraint: "tw \\le n", because: "A single bag containing all vertices is a tree decomposition of width $n - 1$." }
+versions:
+  decision:
+    kind: decision
+    input: "A graph $G = (V, E)$ and an integer $k$."
+    question: "Is there a map $c \\colon V \\to \\{1, \\dots, k\\}$ such that $c(u) \\ne c(v)$ for every edge $uv$?"
+  optimisation:
+    kind: optimisation
+    input: "A graph $G = (V, E)$."
+    goal: "Find the chromatic number $\\chi(G)$: the minimum $k$ such that there is a map $c \\colon V \\to \\{1, \\dots, k\\}$ with $c(u) \\ne c(v)$ for every edge $uv$."
+  search:
+    kind: search
+    input: "A graph $G = (V, E)$ and an integer $k$."
+    goal: "Find a map $c \\colon V \\to \\{1, \\dots, k\\}$ such that $c(u) \\ne c(v)$ for every edge $uv$, or report that none exists."
+default_version: optimisation
+shared_bounds:
+  - versions: [decision, optimisation, search]
+    because: "Binary search on $k$ and self-reducibility (merge two non-adjacent vertices or add an edge, and test again)."
+related:
+  - { problem: 3-coloring, relation: generalisation }
