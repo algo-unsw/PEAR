@@ -22,4 +22,4 @@ source:
       statement: Theorem 1.1
   note: Improves Beigel and Eppstein's algorithm, using their (3,2)-CSP solver as a black box.
 status: flagged
-status_note: "Yamano and Shibuya (arXiv:2611.03115v1, Appendix F) give an explicit feasible solution of the linear program in Section 5.2 of the preprint with objective value above $\\ln 1.3217$ (its exponential exceeds 1.32702), so that linear program does not establish the $O^*(1.3217^n)$ bound; they note this need not be a lower bound on the algorithm's running time. Flag raised on 17 November 2026, pending Serge's review."
+status_note: "Yamano and Shibuya (arXiv:2611.03115v1, Appendix F) give an explicit feasible solution of the linear program in Section 5.2 of the preprint with objective value above $\\ln 1.3217$ (its exponential exceeds 1.32702), so that linear program does not establish the $O^*(1.3217^n)$ bound; they note this need not be a lower bound on the algorithm's running time. Reference: Ryosuke Yamano and Tetsuo Shibuya, Faster Exact Algorithms for 3- and 4-Coloring, https://arxiv.org/abs/2611.03115v1 (entry yamano-shibuya-2026). Flagged on 17 November 2026, approved by Serge Gaspers."

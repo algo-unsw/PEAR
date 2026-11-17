@@ -313,3 +313,7 @@ Garey and Johnson's *Computers and Intractability* (1979) is the natural seed fo
 - [ ] Contribute improved parameter relations back to HOPS (github.com/vaclavblazej), after checking its contribution docs.
 - [x] Refine the canonical definition format with the owner (agreed 7 November 2026).
 - [x] Decide the optional randomized-error detail field (yes, optional and display-only).
+
+## Decisions log
+
+- 17 November 2026: Meijer's 3-Coloring bound is flagged (Yamano–Shibuya, Appendix F); for Kociumaka–Pilipczuk use the journal version, $(2+\phi)^k$; new notation $\varepsilon_k$ for bounds that hold for every fixed $k$ (bounds.md §2).

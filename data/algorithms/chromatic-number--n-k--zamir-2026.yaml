@@ -1,0 +1,25 @@
+id: chromatic-number--n-k--zamir-2026
+problem: chromatic-number
+proved_for: decision
+bound:
+  as_stated: 'O^*((2 - \varepsilon_{k})^{n})'
+  notation: 'O*'
+  parameters:
+  - n
+  - k
+properties:
+  randomized:
+    error: one-sided
+  space:
+    class: exponential
+    bound: 'Not stated for the main theorem; educated guess: exponential. Its subroutines (Theorem 3.7, Corollary 3.8) are stated with exponential space.'
+  algebraic: true
+  fast_matrix_multiplication: false
+  constructive: false
+  quantum: false
+source:
+  paper: zamir-2026
+  statements:
+    arxiv-v2:
+      statement: Theorem 5.2
+  note: 'For every fixed integer $k \ge 1$ there is $\varepsilon_k > 0$ such that $k$-coloring (also $k$-list-coloring over an arbitrary palette) is solved with exponentially small one-sided error in $O^*((2-\varepsilon_k)^n)$ time. arXiv v1 28 July 2026, v2 9 September 2026 (read); unrefereed preprint.'

@@ -202,6 +202,10 @@ def parameter_info(data: Dataset, problem: Problem) -> list[dict[str, Any]]:
 def property_words(row: dict[str, Any], alg: Algorithm, chain_randomized: bool) -> dict[str, Any]:
     p = row["properties"]
     words, short = [], []
+    if row.get("fixed"):
+        # ε_k: the bound holds for every fixed value of these parameters (bounds §2)
+        words.append("for every fixed " + ", ".join(row["fixed"]))
+        short.append("fixed " + ", ".join(row["fixed"]))
     if p["deterministic"]:
         words.append("deterministic")
         short.append("det")

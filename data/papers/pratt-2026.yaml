@@ -1,0 +1,11 @@
+id: pratt-2026
+title: Breaking the 2^n barrier for graph k-coloring
+authors:
+- Kevin Pratt
+versions:
+  arxiv-v1:
+    kind: preprint
+    year: 2026
+    arxiv: 2607.27159v1
+    open_access: true
+unverified: true
