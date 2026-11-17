@@ -1,0 +1,24 @@
+id: hamiltonian-cycle--n--karp-1982
+problem: hamiltonian-cycle
+proved_for: decision
+bound:
+  as_stated: 2^{n} n^{O(1)}
+  notation: O
+  parameters:
+  - n
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Polynomial space, as the attesting sources state (inclusion–exclusion over vertex subsets, counting closed walks).'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: false
+  quantum: false
+source:
+  paper: karp-1982
+  attested_by:
+  - https://arxiv.org/pdf/1008.0541
+  - https://www.cs.helsinki.fi/u/mkhkoivi/publications/talg-2011.pdf
+  - https://conferences.mpi-inf.mpg.de/adfocs13/material/lukasz/ie.pdf
+  note: 'Inclusion–exclusion counts Hamiltonian cycles in $O(2^n n^3)$ time and polynomial space (Kowalik, ADFOCS 2013 notes). Björklund (FOCS 2010, Section 1.1) notes the algorithm was found at least three times: Kohn, Gottlieb and Kohn (ACM Annual Conference 1977), Karp (1982) and Bax (IPL 1993). Kohn–Gottlieb–Kohn is earlier but has only two attesting sources so far. No open copy found.'

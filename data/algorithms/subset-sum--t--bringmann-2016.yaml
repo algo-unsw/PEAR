@@ -1,0 +1,25 @@
+id: subset-sum--t--bringmann-2016
+problem: subset-sum
+proved_for: decision
+bound:
+  as_stated: \tilde{O}(n + t)
+  notation: Õ
+  parameters:
+  - n
+  - t
+properties:
+  randomized:
+    error: one-sided
+  space:
+    class: exponential
+    bound: 'Not stated; educated guess: the algorithm computes sets of attainable sums up to $t$ with FFT-based sumsets, so $\tilde{O}(n + t)$ space, pseudo-polynomial and exponential in the input size.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: bringmann-2016
+  statements:
+    arxiv-v2:
+      statement: Theorem 1.1
+  note: 'Randomized, one-sided error with error probability $(n+t)^{-\Omega(1)}$; the algorithm computes, with probability $1 - \delta$, the attainable sums up to $t$ in time $O(n + t \log t \log^3(n/\delta) \log n)$. Positive integers (multisets reduced to sets); zeros can be removed first. arXiv v1 15 October 2016, v2 8 January 2017 (read); SODA 2017. Year from arXiv v1.'
