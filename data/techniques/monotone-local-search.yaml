@@ -1,0 +1,35 @@
+id: monotone-local-search
+name: Monotone Local Search
+source:
+  paper: fomin-gaspers-lokshtanov-saurabh-2015
+  statements:
+    arxiv-v1:
+      statement: "Theorems 1 and 2"
+  note: "If the extension version (given $X$, add at most $k$ elements to obtain a solution) is solvable in $c^k N^{O(1)}$ time, the subset problem is solvable in $(2 - 1/c)^n N^{O(1)}$ randomized time (Theorem 1, one-sided error) and in $(2 - 1/c)^{n + o(n)} N^{O(1)}$ deterministic time (Theorem 2). Added as a technique at Serge Gaspers's request (18 November 2026)."
+input_parameter: k
+output_parameter: n
+base: "2 - 1/c"
+rules:
+  - id: randomized
+    statement: Theorem 1
+    output_deterministic: false
+    keeps_polynomial_space: true
+  - id: deterministic
+    statement: Theorem 2
+    requires_deterministic: true
+    output_deterministic: true
+    keeps_polynomial_space: false
+    subexponential_factor: true
+applies_to:
+  - problem: feedback-vertex-set
+    version: decision
+    because: "Vertex deletion into forests, a hereditary class: an algorithm for the problem solves the extension version, since the vertices in $X$ can simply be deleted (Section 1 of arXiv v1)."
+  - problem: odd-cycle-transversal
+    version: decision
+    because: "Vertex deletion into bipartite graphs, a hereditary class: the vertices in $X$ can simply be deleted (Section 1 of arXiv v1)."
+  - problem: vertex-cover
+    version: decision
+    because: "Vertex deletion into edgeless graphs, a hereditary class: the vertices in $X$ can simply be deleted (Section 1 of arXiv v1)."
+  - problem: 3-hitting-set
+    version: decision
+    because: "A special case of Min-Ones 3-SAT, whose extension version reduces to the problem itself (Section 1 of arXiv v1); for 3-Hitting Set, delete the sets that $X$ hits."

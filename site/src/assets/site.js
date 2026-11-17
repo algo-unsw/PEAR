@@ -135,6 +135,8 @@
     $$("[data-include-all]").forEach((c) => { c.checked = all; });
     $$("[data-include-unverified]").forEach((c) => { c.checked = included.has(c.dataset.includeUnverified); });
     $$(".ov-entry[data-all]").forEach((el) => { el.hidden = !visible(el); });
+    // the bound history follows the switch too (with ω at its best claimed value)
+    $$("[data-history]").forEach((el) => { el.hidden = (el.dataset.history === "all") !== all; });
     $$(".ov-group").forEach((g) => { g.hidden = !$$(".ov-entry", g).some((el) => !el.hidden); });
   }
   $$("[data-include-all]").forEach((c) => c.addEventListener("change", () => {

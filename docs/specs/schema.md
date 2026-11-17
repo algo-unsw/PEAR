@@ -365,6 +365,25 @@ The order is subjective but informed by data (competition results, published ben
 
 The validator checks that ranked ids exist, appear once and solve the problem exactly, and that every `solves` entry names a known problem and version.
 
+## 13. Technique (proposed 18 November 2026)
+
+A generic method that the engine combines with every compatible result (rulebook §9a). One file per technique in `data/techniques/<id>.yaml`.
+
+```yaml
+id: monotone-local-search
+name: Monotone Local Search
+source: { paper: fomin-gaspers-lokshtanov-saurabh-2015, statements: { arxiv-v1: { statement: "Theorems 1 and 2" } } }
+input_parameter: k          # the input bound must be c^{k} up to polynomial factors
+output_parameter: n
+base: "2 - 1/c"             # the output base, an expression in c
+rules:
+  - { id: randomized, statement: Theorem 1, output_deterministic: false, keeps_polynomial_space: true }
+  - { id: deterministic, statement: Theorem 2, requires_deterministic: true, output_deterministic: true,
+      keeps_polynomial_space: false, subexponential_factor: true }
+applies_to:
+  - { problem: feedback-vertex-set, version: decision, because: "Vertices in X can simply be deleted (Section 1)." }
+```
+
 ## Decisions (7 November 2026)
 
 - **Q1** Paper IDs are surname+year slugs; DBLP key stored under `identifiers`.

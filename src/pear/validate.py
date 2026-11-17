@@ -288,6 +288,20 @@ def check_references(data: Dataset) -> list[Issue]:
         if uses_cycle(aid):
             issues.append(Issue(f"algorithms/{aid}.yaml: uses", "the uses relation has a cycle through this result"))
 
+    for tid, tech in data.entries["techniques"].items():
+        where = f"techniques/{tid}.yaml"
+        source(f"{where}: source", tech.source)  # type: ignore[attr-defined]
+        try:
+            parse_expr(tech.base, ["c"])  # type: ignore[attr-defined]
+        except Exception as exc:  # noqa: BLE001
+            issues.append(Issue(f"{where}: base", f"not an expression in c: {exc}"))
+        for i, ap in enumerate(tech.applies_to):  # type: ignore[attr-defined]
+            prob = problem_version(f"{where}: applies_to[{i}]", ap.problem, ap.version)
+            if prob is not None:
+                for sym in (tech.input_parameter, tech.output_parameter):  # type: ignore[attr-defined]
+                    if sym not in prob.symbols():
+                        issues.append(Issue(f"{where}: applies_to[{i}]", f"problem '{ap.problem}' has no parameter '{sym}'"))
+
     for rid, red in data.entries["reductions"].items():
         assert isinstance(red, Reduction)
         where = f"reductions/{rid}.yaml"

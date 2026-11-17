@@ -160,7 +160,9 @@ def test_beaten_direct_result_only_in_history(real):
     _, site, _ = real
     node = site["pages"]["vertex-cover"]["nodes"]["decision+optimisation+search"]
     assert not any("chen-kanj-xia" in r["id"] for r in node["rows"])
-    assert [s["year"] for s in node["history"]["k"]["steps"]] == [2006, 2023, 2025]
+    # preprints count in the history only with the switch on (decided 18 November 2026)
+    assert [s["year"] for s in node["history"]["k"]["steps"]] == [2006, 2023]
+    assert [s["year"] for s in node["history_all"]["k"]["steps"]] == [2006, 2023, 2025]
 
 
 def test_unverified_results_can_be_switched_into_the_overview(real):
@@ -212,7 +214,8 @@ def test_references_name_the_journal_version_and_the_cited_statement(real):
     refs = {r["id"]: r for r in site["pages"]["feedback-vertex-set"]["references"]}
     kp = refs["kociumaka-pilipczuk-2014"]
     assert kp["primary"] == "Information Processing Letters 114(10), pp. 556–560, 2014"
-    assert kp["cited"] == ["Theorem 2 of arXiv v1"]
+    # Theorem 1 (3.592^k, unverified) is cited too: a record in the history with the switch on
+    assert kp["cited"] == ["Theorem 2 of arXiv v1", "Theorem 1 of arXiv v1"]
     assert kp["others"] == ["arXiv:1306.3566v1, 2013"]
     assert kp["links"][0]["url"] == "https://doi.org/10.1016/j.ipl.2014.05.001"
     # journal over conference; a retitled journal version brings its own title
@@ -288,9 +291,11 @@ def test_preprints_are_optional_in_the_overview_and_on_the_front_page(real):
     assert clinch.get("optional") and "preprint" in clinch["cite"][0]["flags"]
     shown = [e["cite"][0]["id"] for e in entries if not e.get("optional")]
     assert "vertex-cover--k--harris-narayanaswamy-2022" in shown
-    # Details keeps every result and the history still counts preprints (Details unchanged)
+    # Details keeps every result; the history counts preprints only with the switch on
     assert any(r["id"] == "vertex-cover--k--clinch-gaspers-he-2025" for r in node["rows"])
-    assert [s["year"] for s in node["history"]["k"]["steps"]] == [2006, 2023, 2025]
+    # preprints count in the history only with the switch on (decided 18 November 2026)
+    assert [s["year"] for s in node["history"]["k"]["steps"]] == [2006, 2023]
+    assert [s["year"] for s in node["history_all"]["k"]["steps"]] == [2006, 2023, 2025]
     front = {e["id"]: e for e in site["index"] if e["id"]}
     vc = front["vertex-cover"]["bounds"]
     assert any(b["optional"] and b["id"] == "vertex-cover--k--clinch-gaspers-he-2025" for b in vc)

@@ -541,6 +541,42 @@ class LowerBound(Model):
     review: Review = Review()
 
 
+class TechniqueRule(Model):
+    """One theorem of a technique: how the input bound c^k becomes an output bound."""
+
+    id: Id  # e.g. "randomized", "deterministic"
+    statement: Text  # e.g. "Theorem 1"
+    requires_deterministic: bool = False  # the input algorithm must be deterministic
+    output_deterministic: bool  # deterministic output if the input is (False: randomized)
+    keeps_polynomial_space: bool = True  # polynomial space if the input has it
+    # the exponent is n + o(n): the base is rounded up strictly, which absorbs 2^{o(n)}
+    subexponential_factor: bool = False
+
+
+class TechniqueProblem(Model):
+    problem: Id
+    version: Id
+    because: Text  # why an algorithm for this version solves the setting the technique needs
+
+
+class Technique(Model):
+    """A generic method that turns any algorithm of one form into a faster algorithm of
+    another, such as Monotone Local Search: c^k N^{O(1)} for the extension version gives
+    (2 - 1/c)^n N^{O(1)} (proposed 18 November 2026). The engine combines it with every
+    compatible result, so it improves whenever they do."""
+
+    id: Id
+    name: Text
+    source: PaperSource
+    input_parameter: Symbol  # the input bound must be c^{input} up to polynomial factors
+    output_parameter: Symbol
+    base: Text  # the output base as an expression in c, e.g. "2 - 1/c"
+    rules: list[TechniqueRule] = Field(min_length=1)
+    applies_to: list[TechniqueProblem] = Field(min_length=1)
+    status: ResultStatus = "valid"
+    review: Review = Review()
+
+
 ENTITY_TYPES: dict[str, type[Model]] = {
     "problems": Problem,
     "parameters": SharedParameter,
@@ -551,4 +587,5 @@ ENTITY_TYPES: dict[str, type[Model]] = {
     "lower-bounds": LowerBound,
     "constants": NamedConstant,
     "implementations": Implementation,
+    "techniques": Technique,
 }

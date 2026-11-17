@@ -124,6 +124,7 @@ def dataset(*entries):
     raw = {folder: {} for folder in ENTITY_TYPES}
     for e in entries:
         folder = (
+            "techniques" if "applies_to" in e else
             "constants" if "symbol" in e else
             "papers" if "authors" in e else
             "problems" if "objects" in e else
@@ -863,3 +864,34 @@ def test_omega_takes_its_best_published_or_claimed_value():
     assert {r["id"] for r in out["problems"]["a"]["decision"]} == {"a-omega", "a-plain"}
     assert [e["cite"] for e in out["overview"]["a"]["decision"]] == [["a-plain"]]
     assert [e["cite"] for e in out["overview_all"]["a"]["decision"]] == [["a-omega"]]
+
+
+def test_monotone_local_search_combines_with_every_compatible_result():
+    # decided 18 November 2026: a technique such as Monotone Local Search is applied by the
+    # engine to every compatible result, so its bound improves whenever they do
+    tech = {
+        "id": "mls", "name": "Monotone Local Search",
+        "source": {"paper": "p-mls", "statements": {"arxiv-v1": {"statement": "Theorems 1 and 2"}}},
+        "input_parameter": "k", "output_parameter": "n", "base": "2 - 1/c",
+        "rules": [
+            {"id": "randomized", "statement": "Theorem 1", "output_deterministic": False},
+            {"id": "deterministic", "statement": "Theorem 2", "requires_deterministic": True,
+             "output_deterministic": True, "keeps_polynomial_space": False, "subexponential_factor": True},
+        ],
+        "applies_to": [{"problem": "a", "version": "decision", "because": "Test."}],
+    }
+    data = dataset(
+        problem("a", params=("k",), constraints=[r"k \le n"]), paper("p-mls", 2015), paper("p1", 2010), paper("p2", 2020),
+        tech,
+        alg("a-det", "a", r"O^*(4^{k})", paper="p1"),
+        alg("a-rand", "a", r"O^*(3^{k})", paper="p2", randomized={"error": "one-sided"}),
+    )
+    out = to_json(data, derive(data))
+    got = {r["id"]: (r["shown"], r["properties"]["deterministic"], r["year"]) for r in out["problems"]["a"]["decision"]}
+    # 4^k, deterministic: 1.7501^n deterministic (Theorem 2, base rounded up strictly to absorb
+    # the 2^{o(n)} factor); its randomized 1.75^n (Theorem 1) is beaten by the one from 3^k
+    assert "a-det|technique:mls:randomized" not in got
+    assert got["a-det|technique:mls:deterministic"] == ("O^*(1.7501^{n})", True, 2015)
+    # 3^k, randomized: only Theorem 1 applies, dated by the later of the two
+    assert got["a-rand|technique:mls:randomized"] == ("O^*(1.6667^{n})", False, 2020)
+    assert "a-rand|technique:mls:deterministic" not in got

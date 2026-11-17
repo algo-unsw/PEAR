@@ -89,6 +89,15 @@ A derived bound is:
 - Worse bounds are dropped, direct or derived (version 3). Best and incomparable ones are kept, under every filter combination the site offers (so the fastest deterministic polynomial-space bound is kept even when a faster randomized one exists). A dropped direct result leaves the Details list but stays in the bound history; a derived bound never drops a direct one, because "include derived" can be unticked.
 - **Overview tab** (the default view, decided 7 November 2026): shows the best non-quantum bounds obtained by any means, direct or derived, compared in O* form; the Details tab lists every kept result with filters. Bounds equal in O* form are equivalent; the earlier one is cited, by year, and all of them in case of a tie. A derived bound dates from its latest dated ingredient (the algorithm's paper and each reduction's paper). Undated (folklore) results count as latest.
 
+## 9a. Techniques (proposed 18 November 2026)
+
+A **technique** (`data/techniques/<id>.yaml`, schema §13) is a theorem that turns any algorithm of one form into an algorithm of another, such as Monotone Local Search (Fomin, Gaspers, Lokshtanov, Saurabh): an algorithm for the extension version in $c^k N^{O(1)}$ time gives $(2 - 1/c)^n N^{O(1)}$ randomized (Theorem 1) and $(2 - 1/c)^{n + o(n)} N^{O(1)}$ deterministic (Theorem 2).
+
+- The engine applies it to every kept result, direct or derived, of a problem the technique lists (`applies_to`, each with the reason its algorithms fit the technique's setting), whose $O^*$ form is $c^k$ for a constant $c$ ($\omega$ at its published value). So the technique's bound improves automatically whenever a compatible result does.
+- Each rule (theorem) gives one result: base $f(c)$ rounded up to four decimals (strictly, if the theorem has a $2^{o(n)}$ factor, which the rounding then absorbs). A rule may require a deterministic input; its output is deterministic only if the rule says so and the input is; polynomial space is kept only if the rule says so.
+- The result is derived: its chain ends with a technique step, it is dated by the later of the input and the technique's paper, and it inherits the input's flags (unverified, preprint, hypotheses). A technique is applied at most once per chain.
+- Results the paper states with the technique (e.g. Table 1 of Fomin et al.) stay as direct results.
+
 ## 10. Not covered yet
 
 - Transferring **lower bounds** (from A to B along a reduction from A to B). No lower bounds are entered in the pilot (schema Q5). Proposal: add this rule before the first lower bound is entered.

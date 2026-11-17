@@ -10,6 +10,7 @@ polynomial space, constructive, non-algebraic, Lean-verified, direct, classical)
 
 from __future__ import annotations
 
+import math
 from dataclasses import dataclass, field, replace
 from fractions import Fraction
 from typing import Iterable
@@ -19,7 +20,7 @@ from .bounds.compare import Analysed, Context, analyse, compare_ostar
 from .bounds.display import simplify, substitute
 from .bounds.expr import Add, Const, Log, Mul, Node, Num, Pow, Var, variables
 from .bounds.growth import is_monotone
-from .bounds.numeric import dominates, samples
+from .bounds.numeric import dominates, samples, value
 from .schema import Algorithm, FolkloreSource, Hypothesis, PaperSource, Problem, Reduction, Variant
 from .validate import Dataset, problem_context
 
@@ -85,7 +86,7 @@ class Props:
 
 @dataclass(frozen=True)
 class Step:
-    kind: str  # reduction | special-case | projection
+    kind: str  # reduction | special-case | projection | technique
     id: str
     from_node: str
     to_node: str
@@ -534,6 +535,60 @@ class Engine:
             out.append(replace(r, bound=proj, chain=r.chain + (step,)))
         return out
 
+    # -- techniques (18 November 2026) ------------------------------------------------------
+
+    def techniques(self, r: Result) -> list[Result]:
+        """Apply generic techniques such as Monotone Local Search: a result in time c^k N^{O(1)}
+        for a problem the technique applies to gives one in time f(c)^n, for each rule
+        (theorem) whose requirements it meets. The output base is rounded up to four decimals,
+        strictly when the theorem has a 2^{o(n)} factor, so the stated bound is an upper bound."""
+        out: list[Result] = []
+        if any(st.kind == "technique" for st in r.chain):
+            return out
+        problem = self.data.problems[r.problem]
+        for tid, tech in sorted(self.data.entries["techniques"].items()):
+            if tech.status not in ("valid", "fixed"):  # type: ignore[attr-defined]
+                continue
+            if not any(ap.problem == r.problem and node_key(problem, ap.version)[1] == r.node
+                       for ap in tech.applies_to):  # type: ignore[attr-defined]
+                continue
+            c = self.single_exponential(r, tech.input_parameter)  # type: ignore[attr-defined]
+            if c is None or c <= 1:
+                continue
+            exact = value(parse_expr(tech.base, ["c"]), {"c": c})  # type: ignore[attr-defined]
+            if exact is None or exact <= 0:
+                continue
+            paper = self.data.papers[tech.source.paper]  # type: ignore[attr-defined]
+            years = [paper.versions[v].year for v in tech.source.statements if v in paper.versions]  # type: ignore[attr-defined]
+            for rule in tech.rules:  # type: ignore[attr-defined]
+                if rule.requires_deterministic and not r.props.deterministic:
+                    continue
+                base = math.ceil(exact * 10**4 - 1e-9) / 10**4
+                if rule.subexponential_factor and base <= exact + 1e-12:
+                    base += 1e-4
+                text = f"{base:.4f}"
+                bound = Bound("O*", Pow(Num(Fraction(text), text), Var(tech.output_parameter)))  # type: ignore[attr-defined]
+                props = replace(
+                    r.props,
+                    deterministic=r.props.deterministic and rule.output_deterministic,
+                    poly_space=r.props.poly_space and rule.keeps_polynomial_space,
+                )
+                step = Step("technique", f"technique:{tid}:{rule.id}", f"{r.problem}:{r.node}", f"{r.problem}:{r.node}",
+                            note=f"{c:.6g}")  # the input base c
+                year = max([y for y in [r.year, *years] if y is not None], default=None)
+                out.append(replace(r, bound=bound, props=props, chain=r.chain + (step,), year=year,
+                                   papers=r.papers + (tech.source.paper,)))  # type: ignore[attr-defined]
+        return out
+
+    def single_exponential(self, r: Result, var: str) -> float | None:
+        """c if the result's O* form is c^{var} for a constant c (ω at its published value)."""
+        ctx = self.out.published[r.problem]
+        expr = ostar(r.bound, ctx).expr
+        if not (isinstance(expr, Pow) and expr.exp == Var(var)):
+            return None
+        env = {f"\\{name}": lo for name, (lo, _) in ctx.constants.items()}
+        return value(expr.base, env)
+
     # -- fixpoint ----------------------------------------------------------------------------
 
     def run(self) -> Derivation:
@@ -575,6 +630,7 @@ class Engine:
                     if d is not None:
                         produced.append(d)
                 produced += self.special_cases(r)
+                produced += self.techniques(r)
                 for d in produced:
                     if self.insert(d):
                         new.append(d)

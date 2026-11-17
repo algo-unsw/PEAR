@@ -31,6 +31,8 @@ eleventyComputed:
 <li><a href="{{ ('/problems/' + i.problem_id + '/') | url }}">{{ i.problem }}</a> in {{ i.shown | tex | safe }} {{ i.refs | refs | safe }}{% if i.statements.length %} ({{ i.statements | join("; ") }}){% endif %}, proved for the {{ i.proved_for }} version</li>
 {%- elif i.kind == "reduction" %}
 <li>Reduction from <a href="{{ ('/problems/' + i.from_id + '/') | url }}">{{ i.from }}</a> to <a href="{{ ('/problems/' + i.to_id + '/') | url }}">{{ i.to }}</a>, {{ i.type }}, {{ i.calls }}: {{ i.map | tex | safe }}{% if i.folklore %} (folklore){% endif %}{% if i.refs.length %} {{ i.refs | refs | safe }}{% endif %}{% if i.note %}<span class="cellnote">{{ i.note | mathtext | safe }}</span>{% endif %}</li>
+{%- elif i.kind == "technique" %}
+<li>{{ i.name }} {{ i.refs | refs | safe }} ({{ i.statement }}): {{ i.text | mathtext | safe }}{% if i.because %}<span class="cellnote">{{ i.because | mathtext | safe }}</span>{% endif %}</li>
 {%- elif i.kind == "special-case" %}
 <li>The bound for the {{ i.general }} version also holds for the {{ i.special }} version, a special case</li>
 {%- elif i.kind == "projection" %}
@@ -143,10 +145,13 @@ eleventyComputed:
 {%- endfor %}
 </ul>
 {%- endif %}
-{%- if node.history | length %}
+{%- if node.history | length or node.history_all | length %}
 <h3>History</h3>
-{%- for param, h in node.history %}
-<div class="history" role="region" id="hist-{{ v.id }}-{{ param }}" aria-label="History of the best bound in {{ param }}">
+{%- for view, hs in [["default", node.history], ["all", node.history_all]] %}
+<div data-history="{{ view }}"{% if view == "all" %} hidden{% endif %}>
+{%- if view == "all" %}<p class="small muted">{{ "With preprints and unverified results, and $\\omega$ at its best claimed value." | mathtext | safe }}</p>{% endif %}
+{%- for param, h in hs %}
+<div class="history" role="region" id="hist-{{ view }}-{{ v.id }}-{{ param }}" aria-label="History of the best bound in {{ param }}">
 <p><b>Best base {{ "c" | tex | safe }} in {{ ("O^*(c^{" + h.param_tex + "})") | tex | safe }} over time</b></p>
 {% historyChart h.steps, h.param_tex, h.name %}
 <ol reversed>
@@ -155,6 +160,8 @@ eleventyComputed:
 {%- endfor %}
 </ol>
 <p class="small muted" style="margin-top: 8px">Polynomial factors ignored. Only results entered in PEAR so far. A result is a record only if it is faster than every earlier result at least as strong: deterministic beats randomized and polynomial space beats exponential space.</p>
+</div>
+{%- endfor %}
 </div>
 {%- endfor %}
 {%- endif %}
