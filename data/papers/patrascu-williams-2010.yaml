@@ -6,7 +6,8 @@ authors:
 versions:
   soda:
     kind: conference
-    venue: SODA 2010
+    venue: "21st ACM-SIAM Symposium on Discrete Algorithms (SODA 2010), pp. 1065–1075"
+    doi: "10.1137/1.9781611973075.86"
     year: 2010
     url: https://khoury.northeastern.edu/~viola/classes/papers/PatrascuWilliamsSODA.pdf
     open_access: true
