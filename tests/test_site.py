@@ -245,3 +245,26 @@ def test_preliminary_version_by_fewer_authors(real):
     assert lp["authors"].startswith("Daniel Lokshtanov, ")
     assert ("N. S. Narayanaswamy, Venkatesh Raman, M. S. Ramanujan and Saket Saurabh. "
             "LP can be a cure for Parameterized Problems. 29th International Symposium") in lp["others"][1]
+
+
+def test_preprints_are_optional_in_the_overview_and_on_the_front_page(real):
+    # decided 18 November 2026: results from preprints (no peer-reviewed version) are left out of
+    # the Overview by default, like unverified ones; one browser-stored switch includes them all,
+    # in the Overview and on the front page
+    _, site, _ = real
+    node = site["pages"]["vertex-cover"]["nodes"]["decision+optimisation+search"]
+    assert node["has_optional"]
+    entries = [e for g in node["overview"] for e in g["entries"]]
+    clinch = next(e for e in entries if e["cite"][0]["id"] == "vertex-cover--k--clinch-gaspers-he-2025")
+    assert clinch.get("optional") and "preprint" in clinch["cite"][0]["flags"]
+    shown = [e["cite"][0]["id"] for e in entries if not e.get("optional")]
+    assert "vertex-cover--k--harris-narayanaswamy-2022" in shown
+    # Details keeps every result and the history still counts preprints (Details unchanged)
+    assert any(r["id"] == "vertex-cover--k--clinch-gaspers-he-2025" for r in node["rows"])
+    assert [s["year"] for s in node["history"]["k"]["steps"]] == [2006, 2023, 2025]
+    front = {e["id"]: e for e in site["index"] if e["id"]}
+    vc = front["vertex-cover"]["bounds"]
+    assert any(b["optional"] and b["id"] == "vertex-cover--k--clinch-gaspers-he-2025" for b in vc)
+    assert any(not b["optional"] and b["id"] == "vertex-cover--k--harris-narayanaswamy-2022" for b in vc)
+    # every problem on the front page lists its bounds, not only the pilot problems
+    assert front["feedback-vertex-set"]["bounds"]
