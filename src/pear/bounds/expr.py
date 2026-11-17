@@ -539,7 +539,9 @@ def _render(node: Node) -> str:
     if isinstance(node, Div):
         return f"{_wrap(node.num, _PREC_MUL)}/{_wrap(node.den, _PREC_POW)}"
     if isinstance(node, Pow):
-        return f"{_wrap(node.base, _PREC_ATOM)}^{{{_render(node.exp)}}}"
+        # a power of a logarithm keeps its parentheses: (\log\log k)^{1/9}, not \log\log k^{1/9}
+        base = f"({_render(node.base)})" if isinstance(node.base, Log) else _wrap(node.base, _PREC_ATOM)
+        return f"{base}^{{{_render(node.exp)}}}"
     if isinstance(node, Sqrt):
         return f"\\sqrt{{{_render(node.arg)}}}"
     if isinstance(node, Log):

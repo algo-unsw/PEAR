@@ -285,3 +285,11 @@ def test_term_without_lower_estimate_does_not_block_the_bound():
 )
 def test_subscripted_symbols(text, tex):
     assert render_bound(parse_bound(text, {"n", "tw", "tw_p", "tw_d", "tw_i"})) == tex
+
+
+def test_power_of_a_logarithm_keeps_its_parentheses():
+    from pear.bounds import parse_bound
+    from pear.bounds.expr import render_bound
+
+    tex = render_bound(parse_bound(r"2^{O(k (\log\log k)^{1/9} / (\log k)^{1/54})}", ("k",)))
+    assert r"(\log \log k)^{1/9}" in tex and r"(\log k)^{1/54}" in tex

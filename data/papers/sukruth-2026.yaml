@@ -1,0 +1,12 @@
+id: sukruth-2026
+title: Subexponential parameterized algorithms from the claimed refutation of ETH
+authors:
+- Dhanush P Sukruth
+versions:
+  github:
+    kind: preprint
+    venue: 'Note on GitHub, 1 November 2026 (commit 7baf323)'
+    year: 2026
+    url: 'https://github.com/dsukruth/eth-parameterized-note/blob/7baf3238d0832d50e59b391ea2173e6827350044/paper.tex'
+    open_access: true
+unverified: true

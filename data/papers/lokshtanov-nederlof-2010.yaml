@@ -1,0 +1,12 @@
+id: lokshtanov-nederlof-2010
+title: Saving Space by Algebraization
+authors:
+- Daniel Lokshtanov
+- Jesper Nederlof
+versions:
+  stoc:
+    kind: conference
+    venue: STOC 2010 (author copy)
+    year: 2010
+    url: 'https://sites.cs.ucsb.edu/~daniello/papers/SaveSpace.pdf'
+    open_access: true
