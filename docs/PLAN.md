@@ -316,6 +316,7 @@ Garey and Johnson's *Computers and Intractability* (1979) is the natural seed fo
 
 ## Decisions log
 
+- 18 November 2026: Vertex Cover and Independent Set get the constraint $n \le m$ without loss of generality (delete degree-0 and degree-1 vertices, with the weighted variant of the degree-1 rule), so the trivial $2^m$ is no longer a record: by $m$ they get $O^*(1.1996^m)$ from the algorithm in $n$ (Serge's suggestion).
 - 18 November 2026: randomized algorithms are records only if faster than the fastest deterministic one (a deterministic algorithm is also a randomized one): bound history with deterministic and randomized records, and deterministic results preferred over randomized ones with the same bound in the Overview (DESIGN.md).
 - 18 November 2026: the ESA 2009 and MFCS 2010 papers count as conference versions of van Rooij–Bodlaender–van Leeuwen–Rossmanith–Vatshelle (arXiv:1806.01667); a paper can be based on several conference papers, so a reference names all versions of the best kind (DESIGN.md, References).
 - 18 November 2026: results from preprints (no journal, conference, workshop, book or thesis version) join unverified results: left out of the Overview and the front page by default, with one switch "Include preprints and unverified results" (Overview and front page), remembered in the browser across the site; Details unchanged (DESIGN.md).

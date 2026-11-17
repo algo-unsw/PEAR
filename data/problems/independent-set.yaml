@@ -22,6 +22,7 @@ constraints:
   - { constraint: "k \\le n", because: "Every instance with $k > n$ is a no-instance, answered in polynomial time." }
   - { constraint: "m \\le n^{2}", because: "A simple graph has at most $n(n-1)/2$ edges." }
   - { constraint: "tw \\le n", because: "A single bag containing all vertices is a tree decomposition of width $n - 1$." }
+  - { constraint: "n \\le m", because: "Without loss of generality, as for Vertex Cover: put isolated vertices in the solution and delete them ($k$ decreases by 1), and while a vertex $v$ has degree 1, with neighbour $u$, put $v$ in the solution and delete $u$ and $v$ ($k$ decreases by 1). With weights, if $w(v) \\ge w(u)$ do the same; otherwise delete $v$ and lower $w(u)$ by $w(v)$, adding $w(v)$ to the optimum. Afterwards every vertex has degree at least 2, so $2m \\ge 2n$." }
 versions:
   decision:
     kind: decision

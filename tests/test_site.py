@@ -299,3 +299,13 @@ def test_reference_names_every_conference_paper_a_paper_is_based_on(real):
     node = page["nodes"]["decision+optimisation+search"]
     shown = [e["cite"][0]["id"] for g in node["overview"] for e in g["entries"] if not e.get("optional")]
     assert "dominating-set--tw--van-rooij-et-al-2018" in shown
+
+
+def test_vertex_cover_by_m_uses_n_at_most_m(real):
+    # decided 18 November 2026: preprocessing (degree 0 and 1) gives n <= m without loss of
+    # generality, so an algorithm in n is one in m and the trivial 2^m is no record
+    _, site, _ = real
+    for pid in ("vertex-cover", "independent-set"):
+        node = site["pages"][pid]["nodes"]["decision+optimisation+search"]
+        assert not any(g["parameters"] == ["m"] for g in node["overview"])
+        assert [s["base"] for s in node["history"]["m"]["steps"]] == [1.1996]
