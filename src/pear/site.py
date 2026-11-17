@@ -21,7 +21,7 @@ from pathlib import Path
 from typing import Any
 
 from .bounds import display, ostar, parse_bound, parse_expr, render
-from .bounds.expr import Add, Div, Mul, Node, Num, Pow, Var, variables
+from .bounds.expr import Add, Div, Mul, Node, Num, Pow, Sqrt, Var, variables
 from .derive import Derivation, node_key, to_json
 from .schema import (
     Algorithm,
@@ -337,6 +337,9 @@ def _value(node: Node, x: float) -> float | None:
     if isinstance(node, Pow):
         a, b = _value(node.base, x), _value(node.exp, x)
         return None if a is None or b is None or a <= 0 else a**b
+    if isinstance(node, Sqrt):
+        a = _value(node.arg, x)
+        return None if a is None or a < 0 else math.sqrt(a)
     return None
 
 
@@ -353,8 +356,8 @@ def single_base(expr: Node) -> float | None:
 
 
 def history(rows: list[dict[str, Any]], bases: dict[str, float]) -> dict[str, list[dict[str, Any]]]:
-    """Improvements of the best base over the years, per single parameter, from the results
-    entered so far (verified, non-quantum). Polynomial factors ignored."""
+    """Records of the best base over the years, per single parameter, from the results entered
+    so far (verified, non-quantum), deterministic and randomized. Polynomial factors ignored."""
     out: dict[str, list[dict[str, Any]]] = {}
     for param in sorted({r["parameters"][0] for r in rows if len(r["parameters"]) == 1}):
         cands = [
@@ -362,12 +365,20 @@ def history(rows: list[dict[str, Any]], bases: dict[str, float]) -> dict[str, li
             if r["parameters"] == [param] and r["id"] in bases and r["year"] is not None
             and "unverified" not in r["flags"] and not r["properties"]["quantum"]
         ]
-        cands.sort(key=lambda r: (r["year"], bases[r["id"]]))
+        # Records (decided 18 November 2026): a deterministic result is a record if it beats every
+        # earlier deterministic one; a randomized result only if it also beats every earlier
+        # result, since a deterministic algorithm is also a randomized one (ignore the random bits).
+        cands.sort(key=lambda r: (r["year"], bases[r["id"]], not r["properties"]["deterministic"]))
         steps: list[dict[str, Any]] = []
+        best_det = best_all = math.inf
         for r in cands:
-            if not steps or bases[r["id"]] < steps[-1]["base"] - 1e-12:
-                steps.append({"year": r["year"], "base": bases[r["id"]], "row": r["id"], "shown": r["shown"],
-                              "refs": r["refs"], "derived": r["origin"] == "derived"})
+            b, det = bases[r["id"]], r["properties"]["deterministic"]
+            if b < (best_det if det else best_all) - 1e-12:
+                steps.append({"year": r["year"], "base": b, "row": r["id"], "shown": r["shown"],
+                              "refs": r["refs"], "derived": r["origin"] == "derived", "deterministic": det})
+            if det:
+                best_det = min(best_det, b)
+            best_all = min(best_all, b)
         if steps:
             out[param] = steps
     return out

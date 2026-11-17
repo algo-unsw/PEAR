@@ -563,6 +563,15 @@ class Engine:
         self.out.optional = self.optional_overview()
         return self.out
 
+    def beats_ostar(self, s: Result, r: Result, ctx: Context) -> bool:
+        """s beats r in the Overview: a better bound in O* form, or the same bound and s is
+        deterministic while r is randomized. A deterministic algorithm is also a randomized one
+        (ignore the random bits), so a randomized algorithm is a record only if it is faster
+        than the fastest deterministic one (decided 18 November 2026)."""
+        rel = compare_ostar(self.analyse(s), self.analyse(r), ctx)
+        return rel == Relation.BETTER or (
+            rel in (Relation.EQUAL, Relation.TIE) and s.props.deterministic and not r.props.deterministic)
+
     def overview(self) -> dict[tuple[str, str], list[dict]]:
         """What the Overview tab (the default view) shows: the best non-quantum bounds
         obtained by any means, compared in O* form. Bounds equal in O* form are grouped;
@@ -577,7 +586,7 @@ class Engine:
             best = [
                 r for r in cands
                 if not any(
-                    s is not r and compare_ostar(self.analyse(s), self.analyse(r), ctx) == Relation.BETTER
+                    s is not r and self.beats_ostar(s, r, ctx)
                     for s in cands
                 )
             ]
@@ -617,9 +626,13 @@ class Engine:
                 if (u.props.verified and u.props.reviewed) or u.props.quantum:
                     continue
                 rel = [compare_ostar(self.analyse(b), self.analyse(u), ctx) for b in best]
-                if any(x in (Relation.BETTER, Relation.EQUAL, Relation.TIE) for x in rel):
+                # including u changes nothing if an Overview member beats or matches it, unless
+                # u is deterministic and matches only randomized members
+                ties = [(b, x) for b, x in zip(best, rel) if x in (Relation.EQUAL, Relation.TIE)]
+                if any(x == Relation.BETTER for x in rel) or any(
+                        b.props.deterministic or not u.props.deterministic for b, _ in ties):
                     continue
-                beats = [b.id for b, x in zip(best, rel) if x == Relation.WORSE]
+                beats = [b.id for b, x in zip(best, rel) if x == Relation.WORSE] + [b.id for b, _ in ties]
                 entries.append({"id": u.id, "beats": beats, "year": u.year})
             if entries:
                 out[key] = entries

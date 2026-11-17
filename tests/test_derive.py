@@ -744,6 +744,19 @@ def test_preprint_result_is_optional_in_the_overview():
     assert out["overview_optional"]["a"]["decision"] == [{"id": "a-pre", "beats": ["a-ok"], "year": 2026}]
 
 
+def test_overview_prefers_a_deterministic_result_with_the_same_bound():
+    # decided 18 November 2026: a randomized algorithm is a record only if it is faster than the
+    # fastest deterministic one; with equal O* bounds the deterministic result is shown
+    data = dataset(
+        problem("a"), paper("p-r", 2000), paper("p-d", 2010),
+        alg("a-rand", "a", r"O^*(1.5^{k})", paper="p-r", randomized={"error": "one-sided"}),
+        alg("a-det", "a", r"O^*(1.5^{k})", paper="p-d"),
+    )
+    out = to_json(data, derive(data))
+    cites = [e["cite"] for e in out["overview"]["a"]["decision"]]
+    assert cites == [["a-det"]]
+
+
 # --- uses (decided 13 November 2026) -----------------------------------------------------------------
 
 

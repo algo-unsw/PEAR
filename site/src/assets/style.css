@@ -140,6 +140,8 @@ ol.chain li + li { margin-top: 4px; }
 .chart .axis { font-size: 13px; fill: var(--muted); }
 .chart .line { fill: none; stroke: var(--accent); stroke-width: 2.5; }
 .chart .dot { fill: var(--accent); }
+.chart .line.rand { stroke-dasharray: 6 4; stroke-width: 2; }
+.chart .dot.rand { fill: var(--band); stroke: var(--accent); stroke-width: 2; }
 .chart .value { font-size: 13px; fill: var(--text); }
 
 /* Details */

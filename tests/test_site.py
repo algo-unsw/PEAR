@@ -26,7 +26,8 @@ def real(tmp_path_factory):
 
 @pytest.mark.parametrize(
     ("expr", "base"),
-    [("1.2738^{k}", 1.2738), ("2^{n/4}", 2 ** 0.25), ("2^{tw}", 2.0), ("1.5^{2 n}", 2.25)],
+    [("1.2738^{k}", 1.2738), ("2^{n/4}", 2 ** 0.25), ("2^{tw}", 2.0), ("1.5^{2 n}", 2.25),
+     ("(2 + (1 + \\sqrt{5})/2)^{k}", 2 + (1 + 5 ** 0.5) / 2)],
 )
 def test_single_base(expr, base):
     assert single_base(parse_expr(expr, {"k", "n", "tw"})) == pytest.approx(base)
@@ -37,9 +38,9 @@ def test_single_base_only_for_simple_exponentials(expr):
     assert single_base(parse_expr(expr, {"k", "n"})) is None
 
 
-def _row(rid, year, params=("k",), flags=(), quantum=False):
+def _row(rid, year, params=("k",), flags=(), quantum=False, deterministic=True):
     return {"id": rid, "year": year, "parameters": list(params), "flags": list(flags), "shown": rid,
-            "refs": [], "origin": "direct", "properties": {"quantum": quantum}}
+            "refs": [], "origin": "direct", "properties": {"quantum": quantum, "deterministic": deterministic}}
 
 
 def test_history_keeps_only_improvements_in_year_order():
@@ -47,6 +48,21 @@ def test_history_keeps_only_improvements_in_year_order():
     bases = {"a": 1.2738, "b": 1.25284, "c": 1.28, "d": 1.25281, "u": 1.2}
     steps = history(rows, bases)["k"]
     assert [s["row"] for s in steps] == ["a", "b", "d"]
+
+
+def test_randomized_results_are_records_only_if_faster_than_every_earlier_result():
+    # decided 18 November 2026: a deterministic algorithm is also a randomized one, so a
+    # randomized result is a record only if it beats the fastest deterministic one (and every
+    # earlier randomized one); deterministic results are records against deterministic ones
+    rows = [_row("d1", 2000), _row("r1", 2005, deterministic=False), _row("d2", 2010),
+            _row("r2", 2012, deterministic=False), _row("r3", 2015, deterministic=False), _row("d3", 2020)]
+    bases = {"d1": 2.0, "r1": 1.5, "d2": 1.8, "r2": 1.6, "r3": 1.4, "d3": 1.4}
+    steps = history(rows, bases)["k"]
+    assert [(s["row"], s["deterministic"]) for s in steps] == [
+        ("d1", True), ("r1", False), ("d2", True), ("r3", False), ("d3", True)]
+    # a randomized result that only matches a deterministic one of the same year is no record
+    rows = [_row("d", 2010), _row("r", 2010, deterministic=False)]
+    assert [s["row"] for s in history(rows, {"d": 1.5, "r": 1.5})["k"]] == ["d"]
 
 
 def test_history_skips_quantum_and_multi_parameter_bounds():

@@ -151,10 +151,10 @@ eleventyComputed:
 {% historyChart h.steps, h.param_tex, h.name %}
 <ol reversed>
 {%- for s in h.steps | reverse %}
-<li>{{ s.shown | tex | safe }} · {% for n in s.refs %}{{ p.references[n - 1].authors }}{% endfor %} · {{ s.year }} {{ s.refs | refs | safe }}{% if s.derived %} <span class="tag">derived</span>{% endif %}</li>
+<li>{{ s.shown | tex | safe }} · {% for n in s.refs %}{{ p.references[n - 1].authors }}{% endfor %} · {{ s.year }} {{ s.refs | refs | safe }}{% if s.deterministic === false %} <span class="tag" title="Randomized: a record because it is faster than every earlier result, deterministic or randomized.">randomized</span>{% endif %}{% if s.derived %} <span class="tag">derived</span>{% endif %}</li>
 {%- endfor %}
 </ol>
-<p class="small muted" style="margin-top: 8px">Polynomial factors ignored. Only results entered in PEAR so far.</p>
+<p class="small muted" style="margin-top: 8px">Polynomial factors ignored. Only results entered in PEAR so far. A randomized result is a record only if it is faster than every earlier result, deterministic ones included.</p>
 </div>
 {%- endfor %}
 {%- endif %}
