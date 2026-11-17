@@ -757,6 +757,32 @@ def test_overview_prefers_a_deterministic_result_with_the_same_bound():
     assert cites == [["a-det"]]
 
 
+def test_overview_prefers_a_polynomial_space_result_with_the_same_bound():
+    # decided 18 November 2026: polynomial space beats exponential space at equal bounds
+    data = dataset(
+        problem("a"), paper("p-e", 2000), paper("p-p", 2010),
+        alg("a-exp", "a", r"O^*(1.5^{k})", paper="p-e", space="exponential"),
+        alg("a-poly", "a", r"O^*(1.5^{k})", paper="p-p"),
+    )
+    out = to_json(data, derive(data))
+    assert [e["cite"] for e in out["overview"]["a"]["decision"]] == [["a-poly"]]
+
+
+def test_a_result_can_be_unverified_in_a_published_paper():
+    # decided 18 November 2026: a statement in no peer-reviewed version (dropped from the
+    # journal version) is treated like a result from an unverified paper
+    data = dataset(
+        problem("a"), paper("p", 2013),
+        alg("a-journal", "a", r"O^*(1.6^{k})", paper="p"),
+        alg("a-arxiv", "a", r"O^*(1.5^{k})", paper="p") | {"unverified": True},
+    )
+    out = to_json(data, derive(data))
+    rows = {r["id"]: r for r in out["problems"]["a"]["decision"]}
+    assert "unverified" in rows["a-arxiv"]["flags"] and "unverified" not in rows["a-journal"]["flags"]
+    assert [e["cite"] for e in out["overview"]["a"]["decision"]] == [["a-journal"]]
+    assert [e["id"] for e in out["overview_optional"]["a"]["decision"]] == ["a-arxiv"]
+
+
 # --- uses (decided 13 November 2026) -----------------------------------------------------------------
 
 

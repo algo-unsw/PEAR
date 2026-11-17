@@ -41,6 +41,15 @@ def is_preprint(paper) -> bool:
     return not any(v.kind in REVIEWED_KINDS for v in paper.versions.values())
 
 
+def at_least_as_strong(a: "Props", b: "Props") -> bool:
+    """Deterministic and polynomial space wherever b is (decided 18 November 2026)."""
+    return (a.deterministic or not b.deterministic) and (a.poly_space or not b.poly_space)
+
+
+def stronger(a: "Props", b: "Props") -> bool:
+    return at_least_as_strong(a, b) and (a.deterministic, a.poly_space) != (b.deterministic, b.poly_space)
+
+
 @dataclass(frozen=True)
 class Props:
     """The properties the site filters on (rulebook §8), plus hypotheses."""
@@ -213,7 +222,8 @@ class Engine:
     def unverified(self, alg: Algorithm) -> bool:
         papers = {alg.source.paper} if alg.source.paper else set()
         checked = alg.formal.status == "proved" and alg.formal.statement_checked is not None
-        return not checked and any(self.data.papers[p].unverified for p in papers if p in self.data.papers)
+        return not checked and (alg.unverified or any(
+            self.data.papers[p].unverified for p in papers if p in self.data.papers))
 
     def preprint(self, alg: Algorithm) -> bool:
         papers = {alg.source.paper} if alg.source.paper else set()
@@ -252,7 +262,7 @@ class Engine:
         year, papers = self.dated(alg.source)
         flags = set(flags) | {f"given-{g}" for g in alg.given}
         checked = alg.formal.status == "proved" and alg.formal.statement_checked is not None
-        if (any(self.data.papers[p].unverified for p in papers) and not checked) or any(
+        if ((alg.unverified or any(self.data.papers[p].unverified for p in papers)) and not checked) or any(
                 self.unverified(u) for u in used):
             props = replace(props, verified=False)
             flags.add("unverified")
@@ -565,12 +575,11 @@ class Engine:
 
     def beats_ostar(self, s: Result, r: Result, ctx: Context) -> bool:
         """s beats r in the Overview: a better bound in O* form, or the same bound and s is
-        deterministic while r is randomized. A deterministic algorithm is also a randomized one
-        (ignore the random bits), so a randomized algorithm is a record only if it is faster
-        than the fastest deterministic one (decided 18 November 2026)."""
+        stronger (decided 18 November 2026): deterministic beats randomized and polynomial
+        space beats exponential space, since such an algorithm is also one of the weaker kind
+        (ignore the random bits; space is bounded by time)."""
         rel = compare_ostar(self.analyse(s), self.analyse(r), ctx)
-        return rel == Relation.BETTER or (
-            rel in (Relation.EQUAL, Relation.TIE) and s.props.deterministic and not r.props.deterministic)
+        return rel == Relation.BETTER or (rel in (Relation.EQUAL, Relation.TIE) and stronger(s.props, r.props))
 
     def overview(self) -> dict[tuple[str, str], list[dict]]:
         """What the Overview tab (the default view) shows: the best non-quantum bounds
@@ -626,13 +635,13 @@ class Engine:
                 if (u.props.verified and u.props.reviewed) or u.props.quantum:
                     continue
                 rel = [compare_ostar(self.analyse(b), self.analyse(u), ctx) for b in best]
-                # including u changes nothing if an Overview member beats or matches it, unless
-                # u is deterministic and matches only randomized members
-                ties = [(b, x) for b, x in zip(best, rel) if x in (Relation.EQUAL, Relation.TIE)]
-                if any(x == Relation.BETTER for x in rel) or any(
-                        b.props.deterministic or not u.props.deterministic for b, _ in ties):
+                # including u changes nothing if an Overview member beats it, or matches it and is
+                # at least as strong (deterministic, polynomial space)
+                ties = [b for b, x in zip(best, rel) if x in (Relation.EQUAL, Relation.TIE)]
+                if any(x == Relation.BETTER for x in rel) or any(at_least_as_strong(b.props, u.props) for b in ties):
                     continue
-                beats = [b.id for b, x in zip(best, rel) if x == Relation.WORSE] + [b.id for b, _ in ties]
+                beats = [b.id for b, x in zip(best, rel) if x == Relation.WORSE] + [
+                    b.id for b in ties if stronger(u.props, b.props)]
                 entries.append({"id": u.id, "beats": beats, "year": u.year})
             if entries:
                 out[key] = entries

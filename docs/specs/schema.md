@@ -207,6 +207,8 @@ status: valid                         # Phase 2 grading via data/flags/
 status_note: "…"                     # why the status is not valid (Phase 1)
 ```
 
+- `unverified: true` on a result (18 November 2026): its statement is in no peer-reviewed version of the paper, for example dropped from the journal version (Kociumaka–Pilipczuk's $O^*(3.592^k)$, arXiv v1 only). Such a result is treated like one from an unverified paper: tagged in Details, out of the Overview unless included.
+
 - The site never states a bound that is not in `as_stated`. The O* form and comparisons are computed.
 - `given: [tree-decomposition]` records that the input comes with a tree decomposition of width at most $\mathrm{tw}$, as is usual for results parameterized by treewidth. The result is stored as stated, and the site shows the note (decided 8 November 2026).
 - `parameters` must match the variables in `as_stated`; the validator checks this once the bound parser exists.

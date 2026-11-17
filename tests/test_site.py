@@ -38,9 +38,10 @@ def test_single_base_only_for_simple_exponentials(expr):
     assert single_base(parse_expr(expr, {"k", "n"})) is None
 
 
-def _row(rid, year, params=("k",), flags=(), quantum=False, deterministic=True):
+def _row(rid, year, params=("k",), flags=(), quantum=False, deterministic=True, poly=True):
     return {"id": rid, "year": year, "parameters": list(params), "flags": list(flags), "shown": rid,
-            "refs": [], "origin": "direct", "properties": {"quantum": quantum, "deterministic": deterministic}}
+            "refs": [], "origin": "direct",
+            "properties": {"quantum": quantum, "deterministic": deterministic, "polynomial_space": poly}}
 
 
 def test_history_keeps_only_improvements_in_year_order():
@@ -63,6 +64,18 @@ def test_randomized_results_are_records_only_if_faster_than_every_earlier_result
     # a randomized result that only matches a deterministic one of the same year is no record
     rows = [_row("d", 2010), _row("r", 2010, deterministic=False)]
     assert [s["row"] for s in history(rows, {"d": 1.5, "r": 1.5})["k"]] == ["d"]
+
+
+def test_exponential_space_results_are_records_only_if_faster_than_polynomial_space_ones():
+    # decided 18 November 2026: polynomial space beats exponential space, as deterministic beats
+    # randomized; a result is a record if it beats every earlier result at least as strong
+    rows = [_row("p1", 2000), _row("e1", 2005, poly=False), _row("p2", 2010),
+            _row("e2", 2012, poly=False), _row("r1", 2014, deterministic=False),
+            _row("re", 2016, deterministic=False, poly=False)]
+    bases = {"p1": 2.0, "e1": 1.5, "p2": 1.8, "e2": 1.6, "r1": 1.7, "re": 1.45}
+    steps = history(rows, bases)["k"]
+    assert [s["row"] for s in steps] == ["p1", "e1", "p2", "r1", "re"]
+    assert [(s["deterministic"], s["polynomial_space"]) for s in steps][-1] == (False, False)
 
 
 def test_history_skips_quantum_and_multi_parameter_bounds():

@@ -21,4 +21,4 @@ source:
   statements:
     arxiv-v1:
       statement: Theorem 2
-  note: 'Stated as $O^*((2+\phi)^k) \le O^*(3.619^k)$, $\phi$ the golden ratio; deterministic, polynomial space. The journal version (Information Processing Letters 2014) gives this bound; the $O^*(3.592^k)$ of arXiv v1 Theorem 1 is not used (decided 17 November 2026).'
+  note: 'Stated as $O^*((2+\phi)^k) \le O^*(3.619^k)$, $\phi$ the golden ratio; deterministic, polynomial space. The journal version (Information Processing Letters 2014) gives this bound; the $O^*(3.592^k)$ of arXiv v1 Theorem 1, which the journal version does not contain, is entered separately as unverified (decided 17 and 18 November 2026).'

@@ -355,6 +355,9 @@ def single_base(expr: Node) -> float | None:
     return v1
 
 
+KINDS = [(True, True), (True, False), (False, True), (False, False)]  # (deterministic, polynomial space)
+
+
 def history(rows: list[dict[str, Any]], bases: dict[str, float]) -> dict[str, list[dict[str, Any]]]:
     """Records of the best base over the years, per single parameter, from the results entered
     so far (verified, non-quantum), deterministic and randomized. Polynomial factors ignored."""
@@ -365,20 +368,24 @@ def history(rows: list[dict[str, Any]], bases: dict[str, float]) -> dict[str, li
             if r["parameters"] == [param] and r["id"] in bases and r["year"] is not None
             and "unverified" not in r["flags"] and not r["properties"]["quantum"]
         ]
-        # Records (decided 18 November 2026): a deterministic result is a record if it beats every
-        # earlier deterministic one; a randomized result only if it also beats every earlier
-        # result, since a deterministic algorithm is also a randomized one (ignore the random bits).
-        cands.sort(key=lambda r: (r["year"], bases[r["id"]], not r["properties"]["deterministic"]))
+        # Records (decided 18 November 2026): a result is a record if it beats every earlier
+        # result that is at least as strong, where deterministic beats randomized and polynomial
+        # space beats exponential space (such an algorithm is also one of the weaker kind).
+        def kind(r: dict[str, Any]) -> tuple[bool, bool]:
+            return bool(r["properties"]["deterministic"]), bool(r["properties"]["polynomial_space"])
+
+        cands.sort(key=lambda r: (r["year"], bases[r["id"]], tuple(not x for x in kind(r))))
         steps: list[dict[str, Any]] = []
-        best_det = best_all = math.inf
+        best = {c: math.inf for c in KINDS}  # best base among results at least as strong as c
         for r in cands:
-            b, det = bases[r["id"]], r["properties"]["deterministic"]
-            if b < (best_det if det else best_all) - 1e-12:
+            b, (det, poly) = bases[r["id"]], kind(r)
+            if b < best[(det, poly)] - 1e-12:
                 steps.append({"year": r["year"], "base": b, "row": r["id"], "shown": r["shown"],
-                              "refs": r["refs"], "derived": r["origin"] == "derived", "deterministic": det})
-            if det:
-                best_det = min(best_det, b)
-            best_all = min(best_all, b)
+                              "refs": r["refs"], "derived": r["origin"] == "derived",
+                              "deterministic": det, "polynomial_space": poly})
+            for c in KINDS:
+                if (det or not c[0]) and (poly or not c[1]):
+                    best[c] = min(best[c], b)
         if steps:
             out[param] = steps
     return out
@@ -607,6 +614,8 @@ def problem_page(data: Dataset, d: Derivation, derived: dict[str, Any], pid: str
         # beaten direct results are not in Details (rulebook version 3) but belong to the history
         older = []
         for row in derived.get("superseded", {}).get(pid, {}).get(node, []):
+            if "unverified" in row["flags"] or row["properties"]["quantum"]:
+                continue  # never in the history, so not cited on the page
             alg_old: Algorithm = data.entries["algorithms"][row["algorithm"]]  # type: ignore[assignment]
             older.append({**row, "refs": refs.source(alg_old.source)["refs"]})
         hist = history(detail_rows + older, bases)

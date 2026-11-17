@@ -393,6 +393,9 @@ class Algorithm(Model):
     status: ResultStatus = "valid"
     # why the result is not valid (Phase 1; Phase 2 moves flags to data/flags/)
     status_note: Text | None = None
+    # The cited statement is in no peer-reviewed version of its paper (e.g. dropped from the
+    # journal version): treated like a result from an unverified paper (18 November 2026).
+    unverified: bool = False
     review: Review = Review()
 
 

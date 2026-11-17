@@ -141,7 +141,9 @@ ol.chain li + li { margin-top: 4px; }
 .chart .line { fill: none; stroke: var(--accent); stroke-width: 2.5; }
 .chart .dot { fill: var(--accent); }
 .chart .line.rand { stroke-dasharray: 6 4; stroke-width: 2; }
-.chart .dot.rand { fill: var(--band); stroke: var(--accent); stroke-width: 2; }
+.chart .line.space { stroke-dasharray: 2 4; stroke-width: 2; stroke-linecap: round; }
+.chart .line.both { stroke-dasharray: 8 4 2 4; stroke-width: 1.5; }
+.chart .dot.hollow { fill: var(--band); stroke: var(--accent); stroke-width: 2; }
 .chart .value { font-size: 13px; fill: var(--text); }
 
 /* Details */
