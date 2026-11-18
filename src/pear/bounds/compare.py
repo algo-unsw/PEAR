@@ -12,13 +12,16 @@ incomparable, so mistakes can only keep too many bounds, never drop a correct be
 from __future__ import annotations
 
 import itertools
+import math
 from dataclasses import dataclass, field
 from enum import Enum
 from fractions import Fraction
 from typing import Iterable, Sequence
 
 from .expr import Bound, Var, fixed_parameters, parse_expr
+from .numeric import interval
 from .growth import (
+    CONST_EXPRS,
     EPS,
     Coef,
     Growth,
@@ -27,6 +30,7 @@ from .growth import (
     Term,
     UnsupportedBound,
     bound_terms,
+    exact,
     value_growth,
 )
 
@@ -42,6 +46,11 @@ class Context:
     le: dict[tuple[str, str], Fraction] = field(default_factory=dict)
     # named constants: (best lower bound, best upper bound), from data/constants
     constants: dict[str, tuple[float, float]] = field(default_factory=dict)
+    # expressions known to be nonnegative on every instance, as growths: large - small for
+    # every constraint small <= large, and every parameter-map expression of a reduction
+    # from this problem (it bounds a parameter of the produced instance, which is >= 0);
+    # e.g. n(n-1)/2 - m for Clique (18 November 2026)
+    nonneg: tuple[Growth, ...] = ()
 
     def poly_bounded(self, var: str) -> bool:
         return var in ALWAYS_POLY or var not in self.not_poly_bounded
@@ -60,14 +69,23 @@ def build_context(
     constraints: Iterable[str] = (),
     not_poly_bounded: Iterable[str] = (),
     constants: dict[str, tuple[float, float]] | None = None,
+    nonneg: Iterable[str] = (),
 ) -> Context:
-    """Parse constraints such as 'k \\le n', 'm \\le n^{2}', 'n \\ge k', 'tw \\le n - 1'."""
+    """Parse constraints such as 'k \\le n', 'm \\le n^{2}', 'n \\ge k', 'tw \\le n - 1'.
+    `nonneg`: further expressions known to be nonnegative (parameter-map expressions)."""
     syms = set(symbols)
     edges: dict[tuple[str, str], Fraction] = {}
+    known: list[Growth] = []
     for text in constraints:
         for x, y, p in _parse_constraint(text, syms):
             if (x, y) not in edges or p < edges[(x, y)]:
                 edges[(x, y)] = p
+        known += _constraint_gaps(text, syms)
+    for text in nonneg:
+        try:
+            known.append(value_growth(parse_expr(text, syms)))
+        except (UnsupportedBound, ValueError):
+            pass
     # transitive closure: x ≤ y^p and y ≤ z^q give x ≤ z^{pq}
     changed = True
     while changed:
@@ -79,7 +97,25 @@ def build_context(
                     if (x, z) not in edges or r < edges[(x, z)]:
                         edges[(x, z)] = r
                         changed = True
-    return Context(frozenset(not_poly_bounded), edges, dict(constants or {}))
+    useful = [g for g in known if any(c.sign < 0 for k, cs in g.terms.items() if k for c in cs)]
+    return Context(frozenset(not_poly_bounded), edges, dict(constants or {}), tuple(useful))
+
+
+def _constraint_gaps(text: str, syms: set[str]) -> list[Growth]:
+    """large - small >= 0 for a constraint small <= large (both sides for '=')."""
+    for op, flip in (("\\le", False), ("\\ge", True), ("=", None)):
+        if op in text:
+            left, right = (s.strip() for s in text.split(op, 1))
+            break
+    else:
+        return []
+    try:
+        lhs, rhs = value_growth(parse_expr(left, syms)), value_growth(parse_expr(right, syms))
+    except (UnsupportedBound, ValueError):
+        return []
+    if flip is None:
+        return [rhs - lhs, lhs - rhs]
+    return [lhs - rhs] if flip else [rhs - lhs]
 
 
 def _parse_constraint(text: str, syms: set[str]) -> list[tuple[str, str, Fraction]]:
@@ -104,20 +140,24 @@ def _parse_constraint(text: str, syms: set[str]) -> list[tuple[str, str, Fractio
 
 
 def _upper_power(node) -> tuple[str, Fraction] | None:
-    """If node ≤ y^p for a single variable y (e.g. y, y^{2}, y - 1, y/2), return (y, p)."""
+    """If node ≤ y^p for a single variable y (e.g. y, y^{2}, y - 1, y/2, y(y-1)/2), return
+    (y, p): the highest power of y with coefficient at most 1, and every other term negative."""
     try:
         g = value_growth(node)
     except UnsupportedBound:
         return None
     lead = [(k, cs) for k, cs in g.terms.items() if k]
-    if len(lead) != 1:
+    if not lead or any(len(k) != 1 or len(cs) != 1 or cs[0].kind != "exact" for k, cs in lead):
         return None
-    key, cs = lead[0]
-    if len(key) != 1 or len(cs) != 1 or cs[0].kind != "exact":
+    ys = {k[0][0] for k, _ in lead}
+    if len(ys) != 1 or any(k[0][1][1] or k[0][1][2] or k[0][1][0] <= 0 for k, _ in lead):
+        return None  # one variable, pure powers (no logs)
+    key, cs = max(lead, key=lambda kc: kc[0][0][1][0])
+    (y, (a, _, _)), c = key[0], cs[0]
+    if c.value > 1 + EPS:
         return None
-    (y, (a, b, d)), c = key[0], cs[0]
-    if b or d or a <= 0 or c.value > 1 + EPS:
-        return None
+    if any(k != key and cs2[0].sign > 0 for k, cs2 in lead):
+        return None  # y^2 + y is not ≤ y^2
     rest = g.terms.get((), [])
     if any(r.sign > 0 for r in rest):
         return None  # y + 1 is not ≤ y
@@ -184,9 +224,16 @@ def _resolve(cs: list[Coef], ctx: Context) -> list[Coef] | None:
     for c in cs:
         if c.kind.startswith("sym:"):
             name = c.kind[4:]
-            if name not in ctx.constants:
+            if name.startswith("expr#"):
+                # log2 of a constant base with named constants (growth.CONST_EXPRS)
+                r = interval(CONST_EXPRS[name], ctx.constants) if name in CONST_EXPRS else None
+                if r is None or r[0] <= 0:
+                    return None
+                lo, hi = math.log2(r[0]), math.log2(r[1])
+            elif name in ctx.constants:
+                lo, hi = ctx.constants[name]
+            else:
                 return None
-            lo, hi = ctx.constants[name]
             extra += c.value * (lo if c.value > 0 else hi)
     if abs(extra) > EPS:
         for i, c in enumerate(out):
@@ -199,9 +246,34 @@ def _resolve(cs: list[Coef], ctx: Context) -> list[Coef] | None:
 
 
 def _bounded_below(g: Growth, ctx: Context) -> bool:
-    """Is this sum of monomials bounded below on all inputs? Positive coefficients come
-    from the bound that should be larger (its unknowns may be chosen), negative ones
-    from the other (its unknowns are arbitrary). Sound, incomplete."""
+    """Is this sum of monomials bounded below on all inputs? Sound, incomplete. Besides the
+    monomial check, g is bounded below if g - λE is, for an expression E known to be
+    nonnegative and λ >= 0 (18 November 2026): e.g. 2^{X} beats 1.1996^{X} only if X >= 0."""
+    if _bounded_below_terms(g, ctx):
+        return True
+    for e in ctx.nonneg:
+        for lam in _multipliers(g, e):
+            if _bounded_below_terms(g - e.scale(exact(lam)), ctx):
+                return True
+    return False
+
+
+def _multipliers(g: Growth, e: Growth) -> list[float]:
+    """Candidate λ > 0 that cancel a negative monomial of e against the same one in g."""
+    out = []
+    for key, ecs in e.terms.items():
+        if not key or key not in g.terms:
+            continue
+        ev = [c for c in ecs if c.kind == "exact"]
+        gv = [c for c in g.terms[key] if c.kind == "exact"]
+        if len(ev) == 1 and len(gv) == 1 and ev[0].value < 0 and gv[0].value < 0:
+            out.append(gv[0].value / ev[0].value)
+    return sorted(set(out))
+
+
+def _bounded_below_terms(g: Growth, ctx: Context) -> bool:
+    """The monomial check: positive coefficients come from the bound that should be larger
+    (its unknowns may be chosen), negative ones from the other (its unknowns are arbitrary)."""
     pos: list[list] = []  # [key, coef]
     neg: list[tuple[Key, Coef]] = []
     for key, raw in g.terms.items():

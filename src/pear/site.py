@@ -21,7 +21,7 @@ from pathlib import Path
 from typing import Any
 
 from .bounds import display, ostar, parse_bound, parse_expr, render
-from .bounds.expr import Add, Div, Mul, Node, Num, Pow, Var, variables
+from .bounds.expr import Add, Const, Div, Mul, Node, Num, Pow, Sqrt, Var, variables
 from .derive import Derivation, node_key, to_json
 from .schema import (
     Algorithm,
@@ -34,7 +34,7 @@ from .schema import (
     SharedParameter,
     SharedParameterRef,
 )
-from .validate import Dataset
+from .validate import Dataset, constant_best
 
 # The pilot problems of Phase 1 (HANDOFF.md), in the order the brief lists them.
 PILOT = [
@@ -276,8 +276,14 @@ def property_words(row: dict[str, Any], alg: Algorithm, chain_randomized: bool) 
         short.append("det")
     else:
         err = alg.properties.randomized
-        if not isinstance(err, bool) and not chain_randomized:
-            kind = {"one-sided": "one-sided error", "two-sided": "two-sided error", "las-vegas": "Las Vegas"}[err.error]
+        error = None if isinstance(err, bool) or chain_randomized else err.error
+        if any(s["kind"] == "technique" for s in row["chain"]) and not chain_randomized:
+            # Monotone Local Search (rulebook §9a): one-sided error from a deterministic or
+            # one-sided input (Remark 1) and from a Las Vegas one stopped at twice its expected
+            # time; two-sided from a two-sided one
+            error = "two-sided" if error == "two-sided" else "one-sided" if err is False or error in ("one-sided", "las-vegas") else None
+        if error is not None:
+            kind = {"one-sided": "one-sided error", "two-sided": "two-sided error", "las-vegas": "Las Vegas"}[error]
             words.append(f"randomized ({kind})")
         else:
             words.append("randomized")
@@ -315,36 +321,41 @@ FLAG_TEXT = {
 # --- history ------------------------------------------------------------------------------------
 
 
-def _value(node: Node, x: float) -> float | None:
+def _value(node: Node, x: float, consts: dict[str, float] | None = None) -> float | None:
     if isinstance(node, Num):
         return float(node.value)
     if isinstance(node, Var):
         return x
     if isinstance(node, Add):
-        vals = [_value(t, x) for _, t in node.terms]
+        vals = [_value(t, x, consts) for _, t in node.terms]
         return None if None in vals else sum(s * v for (s, _), v in zip(node.terms, vals))  # type: ignore[misc]
     if isinstance(node, Mul):
         out = 1.0
         for f in node.factors:
-            v = _value(f, x)
+            v = _value(f, x, consts)
             if v is None:
                 return None
             out *= v
         return out
     if isinstance(node, Div):
-        a, b = _value(node.num, x), _value(node.den, x)
+        a, b = _value(node.num, x, consts), _value(node.den, x, consts)
         return None if a is None or not b else a / b
     if isinstance(node, Pow):
-        a, b = _value(node.base, x), _value(node.exp, x)
+        a, b = _value(node.base, x, consts), _value(node.exp, x, consts)
         return None if a is None or b is None or a <= 0 else a**b
+    if isinstance(node, Sqrt):
+        a = _value(node.arg, x, consts)
+        return None if a is None or a < 0 else math.sqrt(a)
+    if isinstance(node, Const):
+        return (CONSTANT_VALUES if consts is None else consts).get(node.name)
     return None
 
 
-def single_base(expr: Node) -> float | None:
+def single_base(expr: Node, consts: dict[str, float] | None = None) -> float | None:
     """c for an O* expression of the form c^{a x} in one variable x, else None."""
     if len(variables(expr)) != 1 or not isinstance(expr, Pow):
         return None
-    v0, v1, v2 = (_value(expr, x) for x in (0.0, 1.0, 2.0))
+    v0, v1, v2 = (_value(expr, x, consts) for x in (0.0, 1.0, 2.0))
     if v0 is None or v1 is None or v2 is None or not math.isclose(v0, 1.0):
         return None
     if not math.isclose(v2, v1 * v1, rel_tol=1e-12):
@@ -352,22 +363,45 @@ def single_base(expr: Node) -> float | None:
     return v1
 
 
-def history(rows: list[dict[str, Any]], bases: dict[str, float]) -> dict[str, list[dict[str, Any]]]:
-    """Improvements of the best base over the years, per single parameter, from the results
-    entered so far (verified, non-quantum). Polynomial factors ignored."""
+KINDS = [(True, True), (True, False), (False, True), (False, False)]  # (deterministic, polynomial space)
+
+# Named constants in the bound history: their best published value, as in the default
+# Overview, and their best claimed value for the history with preprints and unverified
+# results included (decided 18 November 2026); set by build().
+CONSTANT_VALUES: dict[str, float] = {}
+CLAIMED_VALUES: dict[str, float] = {}
+
+
+def history(rows: list[dict[str, Any]], bases: dict[str, float], include_all: bool = False) -> dict[str, list[dict[str, Any]]]:
+    """Records of the best base over the years, per single parameter, from the results entered
+    so far (non-quantum), deterministic and randomized. Polynomial factors ignored. Results
+    from preprints and unverified papers count only with include_all (the reader's switch,
+    18 November 2026)."""
     out: dict[str, list[dict[str, Any]]] = {}
     for param in sorted({r["parameters"][0] for r in rows if len(r["parameters"]) == 1}):
         cands = [
             r for r in rows
             if r["parameters"] == [param] and r["id"] in bases and r["year"] is not None
-            and "unverified" not in r["flags"] and not r["properties"]["quantum"]
+            and (include_all or not {"unverified", "preprint"} & set(r["flags"])) and not r["properties"]["quantum"]
         ]
-        cands.sort(key=lambda r: (r["year"], bases[r["id"]]))
+        # Records (decided 18 November 2026): a result is a record if it beats every earlier
+        # result that is at least as strong, where deterministic beats randomized and polynomial
+        # space beats exponential space (such an algorithm is also one of the weaker kind).
+        def kind(r: dict[str, Any]) -> tuple[bool, bool]:
+            return bool(r["properties"]["deterministic"]), bool(r["properties"]["polynomial_space"])
+
+        cands.sort(key=lambda r: (r["year"], bases[r["id"]], tuple(not x for x in kind(r))))
         steps: list[dict[str, Any]] = []
+        best = {c: math.inf for c in KINDS}  # best base among results at least as strong as c
         for r in cands:
-            if not steps or bases[r["id"]] < steps[-1]["base"] - 1e-12:
-                steps.append({"year": r["year"], "base": bases[r["id"]], "row": r["id"], "shown": r["shown"],
-                              "refs": r["refs"], "derived": r["origin"] == "derived"})
+            b, (det, poly) = bases[r["id"]], kind(r)
+            if b < best[(det, poly)] - 1e-12:
+                steps.append({"year": r["year"], "base": b, "row": r["id"], "shown": r["shown"],
+                              "refs": r["refs"], "derived": r["origin"] == "derived",
+                              "deterministic": det, "polynomial_space": poly})
+            for c in KINDS:
+                if (det or not c[0]) and (poly or not c[1]):
+                    best[c] = min(best[c], b)
         if steps:
             out[param] = steps
     return out
@@ -431,6 +465,37 @@ def chain_items(data: Dataset, d: Derivation, row: dict[str, Any], refs: Referen
                 "general": version_label(general).lower(),
                 "special": version_label(special).lower(),
             })
+        elif step["kind"] == "technique":
+            _, tid, rule_id = step["id"].split(":")
+            tech = data.entries["techniques"][tid]
+            rule = next(x for x in tech.rules if x.id == rule_id)  # type: ignore[attr-defined]
+            ap = next((a for a in tech.applies_to if a.problem == problem.id), None)  # type: ignore[attr-defined]
+            src = refs.source(tech.source)  # type: ignore[attr-defined]
+            out_var = render(Var(tech.output_parameter))  # type: ignore[attr-defined]
+            in_var = render(Var(tech.input_parameter))  # type: ignore[attr-defined]
+            exponent = f"{out_var} + o({out_var})" if rule.subexponential_factor else out_var
+            kind = "deterministic" if rule.output_deterministic else "randomized"
+            c_text, *extra = step["note"].split("; ")
+            if "\\delta" in c_text:
+                # the input is c^{k + o(k)} or a δ-family: (c + δ)^k for every δ > 0, so the
+                # theorem gives the result for every δ > 0 (rulebook §9a)
+                here = (f"here the input runs in time $({c_text})^{{{in_var}}} N^{{O(1)}}$ for every $\\delta > 0$, "
+                        "so this holds for every $\\delta > 0$, with the base rounded up")
+            else:
+                here = f"here $c = {c_text}$, and the base is rounded up"
+            if "las-vegas" in extra:
+                here += ("; the input is a Las Vegas algorithm, stopped at twice its expected running time, "
+                         "which gives one-sided error")
+            items.append({
+                "kind": "technique", "name": tech.name,  # type: ignore[attr-defined]
+                "statement": rule.statement,
+                "text": (f"an algorithm in time $c^{{{in_var}}} N^{{O(1)}}$ for the extension version gives a {kind} "
+                         f"algorithm in time $({render(parse_expr(tech.base, ['c']))})^{{{exponent}}} N^{{O(1)}}$; "  # type: ignore[attr-defined]
+                         + here),
+                "because": f"{ap.setting.because} {ap.extension.because}" if ap else None,
+                "refs": src["refs"],
+            })
+            current = {tech.output_parameter}  # type: ignore[attr-defined]
         elif step["kind"] == "projection":
             label = step["id"].split(":", 1)[1]
             if label == "drop-subtractions":
@@ -572,6 +637,24 @@ def problem_page(data: Dataset, d: Derivation, derived: dict[str, Any], pid: str
                         e["beaten_by"].append(row["id"])
             groups.setdefault(tuple(row["parameters"]), []).append(
                 {"cite": [enriched_by_id[row["id"]]], "year": row["year"], "members": [row["id"]], "beaten_by": [], "optional": True})
+        # the Overview with preprints and unverified results included, with ω at its best
+        # claimed value (18 November 2026): which entries it shows, and the entries only it shows
+        all_groups = derived.get("overview_all", {}).get(pid, {}).get(node, [])
+        all_members = {m for g in all_groups for m in g["members"]}
+        for entries in groups.values():
+            for e in entries:
+                e["in_all"] = bool(set(e["members"]) & all_members)
+        known = {m for entries in groups.values() for e in entries for m in e["members"]}
+        for g in all_groups:
+            if set(g["members"]) & known:
+                continue
+            cited = []
+            for rid in g["cite"]:
+                row = next(r for r in rows if r["id"] == rid)
+                enriched_by_id[rid] = enrich(row)
+                cited.append(enriched_by_id[rid])
+            groups.setdefault(tuple(cited[0]["parameters"]), []).append(
+                {"cite": cited, "year": g["year"], "members": g["members"], "beaten_by": [], "in_all": True, "only_all": True})
         for row in rows:
             if row["id"] not in enriched_by_id:
                 enriched_by_id[row["id"]] = enrich(row)
@@ -581,24 +664,40 @@ def problem_page(data: Dataset, d: Derivation, derived: dict[str, Any], pid: str
         for key, entries in ordered_groups:
             names = [by_symbol[p]["short"] for p in key if p in by_symbol]
             overview_out.append({
-                "only_optional": all(e.get("optional") for e in entries),
+                "only_optional": all(e.get("optional") or e.get("only_all") for e in entries),
                 "parameters": list(key),
                 "heading": "By " + _join(names),
                 "symbols_tex": [by_symbol[p]["tex"] for p in key if p in by_symbol],
                 "entries": entries,
             })
-        bases = {}
+        # bases with ω at its best published value, and at its best claimed value for the
+        # history with preprints and unverified results included (18 November 2026)
+        bases, bases_all = {}, {}
         results = d.results.get((pid, node), []) + [res for res, _ in d.superseded.get((pid, node), [])]
         for res in results:
-            b = single_base(ostar(res.bound, d.contexts[pid]).expr)
+            expr = ostar(res.bound, d.contexts[pid]).expr
+            b, b_all = single_base(expr), single_base(expr, CLAIMED_VALUES)
             if b is not None:
                 bases[res.id] = b
-        # beaten direct results are not in Details (rulebook version 3) but belong to the history
-        older = []
-        for row in derived.get("superseded", {}).get(pid, {}).get(node, []):
-            alg_old: Algorithm = data.entries["algorithms"][row["algorithm"]]  # type: ignore[assignment]
-            older.append({**row, "refs": refs.source(alg_old.source)["refs"]})
+            if b_all is not None:
+                bases_all[res.id] = b_all
+        # beaten direct results are not in Details (rulebook version 3) but belong to the history;
+        # they are cited only if they are records in one of the two histories
+        older = [row for row in derived.get("superseded", {}).get(pid, {}).get(node, [])
+                 if not row["properties"]["quantum"]]
+        for row in older:
+            row["refs"] = []
         hist = history(detail_rows + older, bases)
+        hist_all = history(detail_rows + older, bases_all, include_all=True)
+        older_ids = {row["id"]: row for row in older}
+        for steps in list(hist.values()) + list(hist_all.values()):
+            for st in steps:
+                row = older_ids.get(st["row"])
+                if row is not None and not row["refs"]:
+                    alg_old: Algorithm = data.entries["algorithms"][row["algorithm"]]  # type: ignore[assignment]
+                    row["refs"] = refs.source(alg_old.source)["refs"]
+                if row is not None:
+                    st["refs"] = row["refs"]
         members = node_versions(node)
         group = next((g for g in problem.shared_bounds if sorted(g.versions) == sorted(members)), None)
         note = None
@@ -614,13 +713,18 @@ def problem_page(data: Dataset, d: Derivation, derived: dict[str, Any], pid: str
                 note = f"Bounds for this version also hold for its special case ({names}), never the reverse."
         nodes[node] = {
             "overview": overview_out,
-            "has_optional": any(e.get("optional") for g in overview_out for e in g["entries"]),
+            "has_optional": any(e.get("optional") or e.get("only_all") or not e.get("in_all")
+                                for g in overview_out for e in g["entries"]),
             "rows": detail_rows,
             "flagged": flagged_rows(data, d, problem, node, refs),
             "note": note,
             "history": {
                 p: {"param_tex": by_symbol[p]["tex"], "name": by_symbol[p]["short"], "steps": steps}
                 for p, steps in hist.items() if p in by_symbol
+            },
+            "history_all": {
+                p: {"param_tex": by_symbol[p]["tex"], "name": by_symbol[p]["short"], "steps": steps}
+                for p, steps in hist_all.items() if p in by_symbol
             },
         }
 
@@ -743,6 +847,15 @@ def _slug(name: str) -> str:
 
 
 def build(data: Dataset, d: Derivation, out_dir: Path) -> dict[str, Any]:
+    CONSTANT_VALUES.clear()
+    CLAIMED_VALUES.clear()
+    for cid, const in data.entries["constants"].items():
+        v = constant_best(const, claimed=False)  # type: ignore[arg-type]
+        if v is not None:
+            CONSTANT_VALUES[cid] = v
+        v = constant_best(const, claimed=True)  # type: ignore[arg-type]
+        if v is not None:
+            CLAIMED_VALUES[cid] = v
     derived = to_json(data, d)
     pages = {pid: problem_page(data, d, derived, pid) for pid in sorted(data.problems)}
     def front_bounds(pid: str) -> list[dict[str, Any]]:
@@ -757,7 +870,8 @@ def build(data: Dataset, d: Derivation, out_dir: Path) -> dict[str, Any]:
                 bounds.append({"shown": r["shown"], "params": group["symbols_tex"], "derived": r["origin"] == "derived",
                                "deterministic": r["properties"]["deterministic"], "year": entry["year"],
                                "optional": bool(entry.get("optional")), "id": r["id"],
-                               "beaten_by": entry["beaten_by"], "flags": r["flags"]})
+                               "beaten_by": entry["beaten_by"], "flags": r["flags"],
+                               "in_all": bool(entry.get("in_all")), "only_all": bool(entry.get("only_all"))})
         return bounds
 
     index = []

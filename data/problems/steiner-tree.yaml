@@ -22,7 +22,7 @@ parameters:
 constraints:
   - { constraint: "t \\le n", because: "The terminals are vertices." }
   - { constraint: "k \\le n", because: "A tree has fewer edges than vertices, so every instance with $k \\ge n$ is decided by checking whether $T$ lies in one connected component." }
-  - { constraint: "m \\le n^{2}", because: "A simple graph has at most $n(n-1)/2$ edges." }
+  - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
   - { constraint: "tw \\le n", because: "A single bag containing all vertices is a tree decomposition of width $n - 1$." }
 versions:
   decision:

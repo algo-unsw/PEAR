@@ -26,7 +26,8 @@ def real(tmp_path_factory):
 
 @pytest.mark.parametrize(
     ("expr", "base"),
-    [("1.2738^{k}", 1.2738), ("2^{n/4}", 2 ** 0.25), ("2^{tw}", 2.0), ("1.5^{2 n}", 2.25)],
+    [("1.2738^{k}", 1.2738), ("2^{n/4}", 2 ** 0.25), ("2^{tw}", 2.0), ("1.5^{2 n}", 2.25),
+     ("(2 + (1 + \\sqrt{5})/2)^{k}", 2 + (1 + 5 ** 0.5) / 2)],
 )
 def test_single_base(expr, base):
     assert single_base(parse_expr(expr, {"k", "n", "tw"})) == pytest.approx(base)
@@ -37,9 +38,10 @@ def test_single_base_only_for_simple_exponentials(expr):
     assert single_base(parse_expr(expr, {"k", "n"})) is None
 
 
-def _row(rid, year, params=("k",), flags=(), quantum=False):
+def _row(rid, year, params=("k",), flags=(), quantum=False, deterministic=True, poly=True):
     return {"id": rid, "year": year, "parameters": list(params), "flags": list(flags), "shown": rid,
-            "refs": [], "origin": "direct", "properties": {"quantum": quantum}}
+            "refs": [], "origin": "direct",
+            "properties": {"quantum": quantum, "deterministic": deterministic, "polynomial_space": poly}}
 
 
 def test_history_keeps_only_improvements_in_year_order():
@@ -47,6 +49,33 @@ def test_history_keeps_only_improvements_in_year_order():
     bases = {"a": 1.2738, "b": 1.25284, "c": 1.28, "d": 1.25281, "u": 1.2}
     steps = history(rows, bases)["k"]
     assert [s["row"] for s in steps] == ["a", "b", "d"]
+
+
+def test_randomized_results_are_records_only_if_faster_than_every_earlier_result():
+    # decided 18 November 2026: a deterministic algorithm is also a randomized one, so a
+    # randomized result is a record only if it beats the fastest deterministic one (and every
+    # earlier randomized one); deterministic results are records against deterministic ones
+    rows = [_row("d1", 2000), _row("r1", 2005, deterministic=False), _row("d2", 2010),
+            _row("r2", 2012, deterministic=False), _row("r3", 2015, deterministic=False), _row("d3", 2020)]
+    bases = {"d1": 2.0, "r1": 1.5, "d2": 1.8, "r2": 1.6, "r3": 1.4, "d3": 1.4}
+    steps = history(rows, bases)["k"]
+    assert [(s["row"], s["deterministic"]) for s in steps] == [
+        ("d1", True), ("r1", False), ("d2", True), ("r3", False), ("d3", True)]
+    # a randomized result that only matches a deterministic one of the same year is no record
+    rows = [_row("d", 2010), _row("r", 2010, deterministic=False)]
+    assert [s["row"] for s in history(rows, {"d": 1.5, "r": 1.5})["k"]] == ["d"]
+
+
+def test_exponential_space_results_are_records_only_if_faster_than_polynomial_space_ones():
+    # decided 18 November 2026: polynomial space beats exponential space, as deterministic beats
+    # randomized; a result is a record if it beats every earlier result at least as strong
+    rows = [_row("p1", 2000), _row("e1", 2005, poly=False), _row("p2", 2010),
+            _row("e2", 2012, poly=False), _row("r1", 2014, deterministic=False),
+            _row("re", 2016, deterministic=False, poly=False)]
+    bases = {"p1": 2.0, "e1": 1.5, "p2": 1.8, "e2": 1.6, "r1": 1.7, "re": 1.45}
+    steps = history(rows, bases)["k"]
+    assert [s["row"] for s in steps] == ["p1", "e1", "p2", "r1", "re"]
+    assert [(s["deterministic"], s["polynomial_space"]) for s in steps][-1] == (False, False)
 
 
 def test_history_skips_quantum_and_multi_parameter_bounds():
@@ -105,6 +134,31 @@ def test_projection_names_only_the_constraint_used(tmp_path):
     assert proj and proj[0]["constraints"] == ["tw \\le n"]
 
 
+def test_technique_steps_say_how_the_input_was_used(tmp_path):
+    from test_derive import alg, dataset, paper, problem, technique
+
+    data = dataset(
+        problem("a", params=("k",)), problem("b", params=("k",)), paper("p-mls", 2015), technique(problems=("a", "b")),
+        alg("a-sub", "a", r"O^*(2^{k / \log k})"),
+        alg("b-lv", "b", r"O^*(4^{k})", randomized={"error": "las-vegas"}),
+    )
+    site = build(data, derive(data), tmp_path)
+    steps = {r["id"]: r["chain_items"][1] for p in ("a", "b") for r in site["pages"][p]["nodes"]["decision"]["rows"]
+             if "technique:" in r["id"]}
+    sub = steps["a-sub|technique:mls:deterministic"]
+    assert sub["kind"] == "technique" and sub["statement"] == "Theorem 2"
+    assert "input runs in time $(1 + \\delta)^{k} N^{O(1)}$ for every $\\delta > 0$" in sub["text"]
+    lv = steps["b-lv|technique:mls:randomized"]
+    assert "here $c = 4$" in lv["text"] and "Las Vegas algorithm, stopped at twice its expected running time" in lv["text"]
+    assert "b-lv|technique:mls:deterministic" not in steps
+    # stopped at twice its expected time, the Las Vegas input has one-sided error, and so has
+    # the result (Remark 1)
+    rows = {r["id"]: r for p in ("a", "b") for r in site["pages"][p]["nodes"]["decision"]["rows"]}
+    assert "randomized (one-sided error)" in rows["b-lv|technique:mls:randomized"]["props"]["words"]
+    assert "randomized (Las Vegas)" in rows["b-lv"]["props"]["words"]
+    assert sub["because"] == "Fixture. Fixture."
+
+
 def test_entries_written_as_json(real):
     _, _, out = real
     vc = json.loads((out / "entries" / "problems" / "vertex-cover.json").read_text())
@@ -131,7 +185,9 @@ def test_beaten_direct_result_only_in_history(real):
     _, site, _ = real
     node = site["pages"]["vertex-cover"]["nodes"]["decision+optimisation+search"]
     assert not any("chen-kanj-xia" in r["id"] for r in node["rows"])
-    assert [s["year"] for s in node["history"]["k"]["steps"]] == [2006, 2023, 2025]
+    # preprints count in the history only with the switch on (decided 18 November 2026)
+    assert [s["year"] for s in node["history"]["k"]["steps"]] == [2006, 2023]
+    assert [s["year"] for s in node["history_all"]["k"]["steps"]] == [2006, 2023, 2025]
 
 
 def test_unverified_results_can_be_switched_into_the_overview(real):
@@ -183,7 +239,8 @@ def test_references_name_the_journal_version_and_the_cited_statement(real):
     refs = {r["id"]: r for r in site["pages"]["feedback-vertex-set"]["references"]}
     kp = refs["kociumaka-pilipczuk-2014"]
     assert kp["primary"] == "Information Processing Letters 114(10), pp. 556–560, 2014"
-    assert kp["cited"] == ["Theorem 2 of arXiv v1"]
+    # Theorem 1 (3.592^k, unverified) is cited too: a record in the history with the switch on
+    assert kp["cited"] == ["Theorem 2 of arXiv v1", "Theorem 1 of arXiv v1"]
     assert kp["others"] == ["arXiv:1306.3566v1, 2013"]
     assert kp["links"][0]["url"] == "https://doi.org/10.1016/j.ipl.2014.05.001"
     # journal over conference; a retitled journal version brings its own title
@@ -259,9 +316,11 @@ def test_preprints_are_optional_in_the_overview_and_on_the_front_page(real):
     assert clinch.get("optional") and "preprint" in clinch["cite"][0]["flags"]
     shown = [e["cite"][0]["id"] for e in entries if not e.get("optional")]
     assert "vertex-cover--k--harris-narayanaswamy-2022" in shown
-    # Details keeps every result and the history still counts preprints (Details unchanged)
+    # Details keeps every result; the history counts preprints only with the switch on
     assert any(r["id"] == "vertex-cover--k--clinch-gaspers-he-2025" for r in node["rows"])
-    assert [s["year"] for s in node["history"]["k"]["steps"]] == [2006, 2023, 2025]
+    # preprints count in the history only with the switch on (decided 18 November 2026)
+    assert [s["year"] for s in node["history"]["k"]["steps"]] == [2006, 2023]
+    assert [s["year"] for s in node["history_all"]["k"]["steps"]] == [2006, 2023, 2025]
     front = {e["id"]: e for e in site["index"] if e["id"]}
     vc = front["vertex-cover"]["bounds"]
     assert any(b["optional"] and b["id"] == "vertex-cover--k--clinch-gaspers-he-2025" for b in vc)
@@ -283,3 +342,13 @@ def test_reference_names_every_conference_paper_a_paper_is_based_on(real):
     node = page["nodes"]["decision+optimisation+search"]
     shown = [e["cite"][0]["id"] for g in node["overview"] for e in g["entries"] if not e.get("optional")]
     assert "dominating-set--tw--van-rooij-et-al-2018" in shown
+
+
+def test_vertex_cover_by_m_uses_n_at_most_m(real):
+    # decided 18 November 2026: preprocessing (degree 0 and 1) gives n <= m without loss of
+    # generality, so an algorithm in n is one in m and the trivial 2^m is no record
+    _, site, _ = real
+    for pid in ("vertex-cover", "independent-set"):
+        node = site["pages"][pid]["nodes"]["decision+optimisation+search"]
+        assert not any(g["parameters"] == ["m"] and not g["only_optional"] for g in node["overview"])
+        assert [s["base"] for s in node["history"]["m"]["steps"]] == [1.1996]

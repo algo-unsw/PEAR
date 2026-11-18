@@ -1,0 +1,86 @@
+id: monotone-local-search
+name: Monotone Local Search
+source:
+  paper: fomin-gaspers-lokshtanov-saurabh-2015
+  statements:
+    arxiv-v1:
+      statement: "Theorems 1 and 2"
+  note: "If the extension version (given $X$, add at most $k$ elements to obtain a solution) is solvable in $c^k N^{O(1)}$ time, the subset problem is solvable in $(2 - 1/c)^n N^{O(1)}$ randomized time (Theorem 1, one-sided error) and in $(2 - 1/c)^{n + o(n)} N^{O(1)}$ deterministic time (Theorem 2). Added as a technique at Serge Gaspers's request (18 November 2026)."
+input_parameter: k
+output_parameter: n
+base: "2 - 1/c"
+# Every input must meet all of these; the engine checks each one (rulebook §9a).
+prerequisites:
+  - check: subset-problem
+    statement: "Section 1 of arXiv v1 (implicit set systems, $\\Phi$-Subset)"
+    text: "The problem is $\\Phi$-Subset for an implicit set system: an instance $I$ gives a universe $U_I$ of $n$ elements and a family $\\mathcal{F}_I$ of subsets of $U_I$, and the task is to find a set in $\\mathcal{F}_I$. Each problem below says why, and which of its symbols are $n$ and $k$."
+  - check: extension
+    statement: "Theorems 1 and 2 of arXiv v1"
+    text: "The input algorithm solves $\\Phi$-Extension: given $I$, $X \\subseteq U_I$ and $k$, is there $S \\subseteq U_I \\setminus X$ with $|S| \\le k$ and $S \\cup X \\in \\mathcal{F}_I$? An algorithm for the problem counts only if the problem below records why every algorithm for that version solves $\\Phi$-Extension with the same $k$, the algorithm is for that version on all its instances (not, for instance, a weighted version), and it needs nothing beyond the instance (no given tree decomposition)."
+  - check: single-exponential
+    statement: "Theorems 1 and 2 of arXiv v1"
+    text: "The input algorithm runs in time $c^k N^{O(1)}$ for a constant $c > 1$, where $N$ is the instance size: no factor in another parameter and none superpolynomial in $N$. An input in time $c^{k + o(k)} N^{O(1)}$ with $c \\ge 1$, such as a subexponential one ($c = 1$), or in time $(c + \\delta)^k N^{O(1)}$ for every $\\delta > 0$, runs in time $(c + \\delta)^k N^{O(1)}$ for every $\\delta > 0$, so the theorems give $(2 - 1/c + \\delta)^n N^{O(1)}$ for every $\\delta > 0$ (Serge Gaspers, 18 November 2026)."
+  - check: error
+    statement: "Remark 1 and Theorem 2 of arXiv v1"
+    text: "Theorem 1 holds for deterministic input algorithms and for randomized ones with one-sided or two-sided error (Remark 1, after Lemma 2.1); Theorem 2 needs a deterministic one. A Las Vegas algorithm (expected running time) counts as one with one-sided error: stopped at twice its expected running time, it answers correctly with probability at least 1/2 and otherwise says no (Markov's inequality; Serge Gaspers, 18 November 2026). A randomized algorithm whose error is not recorded, or that goes through a randomized reduction, is one of these, so Theorem 1 covers it as well (Serge Gaspers, 18 November 2026)."
+  - check: classical
+    statement: "Theorems 1 and 2 of arXiv v1"
+    text: "The theorems are about classical algorithms, so quantum input algorithms are not used."
+rules:
+  - id: randomized
+    statement: Theorem 1
+    accepts: [deterministic, one-sided, two-sided]
+    accepts_statement: "Remark 1 (after Lemma 2.1)"
+    output_deterministic: false
+    keeps_polynomial_space: true
+  - id: deterministic
+    statement: Theorem 2
+    accepts: [deterministic]
+    output_deterministic: true
+    keeps_polynomial_space: false  # "an additional 2^{o(n)} space requirement" (Conclusion of arXiv v1)
+    subexponential_factor: true
+applies_to:
+  - problem: feedback-vertex-set
+    version: decision
+    universe: n
+    budget: k
+    setting:
+      statement: "Section 1 of arXiv v1 ($\\Pi$-Vertex Deletion)"
+      because: "Vertex deletion into forests, a hereditary class: $U_I = V(G)$ and $\\mathcal{F}_I$ is the family of sets $S$ of at most $k$ vertices with $G - S$ a forest."
+    extension:
+      statement: "Section 1 of arXiv v1 ($\\Pi$-Vertex Deletion)"
+      because: "An algorithm for $\\Pi$-Vertex Deletion gives the same running time for its extension version, since the vertices in $X$ can simply be deleted."
+  - problem: odd-cycle-transversal
+    version: decision
+    universe: n
+    budget: k
+    setting:
+      statement: "Section 1 of arXiv v1 ($\\Pi$-Vertex Deletion)"
+      because: "Vertex deletion into bipartite graphs, a hereditary class: $U_I = V(G)$ and $\\mathcal{F}_I$ is the family of sets $S$ of at most $k$ vertices with $G - S$ bipartite."
+    extension:
+      statement: "Section 1 of arXiv v1 ($\\Pi$-Vertex Deletion)"
+      because: "An algorithm for $\\Pi$-Vertex Deletion gives the same running time for its extension version, since the vertices in $X$ can simply be deleted."
+  - problem: vertex-cover
+    version: decision
+    universe: n
+    budget: k
+    setting:
+      statement: "Section 1 of arXiv v1 ($\\Pi$-Vertex Deletion)"
+      because: "Vertex deletion into edgeless graphs, a hereditary class: $U_I = V(G)$ and $\\mathcal{F}_I$ is the family of sets $S$ of at most $k$ vertices with $G - S$ edgeless."
+    extension:
+      statement: "Section 1 of arXiv v1 ($\\Pi$-Vertex Deletion)"
+      because: "An algorithm for $\\Pi$-Vertex Deletion gives the same running time for its extension version, since the vertices in $X$ can simply be deleted."
+  - problem: 3-hitting-set
+    version: decision
+    universe: n
+    budget: k
+    setting:
+      statement: "Section 1 of arXiv v1 (Min-Ones $d$-SAT and $d$-Hitting Set)"
+      because: "A special case of Min-Ones 3-SAT, cast as $\\Phi$-Subset with $U_I$ the variables (here the elements) and $\\mathcal{F}_I$ the solutions of weight at most $k$."
+    extension:
+      statement: "Section 1 and Table 1 of arXiv v1 ($d$-Hitting Set)"
+      because: "The paper applies the theorems to $d$-Hitting Set with algorithms for the problem itself."
+status: valid
+review:
+  approved_by: Serge Gaspers
+  date: 2026-11-18

@@ -393,6 +393,9 @@ class Algorithm(Model):
     status: ResultStatus = "valid"
     # why the result is not valid (Phase 1; Phase 2 moves flags to data/flags/)
     status_note: Text | None = None
+    # The cited statement is in no peer-reviewed version of its paper (e.g. dropped from the
+    # journal version): treated like a result from an unverified paper (18 November 2026).
+    unverified: bool = False
     review: Review = Review()
 
 
@@ -538,6 +541,82 @@ class LowerBound(Model):
     review: Review = Review()
 
 
+TechniqueCheck = Literal["subset-problem", "extension", "single-exponential", "error", "classical"]
+# The prerequisites the engine checks for every input of a technique (rulebook §9a, approved
+# 18 November 2026 on condition that a technique is applied only when all of them are met).
+# A technique must list each one with where its paper states it; one the engine cannot check
+# cannot be listed, so it cannot be applied unchecked.
+TECHNIQUE_CHECKS: tuple[str, ...] = ("subset-problem", "extension", "single-exponential", "error", "classical")
+InputKind = Literal["deterministic", "one-sided", "two-sided"]
+
+
+class TechniquePrerequisite(Model):
+    check: TechniqueCheck
+    statement: Text  # where the technique's paper states it, e.g. "Theorems 1 and 2"
+    text: Text  # the condition in words
+
+
+class TechniqueRule(Model):
+    """One theorem of a technique: how the input bound c^k becomes an output bound."""
+
+    id: Id  # e.g. "randomized", "deterministic"
+    statement: Text  # e.g. "Theorem 1"
+    # the input algorithms the theorem covers: deterministic, or randomized with one-sided or
+    # two-sided error; Las Vegas inputs and randomized ones with no recorded error are not used
+    accepts: list[InputKind] = Field(min_length=1)
+    accepts_statement: Text | None = None  # where the paper says so, if not in `statement`
+    output_deterministic: bool  # deterministic output if the input is (False: randomized)
+    keeps_polynomial_space: bool = True  # polynomial space if the input has it
+    # the exponent is n + o(n): the base is rounded up strictly, which absorbs 2^{o(n)}
+    subexponential_factor: bool = False
+
+
+class TechniqueReason(Model):
+    statement: Text  # where the technique's paper establishes it
+    because: Text
+
+
+class TechniqueProblem(Model):
+    """A problem the technique applies to, with the reasons its prerequisites hold."""
+
+    problem: Id
+    version: Id  # inputs must be for this version's class (not, e.g., a weighted version)
+    universe: Symbol  # the problem's symbol for the universe size: the output is in it
+    budget: Symbol  # the problem's parameter that is the extension budget: the input is c^budget
+    setting: TechniqueReason  # why the problem is the technique's kind of problem
+    extension: TechniqueReason  # why every algorithm for this version solves the extension version
+
+
+class Technique(Model):
+    """A generic method that turns any algorithm of one form into a faster algorithm of
+    another, such as Monotone Local Search: c^k N^{O(1)} for the extension version gives
+    (2 - 1/c)^n N^{O(1)} (approved 18 November 2026). The engine combines it with every
+    result that meets all its prerequisites, so it improves whenever they do."""
+
+    id: Id
+    name: Text
+    source: PaperSource
+    input_parameter: Symbol  # the theorem's symbol for the budget, e.g. k
+    output_parameter: Symbol  # the theorem's symbol for the universe size, e.g. n
+    base: Text  # the output base as an expression in c, e.g. "2 - 1/c"
+    prerequisites: list[TechniquePrerequisite] = Field(min_length=1)
+    rules: list[TechniqueRule] = Field(min_length=1)
+    applies_to: list[TechniqueProblem] = Field(min_length=1)
+    status: ResultStatus = "valid"
+    review: Review = Review()  # applied only once approved (rule 6)
+
+    @model_validator(mode="after")
+    def _every_check_listed_once(self) -> Technique:
+        listed = [p.check for p in self.prerequisites]
+        missing = [c for c in TECHNIQUE_CHECKS if c not in listed]
+        doubled = sorted({c for c in listed if listed.count(c) > 1})
+        if missing:
+            raise ValueError(f"prerequisites must state every check the engine makes; missing: {', '.join(missing)}")
+        if doubled:
+            raise ValueError(f"prerequisite listed twice: {', '.join(doubled)}")
+        return self
+
+
 ENTITY_TYPES: dict[str, type[Model]] = {
     "problems": Problem,
     "parameters": SharedParameter,
@@ -548,4 +627,5 @@ ENTITY_TYPES: dict[str, type[Model]] = {
     "lower-bounds": LowerBound,
     "constants": NamedConstant,
     "implementations": Implementation,
+    "techniques": Technique,
 }

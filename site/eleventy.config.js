@@ -23,7 +23,7 @@ function mathText(source) {
 // Step chart of the best base over the years (DESIGN.md, bound history). Polynomial factors ignored.
 function historyChart(steps, paramTex, label) {
   if (!steps || steps.length < 2) return "";
-  const W = 560, H = 200, left = 56, right = 540, top = 30, bottom = 165;
+  const W = 560, H = 210, left = 56, right = 540, top = 44, bottom = 175;
   const years = steps.map((s) => s.year);
   const bases = steps.map((s) => s.base);
   const y0 = Math.min(...years), y1 = Math.max(new Date().getFullYear(), ...years);
@@ -39,15 +39,36 @@ function historyChart(steps, paramTex, label) {
   const yearTicks = [];
   for (let v = Math.ceil(y0 / yearStep) * yearStep; v <= y1; v += yearStep) yearTicks.push(v);
   const decimals = Math.max(2, -Math.floor(Math.log10(yStep)));
-  let d = `M${x(steps[0].year).toFixed(1)} ${y(steps[0].base).toFixed(1)}`;
-  for (let i = 1; i < steps.length; i++) {
-    d += ` H${x(steps[i].year).toFixed(1)} V${y(steps[i].base).toFixed(1)}`;
-  }
-  d += ` H${x(y1).toFixed(1)}`;
-  const last = steps[steps.length - 1];
+  // Record lines (decided 18 November 2026): a result is a record if it beats every earlier
+  // result at least as strong (deterministic beats randomized, polynomial space beats
+  // exponential space). One line per kind of record present; one line if all are of one kind.
+  const path = (pts) => {
+    if (!pts.length) return "";
+    let d = `M${x(pts[0].year).toFixed(1)} ${y(pts[0].base).toFixed(1)}`;
+    for (let i = 1; i < pts.length; i++) d += ` H${x(pts[i].year).toFixed(1)} V${y(pts[i].base).toFixed(1)}`;
+    return d + ` H${x(y1).toFixed(1)}`;
+  };
+  const kindOf = (s) => [s.deterministic !== false, s.polynomial_space !== false];
+  const kinds = [[true, true], [true, false], [false, true], [false, false]];
+  const names = ["deterministic, polynomial space", "deterministic", "polynomial space", "any"];
+  const styles = ["k1", "k2", "k3", "k4"]; // solid lines, one colour each
+  const present = kinds.map((k) => steps.some((s) => { const q = kindOf(s); return q[0] === k[0] && q[1] === k[1]; }));
+  const lines = [];
+  kinds.forEach((k, i) => {
+    if (!present[i]) return;
+    const pts = [];
+    for (const s of steps) {
+      const q = kindOf(s);
+      if ((q[0] || !k[0]) && (q[1] || !k[1]) && (!pts.length || s.base < pts[pts.length - 1].base)) pts.push(s);
+    }
+    lines.push({ name: names[i], style: styles[i], pts });
+  });
+  const overall = steps.reduce((acc, s) => (!acc.length || s.base < acc[acc.length - 1].base ? acc.concat([s]) : acc), []);
+  const best = overall[overall.length - 1];
   const summary =
-    `Step chart: the best base fell from ${steps[0].base} in ${steps[0].year} ` +
-    `to ${last.base} in ${last.year}` + (last.year < y1 ? " and has not changed since" : "");
+    `Step chart: the best base fell from ${overall[0].base} in ${overall[0].year} ` +
+    `to ${best.base} in ${best.year}` + (best.year < y1 ? " and has not changed since" : "") +
+    (lines.length > 1 ? lines.map((l) => `; ${l.name}: ${l.pts[l.pts.length - 1].base} (${l.pts[l.pts.length - 1].year})`).join("") : "");
   let svg = `<svg class="chart" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="${escapeHtml(summary)}">`;
   for (const t of ticks) {
     svg += `<line x1="${left}" y1="${y(t).toFixed(1)}" x2="${right}" y2="${y(t).toFixed(1)}" class="grid"/>`;
@@ -56,9 +77,35 @@ function historyChart(steps, paramTex, label) {
   for (const t of yearTicks) {
     svg += `<text x="${x(t).toFixed(1)}" y="${H - 8}" text-anchor="middle" class="axis">${t}</text>`;
   }
-  svg += `<path d="${d}" class="line"/>`;
-  for (const s of steps) svg += `<circle cx="${x(s.year).toFixed(1)}" cy="${y(s.base).toFixed(1)}" r="4" class="dot"/>`;
-  svg += `<text x="${right}" y="${(y(last.base) - 8).toFixed(1)}" text-anchor="end" class="value">${last.base}</text>`;
+  if (lines.length > 1) {
+    // weakest kind first, so where lines coincide the strongest kind's colour shows
+    for (const l of lines.slice().reverse()) svg += `<path d="${path(l.pts)}" class="line ${l.style}"/>`;
+    let lx = left + 8, ly = 10;
+    for (const l of lines) {
+      const w = 40 + 7 * l.name.length;
+      if (lx + w > W && lx > left + 8) { lx = left + 8; ly += 16; }
+      svg += `<line x1="${lx}" y1="${ly}" x2="${lx + 22}" y2="${ly}" class="line ${l.style}"/><text x="${lx + 28}" y="${ly + 4}" class="axis">${l.name}</text>`;
+      lx += w;
+    }
+  } else {
+    svg += `<path d="${path(lines[0].pts)}" class="line k1"/>`;
+  }
+  for (const s of steps) {
+    const q = kindOf(s);
+    const st = styles[kinds.findIndex((k) => k[0] === q[0] && k[1] === q[1])];
+    svg += `<circle cx="${x(s.year).toFixed(1)}" cy="${y(s.base).toFixed(1)}" r="4" class="dot ${lines.length > 1 ? st : "k1"}"/>`;
+  }
+  // value labels at the right end of each line, kept at least 14px apart
+  const ends = [...new Set(lines.map((l) => l.pts[l.pts.length - 1].base))].sort((a, b) => b - a);
+  let lastY = -Infinity, lineAbove = -Infinity;
+  for (const end of ends) {
+    // above its line if there is room under the line above, else below its line
+    let ly = y(end) - lineAbove >= 26 ? y(end) - 8 : y(end) + 16;
+    if (ly < lastY + 14) ly = lastY + 14;
+    svg += `<text x="${right}" y="${ly.toFixed(1)}" text-anchor="end" class="value">${end}</text>`;
+    lastY = ly;
+    lineAbove = y(end);
+  }
   return svg + "</svg>";
 }
 

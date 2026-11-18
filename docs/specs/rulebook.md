@@ -89,6 +89,28 @@ A derived bound is:
 - Worse bounds are dropped, direct or derived (version 3). Best and incomparable ones are kept, under every filter combination the site offers (so the fastest deterministic polynomial-space bound is kept even when a faster randomized one exists). A dropped direct result leaves the Details list but stays in the bound history; a derived bound never drops a direct one, because "include derived" can be unticked.
 - **Overview tab** (the default view, decided 7 November 2026): shows the best non-quantum bounds obtained by any means, direct or derived, compared in O* form; the Details tab lists every kept result with filters. Bounds equal in O* form are equivalent; the earlier one is cited, by year, and all of them in case of a tie. A derived bound dates from its latest dated ingredient (the algorithm's paper and each reduction's paper). Undated (folklore) results count as latest.
 
+## 9a. Techniques (approved 18 November 2026)
+
+A **technique** (`data/techniques/<id>.yaml`, schema §13) is a theorem that turns any algorithm of one form into an algorithm of another, such as Monotone Local Search (Fomin, Gaspers, Lokshtanov, Saurabh): an algorithm for the extension version in $c^k N^{O(1)}$ time gives $(2 - 1/c)^n N^{O(1)}$ randomized (Theorem 1) and $(2 - 1/c)^{n + o(n)} N^{O(1)}$ deterministic (Theorem 2).
+
+Serge approved this on condition that a technique is applied **only when all its prerequisites are met**, for example that the input algorithm solves the extension version. So a technique lists every prerequisite, each with where its paper states it, and the engine checks each one for every input; validation rejects a technique that leaves one out or names one the engine cannot check. For Monotone Local Search (arXiv v1):
+
+| Check | Prerequisite | What the engine checks |
+|---|---|---|
+| `subset-problem` | The problem is $\Phi$-Subset for an implicit set system with a universe of $n$ elements (Section 1). | The problem is in `applies_to`, with the reason (`setting`) and the symbols that are $n$ (`universe`) and $k$ (`budget`). |
+| `extension` | The input algorithm solves $\Phi$-Extension with budget $k$ (Theorems 1 and 2). | The problem records why every algorithm for the listed version solves $\Phi$-Extension with the same $k$ (`extension`; for $\Pi$-Vertex Deletion: delete $X$, Section 1); the input is for that version's class (not a weighted version); it needs nothing beyond the instance (no `given` tree decomposition). |
+| `single-exponential` | The input runs in time $c^k N^{O(1)}$ for a constant $c > 1$ (Theorems 1 and 2). | Its $O^*$ form is $c^{k + o(k)}$ with a constant $c \ge 1$ ($\omega$ at its published value): no factor in another parameter, none superpolynomial in $N$, nothing superexponential in $k$, no $2^{O(k)}$. |
+| `error` | Theorem 1 covers deterministic inputs and randomized ones with one-sided or two-sided error (Remark 1, after Lemma 2.1); Theorem 2 needs a deterministic one. | Each rule lists the inputs it `accepts`. A Las Vegas input counts as one with one-sided error (below). A randomized input whose error is not recorded, or a result through a randomized reduction, is one of these kinds, so a rule that accepts both one-sided and two-sided error covers it (Serge, 18 November 2026). |
+| `classical` | The theorems are about classical algorithms. | The input is not quantum. |
+
+- **$c^{k + o(k)}$ and families** (Serge, 18 November 2026). An input in time $c^{k + o(k)} N^{O(1)}$ with $c \ge 1$ (a subexponential one has $c = 1$), or in time $(c + \delta)^k N^{O(1)}$ for every $\delta > 0$, runs in time $(c + \delta)^k N^{O(1)}$ for every $\delta > 0$; the theorem for each $c + \delta$ gives $(2 - 1/c + \delta)^n N^{O(1)}$ for every $\delta > 0$, written $O^*((b + \delta)^n)$ for every $\delta > 0$ with $b = 2 - 1/c$ rounded up (the family also absorbs Theorem 2's $2^{o(n)}$). For a subexponential input, $k \le n$ usually gives a better bound directly, which then beats the family.
+- **Las Vegas inputs** (Serge, 18 November 2026). A Las Vegas algorithm stopped at twice its expected running time answers correctly with probability at least $1/2$ and otherwise says no (Markov's inequality), so it counts as a randomized algorithm with one-sided error. The chain says so, and the result is shown with one-sided error, as are results of Theorem 1 from deterministic or one-sided inputs (Remark 1); from two-sided inputs, two-sided.
+- A technique is applied only once approved (`review`, rule 6), and at most once per chain.
+- Each rule (theorem) gives one result: base $f(c)$ rounded up to four decimals (strictly, if the theorem has a $2^{o(n)}$ factor, which the rounding then absorbs). Its output is deterministic only if the rule says so and the input is; polynomial space is kept only if the rule says so (Theorem 2 needs an additional $2^{o(n)}$ space, Conclusion of arXiv v1).
+- The result is derived: its chain ends with a technique step, it is dated by the later of the input and the technique's paper, and it inherits the input's flags (unverified, preprint, hypotheses). It is in the problem's `universe` symbol.
+- A candidate (a kept result in the budget, for a listed problem) that fails a prerequisite is logged with the reason in `build/derived.json`.
+- Results the paper states with the technique (e.g. Table 1 of Fomin et al.) stay as direct results.
+
 ## 10. Not covered yet
 
 - Transferring **lower bounds** (from A to B along a reduction from A to B). No lower bounds are entered in the pilot (schema Q5). Proposal: add this rule before the first lower bound is entered.

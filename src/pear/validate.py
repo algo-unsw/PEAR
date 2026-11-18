@@ -288,6 +288,26 @@ def check_references(data: Dataset) -> list[Issue]:
         if uses_cycle(aid):
             issues.append(Issue(f"algorithms/{aid}.yaml: uses", "the uses relation has a cycle through this result"))
 
+    for tid, tech in data.entries["techniques"].items():
+        where = f"techniques/{tid}.yaml"
+        source(f"{where}: source", tech.source)  # type: ignore[attr-defined]
+        try:
+            parse_expr(tech.base, ["c"])  # type: ignore[attr-defined]
+        except Exception as exc:  # noqa: BLE001
+            issues.append(Issue(f"{where}: base", f"not an expression in c: {exc}"))
+        for i, ap in enumerate(tech.applies_to):  # type: ignore[attr-defined]
+            prob = problem_version(f"{where}: applies_to[{i}]", ap.problem, ap.version)
+            if prob is not None:
+                # the universe is one of the problem's basic objects (n), the budget one of its
+                # parameters (the solution size k): the input must be c^budget, the output is in
+                # the universe size
+                if ap.universe not in ({"n"} | ({"m"} if prob.objects.m is not None else set())):
+                    issues.append(Issue(f"{where}: applies_to[{i}].universe",
+                                        f"'{ap.universe}' is not an object count of problem '{ap.problem}'"))
+                if ap.budget not in prob.parameters:
+                    issues.append(Issue(f"{where}: applies_to[{i}].budget",
+                                        f"'{ap.budget}' is not a parameter of problem '{ap.problem}'"))
+
     for rid, red in data.entries["reductions"].items():
         assert isinstance(red, Reduction)
         where = f"reductions/{rid}.yaml"
@@ -455,8 +475,26 @@ def constant_range(const: NamedConstant) -> tuple[float, float | None]:
     return (max(lows) if lows else 0.0, min(highs) if highs else None)
 
 
-def problem_context(data: Dataset, problem: Problem) -> Context:
-    """Everything the comparator needs about one problem (bounds B4, B5, §2)."""
+def constant_best(const: NamedConstant, claimed: bool) -> float | None:
+    """The current best upper bound, used as the constant's value in comparisons (decided
+    18 November 2026): published (established) bounds only, or claimed ones too."""
+    ok = ("established", "claimed") if claimed else ("established",)
+    highs = [constant_value(b.value) for b in const.bounds if b.relation == "le" and b.status in ok]
+    highs = [v for v in highs if v is not None]
+    return min(highs) if highs else None
+
+
+# How comparisons treat a named constant such as ω (decided 18 November 2026): at its best
+# published value (the default Overview), at its best claimed value (the Overview with
+# preprints and unverified results included), or anywhere between the two (keeping results,
+# so that a result is dropped only if it is beaten at both values).
+CONSTANT_MODES = ("published", "claimed", "between")
+
+
+def problem_context(data: Dataset, problem: Problem, constants: str = "between") -> Context:
+    """Everything the comparator needs about one problem (bounds B4, B5, §2). Named
+    constants take their best published or claimed value, or the range between the two
+    (CONSTANT_MODES)."""
     shared = data.entries["parameters"]
     not_poly = []
     for symbol, entry in problem.parameters.items():
@@ -468,10 +506,25 @@ def problem_context(data: Dataset, problem: Problem) -> Context:
             not_poly.append(symbol)
     consts = {}
     for cid, const in data.entries["constants"].items():
-        lo, hi = constant_range(const)  # type: ignore[arg-type]
-        if hi is not None:
-            consts[cid] = (lo, hi)
-    return build_context(problem.symbols(), [c.constraint for c in problem.constraints], not_poly, consts)
+        published = constant_best(const, claimed=False)  # type: ignore[arg-type]
+        claimed = constant_best(const, claimed=True)  # type: ignore[arg-type]
+        if constants == "published" and published is not None:
+            consts[cid] = (published, published)
+        elif constants == "claimed" and claimed is not None:
+            consts[cid] = (claimed, claimed)
+        elif constants == "between" and claimed is not None:
+            consts[cid] = (claimed, published if published is not None else claimed)
+    # parameter-map expressions of reductions from this problem are nonnegative: each bounds
+    # a parameter of the produced instance (18 November 2026)
+    nonneg = []
+    for red in data.entries["reductions"].values():
+        maps = [(red.from_, red.parameter_map)] + [  # type: ignore[attr-defined]
+            (v.from_ or red.from_, v.parameter_map) for v in red.variants]  # type: ignore[attr-defined]
+        for frm, pmap in maps:
+            if frm.problem == problem.id:
+                nonneg += [e for e in pmap.values() if e not in problem.symbols()]
+    return build_context(problem.symbols(), [c.constraint for c in problem.constraints], not_poly, consts,
+                         sorted(set(nonneg)))
 
 
 def validate_raw(raw: dict[str, dict[str, Any]], redirects: Any = None) -> tuple[Dataset, list[Issue]]:

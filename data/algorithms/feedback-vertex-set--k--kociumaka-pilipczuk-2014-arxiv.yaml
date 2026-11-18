@@ -1,0 +1,24 @@
+id: feedback-vertex-set--k--kociumaka-pilipczuk-2014-arxiv
+problem: feedback-vertex-set
+proved_for: search
+bound:
+  as_stated: 'O^*(3.592^{k})'
+  notation: O*
+  parameters:
+  - k
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Polynomial space, as stated.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+unverified: true
+source:
+  paper: kociumaka-pilipczuk-2014
+  statements:
+    arxiv-v1:
+      statement: Theorem 1
+  note: 'Deterministic, polynomial space; a refinement of the $(2+\phi)^k$ algorithm with more branching rules, analysed by a script (Section 3 and appendix of arXiv v1). Not in the journal version (Information Processing Letters 2014), so treated as unverified (Serge Gaspers, 18 November 2026).'

@@ -15,6 +15,20 @@ bounds:
       - paper: pass-2026
         statements: { arxiv-v1: { statement: "Abstract" } }
         note: "Constructive proof. Theorem number not yet recorded: TODO(verify)."
+  - relation: le
+    value: "2.371339"
+    status: established
+    sources:
+      - paper: alman-duan-vassilevska-williams-xu-xu-zhou-2024
+        statements: { arxiv-v2: { statement: "Section 1 (\"Our new bound on $\\omega$ is $\\omega < 2.371339$\") and Table 1" } }
+        note: "The best published bound (SODA 2025), as on Wikipedia (Matrix multiplication algorithm), checked 18 November 2026."
+  - relation: le
+    value: "2.371177"
+    status: claimed
+    sources:
+      - paper: alman-duan-vassilevska-williams-xu-xu-zhou-2024
+        statements: { arxiv-v3: { statement: "Abstract" } }
+        note: "arXiv v3 (19 August 2026), with the numerical optimization of Dupont et al. (arXiv:2608.16884); not yet published."
   - relation: ge
     value: "2"
     sources:

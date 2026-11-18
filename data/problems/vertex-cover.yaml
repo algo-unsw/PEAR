@@ -20,7 +20,8 @@ parameters:
   tw: { shared: treewidth }
 constraints:
   - { constraint: "k \\le n", because: "Every instance with $k \\ge n$ is a yes-instance ($S = V$), answered in polynomial time." }
-  - { constraint: "m \\le n^{2}", because: "A simple graph has at most $n(n-1)/2$ edges." }
+  - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
+  - { constraint: "n \\le m", because: "Without loss of generality (suggested by Serge Gaspers, 18 November 2026): delete isolated vertices, and while a vertex $v$ has degree 1, with neighbour $u$, put $u$ in the cover and delete $u$ and $v$ ($k$ decreases by 1). With weights, if $w(v) \\ge w(u)$ do the same; otherwise delete $v$ and lower $w(u)$ by $w(v)$, adding $w(v)$ to the optimum. Afterwards every vertex has degree at least 2, so $2m \\ge 2n$." }
   - { constraint: "tw \\le n", because: "A single bag containing all vertices is a tree decomposition of width $n - 1$." }
 versions:
   decision:

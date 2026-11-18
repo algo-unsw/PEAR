@@ -122,19 +122,22 @@
   let all = false;
   try { included = new Set(JSON.parse(localStorage.getItem(KEY) || "[]")); } catch (e) { /* none */ }
   try { all = localStorage.getItem(ALL) === "1"; } catch (e) { /* none */ }
-  const on = (id) => all || included.has(id);
+  // With the switch on, the Overview computed with every result and ω at its best claimed
+  // value is shown (data-all); otherwise the default one (ω at its best published value),
+  // plus the unverified results included one by one, which hide the entries they beat.
+  function visible(el) {
+    if (all) return el.dataset.all === "1";
+    if (el.dataset.optional) return included.has(el.dataset.optional);
+    if (el.hasAttribute("data-only-all")) return false;
+    return !(el.dataset.beatenBy || "").split(" ").some((id) => id && included.has(id));
+  }
   function applyUnverified() {
     $$("[data-include-all]").forEach((c) => { c.checked = all; });
     $$("[data-include-unverified]").forEach((c) => { c.checked = included.has(c.dataset.includeUnverified); });
-    $$("[data-optional]").forEach((el) => { el.hidden = !on(el.dataset.optional); });
-    $$("[data-beaten-by]").forEach((el) => {
-      el.hidden = el.dataset.beatenBy.split(" ").some(on);
-    });
-    $$(".ov-group").forEach((g) => {
-      if (g.hasAttribute("data-only-optional")) {
-        g.hidden = !$$("[data-optional]", g).some((el) => !el.hidden);
-      }
-    });
+    $$(".ov-entry[data-all]").forEach((el) => { el.hidden = !visible(el); });
+    // the bound history follows the switch too (with ω at its best claimed value)
+    $$("[data-history]").forEach((el) => { el.hidden = (el.dataset.history === "all") !== all; });
+    $$(".ov-group").forEach((g) => { g.hidden = !$$(".ov-entry", g).some((el) => !el.hidden); });
   }
   $$("[data-include-all]").forEach((c) => c.addEventListener("change", () => {
     all = c.checked;

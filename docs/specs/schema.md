@@ -207,6 +207,8 @@ status: valid                         # Phase 2 grading via data/flags/
 status_note: "…"                     # why the status is not valid (Phase 1)
 ```
 
+- `unverified: true` on a result (18 November 2026): its statement is in no peer-reviewed version of the paper, for example dropped from the journal version (Kociumaka–Pilipczuk's $O^*(3.592^k)$, arXiv v1 only). Such a result is treated like one from an unverified paper: tagged in Details, out of the Overview unless included.
+
 - The site never states a bound that is not in `as_stated`. The O* form and comparisons are computed.
 - `given: [tree-decomposition]` records that the input comes with a tree decomposition of width at most $\mathrm{tw}$, as is usual for results parameterized by treewidth. The result is stored as stated, and the site shows the note (decided 8 November 2026).
 - `parameters` must match the variables in `as_stated`; the validator checks this once the bound parser exists.
@@ -362,6 +364,38 @@ Only exact implementations are listed (agreed 8 November 2026): a ranked impleme
 The order is subjective but informed by data (competition results, published benchmarks). The site shows the list in this order without calling it a ranking and without saying how the order was chosen (decided 10 November 2026), so problem files carry no ranking note. Facts are positive and sourced: competition placings, citation counts (OpenAlex, with `as_of`), wide use in a named field. Where to look for implementations: `docs/implementations.md`.
 
 The validator checks that ranked ids exist, appear once and solve the problem exactly, and that every `solves` entry names a known problem and version.
+
+## 13. Technique (approved 18 November 2026)
+
+A generic method that the engine combines with every result meeting all its prerequisites (rulebook §9a). One file per technique in `data/techniques/<id>.yaml`.
+
+```yaml
+id: monotone-local-search
+name: Monotone Local Search
+source: { paper: fomin-gaspers-lokshtanov-saurabh-2015, statements: { arxiv-v1: { statement: "Theorems 1 and 2" } } }
+input_parameter: k          # the theorem's symbols: input c^{k}, output in n
+output_parameter: n
+base: "2 - 1/c"             # the output base, an expression in c
+prerequisites:              # every check the engine makes, once each, with where the paper states it
+  - { check: subset-problem, statement: "Section 1 of arXiv v1", text: "…" }
+  - { check: extension, statement: "Theorems 1 and 2 of arXiv v1", text: "…" }
+  - { check: single-exponential, statement: "Theorems 1 and 2 of arXiv v1", text: "…" }
+  - { check: error, statement: "Remark 1 and Theorem 2 of arXiv v1", text: "…" }
+  - { check: classical, statement: "Theorems 1 and 2 of arXiv v1", text: "…" }
+rules:
+  - { id: randomized, statement: Theorem 1, accepts: [deterministic, one-sided, two-sided],
+      accepts_statement: "Remark 1 (after Lemma 2.1)", output_deterministic: false, keeps_polynomial_space: true }
+  - { id: deterministic, statement: Theorem 2, accepts: [deterministic], output_deterministic: true,
+      keeps_polynomial_space: false, subexponential_factor: true }
+applies_to:
+  - problem: feedback-vertex-set
+    version: decision       # inputs must be for this version's class
+    universe: n             # an object count of the problem: the output is in it
+    budget: k               # a parameter of the problem: the input must be c^{k}
+    setting: { statement: "Section 1 of arXiv v1", because: "Vertex deletion into forests, a hereditary class: …" }
+    extension: { statement: "Section 1 of arXiv v1", because: "… the vertices in X can simply be deleted." }
+review: { approved_by: Serge Gaspers, date: 2026-11-18 }   # applied only once approved
+```
 
 ## Decisions (7 November 2026)
 

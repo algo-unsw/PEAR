@@ -3,6 +3,7 @@
   --bg: #111514; --band: #1A201F; --text: #E6ECEB; --muted: #A3B0AE; --border: #2F3A39;
   --accent: #6FD3CA; --boxHead: #0B6B66; --tagBg: #123A37; --tagText: #A7EAE3;
   --grid: #2F3A39; --track: #0B6B66; --warnBg: #3A2C12; --warnText: #F3D9A6;
+  --chart1: #6FD3CA; --chart2: #F2A65A; --chart3: #B49CF4; --chart4: #F28BB0;
   color-scheme: dark;
 }
 /* Dark is the default (decided 11 November 2026); light only when the reader chooses it. */
@@ -10,6 +11,7 @@
   --bg: #FFFFFF; --band: #F2F5F5; --text: #1A1D21; --muted: #4D5660; --border: #D3DBDB;
   --accent: #0B6B66; --boxHead: #0B6B66; --tagBg: #E3F1F0; --tagText: #064A46;
   --grid: #DCE3E3; --track: #C9D6D5; --warnBg: #FFF4E0; --warnText: #6B4200;
+  --chart1: #0B6B66; --chart2: #B5541B; --chart3: #6A4BC4; --chart4: #B0306A;
   color-scheme: light;
 }
 
@@ -140,6 +142,11 @@ ol.chain li + li { margin-top: 4px; }
 .chart .axis { font-size: 13px; fill: var(--muted); }
 .chart .line { fill: none; stroke: var(--accent); stroke-width: 2.5; }
 .chart .dot { fill: var(--accent); }
+/* record lines (18 November 2026): one solid colour per kind of record */
+.chart .line.k1 { stroke: var(--chart1); } .chart .dot.k1 { fill: var(--chart1); }
+.chart .line.k2 { stroke: var(--chart2); } .chart .dot.k2 { fill: var(--chart2); }
+.chart .line.k3 { stroke: var(--chart3); } .chart .dot.k3 { fill: var(--chart3); }
+.chart .line.k4 { stroke: var(--chart4); } .chart .dot.k4 { fill: var(--chart4); }
 .chart .value { font-size: 13px; fill: var(--text); }
 
 /* Details */

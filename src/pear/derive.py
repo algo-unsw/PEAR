@@ -10,15 +10,17 @@ polynomial space, constructive, non-algebraic, Lean-verified, direct, classical)
 
 from __future__ import annotations
 
+import math
 from dataclasses import dataclass, field, replace
 from fractions import Fraction
 from typing import Iterable
 
 from .bounds import Bound, Relation, compare, display, ostar, parse_bound, parse_expr
-from .bounds.compare import Analysed, Context, analyse, compare_ostar
+from .bounds.compare import Analysed, Context, _resolve, analyse, compare_ostar
 from .bounds.display import simplify, substitute
 from .bounds.expr import Add, Const, Log, Mul, Node, Num, Pow, Var, variables
-from .bounds.growth import is_monotone
+from .bounds.growth import Shape, UnsupportedBound, bound_terms, is_monotone
+from .bounds.numeric import dominates, samples, value
 from .schema import Algorithm, FolkloreSource, Hypothesis, PaperSource, Problem, Reduction, Variant
 from .validate import Dataset, problem_context
 
@@ -39,6 +41,15 @@ REVIEWED_KINDS = frozenset({"journal", "conference", "workshop", "book", "thesis
 def is_preprint(paper) -> bool:
     """No peer-reviewed version (only preprints or technical reports)."""
     return not any(v.kind in REVIEWED_KINDS for v in paper.versions.values())
+
+
+def at_least_as_strong(a: "Props", b: "Props") -> bool:
+    """Deterministic and polynomial space wherever b is (decided 18 November 2026)."""
+    return (a.deterministic or not b.deterministic) and (a.poly_space or not b.poly_space)
+
+
+def stronger(a: "Props", b: "Props") -> bool:
+    return at_least_as_strong(a, b) and (a.deterministic, a.poly_space) != (b.deterministic, b.poly_space)
 
 
 @dataclass(frozen=True)
@@ -75,7 +86,7 @@ class Props:
 
 @dataclass(frozen=True)
 class Step:
-    kind: str  # reduction | special-case | projection
+    kind: str  # reduction | special-case | projection | technique
     id: str
     from_node: str
     to_node: str
@@ -120,14 +131,25 @@ class Result:
 class Derivation:
     results: dict[tuple[str, str], list[Result]] = field(default_factory=dict)  # (problem, node) -> kept
     log: list[str] = field(default_factory=list)
+    # comparisons with named constants (decided 18 November 2026): keeping a result uses ω
+    # anywhere between its best claimed and best published value; the default Overview and
+    # the browser filters use the published value; the Overview with preprints and
+    # unverified results included uses the claimed value
     contexts: dict[str, Context] = field(default_factory=dict)
+    published: dict[str, Context] = field(default_factory=dict)
+    claimed: dict[str, Context] = field(default_factory=dict)
     beaten_by: dict[str, list[str]] = field(default_factory=dict)  # result id -> ids of strictly better bounds
     overview: dict[tuple[str, str], list[dict]] = field(default_factory=dict)  # (problem, node) -> groups
+    # the Overview with preprints and unverified results included (claimed constants)
+    overview_all: dict[tuple[str, str], list[dict]] = field(default_factory=dict)
     # unverified results a reader may add to the Overview (decided 12 November 2026), with the
     # Overview members each one beats in O* form
     optional: dict[tuple[str, str], list[dict]] = field(default_factory=dict)
     # direct results beaten in every filter (version 3): not in Details, kept for the bound history
     superseded: dict[tuple[str, str], list[tuple[Result, list[str]]]] = field(default_factory=dict)
+    # common-sense check (18 November 2026): Overview bounds the comparator calls incomparable
+    # although one is at most the other at every sample point; each needs a fact or a rule
+    undecided: list[dict] = field(default_factory=list)
 
 
 # --- nodes: versions that share bounds ------------------------------------------------
@@ -154,7 +176,9 @@ class Engine:
         self.analysed: dict[str, Analysed] = {}
         self.hypotheses: dict[str, Hypothesis] = data.entries["hypotheses"]  # type: ignore[assignment]
         for pid, problem in data.problems.items():
-            self.out.contexts[pid] = problem_context(data, problem)
+            self.out.contexts[pid] = problem_context(data, problem, "between")
+            self.out.published[pid] = problem_context(data, problem, "published")
+            self.out.claimed[pid] = problem_context(data, problem, "claimed")
         self._logged: set[str] = set()
         self.variant_of: dict[str, Variant] = {}  # effective reduction id -> its variant
 
@@ -213,7 +237,8 @@ class Engine:
     def unverified(self, alg: Algorithm) -> bool:
         papers = {alg.source.paper} if alg.source.paper else set()
         checked = alg.formal.status == "proved" and alg.formal.statement_checked is not None
-        return not checked and any(self.data.papers[p].unverified for p in papers if p in self.data.papers)
+        return not checked and (alg.unverified or any(
+            self.data.papers[p].unverified for p in papers if p in self.data.papers))
 
     def preprint(self, alg: Algorithm) -> bool:
         papers = {alg.source.paper} if alg.source.paper else set()
@@ -252,7 +277,7 @@ class Engine:
         year, papers = self.dated(alg.source)
         flags = set(flags) | {f"given-{g}" for g in alg.given}
         checked = alg.formal.status == "proved" and alg.formal.statement_checked is not None
-        if (any(self.data.papers[p].unverified for p in papers) and not checked) or any(
+        if ((alg.unverified or any(self.data.papers[p].unverified for p in papers)) and not checked) or any(
                 self.unverified(u) for u in used):
             props = replace(props, verified=False)
             flags.add("unverified")
@@ -510,6 +535,167 @@ class Engine:
             out.append(replace(r, bound=proj, chain=r.chain + (step,)))
         return out
 
+    # -- techniques (18 November 2026) ------------------------------------------------------
+
+    def techniques(self, r: Result) -> list[Result]:
+        """Apply generic techniques such as Monotone Local Search: a result in time c^k N^{O(1)}
+        for a problem the technique applies to gives one in time f(c)^n, for each rule
+        (theorem) whose requirements it meets. The output base is rounded up to four decimals,
+        strictly when the theorem has a 2^{o(n)} factor, so the stated bound is an upper bound.
+
+        A technique is applied only when every prerequisite it lists is met (rulebook §9a,
+        approved 18 November 2026 on that condition); `technique_misses` says which are not."""
+        out: list[Result] = []
+        problem = self.data.problems[r.problem]
+        for tid, tech in sorted(self.data.entries["techniques"].items()):
+            listed = [ap for ap in tech.applies_to if ap.problem == r.problem]  # type: ignore[attr-defined]
+            if not listed:
+                continue  # subset-problem: the technique does not apply to this problem at all
+            if not self.usable(tech.status):  # type: ignore[attr-defined]
+                self.log(f"{tid}: status '{tech.status}', not used (rulebook A3)")  # type: ignore[attr-defined]
+                continue
+            if tech.review.approved_by is None:  # type: ignore[attr-defined]
+                self.log(f"{tid}: technique awaits approval (rule 6), not used")
+                continue
+            if any(st.kind == "technique" for st in r.chain):
+                continue  # applied at most once per chain
+            ap = next((a for a in listed if node_key(problem, a.version)[1] == r.node), None)
+            budgets = {a.budget for a in listed}
+            if not budgets & variables(r.bound.expr):
+                continue  # not a bound in the budget at all, so not a candidate (not logged)
+            rate, misses = self.technique_misses(r, ap)
+            if misses:
+                self.log(f"{tid}: not applied to {r.id}: {'; '.join(misses)}")
+                continue
+            assert ap is not None and rate is not None
+            c, loose = rate
+            # the theorems need c > 1; an input in time c^k with c <= 1 also runs in time
+            # (1 + δ)^k for every δ > 0
+            if c <= 1 + 1e-12:
+                c, loose = 1.0, True
+            exact = value(parse_expr(tech.base, ["c"]), {"c": c})  # type: ignore[attr-defined]
+            if exact is None or exact <= 0:
+                self.log(f"{tid}: not applied to {r.id}: the output base is undefined at c = {c:.6g}")
+                continue
+            paper = self.data.papers[tech.source.paper]  # type: ignore[attr-defined]
+            years = [paper.versions[v].year for v in tech.source.statements if v in paper.versions]  # type: ignore[attr-defined]
+            kind = self.input_kind(r)
+            # a Las Vegas algorithm, stopped at twice its expected running time, answers
+            # correctly with probability at least 1/2 (Markov) and otherwise says no: one-sided
+            # error (Serge, 18 November 2026)
+            covered = "one-sided" if kind == "las-vegas" else kind
+            for rule in tech.rules:  # type: ignore[attr-defined]
+                # a randomized algorithm whose error is not recorded (or that goes through a
+                # randomized reduction) is Las Vegas or has one-sided or two-sided error, so a
+                # rule that covers both errors covers it (Serge, 18 November 2026)
+                any_error = {"one-sided", "two-sided"} <= set(rule.accepts)
+                if not (covered in rule.accepts or (covered == "unrecorded" and any_error)):
+                    self.log(f"{tid}: {rule.statement} not applied to {r.id}: it covers "
+                             f"{', '.join(rule.accepts)} input algorithms, not {kind} ones")
+                    continue
+                base = math.ceil(exact * 10**4 - 1e-9) / 10**4
+                if rule.subexponential_factor and not loose and base <= exact + 1e-12:
+                    base += 1e-4  # strictly, to absorb 2^{o(n)}; a δ-family absorbs it anyway
+                text = "1" if loose and base == 1 else f"{base:.4f}"
+                if loose:  # (base + δ)^n for every δ > 0: the theorem with c + δ, for every δ
+                    bound = parse_bound(rf"O^*(({text} + \delta)^{{{ap.universe}}}) \text{{ for every }} \delta > 0",
+                                        [ap.universe])
+                else:
+                    bound = Bound("O*", Pow(Num(Fraction(text), text), Var(ap.universe)))
+                props = replace(
+                    r.props,
+                    deterministic=r.props.deterministic and rule.output_deterministic,
+                    poly_space=r.props.poly_space and rule.keeps_polynomial_space,
+                )
+                step = Step("technique", f"technique:{tid}:{rule.id}", f"{r.problem}:{r.node}", f"{r.problem}:{r.node}",
+                            note=f"{c:.6g}" + (" + \\delta" if loose else "")
+                            + ("; las-vegas" if kind == "las-vegas" else ""))  # the input base c
+                year = max([y for y in [r.year, *years] if y is not None], default=None)
+                out.append(replace(r, bound=bound, props=props, chain=r.chain + (step,), year=year,
+                                   papers=r.papers + (tech.source.paper,)))  # type: ignore[attr-defined]
+        return out
+
+    def technique_misses(self, r: Result, ap) -> tuple[tuple[float, bool] | None, list[str]]:  # noqa: ANN001
+        """((c, loose) as in budget_rate, the prerequisites r does not meet) for a technique entry `ap` of r's problem
+        (None if no entry is for r's version class). The checks are those of TECHNIQUE_CHECKS;
+        the error check depends on the rule and is made per rule."""
+        misses: list[str] = []
+        if ap is None:
+            return None, [f"extension: the technique is listed for another version of {r.problem}, not '{r.node}'"]
+        given = sorted(f.removeprefix("given-") for f in r.flags if f.startswith("given-"))
+        if given:
+            misses.append(f"extension: the algorithm needs a given {', '.join(given)}, beyond the instance")
+        rate = self.budget_rate(r, ap.budget)
+        if rate is None:
+            misses.append(f"single-exponential: the time is not c^{{{ap.budget} + o({ap.budget})}} N^{{O(1)}} "
+                          "for a constant c")
+        if r.props.quantum:
+            misses.append("classical: the algorithm is quantum")
+        return rate, misses
+
+    def input_kind(self, r: Result) -> str:
+        """deterministic, one-sided, two-sided, las-vegas, or unrecorded: the randomness of the
+        algorithm a result describes, as far as the data records it (rulebook §9a)."""
+        if r.props.deterministic:
+            return "deterministic"
+        randomized_steps = any(st.kind == "reduction" and st.type == "polytime-randomized" for st in r.chain)
+        alg = self.data.entries["algorithms"].get(r.origin)
+        own = getattr(getattr(alg, "properties", None), "randomized", True)
+        if randomized_steps:
+            return "unrecorded"  # a randomized reduction records no error type
+        if own is True or own is False:  # randomized without an error type (False cannot occur here)
+            return "unrecorded"
+        return own.error
+
+    def budget_rate(self, r: Result, var: str) -> tuple[float, bool] | None:
+        """(c, loose) if r's running time is at most c^{var + o(var)} N^{O(1)} for a constant
+        c >= 1 (ω at its published value), else None. `loose`: it has a subexponential factor
+        in `var` beyond polynomial, or is a δ-family; then it is (c + δ)^{var} N^{O(1)} for
+        every δ > 0 (Serge, 18 November 2026: a subexponential bound is (1 + δ)^k for every
+        δ > 0). Without `loose`, c^{var} N^{O(1)} exactly."""
+        ctx = self.out.published[r.problem]
+        b = ostar(r.bound, ctx)
+        if variables(b.expr) - {var}:
+            return None  # a factor in another parameter, or superpolynomial in N
+        loose = b.family
+        best = 0.0
+        linear: Shape = (Fraction(1), Fraction(0), Fraction(0))
+        polynomial: Shape = (Fraction(0), Fraction(1), Fraction(0))
+        try:
+            terms = bound_terms(b)
+        except UnsupportedBound:
+            return None
+        for t in terms:
+            if t.unspecified:
+                return None
+            rate = 0.0
+            for key, coefs in t.hi.terms.items():
+                if key == ():
+                    continue  # a constant factor
+                if len(key) != 1 or key[0][0] != var:
+                    return None
+                shape = key[0][1]
+                if shape > linear:
+                    return None  # superexponential, such as k^k
+                for cf in coefs:
+                    if shape == linear:
+                        if cf.kind == "exact":
+                            rate += cf.value
+                            loose = loose or cf.shift > 0
+                        elif cf.kind.startswith("sym:"):
+                            resolved = _resolve([cf], ctx)
+                            if not resolved:
+                                return None
+                            rate += sum(x.value for x in resolved if x.kind == "exact")
+                        elif cf.kind in ("small", "family"):
+                            loose = loose or cf.sign > 0  # 2^{o(k)}, 2^{δk}
+                        else:
+                            return None  # 2^{O(k)}: no constant c
+                    elif shape > polynomial and cf.sign > 0:
+                        loose = True  # a subexponential factor, such as 2^{\sqrt{k}}
+            best = max(best, rate)
+        return 2.0**best, loose
+
     # -- fixpoint ----------------------------------------------------------------------------
 
     def run(self) -> Derivation:
@@ -551,6 +737,7 @@ class Engine:
                     if d is not None:
                         produced.append(d)
                 produced += self.special_cases(r)
+                produced += self.techniques(r)
                 for d in produced:
                     if self.insert(d):
                         new.append(d)
@@ -560,24 +747,71 @@ class Engine:
             frontier = new
         self.out.beaten_by = self.beaten_by()
         self.out.overview = self.overview()
+        self.out.overview_all = self.overview(include_all=True)
         self.out.optional = self.optional_overview()
+        self.out.undecided = self.undecided()
         return self.out
 
-    def overview(self) -> dict[tuple[str, str], list[dict]]:
+    def undecided(self) -> list[dict]:
+        """Pairs among the Overview bounds (with the optional ones) that the comparator cannot
+        order although one is at most the other at every sample point satisfying the
+        problem's constraints. Numeric evidence decides nothing; it shows where the engine
+        lacks a fact (a constraint) or a comparison rule (decided 18 November 2026)."""
+        out: list[dict] = []
+        views = [(key, entries, False) for key, entries in sorted(self.out.overview.items())]
+        views += [(key, entries, True) for key, entries in sorted(self.out.overview_all.items())]
+        for key, entries, include_all in views:
+            pid, node = key
+            problem = self.data.problems[pid]
+            ctx = (self.out.claimed if include_all else self.out.published)[pid]
+            kept = {r.id: r for r in self.out.results.get(key, [])}
+            ids = [m for e in entries for m in e["members"]]
+            if not include_all:
+                ids += [e["id"] for e in self.out.optional.get(key, [])]
+            rs = [kept[i] for i in dict.fromkeys(ids) if i in kept and not kept[i].props.quantum]
+            if len(rs) < 2:
+                continue
+            points = samples(problem.symbols(), [c.constraint for c in problem.constraints], ctx.constants, count=200)
+            exprs = {r.id: ostar(r.bound, ctx).expr for r in rs}
+            for a in rs:
+                for b in rs:
+                    if a is b or compare_ostar(self.analyse(a), self.analyse(b), ctx) != Relation.INCOMPARABLE:
+                        continue
+                    if dominates(exprs[a.id], exprs[b.id], points):
+                        both = dominates(exprs[b.id], exprs[a.id], points)
+                        if both and a.id > b.id:
+                            continue  # report an apparent equality once
+                        item = {"problem": pid, "node": node, "smaller": a.id, "larger": b.id,
+                                "equal": bool(both), "samples": len(points)}
+                        if item not in out:
+                            out.append(item)
+        return out
+
+    def beats_ostar(self, s: Result, r: Result, ctx: Context) -> bool:
+        """s beats r in the Overview: a better bound in O* form, or the same bound and s is
+        stronger (decided 18 November 2026): deterministic beats randomized and polynomial
+        space beats exponential space, since such an algorithm is also one of the weaker kind
+        (ignore the random bits; space is bounded by time)."""
+        rel = compare_ostar(self.analyse(s), self.analyse(r), ctx)
+        return rel == Relation.BETTER or (rel in (Relation.EQUAL, Relation.TIE) and stronger(s.props, r.props))
+
+    def overview(self, include_all: bool = False) -> dict[tuple[str, str], list[dict]]:
         """What the Overview tab (the default view) shows: the best non-quantum bounds
         obtained by any means, compared in O* form. Bounds equal in O* form are grouped;
         the earliest by year are cited, all of them on a tie (decided 7 November 2026).
-        The Details tab lists every kept result, with filters."""
+        The Details tab lists every kept result, with filters. With include_all, results
+        from preprints and unverified papers count too, and named constants take their best
+        claimed value instead of the best published one (18 November 2026)."""
         out: dict[tuple[str, str], list[dict]] = {}
         for key, kept in sorted(self.out.results.items()):
-            ctx = self.out.contexts[key[0]]
+            ctx = (self.out.claimed if include_all else self.out.published)[key[0]]
             # the Overview leaves out quantum results and results from unverified papers or
-            # preprints; readers can include those (optional_overview)
-            cands = [r for r in kept if not r.props.quantum and r.props.verified and r.props.reviewed]
+            # preprints; readers can include those (optional_overview, overview_all)
+            cands = [r for r in kept if not r.props.quantum and (include_all or (r.props.verified and r.props.reviewed))]
             best = [
                 r for r in cands
                 if not any(
-                    s is not r and compare_ostar(self.analyse(s), self.analyse(r), ctx) == Relation.BETTER
+                    s is not r and self.beats_ostar(s, r, ctx)
                     for s in cands
                 )
             ]
@@ -609,7 +843,7 @@ class Engine:
         left out."""
         out: dict[tuple[str, str], list[dict]] = {}
         for key, kept in sorted(self.out.results.items()):
-            ctx = self.out.contexts[key[0]]
+            ctx = self.out.published[key[0]]
             members = {m for e in self.out.overview.get(key, []) for m in e["members"]}
             best = [r for r in kept if r.id in members]
             entries = []
@@ -617,9 +851,13 @@ class Engine:
                 if (u.props.verified and u.props.reviewed) or u.props.quantum:
                     continue
                 rel = [compare_ostar(self.analyse(b), self.analyse(u), ctx) for b in best]
-                if any(x in (Relation.BETTER, Relation.EQUAL, Relation.TIE) for x in rel):
+                # including u changes nothing if an Overview member beats it, or matches it and is
+                # at least as strong (deterministic, polynomial space)
+                ties = [b for b, x in zip(best, rel) if x in (Relation.EQUAL, Relation.TIE)]
+                if any(x == Relation.BETTER for x in rel) or any(at_least_as_strong(b.props, u.props) for b in ties):
                     continue
-                beats = [b.id for b, x in zip(best, rel) if x == Relation.WORSE]
+                beats = [b.id for b, x in zip(best, rel) if x == Relation.WORSE] + [
+                    b.id for b in ties if stronger(u.props, b.props)]
                 entries.append({"id": u.id, "beats": beats, "year": u.year})
             if entries:
                 out[key] = entries
@@ -648,7 +886,7 @@ class Engine:
         """For filters in the browser: which kept results have strictly better bounds."""
         out: dict[str, list[str]] = {}
         for (pid, _), kept in self.out.results.items():
-            ctx = self.out.contexts[pid]
+            ctx = self.out.published[pid]
             for r in kept:
                 out[r.id] = [
                     s.id for s in kept if s is not r and compare(self.analyse(s), self.analyse(r), ctx) == Relation.BETTER
@@ -700,6 +938,9 @@ def to_json(data: Dataset, d: Derivation) -> dict:
     overview: dict[str, dict[str, list[dict]]] = {}
     for (pid, node), groups in sorted(d.overview.items()):
         overview.setdefault(pid, {})[node] = groups
+    overview_all: dict[str, dict[str, list[dict]]] = {}
+    for (pid, node), groups in sorted(d.overview_all.items()):
+        overview_all.setdefault(pid, {})[node] = groups
     superseded: dict[str, dict[str, list[dict]]] = {}
     for (pid, node), entries in sorted(d.superseded.items()):
         ctx = d.contexts[pid]
@@ -710,11 +951,13 @@ def to_json(data: Dataset, d: Derivation) -> dict:
         "rulebook_version": RULEBOOK_VERSION,
         "problems": nodes,
         "overview": overview,
+        "overview_all": overview_all,
         "overview_optional": {
             pid: {node: e for (p2, node), e in sorted(d.optional.items()) if p2 == pid}
             for pid in sorted({p for p, _ in d.optional})
         },
         "superseded": superseded,
+        "undecided": d.undecided,
         "log": d.log,
     }
 
