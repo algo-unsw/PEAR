@@ -585,7 +585,11 @@ class Engine:
             # error (Serge, 18 November 2026)
             covered = "one-sided" if kind == "las-vegas" else kind
             for rule in tech.rules:  # type: ignore[attr-defined]
-                if covered not in rule.accepts:  # error: the theorem does not cover this input
+                # a randomized algorithm whose error is not recorded (or that goes through a
+                # randomized reduction) is Las Vegas or has one-sided or two-sided error, so a
+                # rule that covers both errors covers it (Serge, 18 November 2026)
+                any_error = {"one-sided", "two-sided"} <= set(rule.accepts)
+                if not (covered in rule.accepts or (covered == "unrecorded" and any_error)):
                     self.log(f"{tid}: {rule.statement} not applied to {r.id}: it covers "
                              f"{', '.join(rule.accepts)} input algorithms, not {kind} ones")
                     continue

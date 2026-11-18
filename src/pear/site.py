@@ -276,8 +276,14 @@ def property_words(row: dict[str, Any], alg: Algorithm, chain_randomized: bool) 
         short.append("det")
     else:
         err = alg.properties.randomized
-        if not isinstance(err, bool) and not chain_randomized:
-            kind = {"one-sided": "one-sided error", "two-sided": "two-sided error", "las-vegas": "Las Vegas"}[err.error]
+        error = None if isinstance(err, bool) or chain_randomized else err.error
+        if any(s["kind"] == "technique" for s in row["chain"]) and not chain_randomized:
+            # Monotone Local Search (rulebook §9a): one-sided error from a deterministic or
+            # one-sided input (Remark 1) and from a Las Vegas one stopped at twice its expected
+            # time; two-sided from a two-sided one
+            error = "two-sided" if error == "two-sided" else "one-sided" if err is False or error in ("one-sided", "las-vegas") else None
+        if error is not None:
+            kind = {"one-sided": "one-sided error", "two-sided": "two-sided error", "las-vegas": "Las Vegas"}[error]
             words.append(f"randomized ({kind})")
         else:
             words.append("randomized")

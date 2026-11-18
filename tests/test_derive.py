@@ -1007,7 +1007,7 @@ def test_technique_needs_a_classical_algorithm():
     # Serge, 18 November 2026: stopped at twice its expected running time, a Las Vegas
     # algorithm has one-sided error (Markov)
     ({"error": "las-vegas"}, {"randomized"}),
-    (True, set()),  # randomized, error not recorded: not covered
+    (True, {"randomized"}),  # error not recorded: Las Vegas, one- or two-sided, all covered
 ])
 def test_technique_rules_cover_the_inputs_their_theorems_cover(randomized, theorems):
     tech = technique()
@@ -1016,15 +1016,15 @@ def test_technique_rules_cover_the_inputs_their_theorems_cover(randomized, theor
     assert {i.rsplit(":", 1)[1] for i in technique_rows(data)} == theorems
 
 
-def test_technique_not_through_a_randomized_reduction():
-    # the error type of a randomized reduction is not recorded, so Theorem 1's condition
-    # cannot be checked; a deterministic reduction is fine
+def test_technique_through_a_randomized_reduction_only_by_theorem_1():
+    # a randomized reduction records no error type, but Theorem 1 covers every kind
+    # (Serge, 18 November 2026); Theorem 2 needs a deterministic input
     def data_for(rtype):
         return dataset(problem("a", constraints=[r"k \le n"]), problem("b"), paper("p-mls", 2015), technique(),
                        alg("b-det", "b", r"O^*(4^{k})"), red("a-to-b", "a", "b", {"k": "k", "n": "n"}, type=rtype))
     assert set(technique_rows(data_for("polytime-deterministic"))) == {
         "b-det|a-to-b|technique:mls:randomized", "b-det|a-to-b|technique:mls:deterministic"}
-    assert technique_rows(data_for("polytime-randomized")) == {}
+    assert set(technique_rows(data_for("polytime-randomized"))) == {"b-det|a-to-b|technique:mls:randomized"}
 
 
 def test_technique_is_applied_once_per_chain():

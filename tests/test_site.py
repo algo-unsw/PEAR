@@ -151,6 +151,11 @@ def test_technique_steps_say_how_the_input_was_used(tmp_path):
     lv = steps["b-lv|technique:mls:randomized"]
     assert "here $c = 4$" in lv["text"] and "Las Vegas algorithm, stopped at twice its expected running time" in lv["text"]
     assert "b-lv|technique:mls:deterministic" not in steps
+    # stopped at twice its expected time, the Las Vegas input has one-sided error, and so has
+    # the result (Remark 1)
+    rows = {r["id"]: r for p in ("a", "b") for r in site["pages"][p]["nodes"]["decision"]["rows"]}
+    assert "randomized (one-sided error)" in rows["b-lv|technique:mls:randomized"]["props"]["words"]
+    assert "randomized (Las Vegas)" in rows["b-lv"]["props"]["words"]
     assert sub["because"] == "Fixture. Fixture."
 
 
