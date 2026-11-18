@@ -16,10 +16,10 @@ from fractions import Fraction
 from typing import Iterable
 
 from .bounds import Bound, Relation, compare, display, ostar, parse_bound, parse_expr
-from .bounds.compare import Analysed, Context, analyse, compare_ostar
+from .bounds.compare import Analysed, Context, _resolve, analyse, compare_ostar
 from .bounds.display import simplify, substitute
 from .bounds.expr import Add, Const, Log, Mul, Node, Num, Pow, Var, variables
-from .bounds.growth import is_monotone
+from .bounds.growth import Shape, UnsupportedBound, bound_terms, is_monotone
 from .bounds.numeric import dominates, samples, value
 from .schema import Algorithm, FolkloreSource, Hypothesis, PaperSource, Problem, Reduction, Variant
 from .validate import Dataset, problem_context
@@ -563,11 +563,16 @@ class Engine:
             budgets = {a.budget for a in listed}
             if not budgets & variables(r.bound.expr):
                 continue  # not a bound in the budget at all, so not a candidate (not logged)
-            c, misses = self.technique_misses(r, ap)
+            rate, misses = self.technique_misses(r, ap)
             if misses:
                 self.log(f"{tid}: not applied to {r.id}: {'; '.join(misses)}")
                 continue
-            assert ap is not None and c is not None
+            assert ap is not None and rate is not None
+            c, loose = rate
+            # the theorems need c > 1; an input in time c^k with c <= 1 also runs in time
+            # (1 + δ)^k for every δ > 0
+            if c <= 1 + 1e-12:
+                c, loose = 1.0, True
             exact = value(parse_expr(tech.base, ["c"]), {"c": c})  # type: ignore[attr-defined]
             if exact is None or exact <= 0:
                 self.log(f"{tid}: not applied to {r.id}: the output base is undefined at c = {c:.6g}")
@@ -575,30 +580,39 @@ class Engine:
             paper = self.data.papers[tech.source.paper]  # type: ignore[attr-defined]
             years = [paper.versions[v].year for v in tech.source.statements if v in paper.versions]  # type: ignore[attr-defined]
             kind = self.input_kind(r)
+            # a Las Vegas algorithm, stopped at twice its expected running time, answers
+            # correctly with probability at least 1/2 (Markov) and otherwise says no: one-sided
+            # error (Serge, 18 November 2026)
+            covered = "one-sided" if kind == "las-vegas" else kind
             for rule in tech.rules:  # type: ignore[attr-defined]
-                if kind not in rule.accepts:  # error: the theorem does not cover this input
+                if covered not in rule.accepts:  # error: the theorem does not cover this input
                     self.log(f"{tid}: {rule.statement} not applied to {r.id}: it covers "
                              f"{', '.join(rule.accepts)} input algorithms, not {kind} ones")
                     continue
                 base = math.ceil(exact * 10**4 - 1e-9) / 10**4
-                if rule.subexponential_factor and base <= exact + 1e-12:
-                    base += 1e-4
-                text = f"{base:.4f}"
-                bound = Bound("O*", Pow(Num(Fraction(text), text), Var(ap.universe)))
+                if rule.subexponential_factor and not loose and base <= exact + 1e-12:
+                    base += 1e-4  # strictly, to absorb 2^{o(n)}; a δ-family absorbs it anyway
+                text = "1" if loose and base == 1 else f"{base:.4f}"
+                if loose:  # (base + δ)^n for every δ > 0: the theorem with c + δ, for every δ
+                    bound = parse_bound(rf"O^*(({text} + \delta)^{{{ap.universe}}}) \text{{ for every }} \delta > 0",
+                                        [ap.universe])
+                else:
+                    bound = Bound("O*", Pow(Num(Fraction(text), text), Var(ap.universe)))
                 props = replace(
                     r.props,
                     deterministic=r.props.deterministic and rule.output_deterministic,
                     poly_space=r.props.poly_space and rule.keeps_polynomial_space,
                 )
                 step = Step("technique", f"technique:{tid}:{rule.id}", f"{r.problem}:{r.node}", f"{r.problem}:{r.node}",
-                            note=f"{c:.6g}")  # the input base c
+                            note=f"{c:.6g}" + (" + \\delta" if loose else "")
+                            + ("; las-vegas" if kind == "las-vegas" else ""))  # the input base c
                 year = max([y for y in [r.year, *years] if y is not None], default=None)
                 out.append(replace(r, bound=bound, props=props, chain=r.chain + (step,), year=year,
                                    papers=r.papers + (tech.source.paper,)))  # type: ignore[attr-defined]
         return out
 
-    def technique_misses(self, r: Result, ap) -> tuple[float | None, list[str]]:  # noqa: ANN001
-        """(c, the prerequisites r does not meet) for a technique entry `ap` of r's problem
+    def technique_misses(self, r: Result, ap) -> tuple[tuple[float, bool] | None, list[str]]:  # noqa: ANN001
+        """((c, loose) as in budget_rate, the prerequisites r does not meet) for a technique entry `ap` of r's problem
         (None if no entry is for r's version class). The checks are those of TECHNIQUE_CHECKS;
         the error check depends on the rule and is made per rule."""
         misses: list[str] = []
@@ -607,18 +621,13 @@ class Engine:
         given = sorted(f.removeprefix("given-") for f in r.flags if f.startswith("given-"))
         if given:
             misses.append(f"extension: the algorithm needs a given {', '.join(given)}, beyond the instance")
-        c = None
-        if r.bound.family:
-            misses.append("single-exponential: the bound holds for every delta > 0, not for one constant c")
-        else:
-            c = self.single_exponential(r, ap.budget)
-            if c is None:
-                misses.append(f"single-exponential: the O* form is not c^{ap.budget} for a constant c")
-            elif c <= 1:
-                misses.append(f"single-exponential: c = {c:.6g} is not greater than 1")
+        rate = self.budget_rate(r, ap.budget)
+        if rate is None:
+            misses.append(f"single-exponential: the time is not c^{{{ap.budget} + o({ap.budget})}} N^{{O(1)}} "
+                          "for a constant c")
         if r.props.quantum:
             misses.append("classical: the algorithm is quantum")
-        return c, misses
+        return rate, misses
 
     def input_kind(self, r: Result) -> str:
         """deterministic, one-sided, two-sided, las-vegas, or unrecorded: the randomness of the
@@ -634,14 +643,54 @@ class Engine:
             return "unrecorded"
         return own.error
 
-    def single_exponential(self, r: Result, var: str) -> float | None:
-        """c if the result's O* form is c^{var} for a constant c (ω at its published value)."""
+    def budget_rate(self, r: Result, var: str) -> tuple[float, bool] | None:
+        """(c, loose) if r's running time is at most c^{var + o(var)} N^{O(1)} for a constant
+        c >= 1 (ω at its published value), else None. `loose`: it has a subexponential factor
+        in `var` beyond polynomial, or is a δ-family; then it is (c + δ)^{var} N^{O(1)} for
+        every δ > 0 (Serge, 18 November 2026: a subexponential bound is (1 + δ)^k for every
+        δ > 0). Without `loose`, c^{var} N^{O(1)} exactly."""
         ctx = self.out.published[r.problem]
-        expr = ostar(r.bound, ctx).expr
-        if not (isinstance(expr, Pow) and expr.exp == Var(var)):
+        b = ostar(r.bound, ctx)
+        if variables(b.expr) - {var}:
+            return None  # a factor in another parameter, or superpolynomial in N
+        loose = b.family
+        best = 0.0
+        linear: Shape = (Fraction(1), Fraction(0), Fraction(0))
+        polynomial: Shape = (Fraction(0), Fraction(1), Fraction(0))
+        try:
+            terms = bound_terms(b)
+        except UnsupportedBound:
             return None
-        env = {f"\\{name}": lo for name, (lo, _) in ctx.constants.items()}
-        return value(expr.base, env)
+        for t in terms:
+            if t.unspecified:
+                return None
+            rate = 0.0
+            for key, coefs in t.hi.terms.items():
+                if key == ():
+                    continue  # a constant factor
+                if len(key) != 1 or key[0][0] != var:
+                    return None
+                shape = key[0][1]
+                if shape > linear:
+                    return None  # superexponential, such as k^k
+                for cf in coefs:
+                    if shape == linear:
+                        if cf.kind == "exact":
+                            rate += cf.value
+                            loose = loose or cf.shift > 0
+                        elif cf.kind.startswith("sym:"):
+                            resolved = _resolve([cf], ctx)
+                            if not resolved:
+                                return None
+                            rate += sum(x.value for x in resolved if x.kind == "exact")
+                        elif cf.kind in ("small", "family"):
+                            loose = loose or cf.sign > 0  # 2^{o(k)}, 2^{δk}
+                        else:
+                            return None  # 2^{O(k)}: no constant c
+                    elif shape > polynomial and cf.sign > 0:
+                        loose = True  # a subexponential factor, such as 2^{\sqrt{k}}
+            best = max(best, rate)
+        return 2.0**best, loose
 
     # -- fixpoint ----------------------------------------------------------------------------
 

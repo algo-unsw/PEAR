@@ -19,10 +19,10 @@ prerequisites:
     text: "The input algorithm solves $\\Phi$-Extension: given $I$, $X \\subseteq U_I$ and $k$, is there $S \\subseteq U_I \\setminus X$ with $|S| \\le k$ and $S \\cup X \\in \\mathcal{F}_I$? An algorithm for the problem counts only if the problem below records why every algorithm for that version solves $\\Phi$-Extension with the same $k$, the algorithm is for that version on all its instances (not, for instance, a weighted version), and it needs nothing beyond the instance (no given tree decomposition)."
   - check: single-exponential
     statement: "Theorems 1 and 2 of arXiv v1"
-    text: "The input algorithm runs in time $c^k N^{O(1)}$ for a constant $c > 1$, where $N$ is the instance size: its $O^*$ form is exactly $c^k$, with no factor in another parameter, no factor superpolynomial in $N$, and no \"for every $\\delta > 0$\"."
+    text: "The input algorithm runs in time $c^k N^{O(1)}$ for a constant $c > 1$, where $N$ is the instance size: no factor in another parameter and none superpolynomial in $N$. An input in time $c^{k + o(k)} N^{O(1)}$ with $c \\ge 1$, such as a subexponential one ($c = 1$), or in time $(c + \\delta)^k N^{O(1)}$ for every $\\delta > 0$, runs in time $(c + \\delta)^k N^{O(1)}$ for every $\\delta > 0$, so the theorems give $(2 - 1/c + \\delta)^n N^{O(1)}$ for every $\\delta > 0$ (Serge Gaspers, 18 November 2026)."
   - check: error
     statement: "Remark 1 and Theorem 2 of arXiv v1"
-    text: "Theorem 1 holds for deterministic input algorithms and for randomized ones with one-sided or two-sided error (Remark 1, after Lemma 2.1); Theorem 2 needs a deterministic one. Las Vegas algorithms (expected running time) and randomized ones whose error is not recorded are not used."
+    text: "Theorem 1 holds for deterministic input algorithms and for randomized ones with one-sided or two-sided error (Remark 1, after Lemma 2.1); Theorem 2 needs a deterministic one. A Las Vegas algorithm (expected running time) counts as one with one-sided error: stopped at twice its expected running time, it answers correctly with probability at least 1/2 and otherwise says no (Markov's inequality; Serge Gaspers, 18 November 2026). Randomized algorithms whose error is not recorded are not used."
   - check: classical
     statement: "Theorems 1 and 2 of arXiv v1"
     text: "The theorems are about classical algorithms, so quantum input algorithms are not used."
@@ -79,7 +79,7 @@ applies_to:
       because: "A special case of Min-Ones 3-SAT, cast as $\\Phi$-Subset with $U_I$ the variables (here the elements) and $\\mathcal{F}_I$ the solutions of weight at most $k$."
     extension:
       statement: "Section 1 and Table 1 of arXiv v1 ($d$-Hitting Set)"
-      because: "The paper applies the theorems to $d$-Hitting Set with algorithms for the problem itself. Such an algorithm solves the extension version after deleting the elements of $X$ and the sets they hit (PEAR's explanation; the paper does not spell it out)."
+      because: "The paper applies the theorems to $d$-Hitting Set with algorithms for the problem itself."
 status: valid
 review:
   approved_by: Serge Gaspers

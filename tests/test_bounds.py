@@ -112,6 +112,11 @@ def rel(a: str, b: str, ctx=CTX) -> str:
         (r"O^*(2^{\sqrt{n}})", r"2^{o(n)}", "<", "an explicit o(n) exponent is more precise"),
         # families (§2)
         (r"2^{o(n)}", r"O(2^{\delta n}) \text{ for every } \delta > 0", "<", "one algorithm beats a family"),
+        # (c + δ)^n for every δ > 0 is the family c^n 2^{δn} (18 November 2026)
+        (r"O((1 + \delta)^{n}) \text{ for every } \delta > 0", r"O(2^{\delta n}) \text{ for every } \delta > 0", "=", "(1 + δ)^n is 2^{δn}"),
+        (r"1.75^{n}", r"O((1.75 + \delta)^{n}) \text{ for every } \delta > 0", "<", "c^n beats (c + δ)^n"),
+        (r"O((1.75 + \delta)^{n}) \text{ for every } \delta > 0", r"1.7501^{n}", "<", "(c + δ)^n beats (c + ε)^n for a fixed ε"),
+        (r"2^{n / \log n}", r"O((1 + \delta)^{n}) \text{ for every } \delta > 0", "<", "subexponential beats (1 + δ)^n"),
         (r"O(2^{\delta n}) \text{ for every } \delta > 0", r"O(1.01^{n})", "<", "family beats any c^n"),
         # several variables need constraints (§5.3)
         (r"O^*(1.5^{k})", r"O^*(1.5^{n})", "<", "k ≤ n"),

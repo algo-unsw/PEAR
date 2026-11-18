@@ -134,6 +134,26 @@ def test_projection_names_only_the_constraint_used(tmp_path):
     assert proj and proj[0]["constraints"] == ["tw \\le n"]
 
 
+def test_technique_steps_say_how_the_input_was_used(tmp_path):
+    from test_derive import alg, dataset, paper, problem, technique
+
+    data = dataset(
+        problem("a", params=("k",)), problem("b", params=("k",)), paper("p-mls", 2015), technique(problems=("a", "b")),
+        alg("a-sub", "a", r"O^*(2^{k / \log k})"),
+        alg("b-lv", "b", r"O^*(4^{k})", randomized={"error": "las-vegas"}),
+    )
+    site = build(data, derive(data), tmp_path)
+    steps = {r["id"]: r["chain_items"][1] for p in ("a", "b") for r in site["pages"][p]["nodes"]["decision"]["rows"]
+             if "technique:" in r["id"]}
+    sub = steps["a-sub|technique:mls:deterministic"]
+    assert sub["kind"] == "technique" and sub["statement"] == "Theorem 2"
+    assert "input runs in time $(1 + \\delta)^{k} N^{O(1)}$ for every $\\delta > 0$" in sub["text"]
+    lv = steps["b-lv|technique:mls:randomized"]
+    assert "here $c = 4$" in lv["text"] and "Las Vegas algorithm, stopped at twice its expected running time" in lv["text"]
+    assert "b-lv|technique:mls:deterministic" not in steps
+    assert sub["because"] == "Fixture. Fixture."
+
+
 def test_entries_written_as_json(real):
     _, _, out = real
     vc = json.loads((out / "entries" / "problems" / "vertex-cover.json").read_text())

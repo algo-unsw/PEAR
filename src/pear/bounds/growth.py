@@ -410,6 +410,17 @@ def _has_unknowns(node: Node) -> bool:
     return False
 
 
+def _c_plus_delta(terms) -> float | None:  # noqa: ANN001
+    """c if the terms are c + δ (in either order) for a number c > 0, else None."""
+    if len(terms) != 2 or any(s < 0 for s, _ in terms):
+        return None
+    nums = [t for _, t in terms if isinstance(t, Num)]
+    deltas = [t for _, t in terms if isinstance(t, Const) and t.name == "delta" and not t.deps]
+    if len(nums) == 1 and len(deltas) == 1 and nums[0].value > 0:
+        return float(nums[0].value)
+    return None
+
+
 def _base_log(node: Node, upper: bool) -> Growth:
     """log2 of a power's base. Handles constants, c - ε and sums of positive terms."""
     if isinstance(node, (Add, Mul, Div, Pow, Sqrt)):
@@ -420,6 +431,12 @@ def _base_log(node: Node, upper: bool) -> Growth:
         nums = [(s, t) for s, t in node.terms]
         if len(nums) == 2 and isinstance(nums[0][1], Num) and nums[1][0] == -1 and isinstance(nums[1][1], Const) and nums[1][1].name == "varepsilon" and nums[0][0] > 0:
             return const(exact(math.log2(float(nums[0][1].value)), -1))  # log2(c - ε)
+        c_delta = _c_plus_delta(nums)
+        if c_delta is not None:
+            # log2(c + δ) = log2 c + log2(1 + δ/c), and log2(1 + δ/c) is itself an arbitrarily
+            # small positive constant: "(c + δ)^k for every δ > 0" is the usual way to write a
+            # family, the same family as c^k 2^{δk} (18 November 2026)
+            return const(exact(math.log2(c_delta))) + const(Coef("family", 1))
         if all(s > 0 for s, _ in nums):
             logs = [log_growth(t, upper) for _, t in nums]
             if upper:  # a1 + ... + ar ≤ r · a1 · ... · ar for ai ≥ 1

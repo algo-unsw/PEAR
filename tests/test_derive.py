@@ -11,8 +11,8 @@ import pytest
 
 from pear.__main__ import main
 from pear.bounds import parse_bound
-from pear.bounds.expr import variables
-from pear.derive import derive, to_json
+from pear.bounds.expr import render_bound, variables
+from pear.derive import Engine, derive, to_json
 from pear.schema import ENTITY_TYPES
 from pear.validate import validate_raw
 
@@ -957,15 +957,41 @@ def test_technique_needs_an_algorithm_on_the_instance_alone():
 @pytest.mark.parametrize("bound", [
     r"O^*(4^{k} 2^{\sqrt{n}})",  # a factor superpolynomial in N
     r"O^*(4^{k} 1.1^{m})",  # a factor in another parameter
-    r"O^*(k^{k})",  # not single-exponential
+    r"O^*(k^{k})",  # superexponential
     r"O^*(2^{k^{2}})",
-    r"O^*(2^{k / \log k})",  # subexponential: no constant c
-    r"O((4 + \delta)^{k}) \text{ for every } \delta > 0",  # a family
+    r"O^*(2^{O(k)})",  # no constant c
 ])
 def test_technique_needs_time_c_to_the_k(bound):
     data = mls_data(alg("a-x", "a", bound))
     assert technique_rows(data) == {}
     assert any("not applied to a-x: single-exponential" in line for line in derive(data).log)
+
+
+@pytest.mark.parametrize(("bound", "shown"), [
+    # Serge, 18 November 2026: a bound subexponential in k is (1 + δ)^k for every δ > 0, so
+    # Monotone Local Search gives (1 + δ)^n for every δ > 0; likewise c^{k + o(k)} and families
+    (r"O^*(2^{k / \log k})", r"O^*((1 + \delta)^{n}) \text{ for every } \delta > 0"),
+    (r"O^*(2^{o(k)})", r"O^*((1 + \delta)^{n}) \text{ for every } \delta > 0"),
+    (r"O^*(4^{k} 2^{\sqrt{k}})", r"O^*((1.7500 + \delta)^{n}) \text{ for every } \delta > 0"),
+    (r"O((4 + \delta)^{k}) \text{ for every } \delta > 0", r"O^*((1.7500 + \delta)^{n}) \text{ for every } \delta > 0"),
+    (r"O(k^{3} 4^{k} n)", r"O^*(1.7501^{n})"),  # polynomial factors in k are fine
+])
+def test_technique_takes_c_to_the_k_plus_o_k(bound, shown):
+    # the outputs before keeping (k <= n beats some of them, see below)
+    data = mls_data(alg("a-x", "a", bound))
+    engine = Engine(data)
+    engine.run()
+    got = {t.chain[-1].id: render_bound(t.bound) for t in engine.techniques(engine.direct(data.entries["algorithms"]["a-x"]))}
+    assert got["technique:mls:deterministic"] == shown
+    assert set(got) == {"technique:mls:randomized", "technique:mls:deterministic"}
+
+
+def test_technique_family_output_is_beaten_by_the_input_itself():
+    # k <= n already turns 2^{k / log k} into 2^{n / log n}, which beats (1 + δ)^n for every δ
+    data = mls_data(alg("a-x", "a", r"O^*(2^{k / \log k})", randomized={"error": "one-sided"}))
+    shown = {r["id"]: r["shown"] for r in rows(data, "a", "decision")}
+    assert "a-x|technique:mls:randomized" not in shown
+    assert any(i.startswith("a-x|projection") for i in shown)
 
 
 def test_technique_needs_a_classical_algorithm():
@@ -978,7 +1004,9 @@ def test_technique_needs_a_classical_algorithm():
     (False, {"randomized", "deterministic"}),
     ({"error": "one-sided"}, {"randomized"}),
     ({"error": "two-sided"}, {"randomized"}),  # Remark 1: the output then has two-sided error
-    ({"error": "las-vegas"}, set()),  # expected running time: not covered
+    # Serge, 18 November 2026: stopped at twice its expected running time, a Las Vegas
+    # algorithm has one-sided error (Markov)
+    ({"error": "las-vegas"}, {"randomized"}),
     (True, set()),  # randomized, error not recorded: not covered
 ])
 def test_technique_rules_cover_the_inputs_their_theorems_cover(randomized, theorems):

@@ -469,12 +469,23 @@ def chain_items(data: Dataset, d: Derivation, row: dict[str, Any], refs: Referen
             in_var = render(Var(tech.input_parameter))  # type: ignore[attr-defined]
             exponent = f"{out_var} + o({out_var})" if rule.subexponential_factor else out_var
             kind = "deterministic" if rule.output_deterministic else "randomized"
+            c_text, *extra = step["note"].split("; ")
+            if "\\delta" in c_text:
+                # the input is c^{k + o(k)} or a δ-family: (c + δ)^k for every δ > 0, so the
+                # theorem gives the result for every δ > 0 (rulebook §9a)
+                here = (f"here the input runs in time $({c_text})^{{{in_var}}} N^{{O(1)}}$ for every $\\delta > 0$, "
+                        "so this holds for every $\\delta > 0$, with the base rounded up")
+            else:
+                here = f"here $c = {c_text}$, and the base is rounded up"
+            if "las-vegas" in extra:
+                here += ("; the input is a Las Vegas algorithm, stopped at twice its expected running time, "
+                         "which gives one-sided error")
             items.append({
                 "kind": "technique", "name": tech.name,  # type: ignore[attr-defined]
                 "statement": rule.statement,
                 "text": (f"an algorithm in time $c^{{{in_var}}} N^{{O(1)}}$ for the extension version gives a {kind} "
                          f"algorithm in time $({render(parse_expr(tech.base, ['c']))})^{{{exponent}}} N^{{O(1)}}$; "  # type: ignore[attr-defined]
-                         f"here $c = {step['note']}$, and the base is rounded up"),
+                         + here),
                 "because": f"{ap.setting.because} {ap.extension.because}" if ap else None,
                 "refs": src["refs"],
             })
