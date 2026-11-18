@@ -541,33 +541,50 @@ class Engine:
         """Apply generic techniques such as Monotone Local Search: a result in time c^k N^{O(1)}
         for a problem the technique applies to gives one in time f(c)^n, for each rule
         (theorem) whose requirements it meets. The output base is rounded up to four decimals,
-        strictly when the theorem has a 2^{o(n)} factor, so the stated bound is an upper bound."""
+        strictly when the theorem has a 2^{o(n)} factor, so the stated bound is an upper bound.
+
+        A technique is applied only when every prerequisite it lists is met (rulebook §9a,
+        approved 18 November 2026 on that condition); `technique_misses` says which are not."""
         out: list[Result] = []
-        if any(st.kind == "technique" for st in r.chain):
-            return out
         problem = self.data.problems[r.problem]
         for tid, tech in sorted(self.data.entries["techniques"].items()):
-            if tech.status not in ("valid", "fixed"):  # type: ignore[attr-defined]
+            listed = [ap for ap in tech.applies_to if ap.problem == r.problem]  # type: ignore[attr-defined]
+            if not listed:
+                continue  # subset-problem: the technique does not apply to this problem at all
+            if not self.usable(tech.status):  # type: ignore[attr-defined]
+                self.log(f"{tid}: status '{tech.status}', not used (rulebook A3)")  # type: ignore[attr-defined]
                 continue
-            if not any(ap.problem == r.problem and node_key(problem, ap.version)[1] == r.node
-                       for ap in tech.applies_to):  # type: ignore[attr-defined]
+            if tech.review.approved_by is None:  # type: ignore[attr-defined]
+                self.log(f"{tid}: technique awaits approval (rule 6), not used")
                 continue
-            c = self.single_exponential(r, tech.input_parameter)  # type: ignore[attr-defined]
-            if c is None or c <= 1:
+            if any(st.kind == "technique" for st in r.chain):
+                continue  # applied at most once per chain
+            ap = next((a for a in listed if node_key(problem, a.version)[1] == r.node), None)
+            budgets = {a.budget for a in listed}
+            if not budgets & variables(r.bound.expr):
+                continue  # not a bound in the budget at all, so not a candidate (not logged)
+            c, misses = self.technique_misses(r, ap)
+            if misses:
+                self.log(f"{tid}: not applied to {r.id}: {'; '.join(misses)}")
                 continue
+            assert ap is not None and c is not None
             exact = value(parse_expr(tech.base, ["c"]), {"c": c})  # type: ignore[attr-defined]
             if exact is None or exact <= 0:
+                self.log(f"{tid}: not applied to {r.id}: the output base is undefined at c = {c:.6g}")
                 continue
             paper = self.data.papers[tech.source.paper]  # type: ignore[attr-defined]
             years = [paper.versions[v].year for v in tech.source.statements if v in paper.versions]  # type: ignore[attr-defined]
+            kind = self.input_kind(r)
             for rule in tech.rules:  # type: ignore[attr-defined]
-                if rule.requires_deterministic and not r.props.deterministic:
+                if kind not in rule.accepts:  # error: the theorem does not cover this input
+                    self.log(f"{tid}: {rule.statement} not applied to {r.id}: it covers "
+                             f"{', '.join(rule.accepts)} input algorithms, not {kind} ones")
                     continue
                 base = math.ceil(exact * 10**4 - 1e-9) / 10**4
                 if rule.subexponential_factor and base <= exact + 1e-12:
                     base += 1e-4
                 text = f"{base:.4f}"
-                bound = Bound("O*", Pow(Num(Fraction(text), text), Var(tech.output_parameter)))  # type: ignore[attr-defined]
+                bound = Bound("O*", Pow(Num(Fraction(text), text), Var(ap.universe)))
                 props = replace(
                     r.props,
                     deterministic=r.props.deterministic and rule.output_deterministic,
@@ -579,6 +596,43 @@ class Engine:
                 out.append(replace(r, bound=bound, props=props, chain=r.chain + (step,), year=year,
                                    papers=r.papers + (tech.source.paper,)))  # type: ignore[attr-defined]
         return out
+
+    def technique_misses(self, r: Result, ap) -> tuple[float | None, list[str]]:  # noqa: ANN001
+        """(c, the prerequisites r does not meet) for a technique entry `ap` of r's problem
+        (None if no entry is for r's version class). The checks are those of TECHNIQUE_CHECKS;
+        the error check depends on the rule and is made per rule."""
+        misses: list[str] = []
+        if ap is None:
+            return None, [f"extension: the technique is listed for another version of {r.problem}, not '{r.node}'"]
+        given = sorted(f.removeprefix("given-") for f in r.flags if f.startswith("given-"))
+        if given:
+            misses.append(f"extension: the algorithm needs a given {', '.join(given)}, beyond the instance")
+        c = None
+        if r.bound.family:
+            misses.append("single-exponential: the bound holds for every delta > 0, not for one constant c")
+        else:
+            c = self.single_exponential(r, ap.budget)
+            if c is None:
+                misses.append(f"single-exponential: the O* form is not c^{ap.budget} for a constant c")
+            elif c <= 1:
+                misses.append(f"single-exponential: c = {c:.6g} is not greater than 1")
+        if r.props.quantum:
+            misses.append("classical: the algorithm is quantum")
+        return c, misses
+
+    def input_kind(self, r: Result) -> str:
+        """deterministic, one-sided, two-sided, las-vegas, or unrecorded: the randomness of the
+        algorithm a result describes, as far as the data records it (rulebook §9a)."""
+        if r.props.deterministic:
+            return "deterministic"
+        randomized_steps = any(st.kind == "reduction" and st.type == "polytime-randomized" for st in r.chain)
+        alg = self.data.entries["algorithms"].get(r.origin)
+        own = getattr(getattr(alg, "properties", None), "randomized", True)
+        if randomized_steps:
+            return "unrecorded"  # a randomized reduction records no error type
+        if own is True or own is False:  # randomized without an error type (False cannot occur here)
+            return "unrecorded"
+        return own.error
 
     def single_exponential(self, r: Result, var: str) -> float | None:
         """c if the result's O* form is c^{var} for a constant c (ω at its published value)."""

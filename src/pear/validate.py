@@ -298,9 +298,15 @@ def check_references(data: Dataset) -> list[Issue]:
         for i, ap in enumerate(tech.applies_to):  # type: ignore[attr-defined]
             prob = problem_version(f"{where}: applies_to[{i}]", ap.problem, ap.version)
             if prob is not None:
-                for sym in (tech.input_parameter, tech.output_parameter):  # type: ignore[attr-defined]
-                    if sym not in prob.symbols():
-                        issues.append(Issue(f"{where}: applies_to[{i}]", f"problem '{ap.problem}' has no parameter '{sym}'"))
+                # the universe is one of the problem's basic objects (n), the budget one of its
+                # parameters (the solution size k): the input must be c^budget, the output is in
+                # the universe size
+                if ap.universe not in ({"n"} | ({"m"} if prob.objects.m is not None else set())):
+                    issues.append(Issue(f"{where}: applies_to[{i}].universe",
+                                        f"'{ap.universe}' is not an object count of problem '{ap.problem}'"))
+                if ap.budget not in prob.parameters:
+                    issues.append(Issue(f"{where}: applies_to[{i}].budget",
+                                        f"'{ap.budget}' is not a parameter of problem '{ap.problem}'"))
 
     for rid, red in data.entries["reductions"].items():
         assert isinstance(red, Reduction)

@@ -9,27 +9,78 @@ source:
 input_parameter: k
 output_parameter: n
 base: "2 - 1/c"
+# Every input must meet all of these; the engine checks each one (rulebook §9a).
+prerequisites:
+  - check: subset-problem
+    statement: "Section 1 of arXiv v1 (implicit set systems, $\\Phi$-Subset)"
+    text: "The problem is $\\Phi$-Subset for an implicit set system: an instance $I$ gives a universe $U_I$ of $n$ elements and a family $\\mathcal{F}_I$ of subsets of $U_I$, and the task is to find a set in $\\mathcal{F}_I$. Each problem below says why, and which of its symbols are $n$ and $k$."
+  - check: extension
+    statement: "Theorems 1 and 2 of arXiv v1"
+    text: "The input algorithm solves $\\Phi$-Extension: given $I$, $X \\subseteq U_I$ and $k$, is there $S \\subseteq U_I \\setminus X$ with $|S| \\le k$ and $S \\cup X \\in \\mathcal{F}_I$? An algorithm for the problem counts only if the problem below records why every algorithm for that version solves $\\Phi$-Extension with the same $k$, the algorithm is for that version on all its instances (not, for instance, a weighted version), and it needs nothing beyond the instance (no given tree decomposition)."
+  - check: single-exponential
+    statement: "Theorems 1 and 2 of arXiv v1"
+    text: "The input algorithm runs in time $c^k N^{O(1)}$ for a constant $c > 1$, where $N$ is the instance size: its $O^*$ form is exactly $c^k$, with no factor in another parameter, no factor superpolynomial in $N$, and no \"for every $\\delta > 0$\"."
+  - check: error
+    statement: "Remark 1 and Theorem 2 of arXiv v1"
+    text: "Theorem 1 holds for deterministic input algorithms and for randomized ones with one-sided or two-sided error (Remark 1, after Lemma 2.1); Theorem 2 needs a deterministic one. Las Vegas algorithms (expected running time) and randomized ones whose error is not recorded are not used."
+  - check: classical
+    statement: "Theorems 1 and 2 of arXiv v1"
+    text: "The theorems are about classical algorithms, so quantum input algorithms are not used."
 rules:
   - id: randomized
     statement: Theorem 1
+    accepts: [deterministic, one-sided, two-sided]
+    accepts_statement: "Remark 1 (after Lemma 2.1)"
     output_deterministic: false
     keeps_polynomial_space: true
   - id: deterministic
     statement: Theorem 2
-    requires_deterministic: true
+    accepts: [deterministic]
     output_deterministic: true
-    keeps_polynomial_space: false
+    keeps_polynomial_space: false  # "an additional 2^{o(n)} space requirement" (Conclusion of arXiv v1)
     subexponential_factor: true
 applies_to:
   - problem: feedback-vertex-set
     version: decision
-    because: "Vertex deletion into forests, a hereditary class: an algorithm for the problem solves the extension version, since the vertices in $X$ can simply be deleted (Section 1 of arXiv v1)."
+    universe: n
+    budget: k
+    setting:
+      statement: "Section 1 of arXiv v1 ($\\Pi$-Vertex Deletion)"
+      because: "Vertex deletion into forests, a hereditary class: $U_I = V(G)$ and $\\mathcal{F}_I$ is the family of sets $S$ of at most $k$ vertices with $G - S$ a forest."
+    extension:
+      statement: "Section 1 of arXiv v1 ($\\Pi$-Vertex Deletion)"
+      because: "An algorithm for $\\Pi$-Vertex Deletion gives the same running time for its extension version, since the vertices in $X$ can simply be deleted."
   - problem: odd-cycle-transversal
     version: decision
-    because: "Vertex deletion into bipartite graphs, a hereditary class: the vertices in $X$ can simply be deleted (Section 1 of arXiv v1)."
+    universe: n
+    budget: k
+    setting:
+      statement: "Section 1 of arXiv v1 ($\\Pi$-Vertex Deletion)"
+      because: "Vertex deletion into bipartite graphs, a hereditary class: $U_I = V(G)$ and $\\mathcal{F}_I$ is the family of sets $S$ of at most $k$ vertices with $G - S$ bipartite."
+    extension:
+      statement: "Section 1 of arXiv v1 ($\\Pi$-Vertex Deletion)"
+      because: "An algorithm for $\\Pi$-Vertex Deletion gives the same running time for its extension version, since the vertices in $X$ can simply be deleted."
   - problem: vertex-cover
     version: decision
-    because: "Vertex deletion into edgeless graphs, a hereditary class: the vertices in $X$ can simply be deleted (Section 1 of arXiv v1)."
+    universe: n
+    budget: k
+    setting:
+      statement: "Section 1 of arXiv v1 ($\\Pi$-Vertex Deletion)"
+      because: "Vertex deletion into edgeless graphs, a hereditary class: $U_I = V(G)$ and $\\mathcal{F}_I$ is the family of sets $S$ of at most $k$ vertices with $G - S$ edgeless."
+    extension:
+      statement: "Section 1 of arXiv v1 ($\\Pi$-Vertex Deletion)"
+      because: "An algorithm for $\\Pi$-Vertex Deletion gives the same running time for its extension version, since the vertices in $X$ can simply be deleted."
   - problem: 3-hitting-set
     version: decision
-    because: "A special case of Min-Ones 3-SAT, whose extension version reduces to the problem itself (Section 1 of arXiv v1); for 3-Hitting Set, delete the sets that $X$ hits."
+    universe: n
+    budget: k
+    setting:
+      statement: "Section 1 of arXiv v1 (Min-Ones $d$-SAT and $d$-Hitting Set)"
+      because: "A special case of Min-Ones 3-SAT, cast as $\\Phi$-Subset with $U_I$ the variables (here the elements) and $\\mathcal{F}_I$ the solutions of weight at most $k$."
+    extension:
+      statement: "Section 1 and Table 1 of arXiv v1 ($d$-Hitting Set)"
+      because: "The paper applies the theorems to $d$-Hitting Set with algorithms for the problem itself. Such an algorithm solves the extension version after deleting the elements of $X$ and the sets they hit (PEAR's explanation; the paper does not spell it out)."
+status: valid
+review:
+  approved_by: Serge Gaspers
+  date: 2026-11-18

@@ -365,23 +365,36 @@ The order is subjective but informed by data (competition results, published ben
 
 The validator checks that ranked ids exist, appear once and solve the problem exactly, and that every `solves` entry names a known problem and version.
 
-## 13. Technique (proposed 18 November 2026)
+## 13. Technique (approved 18 November 2026)
 
-A generic method that the engine combines with every compatible result (rulebook §9a). One file per technique in `data/techniques/<id>.yaml`.
+A generic method that the engine combines with every result meeting all its prerequisites (rulebook §9a). One file per technique in `data/techniques/<id>.yaml`.
 
 ```yaml
 id: monotone-local-search
 name: Monotone Local Search
 source: { paper: fomin-gaspers-lokshtanov-saurabh-2015, statements: { arxiv-v1: { statement: "Theorems 1 and 2" } } }
-input_parameter: k          # the input bound must be c^{k} up to polynomial factors
+input_parameter: k          # the theorem's symbols: input c^{k}, output in n
 output_parameter: n
 base: "2 - 1/c"             # the output base, an expression in c
+prerequisites:              # every check the engine makes, once each, with where the paper states it
+  - { check: subset-problem, statement: "Section 1 of arXiv v1", text: "…" }
+  - { check: extension, statement: "Theorems 1 and 2 of arXiv v1", text: "…" }
+  - { check: single-exponential, statement: "Theorems 1 and 2 of arXiv v1", text: "…" }
+  - { check: error, statement: "Remark 1 and Theorem 2 of arXiv v1", text: "…" }
+  - { check: classical, statement: "Theorems 1 and 2 of arXiv v1", text: "…" }
 rules:
-  - { id: randomized, statement: Theorem 1, output_deterministic: false, keeps_polynomial_space: true }
-  - { id: deterministic, statement: Theorem 2, requires_deterministic: true, output_deterministic: true,
+  - { id: randomized, statement: Theorem 1, accepts: [deterministic, one-sided, two-sided],
+      accepts_statement: "Remark 1 (after Lemma 2.1)", output_deterministic: false, keeps_polynomial_space: true }
+  - { id: deterministic, statement: Theorem 2, accepts: [deterministic], output_deterministic: true,
       keeps_polynomial_space: false, subexponential_factor: true }
 applies_to:
-  - { problem: feedback-vertex-set, version: decision, because: "Vertices in X can simply be deleted (Section 1)." }
+  - problem: feedback-vertex-set
+    version: decision       # inputs must be for this version's class
+    universe: n             # an object count of the problem: the output is in it
+    budget: k               # a parameter of the problem: the input must be c^{k}
+    setting: { statement: "Section 1 of arXiv v1", because: "Vertex deletion into forests, a hereditary class: …" }
+    extension: { statement: "Section 1 of arXiv v1", because: "… the vertices in X can simply be deleted." }
+review: { approved_by: Serge Gaspers, date: 2026-11-18 }   # applied only once approved
 ```
 
 ## Decisions (7 November 2026)

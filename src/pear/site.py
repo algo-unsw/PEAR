@@ -475,7 +475,7 @@ def chain_items(data: Dataset, d: Derivation, row: dict[str, Any], refs: Referen
                 "text": (f"an algorithm in time $c^{{{in_var}}} N^{{O(1)}}$ for the extension version gives a {kind} "
                          f"algorithm in time $({render(parse_expr(tech.base, ['c']))})^{{{exponent}}} N^{{O(1)}}$; "  # type: ignore[attr-defined]
                          f"here $c = {step['note']}$, and the base is rounded up"),
-                "because": ap.because if ap else None,
+                "because": f"{ap.setting.because} {ap.extension.because}" if ap else None,
                 "refs": src["refs"],
             })
             current = {tech.output_parameter}  # type: ignore[attr-defined]

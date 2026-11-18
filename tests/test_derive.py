@@ -866,23 +866,43 @@ def test_omega_takes_its_best_published_or_claimed_value():
     assert [e["cite"] for e in out["overview_all"]["a"]["decision"]] == [["a-omega"]]
 
 
-def test_monotone_local_search_combines_with_every_compatible_result():
-    # decided 18 November 2026: a technique such as Monotone Local Search is applied by the
-    # engine to every compatible result, so its bound improves whenever they do
-    tech = {
+CHECKS = ("subset-problem", "extension", "single-exponential", "error", "classical")
+
+
+def technique(approved=True, problems=("a",), skip_check=None):
+    out = {
         "id": "mls", "name": "Monotone Local Search",
         "source": {"paper": "p-mls", "statements": {"arxiv-v1": {"statement": "Theorems 1 and 2"}}},
         "input_parameter": "k", "output_parameter": "n", "base": "2 - 1/c",
+        "prerequisites": [{"check": c, "statement": "Theorem 1", "text": "Fixture."} for c in CHECKS if c != skip_check],
         "rules": [
-            {"id": "randomized", "statement": "Theorem 1", "output_deterministic": False},
-            {"id": "deterministic", "statement": "Theorem 2", "requires_deterministic": True,
+            {"id": "randomized", "statement": "Theorem 1", "accepts": ["deterministic", "one-sided", "two-sided"],
+             "output_deterministic": False},
+            {"id": "deterministic", "statement": "Theorem 2", "accepts": ["deterministic"],
              "output_deterministic": True, "keeps_polynomial_space": False, "subexponential_factor": True},
         ],
-        "applies_to": [{"problem": "a", "version": "decision", "because": "Test."}],
+        "applies_to": [
+            {"problem": p, "version": "decision", "universe": "n", "budget": "k",
+             "setting": {"statement": "Section 1", "because": "Fixture."},
+             "extension": {"statement": "Section 1", "because": "Fixture."}}
+            for p in problems
+        ],
     }
+    if approved:
+        out["review"] = {"approved_by": "Serge Gaspers", "date": "2026-11-18"}
+    return out
+
+
+def technique_rows(data, pid="a", node="decision"):
+    return {r["id"]: r["shown"] for r in rows(data, pid, node) if "technique:" in r["id"]}
+
+
+def test_monotone_local_search_combines_with_every_compatible_result():
+    # decided 18 November 2026: a technique such as Monotone Local Search is applied by the
+    # engine to every compatible result, so its bound improves whenever they do
     data = dataset(
         problem("a", params=("k",), constraints=[r"k \le n"]), paper("p-mls", 2015), paper("p1", 2010), paper("p2", 2020),
-        tech,
+        technique(),
         alg("a-det", "a", r"O^*(4^{k})", paper="p1"),
         alg("a-rand", "a", r"O^*(3^{k})", paper="p2", randomized={"error": "one-sided"}),
     )
@@ -895,3 +915,114 @@ def test_monotone_local_search_combines_with_every_compatible_result():
     # 3^k, randomized: only Theorem 1 applies, dated by the later of the two
     assert got["a-rand|technique:mls:randomized"] == ("O^*(1.6667^{n})", False, 2020)
     assert "a-rand|technique:mls:deterministic" not in got
+
+
+# Approved 18 November 2026 on condition that a technique is applied only when all its
+# prerequisites are met (rulebook §9a); each test below fails one of them.
+
+
+def mls_data(*algs, tech=None, versions=("decision",)):
+    return dataset(problem("a", params=("k",), versions=versions, constraints=[r"k \le n"]), paper("p-mls", 2015),
+                   tech or technique(), *algs)
+
+
+def test_technique_waits_for_approval():
+    data = mls_data(alg("a-det", "a", r"O^*(4^{k})"), tech=technique(approved=False))
+    assert technique_rows(data) == {}
+    assert any("mls: technique awaits approval (rule 6)" in line for line in derive(data).log)
+
+
+def test_technique_only_for_problems_it_lists():
+    data = dataset(problem("a"), problem("b"), paper("p-mls", 2015), technique(problems=("a",)),
+                   alg("b-det", "b", r"O^*(4^{k})"))
+    assert technique_rows(data, "b") == {}
+
+
+def test_technique_only_for_the_listed_version():
+    # an algorithm for a weighted version is not an algorithm for the version the technique
+    # lists, whose extension version is the one known to be solvable
+    data = mls_data(alg("a-w", "a", r"O^*(4^{k})", version="weighted"), versions=("decision", "weighted"))
+    assert technique_rows(data, node="weighted") == {}
+    assert any("listed for another version of a, not 'weighted'" in line for line in derive(data).log)
+
+
+def test_technique_needs_an_algorithm_on_the_instance_alone():
+    a = alg("a-td", "a", r"O^*(4^{k})")
+    a["given"] = ["tree-decomposition"]
+    data = mls_data(a)
+    assert technique_rows(data) == {}
+    assert any("needs a given tree-decomposition" in line for line in derive(data).log)
+
+
+@pytest.mark.parametrize("bound", [
+    r"O^*(4^{k} 2^{\sqrt{n}})",  # a factor superpolynomial in N
+    r"O^*(4^{k} 1.1^{m})",  # a factor in another parameter
+    r"O^*(k^{k})",  # not single-exponential
+    r"O^*(2^{k^{2}})",
+    r"O^*(2^{k / \log k})",  # subexponential: no constant c
+    r"O((4 + \delta)^{k}) \text{ for every } \delta > 0",  # a family
+])
+def test_technique_needs_time_c_to_the_k(bound):
+    data = mls_data(alg("a-x", "a", bound))
+    assert technique_rows(data) == {}
+    assert any("not applied to a-x: single-exponential" in line for line in derive(data).log)
+
+
+def test_technique_needs_a_classical_algorithm():
+    data = mls_data(alg("a-q", "a", r"O^*(4^{k})", quantum=True))
+    assert technique_rows(data) == {}
+    assert any("classical: the algorithm is quantum" in line for line in derive(data).log)
+
+
+@pytest.mark.parametrize(("randomized", "theorems"), [
+    (False, {"randomized", "deterministic"}),
+    ({"error": "one-sided"}, {"randomized"}),
+    ({"error": "two-sided"}, {"randomized"}),  # Remark 1: the output then has two-sided error
+    ({"error": "las-vegas"}, set()),  # expected running time: not covered
+    (True, set()),  # randomized, error not recorded: not covered
+])
+def test_technique_rules_cover_the_inputs_their_theorems_cover(randomized, theorems):
+    tech = technique()
+    tech["rules"][0]["keeps_polynomial_space"] = False  # so neither output beats the other
+    data = mls_data(alg("a-x", "a", r"O^*(4^{k})", randomized=randomized), tech=tech)
+    assert {i.rsplit(":", 1)[1] for i in technique_rows(data)} == theorems
+
+
+def test_technique_not_through_a_randomized_reduction():
+    # the error type of a randomized reduction is not recorded, so Theorem 1's condition
+    # cannot be checked; a deterministic reduction is fine
+    def data_for(rtype):
+        return dataset(problem("a", constraints=[r"k \le n"]), problem("b"), paper("p-mls", 2015), technique(),
+                       alg("b-det", "b", r"O^*(4^{k})"), red("a-to-b", "a", "b", {"k": "k", "n": "n"}, type=rtype))
+    assert set(technique_rows(data_for("polytime-deterministic"))) == {
+        "b-det|a-to-b|technique:mls:randomized", "b-det|a-to-b|technique:mls:deterministic"}
+    assert technique_rows(data_for("polytime-randomized")) == {}
+
+
+def test_technique_is_applied_once_per_chain():
+    data = mls_data(alg("a-det", "a", r"O^*(4^{k})"))
+    assert all(i.count("technique:") == 1 for i in technique_rows(data))
+
+
+def raw_of(*entries):
+    raw = {folder: {} for folder in ENTITY_TYPES}
+    for e in entries:
+        folder = "techniques" if "applies_to" in e else "papers" if "authors" in e else "problems"
+        raw[folder][e["id"]] = e
+    return raw
+
+
+@pytest.mark.parametrize(("change", "expected"), [
+    (lambda t: t.update(technique(skip_check="extension")), "missing: extension"),
+    (lambda t: t["prerequisites"].append(dict(t["prerequisites"][0])), "listed twice: subset-problem"),
+    (lambda t: t["prerequisites"][0].update(check="monotone"), "prerequisites.0.check"),
+    (lambda t: t["applies_to"][0].update(budget="tw"), "'tw' is not a parameter of problem 'a'"),
+    (lambda t: t["applies_to"][0].update(universe="k"), "'k' is not an object count of problem 'a'"),
+    (lambda t: t["applies_to"][0].pop("extension"), "extension"),
+    (lambda t: t["rules"][0].update(accepts=[]), "accepts"),
+])
+def test_technique_validation(change, expected):
+    tech = technique()
+    change(tech)
+    _, issues = validate_raw(raw_of(problem("a"), paper("p-mls", 2015), tech))
+    assert any(expected in str(i) for i in issues), [str(i) for i in issues]
