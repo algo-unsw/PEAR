@@ -6,7 +6,7 @@ complexity:
   class: NP-complete
   source:
     folklore: true
-    note: "In NP (guess the map). NP-hard because Clique ($H = K_k$) and Hamiltonian Cycle ($H = C_n$) are special cases; the introduction of Cygan, Pachocki and Socała lists these special cases and states that they are NP-complete. TODO(verify): Wikipedia's choice of source (Cook 1971?) could not be opened; mirror it once attested."
+    note: "In NP (guess the map). NP-hard because Clique ($H = K_k$) and Hamiltonian Cycle ($H = C_n$) are special cases; the introduction of Cygan, Pachocki and Socała lists these special cases and states that they are NP-complete. Wikipedia cites Cook (1971), whose Theorem 2 lists {subgraph pairs} among the sets P-reducible to {tautologies}. TODO(verify): switch to cook-1971 with a third independent attestation."
     reference: { paper: cygan-fomin-golovnev-2015, version: arxiv-cps, statement: "Section 1" }
 objects:
   n: number of vertices of the host graph $G$

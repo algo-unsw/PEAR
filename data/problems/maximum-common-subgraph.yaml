@@ -6,7 +6,7 @@ complexity:
   class: NP-complete
   source:
     folklore: true
-    note: "In NP (guess $S$, $T$ and the isomorphism). NP-hard because Clique is the special case $G = K_k$. Abu-Khzam, Bonnet and Sikora state that the problem is NP-complete, and remains so on forests. TODO(verify): mirror Wikipedia's choice of source."
+    note: "In NP (guess $S$, $T$ and the isomorphism). NP-hard because Clique is the special case $G = K_k$. Abu-Khzam, Bonnet and Sikora state that the problem is NP-complete, and remains so on forests. Wikipedia cites Garey and Johnson (1979), GT48, p. 202. TODO(verify): switch to garey-johnson-1979 with three attestations."
     reference: { paper: abu-khzam-bonnet-sikora-2014, version: arxiv, statement: "Section 1" }
 objects:
   n: number of vertices of $G$ plus number of vertices of $H$
