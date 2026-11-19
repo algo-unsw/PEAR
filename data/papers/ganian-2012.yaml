@@ -3,7 +3,7 @@ title: "Using Neighborhood Diversity to Solve Hard Problems"
 authors: [Robert Ganian]
 identifiers: { dblp: "journals/corr/abs-1201-3091", openalex: null }
 versions:
-  arxiv:
+  arxiv-v2:
     kind: preprint
     arxiv: "1201.3091"
     year: 2012
