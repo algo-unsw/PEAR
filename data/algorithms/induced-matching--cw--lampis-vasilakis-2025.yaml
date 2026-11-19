@@ -1,0 +1,21 @@
+id: induced-matching--cw--lampis-vasilakis-2025
+problem: induced-matching
+proved_for: optimisation
+bound:
+  as_stated: "O^*(3^{cw})"
+  notation: O*
+  parameters: [cw]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: "Not stated; educated guess: $O^*(3^{cw})$. Dynamic programming over the clique-width expression with tables indexed by size and by signatures in $\\{0,1,2\\}^{cw}$; union nodes use merged states and FFT."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: lampis-vasilakis-2025
+  statements:
+    arxiv: { statement: "Theorem in Section 3 (Induced Matching), subsection Algorithm (LaTeX label thm:induced:cw)" }
+  note: "Stated as: given $G$ and an irredundant clique-width expression of width $cw$, the algorithm counts the induced matchings of each size $\\ell \\in [0, n/2]$ in time $O^*(3^{cw})$. The expression must be given with the input (any expression can be made irredundant in linear time, Section 2). Optimal under the pw-SETH by the lower bound of the same paper for pathwidth, since $cw \\le pw + 2$. Read in the current arXiv version of 2502.14161 (20 November 2026)."

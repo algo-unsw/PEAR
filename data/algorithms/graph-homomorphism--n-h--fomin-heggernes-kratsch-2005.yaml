@@ -1,0 +1,19 @@
+id: graph-homomorphism--n-h--fomin-heggernes-kratsch-2005
+problem: graph-homomorphism
+proved_for: decision
+bound:
+  as_stated: O(h^{0.793 n})
+  notation: O
+  parameters: [h, n]
+properties:
+  randomized: false
+  space: { class: exponential, bound: "Not stated; educated guess: exponential. Williams' 2-CSP algorithm builds a graph on $O(d^{n/3})$ vertices (domain size $d = h$) and counts triangles by fast matrix multiplication." }
+  algebraic: true
+  fast_matrix_multiplication: true
+  constructive: false
+  quantum: false
+source:
+  paper: fomin-heggernes-kratsch-2005
+  statements:
+    journal: { statement: "Section 5" }
+  note: "Section 5 (Concluding Remarks): as a consequence of Williams' $O(d^{n\\omega/3})$-time algorithm for 2-CSP (Theoretical Computer Science 348, 2005; williams-2004 here), with $\\omega < 2.376$, the problem can be solved in time $O(|V(H)|^{0.793|V(G)|})$. With the current bound on $\\omega$ the same argument gives a smaller exponent; the stored bound is the one stated."

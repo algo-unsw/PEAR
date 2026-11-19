@@ -20,4 +20,4 @@ source:
   statements:
     arxiv-v1:
       statement: Theorem 1
-  note: 'Branching algorithm. Theorem 1 of arXiv v1 reads "$O^*(2^{0.424n}) = O^*(1.3413^n)$, using polynomial space"; stored as $2^{0.424n}$, the form of the abstract and the introduction, since $2^{0.424} \approx 1.34164 > 1.3413$ (Section 5 writes $O^*(1.3416^n)$). Improves $O(1.3569^n)$ of Gaspers and Liedloff (DMTCS 2012). TODO(verify): the statement in the journal version (DAM 2013), not opened.'
+  note: 'Branching algorithm. Theorem 1 of arXiv v1 reads "$O^*(2^{0.424n}) = O^*(1.3413^n)$, using polynomial space"; stored as $2^{0.424n}$, the form of the abstract and the introduction, since $2^{0.424} \approx 1.34164 > 1.3413$ (Section 5 writes $O^*(1.3416^n)$). Better than $O(1.3569^n)$ of Gaspers and Liedloff (arXiv 2010, DMTCS 2012); the paper itself compares with the $O^*(2^{0.441n})$ claimed in their WG 2006 version. TODO(verify): the statement in the journal version (DAM 2013), not opened.'

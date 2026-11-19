@@ -19,4 +19,4 @@ source:
   paper: brinkop-jansen-2021
   statements:
     arxiv: { statement: "Abstract; Section 4 (last paragraph) and Section 5 (Running Time), with the Max-Bisection' instantiation in Section 6 (Applications)" }
-  note: 'Stated as $O(2^t n^2)$ when a tree decomposition of width $t$ with $O(n)$ nodes is given with the input, for rational edge weights (Section 5 allows arbitrary signs and directed edges); $t$ is written $tw$ here. Improves Hanaka, Kobayashi and Sone by a factor $t^2$. No numbered theorem states the bound. Read in the current arXiv version of 2101.00694 (20 November 2026), which includes the appendix; SOFSEM 2023.'
+  note: 'Stated as $O(2^t n^2)$ when a tree decomposition of width $t$ with $O(n)$ nodes is given with the input, for rational edge weights (Section 5 allows arbitrary signs and directed edges); $t$ is written $tw$ here. Improves Hanaka, Kobayashi and Sone by a factor $t^2$. No numbered theorem states the bound. Read in arXiv v3 of 2101.00694 (the current version on 20 November 2026), which includes the appendix; SOFSEM 2023.'

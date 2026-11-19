@@ -6,7 +6,7 @@ complexity:
   class: NP-complete
   source:
     folklore: true
-    note: "Vertex Cover reduces to it by attaching a pendant vertex to every vertex (see the reduction from Vertex Cover; Aprile, Drescher, Fiorini and Huynh, Section 1). NP-completeness is usually credited to Lewis and Yannakakis (\"The node-deletion problem for hereditary properties is NP-complete\", J. Comput. Syst. Sci. 20(2), 1980), as in Hüffner, Komusiewicz, Moser and Niedermeier (Theory Comput. Syst., Section 1) and Le and Le (MFCS 2022, Section 1). TODO(verify): Serge to choose between this folklore reduction and a citation of Lewis–Yannakakis (no open copy found; only two attesting sites checked)."
+    note: "Vertex Cover reduces to it by attaching a pendant vertex to every vertex (see the reduction from Vertex Cover; Aprile, Drescher, Fiorini and Huynh, Section 1). NP-completeness is usually credited to Lewis and Yannakakis (\"The node-deletion problem for hereditary properties is NP-complete\", J. Comput. Syst. Sci. 20(2), 1980), as in Hüffner, Komusiewicz, Moser and Niedermeier (Theory Comput. Syst., author copy) and Le and Le (MFCS 2022). TODO(verify): Serge to choose between this folklore reduction and a citation of Lewis–Yannakakis (no open copy found; only two attesting sites checked)."
     reference: { paper: aprile-drescher-fiorini-huynh-2020, version: arxiv-v3, statement: "Section 1" }
 objects:
   n: number of vertices

@@ -14,9 +14,11 @@ objects:
   N: total encoding length of the input
 parameters:
   k: { meaning: "the number of vertices of the pattern graph $H$" }
+  tw: { shared: treewidth, of: "the pattern graph $H$" }
 constraints:
   - { constraint: "k \\le n", because: "Every instance with $k > n$ is a no-instance (there is no injective map from $V_H$ to $V$), answered in polynomial time." }
   - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
+  - { constraint: "tw \\le k", because: "A single bag containing all vertices of $H$ is a tree decomposition of width $k - 1$." }
 versions:
   decision:
     kind: decision

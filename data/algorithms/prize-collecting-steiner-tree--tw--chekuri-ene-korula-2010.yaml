@@ -2,7 +2,7 @@ id: prize-collecting-steiner-tree--tw--chekuri-ene-korula-2010
 problem: prize-collecting-steiner-tree
 proved_for: optimisation
 bound:
-  as_stated: 'O(f(tw) n)'
+  as_stated: 'O((tw + 1)^{3 tw + 3} 2^{(tw + 1)(tw + 2)/2} n)'
   notation: O
   parameters:
   - tw
@@ -23,4 +23,4 @@ source:
   statements:
     arxiv:
       statement: 'Theorem 1.2, running time from its proof in Section 4'
-  note: 'Theorem 1.2: for every fixed $k$, PCST is solvable exactly in polynomial time on graphs of treewidth at most $k$. Its proof gives $O(b_k^3 \cdot s_k \cdot |V|)$ time for a tree decomposition of width $k - 1$, where $b_k$ is the $k$-th Bell number and $s_k$ the number of subgraphs of a $k$-vertex graph; written $f(tw)$ here since the bound language has no Bell numbers (TODO(verify)). Real costs and penalties.'
+  note: 'Theorem 1.2: for every fixed $k$, PCST is solvable exactly in polynomial time on graphs of treewidth at most $k$. Stated (proof of Theorem 1.2, Section 4) as $O(b_k^3 \cdot s_k \cdot |V|)$ for a tree decomposition of width $k - 1$, where $b_k$ is the $k$-th Bell number and $s_k$ the number of subgraphs of a $k$-vertex graph; stored as the implied $O((tw+1)^{3tw+3} 2^{(tw+1)(tw+2)/2} n)$, using $b_k \le k^k$ and $s_k \le 2^{k} 2^{k(k-1)/2}$ with $k = tw + 1$, since the bound language has no Bell numbers (TODO(verify)). Real costs and penalties.'

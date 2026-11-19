@@ -5,7 +5,6 @@ identifiers: { dblp: journals/talg/CyganKLPPSW21 }
 versions:
   arxiv:
     kind: preprint
-    authors: [Marek Cygan, Paweł Komosa, Daniel Lokshtanov, Michał Pilipczuk, Marcin Pilipczuk, Saket Saurabh]
     year: 2018
     arxiv: "1810.06864"
     open_access: true

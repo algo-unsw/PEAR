@@ -19,6 +19,8 @@ properties:
 source:
   paper: feldmann-marx-2016
   statements:
+    icalp:
+      statement: 'Theorem 2(1), with the remark on DST in Section 1'
     journal:
       statement: 'Theorem 1.2(1), with the remark on DST in Section 1.1'
-  note: 'Theorem 1.2(1): $\mathcal{H}$-DSN with parameter $k = |R|$ in $2^{O(k + \tau\omega\log\omega)} n^{O(\omega)}$ time for patterns in $\mathcal{C}^*_{\lambda,\delta}$, $\omega = (1+\lambda)(\lambda+\delta)$, $\tau$ the vertex cover number of the pattern. Out-stars (DST) lie in $\mathcal{C}^*_{1,0}$, and the paper remarks that Theorem 1.2(1) recovers that DST can be solved in $2^{O(k)} n^{O(1)}$ time. Arc-weighted graphs. Statement read in the accepted manuscript of the journal version (White Rose repository).'
+  note: 'Theorem 1.2(1): $\mathcal{H}$-DSN with parameter $k = |R|$ in $2^{O(k + \tau\omega\log\omega)} n^{O(\omega)}$ time for patterns in $\mathcal{C}^*_{\lambda,\delta}$, $\omega = (1+\lambda)(\lambda+\delta)$, $\tau$ the vertex cover number of the pattern. Out-stars (DST) lie in $\mathcal{C}^*_{1,0}$, and the paper remarks that Theorem 1.2(1) recovers that DST can be solved in $2^{O(k)} n^{O(1)}$ time. Arc-weighted graphs. Read in the ICALP 2016 LIPIcs PDF (Theorem 2(1), stated there as $2^{O(k + \max\{\omega^2, \tau\omega\log\omega\})} n^{O(\omega)}$, with the same DST remark) and in the accepted manuscript of the journal version (White Rose repository).'

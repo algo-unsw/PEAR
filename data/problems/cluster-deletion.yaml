@@ -10,7 +10,7 @@ complexity:
       - "https://www-2.dc.uba.ar/staff/fbonomo/docs/papers/TCS600_59-69.pdf"
       - "https://drops.dagstuhl.de/storage/00lipics/lipics-vol322-isaac2024/LIPIcs.ISAAC.2024.32/LIPIcs.ISAAC.2024.32.pdf"
       - "https://arxiv.org/abs/1904.09470"
-    note: "Bonomo, Durán and Valencia-Pabon (Theoretical Computer Science 600, 2015, Section 1): \"The cluster deletion problem is known to be NP-complete [22] for general graphs\", [22] being Shamir, Sharan and Tsur (Discrete Applied Mathematics 2004); Garvardt, Komusiewicz and Morawietz (ISAAC 2024, Section 1) cite the same paper; Konstantinidis and Papadopoulos (arXiv 1904.09470, Section 1) state NP-hardness on general graphs. Wikipedia (Cluster graph) does not mention this problem. TODO(verify): no open copy of Shamir–Sharan–Tsur was found."
+    note: "Bonomo, Durán and Valencia-Pabon (Theoretical Computer Science 600, 2015): \"The cluster deletion problem is known to be NP-complete [22] for general graphs\", [22] being Shamir, Sharan and Tsur (Discrete Applied Mathematics 2004); Garvardt, Komusiewicz and Morawietz (ISAAC 2024, p. 32:2) cite the same paper; Konstantinidis and Papadopoulos (arXiv 1904.09470, Section 1) state NP-hardness on general graphs. Wikipedia (Cluster graph) does not mention this problem. TODO(verify): no open copy of Shamir–Sharan–Tsur was found."
 objects:
   n: number of vertices
   m: number of edges

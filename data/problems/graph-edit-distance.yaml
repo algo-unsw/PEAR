@@ -5,9 +5,10 @@ category: graph
 complexity:
   class: NP-complete
   source:
-    folklore: true
-    note: "In NP: guess the edit operations; at most $n + m$ are ever needed (delete $G_1$, insert $G_2$). NP-hard by the reduction from Subgraph Isomorphism of Zeng et al. (2009), as stated by Limmer and Kriege (Section 2.2), who also recall Bunke's reduction from Maximum Common Induced Subgraph. TODO(verify): mirror Wikipedia's choice of source; the paper of Zeng et al. (PVLDB 2009) could not be opened."
-    reference: { paper: limmer-kriege-2026, version: arxiv-v1, statement: "Section 2.2" }
+    paper: zeng-tung-wang-2009
+    statements:
+      journal: { statement: "Lemma 2.3" }
+    note: "Lemma 2.3: computing the graph edit distance (unit costs, Definition 2.1) is NP-hard, by Lemma 2.2 from Subgraph Isomorphism; as on Wikipedia, which cites Section 2 of this paper. The decision version is in NP: guess the edit operations (at most $n + m$ are ever needed: delete $G_1$, insert $G_2$)."
 objects:
   n: number of vertices of $G_1$ plus number of vertices of $G_2$
   m: number of edges of $G_1$ plus number of edges of $G_2$

@@ -1,0 +1,16 @@
+id: suchan-villanger-2009
+title: "Computing Pathwidth Faster Than $2^{n}$"
+authors: [Karol Suchan, Yngve Villanger]
+versions:
+  preproceedings:
+    kind: workshop
+    venue: "IWPEC 2009 pre-proceedings"
+    year: 2009
+    url: "https://people.engr.tamu.edu/j-chen3/iwpec2009/images/12.pdf"
+    open_access: true
+  iwpec:
+    kind: workshop
+    venue: "Parameterized and Exact Computation (IWPEC 2009), LNCS 5917, pp. 324–335"
+    year: 2009
+    doi: "10.1007/978-3-642-11269-0_27"
+    open_access: false

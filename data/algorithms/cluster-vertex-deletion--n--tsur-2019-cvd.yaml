@@ -19,6 +19,6 @@ source:
   paper: tsur-2019-cvd
   statements:
     arxiv-v1: { statement: "Section 1 (Introduction)" }
-  note: "Stated as \"Using our algorithm with the method of [Fomin et al.] gives an $O(1.448^n)$-time algorithm\"; $2 - 1/1.811 < 1.4479$. The same section says that Boral et al.'s algorithm gives $O(1.477^n)$ this way, improving the iterative-compression algorithm of Fomin, Gaspers, Kratsch, Liedloff and Saurabh. TODO(verify): Serge to say whether this monotone-local-search application should instead come from the technique (add Cluster Vertex Deletion to its applies_to), and whether to read it as deterministic or randomized."
+  note: "Stated as \"Using our algorithm with the method of [Fomin et al.] gives an $O(1.448^n)$-time algorithm\"; $2 - 1/1.811 < 1.4479$. The same section says that Boral et al.'s algorithm gives $O(1.477^n)$ this way, improving the previously fastest exact algorithm (Fomin et al. 2010, as cited there). TODO(verify): Serge to say whether this monotone-local-search application should instead come from the technique (add Cluster Vertex Deletion to its applies_to), and whether to read it as deterministic or randomized."
 formal: { status: informal }
 status: valid

@@ -6,7 +6,7 @@ complexity:
   class: NP-complete
   source:
     folklore: true
-    note: "In NP (guess the map). NP-hard because 3-Coloring is the special case $H = K_3$: a $k$-colouring of $G$ is a homomorphism from $G$ to $K_k$. Rzążewski's introduction states the theorem of Hell and Nešetřil: deciding whether $G$ has a homomorphism to a fixed $H$ is polynomial if $H$ is bipartite and NP-complete otherwise. TODO(verify): mirror Wikipedia's choice of source."
+    note: "In NP (guess the map). NP-hard because 3-Coloring is the special case $H = K_3$: a $k$-colouring of $G$ is a homomorphism from $G$ to $K_k$. Rzążewski's introduction states the theorem of Hell and Nešetřil: deciding whether $G$ has a homomorphism to a fixed $H$ is polynomial if $H$ is bipartite and NP-complete otherwise. Wikipedia cites Bodirsky's course notes (2007, Section 1.3) for NP-completeness of the general problem and Hell and Nešetřil (1990) for the dichotomy. TODO(verify): which source to cite."
     reference: { paper: rzazewski-2013, version: arxiv-v1, statement: "Section 1" }
 objects:
   n: number of vertices of $G$
@@ -16,10 +16,12 @@ parameters:
   h: { meaning: "the number of vertices of the target graph $H$" }
   b: { meaning: "the bandwidth of the complement $\\overline{H}$ of the target graph" }
   tw: { shared: treewidth, of: "the graph $G$" }
+  tw_H: { meaning: "the treewidth of the target graph $H$ (the minimum width of a tree decomposition of $H$)" }
 constraints:
   - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
   - { constraint: "tw \\le n", because: "A single bag containing all vertices of $G$ is a tree decomposition of width $n - 1$." }
   - { constraint: "b \\le h", because: "Every graph on $h$ vertices has bandwidth at most $h - 1$." }
+  - { constraint: "tw_H \\le h", because: "A single bag containing all vertices of $H$ is a tree decomposition of width $h - 1$." }
 versions:
   decision:
     kind: decision

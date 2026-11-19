@@ -1,0 +1,19 @@
+id: subgraph-isomorphism--k-tw--alon-yuster-zwick-1994
+problem: subgraph-isomorphism
+proved_for: decision
+bound:
+  as_stated: 2^{O(k)} n^{tw + 1} \log n
+  notation: O
+  parameters: [k, n, tw]
+properties:
+  randomized: false
+  space: { class: exponential, bound: "Not stated; educated guess: $2^{O(k)} n^{tw + 1}$ (polynomial for fixed $k$ and $tw$). Colour-coding with dynamic programming over a tree decomposition of $H$, storing for each bag and each map of the bag into $V$ the feasible colour sets; derandomized with families of perfect hash functions (Section 4)." }
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: alon-yuster-zwick-1994
+  statements:
+    journal: { statement: "Theorem 6.3" }
+  note: "Theorem 6.3: for $H$ on $k$ vertices with tree-width $t$, a subgraph of $G = (V, E)$ isomorphic to $H$, if one exists, can be found in $2^{O(k)} \\cdot V^{t+1}$ expected time and in $2^{O(k)} \\cdot V^{t+1} \\log V$ worst-case time; the worst-case bounds come from the derandomization of Section 4 (Section 2). Read in the author's copy of the J. ACM version (superscripts flattened in the text extraction). This entry is the deterministic worst-case bound."

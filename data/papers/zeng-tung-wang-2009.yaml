@@ -1,0 +1,12 @@
+id: zeng-tung-wang-2009
+title: "Comparing Stars: On Approximating Graph Edit Distance"
+authors: [Zhiping Zeng, Anthony K. H. Tung, Jianyong Wang, Jianhua Feng, Lizhu Zhou]
+identifiers: { dblp: "journals/pvldb/ZengTWFZ09", openalex: null }
+versions:
+  journal:
+    kind: journal
+    venue: "Proceedings of the VLDB Endowment 2(1), pp. 25–36"
+    year: 2009
+    doi: "10.14778/1687627.1687631"
+    url: "http://www.vldb.org/pvldb/vol2/vldb09-568.pdf"
+    open_access: true

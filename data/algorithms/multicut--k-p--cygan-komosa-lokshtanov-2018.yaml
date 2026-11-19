@@ -18,4 +18,4 @@ source:
   paper: cygan-komosa-lokshtanov-2018
   statements:
     arxiv: { statement: "Theorem on Steiner Multicut in Section 1, Our results (LaTeX label thm:multicut); proved in Section 4.2" }
-  note: 'Stated for Steiner Multicut with $t$ terminal sets as $2^{O((t + k) \log (k + t))} n^{O(1)}$; Section 1 notes that terminal sets of size 2 give Edge Multicut, so $t$ is the number $p$ of terminal pairs here. Improves $2^{O(k^2 t \log k)}$ of Bringmann, Hermelin, Mnich and van Leeuwen. Read in the current arXiv version of 1810.06864 (20 November 2026); TODO(verify) the printed theorem number.'
+  note: 'Stated for Steiner Multicut with $t$ terminal sets as $2^{O((t + k) \log (k + t))} n^{O(1)}$; Section 1 notes that terminal sets of size 2 give Edge Multicut, so $t$ is the number $p$ of terminal pairs here. Improves $2^{O(k^2 t \log k)}$ of Bringmann, Hermelin, Mnich and van Leeuwen. Read in arXiv v3 of 1810.06864 (the current version on 20 November 2026); TODO(verify) the printed theorem number.'

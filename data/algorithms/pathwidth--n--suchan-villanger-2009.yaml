@@ -1,0 +1,21 @@
+id: pathwidth--n--suchan-villanger-2009
+problem: pathwidth
+proved_for: decision
+bound:
+  as_stated: 'O^*(1.9657^{n})'
+  notation: O*
+  parameters: [n]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Not stated; educated guess: exponential, about $O^*(1.9657^n)$. The algorithm stores the sets $B$ and $F$ of pairs, whose sizes are bounded by $O^*(1.9657^n)$ (Lemmas 1 and 4).'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: suchan-villanger-2009
+  statements:
+    preproceedings: { statement: "Theorem 3" }
+  note: 'Theorem 3: "There exists an algorithm that verifies if the pathwidth of a graph G on n vertices is at most k in $O^*(1.9657^n)$ time." The abstract of the LNCS version (publisher page) states the same base, $c = 1.9657$. Read in the IWPEC 2009 pre-proceedings copy. Kitsunai et al. (Algorithmica 2016) claim $O(1.89^n)$ for directed pathwidth, which covers pathwidth; no open copy was found. TODO(verify): constructive is assumed (a path decomposition is not explicitly promised in Theorem 3).'

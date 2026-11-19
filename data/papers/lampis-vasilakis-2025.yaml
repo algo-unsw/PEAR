@@ -1,0 +1,16 @@
+id: lampis-vasilakis-2025
+title: "Structural Parameterizations for Induced and Acyclic Matching"
+authors: [Michael Lampis, Manolis Vasilakis]
+identifiers: { dblp: "conf/wg/LampisV25" }
+versions:
+  arxiv:
+    kind: preprint
+    year: 2025
+    arxiv: "2502.14161"
+    open_access: true
+  wg:
+    kind: workshop
+    venue: "51st International Workshop on Graph-Theoretic Concepts in Computer Science (WG 2025), LNCS 16124, pp. 360–376"
+    year: 2025
+    doi: "10.1007/978-3-032-11835-6_26"
+    open_access: false

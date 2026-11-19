@@ -18,6 +18,7 @@ objects:
 parameters:
   k: { meaning: "the solution size: the integer $k$ in the input (decision, search), or the maximum size of an induced matching (optimisation)" }
   tw: { shared: treewidth }
+  cw: { shared: clique-width }
   b: { meaning: "the below-average parameter $(\\nu(G) + \\alpha(G))/2 - k$, where $\\nu(G)$ is the maximum size of a matching and $\\alpha(G)$ the maximum size of an independent set of $G$ (Koana's Induced Matching Below Average)" }
   p: { meaning: "the below-trivial-guarantee parameter $n - 2k$: the number of vertices not covered by an induced matching of size $k$ (the deletion budget of Almost Induced Matching)" }
 constraints:
@@ -25,6 +26,7 @@ constraints:
   - { constraint: "k \\le m", because: "An induced matching is a set of edges; every instance with $k > m$ is a no-instance." }
   - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
   - { constraint: "tw \\le n", because: "A single bag containing all vertices is a tree decomposition of width $n - 1$." }
+  - { constraint: "cw \\le n", because: "Giving every vertex its own label, every graph is built with $n$ labels." }
   - { constraint: "b \\le n", because: "$\\nu(G) \\le n/2$ and $\\alpha(G) \\le n$, so $b \\le 3n/4$." }
   - { constraint: "p \\le n", because: "$p = n - 2k$ and $k \\ge 0$." }
   - { constraint: "b \\le p / 2", because: "$\\nu(G) + \\alpha(G) \\le \\tau(G) + \\alpha(G) = n$ for the vertex cover number $\\tau(G)$, so $b \\le n/2 - k = p/2$ (Koana, Section 1)." }

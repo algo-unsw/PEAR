@@ -18,4 +18,4 @@ source:
   paper: cygan-lokshtanov-pilipczuk-2013
   statements:
     arxiv: { statement: "First theorem of Section 1 (LaTeX label thm:bisectionFPT); running time analysed in Section 4.3" }
-  note: 'Colour coding derandomized with splitters and perfect families (Section 4.1); the knapsack step uses the Fast Fourier Transform only to save a polynomial factor. Stated for unweighted graphs; Section 5 treats a weighted extension. Read in the current arXiv version of 1311.2563 (20 November 2026); TODO(verify) the printed theorem number. STOC 2014; SIAM J. Comput. 2019.'
+  note: 'Colour coding derandomized with splitters and perfect families (Section 4.1); the knapsack step uses the Fast Fourier Transform only to save a polynomial factor. Stated for unweighted graphs; Section 5 treats a weighted extension. Read in arXiv v2 of 1311.2563 (the current version on 20 November 2026); TODO(verify) the printed theorem number. STOC 2014; SIAM J. Comput. 2019.'

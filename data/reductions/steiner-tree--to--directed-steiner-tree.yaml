@@ -4,13 +4,13 @@ to: { problem: directed-steiner-tree, version: decision }
 type: polytime-deterministic
 calls: 1
 time: "O(n + m)"
-parameter_map: { n: "n", m: "2m", t: "t", k: "k" }
+parameter_map: { n: "n", m: "2m", t: "t - 1", k: "k" }
 variants:
   - id: weighted
     note: "Weighted versions: both arcs of an edge get the edge's weight."
     from: { problem: steiner-tree, version: weighted }
     to: { problem: directed-steiner-tree, version: weighted }
-    parameter_map: { n: "n", m: "2m", t: "t" }
+    parameter_map: { n: "n", m: "2m", t: "t - 1" }
     source:
       folklore: true
       note: "Orienting a Steiner tree away from the root gives an out-tree of the same weight, and the underlying graph of an out-tree is a tree."

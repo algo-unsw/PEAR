@@ -8,7 +8,7 @@ versions:
     arxiv: "1606.06566"
     open_access: true
   iwoca:
-    kind: conference
+    kind: workshop
     venue: "Combinatorial Algorithms, 27th International Workshop (IWOCA 2016), LNCS 9843, pp. 385–396"
     year: 2016
     doi: "10.1007/978-3-319-44543-4_30"

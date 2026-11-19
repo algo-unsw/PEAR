@@ -10,7 +10,7 @@ complexity:
       - "https://en.wikipedia.org/wiki/Cluster_graph"
       - "https://arxiv.org/abs/2001.06867"
       - "https://bio.informatik.uni-jena.de/wp-content/uploads/2025/07/Boecker_GoldenRatioParameterizedAlgorithm_JDiscreteAlgorithms_2012_preprint.pdf"
-    note: "As on Wikipedia (Cluster graph: \"It is NP-complete but fixed-parameter tractable\"), which cites Shamir, Sharan and Tsur (Discrete Applied Mathematics 2004) and Böcker and Baumbach (CiE 2013). The survey of Crespelle, Drange, Fomin and Golovach (arXiv 2001.06867, Section 2) and Böcker's J. Discrete Algorithms preprint (abstract) also state NP-completeness. TODO(verify): no open copy of Shamir–Sharan–Tsur was found (academia.edu copies need a login); Křivánek and Morávek (Acta Informatica 1986) is often cited as the first proof."
+    note: "As on Wikipedia (Cluster graph: \"It is NP-complete but fixed-parameter tractable\"), which cites Shamir, Sharan and Tsur (Discrete Applied Mathematics 2004) and Böcker and Baumbach (CiE 2013). The survey of Crespelle, Drange, Fomin and Golovach (arXiv 2001.06867, Section 2) and Böcker's J. Discrete Algorithms preprint (abstract) also state NP-completeness. TODO(verify): no open copy of Shamir–Sharan–Tsur was found (academia.edu copies need a login)."
 objects:
   n: number of vertices
   m: number of edges
