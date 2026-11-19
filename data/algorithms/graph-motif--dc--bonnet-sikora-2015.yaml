@@ -17,7 +17,7 @@ properties:
 source:
   paper: bonnet-sikora-2015
   statements:
-    arxiv: { statement: "Theorem labelled th:distclique (section 'FPT algorithms, kernelization and ETH-based lower bounds')" }
-  note: "Stated as \"Graph Motif can be solved in $O^*(3^k)$, where $k$ is the distance to clique.\" The proof sums $O^*(2^{|S'|})$ over all subsets $S'$ of the modulator. Read in arXiv 1503.05110 as served on 20 November 2026 (version number not checked). TODO(verify): theorem number; whether a later version improves the bound."
+    arxiv: { statement: "Theorem 8 (Section 3.2); LaTeX label th:distclique" }
+  note: "Stated as \"Graph Motif can be solved in $O^*(3^k)$, where $k$ is the distance to clique.\" The proof sums $O^*(2^{|S'|})$ over all subsets $S'$ of the modulator. Read in arXiv 1503.05110 as served on 20 November 2026 (titled as the DAM version; the PDF text showed no version stamp, so the version number is not checked). TODO(verify): whether the published versions state the same bound."
 formal: { status: informal }
 status: valid
