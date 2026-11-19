@@ -1,0 +1,39 @@
+id: graph-motif
+name: Graph Motif
+aliases: []
+category: graph
+complexity:
+  class: NP-complete
+  source:
+    paper: fellows-fertin-hermelin-2007
+    statements:
+      journal-preprint: { statement: "Theorem 1" }
+    note: "Theorem 1: \"Graph Motif is NP-complete, even if M is colorful and G is a tree of maximum degree three.\" (Theorem 3: NP-complete even if $M$ consists of two colors and $G$ is bipartite with maximum degree four.) Björklund, Kaski and Kowalik (arXiv v3, Section 1.4) cite this paper for NP-hardness on trees of maximum degree 3 with each colour occurring at most once, and credit the introduction of graph motif problems to Lacroix, Fernandes and Sagot (IEEE/ACM TCBB 2006). A web search found no Wikipedia article on the problem (only \"Network motif\", a different notion). TODO(verify): Serge to say whether Lacroix et al. (not opened) should be cited instead."
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  k: { meaning: "the motif size $|M|$: the number of colour occurrences in the motif $M$, counted with multiplicity, which is also the number of vertices of every solution" }
+  vc: { shared: vertex-cover-number }
+  dc: { meaning: "the distance to clique of $G$: the minimum number of vertices whose deletion leaves a clique" }
+  nd: { meaning: "the neighbourhood diversity of $G$ (Lampis): the minimum number of classes in a partition of $V$ such that any two vertices $v, v'$ in the same class have the same type, $N(v) \\setminus \\{v'\\} = N(v') \\setminus \\{v\\}$" }
+constraints:
+  - { constraint: "k \\le n", because: "A solution $S$ has $|S| = |M|$, so every instance with $|M| > n$ is a no-instance, answered in polynomial time." }
+  - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
+  - { constraint: "vc \\le n", because: "The whole vertex set is a vertex cover." }
+  - { constraint: "dc \\le n", because: "Deleting all vertices but one leaves a clique, so $dc \\le n - 1$." }
+  - { constraint: "nd \\le n", because: "The partition of $V$ into singletons has $n$ classes." }
+versions:
+  decision:
+    kind: decision
+    input: "A graph $G = (V, E)$, a vertex colouring $c \\colon V \\to C$, and a multiset $M$ of colours from $C$."
+    question: "Is there a set $S \\subseteq V$ such that $G[S]$ is connected and the multiset $c(S) = \\{\\!\\{ c(v) : v \\in S \\}\\!\\}$ equals $M$?"
+  search:
+    kind: search
+    input: "A graph $G = (V, E)$, a vertex colouring $c \\colon V \\to C$, and a multiset $M$ of colours from $C$."
+    goal: "Find a set $S \\subseteq V$ such that $G[S]$ is connected and the multiset $c(S) = \\{\\!\\{ c(v) : v \\in S \\}\\!\\}$ equals $M$, or report that none exists."
+default_version: decision
+shared_bounds:
+  - versions: [decision, search]
+    because: "Self-reducibility: delete a vertex whenever the instance stays a yes-instance (at most $n$ calls); the vertices left at the end form a solution."

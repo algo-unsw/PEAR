@@ -1,0 +1,23 @@
+id: cao-marx-2014
+title: "Chordal Editing is Fixed-Parameter Tractable"
+authors: [Yixin Cao, Dániel Marx]
+identifiers: { dblp: "journals/algorithmica/CaoM16" }
+versions:
+  arxiv-v1:
+    kind: preprint
+    arxiv: "1405.7859v1"
+    year: 2014
+    open_access: true
+  stacs:
+    kind: conference
+    venue: "31st International Symposium on Theoretical Aspects of Computer Science (STACS 2014), LIPIcs 25, pp. 214–225"
+    year: 2014
+    doi: "10.4230/LIPIcs.STACS.2014.214"
+    url: "https://www.cs.bme.hu/~dmarx/papers/cao-marx-chordal-stacs2014.pdf"
+    open_access: true
+  journal:
+    kind: journal
+    venue: "Algorithmica 75(1), pp. 118–137"
+    year: 2016
+    doi: "10.1007/s00453-015-0014-x"
+    open_access: false

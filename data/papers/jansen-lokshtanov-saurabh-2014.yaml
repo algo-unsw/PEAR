@@ -1,0 +1,17 @@
+id: jansen-lokshtanov-saurabh-2014
+title: "A Near-Optimal Planarization Algorithm"
+authors: [Bart M. P. Jansen, Daniel Lokshtanov, Saket Saurabh]
+identifiers: { dblp: "conf/soda/JansenLS14" }
+versions:
+  author-copy:
+    kind: preprint
+    venue: "Full version, author copy dated 31 October 2013 (Daniel Lokshtanov's web page)"
+    year: 2013
+    url: "https://sites.cs.ucsb.edu/~daniello/papers/PlanarizationAlgorithm.pdf"
+    open_access: true
+  soda:
+    kind: conference
+    venue: "Proceedings of the 25th Annual ACM-SIAM Symposium on Discrete Algorithms (SODA 2014)"
+    year: 2014
+    doi: "10.1137/1.9781611973402.130"
+    open_access: false

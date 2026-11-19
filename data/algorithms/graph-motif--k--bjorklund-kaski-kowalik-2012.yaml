@@ -1,0 +1,24 @@
+id: graph-motif--k--bjorklund-kaski-kowalik-2012
+problem: graph-motif
+proved_for: decision
+bound:
+  as_stated: "O^*(2^{k})"
+  notation: O*
+  parameters: [k]
+properties:
+  randomized: { error: one-sided }
+  space:
+    class: polynomial
+    bound: "Polynomial space, stated in the theorem (Theorem 4 of arXiv v3; Theorem 5 of the STACS version)."
+  algebraic: true
+  fast_matrix_multiplication: false
+  constructive: false
+  quantum: false
+source:
+  paper: bjorklund-kaski-kowalik-2012
+  statements:
+    arxiv-v3: { statement: "Theorem 4 (Section 1.4); Abstract" }
+    stacs: { statement: "Theorem 5; Abstract" }
+  note: "The abstracts state an $O^*(2^k)$-time polynomial-space algorithm for the $k$-sized Graph Motif problem. The theorems are stated for the paper's Maximum Graph Motif problem (a connected host graph $H$ with $e$ edges, a multiset $M$ of colours, a colouring $c$ and an integer $k$: is there a set $K \\subseteq V(H)$ of size $k$ that induces a connected subgraph with $c(K) \\subseteq M$?): a Monte Carlo algorithm running in $O(2^k k^2 e \\mu)$ time and polynomial space that always answers NO on no-instances and answers YES with probability at least $1/2$ on yes-instances (arXiv v3), where $\\mu = O(\\log k \\log\\log k \\log\\log\\log k)$ is the cost of arithmetic in a field of size $O(k)$ and characteristic 2. Graph Motif is the case $k = |M|$ (then $c(K) \\subseteq M$ forces $c(K) = M$), run on each connected component. Decision only: the authors remark that a solution can be extracted at an additional multiplicative cost $k$, to be pursued elsewhere, hence constructive: false. Theorem 6 (arXiv v3; Theorem 10 of the STACS version): an $O((2-\\varepsilon)^k)$-time algorithm for Maximum Graph Motif would give an $O((2-\\varepsilon')^n)$-time algorithm for Set Cover, even when each colour occurs at most once or there are exactly two colours. Improves the $O^*(2.54^k)$ algorithm of Koutis (IPL 2012), as listed in Table 1 of arXiv v3."
+formal: { status: informal }
+status: valid

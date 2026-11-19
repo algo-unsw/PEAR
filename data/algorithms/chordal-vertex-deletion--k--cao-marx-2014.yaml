@@ -1,0 +1,24 @@
+id: chordal-vertex-deletion--k--cao-marx-2014
+problem: chordal-vertex-deletion
+proved_for: decision
+bound:
+  as_stated: "2^{O(k \\log k)} \\cdot n^{O(1)}"
+  notation: O
+  parameters: [k, n]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: "Not stated; educated guess: polynomial. Iterative compression, then branching on a bounded number of canonical separators that break a shortest hole, using clique trees of $G - M$; no exponential-space technique (memoization, dynamic programming over subsets or decompositions) is described in Section 1, but the later sections were not read."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: cao-marx-2014
+  statements:
+    stacs: { statement: "Theorem 1.1" }
+    arxiv-v1: { statement: "Theorem (Main result), Section 1" }
+  note: "The main result decides Chordal Editing (at most $k_1$ vertex deletions, $k_2$ edge deletions and $k_3$ edge additions) in time $2^{O(k \\log k)} \\cdot n^{O(1)}$ with $k = k_1 + k_2 + k_3$; Chordal Vertex Deletion is the case $k_2 = k_3 = 0$, as Section 1 notes (a new FPT algorithm for chordal deletion, simpler and faster than Marx's). Włodarczyk (ICALP 2023, arXiv:2305.03440, Section 1) still lists $2^{O(k \\log k)} n^{O(1)}$ as the best known running time for this parameter. The STACS 2014 version (open access; author copy on Marx's page) states it as Theorem 1.1 (Main result), for deciding; its Section 2 defines the problem as constructing a chordal editing set or reporting that none exists, so the algorithm is recorded as constructive. TODO(verify): the theorem number in the arXiv v1 LaTeX (first theorem, label thm:alg-chordal-editing) and in the Algorithmica version."
+formal: { status: informal }
+status: valid

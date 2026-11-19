@@ -1,0 +1,14 @@
+id: feedback-vertex-set--to--chordal-vertex-deletion
+from: { problem: feedback-vertex-set, version: decision }
+to: { problem: chordal-vertex-deletion, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(n + m)"
+parameter_map: { n: "n + m", m: "2m", k: "k", tw: "tw" }
+source:
+  paper: wlodarczyk-2023
+  statements:
+    icalp: { statement: "Lemma 4.1" }
+    arxiv: { statement: "Lemma in Section 4 (label lem:chordal:LB)" }
+  note: "Subdivide every edge of $G$ once, giving $G'$ with $n + m$ vertices and $2m$ edges; then $\\mathrm{tw}(G') = \\mathrm{tw}(G)$, and $G$ has a feedback vertex set of size $\\ell$ if and only if $G'$ has a chordal deletion set of size $\\ell$ ($G'$ is bipartite, and a bipartite chordal graph is a forest). So $(G, k) \\mapsto (G', k)$. Read in the LaTeX of the current arXiv version (version number not shown); the ICALP 2023 version states it as Lemma 4.1 and defers the proof to the full version (arXiv), where it was read."
+status: valid

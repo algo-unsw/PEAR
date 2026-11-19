@@ -1,0 +1,22 @@
+id: wlodarczyk-2023
+title: "Tight Bounds for Chordal/Interval Vertex Deletion Parameterized by Treewidth"
+authors: [Michał Włodarczyk]
+identifiers: { dblp: "journals/algorithmica/Wlodarczyk25" }
+versions:
+  arxiv:
+    kind: preprint
+    arxiv: "2305.03440"
+    year: 2023
+    open_access: true
+  icalp:
+    kind: conference
+    venue: "50th International Colloquium on Automata, Languages, and Programming (ICALP 2023), LIPIcs 261, pp. 106:1–106:20"
+    year: 2023
+    doi: "10.4230/LIPIcs.ICALP.2023.106"
+    open_access: true
+  journal:
+    kind: journal
+    venue: "Algorithmica 87(5), pp. 621–660"
+    year: 2025
+    doi: "10.1007/s00453-025-01293-0"
+    open_access: false
