@@ -1,0 +1,11 @@
+id: clique--to--maximum-common-subgraph
+from: { problem: clique, version: decision }
+to: { problem: maximum-common-subgraph, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(n + m + k^{2})"
+parameter_map: { n: "n + k", n_G: "k", n_H: "n", m: "m + k (k - 1)/2", k: "k" }
+source:
+  folklore: true
+  note: "$(G, k) \\mapsto (K_k, G, k)$: a common induced subgraph of $K_k$ and $G$ with $k$ vertices is a clique of size $k$ in $G$."
+  reference: { paper: abu-khzam-bonnet-sikora-2014, version: arxiv, statement: "Section 1" }

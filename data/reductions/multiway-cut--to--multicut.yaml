@@ -1,0 +1,11 @@
+id: multiway-cut--to--multicut
+from: { problem: multiway-cut, version: decision }
+to: { problem: multicut, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(n + m + p^{2})"
+parameter_map: { n: "n", m: "m", k: "k", p: "p(p - 1)/2" }
+source:
+  folklore: true
+  note: "Take every pair of distinct terminals as a terminal pair: a set of edges separates all terminals from each other if and only if it separates every such pair."
+  reference: { paper: chu-liu-lokshtanov-2026, version: arxiv, statement: "Section 1, first paragraph (Multiway Cut is the special case of Multicut where every pair of terminals is a terminal pair)" }

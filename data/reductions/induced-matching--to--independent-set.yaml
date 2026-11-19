@@ -1,0 +1,10 @@
+id: induced-matching--to--independent-set
+from: { problem: induced-matching, version: decision }
+to: { problem: independent-set, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(n^{2} + m^{2})"
+parameter_map: { n: "m", m: "m (m - 1) / 2", k: "k" }
+source:
+  folklore: true
+  note: "Build the graph $H$ on vertex set $E$ in which two edges of $G$ are adjacent if they share an endpoint or an edge of $G$ joins an endpoint of one to an endpoint of the other (the square of the line graph of $G$). A set $S \\subseteq E$ is an induced matching of $G$ if and only if it is an independent set of $H$, so $(G, k) \\mapsto (H, k)$."

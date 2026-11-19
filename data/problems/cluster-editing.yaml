@@ -1,0 +1,42 @@
+id: cluster-editing
+name: Cluster Editing
+aliases: [Correlation Clustering on complete graphs]
+category: graph
+complexity:
+  class: NP-complete
+  source:
+    paper: shamir-sharan-tsur-2002
+    attested_by:
+      - "https://en.wikipedia.org/wiki/Cluster_graph"
+      - "https://arxiv.org/abs/2001.06867"
+      - "https://bio.informatik.uni-jena.de/wp-content/uploads/2025/07/Boecker_GoldenRatioParameterizedAlgorithm_JDiscreteAlgorithms_2012_preprint.pdf"
+    note: "As on Wikipedia (Cluster graph: \"It is NP-complete but fixed-parameter tractable\"), which cites Shamir, Sharan and Tsur (Discrete Applied Mathematics 2004) and Böcker and Baumbach (CiE 2013). The survey of Crespelle, Drange, Fomin and Golovach (arXiv 2001.06867, Section 2) and Böcker's J. Discrete Algorithms preprint (abstract) also state NP-completeness. TODO(verify): no open copy of Shamir–Sharan–Tsur was found (academia.edu copies need a login); Křivánek and Morávek (Acta Informatica 1986) is often cited as the first proof."
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  k: { meaning: "the solution size: the integer $k$ in the input (decision, search), or the minimum number of edge insertions and deletions that turn the graph into a cluster graph (optimisation)" }
+constraints:
+  - { constraint: "k \\le m", because: "Every instance with $k \\ge m$ is a yes-instance: deleting all edges leaves a cluster graph (singleton cliques), answered in polynomial time." }
+  - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
+versions:
+  decision:
+    kind: decision
+    input: "A graph $G = (V, E)$ and an integer $k$."
+    question: "Is there a set $S$ of unordered pairs of distinct vertices with $|S| \\le k$ such that $(V, E \\triangle S)$ is a cluster graph, that is, a disjoint union of cliques?"
+  optimisation:
+    kind: optimisation
+    input: "A graph $G = (V, E)$."
+    goal: "Find the minimum size of a set $S$ of unordered pairs of distinct vertices such that $(V, E \\triangle S)$ is a cluster graph, that is, a disjoint union of cliques."
+  search:
+    kind: search
+    input: "A graph $G = (V, E)$ and an integer $k$."
+    goal: "Find a set $S$ of unordered pairs of distinct vertices with $|S| \\le k$ such that $(V, E \\triangle S)$ is a cluster graph, that is, a disjoint union of cliques, or report that none exists."
+default_version: decision
+shared_bounds:
+  - versions: [decision, optimisation, search]
+    because: "Binary search on $k$ and self-reducibility."
+related:
+  - { problem: cluster-deletion, relation: variant }
+  - { problem: cluster-vertex-deletion, relation: variant }

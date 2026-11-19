@@ -1,0 +1,31 @@
+id: subgraph-isomorphism
+name: Subgraph Isomorphism
+aliases: [Subgraph Isomorphism Problem, Subgraph Problem, SI]
+category: graph
+complexity:
+  class: NP-complete
+  source:
+    folklore: true
+    note: "In NP (guess the map). NP-hard because Clique ($H = K_k$) and Hamiltonian Cycle ($H = C_n$) are special cases; the introduction of Cygan, Pachocki and Socała lists these special cases and states that they are NP-complete. TODO(verify): Wikipedia's choice of source (Cook 1971?) could not be opened; mirror it once attested."
+    reference: { paper: cygan-fomin-golovnev-2015, version: arxiv-cps, statement: "Section 1" }
+objects:
+  n: number of vertices of the host graph $G$
+  m: number of edges of the host graph $G$
+  N: total encoding length of the input
+parameters:
+  k: { meaning: "the number of vertices of the pattern graph $H$" }
+constraints:
+  - { constraint: "k \\le n", because: "Every instance with $k > n$ is a no-instance (there is no injective map from $V_H$ to $V$), answered in polynomial time." }
+  - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
+versions:
+  decision:
+    kind: decision
+    input: "Two graphs $G = (V, E)$ (the host) and $H = (V_H, E_H)$ (the pattern)."
+    question: "Is there an injective map $\\varphi \\colon V_H \\to V$ such that $\\varphi(u)\\varphi(v) \\in E$ for every edge $uv \\in E_H$?"
+default_version: decision
+related:
+  - { problem: clique, relation: special-case }
+  - { problem: hamiltonian-cycle, relation: special-case }
+  - { problem: graph-homomorphism, relation: variant }
+  - { problem: maximum-common-subgraph, relation: variant }
+  - { problem: graph-edit-distance, relation: variant }

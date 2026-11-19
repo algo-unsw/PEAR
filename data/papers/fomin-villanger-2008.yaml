@@ -1,0 +1,22 @@
+id: fomin-villanger-2008
+title: "Treewidth Computation and Extremal Combinatorics"
+authors: [Fedor V. Fomin, Yngve Villanger]
+versions:
+  arxiv:
+    kind: preprint
+    year: 2008
+    arxiv: "0803.1321"
+    open_access: true
+  icalp:
+    kind: conference
+    venue: "35th International Colloquium on Automata, Languages and Programming (ICALP 2008), Part I, LNCS 5125, pp. 210–221"
+    year: 2008
+    doi: "10.1007/978-3-540-70575-8_18"
+    open_access: false
+  journal:
+    kind: journal
+    venue: "Combinatorica 32(3), pp. 289–308"
+    year: 2012
+    doi: "10.1007/s00493-012-2536-z"
+    url: "https://folk.uib.no/nmiff/articles/2012/2012n.pdf"
+    open_access: true

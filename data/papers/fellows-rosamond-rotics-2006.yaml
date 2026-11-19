@@ -1,0 +1,23 @@
+id: fellows-rosamond-rotics-2006
+title: Clique-Width is NP-Complete
+authors: [Michael R. Fellows, Frances A. Rosamond, Udi Rotics, Stefan Szeider]
+identifiers: { dblp: journals/siamdm/FellowsRRS09 }
+versions:
+  stoc:
+    kind: conference
+    title: "Clique-width minimization is NP-hard"
+    venue: "Proceedings of the 38th Annual ACM Symposium on Theory of Computing (STOC 2006), pp. 354–362"
+    year: 2006
+    doi: "10.1145/1132516.1132568"
+    open_access: false
+  journal:
+    kind: journal
+    venue: "SIAM Journal on Discrete Mathematics 23(2), pp. 909–939"
+    year: 2009
+    doi: "10.1137/070687256"
+    open_access: false
+  full-version:
+    kind: preprint
+    year: 2009
+    url: "https://www.ac.tuwien.ac.at/files/pub/FellowsRosamondRoticsSzeider09.pdf"
+    open_access: true

@@ -1,0 +1,43 @@
+id: maximum-common-subgraph
+name: Maximum Common Induced Subgraph
+aliases: [Maximum Common Subgraph, MCIS, MCS, Common Induced Subgraph Isomorphism]
+category: graph
+complexity:
+  class: NP-complete
+  source:
+    folklore: true
+    note: "In NP (guess $S$, $T$ and the isomorphism). NP-hard because Clique is the special case $G = K_k$. Abu-Khzam, Bonnet and Sikora state that the problem is NP-complete, and remains so on forests. TODO(verify): mirror Wikipedia's choice of source."
+    reference: { paper: abu-khzam-bonnet-sikora-2014, version: arxiv, statement: "Section 1" }
+objects:
+  n: number of vertices of $G$ plus number of vertices of $H$
+  m: number of edges of $G$ plus number of edges of $H$
+  N: total encoding length of the input
+parameters:
+  k: { meaning: "the solution size: the integer $k$ in the input (decision), or the maximum number of vertices of a common induced subgraph (optimisation)" }
+  n_G: { meaning: "the number of vertices of $G$" }
+  n_H: { meaning: "the number of vertices of $H$" }
+  cvd: { meaning: "the sum $\\mathrm{cvd}(G) + \\mathrm{cvd}(H)$ of the cluster vertex deletion numbers of the two graphs; the cluster vertex deletion number of a graph is the minimum number of vertices whose deletion leaves a disjoint union of cliques" }
+constraints:
+  - { constraint: "k \\le n_G", because: "Every instance with $k > n_G$ is a no-instance, answered in polynomial time." }
+  - { constraint: "k \\le n_H", because: "Every instance with $k > n_H$ is a no-instance, answered in polynomial time." }
+  - { constraint: "n_G \\le n", because: "$n = n_G + n_H$." }
+  - { constraint: "n_H \\le n", because: "$n = n_G + n_H$." }
+  - { constraint: "cvd \\le n", because: "Deleting all vertices of a graph leaves a disjoint union of cliques (the empty graph), so $\\mathrm{cvd}(G) \\le n_G$ and $\\mathrm{cvd}(H) \\le n_H$." }
+  - { constraint: "m \\le n(n - 1)/2", because: "$m \\le n_G(n_G-1)/2 + n_H(n_H-1)/2 \\le n(n-1)/2$." }
+versions:
+  decision:
+    kind: decision
+    input: "Two graphs $G = (V, E)$ and $H = (V_H, E_H)$ and an integer $k$."
+    question: "Are there sets $S \\subseteq V$ and $T \\subseteq V_H$ with $|S| = |T| \\ge k$ such that $G[S]$ and $H[T]$ are isomorphic?"
+  optimisation:
+    kind: optimisation
+    input: "Two graphs $G = (V, E)$ and $H = (V_H, E_H)$."
+    goal: "Find the maximum size $|S|$ of sets $S \\subseteq V$ and $T \\subseteq V_H$ with $|S| = |T|$ such that $G[S]$ and $H[T]$ are isomorphic."
+default_version: decision
+shared_bounds:
+  - versions: [decision, optimisation]
+    because: "Binary search on $k$."
+related:
+  - { problem: clique, relation: special-case }
+  - { problem: subgraph-isomorphism, relation: variant }
+  - { problem: graph-edit-distance, relation: variant }

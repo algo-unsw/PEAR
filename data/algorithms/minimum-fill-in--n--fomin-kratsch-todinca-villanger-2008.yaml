@@ -1,0 +1,21 @@
+id: minimum-fill-in--n--fomin-kratsch-todinca-villanger-2008
+problem: minimum-fill-in
+proved_for: optimisation
+bound:
+  as_stated: 'O(1.8899^{n})'
+  notation: O
+  parameters: [n]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Not stated in the theorem; educated guess: exponential. The algorithm lists minimal separators and potential maximal cliques and runs dynamic programming over them; Fomin and Villanger (arXiv 0803.1321, Section 1) say that this algorithm uses exponential space.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: fomin-kratsch-todinca-villanger-2008
+  statements:
+    journal: { statement: "Theorem 5.21" }
+  note: 'Theorem 5.21 states that the treewidth and the minimum fill-in of an $n$-vertex graph can be computed in $O(1.8899^n)$ time. Read in the authors'' copy of the SIAM J. Comput. version.'

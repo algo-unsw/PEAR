@@ -1,0 +1,24 @@
+id: gaspers-liedloff-2006
+title: A Branch-and-Reduce Algorithm for Finding a Minimum Independent Dominating Set
+authors: [Serge Gaspers, Mathieu Liedloff]
+identifiers: { dblp: "journals/dmtcs/GaspersL12" }
+versions:
+  wg:
+    kind: conference
+    title: A Branch-and-Reduce Algorithm for Finding a Minimum Independent Dominating Set in Graphs
+    venue: "Graph-Theoretic Concepts in Computer Science (WG 2006), LNCS 4271, pp. 78–89"
+    year: 2006
+    doi: "10.1007/11917496_8"
+    open_access: false
+  arxiv-v1:
+    kind: preprint
+    arxiv: "1009.1381"
+    year: 2010
+    open_access: true
+  journal:
+    kind: journal
+    venue: "Discrete Mathematics & Theoretical Computer Science 14(1), pp. 29–42"
+    year: 2012
+    doi: "10.46298/dmtcs.563"
+    url: "https://dmtcs.episciences.org/563"
+    open_access: true

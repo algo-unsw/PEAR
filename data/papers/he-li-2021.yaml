@@ -1,0 +1,16 @@
+id: he-li-2021
+title: "Breaking the $n^k$ Barrier for Minimum $k$-cut on Simple Graphs"
+authors: [Zhiyang He, Jason Li]
+identifiers: { dblp: "conf/stoc/He022" }
+versions:
+  arxiv:
+    kind: preprint
+    year: 2021
+    arxiv: "2111.03221"
+    open_access: true
+  stoc:
+    kind: conference
+    venue: "54th Annual ACM SIGACT Symposium on Theory of Computing (STOC 2022), pp. 131–136"
+    year: 2022
+    doi: "10.1145/3519935.3519948"
+    open_access: false

@@ -1,0 +1,21 @@
+id: k-cut--n-k--gupta-lee-li-2019
+problem: k-cut
+proved_for: weighted
+bound:
+  as_stated: "n^{k} (\\log n)^{O(k^{2})}"
+  notation: O
+  parameters: [n, k]
+properties:
+  randomized: true
+  space:
+    class: polynomial
+    bound: "Not stated; educated guess: polynomial. The Recursive Contraction Algorithm of Karger and Stein keeps one contracted graph per level of a recursion of logarithmic depth; no memoization or exponential-size tables were found."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: gupta-lee-li-2019
+  statements:
+    arxiv: { statement: "Section 1, theorem \"Faster Algorithm to Find a Minimum k-cut\" (formal statements in the section \"Putting it together: Bounds on the Contraction Algorithm\")" }
+  note: "Enumerates all minimum $k$-cuts of an edge-weighted graph in time $n^{k}(\\log n)^{O(k^2)}$ with probability at least $1 - 1/\\mathrm{poly}(n)$: the Recursive Contraction Algorithm of Karger and Stein with an improved analysis. Read in arXiv 2005.08301 (the version served on 20 November 2026; the arXiv tool listed v3). The STOC 2020 version (arXiv 1911.09165) claims $\\hat{O}(n^k)$, hiding a $2^{O(\\ln\\ln n)^2}$ factor."

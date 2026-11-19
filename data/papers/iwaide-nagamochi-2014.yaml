@@ -1,0 +1,24 @@
+id: iwaide-nagamochi-2014
+title: An Improved Algorithm for Parameterized Edge Dominating Set Problem
+authors: [Ken Iwaide, Hiroshi Nagamochi]
+identifiers: { dblp: "journals/jgaa/IwaideN16" }
+versions:
+  techreport:
+    kind: technical-report
+    venue: "Technical Report 2014-004, Department of Applied Mathematics and Physics, Kyoto University"
+    year: 2014
+    url: "http://www.amp.i.kyoto-u.ac.jp/tecrep/ps_file/2014/2014-004.pdf"
+    open_access: true
+  walcom:
+    kind: conference
+    venue: "WALCOM: Algorithms and Computation (WALCOM 2015), LNCS 8973, pp. 234–245"
+    year: 2015
+    doi: "10.1007/978-3-319-15612-5_21"
+    open_access: false
+  journal:
+    kind: journal
+    venue: "Journal of Graph Algorithms and Applications 20(1), pp. 23–58"
+    year: 2016
+    doi: "10.7155/jgaa.00383"
+    url: "https://jgaa.info/index.php/jgaa/article/view/paper383"
+    open_access: true

@@ -1,0 +1,11 @@
+id: edge-bipartization--to--max-cut
+from: { problem: edge-bipartization, version: decision }
+to: { problem: max-cut, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(n + m)"
+parameter_map: { n: "n", m: "m", k: "m - k", tw: "tw" }
+source:
+  folklore: true
+  note: "Same graph, $k \\mapsto m - k$. If $G - S$ is bipartite with sides $A$ and $V \\setminus A$, every edge outside $S$ crosses the cut $(A, V \\setminus A)$, so the cut has at least $m - |S|$ edges; conversely, deleting the edges that do not cross a cut leaves a bipartite graph."
+status: valid

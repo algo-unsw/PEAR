@@ -1,0 +1,15 @@
+id: dell-husfeldt-nikabadi-2026
+title: "Counting Equitable k-Colorings in Graphs of Bounded Clique-Width"
+authors: [Holger Dell, Thore Husfeldt, Amir Nikabadi]
+versions:
+  arxiv:
+    kind: preprint
+    year: 2026
+    arxiv: "2606.27159"
+    open_access: true
+  mfcs:
+    kind: conference
+    venue: "Mathematical Foundations of Computer Science (MFCS 2026), LIPIcs, article 27"
+    year: 2026
+    doi: "10.4230/LIPIcs.MFCS.2026.27"
+    open_access: true

@@ -1,0 +1,42 @@
+id: clique-cover
+name: Clique Cover
+aliases: [Partition into Cliques, Clique Partition, Minimum Clique Cover, Minimum Clique Partition, Vertex Clique Cover, VCC]
+category: graph
+complexity:
+  class: NP-complete
+  source:
+    paper: karp-1972
+    attested_by:
+      - "https://en.wikipedia.org/wiki/Karp%27s_21_NP-complete_problems"
+      - "https://www.iitg.ac.in/rinkulu/note/npprobs-note.pdf"
+      - "https://arxiv.org/pdf/1902.10349"
+    note: "Clique Cover is one of Karp's 21 NP-complete problems, reduced from Chromatic Number."
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  k: { meaning: "the number of cliques: the integer $k$ in the input (decision, search), or the clique cover number of $G$ (optimisation)" }
+constraints:
+  - { constraint: "k \\le n", because: "Every instance with $k \\ge n$ is a yes-instance (one clique per vertex)." }
+  - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
+versions:
+  decision:
+    kind: decision
+    input: "A graph $G = (V, E)$ and an integer $k$."
+    question: "Is there a map $c \\colon V \\to \\{1, \\dots, k\\}$ such that every two distinct vertices $u, v$ with $c(u) = c(v)$ are adjacent?"
+  optimisation:
+    kind: optimisation
+    input: "A graph $G = (V, E)$."
+    goal: "Find the clique cover number of $G$: the minimum $k$ such that there is a map $c \\colon V \\to \\{1, \\dots, k\\}$ with every two distinct vertices $u, v$ with $c(u) = c(v)$ adjacent."
+  search:
+    kind: search
+    input: "A graph $G = (V, E)$ and an integer $k$."
+    goal: "Find a map $c \\colon V \\to \\{1, \\dots, k\\}$ such that every two distinct vertices $u, v$ with $c(u) = c(v)$ are adjacent, or report that none exists."
+default_version: decision
+shared_bounds:
+  - versions: [decision, optimisation, search]
+    because: "Binary search on $k$ and self-reducibility, as for Chromatic Number on the complement graph."
+related:
+  - { problem: chromatic-number, relation: complement }
+  - { problem: edge-clique-cover, relation: variant }

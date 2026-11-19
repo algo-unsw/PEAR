@@ -1,0 +1,22 @@
+id: bandwidth--n--cygan-pilipczuk-2009
+problem: bandwidth
+proved_for: decision
+bound:
+  as_stated: O(4.83^{n})
+  notation: O
+  parameters: [n]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Stated: $O^*(4^n)$ space (memory-bound lemma and final theorem of Section 3); the depth-first search over states memoizes visited states.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: cygan-pilipczuk-2009
+  statements:
+    arxiv-v1:
+      statement: Theorem at the end of Section 3 (Time and space analysis)
+  note: 'The theorem: an algorithm solves Bandwidth in $O(4.83^n)$ time and $O^*(4^n)$ space; the measure-and-conquer analysis gives $\kappa \approx 4.828485 < 4.83$. The input contains $b$ and the algorithm decides whether a $b$-ordering exists and, if so, finds it (Section 1). Earlier: Feige and Kilian $O^*(10^n)$, polynomial space; Cygan and Pilipczuk (WG 2008) $O^*(5^n)$ time and $O^*(2^n)$ space.'

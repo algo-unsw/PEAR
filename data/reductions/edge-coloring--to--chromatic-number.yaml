@@ -1,0 +1,11 @@
+id: edge-coloring--to--chromatic-number
+from: { problem: edge-coloring, version: decision }
+to: { problem: chromatic-number, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(n m)"
+parameter_map: { n: "m", k: "k" }
+source:
+  folklore: true
+  note: "The line graph $L(G)$ has one vertex per edge of $G$, two of them adjacent when the edges share an endpoint; the $k$-edge-colourings of $G$ are exactly the $k$-colourings of $L(G)$."
+  reference: { paper: akmal-koana-2025, version: arxiv-v1, statement: "Section 1 (Introduction)" }

@@ -1,0 +1,22 @@
+id: feedback-arc-set--n--bodlaender-et-al-2009-polyspace
+problem: feedback-arc-set
+proved_for: optimisation
+bound:
+  as_stated: 'O^*(4^{n})'
+  notation: O*
+  parameters: [n]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Stated: polynomial space (Theorem 10).'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: false
+  quantum: false
+source:
+  paper: bodlaender-et-al-2009
+  statements:
+    techreport:
+      statement: 'Theorem 10 (Section 5.8), second part; via Lemma 9 (Section 5.7) and Theorem 3 (Section 4)'
+  note: 'Recursive divide and conquer over orderings in the style of Gurevich and Shelah (Theorem 3), applied to Directed Feedback Arc Set through Lemma 9. Read in the open technical report UU-CS-2009-023 through a web fetch. Journal version (Theory Comput. Syst. 2012) not opened.'

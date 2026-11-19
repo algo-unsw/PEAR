@@ -1,0 +1,14 @@
+id: red-blue-dominating-set--to--set-cover
+from: { problem: red-blue-dominating-set, version: decision }
+to: { problem: set-cover, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(n + m)"
+parameter_map: { n: "b", m: "r", k: "k" }
+source:
+  paper: dom-lokshtanov-saurabh-2009
+  statements:
+    journal:
+      statement: Section 4.1 and the proof of Lemma 4.1
+  note: "Universe $B$ and, for each red vertex $v$, the set $N(v)$; a set $S \\subseteq R$ dominates $B$ if and only if $\\{N(v) : v \\in S\\}$ covers $B$. The paper states that RBDS is equivalent to Set Cover and Hitting Set (Section 4.1) and, in the proof of Lemma 4.1, takes terminals (blue vertices) as elements and nonterminals (red vertices) as sets."
+status: valid

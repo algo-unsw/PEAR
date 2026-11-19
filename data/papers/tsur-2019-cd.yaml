@@ -1,0 +1,16 @@
+id: tsur-2019-cd
+title: "Cluster Deletion Revisited"
+authors: [Dekel Tsur]
+identifiers: { dblp: "journals/ipl/Tsur22" }
+versions:
+  arxiv-v1:
+    kind: preprint
+    arxiv: "1907.08399v1"
+    year: 2019
+    open_access: true
+  journal:
+    kind: journal
+    venue: "Information Processing Letters 173, Article 106171"
+    year: 2022
+    doi: "10.1016/j.ipl.2021.106171"
+    open_access: false

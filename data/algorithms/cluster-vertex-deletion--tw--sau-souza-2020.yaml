@@ -1,0 +1,24 @@
+id: cluster-vertex-deletion--tw--sau-souza-2020
+problem: cluster-vertex-deletion
+proved_for: optimisation
+bound:
+  as_stated: "2^{O(tw)} \\cdot n"
+  notation: O
+  parameters: [tw, n]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: "Not stated; educated guess: exponential. Dynamic programming over a nice tree decomposition with $2^{O(tw)}$ states per node (for $h = 3$)."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: sau-souza-2020
+  statements:
+    mfcs: { statement: "Theorem 2" }
+    arxiv-v2: { statement: "Theorem 2 (Section 3.1)" }
+  note: "Theorem 2 states that for every graph $H$ on $h \\ge 3$ vertices, $H$-IS-Deletion can be solved in time $2^{O(t^{h-2})} \\cdot n$, $t$ the treewidth; Cluster Vertex Deletion is the case $H = P_3$, $h = 3$. The proof works on a nice tree decomposition of width $O(\\mathrm{tw}(G))$, so no decomposition needs to be given. The MFCS 2020 version states it as Theorem 2 and defers the proof to the full version; in the arXiv version the number is as rendered by ar5iv (whose arXiv version is not shown), and the statement and proof were read in the LaTeX of the current arXiv version (v2, 8 September 2022). TODO(verify): the hidden constant in $O(tw)$ is not explicit."
+formal: { status: informal }
+status: valid

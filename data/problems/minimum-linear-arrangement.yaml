@@ -1,0 +1,47 @@
+id: minimum-linear-arrangement
+name: Minimum Linear Arrangement
+aliases: [Optimal Linear Arrangement, Linear Arrangement, MinLA, OLA]
+category: graph
+complexity:
+  class: NP-complete
+  source:
+    paper: garey-johnson-stockmeyer-1974
+    attested_by:
+      - "https://core.ac.uk/download/1552183.pdf"
+      - "https://arxiv.org/abs/cs/0511030"
+      - "https://ics-archive.science.uu.nl/research/techreps/repo/CS-2009/2009-023.pdf"
+    note: 'Caprara, Letchford and Salazar-González (Decorous Lower Bounds for Minimum Linear Arrangement) credit the strong NP-hardness to Garey, Johnson and Stockmeyer (1976); Gutin, Rafiey, Szeider and Yeo (arXiv cs/0511030) call the decision version a classical NP-complete problem; Bodlaender et al. (UU-CS-2009-023) state that it was proved NP-complete.'
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  k: { meaning: 'the cost bound: the integer $k$ in the input (decision, search), or the minimum cost $\sum_{uv \in E} |\pi(u) - \pi(v)|$ (optimisation)' }
+  p: { meaning: 'the excess $k - m$ of the cost bound over the number of edges, which is a lower bound on the cost (parameterization above the guaranteed value)' }
+  vc: { shared: vertex-cover-number }
+constraints:
+  - { constraint: 'm \le k', because: 'Every edge has length at least 1, so every instance with $k < m$ is a no-instance, answered in polynomial time.' }
+  - { constraint: 'k \le n^{3}', because: 'Every bijection has cost at most $m(n - 1) \le n^3$, so every instance with $k \ge m(n-1)$ is a yes-instance, answered in polynomial time.' }
+  - { constraint: 'p \le k', because: '$p = k - m$ and $m \ge 0$.' }
+  - { constraint: 'm \le n(n - 1)/2', because: 'A simple graph has at most $n(n-1)/2$ edges.' }
+  - { constraint: 'vc \le n', because: 'The whole vertex set is a vertex cover.' }
+versions:
+  decision:
+    kind: decision
+    input: 'A graph $G = (V, E)$ and an integer $k$.'
+    question: 'Is there a bijection $\pi \colon V \to \{1, \dots, n\}$ such that $\sum_{uv \in E} |\pi(u) - \pi(v)| \le k$?'
+  optimisation:
+    kind: optimisation
+    input: 'A graph $G = (V, E)$.'
+    goal: 'Find the minimum integer $k$ such that there is a bijection $\pi \colon V \to \{1, \dots, n\}$ with $\sum_{uv \in E} |\pi(u) - \pi(v)| \le k$.'
+  search:
+    kind: search
+    input: 'A graph $G = (V, E)$ and an integer $k$.'
+    goal: 'Find a bijection $\pi \colon V \to \{1, \dots, n\}$ such that $\sum_{uv \in E} |\pi(u) - \pi(v)| \le k$, or report that none exists.'
+default_version: decision
+shared_bounds:
+  - versions: [decision, optimisation]
+    because: 'Binary search on $k$, which is at most $n^3$.'
+related:
+  - { problem: bandwidth, relation: variant }
+  - { problem: cutwidth, relation: variant }

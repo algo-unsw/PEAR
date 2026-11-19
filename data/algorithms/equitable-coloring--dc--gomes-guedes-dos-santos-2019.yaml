@@ -1,0 +1,21 @@
+id: equitable-coloring--dc--gomes-guedes-dos-santos-2019
+problem: equitable-coloring
+proved_for: decision
+bound:
+  as_stated: "f(dc) \\cdot n^{O(1)}"
+  notation: O
+  parameters: [dc, n]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: "Not stated; educated guess: polynomial. The algorithm enumerates the colourings of the modulator one at a time (at most a Bell number of them) and runs a maximum-flow computation for each; no memoization or dynamic programming found."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: gomes-guedes-dos-santos-2019
+  statements:
+    arxiv: { statement: "Theorem 4" }
+  note: "Read in the current arXiv version (v2, 20 November 2026), the full version (its first-page footnote names LATIN 2020 as a previous version). Theorem 4 states FPT time; its proof assumes the modulator $U$ is given and tries $O(B_{|U|})$ colourings of $U$ ($B$ the Bell numbers), each extended by maximum flow. The paper says the running time is of the order of $2^{O(k \\log k)}$. It improves the FPT algorithm of Fiala, Golovach and Kratochvíl (2011) parameterized by vertex cover."

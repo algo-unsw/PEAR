@@ -1,0 +1,16 @@
+id: brinkop-jansen-2021
+title: "Solving Cut-Problems in Quadratic Time for Graphs with Bounded Treewidth"
+authors: [Hauke Brinkop, Klaus Jansen]
+identifiers: { dblp: conf/sofsem/BrinkopJ23 }
+versions:
+  arxiv:
+    kind: preprint
+    year: 2021
+    arxiv: "2101.00694"
+    open_access: true
+  sofsem:
+    kind: conference
+    venue: "SOFSEM 2023: Theory and Practice of Computer Science, LNCS 13878, pp. 33–46"
+    year: 2023
+    doi: "10.1007/978-3-031-23101-8_3"
+    open_access: false

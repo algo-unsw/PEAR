@@ -1,0 +1,43 @@
+id: edge-clique-cover
+name: Edge Clique Cover
+aliases: [Clique Cover of Edges, Covering by Cliques, Intersection Number, Intersection Graph Basis, Keyword Conflict, ECC]
+category: graph
+complexity:
+  class: NP-complete
+  source:
+    paper: garey-johnson-1979
+    attested_by:
+      - "https://en.wikipedia.org/wiki/Intersection_number_(graph_theory)"
+      - "https://arxiv.org/abs/1203.1754"
+      - "https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.ESA.2023.61"
+    note: "Covering by Cliques (GT17) and Intersection Graph Basis (GT59) in Garey and Johnson, as cited by Cygan, Pilipczuk and Pilipczuk. Wikipedia cites Garey and Johnson (1979), Orlin (1977), and Kou, Stockmeyer and Wong (1978) for NP-completeness."
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  k: { meaning: "the number of cliques: the integer $k$ in the input (decision, search), or the minimum number of cliques covering all edges (the edge clique cover number, or intersection number; optimisation)" }
+  d: { meaning: "the degeneracy of $G$: the minimum $d$ such that every subgraph of $G$ has a vertex of degree at most $d$" }
+constraints:
+  - { constraint: "k \\le m", because: "Every edge is a clique, so every instance with $k \\ge m$ is a yes-instance, answered in polynomial time." }
+  - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
+  - { constraint: "d \\le n", because: "Every vertex has degree at most $n - 1$." }
+versions:
+  decision:
+    kind: decision
+    input: "A graph $G = (V, E)$ and an integer $k$."
+    question: "Is there a family $\\mathcal{S}$ of at most $k$ cliques of $G$ such that every edge $uv \\in E$ has $\\{u, v\\} \\subseteq C$ for some $C \\in \\mathcal{S}$?"
+  optimisation:
+    kind: optimisation
+    input: "A graph $G = (V, E)$."
+    goal: "Find the minimum size of a family $\\mathcal{S}$ of cliques of $G$ such that every edge $uv \\in E$ has $\\{u, v\\} \\subseteq C$ for some $C \\in \\mathcal{S}$."
+  search:
+    kind: search
+    input: "A graph $G = (V, E)$ and an integer $k$."
+    goal: "Find a family $\\mathcal{S}$ of at most $k$ cliques of $G$ such that every edge $uv \\in E$ has $\\{u, v\\} \\subseteq C$ for some $C \\in \\mathcal{S}$, or report that none exists."
+default_version: decision
+shared_bounds:
+  - versions: [decision, optimisation]
+    because: "Binary search on $k \\le m$."
+related:
+  - { problem: clique-cover, relation: variant }

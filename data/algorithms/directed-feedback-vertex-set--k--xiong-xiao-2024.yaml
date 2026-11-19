@@ -1,0 +1,22 @@
+id: directed-feedback-vertex-set--k--xiong-xiao-2024
+problem: directed-feedback-vertex-set
+proved_for: decision
+bound:
+  as_stated: 'O(k^{k} 2^{o(k)} (n + m))'
+  notation: O
+  parameters: [k, n, m]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Not stated; educated guess: $2^{O(k)} (n + m)$. Algorithm DFAS-V (Section 5) builds, at each of at most $k$ recursion levels, the set of all important cuts of size at most $k$ (at most $4^k$ of them; Theorem impcut-enum, cited in the proof in Section 5), then recurses; with lazy enumeration polynomial space would likely suffice. No memoization or dynamic programming tables found. Recursive compression (Lemma in Section 1, from Lokshtanov, Ramanujan, Saurabh, SODA 2018) is used as a black box.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: xiong-xiao-2024
+  statements:
+    arxiv-v1:
+      statement: 'Theorem in Section 1 (LaTeX label thm:time), proved at the end of Section 5'
+  note: 'Stated as $O(k!\,2^{o(k)}(n+m))$. The bound language has no factorial, so this record stores the implied bound with $k! \le k^{k}$. TODO(verify): Serge to decide whether to add $k!$ to the bound language; then restore the stated form. Improves $O(k!\,4^k k^5 (n+m))$ of Lokshtanov, Ramanujan and Saurabh (arXiv:1609.04347, SODA 2018), as the paper says in Section 1. The SOSA 2025 version was not opened.'

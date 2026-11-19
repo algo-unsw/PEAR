@@ -1,0 +1,21 @@
+id: induced-matching--p--liu-xiao-2023
+problem: induced-matching
+proved_for: decision
+bound:
+  as_stated: "O^*(1.6765^{p})"
+  notation: O*
+  parameters: [p]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: "Stated: polynomial space (theorem at the end of Section 4)."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: liu-xiao-2023
+  statements:
+    arxiv: { statement: "Section 4 (A parameterized algorithm), the theorem at the end of the section" }
+  note: "Stated as \"Almost Induced Matching can be solved in $O^*(1.6765^k)$ time and polynomial space\", where Almost Induced Matching asks for at most $k$ vertices whose deletion leaves an induced matching. A graph has an induced matching of size $k$ if and only if deleting $n - 2k$ vertices leaves an induced matching, so the deletion budget is $p = n - 2k$ here. Read in arXiv 2308.14116 (the version served on 20 November 2026). Previous: $O^*(1.7485^k)$ by Xiao and Kou (WG 2016, TCS 2020), as cited in Section 1."

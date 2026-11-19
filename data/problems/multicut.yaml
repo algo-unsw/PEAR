@@ -1,0 +1,43 @@
+id: multicut
+name: Multicut
+aliases: [Edge Multicut, Minimum Multicut, Multicut in Graphs]
+category: graph
+complexity:
+  class: NP-complete
+  source:
+    paper: dahlhaus-johnson-papadimitriou-1992
+    attested_by:
+      - "https://arxiv.org/abs/2602.13981"
+      - "https://www.cs.bme.hu/~dmarx/papers/klein-marx-mway-icalp2012.pdf"
+      - "https://collaborate.princeton.edu/en/publications/complexity-of-multiterminal-cuts/"
+    note: "NP-hard already for three terminal pairs (Dahlhaus, Johnson, Papadimitriou, Seymour and Yannakakis, SIAM J. Comput. 1994): Multiway Cut with three terminals, NP-hard by that paper, is the special case whose pairs are the three pairs of terminals. Chu, Liu, Lokshtanov, Peng, Tian and Xiao (arXiv 2602.13981, Section 1) credit the NP-hardness of Edge and Vertex Multicut with three or more pairs to that paper; Klein and Marx (ICALP 2012) and the Princeton research portal attest the three-terminal Multiway Cut result. TODO(verify): Wikipedia's choice of source could not be checked."
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  k: { meaning: "the solution size: the integer $k$ in the input (decision, search), or the minimum size of a multicut (optimisation)" }
+  p: { meaning: "the number of terminal pairs" }
+constraints:
+  - { constraint: "k \\le m", because: "Deleting all edges separates every pair $(s, t)$ with $s \\ne t$, so every instance with $k \\ge m$ is decided in polynomial time." }
+  - { constraint: "p \\le n(n - 1)/2", because: "Repeated pairs (in either order) can be removed, and a pair $(s, s)$ makes the instance a no-instance." }
+  - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
+versions:
+  decision:
+    kind: decision
+    input: "A graph $G = (V, E)$, a set $\\mathcal{T}$ of pairs $(s, t)$ of vertices (terminal pairs), and an integer $k$."
+    question: "Is there a set $S \\subseteq E$ with $|S| \\le k$ such that for every pair $(s, t) \\in \\mathcal{T}$, the vertices $s$ and $t$ are in different connected components of $G - S$?"
+  optimisation:
+    kind: optimisation
+    input: "A graph $G = (V, E)$ and a set $\\mathcal{T}$ of pairs $(s, t)$ of vertices (terminal pairs)."
+    goal: "Find the minimum size of a set $S \\subseteq E$ such that for every pair $(s, t) \\in \\mathcal{T}$, the vertices $s$ and $t$ are in different connected components of $G - S$, or report that none exists."
+  search:
+    kind: search
+    input: "A graph $G = (V, E)$, a set $\\mathcal{T}$ of pairs $(s, t)$ of vertices (terminal pairs), and an integer $k$."
+    goal: "Find a set $S \\subseteq E$ with $|S| \\le k$ such that for every pair $(s, t) \\in \\mathcal{T}$, the vertices $s$ and $t$ are in different connected components of $G - S$, or report that none exists."
+default_version: decision
+shared_bounds:
+  - versions: [decision, optimisation, search]
+    because: "Binary search on $k$ and self-reducibility (delete an edge and test again with $k - 1$)."
+related:
+  - { problem: multiway-cut, relation: special-case }

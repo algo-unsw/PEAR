@@ -1,0 +1,14 @@
+id: set-cover--to--red-blue-dominating-set
+from: { problem: set-cover, version: decision }
+to: { problem: red-blue-dominating-set, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(n + m + n m)"
+parameter_map: { n: "n + m", m: "n m", k: "k", r: "m", b: "n" }
+source:
+  paper: dom-lokshtanov-saurabh-2009
+  statements:
+    journal:
+      statement: Section 4.1
+  note: "The incidence graph: a red vertex per set, a blue vertex per element, an edge when the element is in the set. A subfamily covers $U$ if and only if its red vertices dominate $B$. The paper states that RBDS is equivalent to Set Cover (Section 4.1)."
+status: valid

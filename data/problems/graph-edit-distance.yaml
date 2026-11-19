@@ -1,0 +1,34 @@
+id: graph-edit-distance
+name: Graph Edit Distance
+aliases: [GED, Graph Edit Distance Computation]
+category: graph
+complexity:
+  class: NP-complete
+  source:
+    folklore: true
+    note: "In NP: guess the edit operations; at most $n + m$ are ever needed (delete $G_1$, insert $G_2$). NP-hard by the reduction from Subgraph Isomorphism of Zeng et al. (2009), as stated by Limmer and Kriege (Section 2.2), who also recall Bunke's reduction from Maximum Common Induced Subgraph. TODO(verify): mirror Wikipedia's choice of source; the paper of Zeng et al. (PVLDB 2009) could not be opened."
+    reference: { paper: limmer-kriege-2026, version: arxiv-v1, statement: "Section 2.2" }
+objects:
+  n: number of vertices of $G_1$ plus number of vertices of $G_2$
+  m: number of edges of $G_1$ plus number of edges of $G_2$
+  N: total encoding length of the input
+parameters:
+  k: { meaning: "the number of edit operations: the integer $k$ in the input (decision), or the graph edit distance (optimisation)" }
+constraints:
+  - { constraint: "m \\le n(n - 1)/2", because: "$m \\le n_1(n_1-1)/2 + n_2(n_2-1)/2 \\le n(n-1)/2$, where $n_1 + n_2 = n$ are the numbers of vertices of the two graphs." }
+versions:
+  decision:
+    kind: decision
+    input: "Two graphs $G_1 = (V_1, E_1)$ and $G_2 = (V_2, E_2)$ and an integer $k$."
+    question: "Is there a sequence of at most $k$ edit operations, each deleting an isolated vertex, inserting a vertex, deleting an edge or inserting an edge, that transforms $G_1$ into a graph isomorphic to $G_2$?"
+  optimisation:
+    kind: optimisation
+    input: "Two graphs $G_1 = (V_1, E_1)$ and $G_2 = (V_2, E_2)$."
+    goal: "Find the minimum length of a sequence of edit operations, each deleting an isolated vertex, inserting a vertex, deleting an edge or inserting an edge, that transforms $G_1$ into a graph isomorphic to $G_2$."
+default_version: decision
+shared_bounds:
+  - versions: [decision, optimisation]
+    because: "Binary search on $k$ (the distance is at most $n + m$)."
+related:
+  - { problem: subgraph-isomorphism, relation: variant }
+  - { problem: maximum-common-subgraph, relation: variant }

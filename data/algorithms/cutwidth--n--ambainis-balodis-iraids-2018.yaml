@@ -1,0 +1,22 @@
+id: cutwidth--n--ambainis-balodis-iraids-2018
+problem: cutwidth
+proved_for: optimisation
+bound:
+  as_stated: O^*(1.817^{n})
+  notation: O*
+  parameters: [n]
+properties:
+  randomized: { error: two-sided }
+  space:
+    class: exponential
+    bound: 'Stated: exponential space (Section 1.1): the algorithm stores a partial dynamic programming table over vertex subsets.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: false
+  quantum: true
+source:
+  paper: ambainis-balodis-iraids-2018
+  statements:
+    arxiv:
+      statement: Corollary in Section 3.2 (Vertex Ordering Problems), read in the current arXiv version
+  note: 'Corollary in Section 3.2 (Vertex Ordering Problems): every problem of the form $\min_{\pi} \max_{v} f(G, \pi_{<v}, v)$ or $\min_{\pi} \sum_{v} f(G, \pi_{<v}, v)$ with $f$ computable in polynomial time has a bounded-error quantum algorithm in time $O^*(1.817^n)$; the examples listed after it include Cutwidth. The exponential part is $\gamma^n$ with $\gamma \approx 1.816905$, up to an $n^{O(\log n)}$ factor (Section 3.1). Section 1.1: all the algorithms of the paper need exponential space and are correct with probability at least $2/3$.'

@@ -1,0 +1,41 @@
+id: feedback-arc-set-in-tournaments
+name: Feedback Arc Set in Tournaments
+aliases: [FAST, k-FAST, Tournament Feedback Arc Set, Minimum Feedback Arc Set in Tournaments]
+category: graph
+complexity:
+  class: NP-complete
+  source:
+    paper: charbit-thomasse-yeo-2007
+    attested_by:
+      - "https://dblp.org/rec/journals/cpc/CharbitTY07"
+      - "https://arxiv.org/abs/0907.2165"
+      - "https://doi.org/10.1017/S0963548306007887"
+    note: "The title of the paper states the result (DBLP record and publisher page). Bessy et al. (arXiv:0907.2165v2, Section 1, opened) state that FAST is NP-complete by results of Alon (SIAM J. Discrete Math. 2006) and Charbit et al.; membership in NP is immediate. TODO(verify): Wikipedia's choice of source (Alon 2006, Charbit et al. 2007, or both) could not be checked (page fetches were blocked), and an open copy of Charbit et al. may exist (see the unreachable ledger)."
+objects:
+  n: number of vertices
+  m: number of arcs ($n(n-1)/2$ in a tournament)
+  N: total encoding length of the input
+parameters:
+  k: { meaning: "the solution size: the integer $k$ in the input (decision, search), or the minimum size of a feedback arc set (optimisation)" }
+constraints:
+  - { constraint: "k \\le m", because: "Every instance with $k \\ge m$ is a yes-instance ($S = A$)." }
+  - { constraint: "m \\le n(n - 1)/2", because: "A tournament has exactly $n(n-1)/2$ arcs." }
+versions:
+  decision:
+    kind: decision
+    input: "A tournament $T = (V, A)$ and an integer $k$."
+    question: "Is there a set $S \\subseteq A$ with $|S| \\le k$ such that $T - S$ has no directed cycle?"
+  optimisation:
+    kind: optimisation
+    input: "A tournament $T = (V, A)$."
+    goal: "Find the minimum size of a set $S \\subseteq A$ such that $T - S$ has no directed cycle."
+  search:
+    kind: search
+    input: "A tournament $T = (V, A)$ and an integer $k$."
+    goal: "Find a set $S \\subseteq A$ with $|S| \\le k$ such that $T - S$ has no directed cycle, or report that none exists."
+default_version: decision
+shared_bounds:
+  - versions: [decision, optimisation, search]
+    because: "Binary search on $k$ and self-reducibility."
+related:
+  - { problem: feedback-arc-set, relation: generalisation }

@@ -1,0 +1,22 @@
+id: treedepth--n--fomin-giannopoulou-pilipczuk-2013
+problem: treedepth
+proved_for: optimisation
+bound:
+  as_stated: 'O^*(1.9602^{n})'
+  notation: O*
+  parameters: [n]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Not stated; educated guess: exponential, about $O^*(1.9602^n)$. The pruned dynamic programming stores a value for every set of the family $\mathcal{S}_\varepsilon$ (kept in a trie), and the remaining branches run the naive dynamic programming on subsets.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: fomin-giannopoulou-pilipczuk-2013
+  statements:
+    arxiv-v1: { statement: "Section 3.2 (end)" }
+    journal: { statement: "Section 1 and end of Section 3.2" }
+  note: 'No numbered theorem; the abstract states $O(1.9602^n)$ and the analysis ends with "the whole algorithm runs in $O^*(1.9602^n)$ time". Read in arXiv v1 and in the authors'' copy of the Algorithmica version.'

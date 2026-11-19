@@ -1,0 +1,19 @@
+id: eiben-lokshtanov-mouawad-2019
+title: "Bisection of Bounded Treewidth Graphs by Convolutions"
+authors: [Eduard Eiben, Daniel Lokshtanov, Amer E. Mouawad]
+identifiers: { dblp: journals/jcss/EibenLM21 }
+versions:
+  esa:
+    kind: conference
+    venue: "27th Annual European Symposium on Algorithms (ESA 2019), LIPIcs 144, pp. 42:1–42:11"
+    year: 2019
+    doi: "10.4230/LIPIcs.ESA.2019.42"
+    url: "https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.ESA.2019.42"
+    open_access: true
+  journal:
+    kind: journal
+    venue: "Journal of Computer and System Sciences 119, pp. 125–132"
+    year: 2021
+    doi: "10.1016/j.jcss.2021.02.002"
+    url: "https://scholarworks.aub.edu.lb/server/api/core/bitstreams/a037054c-0065-4472-9c1c-1011318351e8/content"
+    open_access: true

@@ -1,0 +1,18 @@
+id: graph-edit-distance--n--folklore
+problem: graph-edit-distance
+proved_for: optimisation
+bound:
+  as_stated: 2^{O(n \log n)}
+  notation: O
+  parameters: [n]
+properties:
+  randomized: false
+  space: { class: polynomial, bound: "Enumerates the node maps one at a time." }
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  folklore: true
+  note: "Exhaustive search over the at most $(n_2 + 1)^{n_1} \\le n^n$ node maps (partial injective maps from $V_1$ to $V_2$, where $n_1 + n_2 = n$). A node map determines the cheapest edit path that deletes the edges and then the unmapped vertices of $G_1$, inserts the unmapped vertices of $G_2$ and fixes every mapped pair whose adjacency differs; an optimal edit path arises this way (the node map formulation for restricted edit paths, Limmer and Kriege, Section 2.1)."
+  reference: { paper: limmer-kriege-2026, version: arxiv-v1, statement: "Section 2.1" }

@@ -1,0 +1,17 @@
+id: shamir-sharan-tsur-2002
+title: "Cluster Graph Modification Problems"
+authors: [Ron Shamir, Roded Sharan, Dekel Tsur]
+identifiers: { dblp: "journals/dam/ShamirST04" }
+versions:
+  wg:
+    kind: conference
+    venue: "28th International Workshop on Graph-Theoretic Concepts in Computer Science (WG 2002), LNCS 2573, pp. 379–390"
+    year: 2002
+    doi: "10.1007/3-540-36379-3_33"
+    open_access: false
+  journal:
+    kind: journal
+    venue: "Discrete Applied Mathematics 144(1–2), pp. 173–182"
+    year: 2004
+    doi: "10.1016/j.dam.2004.01.007"
+    open_access: false

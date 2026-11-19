@@ -1,0 +1,22 @@
+id: induced-matching--b--koana-2022
+problem: induced-matching
+proved_for: decision
+bound:
+  as_stated: "O^*(49^{b})"
+  notation: O*
+  parameters: [b]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: "Not stated; educated guess: polynomial. A branching algorithm whose rules use the Gallai–Edmonds decomposition (polynomial time); no memoization or dynamic programming was found."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: koana-2022
+  statements:
+    stacs: { statement: "Theorem 1" }
+    arxiv-v1: { statement: "Theorem in Section 1 (label thm:main), proved in Section 3" }
+  note: "Stated as \"IMBA can be solved in $O^\\star(49^k)$ time\" with $k = \\frac{1}{2}(\\mathrm{MM}(G) + \\mathrm{IS}(G)) - \\ell$; here $\\ell$ is written $k$ and the parameter $b$. Not stated as deterministic, but no randomization is described."

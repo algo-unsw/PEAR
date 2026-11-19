@@ -1,0 +1,41 @@
+id: minimum-fill-in
+name: Minimum Fill-In
+aliases: [Chordal Completion, Minimum Chordal Completion]
+category: graph
+complexity:
+  class: NP-complete
+  source:
+    paper: yannakakis-1981
+    attested_by:
+      - "https://en.wikipedia.org/wiki/Chordal_completion"
+      - "https://arxiv.org/pdf/1606.08141"
+      - "https://folk.uib.no/nmiff/articles/2013/2013d.pdf"
+    note: 'As on Wikipedia (Chordal completion: "Yannakakis (1981) showed it to be NP-complete"). Cao and Sandeep (arXiv 1606.08141, Section 1) and Fomin and Villanger (authors'' copy of SIAM J. Comput. 2013, Section 1: "was proved to be NP-complete by Yannakakis") cite the same paper. No open copy of Yannakakis (1981) was found.'
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  k: { meaning: "the solution size: the integer $k$ in the input (decision, search), or the minimum number of edges whose addition makes $G$ chordal (optimisation)" }
+constraints:
+  - { constraint: "k \\le n(n - 1)/2", because: "Every instance with $k \\ge n(n-1)/2 - m$ is a yes-instance (adding all missing edges gives a complete graph, which is chordal), answered in polynomial time." }
+  - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
+versions:
+  decision:
+    kind: decision
+    input: "A graph $G = (V, E)$ and an integer $k$."
+    question: "Is there a set $F$ of unordered pairs of distinct non-adjacent vertices with $|F| \\le k$ such that the graph $(V, E \\cup F)$ is chordal, that is, every cycle of length at least 4 in it has a chord?"
+  optimisation:
+    kind: optimisation
+    input: "A graph $G = (V, E)$."
+    goal: "Find the minimum size of a set $F$ of unordered pairs of distinct non-adjacent vertices such that the graph $(V, E \\cup F)$ is chordal, that is, every cycle of length at least 4 in it has a chord."
+  search:
+    kind: search
+    input: "A graph $G = (V, E)$ and an integer $k$."
+    goal: "Find a set $F$ of unordered pairs of distinct non-adjacent vertices with $|F| \\le k$ such that the graph $(V, E \\cup F)$ is chordal, that is, every cycle of length at least 4 in it has a chord, or report that none exists."
+default_version: decision
+shared_bounds:
+  - versions: [decision, optimisation, search]
+    because: "Binary search on $k$ and self-reducibility."
+related:
+  - { problem: treewidth, relation: variant }

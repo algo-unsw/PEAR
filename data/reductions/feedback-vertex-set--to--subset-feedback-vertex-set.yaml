@@ -1,0 +1,10 @@
+id: feedback-vertex-set--to--subset-feedback-vertex-set
+from: { problem: feedback-vertex-set, version: decision }
+to: { problem: subset-feedback-vertex-set, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(n + m)"
+parameter_map: { n: "n", m: "m", k: "k", tw: "tw" }
+source:
+  folklore: true
+  note: "Special case $T = V$: no cycle of $G - S$ contains a vertex of $V$ if and only if $G - S$ has no cycle."

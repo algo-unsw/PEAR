@@ -1,0 +1,22 @@
+id: k-cut--n-k--he-li-2021
+problem: k-cut
+proved_for: optimisation
+bound:
+  as_stated: "n^{(1 - \\varepsilon)k + O(1)}"
+  notation: O
+  parameters: [n, k]
+properties:
+  randomized: true
+  space:
+    class: exponential
+    bound: "Not stated; educated guess: $n^{O(k)}$. The islands are found by a matrix multiplication-based algorithm similar to Nešetřil and Poljak's $k$-clique algorithm, whose matrices are indexed by tuples of vertices."
+  algebraic: true
+  fast_matrix_multiplication: true
+  constructive: true
+  quantum: false
+uses: [k-cut--n-k--gupta-lee-li-2019, k-cut--s-k--lokshtanov-saurabh-surianarayanan-2020]
+source:
+  paper: he-li-2021
+  statements:
+    arxiv: { statement: "Section 1 (Introduction), first theorem; derived from the theorem labelled thm:main with the $\\lambda_k^{O(k)} n^{O(1)}$ algorithm of Lokshtanov, Saurabh and Surianarayanan" }
+  note: "Simple unweighted graphs: \"There is an absolute constant $\\epsilon > 0$ such that the minimum $k$-cut problem can be solved in $n^{(1-\\epsilon)k+O(1)}$ time.\" Uses the (randomized) algorithm of Gupta, Harris, Lee and Li as a black box. Read in arXiv 2111.03221 (the version served on 20 November 2026; the arXiv tool listed v2)."

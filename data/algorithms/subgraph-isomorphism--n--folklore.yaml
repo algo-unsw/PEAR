@@ -1,0 +1,18 @@
+id: subgraph-isomorphism--n--folklore
+problem: subgraph-isomorphism
+proved_for: decision
+bound:
+  as_stated: 2^{O(n \log n)}
+  notation: O
+  parameters: [n]
+properties:
+  randomized: false
+  space: { class: polynomial, bound: "Enumerates the injective maps one at a time." }
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  folklore: true
+  note: "Exhaustive search over the at most $n^k \\le n^n$ injective maps from $V_H$ to $V$, checking each in polynomial time. Cygan, Pachocki and Socała state that this exhaustive search runs in $2^{O(n \\log n)}$ time, with $n$ the total number of vertices of both graphs (at most $2n$ here)."
+  reference: { paper: cygan-fomin-golovnev-2015, version: arxiv-cps, statement: "Section 1" }

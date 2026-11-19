@@ -1,0 +1,10 @@
+id: galby-lima-paulusma-2019
+title: "On the Parameterized Complexity of k-Edge Colouring"
+authors: [Esther Galby, Paloma T. Lima, Daniël Paulusma, Bernard Ries]
+identifiers: { dblp: "journals/corr/abs-1901-01861" }
+versions:
+  arxiv:
+    kind: preprint
+    year: 2019
+    arxiv: "1901.01861"
+    open_access: true

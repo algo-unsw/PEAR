@@ -1,0 +1,16 @@
+id: hanaka-kobayashi-sone-2020
+title: "A (probably) optimal algorithm for Bisection on bounded-treewidth graphs"
+authors: [Tesshu Hanaka, Yasuaki Kobayashi, Taiga Sone]
+identifiers: { dblp: journals/tcs/HanakaKS21 }
+versions:
+  arxiv:
+    kind: preprint
+    year: 2020
+    arxiv: "2002.12706"
+    open_access: true
+  journal:
+    kind: journal
+    venue: "Theoretical Computer Science 873, pp. 38–46"
+    year: 2021
+    doi: "10.1016/j.tcs.2021.04.023"
+    open_access: false

@@ -1,0 +1,37 @@
+id: cygan-fomin-golovnev-2015
+title: "Tight Lower Bounds on Graph Embedding Problems"
+authors: [Marek Cygan, Fedor V. Fomin, Alexander Golovnev, Alexander S. Kulikov, Ivan Mihajlin, Jakub Pachocki, Arkadiusz Socała]
+identifiers: { dblp: "journals/jacm/CyganFGKMPS17", openalex: null }
+versions:
+  arxiv-cps:
+    kind: preprint
+    title: "The Hardness of Subgraph Isomorphism"
+    authors: [Marek Cygan, Jakub Pachocki, Arkadiusz Socała]
+    year: 2015
+    arxiv: "1504.02876"
+    open_access: true
+  arxiv-fgkm:
+    kind: preprint
+    title: "Tight Bounds for Subgraph Isomorphism and Graph Homomorphism"
+    authors: [Fedor V. Fomin, Alexander Golovnev, Alexander S. Kulikov, Ivan Mihajlin]
+    year: 2015
+    arxiv: "1507.03738"
+    open_access: true
+  soda:
+    kind: conference
+    title: "Tight Bounds for Graph Homomorphism and Subgraph Isomorphism"
+    venue: "Proceedings of the 27th Annual ACM-SIAM Symposium on Discrete Algorithms (SODA 2016), pp. 1643–1649"
+    year: 2016
+    doi: "10.1137/1.9781611974331.ch112"
+    open_access: false
+  arxiv:
+    kind: preprint
+    year: 2016
+    arxiv: "1602.05016"
+    open_access: true
+  journal:
+    kind: journal
+    venue: "Journal of the ACM 64(3), article 18"
+    year: 2017
+    doi: "10.1145/3051094"
+    open_access: false

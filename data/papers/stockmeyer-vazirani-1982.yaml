@@ -1,0 +1,11 @@
+id: stockmeyer-vazirani-1982
+title: "NP-Completeness of Some Generalizations of the Maximum Matching Problem"
+authors: [Larry J. Stockmeyer, Vijay V. Vazirani]
+identifiers: { dblp: "journals/ipl/StockmeyerV82" }
+versions:
+  journal:
+    kind: journal
+    venue: "Information Processing Letters 15(1), pp. 14–19"
+    year: 1982
+    doi: "10.1016/0020-0190(82)90077-1"
+    open_access: false

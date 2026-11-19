@@ -1,0 +1,22 @@
+id: minimum-linear-arrangement--p--gutin-rafiey-szeider-2005
+problem: minimum-linear-arrangement
+proved_for: decision
+bound:
+  as_stated: O(n + m + 5.88^{p})
+  notation: O
+  parameters: [n, m, p]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Not stated; educated guess: $O^*(5.88^p)$. After a linear-time kernel (Corollary 2.12), the algorithm generates and stores the sets of linear arrangements of net cost at most $p$ of subtrees of a spanning tree (Section 3), each of size at most about $5.88^p$.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: gutin-rafiey-szeider-2005
+  statements:
+    arxiv-v3:
+      statement: Theorem 3.7
+  note: 'Theorem 3.7: one can check whether $\mathrm{ola}^+(G) \le k$, and compute $\mathrm{ola}^+(G)$ if so, in time $O(|V| + |E| + 5.88^k)$, where $\mathrm{ola}^+(G)$ is the minimum cost minus $|E|$; the paper''s $k$ is $p = k - m$ here. The abstract says the algorithm computes such an arrangement if it exists. A corrigendum appeared in Theory of Computing Systems 53(4), 2013; it was not read (TODO(verify) whether it affects Theorem 3.7).'

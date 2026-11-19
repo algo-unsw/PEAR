@@ -1,0 +1,16 @@
+id: gomes-lima-dos-santos-2018
+title: "Parameterized Complexity of Equitable Coloring"
+authors: [Guilherme de C. M. Gomes, Carlos V. G. C. Lima, Vinícius F. dos Santos]
+identifiers: { dblp: "journals/dmtcs/GomesLS19" }
+versions:
+  arxiv:
+    kind: preprint
+    year: 2018
+    arxiv: "1810.13036"
+    open_access: true
+  journal:
+    kind: journal
+    venue: "Discrete Mathematics & Theoretical Computer Science 21(1)"
+    year: 2019
+    doi: "10.23638/DMTCS-21-1-8"
+    open_access: true

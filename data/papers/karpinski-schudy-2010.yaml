@@ -1,0 +1,16 @@
+id: karpinski-schudy-2010
+title: "Faster Algorithms for Feedback Arc Set Tournament, Kemeny Rank Aggregation and Betweenness Tournament"
+authors: [Marek Karpinski, Warren Schudy]
+identifiers: { dblp: conf/isaac/KarpinskiS10, openalex: null }
+versions:
+  arxiv-v1:
+    kind: preprint
+    year: 2010
+    arxiv: "1006.4396v1"
+    open_access: true
+  isaac:
+    kind: conference
+    venue: "Algorithms and Computation, 21st International Symposium (ISAAC 2010), Part I, LNCS 6506, pp. 3–14"
+    year: 2010
+    doi: "10.1007/978-3-642-17517-6_3"
+    open_access: false

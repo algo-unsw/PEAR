@@ -1,0 +1,10 @@
+id: yannakakis-1981
+title: "Computing the Minimum Fill-In is NP-Complete"
+authors: [Mihalis Yannakakis]
+versions:
+  journal:
+    kind: journal
+    venue: "SIAM Journal on Algebraic and Discrete Methods 2(1), pp. 77–79"
+    year: 1981
+    doi: "10.1137/0602010"
+    open_access: false

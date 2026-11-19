@@ -1,0 +1,23 @@
+id: cluster-deletion--cvd--garvardt-morawietz-nichterlein-2023
+problem: cluster-deletion
+proved_for: decision
+bound:
+  as_stated: "cvd^{cvd} \\cdot n^{O(1)}"
+  notation: O
+  parameters: [cvd, n]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: "Not stated; educated guess: exponential. Dynamic programming with tables indexed by subsets of the clusters of $G[M]$ (Lemma 3.4, Claim 3.5: $3^{|C_M|}$ entries per bag), $M$ a minimum cluster modulator."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: garvardt-morawietz-nichterlein-2023
+  statements:
+    ipec: { statement: "Theorem 3.6" }
+  note: "Stated as \"Cluster Deletion can be solved in $cvd^{cvd} \\cdot n^{O(1)}$ time\" (also in the abstract, as an intermediate result). The proof computes a minimum cluster modulator with Tsur's $1.811^{cvd} n^{O(1)}$ algorithm, so none needs to be given. Read through a text extraction of the LIPIcs PDF (superscripts lost; the abstract on the LIPIcs page gives the superscripts)."
+formal: { status: informal }
+status: valid

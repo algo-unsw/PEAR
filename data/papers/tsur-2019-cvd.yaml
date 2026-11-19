@@ -1,0 +1,16 @@
+id: tsur-2019-cvd
+title: "Faster Parameterized Algorithm for Cluster Vertex Deletion"
+authors: [Dekel Tsur]
+identifiers: { dblp: "journals/mst/Tsur21" }
+versions:
+  arxiv-v1:
+    kind: preprint
+    arxiv: "1901.07609v1"
+    year: 2019
+    open_access: true
+  journal:
+    kind: journal
+    venue: "Theory of Computing Systems 65(2), pp. 323–343"
+    year: 2021
+    doi: "10.1007/s00224-020-10005-w"
+    open_access: false

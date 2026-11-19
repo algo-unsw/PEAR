@@ -1,0 +1,22 @@
+id: minimum-bisection--tw--jansen-karpinski-lingas-2000
+problem: minimum-bisection
+proved_for: optimisation
+bound:
+  as_stated: 'O(2^{tw} n^{3})'
+  notation: O
+  parameters: [tw, n]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Not stated; educated guess: exponential in $tw$. Dynamic programming over a tree decomposition with a value for every subset of a bag and every part size up to $n$.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+given: [tree-decomposition]
+source:
+  paper: jansen-karpinski-lingas-2000
+  statements:
+    techreport: { statement: "Theorem 2.2" }
+  note: 'Stated as: all minimum $(l, n - l)$-partitions of a graph given with a tree decomposition of width $k$ can be computed in time $O(2^k n^3)$ (Theorem 2.1 with min for max); bisection is the case $l = \lfloor n/2 \rfloor$, and $k$ is written $tw$ here. Unweighted graphs. Read in the Bonn technical report (85219-CS); STACS 2001; SIAM J. Comput. 2005.'

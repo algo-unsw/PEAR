@@ -1,0 +1,19 @@
+id: steiner-tree--to--directed-steiner-tree
+from: { problem: steiner-tree, version: decision }
+to: { problem: directed-steiner-tree, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(n + m)"
+parameter_map: { n: "n", m: "2m", t: "t", k: "k" }
+variants:
+  - id: weighted
+    note: "Weighted versions: both arcs of an edge get the edge's weight."
+    from: { problem: steiner-tree, version: weighted }
+    to: { problem: directed-steiner-tree, version: weighted }
+    parameter_map: { n: "n", m: "2m", t: "t" }
+    source:
+      folklore: true
+      note: "Orienting a Steiner tree away from the root gives an out-tree of the same weight, and the underlying graph of an out-tree is a tree."
+source:
+  folklore: true
+  note: "Replace every edge by two opposite arcs, choose a terminal $t_1$ as the root and keep $T \\setminus \\{t_1\\}$ as terminals (an instance with $T = \\emptyset$ is a yes-instance): a tree with at most $k$ edges containing $T$ becomes an out-tree rooted at $t_1$ by orienting it away from $t_1$, and conversely."

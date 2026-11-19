@@ -1,0 +1,10 @@
+id: directed-feedback-vertex-set--to--feedback-arc-set
+from: { problem: directed-feedback-vertex-set, version: decision }
+to: { problem: feedback-arc-set, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(n + m)"
+parameter_map: { n: "2n", m: "n + m", k: "k", tw: "2tw + 1" }
+source:
+  folklore: true
+  note: "Split every vertex $v$ into $v^-$ and $v^+$ joined by the arc $v^-v^+$, and replace every arc $uv$ by $u^+v^-$. A set $S$ of vertices meets every directed cycle of $D$ if and only if $\\{v^-v^+ : v \\in S\\}$ meets every directed cycle of the new digraph; conversely, an arc $u^+v^-$ in a feedback arc set can be replaced by $v^-v^+$, the only arc leaving $v^-$. Putting both copies of every vertex of a bag in the bag gives a tree decomposition of width at most $2tw + 1$. Bonamy et al. (arXiv:1707.01470, current version v2, Section 1, footnote 1) call DFVS and DFAS well known to be reducible to each other and cite Proposition 8.42 and Exercise 8.16 of Cygan et al., Parameterized Algorithms (not opened here)."

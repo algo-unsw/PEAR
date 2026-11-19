@@ -1,0 +1,44 @@
+id: cluster-deletion
+name: Cluster Deletion
+aliases: []
+category: graph
+complexity:
+  class: NP-complete
+  source:
+    paper: shamir-sharan-tsur-2002
+    attested_by:
+      - "https://www-2.dc.uba.ar/staff/fbonomo/docs/papers/TCS600_59-69.pdf"
+      - "https://drops.dagstuhl.de/storage/00lipics/lipics-vol322-isaac2024/LIPIcs.ISAAC.2024.32/LIPIcs.ISAAC.2024.32.pdf"
+      - "https://arxiv.org/abs/1904.09470"
+    note: "Bonomo, Durán and Valencia-Pabon (Theoretical Computer Science 600, 2015, Section 1): \"The cluster deletion problem is known to be NP-complete [22] for general graphs\", [22] being Shamir, Sharan and Tsur (Discrete Applied Mathematics 2004); Garvardt, Komusiewicz and Morawietz (ISAAC 2024, Section 1) cite the same paper; Konstantinidis and Papadopoulos (arXiv 1904.09470, Section 1) state NP-hardness on general graphs. Wikipedia (Cluster graph) does not mention this problem. TODO(verify): no open copy of Shamir–Sharan–Tsur was found."
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  k: { meaning: "the solution size: the integer $k$ in the input (decision, search), or the minimum number of edges whose deletion leaves a cluster graph (optimisation)" }
+  cvd: { meaning: "the cluster vertex deletion number of $G$: the minimum size of a set $M \\subseteq V$ such that $G - M$ is a cluster graph" }
+constraints:
+  - { constraint: "k \\le m", because: "Every instance with $k \\ge m$ is a yes-instance: deleting all edges leaves a cluster graph (singleton cliques), answered in polynomial time." }
+  - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
+  - { constraint: "cvd \\le n", because: "Deleting all vertices leaves the empty graph, which is a cluster graph." }
+versions:
+  decision:
+    kind: decision
+    input: "A graph $G = (V, E)$ and an integer $k$."
+    question: "Is there a set $S \\subseteq E$ with $|S| \\le k$ such that $G - S$ is a cluster graph, that is, a disjoint union of cliques?"
+  optimisation:
+    kind: optimisation
+    input: "A graph $G = (V, E)$."
+    goal: "Find the minimum size of a set $S \\subseteq E$ such that $G - S$ is a cluster graph, that is, a disjoint union of cliques."
+  search:
+    kind: search
+    input: "A graph $G = (V, E)$ and an integer $k$."
+    goal: "Find a set $S \\subseteq E$ with $|S| \\le k$ such that $G - S$ is a cluster graph, that is, a disjoint union of cliques, or report that none exists."
+default_version: decision
+shared_bounds:
+  - versions: [decision, optimisation, search]
+    because: "Binary search on $k$ and self-reducibility."
+related:
+  - { problem: cluster-editing, relation: variant }
+  - { problem: cluster-vertex-deletion, relation: variant }

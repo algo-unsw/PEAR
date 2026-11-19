@@ -1,0 +1,16 @@
+id: jacob-et-al-2021
+title: "Close relatives (of Feedback Vertex Set), revisited"
+authors: [Hugo Jacob, Thomas Bellitto, Oscar Defrain, Marcin Pilipczuk]
+identifiers: { dblp: conf/iwpec/JacobBDP21, openalex: null }
+versions:
+  arxiv-v1:
+    kind: preprint
+    year: 2021
+    arxiv: "2106.16015v1"
+    open_access: true
+  ipec:
+    kind: conference
+    venue: "16th International Symposium on Parameterized and Exact Computation (IPEC 2021), LIPIcs 214, 21:1–21:15"
+    year: 2021
+    doi: "10.4230/LIPIcs.IPEC.2021.21"
+    open_access: true

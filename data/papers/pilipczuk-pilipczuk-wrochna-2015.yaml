@@ -1,0 +1,28 @@
+id: pilipczuk-pilipczuk-wrochna-2015
+title: "Edge Bipartization Faster than $2^k$"
+authors: [Marcin Pilipczuk, Michał Pilipczuk, Marcin Wrochna]
+identifiers: { dblp: "conf/iwpec/PilipczukPW16" }
+versions:
+  arxiv-v1:
+    kind: preprint
+    arxiv: "1507.02168v1"
+    year: 2015
+    open_access: true
+  arxiv-v3:
+    kind: preprint
+    arxiv: "1507.02168v3"
+    year: 2017
+    open_access: true
+  ipec:
+    kind: conference
+    venue: "11th International Symposium on Parameterized and Exact Computation (IPEC 2016), LIPIcs 63, pp. 26:1–26:13"
+    year: 2016
+    doi: "10.4230/LIPIcs.IPEC.2016.26"
+    url: "https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.IPEC.2016.26"
+    open_access: true
+  journal:
+    kind: journal
+    venue: "Algorithmica 81(3), pp. 917–966"
+    year: 2019
+    doi: "10.1007/s00453-017-0319-z"
+    open_access: false

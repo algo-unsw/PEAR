@@ -1,0 +1,24 @@
+id: steiner-forest--vc--feldmann-lampis-2024
+problem: steiner-forest
+proved_for: weighted
+bound:
+  as_stated: '2^{O(vc \log vc)} n^{O(1)}'
+  notation: O
+  parameters:
+  - vc
+  - n
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Not stated; educated guess: exponential. The algorithm builds a tree decomposition of width $O(vc)$ with one partition of the active terminals per bag and runs the dynamic program of Bateni, Hajiaghayi and Marx over it (Theorem 5 of the arXiv version), whose tables over the bags are exponential in the width.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: feldmann-lampis-2024
+  statements:
+    icalp:
+      statement: Theorem 4
+  note: 'Positive real edge weights; $k$ is the size of a vertex cover. No $2^{o(vc \log vc)} n^{O(1)}$ algorithm under ETH (same theorem). Bodlaender et al. independently gave a $2^{O(k \log k)} n^{O(1)}$ algorithm (cited in Section 1).'

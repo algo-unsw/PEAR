@@ -1,0 +1,16 @@
+id: iwata-yamaguchi-yoshida-2017
+title: "0/1/all CSPs, Half-Integral A-path Packing, and Linear-Time FPT Algorithms"
+authors: [Yoichi Iwata, Yutaro Yamaguchi, Yuichi Yoshida]
+identifiers: { dblp: conf/focs/IwataYY18, openalex: null }
+versions:
+  arxiv:
+    kind: preprint
+    year: 2017
+    arxiv: "1704.02700"
+    open_access: true
+  focs:
+    kind: conference
+    venue: "59th IEEE Symposium on Foundations of Computer Science (FOCS 2018), pp. 462–473"
+    year: 2018
+    doi: "10.1109/FOCS.2018.00051"
+    open_access: false

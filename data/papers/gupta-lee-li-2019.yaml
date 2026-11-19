@@ -1,0 +1,31 @@
+id: gupta-lee-li-2019
+title: "Optimal Bounds for the $k$-cut Problem"
+authors: [Anupam Gupta, David G. Harris, Euiwoong Lee, Jason Li]
+identifiers: { dblp: "journals/jacm/GuptaHLL22" }
+versions:
+  arxiv-preliminary:
+    kind: preprint
+    title: "The Karger-Stein Algorithm is Optimal for $k$-cut"
+    authors: [Anupam Gupta, Euiwoong Lee, Jason Li]
+    year: 2019
+    arxiv: "1911.09165"
+    open_access: true
+  stoc:
+    kind: conference
+    title: "The Karger-Stein Algorithm is Optimal for $k$-cut"
+    authors: [Anupam Gupta, Euiwoong Lee, Jason Li]
+    venue: "52nd Annual ACM SIGACT Symposium on Theory of Computing (STOC 2020), pp. 473–484"
+    year: 2020
+    doi: "10.1145/3357713.3384285"
+    open_access: false
+  arxiv:
+    kind: preprint
+    year: 2020
+    arxiv: "2005.08301"
+    open_access: true
+  journal:
+    kind: journal
+    venue: "Journal of the ACM 69(1), Article 2"
+    year: 2022
+    doi: "10.1145/3478018"
+    open_access: false

@@ -1,0 +1,17 @@
+id: cygan-komosa-lokshtanov-2018
+title: "Randomized Contractions Meet Lean Decompositions"
+authors: [Marek Cygan, Paweł Komosa, Daniel Lokshtanov, Marcin Pilipczuk, Michał Pilipczuk, Saket Saurabh, Magnus Wahlström]
+identifiers: { dblp: journals/talg/CyganKLPPSW21 }
+versions:
+  arxiv:
+    kind: preprint
+    authors: [Marek Cygan, Paweł Komosa, Daniel Lokshtanov, Michał Pilipczuk, Marcin Pilipczuk, Saket Saurabh]
+    year: 2018
+    arxiv: "1810.06864"
+    open_access: true
+  journal:
+    kind: journal
+    venue: "ACM Transactions on Algorithms 17(1), Article 6, pp. 6:1–6:30"
+    year: 2021
+    doi: "10.1145/3426738"
+    open_access: false

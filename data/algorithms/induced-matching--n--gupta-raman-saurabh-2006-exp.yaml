@@ -1,0 +1,21 @@
+id: induced-matching--n--gupta-raman-saurabh-2006-exp
+problem: induced-matching
+proved_for: optimisation
+bound:
+  as_stated: "O(1.4786^{n})"
+  notation: O
+  parameters: [n]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: "Stated: space exponential in $n$ (Theorem 7(b)); the space bound itself is not given in the statement."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: gupta-raman-saurabh-2006
+  statements:
+    fsttcs: { statement: "Theorem 7(b)" }
+  note: "Maximum induced matching in $O(1.4786^n)$ time and exponential space. Read in the authors' copy of the FSTTCS 2006 paper."

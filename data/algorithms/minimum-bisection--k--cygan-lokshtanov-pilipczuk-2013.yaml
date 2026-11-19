@@ -1,0 +1,21 @@
+id: minimum-bisection--k--cygan-lokshtanov-pilipczuk-2013
+problem: minimum-bisection
+proved_for: decision
+bound:
+  as_stated: 'O(2^{O(k^{3})} n^{3} \log^{3} n)'
+  notation: O
+  parameters: [k, n]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Not stated; educated guess: exponential in $k$. Dynamic programming over the decomposition of Theorem thm:main_dec with $O(2^{O(k^2)} n^2)$ table entries (Section 4.2); no table exponential in $n$.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: cygan-lokshtanov-pilipczuk-2013
+  statements:
+    arxiv: { statement: "First theorem of Section 1 (LaTeX label thm:bisectionFPT); running time analysed in Section 4.3" }
+  note: 'Colour coding derandomized with splitters and perfect families (Section 4.1); the knapsack step uses the Fast Fourier Transform only to save a polynomial factor. Stated for unweighted graphs; Section 5 treats a weighted extension. Read in the current arXiv version of 1311.2563 (20 November 2026); TODO(verify) the printed theorem number. STOC 2014; SIAM J. Comput. 2019.'

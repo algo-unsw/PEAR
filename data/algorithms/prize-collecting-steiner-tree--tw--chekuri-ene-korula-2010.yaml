@@ -1,0 +1,26 @@
+id: prize-collecting-steiner-tree--tw--chekuri-ene-korula-2010
+problem: prize-collecting-steiner-tree
+proved_for: optimisation
+bound:
+  as_stated: 'O(f(tw) n)'
+  notation: O
+  parameters:
+  - tw
+  - n
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Not stated; educated guess: exponential. Dynamic programming over a nice tree decomposition with a table entry for each node, subgraph of the bag and partition of its vertices.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+given:
+- tree-decomposition
+source:
+  paper: chekuri-ene-korula-2010
+  statements:
+    arxiv:
+      statement: 'Theorem 1.2, running time from its proof in Section 4'
+  note: 'Theorem 1.2: for every fixed $k$, PCST is solvable exactly in polynomial time on graphs of treewidth at most $k$. Its proof gives $O(b_k^3 \cdot s_k \cdot |V|)$ time for a tree decomposition of width $k - 1$, where $b_k$ is the $k$-th Bell number and $s_k$ the number of subgraphs of a $k$-vertex graph; written $f(tw)$ here since the bound language has no Bell numbers (TODO(verify)). Real costs and penalties.'

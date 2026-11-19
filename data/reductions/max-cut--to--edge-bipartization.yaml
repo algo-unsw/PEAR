@@ -1,0 +1,11 @@
+id: max-cut--to--edge-bipartization
+from: { problem: max-cut, version: decision }
+to: { problem: edge-bipartization, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(n + m)"
+parameter_map: { n: "n", m: "m", k: "m - k", tw: "tw" }
+source:
+  folklore: true
+  note: "Same graph, $k \\mapsto m - k$. A cut $(A, V \\setminus A)$ with at least $k$ edges leaves at most $m - k$ edges inside $A$ or inside $V \\setminus A$; deleting them makes the graph bipartite. Conversely, if deleting at most $m - k$ edges makes $G$ bipartite, a bipartition of the remaining graph is a cut with at least $k$ edges."
+status: valid

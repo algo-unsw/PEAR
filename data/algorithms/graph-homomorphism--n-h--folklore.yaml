@@ -1,0 +1,18 @@
+id: graph-homomorphism--n-h--folklore
+problem: graph-homomorphism
+proved_for: decision
+bound:
+  as_stated: O^*(h^{n})
+  notation: O*
+  parameters: [h, n]
+properties:
+  randomized: false
+  space: { class: polynomial, bound: "Enumerates the maps one at a time." }
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  folklore: true
+  note: "Exhaustive search over all $h^n$ maps from $V$ to $V_H$, checking each in polynomial time. Fomin, Golovnev, Kulikov and Mihajlin state the running time of this brute-force algorithm as $O(h^n) = 2^{O(n \\log h)}$."
+  reference: { paper: cygan-fomin-golovnev-2015, version: arxiv-fgkm, statement: "Section 1" }

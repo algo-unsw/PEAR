@@ -1,0 +1,21 @@
+id: multicut--k--marx-razgon-2010
+problem: multicut
+proved_for: search
+bound:
+  as_stated: 'O^*(2^{O(k^{3})})'
+  notation: O*
+  parameters: [k]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Not stated; educated guess: exponential in $k$, polynomial in $n$. Iterative compression, shadow removal that lists all important separators of size at most $k$ (at most $4^k$ per vertex, Lemma lem:impsep) and $2^{O(k^3)} \log^2 n$ derandomized candidate sets, then branching and Almost 2SAT.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: marx-razgon-2010
+  statements:
+    arxiv: { statement: "Theorem th:main (Section 1); abstract: $2^{O(k^3)} \\cdot n^{O(1)}$" }
+  note: 'Stated for both Edge Multicut and Vertex Multicut: "one can find in time $O^*(2^{O(k^3)})$ a solution of size $k$, if such a solution exists". The random sampling of important separators is derandomized with splitters (Section 3, Derandomization). Bousquet, Daligault and Thomassé (STOC 2011; SIAM J. Comput. 2018) proved fixed-parameter tractability independently. Read in the current arXiv version of 1010.3633 (20 November 2026); TODO(verify) the printed theorem number. STOC 2011; SIAM J. Comput. 2014.'

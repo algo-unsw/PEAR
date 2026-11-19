@@ -137,7 +137,10 @@ class VersionRef(Model):
 
 # --- problem -----------------------------------------------------------------
 
-Category = Literal["graph", "satisfiability", "sets", "numbers"]
+# graph, satisfiability, sets and numbers are agreed; the others are proposed (catalogue
+# expansion, 20 November 2026) and need Serge's approval
+Category = Literal["graph", "satisfiability", "sets", "numbers", "scheduling", "strings", "geometry",
+                   "social-choice", "games", "other"]
 VersionKind = Literal["decision", "optimisation", "search", "counting", "enumeration"]
 Relation = Literal[
     "complement",

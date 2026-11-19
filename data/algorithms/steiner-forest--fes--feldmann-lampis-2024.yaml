@@ -1,0 +1,24 @@
+id: steiner-forest--fes--feldmann-lampis-2024
+problem: steiner-forest
+proved_for: weighted
+bound:
+  as_stated: '2^{O(fes)} n^{O(1)}'
+  notation: O
+  parameters:
+  - fes
+  - n
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Not stated; educated guess: polynomial. The algorithm tries the $2^{5k}$ guesses of fully used topological edges one at a time and applies polynomial-time reduction rules and Min Cut computations (section Feedback Edge Set of the arXiv version); no dynamic programming, memoization or exponential tables found.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: feldmann-lampis-2024
+  statements:
+    icalp:
+      statement: Theorem 3
+  note: 'Positive real edge weights; $k$ is the size of a feedback edge set. No $2^{o(fes)} n^{O(1)}$ algorithm under ETH (same theorem). The proof decides whether a solution of cost at most a budget $b$ exists.'

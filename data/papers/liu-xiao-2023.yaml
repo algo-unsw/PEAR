@@ -1,0 +1,16 @@
+id: liu-xiao-2023
+title: "An Improved Kernel and Parameterized Algorithm for Almost Induced Matching"
+authors: [Yuxi Liu, Mingyu Xiao]
+identifiers: { dblp: "conf/tamc/LiuX24" }
+versions:
+  arxiv:
+    kind: preprint
+    year: 2023
+    arxiv: "2308.14116"
+    open_access: true
+  tamc:
+    kind: conference
+    venue: "18th Annual Conference on Theory and Applications of Models of Computation (TAMC 2024), LNCS 14637, pp. 86–98"
+    year: 2024
+    doi: "10.1007/978-981-97-2340-9_8"
+    open_access: false

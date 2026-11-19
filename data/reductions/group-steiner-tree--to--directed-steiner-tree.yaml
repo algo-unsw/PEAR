@@ -1,0 +1,13 @@
+id: group-steiner-tree--to--directed-steiner-tree
+from: { problem: group-steiner-tree, version: decision }
+to: { problem: directed-steiner-tree, version: decision }
+type: polytime-deterministic
+calls: "n"
+time: "O(n + m + g n)"
+parameter_map: { n: "n + g", m: "2m + g n", t: "g", k: "k + g" }
+source:
+  paper: misra-philip-raman-saurabh-sikdar-2009
+  statements:
+    arxiv-v1:
+      statement: Lemma 1
+  note: 'Replace every edge by two opposite arcs, add a new vertex $s_i$ for every group with an arc $x s_i$ for each $x \in S_i$, and ask for an out-tree rooted at some $r \in V$ containing all $s_i$; one call per choice of the root. The paper counts vertices ($p$ becomes $p + l$); here arcs ($k$ becomes $k + g$). Stated for vertex-disjoint groups; the construction does not use disjointness. Lemma 1 in the authors'' manuscript copy, where it is called a reduction.'

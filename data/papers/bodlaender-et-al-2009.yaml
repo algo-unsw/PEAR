@@ -1,0 +1,17 @@
+id: bodlaender-et-al-2009
+title: "A Note on Exact Algorithms for Vertex Ordering Problems on Graphs"
+authors: [Hans L. Bodlaender, Fedor V. Fomin, Arie M. C. A. Koster, Dieter Kratsch, Dimitrios M. Thilikos]
+identifiers: { dblp: journals/mst/BodlaenderFKKT12, openalex: null }
+versions:
+  techreport:
+    kind: technical-report
+    venue: "Technical Report UU-CS-2009-023, Department of Information and Computing Sciences, Utrecht University (November 2009)"
+    year: 2009
+    url: "https://ics-archive.science.uu.nl/research/techreps/repo/CS-2009/2009-023.pdf"
+    open_access: true
+  journal:
+    kind: journal
+    venue: "Theory of Computing Systems 50(3), pp. 420–432"
+    year: 2012
+    doi: "10.1007/s00224-011-9312-0"
+    open_access: false

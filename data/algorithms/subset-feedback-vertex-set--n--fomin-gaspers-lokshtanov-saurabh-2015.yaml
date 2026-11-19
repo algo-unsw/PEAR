@@ -1,0 +1,22 @@
+id: subset-feedback-vertex-set--n--fomin-gaspers-lokshtanov-saurabh-2015
+problem: subset-feedback-vertex-set
+proved_for: decision
+bound:
+  as_stated: '1.75^{n + o(n)} n^{O(1)}'
+  notation: O
+  parameters: [n]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'An additional $2^{o(n)}$ space for the derandomization (Conclusion of arXiv v1, as recorded in data/techniques/monotone-local-search.yaml).'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: false
+  quantum: false
+source:
+  paper: fomin-gaspers-lokshtanov-saurabh-2015
+  statements:
+    arxiv-v1:
+      statement: 'Table 1 (Theorem 2 with the $4^k$ algorithm cited there as Wahlström 2014)'
+  note: 'Table 1 lists $1.7500^n$ (polynomial factors suppressed), previously $1.8638^n$ (Fomin, Heggernes, Kratsch, Papadopoulos, Villanger). Theorem 2 gives $(2 - 1/c)^{n + o(n)} N^{O(1)}$ deterministically; with $c = 4$ this is the stored bound. Only the first row of Table 1 is marked randomized. STOC 2016; J. ACM 2019.'

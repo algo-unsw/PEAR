@@ -1,0 +1,44 @@
+id: edge-coloring
+name: Edge Coloring
+aliases: [Edge Colouring, Chromatic Index, Edge Chromatic Number]
+category: graph
+complexity:
+  class: NP-complete
+  source:
+    paper: holyer-1981
+    attested_by:
+      - "https://en.wikipedia.org/wiki/Edge_coloring"
+      - "https://mathworld.wolfram.com/EdgeColoringProblem.html"
+      - "https://www.lirmm.fr/~bessy/GraphesStructM1/DM3/Papers/LevenGalil.pdf"
+      - "https://arxiv.org/abs/2501.05570"
+    note: "Holyer (1981) proved that it is NP-complete to decide whether a cubic graph has chromatic index 3 (MathWorld; Leven and Galil, 1983); Wikipedia cites Holyer for the NP-completeness of deciding whether a graph is of class 1."
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  k: { meaning: "the number of colours: the integer $k$ in the input (decision, search), or the chromatic index $\\chi'(G)$ (optimisation)" }
+  p: { meaning: "the number of vertices of maximum degree $\\Delta$" }
+constraints:
+  - { constraint: "p \\le n", because: "$p$ counts vertices." }
+  - { constraint: "k \\le m", because: "Every instance with $k \\ge m$ is a yes-instance (one colour per edge)." }
+  - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
+versions:
+  decision:
+    kind: decision
+    input: "A graph $G = (V, E)$ and an integer $k$."
+    question: "Is there a map $c \\colon E \\to \\{1, \\dots, k\\}$ such that $c(e) \\ne c(f)$ for any two distinct edges $e$ and $f$ with a common endpoint?"
+  optimisation:
+    kind: optimisation
+    input: "A graph $G = (V, E)$."
+    goal: "Find the chromatic index $\\chi'(G)$: the minimum $k$ such that there is a map $c \\colon E \\to \\{1, \\dots, k\\}$ with $c(e) \\ne c(f)$ for any two distinct edges $e$ and $f$ with a common endpoint."
+  search:
+    kind: search
+    input: "A graph $G = (V, E)$ and an integer $k$."
+    goal: "Find a map $c \\colon E \\to \\{1, \\dots, k\\}$ such that $c(e) \\ne c(f)$ for any two distinct edges $e$ and $f$ with a common endpoint, or report that none exists."
+default_version: optimisation
+shared_bounds:
+  - versions: [decision, optimisation]
+    because: "By Vizing's theorem, $\\Delta \\le \\chi'(G) \\le \\Delta + 1$ for the maximum degree $\\Delta$, so one decision call with $k = \\Delta$ gives the optimum, and the optimum answers every decision instance."
+related:
+  - { problem: chromatic-number, relation: variant }

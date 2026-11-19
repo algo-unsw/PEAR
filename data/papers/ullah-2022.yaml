@@ -1,0 +1,10 @@
+id: ullah-2022
+title: "Computing Clique Cover with Structural Parameterization"
+authors: [Ahammed Ullah]
+identifiers: { dblp: "journals/corr/abs-2208-12438" }
+versions:
+  arxiv:
+    kind: preprint
+    year: 2022
+    arxiv: "2208.12438"
+    open_access: true

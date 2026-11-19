@@ -1,0 +1,19 @@
+id: graph-homomorphism--tw-h--folklore
+problem: graph-homomorphism
+proved_for: decision
+bound:
+  as_stated: h^{tw} n^{O(1)}
+  notation: O
+  parameters: [h, tw, n]
+properties:
+  randomized: false
+  space: { class: exponential, bound: "Dynamic programming over the tree decomposition: a table of up to $h^{tw + 1}$ partial maps per bag." }
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+given: [tree-decomposition]
+source:
+  folklore: true
+  note: "Dynamic programming over a tree decomposition of $G$ of width $tw$: for each bag, the maps of its vertices to $V_H$ that extend to a homomorphism of the subgraph below it. Okrasa and Rzążewski state this bound, $|V(H)|^{\\mathrm{tw}(G)} \\cdot n^{\\mathcal{O}(1)}$ \"using a straightforward dynamic programming\", for a tree decomposition given with the input."
+  reference: { paper: okrasa-rzazewski-2019, version: arxiv, statement: "Abstract" }

@@ -1,0 +1,48 @@
+id: k-cut
+name: Minimum k-Cut
+aliases: [k-Cut, Min k-Cut, Minimum k-Way Cut, k-Way Cut, p-Way Cut]
+category: graph
+complexity:
+  class: NP-complete
+  source:
+    paper: garey-johnson-1979
+    attested_by:
+      - "https://en.wikipedia.org/wiki/Minimum_k-cut"
+      - "https://arxiv.org/abs/2005.00134"
+      - "https://drops.dagstuhl.de/opus/volltexte/2023/18142/pdf/LIPIcs-ICALP-2023-90.pdf"
+    note: "NP-complete when $k$ is part of the input; Wikipedia cites Garey and Johnson (1979). For every fixed $k$ the problem is polynomial (Goldschmidt and Hochbaum)."
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  k: { meaning: "the number of parts: the integer $k$ in the input (all versions)" }
+  s: { meaning: "the solution size: the integer $s$ in the input (decision, search), or the minimum number of edges of a $k$-cut (optimisation)" }
+  W: { meaning: "the largest edge weight (weighted version)", poly_bounded: false }
+constraints:
+  - { constraint: "k \\le n", because: "A partition into $k$ nonempty sets needs $k \\le n$; every instance with $k > n$ is a no-instance." }
+  - { constraint: "s \\le m", because: "If $k \\le n$, every instance with $s \\ge m$ is a yes-instance (any partition into $k$ nonempty sets cuts at most $m$ edges)." }
+  - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
+versions:
+  decision:
+    kind: decision
+    input: "A graph $G = (V, E)$ and integers $k$ and $s$."
+    question: "Is there a partition of $V$ into $k$ nonempty sets $V_1, \\dots, V_k$ such that at most $s$ edges have their endpoints in different sets?"
+  optimisation:
+    kind: optimisation
+    input: "A graph $G = (V, E)$ and an integer $k$."
+    goal: "Find the minimum number of edges with endpoints in different sets, over all partitions of $V$ into $k$ nonempty sets $V_1, \\dots, V_k$."
+  search:
+    kind: search
+    input: "A graph $G = (V, E)$ and integers $k$ and $s$."
+    goal: "Find a partition of $V$ into $k$ nonempty sets $V_1, \\dots, V_k$ such that at most $s$ edges have their endpoints in different sets, or report that none exists."
+  weighted:
+    kind: optimisation
+    input: "A graph $G = (V, E)$, edge weights $w \\colon E \\to \\mathbb{Z}_{\\ge 0}$ and an integer $k$."
+    goal: "Find the minimum total weight of the edges with endpoints in different sets, over all partitions of $V$ into $k$ nonempty sets $V_1, \\dots, V_k$."
+    generalises: [optimisation]
+default_version: optimisation
+shared_bounds:
+  - versions: [decision, optimisation]
+    because: "Binary search on $s \\le m$."
+related: []

@@ -1,0 +1,10 @@
+id: precoloring-extension--to--list-coloring
+from: { problem: precoloring-extension, version: decision }
+to: { problem: list-coloring, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(k n + m)"
+parameter_map: { n: "n", m: "m", dcl: "dcl" }
+source:
+  folklore: true
+  note: "Give every $w \\in W$ the list $\\{c_W(w)\\}$ and every other vertex the list $\\{1, \\dots, k\\}$."

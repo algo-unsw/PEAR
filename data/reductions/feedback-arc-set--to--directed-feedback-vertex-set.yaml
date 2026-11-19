@@ -1,0 +1,10 @@
+id: feedback-arc-set--to--directed-feedback-vertex-set
+from: { problem: feedback-arc-set, version: decision }
+to: { problem: directed-feedback-vertex-set, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(n m)"
+parameter_map: { n: "m", m: "n m", k: "k" }
+source:
+  folklore: true
+  note: "Line digraph: one vertex per arc of $D$, and an arc from $a$ to $b$ whenever the head of $a$ is the tail of $b$. Directed cycles of $D$ and of its line digraph correspond, so a set of arcs meets every directed cycle of $D$ if and only if it meets every directed cycle of the line digraph, which has $m$ vertices and $\\sum_v d^-(v) d^+(v) \\le n m$ arcs. Bonamy et al. (arXiv:1707.01470, current version v2, Section 1, footnote 1) call DFVS and DFAS well known to be reducible to each other and cite Proposition 8.42 and Exercise 8.16 of Cygan et al., Parameterized Algorithms (not opened here)."

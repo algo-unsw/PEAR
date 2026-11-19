@@ -1,0 +1,27 @@
+id: chekuri-ene-korula-2010
+title: Prize-Collecting Steiner Tree and Forest in Planar Graphs
+authors:
+- Chandra Chekuri
+- Alina Ene
+- Nitish Korula
+identifiers: { dblp: journals/corr/abs-1006-4357 }
+versions:
+  arxiv:
+    kind: preprint
+    year: 2010
+    arxiv: '1006.4357'
+    open_access: true
+  soda:
+    kind: conference
+    title: Prize-collecting Steiner Problems on Planar Graphs
+    authors:
+    - MohammadHossein Bateni
+    - Chandra Chekuri
+    - Alina Ene
+    - MohammadTaghi Hajiaghayi
+    - Nitish Korula
+    - Dániel Marx
+    venue: "22nd ACM-SIAM Symposium on Discrete Algorithms (SODA 2011), pp. 1028–1049"
+    year: 2011
+    doi: 10.1137/1.9781611973082.79
+    open_access: false

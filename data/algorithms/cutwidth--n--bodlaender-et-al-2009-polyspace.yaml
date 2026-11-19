@@ -1,0 +1,22 @@
+id: cutwidth--n--bodlaender-et-al-2009-polyspace
+problem: cutwidth
+proved_for: optimisation
+bound:
+  as_stated: O^*(4^{n})
+  notation: O*
+  parameters: [n]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Stated: polynomial space (Theorems 3 and 10): the recurrence is evaluated recursively, splitting the ordering in the middle, without a table.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: false
+  quantum: false
+source:
+  paper: bodlaender-et-al-2009
+  statements:
+    techreport:
+      statement: Theorem 10 (2), with Theorem 3
+  note: 'Theorem 10 lists Cutwidth among the vertex ordering problems solvable in $O^*(4^n)$ time and polynomial space.'

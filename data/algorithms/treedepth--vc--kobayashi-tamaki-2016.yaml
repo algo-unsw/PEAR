@@ -1,0 +1,21 @@
+id: treedepth--vc--kobayashi-tamaki-2016
+problem: treedepth
+proved_for: optimisation
+bound:
+  as_stated: 'O(4^{vc} vc n)'
+  notation: O
+  parameters: [vc, n]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Not stated; educated guess: exponential, about $O^*(3^{vc})$. Bottom-up dynamic programming stores a table of values $td(X, P)$ for $X \subseteq C$ and $P \subseteq C \setminus X$, $C$ a minimum vertex cover.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: kobayashi-tamaki-2016
+  statements:
+    ipec: { statement: "Theorem 2" }
+  note: 'Stated as $O(4^{\tau(G)} \tau(G) n)$ with $\tau(G)$ the size of a minimum vertex cover, written $vc$ here. Read in the LIPIcs version (CORE copy).'

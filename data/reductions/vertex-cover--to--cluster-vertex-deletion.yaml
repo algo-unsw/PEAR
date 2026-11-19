@@ -1,0 +1,12 @@
+id: vertex-cover--to--cluster-vertex-deletion
+from: { problem: vertex-cover, version: decision }
+to: { problem: cluster-vertex-deletion, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(n + m)"
+parameter_map: { n: "2n", m: "m + n", k: "k" }
+source:
+  folklore: true
+  note: "Attach a new pendant vertex $v'$ to every vertex $v$. A vertex cover $S$ of $G$ leaves only edges $vv'$ and isolated vertices. Conversely, a solution can be assumed to avoid the pendant vertices (replace $v'$ by $v$), and it must then contain an endpoint of every edge $uv$, since otherwise $u'uv$ is an induced $P_3$. So $(G, k) \\mapsto (G', k)$."
+  reference: { paper: aprile-drescher-fiorini-huynh-2020, version: arxiv-v3, statement: "Section 1" }
+status: valid

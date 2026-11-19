@@ -1,0 +1,23 @@
+id: independent-dominating-set--n--bourgeois-escoffier-paschos-2009
+problem: independent-dominating-set
+proved_for: optimisation
+bound:
+  as_stated: O^*(2^{0.424n})
+  notation: O*
+  parameters:
+  - n
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Stated: polynomial space (Theorem 1).'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: bourgeois-escoffier-paschos-2009
+  statements:
+    arxiv-v1:
+      statement: Theorem 1
+  note: 'Branching algorithm. Theorem 1 of arXiv v1 reads "$O^*(2^{0.424n}) = O^*(1.3413^n)$, using polynomial space"; stored as $2^{0.424n}$, the form of the abstract and the introduction, since $2^{0.424} \approx 1.34164 > 1.3413$ (Section 5 writes $O^*(1.3416^n)$). Improves $O(1.3569^n)$ of Gaspers and Liedloff (DMTCS 2012). TODO(verify): the statement in the journal version (DAM 2013), not opened.'

@@ -1,0 +1,14 @@
+# TODO(verify): this journal paper may be the journal version of Fomin, Kratsch and Todinca
+# (ICALP 2004, doi 10.1007/978-3-540-27836-8_49) and Villanger (LATIN 2006); not checked, so
+# only the journal version is listed.
+id: fomin-kratsch-todinca-villanger-2008
+title: "Exact Algorithms for Treewidth and Minimum Fill-In"
+authors: [Fedor V. Fomin, Dieter Kratsch, Ioan Todinca, Yngve Villanger]
+versions:
+  journal:
+    kind: journal
+    venue: "SIAM Journal on Computing 38(3), pp. 1058–1079"
+    year: 2008
+    doi: "10.1137/050643350"
+    url: "https://folk.uib.no/nmiff/articles/2008/2008b.pdf"
+    open_access: true

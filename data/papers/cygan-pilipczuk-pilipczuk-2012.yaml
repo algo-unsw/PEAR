@@ -1,0 +1,22 @@
+id: cygan-pilipczuk-pilipczuk-2012
+title: "Known Algorithms for Edge Clique Cover are Probably Optimal"
+authors: [Marek Cygan, Marcin Pilipczuk, Michał Pilipczuk]
+identifiers: { dblp: "journals/siamcomp/CyganPP16" }
+versions:
+  arxiv:
+    kind: preprint
+    year: 2012
+    arxiv: "1203.1754"
+    open_access: true
+  soda:
+    kind: conference
+    venue: "24th Annual ACM-SIAM Symposium on Discrete Algorithms (SODA 2013), pp. 1044–1053"
+    year: 2013
+    doi: "10.1137/1.9781611973105.75"
+    open_access: false
+  journal:
+    kind: journal
+    venue: "SIAM Journal on Computing 45(1), pp. 67–83"
+    year: 2016
+    doi: "10.1137/130947076"
+    open_access: false

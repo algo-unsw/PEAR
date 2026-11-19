@@ -1,0 +1,21 @@
+id: minimum-bisection--k--cygan-komosa-lokshtanov-2018
+problem: minimum-bisection
+proved_for: decision
+bound:
+  as_stated: '2^{O(k \log k)} n^{O(1)}'
+  notation: O
+  parameters: [k, n]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Not stated; educated guess: exponential in $k$. Dynamic programming over a tree decomposition with adhesions of size at most $k$, with an entry for every subset of an adhesion and every count up to $n$ (Section 4.1), plus colour-coding families of size $2^{O(k \log k)} \log n$; no table exponential in $n$.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: cygan-komosa-lokshtanov-2018
+  statements:
+    arxiv: { statement: "Theorem on Minimum Bisection in Section 1, Our results (LaTeX label thm:bisection); proved in Section 4.1" }
+  note: 'Improves the parametric factor $2^{O(k^3)}$ of Cygan et al. (STOC 2014). The colour coding is derandomized (Section 4: "We will present an already derandomized version"). Read in the current arXiv version of 1810.06864 (20 November 2026); TODO(verify) the printed theorem number and arXiv version number. Journal version: ACM TALG 2021.'

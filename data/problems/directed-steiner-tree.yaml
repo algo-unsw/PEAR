@@ -1,0 +1,43 @@
+id: directed-steiner-tree
+name: Directed Steiner Tree
+aliases: [DST, Directed Steiner Out-Tree]
+category: graph
+complexity:
+  class: NP-complete
+  source:
+    folklore: true
+    note: "Steiner Tree, one of Karp's NP-complete problems, is the special case of symmetric directed graphs rooted at a terminal (reduction steiner-tree--to--directed-steiner-tree); membership in NP is immediate."
+objects:
+  n: number of vertices
+  m: number of arcs
+  N: total encoding length of the input
+parameters:
+  t: { meaning: "the number of terminals $|T|$" }
+  k: { meaning: "the solution size: the integer $k$ in the input (decision, search), or the minimum number of arcs of a Steiner out-tree (optimisation)" }
+constraints:
+  - { constraint: "t \\le n", because: "The terminals are vertices." }
+  - { constraint: "k \\le n", because: "An out-tree has fewer arcs than vertices, so every instance with $k \\ge n$ is decided by checking whether every terminal is reachable from $r$." }
+versions:
+  decision:
+    kind: decision
+    input: "A directed graph $D = (V, A)$, a root $r \\in V$, a set $T \\subseteq V \\setminus \\{r\\}$ of terminals, and an integer $k$."
+    question: "Is there an out-tree $H \\subseteq D$ rooted at $r$ with at most $k$ arcs that contains every vertex of $T$?"
+  optimisation:
+    kind: optimisation
+    input: "A directed graph $D = (V, A)$, a root $r \\in V$, and a set $T \\subseteq V \\setminus \\{r\\}$ of terminals."
+    goal: "Find the minimum number of arcs of an out-tree $H \\subseteq D$ rooted at $r$ that contains every vertex of $T$, or report that none exists."
+  search:
+    kind: search
+    input: "A directed graph $D = (V, A)$, a root $r \\in V$, a set $T \\subseteq V \\setminus \\{r\\}$ of terminals, and an integer $k$."
+    goal: "Find an out-tree $H \\subseteq D$ rooted at $r$ with at most $k$ arcs that contains every vertex of $T$, or report that none exists."
+  weighted:
+    kind: optimisation
+    input: "A directed graph $D = (V, A)$, a root $r \\in V$, a set $T \\subseteq V \\setminus \\{r\\}$ of terminals, and arc weights $w \\colon A \\to \\mathbb{Z}_{\\ge 0}$."
+    goal: "Find the minimum weight $\\sum_{a \\in A(H)} w(a)$ of an out-tree $H \\subseteq D$ rooted at $r$ that contains every vertex of $T$, or report that none exists."
+    generalises: [optimisation]
+default_version: decision
+shared_bounds:
+  - versions: [decision, optimisation, search]
+    because: "Binary search on $k$ and self-reducibility (delete an arc and test again)."
+related:
+  - { problem: steiner-tree, relation: undirected }

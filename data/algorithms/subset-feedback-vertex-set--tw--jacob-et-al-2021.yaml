@@ -1,0 +1,24 @@
+id: subset-feedback-vertex-set--tw--jacob-et-al-2021
+problem: subset-feedback-vertex-set
+proved_for: decision
+bound:
+  as_stated: '2^{O(tw \log tw)} n'
+  notation: O
+  parameters: [tw, n]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Not stated; educated guess: $2^{O(tw \log tw)} n$. Dynamic programming over a nice tree decomposition with $2^{O(k \log k)}$ states per node (auxiliary forests of size $O(k)$, Section 1).'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: false
+  quantum: false
+given:
+- tree-decomposition
+source:
+  paper: jacob-et-al-2021
+  statements:
+    arxiv-v1:
+      statement: 'Section 1, remark after Theorem 1 (LaTeX label thm:subset-ect): the bound of Theorem 1 applies to Subset Feedback Vertex Set, which reduces to Subset Even Cycle Transversal by subdividing every edge once'
+  note: 'Theorem 1 is stated for $n$-vertex graphs of treewidth $k$, even in the weighted setting; Section 2 works from a given tree decomposition of width $k$ ($k$ is written $tw$ here). TODO(verify): whether a decomposition must be given; it is recorded as given. Improves the polynomial factor of Bergougnoux, Bonnet, Brettell and Kwon ($2^{O(tw \log tw)} n^{O(1)}$, arXiv:2007.14179, IPEC 2020), who rule out $2^{o(tw \log tw)} n^{O(1)}$ under ETH. IPEC 2021 (LIPIcs) version not opened.'

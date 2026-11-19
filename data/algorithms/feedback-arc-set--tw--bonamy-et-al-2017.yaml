@@ -1,0 +1,22 @@
+id: feedback-arc-set--tw--bonamy-et-al-2017
+problem: feedback-arc-set
+proved_for: optimisation
+bound:
+  as_stated: '2^{O(tw \log tw)} n^{O(1)}'
+  notation: O
+  parameters: [tw, n]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Not stated; educated guess: $2^{O(tw \log tw)} n^{O(1)}$. Dynamic programming over a tree decomposition indexed by orderings of the bag (Section 1: defined similarly to the vertex version).'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: false
+  quantum: false
+source:
+  paper: bonamy-et-al-2017
+  statements:
+    arxiv:
+      statement: 'Theorem 1 (LaTeX label thm:simple-dp), proved in Section 5; read in the current arXiv version (v2)'
+  note: 'Theorem 1 covers both the directed feedback vertex set and the directed feedback arc set; $t$ is the treewidth of the underlying undirected graph. Theorem 2 rules out $2^{o(t \log t)} n^{O(1)}$ for both under ETH. WG 2018 version not opened.'

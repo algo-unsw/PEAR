@@ -1,0 +1,22 @@
+id: feedback-arc-set--n--bodlaender-et-al-2009
+problem: feedback-arc-set
+proved_for: optimisation
+bound:
+  as_stated: 'O^*(2^{n})'
+  notation: O*
+  parameters: [n]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Stated: $O^*(2^n)$ space (Theorem 10).'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: false
+  quantum: false
+source:
+  paper: bodlaender-et-al-2009
+  statements:
+    techreport:
+      statement: 'Theorem 10 (Section 5.8), first part; via Lemma 9 (Section 5.7) and Theorem 1 (Section 3)'
+  note: 'Held–Karp-style dynamic programming over vertex orderings. Section 5.7 defines Directed Feedback Arc Set (minimum number, or weight, of arcs whose removal leaves the digraph acyclic) and Lemma 9 rewrites it as a minimum over linear orderings, so Theorem 1 applies; Theorem 10 lists it among the problems solvable in $O^*(2^n)$ time and space. Read in the open technical report UU-CS-2009-023 through a web fetch (text extracted by a summariser; formulas garbled in extraction). Journal version (Theory Comput. Syst. 2012) not opened.'

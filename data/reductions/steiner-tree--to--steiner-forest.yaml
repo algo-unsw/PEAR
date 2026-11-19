@@ -1,0 +1,20 @@
+id: steiner-tree--to--steiner-forest
+from: { problem: steiner-tree, version: decision }
+to: { problem: steiner-forest, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(n + m)"
+parameter_map: { n: "n", m: "m", k: "k", d: "t - 1" }
+variants:
+  - id: weighted
+    note: "Weighted versions: the same construction, keeping the edge weights."
+    from: { problem: steiner-tree, version: weighted }
+    to: { problem: steiner-forest, version: weighted }
+    parameter_map: { n: "n", m: "m", d: "t - 1" }
+    source:
+      folklore: true
+      note: "A minimum-weight forest connecting every demand pair has all terminals in one component, a tree spanning $T$."
+source:
+  folklore: true
+  note: "Fix a terminal $t_1$ and take the demands $\\{t_1, t\\}$ for every $t \\in T \\setminus \\{t_1\\}$: a forest connects every demand pair if and only if one of its components, a tree with at most as many edges, contains $T$."
+  reference: { paper: feldmann-lampis-2024, version: icalp, statement: "Section 1" }

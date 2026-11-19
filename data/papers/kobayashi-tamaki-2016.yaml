@@ -1,0 +1,10 @@
+id: kobayashi-tamaki-2016
+title: "Treedepth Parameterized by Vertex Cover Number"
+authors: [Yasuaki Kobayashi, Hisao Tamaki]
+versions:
+  ipec:
+    kind: conference
+    venue: "11th International Symposium on Parameterized and Exact Computation (IPEC 2016), LIPIcs 63, pp. 18:1–18:11"
+    year: 2016
+    doi: "10.4230/LIPIcs.IPEC.2016.18"
+    open_access: true

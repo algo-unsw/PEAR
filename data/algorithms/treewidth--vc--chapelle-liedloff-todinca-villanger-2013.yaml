@@ -1,0 +1,21 @@
+id: treewidth--vc--chapelle-liedloff-todinca-villanger-2013
+problem: treewidth
+proved_for: optimisation
+bound:
+  as_stated: 'O^*(3^{vc})'
+  notation: O*
+  parameters: [vc]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Not stated for Theorem 16; educated guess: exponential, about $O^*(3^{vc})$. The dynamic programming runs over valid three-partitions of a minimum vertex cover (at most $3^{vc+1}$) and stores tables indexed by subsets for fast subset convolution; the $O^*(4^{vc})$ version (Theorem 6) is stated to take $O^*(4^{vc})$ time and space.'
+  algebraic: true
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: chapelle-liedloff-todinca-villanger-2013
+  statements:
+    arxiv-v1: { statement: "Theorem 16" }
+  note: 'Stated as $O^*(3^k)$ with $k$ the size of a minimum vertex cover, written $vc$ here. Uses fast subset convolution.'

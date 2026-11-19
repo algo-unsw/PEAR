@@ -1,0 +1,17 @@
+id: koana-2022
+title: "Induced Matching Below Guarantees: Average Paves the Way for Fixed-Parameter Tractability"
+authors: [Tomohiro Koana]
+identifiers: { dblp: "conf/stacs/Koana23" }
+versions:
+  arxiv-v1:
+    kind: preprint
+    year: 2022
+    arxiv: "2212.13962v1"
+    open_access: true
+  stacs:
+    kind: conference
+    venue: "40th International Symposium on Theoretical Aspects of Computer Science (STACS 2023), LIPIcs 254, pp. 39:1–39:21"
+    year: 2023
+    doi: "10.4230/LIPIcs.STACS.2023.39"
+    url: "https://drops.dagstuhl.de/storage/00lipics/lipics-vol254-stacs2023/LIPIcs.STACS.2023.39/LIPIcs.STACS.2023.39.pdf"
+    open_access: true

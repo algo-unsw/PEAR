@@ -1,0 +1,9 @@
+id: pfaff-laskar-hedetniemi-1983
+title: "NP-completeness of Total and Connected Domination and Irredundance for Bipartite Graphs"
+authors: [J. Pfaff, R. Laskar, S. T. Hedetniemi]
+versions:
+  techreport:
+    kind: technical-report
+    venue: "Technical Report 428, Department of Mathematical Sciences, Clemson University"
+    year: 1983
+    open_access: false
