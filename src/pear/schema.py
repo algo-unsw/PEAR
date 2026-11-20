@@ -292,6 +292,14 @@ class Problem(Model):
         base = {"n", "N"} | ({"m"} if self.objects.m is not None else set())
         return base | set(self.parameters)
 
+    def reading_order(self) -> list[str]:
+        """Symbols in the order the site lists them: the problem's own parameters, then
+        n, m, N, then shared parameters."""
+        local = [s for s, e in self.parameters.items() if not isinstance(e, SharedParameterRef)]
+        shared = [s for s, e in self.parameters.items() if isinstance(e, SharedParameterRef)]
+        sizes = ["n"] + (["m"] if self.objects.m is not None else []) + ["N"]
+        return local + sizes + shared
+
 
 def _has_cycle(edges: dict[str, list[str]]) -> bool:
     state: dict[str, int] = {}  # 1 = on the stack, 2 = done

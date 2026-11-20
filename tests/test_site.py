@@ -9,7 +9,7 @@ import pytest
 
 from pear.bounds import parse_expr
 from pear.derive import derive
-from pear.site import build, history, paper_version_label, parameter_info, single_base
+from pear.site import build, history, merged_entries, merged_lines, paper_version_label, parameter_info, single_base, strongest
 from pear.validate import validate_dir
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -352,3 +352,60 @@ def test_vertex_cover_by_m_uses_n_at_most_m(real):
         node = site["pages"][pid]["nodes"]["decision+optimisation+search"]
         assert not any(g["parameters"] == ["m"] and not g["only_optional"] for g in node["overview"])
         assert [s["base"] for s in node["history"]["m"]["steps"]] == [1.1996]
+
+
+# --- one statement per bound (20 November 2026) ---------------------------------------------------
+
+
+def _visible(e, mode):
+    """Mirrors site.js: the default view, the "include preprints and unverified" switch, and
+    every unverified result included one by one."""
+    if mode == "all":
+        return bool(e.get("in_all"))
+    if mode == "each":
+        return bool(e.get("optional")) or (not e.get("only_all") and not e.get("beaten_by"))
+    return not e.get("optional") and not e.get("only_all")
+
+
+@pytest.mark.parametrize("mode", ["default", "all", "each"])
+def test_no_bound_is_stated_twice(real, mode):
+    _, site, _ = real
+    for entry in site["index"]:
+        shown = [b["shown"] for b in entry["bounds"] if _visible(b, mode)]
+        assert len(shown) == len(set(shown)), (entry["name"], shown)
+    for pid, page in site["pages"].items():
+        for node, data in page["nodes"].items():
+            shown = [x for g in data["overview"] for e in g["entries"] if _visible(e, mode)
+                     for x in {ln["row"]["shown"] for ln in e["lines"]}]
+            assert len(shown) == len(set(shown)), (pid, node, shown)
+
+
+def test_max_cut_brute_force_and_composite_parameter(real):
+    _, site, _ = real
+    node = site["pages"]["max-cut"]["nodes"]["decision+optimisation+search"]
+    by_n = [r for r in node["rows"] if r["parameters"] == ["n"]]
+    # nothing slower than brute force, and brute force instead of equal derived bounds
+    assert {r["shown"] for r in by_n} == {r"O^*(2^{\omega n/3})", r"O^*(2^{n})"}
+    assert next(r for r in by_n if r["shown"] == r"O^*(2^{n})")["algorithm"] == "max-cut--n--folklore"
+    # 1.977^{m-k} (Edge Bipartization) is listed by m - k, not by k and m
+    pw = next(r for r in node["rows"] if r["shown"] == r"O^*(1.977^{m - k})")
+    assert pw["parameters"] == ["m - k"] and pw["param_tex"] == "m - k"
+    group = next(g for g in node["overview"] if g["parameters"] == ["m - k"])
+    assert group["heading"] == "By" and group["symbols_tex"] == ["m - k"]
+
+
+def _r(rid, det=True, poly=True, shown="X", sentence="s", refs=(1,)):
+    return {"id": rid, "shown": shown, "origin": "direct", "flags": [], "from_problem": None, "proved_for": "decision",
+            "refs": list(refs), "props": {"sentence": sentence},
+            "properties": {"deterministic": det, "polynomial_space": poly, "constructive": True}}
+
+
+def test_same_bound_results_share_a_line():
+    a, b, c = _r("a", refs=(3,)), _r("b", refs=(1,)), _r("c", det=False, sentence="t", refs=(2,))
+    lines = merged_lines([a, b, c])
+    assert [ln["refs"] for ln in lines] == [[1, 3], [2]]
+    assert [r["id"] for r in strongest([a, c])] == ["a"]  # the randomized twin is dropped
+    e1 = {"cite": [a], "members": ["a"], "beaten_by": ["u", "v"], "year": 2000, "in_all": True}
+    e2 = {"cite": [c], "members": ["c"], "beaten_by": ["u"], "year": 1990, "in_all": True}
+    (m,) = merged_entries([e1, e2])
+    assert m["members"] == ["a", "c"] and m["beaten_by"] == ["u"] and m["year"] == 1990
