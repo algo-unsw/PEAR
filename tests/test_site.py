@@ -409,3 +409,20 @@ def test_same_bound_results_share_a_line():
     e2 = {"cite": [c], "members": ["c"], "beaten_by": ["u"], "year": 1990, "in_all": True}
     (m,) = merged_entries([e1, e2])
     assert m["members"] == ["a", "c"] and m["beaten_by"] == ["u"] and m["year"] == 1990
+
+
+def test_details_show_one_entry_per_bound():
+    from pear.site import grouped_rows
+
+    def row(rid, origin, papers, shown="O^*(2^{n})", det=True, poly=False):
+        props = {"deterministic": det, "polynomial_space": poly, "constructive": True, "lean_verified": False, "algebraic": False}
+        return {"id": rid, "origin": origin, "papers": papers, "parameters": ["n"], "shown": shown, "properties": props}
+
+    rows = [row("d", "direct", ["p"]), row("x", "derived", ["p"]), row("y", "derived", ["q"]),
+            row("z", "derived", ["p"], poly=True), row("v", "derived", ["p"], det=False),
+            row("w", "direct", ["r"], shown="O^*(3^{n})")]
+    out = grouped_rows(rows)
+    # x and v repeat d (same paper, nothing stronger) and go; y (another paper) and z
+    # (polynomial space) stay
+    assert [r["id"] for r in out] == ["d", "y", "z", "w"]
+    assert [r["group_first"] for r in out] == [True, False, False, True]

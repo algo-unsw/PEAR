@@ -1,0 +1,21 @@
+id: steiner-tree--m--folklore
+problem: steiner-tree
+proved_for: weighted
+bound:
+  as_stated: '2^{m} (n + m)'
+  notation: O
+  parameters:
+  - m
+  - n
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'One set $F$ at a time.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  folklore: true
+  note: 'Try all $2^m$ sets $F \subseteq E$ and keep the cheapest one that connects all terminals; with nonnegative weights a minimal such set is a tree (brute force; added at Serge Gaspers''s request, 20 November 2026).'

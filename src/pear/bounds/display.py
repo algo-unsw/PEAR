@@ -515,9 +515,55 @@ class Display:
     hover: str | None = None
 
 
-def display(b: Bound, ctx: Context, derived: bool = False) -> Display:
+SIZES = frozenset({"n", "m", "N"})
+
+
+def exact_shape(b: Bound, ctx: Context) -> bool:
+    """XP and pseudo-polynomial bounds are shown in their exact form, since O* hides what they
+    are about (Serge, 20 November 2026): a power of an input size whose exponent has a
+    parameter (n^{k + o(1)} and n^{k + 1} are the same in O*, as are 2^{O(k)} n^{tw + 1} and
+    2^{O(k)} n^{tw}), or a bound polynomial in values that are not polynomially bounded
+    (Subset Sum's O*(t) for three different results)."""
+    expr = ostar(b, ctx).expr
+    for node in _walk(expr):
+        if isinstance(node, Pow):
+            base, exp = variables(node.base), variables(node.exp)
+            if base and base <= SIZES and exp - SIZES:
+                return True
+    names = variables(expr)
+    if names and names <= set(ctx.not_poly_bounded):
+        try:
+            terms = bound_terms(Bound("O*", expr))
+        except (UnsupportedBound, Unspecified):
+            return False
+        return all(a == 0 for t in terms for key in t.hi.terms for _, (a, _, _) in key)
+    return False
+
+
+def _walk(node: Node):
+    yield node
+    for c in children(node):
+        yield from _walk(c)
+
+
+def display(b: Bound, ctx: Context, derived: bool = False, notation: str | None = None) -> Display:
     """Stated bounds keep the paper's form; derived bounds get exact folds. If folding
-    with rounded-up bases reads differently, it is offered as the hover (bounds §4)."""
+    with rounded-up bases reads differently, it is offered as the hover (bounds §4). XP and
+    pseudo-polynomial bounds are shown exactly (exact_shape): a stated one as stated, in its
+    notation; a derived one with the constants that O(·) hides hidden and dominated terms
+    (such as a reduction's time) dropped."""
+    if exact_shape(b, ctx):
+        if b.notation is None and notation is not None:
+            b = Bound(notation, b.expr, b.family)  # the record's notation field, as stated
+        if derived:
+            exact = hide_constants_exact(b, ctx)
+            terms = [t for _, t in exact.expr.terms] if isinstance(exact.expr, Add) else [exact.expr]
+            if isinstance(exact.expr, Add) and all(s > 0 for s, _ in exact.expr.terms):
+                terms = _drop_dominated_exact(terms, ctx)
+                exact = Bound(exact.notation, terms[0] if len(terms) == 1 else Add(tuple((1, t) for t in terms)), exact.family)
+        else:
+            exact = b
+        return Display(render_bound(exact), None)
     shown = Bound(b.notation, fold(b.expr) if derived else b.expr, b.family)
     tex = ostar_tex(shown, ctx)
     hover = ostar_tex(Bound(b.notation, fold(b.expr, rounded=True), b.family), ctx)

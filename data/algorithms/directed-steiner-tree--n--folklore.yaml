@@ -1,0 +1,21 @@
+id: directed-steiner-tree--n--folklore
+problem: directed-steiner-tree
+proved_for: weighted
+bound:
+  as_stated: '2^{n} n m'
+  notation: O
+  parameters:
+  - n
+  - m
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'One set $S$ at a time.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  folklore: true
+  note: 'Try all $2^n$ sets $S \subseteq V$; if every vertex of $\{r\} \cup T \cup S$ is reachable from $r$ in $D[\{r\} \cup T \cup S]$, take a minimum spanning arborescence rooted at $r$ (Chu–Liu/Edmonds, time $O(nm)$). An optimal tree spans its own vertex set, so the cheapest of these arborescences is optimal (brute force; added at Serge Gaspers''s request, 20 November 2026).'

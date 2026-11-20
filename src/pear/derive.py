@@ -25,7 +25,7 @@ from .bounds.numeric import dominates, samples, value
 from .schema import Algorithm, FolkloreSource, Hypothesis, PaperSource, Problem, Reduction, Variant
 from .validate import Dataset, problem_context
 
-RULEBOOK_VERSION = 3
+RULEBOOK_VERSION = 4
 LONG_CHAIN = 3  # rulebook §9: longer chains get a label (they are followed while they improve results)
 FORMAL_ORDER = {"informal": 0, "statement": 1, "proved": 2}
 
@@ -108,6 +108,7 @@ class Result:
     flags: frozenset[str] = frozenset()  # adaptive-sizes, claimed-refuted-hypothesis, ...
     year: int | None = None  # when the bound became known: the latest dated ingredient
     papers: tuple[str, ...] = ()  # papers along the chain: the algorithm's, then each reduction's
+    stated_notation: str | None = None  # a direct result's notation field (O, O*, Õ), for display
 
     @property
     def derived(self) -> bool:
@@ -175,6 +176,7 @@ class Engine:
         self.data = data
         self.out = Derivation()
         self.analysed: dict[str, Analysed] = {}
+        self.analysed_ostar: dict[str, Analysed] = {}
         self.hypotheses: dict[str, Hypothesis] = data.entries["hypotheses"]  # type: ignore[assignment]
         for pid, problem in data.problems.items():
             self.out.contexts[pid] = problem_context(data, problem, "between")
@@ -286,7 +288,7 @@ class Engine:
                 self.preprint(u) for u in used):
             props = replace(props, reviewed=False)
             flags.add("preprint")
-        return Result(problem.id, node, bound, props, alg.id, (), frozenset(flags), year, papers)
+        return Result(problem.id, node, bound, props, alg.id, (), frozenset(flags), year, papers, alg.bound.notation)
 
     # -- keeping -----------------------------------------------------------------------
 
@@ -295,6 +297,15 @@ class Engine:
         if key not in self.analysed:
             self.analysed[key] = analyse(r.bound)
         return self.analysed[key]
+
+    def analyse_ostar(self, r: Result) -> Analysed:
+        """The O* form, analysed: what O* comparisons read. A polynomial factor such as
+        n + (n(n - 1)/2 - m) has no known lower estimate, and in the exact form it made the
+        comparator call one O*(2^n) strictly better than another (20 November 2026)."""
+        key = r.id
+        if key not in self.analysed_ostar:
+            self.analysed_ostar[key] = analyse(ostar(r.bound, self.out.contexts[r.problem]))
+        return self.analysed_ostar[key]
 
     def variables(self, r: Result) -> frozenset[str]:
         """The variables of a bound's O* form: what D1 compares."""
@@ -327,7 +338,7 @@ class Engine:
             return False
         if not self.variables(s) <= self.variables(r):
             return False
-        in_ostar = compare_ostar(self.analyse(s), self.analyse(r), ctx)
+        in_ostar = compare_ostar(self.analyse_ostar(s), self.analyse_ostar(r), ctx)
         if in_ostar == Relation.BETTER:
             return True
         if in_ostar != Relation.EQUAL:
@@ -528,34 +539,71 @@ class Engine:
             return []  # constraints are closed transitively, so one projection suffices
         ctx = self.out.contexts[r.problem]
         shown = ostar(r.bound, ctx)
-        candidates: list[tuple[str, Node]] = []
+        # (label, expression, the bound the comparator checks it against)
+        candidates: list[tuple[str, Node, Bound]] = []
+        bases: list[tuple[Node, Bound]] = []
         # only subtracted terms with variables go: (3 \cdot 2^{\omega - 1} + 1)^{tw} keeps its - 1
         base = _monotone_majorant(shown.expr)
         if base != shown.expr:
-            candidates.append(("drop-subtractions", base))
-        base_vars = sorted(variables(base))
-        for y in sorted(self.data.problems[r.problem].symbols()) if base_vars else []:
-            if base_vars == [y]:
-                continue
-            mapping: dict[str, Node] = {}
-            for x in base_vars:
-                if x == y:
+            candidates.append(("drop-subtractions", base, r.bound))
+        bases.append((base, r.bound))
+        composite = self.composite_projection(shown, r.problem)
+        if composite is not None:
+            # proved, not checked: the comparator cannot follow n - k inside a log
+            g = Bound("O*", composite, shown.family)
+            candidates.append(("composite", composite, g))
+            bases.append((composite, g))
+        for base, against in bases:
+            base_vars = sorted(variables(base))
+            for y in sorted(self.data.problems[r.problem].symbols()) if base_vars else []:
+                if base_vars == [y]:
                     continue
-                p = ctx.relation(x, y)
-                if p is None:
-                    break
-                # m ≤ n(n - 1)/2 maps m to n^2/2, not n^2 (20 November 2026)
-                mapping[x] = power_of(y, p, ctx.scale(x, y))
-            else:
-                candidates.append((y, simplify(substitute(base, mapping))))
+                mapping: dict[str, Node] = {}
+                for x in base_vars:
+                    if x == y:
+                        continue
+                    p = ctx.relation(x, y)
+                    if p is None:
+                        break
+                    # m ≤ n(n - 1)/2 maps m to n^2/2, not n^2 (20 November 2026)
+                    mapping[x] = power_of(y, p, ctx.scale(x, y))
+                else:
+                    candidates.append((y, simplify(substitute(base, mapping)), against))
         out = []
-        for label, expr in candidates:
+        seen: set[Node] = set()
+        for label, expr, against in candidates:
+            if expr in seen:
+                continue
             proj = Bound("O*", expr, shown.family)
-            if compare(analyse(r.bound), analyse(proj), ctx) not in (Relation.BETTER, Relation.EQUAL):
+            if compare(analyse(against), analyse(proj), ctx) not in (Relation.BETTER, Relation.EQUAL):
                 continue  # only provably valid projections are kept
+            seen.add(expr)
             step = Step("projection", f"projection:{label}", f"{r.problem}:{r.node}", f"{r.problem}:{r.node}", counted=False)
-            out.append(replace(r, bound=proj, chain=r.chain + (step,)))
+            flags = r.flags
+            if label != "drop-subtractions" and not label.startswith("tw"):
+                # every constraint bounding a treewidth in PEAR is witnessed by a single bag
+                # holding all vertices, so the projected bound needs no given decomposition
+                # (rulebook §7, 20 November 2026)
+                flags = flags - {"given-tree-decomposition"}
+            out.append(replace(r, bound=proj, chain=r.chain + (step,), flags=flags))
         return out
+
+    def composite_projection(self, shown: Bound, pid: str) -> Node | None:
+        """A bound that depends on its variables only through one difference, f(n - k), and
+        is nondecreasing in it, is at most f(n): k ≥ 0. Returns f(n), or None (rulebook §7,
+        20 November 2026). This replaces projecting a bound in k at Vertex Cover and then
+        mapping k ↦ n - k to Independent Set."""
+        order = list(self.data.problems[pid].symbols())
+        params = listed_parameters(shown.expr, order)
+        if len(params) != 1 or not params[0].composite or not isinstance(params[0].node, Add):
+            return None
+        negative = {v for s, t in params[0].node.terms if s < 0 for v in variables(t)}
+        if not negative:
+            return None
+        g = simplify(substitute(shown.expr, {v: Num(Fraction(0), "0") for v in negative}))
+        if not variables(g) or not is_monotone(Bound("O*", g, shown.family)):
+            return None
+        return g
 
     # -- techniques (18 November 2026) ------------------------------------------------------
 
@@ -751,14 +799,20 @@ class Engine:
                 if not self.still_kept(r):
                     continue
                 produced: list[Result] = []
-                for red in usable:
+                # a bound projected through constraints is never transferred: the original is,
+                # and is projected at the destination with the destination's constraints
+                # (rulebook §7, 20 November 2026). Dropping subtracted terms, also from a
+                # composite n - k, uses no constraint (variables are nonnegative) and makes a
+                # bound monotone, so it may transfer.
+                projected = any(st.kind == "projection" and st.id not in FREE_PROJECTIONS for st in r.chain)
+                for red in [] if projected else usable:
                     target = self.data.problems[red.to.problem]
                     if node_key(target, red.to.version) != (r.problem, r.node):
                         continue
                     d = self.via_reduction(r, red)
                     if d is not None:
                         produced.append(d)
-                produced += self.special_cases(r)
+                produced += [] if projected else self.special_cases(r)
                 produced += self.techniques(r)
                 for d in produced:
                     if self.insert(d):
@@ -797,7 +851,7 @@ class Engine:
             exprs = {r.id: ostar(r.bound, ctx).expr for r in rs}
             for a in rs:
                 for b in rs:
-                    if a is b or compare_ostar(self.analyse(a), self.analyse(b), ctx) != Relation.INCOMPARABLE:
+                    if a is b or compare_ostar(self.analyse_ostar(a), self.analyse_ostar(b), ctx) != Relation.INCOMPARABLE:
                         continue
                     if dominates(exprs[a.id], exprs[b.id], points):
                         both = dominates(exprs[b.id], exprs[a.id], points)
@@ -814,7 +868,7 @@ class Engine:
         stronger (decided 18 November 2026): deterministic beats randomized and polynomial
         space beats exponential space, since such an algorithm is also one of the weaker kind
         (ignore the random bits; space is bounded by time)."""
-        rel = compare_ostar(self.analyse(s), self.analyse(r), ctx)
+        rel = compare_ostar(self.analyse_ostar(s), self.analyse_ostar(r), ctx)
         return rel == Relation.BETTER or (rel in (Relation.EQUAL, Relation.TIE) and stronger(s.props, r.props))
 
     def overview(self, include_all: bool = False) -> dict[tuple[str, str], list[dict]]:
@@ -840,7 +894,7 @@ class Engine:
             groups: list[list[Result]] = []
             for r in best:
                 for g in groups:
-                    if compare_ostar(self.analyse(g[0]), self.analyse(r), ctx) == Relation.EQUAL:
+                    if compare_ostar(self.analyse_ostar(g[0]), self.analyse_ostar(r), ctx) == Relation.EQUAL:
                         g.append(r)
                         break
                 else:
@@ -873,7 +927,7 @@ class Engine:
             for u in kept:
                 if (u.props.verified and u.props.reviewed) or u.props.quantum:
                     continue
-                rel = [compare_ostar(self.analyse(b), self.analyse(u), ctx) for b in best]
+                rel = [compare_ostar(self.analyse_ostar(b), self.analyse_ostar(u), ctx) for b in best]
                 # including u changes nothing if an Overview member beats it, or matches it and is
                 # at least as strong (deterministic, polynomial space)
                 ties = [b for b, x in zip(best, rel) if x in (Relation.EQUAL, Relation.TIE)]
@@ -939,6 +993,10 @@ def _drop_subtractions(node: Node) -> Node:
 
 def _hide_in_derived(b: Bound, ctx: Context) -> Bound:
     return hide_constants_exact(b, ctx)
+
+
+# projections that use no constraint, only that variables are nonnegative
+FREE_PROJECTIONS = frozenset({"projection:drop-subtractions", "projection:composite"})
 
 
 def _has_var(node: Node) -> bool:
@@ -1026,7 +1084,7 @@ def _row(r: Result, ctx: Context, beaten_by: list[str], order: list[str] | None 
     from .bounds import render_bound
     from .bounds.expr import fixed_parameters
 
-    shown = display(r.bound, ctx, derived=r.derived)
+    shown = display(r.bound, ctx, derived=r.derived, notation=r.stated_notation)
     params = listed_parameters(ostar(r.bound, ctx).expr, order or ())
     composite = any(p.composite for p in params)
     return {

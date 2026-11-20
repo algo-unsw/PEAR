@@ -1,0 +1,22 @@
+id: multiway-cut--n-p--folklore
+problem: multiway-cut
+proved_for: weighted-decision
+bound:
+  as_stated: 'p^{n} (n + m)'
+  notation: O
+  parameters:
+  - p
+  - n
+  - m
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'One assignment at a time.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  folklore: true
+  note: 'Assign each vertex to one of the $p$ terminals, each terminal to itself, in all at most $p^n$ ways, and add up the weights of the edges between different classes: merging the components of $G - S$ without a terminal into a class with one does not cut more edges (brute force; added at Serge Gaspers''s request, 20 November 2026).'

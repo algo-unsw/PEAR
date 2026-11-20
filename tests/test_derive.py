@@ -575,7 +575,7 @@ def test_cli_writes_json(tmp_path):
     out = tmp_path / "derived.json"
     assert main(["derive", "tests/fixtures/valid", "--out", str(out)]) == 0
     payload = json.loads(out.read_text())
-    assert payload["rulebook_version"] == 3
+    assert payload["rulebook_version"] == 4
     chains = [[s["id"] for s in r["chain"]] for r in payload["problems"]["problem-b"]["decision"]]
     assert ["problem-b--to--problem-a"] in chains
 
@@ -1131,3 +1131,57 @@ def test_brute_force_drops_equal_later_derived_bounds_and_is_cited():
     got = {r["shown"]: r for r in rows(data, "a")}
     assert set(got) == {r"O^*(2^{n})"} and got[r"O^*(2^{n})"]["origin"] == "direct"
     assert overview(data, "a") == [{"shown": r"O^*(2^{n})", "cite": ["a-brute"], "members": ["a-brute"], "year": None}]
+
+
+# --- review decisions (Serge, 20 November 2026) -------------------------------------------
+
+
+def test_a_bound_projected_through_constraints_is_not_transferred():
+    # b's 1.2^k with b's constraint k <= n projects to 1.2^n at b; a reaches b's original
+    # bound and has no such constraint, so a gets 1.2^k only, not 1.2^n
+    data = dataset(
+        problem("a"), problem("b", constraints=[r"k \le n"]),
+        alg("b-alg", "b", r"O^*(1.2^{k})"), red("a-to-b", "a", "b", {"n": "n", "k": "k"}),
+    )
+    assert {r["shown"] for r in rows(data, "b")} == {r"O^*(1.2^{k})", r"O^*(1.2^{n})"}
+    assert [r["shown"] for r in derived(data, "a")] == [r"O^*(1.2^{k})"]
+
+
+def test_composite_projection_is_proved_and_transfers():
+    # f(n - k) with f nondecreasing is at most f(n) (k >= 0), and needs no constraint
+    data = dataset(
+        problem("a"), problem("b"), problem("c"),
+        alg("c-alg", "c", r"O^*(2^{O(k \log \log k/\sqrt{\log k})})"),
+        red("b-to-c", "b", "c", {"n": "n", "k": "n - k"}),
+        red("a-to-b", "a", "b", {"n": "n", "k": "k"}),
+    )
+    assert r"O^*(2^{O(n \log \log n/\sqrt{\log n})})" in {r["shown"] for r in derived(data, "b")}
+    assert r"O^*(2^{O(n \log \log n/\sqrt{\log n})})" in {r["shown"] for r in derived(data, "a")}
+
+
+def test_projection_to_n_needs_no_given_tree_decomposition():
+    a = alg("a-alg", "a", r"O^*(2^{tw})", params=("tw",))
+    a["given"] = ["tree-decomposition"]
+    data = dataset(problem("a", params=("tw",), constraints=[r"tw \le n"]), a)
+    flags = {r["shown"]: r["flags"] for r in rows(data, "a")}
+    assert "given-tree-decomposition" in flags[r"O^*(2^{\mathit{tw}})"]
+    assert "given-tree-decomposition" not in flags[r"O^*(2^{n})"]
+
+
+def test_equal_ostar_forms_are_equal_whatever_the_polynomial_factors():
+    # b's own O(2^n (n + m)) is not dropped for a's 2^n arriving through the complement map,
+    # whose factor n + (n(n-1)/2 - m) has no lower estimate (20 November 2026)
+    data = dataset(
+        problem("a", params=()), problem("b", params=()),
+        alg("a-alg", "a", r"O(2^{n} (n + m))", params=()),
+        alg("b-alg", "b", r"O(2^{n} (n + m))", params=()),
+        red("b-to-a", "b", "a", {"n": "n", "m": "n (n - 1)/2 - m"}),
+    )
+    assert "b-alg" in {r["id"] for r in rows(data, "b")}
+
+
+def test_xp_bounds_are_shown_exactly():
+    data = dataset(problem("a"), alg("a-alg", "a", r"O(n^{k + 1})"), alg("a-exp", "a", r"O(k^{n} n)"))
+    shown = {r["id"]: r["shown"] for r in rows(data, "a")}
+    assert shown["a-alg"] == r"O(n^{k + 1})"  # not O^*(n^{k})
+    assert shown["a-exp"] == r"O^*(k^{n})"  # an exact exponential algorithm keeps O*

@@ -468,6 +468,37 @@ def merged_lines(cited: list[dict[str, Any]]) -> list[dict[str, Any]]:
 # --- one problem page ---------------------------------------------------------------------------
 
 
+FILTER_PROPERTIES = ("deterministic", "polynomial_space", "constructive", "lean_verified")
+
+
+def grouped_rows(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Details: one entry per bound (Serge, 20 November 2026). Rows that show the same bound
+    under the same parameters sit together and show the bound once, each with its own source,
+    properties and origin, so the filters still apply per result. A derived row that repeats
+    a direct result of the same paper, with no stronger properties, is left out."""
+    groups: dict[tuple, list[dict[str, Any]]] = {}
+    for r in rows:
+        groups.setdefault((tuple(r["parameters"]), r["shown"]), []).append(r)
+    out: list[dict[str, Any]] = []
+    for i, members in enumerate(groups.values()):
+        direct = [m for m in members if m["origin"] == "direct"]
+        kept = [m for m in members if not (m["origin"] == "derived" and any(_repeats(m, d) for d in direct))]
+        for j, m in enumerate(kept):
+            m["group"] = i
+            m["group_first"] = j == 0
+        out.extend(kept)
+    return out
+
+
+def _repeats(m: dict[str, Any], d: dict[str, Any]) -> bool:
+    """m (derived) repeats d (direct): from the same papers, and stronger in no filter."""
+    if not m.get("papers") or not set(m["papers"]) <= set(d.get("papers") or []):
+        return False
+    p, q = m["properties"], d["properties"]
+    stronger = any(p.get(k) and not q.get(k) for k in FILTER_PROPERTIES) or (not p["algebraic"] and q["algebraic"])
+    return not stronger
+
+
 def chain_items(data: Dataset, d: Derivation, row: dict[str, Any], refs: References, problem: Problem) -> list[dict[str, Any]]:
     """The numbered chain under "Where this bound comes from"."""
     alg: Algorithm = data.entries["algorithms"][row["algorithm"]]  # type: ignore[assignment]
@@ -736,7 +767,7 @@ def problem_page(data: Dataset, d: Derivation, derived: dict[str, Any], pid: str
             groups[key] = merged_entries(groups[key])
             for e in groups[key]:
                 e["lines"] = merged_lines(e["cite"])
-        detail_rows = sorted(enriched_by_id.values(), key=sort_key)
+        detail_rows = grouped_rows(sorted(enriched_by_id.values(), key=sort_key))
         ordered_groups = sorted(groups.items(), key=lambda kv: [order.get(p, 99) for p in kv[0]])
         overview_out = []
         for key, entries in ordered_groups:

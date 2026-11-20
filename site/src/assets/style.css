@@ -161,6 +161,9 @@ table.results { min-width: 760px; }
 table.results th:nth-child(5) { min-width: 190px; }
 table.results th:nth-child(6) { min-width: 120px; }
 table.reductions { min-width: 720px; }
+/* one entry per bound (20 November 2026): later results with the same bound continue it */
+tr.cont .gb { display: none; }
+tr.cont > td:nth-child(-n+2) { border-top-style: hidden; }
 tr.extra td { background: var(--band); font-size: 15px; }
 tr.extra.filtered { display: none; }
 tr.extra ol.chain { margin: 0; border-left: 3px solid var(--accent); }
