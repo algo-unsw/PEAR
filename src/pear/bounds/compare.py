@@ -465,9 +465,14 @@ class Analysed:
 
 
 def analyse(b: Bound) -> Analysed:
+    from .display import hide_constants  # local import: display imports this module
+
     fixed = fixed_parameters(b.expr)
+    # O(·) hides constants, so O(2n/\log(2n)) and O(n/\log n) are the same statement; the
+    # simpler one is in the normal form's class (bounds §4, 20 November 2026)
+    plain = Bound(b.notation, hide_constants(b.expr, Context()), b.family)
     try:
-        return Analysed(b, tuple(bound_terms(b)), fixed)
+        return Analysed(b, tuple(bound_terms(plain)), fixed)
     except UnsupportedBound:
         return Analysed(b, None, fixed)
 

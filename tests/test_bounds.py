@@ -512,6 +512,47 @@ def test_simplify_drops_zero_terms():
     assert render(simplify(parse_expr(r"0 \cdot n + k", {"n", "k"}))) == "k"
 
 
+@pytest.mark.parametrize("stated, shown", [
+    # 20 November 2026: O(·) hides constant factors, constant terms, log bases, constant powers
+    # inside logs and dominated summands
+    (r"O^*(2^{O(2 n (\log \log(2 n))^{2}/\sqrt{\log(2 n)})})", r"O^*(2^{O(n (\log \log n)^{2}/\sqrt{\log n})})"),
+    (r"O^*(2^{O((2 k + 1) \log(2 k + 1))})", r"O^*(2^{O(k \log k)})"),
+    (r"O^*(2^{O(n (n - 1)/2 \log n^{3})})", r"O^*(2^{O(n^{2} \log n)})"),
+    (r"O^*(2^{O((n^{2} + n) \log_{3}(k + n^{2}))})", r"O^*(2^{O(n^{2} \log(k + n))})"),
+    (r"O^*(2^{O((n (n - 1)/2 - m) \log n)})", r"O^*(2^{O((n (n - 1)/2 - m) \log n)})"),
+    (r"O^*(2^{t - 1})", r"O^*(2^{t})"),
+    (r"O^*(n^{k + o(1)})", r"O^*(n^{k + o(1)})"),
+    (r"O^*(2^{o(3 n)})", r"O^*(2^{o(n)})"),
+    (r"O(2^{k} (2 n)^{O(1)})", r"O^*(2^{k})"),
+])
+def test_ostar_hides_constants(stated, shown):
+    from pear.bounds.compare import Context
+    from pear.bounds.display import ostar_tex
+
+    b = parse_bound(stated, {"n", "m", "k", "t"})
+    assert ostar_tex(b, Context()) == shown
+
+
+def test_hide_constants_in_a_polynomial_base():
+    from pear.bounds.compare import Context
+    from pear.bounds.display import hide_constants
+    from pear.bounds.expr import render
+
+    b = parse_bound(r"O(2^{k} (2 n^{2})^{O(1)} (n_{G} n_{H})^{O(k)})", {"n", "k", "n_G", "n_H"})
+    assert render(hide_constants(b.expr, Context())) == r"2^{k} n^{O(1)} (n_{G} n_{H})^{O(k)}"
+
+
+
+def test_comparison_ignores_constants_inside_o():
+    # 20 November 2026: 2^{O(2n (log log(2n))^2/sqrt(log(2n)))} was kept next to the strictly
+    # better 2^{O(n log log n/sqrt(log n))}, because log(2n) was outside the normal form
+    from pear.bounds.compare import Context
+
+    better = parse_bound(r"O^*(2^{O(n \log \log n/\sqrt{\log n})})", {"n"})
+    worse = parse_bound(r"O^*(2^{O(2 n (\log \log(2 n))^{2}/\sqrt{\log(2 n)})})", {"n"})
+    assert compare(better, worse, Context()) == Relation.BETTER
+
+
 # --- parameters a bound is listed under (rulebook §7, 20 November 2026) --------------------------
 
 from pear.bounds.params import listed_parameters  # noqa: E402

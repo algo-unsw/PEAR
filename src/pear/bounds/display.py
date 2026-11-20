@@ -14,6 +14,7 @@ from fractions import Fraction
 from .compare import Context, _hidden, term_le
 from .expr import (
     Add,
+    children,
     Asym,
     Bell,
     Bound,
@@ -41,8 +42,10 @@ DECIMALS = 4  # bases computed for derived bounds are rounded up to this many pl
 
 
 def ostar(b: Bound, ctx: Context) -> Bound:
-    """The O* form: drop factors polynomial in N, then terms dominated by another term."""
-    terms = [t for _, t in b.expr.terms] if isinstance(b.expr, Add) else [b.expr]
+    """The O* form: drop factors polynomial in N, then terms dominated by another term.
+    Constants that O(·) or O*(·) hide are dropped too (hide_constants)."""
+    expr = hide_constants(b.expr, ctx)
+    terms = [t for _, t in expr.terms] if isinstance(expr, Add) else [expr]
     kept = [_drop_poly_factors(t, ctx) for t in terms]
     if len(kept) > 1:
         # a term that was only polynomial factors is O*(1); a running time is at least 1,
@@ -59,6 +62,7 @@ def ostar_tex(b: Bound, ctx: Context) -> str:
 
 def _drop_poly_factors(term: Node, ctx: Context) -> Node:
     factors = list(term.factors) if isinstance(term, Mul) else [term]
+    factors = [_drop_poly_exponent_terms(f, ctx) for f in factors]
     keep = [f for f in factors if not _is_poly_factor(f, ctx)]
     if not keep:
         return num(1)
@@ -71,6 +75,217 @@ def _is_poly_factor(f: Node, ctx: Context) -> bool:
     except (Unspecified, UnsupportedBound):
         return False
     return all(_hidden(key, ctx, "ostar") for key in g.terms)
+
+
+def _drop_poly_exponent_terms(f: Node, ctx: Context) -> Node:
+    """c^{x + a} = c^{x} c^{a}: drop the exponent terms a for which c^{a} is a polynomial
+    factor, added or subtracted: 2^{t - 1} and 2^{t + 1} become 2^{t}. Only for a numeric
+    base c: in n^{k + 1} or n^{k + o(1)} the exponent is what the result is about."""
+    if not (isinstance(f, Pow) and isinstance(f.exp, Add) and isinstance(f.base, Num)):
+        return f
+    kept = tuple((s, a) for s, a in f.exp.terms if not _is_poly_factor(Pow(f.base, a), ctx))
+    if len(kept) == len(f.exp.terms):
+        return f
+    if not kept:
+        return num(1)
+    exp = kept[0][1] if len(kept) == 1 and kept[0][0] > 0 else Add(kept)
+    return Pow(f.base, exp)
+
+
+# --- constants hidden by O(·) (20 November 2026) -------------------------------------
+
+
+def hide_constants(node: Node, ctx: Context) -> Node:
+    """Inside O(·) and o(·), write the argument in its simplest form up to constant factors:
+    2^{O(2n (\log\log(2n))^2/\sqrt{\log(2n)})} becomes 2^{O(n (\log\log n)^2/\sqrt{\log n})}."""
+    if isinstance(node, Asym):
+        return Asym(node.kind, _theta(node.arg, ctx))
+    if isinstance(node, Pow) and isinstance(node.exp, Asym):
+        # x^{O(f)} = 2^{O(f log x)}: the base counts only as inside a log, (2n)^{O(1)} = n^{O(1)}
+        base = _log_argument(node.base, ctx)
+        return Pow(base if base is not None else node.base, hide_constants(node.exp, ctx))
+    return _map(node, lambda c: hide_constants(c, ctx))
+
+
+def hide_constants_exact(b: Bound, ctx: Context) -> Bound:
+    """A derived exact form under an outer O, O* or Õ: hide constants as inside O(·), term
+    by term, and merge repeated terms; every term stays, such as a reduction's time (R7)."""
+    expr = hide_constants(b.expr, ctx)
+    if b.notation is None:
+        return Bound(b.notation, expr, b.family)
+    terms = expr.terms if isinstance(expr, Add) else ((1, expr),)
+    if any(s < 0 for s, _ in terms):
+        return Bound(b.notation, expr, b.family)
+    out: list[Node] = []
+    for _, t in terms:
+        g = _theta(t, ctx)
+        if g not in out and not (g == ONE and len(terms) > 1):
+            out.append(g)
+    expr = out[0] if len(out) == 1 else Add(tuple((1, g) for g in out))
+    return Bound(b.notation, expr, b.family)
+
+
+def _map(node: Node, fn) -> Node:
+    if isinstance(node, Add):
+        return Add(tuple((s, fn(t)) for s, t in node.terms))
+    if isinstance(node, Mul):
+        return Mul(tuple(fn(f) for f in node.factors))
+    if isinstance(node, Div):
+        return Div(fn(node.num), fn(node.den))
+    if isinstance(node, Pow):
+        return Pow(fn(node.base), fn(node.exp))
+    if isinstance(node, Log):
+        return Log(fn(node.arg), node.power, node.base)
+    if isinstance(node, (Sqrt, Fact, Bell, Poly)):
+        return type(node)(fn(node.arg))
+    if isinstance(node, Asym):
+        return Asym(node.kind, fn(node.arg))
+    if isinstance(node, Func):
+        return Func(node.name, fn(node.arg))
+    return node
+
+
+def _has_var(node: Node) -> bool:
+    return isinstance(node, Var) or any(_has_var(c) for c in children(node))
+
+
+ONE = num(1)
+
+
+def _theta(node: Node, ctx: Context) -> Node:
+    """A simplest expression g with node = Θ(g) as the variables grow: constant factors,
+    constant terms, log bases, constant powers inside logs and dominated summands go."""
+    if isinstance(node, Num):
+        return ONE
+    if isinstance(node, Mul):
+        return _product([_theta(f, ctx) for f in node.factors])
+    if isinstance(node, Div):
+        n, d = _theta(node.num, ctx), _theta(node.den, ctx)
+        return n if d == ONE else Div(n, d)
+    if isinstance(node, Pow) and not _has_var(node.exp):
+        base = _theta(node.base, ctx)
+        if base == ONE:
+            return ONE
+        if isinstance(base, Mul) and isinstance(node.exp, Num):
+            # (x y)^2 = x^2 y^2, so that equal terms written differently are merged
+            e = node.exp.value
+            return _product([Pow(f.base, num(f.exp.value * e)) if isinstance(f, Pow) and isinstance(f.exp, Num)
+                             else Pow(f, node.exp) for f in base.factors])
+        return _product([Pow(base, node.exp)])
+    if isinstance(node, Sqrt):
+        a = _theta(node.arg, ctx)
+        return ONE if a == ONE else Sqrt(a)
+    if isinstance(node, Log):
+        a = _log_argument(node.arg, ctx)
+        return Log(a, node.power, None) if a is not None else node
+    if isinstance(node, Add):
+        return _theta_sum(node, ctx)
+    if isinstance(node, Asym):
+        return Asym(node.kind, _theta(node.arg, ctx))
+    return hide_constants(node, ctx)
+
+
+def _log_argument(arg: Node, ctx: Context) -> Node | None:
+    """log x up to a constant factor: log(c x^p y^q) = Θ(log(x y)). None if x is constant."""
+    a = _theta(arg, ctx)
+    if a == ONE:
+        return None
+    if isinstance(a, Add) and all(s > 0 for s, _ in a.terms):
+        # log(k + p^2) = Θ(log(k + p))
+        terms: list[Node] = []
+        for _, s in a.terms:
+            g = _strip_powers(s)
+            if g not in terms:
+                terms.append(g)
+        terms = _drop_dominated_exact(terms, ctx)
+        return terms[0] if len(terms) == 1 else Add(tuple((1, g) for g in terms))
+    return _strip_powers(a)
+
+
+def _strip_powers(a: Node) -> Node:
+    """x^p y^q becomes x y: equal up to a constant factor inside a log."""
+    factors = a.factors if isinstance(a, Mul) else (a,)
+    return _product([f.base if isinstance(f, Pow) and not _has_var(f.exp) else f for f in factors])
+
+
+def _theta_sum(node: Add, ctx: Context) -> Node:
+    """A sum of nonnegative terms is Θ of the sum of their simplest forms, without constants
+    and dominated terms. A sum that subtracts a term with variables keeps its form, apart
+    from subtracted constants (n - 1 = Θ(n))."""
+    if any(s < 0 and _has_var(t) for s, t in node.terms):
+        return hide_constants(node, ctx)
+    terms: list[Node] = []
+    for s, t in node.terms:
+        if s < 0:
+            continue
+        g = _theta(t, ctx)
+        if g != ONE and g not in terms:
+            terms.append(g)
+    if not terms:
+        return ONE
+    terms = _drop_dominated_exact(terms, ctx)
+    return terms[0] if len(terms) == 1 else Add(tuple((1, g) for g in terms))
+
+
+def _drop_dominated_exact(terms: list[Node], ctx: Context) -> list[Node]:
+    """Drop a summand at most a constant times another one (O(n^2 + n) = O(n^2))."""
+    if len(terms) == 1:
+        return terms
+    analysed = []
+    for t in terms:
+        try:
+            analysed.append(bound_terms(Bound("O", t))[0])
+        except (UnsupportedBound, Unspecified):
+            analysed.append(None)
+    out = []
+    for i, t in enumerate(terms):
+        dominated = False
+        for j in range(len(terms)):
+            if i == j or analysed[i] is None or analysed[j] is None:
+                continue
+            if not term_le(analysed[i], analysed[j], ctx, "exact"):
+                continue
+            if term_le(analysed[j], analysed[i], ctx, "exact") and i < j:
+                continue
+            dominated = True
+            break
+        if not dominated:
+            out.append(t)
+    return out
+
+
+def _product(factors: list[Node]) -> Node:
+    """Multiply, collecting powers of equal bases (n · n = n^2) and dropping 1s."""
+    powers: dict[Node, Fraction] = {}
+    first: dict[Node, Node] = {}  # a base used once keeps its exponent as written
+    count: dict[Node, int] = {}
+    order: list[Node] = []
+    for f in factors:
+        for g in (f.factors if isinstance(f, Mul) else (f,)):
+            if g == ONE:
+                continue
+            base, e = g, Fraction(1)
+            if isinstance(g, Pow) and isinstance(g.exp, Num):
+                base, e = g.base, g.exp.value
+            elif isinstance(g, Pow):
+                base, e = g, None  # a symbolic exponent: kept as it is
+            if base not in count:
+                order.append(base)
+                first[base] = g
+                count[base] = 0
+            count[base] += 1
+            if e is not None:
+                powers[base] = powers.get(base, Fraction(0)) + e
+    out: list[Node] = []
+    for b in order:
+        if count[b] == 1 or b not in powers:
+            out.append(first[b])
+        else:
+            e = powers[b]
+            out.append(b if e == 1 else Pow(b, num(e)))
+    if not out:
+        return ONE
+    return out[0] if len(out) == 1 else Mul(tuple(out))
 
 
 def _drop_dominated(terms: list[Node], ctx: Context) -> list[Node]:

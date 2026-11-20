@@ -198,9 +198,11 @@ def test_substitution_uses_a_monotone_upper_bound():
     )
     (b,) = derived(data, "b")
     assert "- m" in b["exact"]  # b's own bound keeps the exact form
-    (r,) = derived(data, "a")
-    assert r["exact"] == r"O(n^{2} + n^{2} + 1.1^{k} + n (n - 1)/2)"
-    assert r["shown"] == r"O^*(1.1^{k})"
+    (r,) = [x for x in derive(data).results[("a", "decision")] if x.derived]
+    assert render_bound(r.bound) == r"O(n^{2} + n^{2} + 1.1^{k} + n (n - 1)/2)"
+    (row,) = derived(data, "a")
+    assert row["exact"] == r"O(n^{2} + 1.1^{k})"  # constants and repeated terms hidden (bounds §4)
+    assert row["shown"] == r"O^*(1.1^{k})"
 
 
 # --- §3 Turing reductions, §4 randomness -------------------------------------------------------
