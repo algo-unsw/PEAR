@@ -278,6 +278,7 @@ def _bounded_below_terms(g: Growth, ctx: Context) -> bool:
     (its unknowns may be chosen), negative ones from the other (its unknowns are arbitrary)."""
     pos: list[list] = []  # [key, coef, strict]: strict once it has beaten a smaller shape
     neg: list[tuple[Key, Coef]] = []
+    g = _cancel_named(g, ctx)
     for key, raw in g.terms.items():
         if not key:
             continue
@@ -325,6 +326,33 @@ def _positive(c: Coef) -> bool:
     return c.sign > 0 and not c.infinitesimal
 
 
+def _cancel_named(g: Growth, ctx: Context) -> Growth:
+    """Cancel a negative multiple of a positive named constant (ω) against a positive multiple
+    of the same constant on a monomial at least as large: ω x ≤ ω y when x ≤ y, whatever ω
+    is (20 November 2026: (n_G n_H)^{ω k/3} ≤ (n_G n_H)^{ω n_G n_H/3} for k ≤ n_G)."""
+    terms = {k: list(cs) for k, cs in g.terms.items()}
+    changed = False
+    for nkey in list(terms):
+        for i, nc in enumerate(terms[nkey]):
+            name = nc.kind[4:] if nc.kind.startswith("sym:") else None
+            if name is None or nc.value >= 0 or name not in ctx.constants or ctx.constants[name][0] <= 0:
+                continue
+            for pkey, pcs in terms.items():
+                if pkey == nkey or not pkey:
+                    continue
+                j = next((j for j, pc in enumerate(pcs) if pc.kind == nc.kind and pc.value + nc.value >= -EPS), None)
+                if j is None or _dominates(pkey, nkey, ctx) is None:
+                    continue
+                pcs[j] = Coef(nc.kind, pcs[j].value + nc.value)
+                terms[nkey][i] = Coef(nc.kind, 0.0)
+                changed = True
+                break
+    if not changed:
+        return g
+    return Growth({k: [c for c in cs if not (c.kind.startswith("sym:") and abs(c.value) <= EPS)]
+                   for k, cs in terms.items()})
+
+
 def _size(key: Key) -> Shape:
     return max((s for _, s in key), default=(Fraction(0), Fraction(0), Fraction(0)))
 
@@ -357,18 +385,23 @@ def _dominates(pkey: Key, nkey: Key, ctx: Context) -> str | None:
         return None
     for targets in itertools.permutations(pvars, len(nvars)):
         weak = True
+        # pointwise ≤ for variables ≥ 1 with the same logarithmic factors and no larger power:
+        # n_G log n_H ≤ n_G n_H log n_H (20 November 2026)
+        pointwise = True
         strict_ok = len(nvars) == 1 and len(pvars) == 1
         lex_less = False
         for (x, shape), y in zip(nvars, targets):
             p = ctx.relation(x, y)
             if p is None:
-                weak = strict_ok = False
+                weak = strict_ok = pointwise = False
                 break
             moved = _transport(shape, p)
             if moved is None:  # only exact transport keeps coefficients
-                weak = False
+                weak = pointwise = False
                 moved = (shape[0] * p, shape[1], shape[2])
             target = pvars[y]
+            if not (moved[1:] == target[1:] and moved[0] <= target[0] and min(target[1:]) >= 0):
+                pointwise = False
             if moved != target:
                 weak = False
             if moved < target:
@@ -389,10 +422,13 @@ def _dominates(pkey: Key, nkey: Key, ctx: Context) -> str | None:
                         return "strict"
                     if moved == collapsed:
                         return "weak"
-            if weak and all(any(s) and min(s) >= 0 for y, s in pkey if y not in targets):
+            extra_ok = all(any(s) and min(s) >= 0 for y, s in pkey if y not in targets)
+            if weak and extra_ok:
                 return "weak"
             if strict_ok and lex_less:
                 return "strict"
+            if pointwise and extra_ok:
+                return "weak"  # coefficients still have to compare
     return None
 
 
