@@ -1,0 +1,12 @@
+id: gupta-roy-saurabh-2018-greediness
+title: "When Rigging a Tournament, Let Greediness Blind You"
+authors: [Sushmita Gupta, Sanjukta Roy, Saket Saurabh, Meirav Zehavi]
+identifiers: { dblp: conf/ijcai/GuptaR0Z18 }
+versions:
+  ijcai:
+    kind: conference
+    venue: "Proceedings of the Twenty-Seventh International Joint Conference on Artificial Intelligence (IJCAI 2018), pp. 275–281"
+    year: 2018
+    doi: "10.24963/ijcai.2018/38"
+    url: "https://www.ijcai.org/proceedings/2018/0038.pdf"
+    open_access: true

@@ -1,0 +1,35 @@
+id: eternal-vertex-cover
+name: Eternal Vertex Cover
+aliases: [EVC, Eternal Vertex Cover Number]
+category: graph
+complexity:
+  class: NP-hard
+  source:
+    paper: fomin-gaspers-golovach-2010
+    statements:
+      author-copy: { statement: "Proposition 1" }
+    note: "By a reduction from Vertex Cover. Membership in NP is open; the problem is in PSPACE (as cited from this paper in Misra, Ordyniak, Paesani and Rychlicki, arXiv:2609.17891, Section 1). The problem was introduced by Klostermeyer and Mynhardt ('Edge protection in graphs', 2009)."
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  k: { meaning: "the number of guards: the integer $k$ in the input (decision), or the eternal vertex cover number (optimisation)" }
+constraints:
+  - { constraint: "k \\le 2n", because: "The eternal vertex cover number is at most twice the vertex cover number (Klostermeyer and Mynhardt; Lemma 1 of Fomin et al.), so every instance with $k \\ge 2n$ is a yes-instance." }
+  - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
+versions:
+  decision:
+    kind: decision
+    input: "A graph $G = (V, E)$ and an integer $k$."
+    question: "Can $k$ guards protect $G$ forever: is there a placement of $k$ guards on vertices of $G$ (several guards may share a vertex) such that, for every infinite sequence of attacked edges, the guards can answer each attack on an edge $uv$ by each guard staying or moving to a neighbouring vertex, with at least one guard moving along $uv$, so that after every answer the occupied vertices form a vertex cover?"
+  optimisation:
+    kind: optimisation
+    input: "A graph $G = (V, E)$."
+    goal: "Find the eternal vertex cover number of $G$: the minimum $k$ such that $k$ guards, placed on vertices of $G$ (several guards may share a vertex), can answer every infinite sequence of attacked edges, each attack on an edge $uv$ by each guard staying or moving to a neighbouring vertex, with at least one guard moving along $uv$, so that after every answer the occupied vertices form a vertex cover."
+default_version: decision
+shared_bounds:
+  - versions: [decision, optimisation]
+    because: "Binary search on $k$, with $k \\le 2n$."
+related:
+  - { problem: vertex-cover, relation: variant }

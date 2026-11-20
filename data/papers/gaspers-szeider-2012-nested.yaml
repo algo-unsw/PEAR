@@ -1,0 +1,16 @@
+id: gaspers-szeider-2012-nested
+title: Strong Backdoors to Nested Satisfiability
+authors: [Serge Gaspers, Stefan Szeider]
+identifiers: { dblp: conf/sat/GaspersS12, openalex: null }
+versions:
+  arxiv-v2:
+    kind: preprint
+    year: 2012
+    arxiv: "1202.4331v2"
+    open_access: true
+  sat:
+    kind: conference
+    venue: "Theory and Applications of Satisfiability Testing (SAT 2012), LNCS 7317, pp. 72–85"
+    year: 2012
+    doi: "10.1007/978-3-642-31612-8_7"
+    open_access: false

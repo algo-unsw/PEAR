@@ -1,0 +1,21 @@
+id: tournament-fixing--n--gupta-roy-saurabh-2018-bribery
+problem: tournament-fixing
+proved_for: decision
+bound:
+  as_stated: "2^{n} n^{O(1)}"
+  notation: O
+  parameters: [n]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: "Stated: polynomial space (Theorem 5)."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: gupta-roy-saurabh-2018-bribery
+  statements:
+    ijcai: { statement: "Theorem 5 (with Lemma 4)" }
+  note: "Stated for Bribery Tournament Fixing, where up to $\\ell$ match outcomes may be reversed; Tournament Fixing is the case $\\ell = 0$. Earlier: $O(2^{n})$ time and space by Kim and Vassilevska Williams (IJCAI 2015), as cited in this paper's introduction (not opened)."

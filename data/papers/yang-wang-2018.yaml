@@ -1,0 +1,23 @@
+id: yang-wang-2018
+title: "Parameterized Complexity of Multi-winner Determination: More Effort Towards Fixed-Parameter Tractability"
+authors: [Yongjie Yang, Jianxin Wang]
+identifiers: { dblp: journals/aamas/YangW23 }
+versions:
+  aamas:
+    kind: conference
+    venue: "Proceedings of the 17th International Conference on Autonomous Agents and MultiAgent Systems (AAMAS 2018), extended abstract, pp. 2142–2144"
+    year: 2018
+    url: "http://dl.acm.org/citation.cfm?id=3238099"
+    open_access: false
+  arxiv:
+    kind: preprint
+    year: 2021
+    arxiv: "2107.04685"
+    open_access: true
+  journal:
+    kind: journal
+    title: "Parameterized complexity of multiwinner determination: more effort towards fixed-parameter tractability"
+    venue: "Autonomous Agents and Multi-Agent Systems 37(2), Article 28"
+    year: 2023
+    doi: "10.1007/s10458-023-09610-z"
+    open_access: false

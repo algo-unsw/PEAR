@@ -1,0 +1,11 @@
+id: 4-coloring--to--max-2-csp
+from: { problem: 4-coloring, version: decision }
+to: { problem: max-2-csp, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(n + m)"
+parameter_map: { n: "n", m: "m", r: "4", k: "m" }
+source:
+  folklore: true
+  note: "Domain $[4]$, constraint graph $G$, every vertex score 0 and $s_{uv}(a, b) = 1$ if $a \\ne b$ and 0 otherwise, with $k = m$: an assignment scores at least $m$ if and only if it is a 4-colouring. Max $k$-Colorable Subgraph is the case $r = k$ of Max $(r,2)$-CSP (Section 11.1 of arXiv:2611.05146v1)."
+  reference: { paper: gaspers-2026-pathwidth, version: arxiv-v1, statement: "Section 11.1" }

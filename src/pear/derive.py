@@ -904,9 +904,16 @@ class Engine:
                 # folklore (undated) counts as earliest, so brute force is cited (20 November 2026)
                 dated = [r.year for r in g if r.year is not None]
                 first = None if any(r.year is None for r in g) or not dated else min(dated)
+                cite = [r for r in g if r.year == first]
+                # the problem's own result is cited, not a derived copy from the same papers (or
+                # from folklore) arriving through a reduction (21 November 2026)
+                own = [r for r in cite if _own(r)]
+                covered = {p for r in own for p in r.papers}
+                if own:
+                    cite = own + [r for r in cite if not _own(r) and not set(r.papers) <= covered]
                 entries.append({
                     "members": [r.id for r in g],
-                    "cite": [r.id for r in g if r.year == first],
+                    "cite": [r.id for r in cite],
                     "year": first,
                 })
             out[key] = entries
@@ -969,6 +976,12 @@ class Engine:
                     s.id for s in kept if s is not r and compare(self.analyse(s), self.analyse(r), ctx) == Relation.BETTER
                 ]
         return out
+
+
+def _own(r: Result) -> bool:
+    """r is the problem's own result: its chain only moves between versions of the problem
+    (special cases) or projects, with no reduction from another problem."""
+    return all(st.kind in ("special-case", "projection") for st in r.chain)
 
 
 def _earlier(s: Result, r: Result) -> bool:

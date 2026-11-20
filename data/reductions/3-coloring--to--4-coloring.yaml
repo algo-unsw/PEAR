@@ -1,0 +1,10 @@
+id: 3-coloring--to--4-coloring
+from: { problem: 3-coloring, version: decision }
+to: { problem: 4-coloring, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(n + m)"
+parameter_map: { n: "n + 1", m: "m + n", tw: "tw + 1" }
+source:
+  folklore: true
+  note: "Add a new vertex $h$ adjacent to every vertex of $G$: in a 4-colouring $h$ has a colour of its own, so $G$ is 3-colourable if and only if $G + h$ is 4-colourable (as on slide 12 of https://sites.ualberta.ca/~mrs/courses/lectures/lecture34.pdf). Adding $h$ to every bag of a tree decomposition of $G$ gives one of $G + h$, so the treewidth grows by at most 1."

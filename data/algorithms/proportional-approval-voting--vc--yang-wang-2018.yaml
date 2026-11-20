@@ -1,0 +1,23 @@
+id: proportional-approval-voting--vc--yang-wang-2018
+problem: proportional-approval-voting
+proved_for: decision
+bound:
+  as_stated: f(vc) N^{O(1)}
+  notation: O
+  parameters: [vc, N]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Not stated; educated guess: exponential in $vc$. The algorithm reduces to Annotated PAV with at most $vc$ voters and runs the integer-programming algorithm of Theorem 1, whose program has $2^{vc} + vc$ variables.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: yang-wang-2018
+  statements:
+    arxiv: { statement: "Theorem 13" }
+  note: 'Stated as "MAV and PAV are FPT with respect to $\alpha(G_E)$", the size of a maximum matching of the incidence graph $G_E$. The incidence graph is bipartite, so by Kőnig''s theorem $\alpha(G_E)$ equals its vertex cover number $vc$. Numbering read from the LaTeX source of the latest arXiv version (thirteenth theorem; theorems are numbered consecutively, separately from lemmas and corollaries); TODO(verify) the arXiv version number and the journal numbering.'
+formal: { status: informal }
+status: valid

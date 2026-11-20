@@ -1,0 +1,22 @@
+id: tournament-fixing--d--wang-peng-liu-2026
+problem: tournament-fixing
+proved_for: decision
+bound:
+  as_stated: "2^{2^{d}} n^{O(1)}"
+  notation: O
+  parameters: [d, n]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: "Not stated; follows from the polynomial-space $2^{n} n^{O(1)}$ algorithm of Gupta et al. that the proof applies."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+uses: [tournament-fixing--n--gupta-roy-saurabh-2018-bribery]
+source:
+  paper: wang-peng-liu-2026
+  statements:
+    arxiv-v1: { statement: "Theorem 1" }
+  note: "Proof: $v^*$ must win $\\log n$ matches, so $d < \\log n$ gives a no-instance; otherwise $n \\le 2^{d}$ and the $2^{n} n^{O(1)}$ algorithm of Gupta et al. applies. Theorem 2 rules out $2^{2^{d/c}} n^{O(1)}$ for every constant $c > 1$ under ETH. Theorem 3 (fixed-parameter tractability by the in-degree $k$ of $v^*$; Lemma 7: randomized $(2e)^{t} n^{O(1)}$ with $t = k 2^{k} - k$) is not entered. The same Theorem 1 is Theorem 1 of the merged arXiv:2602.13422v2 (Liu, Peng, Wang, Xiao)."

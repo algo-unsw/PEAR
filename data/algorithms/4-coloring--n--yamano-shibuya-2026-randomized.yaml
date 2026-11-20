@@ -1,0 +1,25 @@
+id: 4-coloring--n--yamano-shibuya-2026-randomized
+problem: 4-coloring
+proved_for: decision
+bound:
+  as_stated: 'O^*(1.6933^{n})'
+  notation: O*
+  parameters:
+  - n
+properties:
+  randomized:
+    error: one-sided
+  space:
+    class: exponential
+    bound: 'Not stated; educated guess: exponential. The 3-coloring subroutine (Theorem 1.2) and the terminal algorithms use dynamic programming over tree decompositions (Telle and Proskurowski, $O^*(k^{tw})$; Section 3), whose tables are exponential in the width; this version also uses the randomized path decomposition algorithm of Jansen and Nederlof (Section 5.6).'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: yamano-shibuya-2026
+  statements:
+    arxiv-v1:
+      statement: Theorem 1.4
+      page: 3
+  note: 'One-sided Monte Carlo: always rejects no-instances, accepts yes-instances with constant probability (Section 2). Uses the randomized path decomposition DP for terminal instances (Section 5.6) and the randomized $O^*(1.3159^n)$ 3-coloring algorithm of Theorem 1.2. arXiv v1, 2 November 2026; unrefereed preprint.'

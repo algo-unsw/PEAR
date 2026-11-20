@@ -1,0 +1,21 @@
+id: tournament-fixing--n--aziz-gaspers-mackenzie-2014
+problem: tournament-fixing
+proved_for: decision
+bound:
+  as_stated: "O(2.8285^{n})"
+  notation: O
+  parameters: [n]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: "Stated: $O(1.7548^{n})$ (memoization over subsets of players of size at most $n/4$)."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: aziz-gaspers-mackenzie-2014
+  statements:
+    aaai: { statement: "Theorem 4 with $y = 2$ (Table 1), and the section 'An Exponential Time Algorithm for #TFP'" }
+  note: "Stated for #TFP, counting the draws in which the given player wins; a positive count answers TFP (decision). Theorem 4 gives the time–space trade-off for every $2 \\le y \\le \\log n$."

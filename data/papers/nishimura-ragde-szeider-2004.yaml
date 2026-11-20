@@ -1,0 +1,11 @@
+id: nishimura-ragde-szeider-2004
+title: Detecting Backdoor Sets with Respect to Horn and Binary Clauses
+authors: [Naomi Nishimura, Prabhakar Ragde, Stefan Szeider]
+identifiers: { dblp: conf/sat/NishimuraRS04, openalex: null }
+versions:
+  sat:
+    kind: conference
+    venue: "SAT 2004, the Seventh International Conference on Theory and Applications of Satisfiability Testing, Vancouver, Online Proceedings, pp. 96–103"
+    year: 2004
+    url: "https://www.ac.tuwien.ac.at/files/pub/nishimura-ragde-szeider-2004.pdf"
+    open_access: true

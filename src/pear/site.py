@@ -703,7 +703,8 @@ def problem_page(data: Dataset, d: Derivation, derived: dict[str, Any], pid: str
         return out
 
     def sort_key(r: dict[str, Any]) -> tuple:
-        return (r["param_order"], r["origin"] != "direct", -(r["year"] or 0))
+        # the problem's own results first, then direct before derived, newest first
+        return (r["param_order"], r.get("from_problem") is not None, r["origin"] != "direct", -(r["year"] or 0))
 
     # Overview first, so its citations get the low numbers.
     nodes = {}

@@ -1,0 +1,24 @@
+id: 4-coloring--n--yamano-shibuya-2026
+problem: 4-coloring
+proved_for: decision
+bound:
+  as_stated: 'O^*(1.6975^{n})'
+  notation: O*
+  parameters:
+  - n
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Not stated; educated guess: exponential. The 3-coloring subroutine (Theorem 1.1) and the terminal algorithms use dynamic programming over tree decompositions (Telle and Proskurowski, $O^*(k^{tw})$; Section 3), whose tables are exponential in the width.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: yamano-shibuya-2026
+  statements:
+    arxiv-v1:
+      statement: Theorem 1.3
+      page: 3
+  note: 'Deterministic. The branching reductions of Wu et al. (ESA 2024) unchanged, with new algorithms for terminal instances (reduction to 3-coloring using the deterministic $O^*(1.3204^n)$ 3-coloring algorithm of Theorem 1.1, (3,2)-CSP with a triangle list cover, tree decomposition DP; the randomized version adds a randomized path decomposition DP) combined by a convex program with dual certificates (Appendix E). Section 2 and Appendix A: the search version within the same $O^*$ bound by self-reduction. arXiv v1, 2 November 2026 (read: LaTeX source and the Zotero PDF); unrefereed preprint.'

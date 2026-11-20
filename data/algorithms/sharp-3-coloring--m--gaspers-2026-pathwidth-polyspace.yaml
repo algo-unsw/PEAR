@@ -1,0 +1,24 @@
+id: sharp-3-coloring--m--gaspers-2026-pathwidth-polyspace
+problem: sharp-3-coloring
+proved_for: counting
+bound:
+  as_stated: 'O^*(3^{0.175869m + o(m)})'
+  notation: O*
+  parameters:
+  - m
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Polynomial space, as stated (Theorem C.3).'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: gaspers-2026-pathwidth
+  statements:
+    arxiv-v1:
+      statement: 'Theorem C.3(c)'
+      page: 153
+  note: 'Theorem C.3(c): $r^{(\frac{7}{50}+\frac{3}{10}\alpha)m+o(m)}$, in polynomial space, and "the same bounds hold for the number of ring operations of RCSP", with $\alpha = 2\gamma/3$, $\gamma = 2c_3/(1+4c_3)$, $c_3 = \frac{3}{4\pi}\arccos\frac{5}{6}$; the paper states $\frac{7}{50}+\frac{3}{10}\alpha < 0.175869$, so the implied bound is stored (the bound language has no $\arccos$). Here RCSP over the integers with $r = 3$, vertex scores 1 and $s_{uv}(a, b) = 1$ if and only if $a \ne b$ counts the 3-colourings of $G$; the integers have $O(n)$ bits, so each ring operation takes polynomial time (simple specialisation, decided by the worker; the $O^*$ accounts for it). The algorithm of Gaspers and Sorkin (Separate, Measure and Conquer) with the separators of Lemma C.2(a). Theorem number and page as recorded for `max-2-csp--m--gaspers-2026-pathwidth-polyspace`; statement read in the LaTeX source. arXiv v1, 3 November 2026; unrefereed preprint.'

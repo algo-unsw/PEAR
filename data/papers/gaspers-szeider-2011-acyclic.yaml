@@ -1,0 +1,16 @@
+id: gaspers-szeider-2011-acyclic
+title: Backdoors to Acyclic SAT
+authors: [Serge Gaspers, Stefan Szeider]
+identifiers: { dblp: conf/icalp/GaspersS12, openalex: null }
+versions:
+  arxiv-v3:
+    kind: preprint
+    year: 2012
+    arxiv: "1110.6384v3"
+    open_access: true
+  icalp:
+    kind: conference
+    venue: "39th International Colloquium on Automata, Languages, and Programming (ICALP 2012), Part I, LNCS 7391, pp. 363–374"
+    year: 2012
+    doi: "10.1007/978-3-642-31594-7_31"
+    open_access: false

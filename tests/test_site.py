@@ -285,11 +285,15 @@ def test_merged_journal_version_brings_its_authors(real):
 
 def test_corrected_deterministic_fvs_uses_kociumaka_pilipczuk(real):
     # decided 18 November 2026: Theorem 2 of Fomin et al. with the journal bound (2 + phi)^k
-    _, site, _ = real
-    node = site["pages"]["feedback-vertex-set"]["nodes"]["decision+optimisation+search"]
-    row = next(r for r in node["rows"] if r["id"] == "feedback-vertex-set--n--fomin-gaspers-lokshtanov-saurabh-2015-deterministic")
-    assert row["shown"] == "O^*(1.7237^{n})"
-    assert [u["id"] for u in row["uses"]] == ["feedback-vertex-set--k--kociumaka-pilipczuk-2014"]
+    # 21 November 2026: beaten by Gaspers–Lee's deterministic O(1.7117^n) (ICALP 2017), so it is
+    # in the bound history, no longer in Details
+    data, _, _ = real
+    alg = data.entries["algorithms"]["feedback-vertex-set--n--fomin-gaspers-lokshtanov-saurabh-2015-deterministic"]
+    assert alg.bound.as_stated == "1.7237^{n} n^{O(1)}"
+    assert list(alg.uses) == ["feedback-vertex-set--k--kociumaka-pilipczuk-2014"]
+    d = derive(data)
+    beaten = {r.id: ids for r, ids in d.superseded.get(("feedback-vertex-set", "decision+optimisation+search"), [])}
+    assert "feedback-vertex-set--n--gaspers-lee-2017" in beaten[alg.id]
 
 
 def test_preliminary_version_by_fewer_authors(real):

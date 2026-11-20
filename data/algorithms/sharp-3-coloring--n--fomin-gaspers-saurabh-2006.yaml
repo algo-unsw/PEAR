@@ -1,0 +1,23 @@
+id: sharp-3-coloring--n--fomin-gaspers-saurabh-2006
+problem: sharp-3-coloring
+proved_for: counting
+bound:
+  as_stated: '1.6308^{n}'
+  notation: O
+  parameters:
+  - n
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Not stated; educated guess: exponential. When the maximum degree of the uncoloured part is small, the algorithm outputs a path decomposition and runs the dynamic program of Lemma 5 ($O(3^{\ell} n^{O(1)})$ for width $\ell$), whose tables are exponential in the width.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: fomin-gaspers-saurabh-2006
+  statements:
+    journal-author-copy:
+      statement: Theorem 3
+  note: 'In the Algorithmica version only (Fomin, Gaspers, Saurabh and Stepanov), not in the ISAAC 2006 paper. Branches on the colour sets $\{R\}$ and $\{B, G\}$ of a vertex of maximum degree, and switches to the treewidth DP of Lemma 5 when the pathwidth is small. Beaten by the same authors'' $O(1.6262^n)$ (COCOON 2007).'
