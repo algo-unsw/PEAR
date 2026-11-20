@@ -95,7 +95,7 @@ def test_parameter_headings(real):
     data, _, _ = real
     short = {p["symbol"]: p["short"] for p in parameter_info(data, data.problems["vertex-cover"])}
     assert short == {"k": "solution size", "n": "number of vertices", "m": "number of edges",
-                     "N": "input size", "tw": "treewidth"}
+                     "N": "input size", "tw": "treewidth", "k_w": "weighted solution size"}
 
 
 def test_vertex_cover_page(real):

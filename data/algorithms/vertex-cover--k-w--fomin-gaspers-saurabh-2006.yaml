@@ -1,0 +1,21 @@
+id: vertex-cover--k-w--fomin-gaspers-saurabh-2006
+problem: vertex-cover
+proved_for: weighted
+bound:
+  as_stated: "1.3803^{k_w} n^{O(1)}"
+  notation: O
+  parameters: [k_w, n]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: "Stated: $O(1.2599^{k} n^{O(1)})$ (Theorem 5)."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: fomin-gaspers-saurabh-2006
+  statements:
+    journal-author-copy: { statement: "Theorem 5" }
+  note: "Theorem 5: \"k-WVC on a graph on n vertices can be solved in time $O(1.3803^k n^{O(1)})$ and space $O(1.2599^k n^{O(1)})$\"; k-WVC asks for a vertex cover of weight at most $k \\in \\mathbb{R}^+$ under weights $w(v) \\ge 1$. PEAR's weighted version has integer weights $\\ge 0$: vertices of weight 0 go into the cover first (they cost nothing; delete them with their edges), so the remaining weights are $\\ge 1$; trying $k = 0, 1, 2, \\dots$ until a cover is found costs a geometric sum, $O(1.3803^{k_w} n^{O(1)})$ in total for the minimum weight $k_w$. Only the Algorithmica version is entered (decided by Serge Gaspers, 21 November 2026); the ISAAC 2006 version's $k$-WVC bound is not."

@@ -18,8 +18,6 @@ properties:
 source:
   paper: fomin-gaspers-saurabh-2006
   statements:
-    isaac:
-      statement: Theorem 1
     journal-author-copy:
       statement: Theorem 1 and Corollary 1
-  note: 'Theorem 1 (both versions): a minimum maximal matching of a graph on $n$ vertices can be found in time $O(1.4082^n)$. The journal version adds Corollary 1: a minimum edge dominating set can be found in time $O(1.4082^n)$, since every minimum maximal matching is a minimum edge dominating set (Proposition 4 there). Beaten by van Rooij and Bodlaender, $O(1.3226^n)$.'
+  note: 'Theorem 1: a minimum maximal matching of a graph on $n$ vertices can be found in time $O(1.4082^n)$. Corollary 1: a minimum edge dominating set can be found in time $O(1.4082^n)$, since every minimum maximal matching is a minimum edge dominating set (Proposition 4). Only the Algorithmica version is cited (decided by Serge Gaspers, 21 November 2026: enter what is in the Algorithmica paper, not the ISAAC 2006 paper). Beaten by van Rooij and Bodlaender, $O(1.3226^n)$.'
