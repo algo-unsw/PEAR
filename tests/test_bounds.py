@@ -553,6 +553,39 @@ def test_comparison_ignores_constants_inside_o():
     assert compare(better, worse, Context()) == Relation.BETTER
 
 
+def test_tilde_o_hides_polylog_of_the_bound():
+    # bounds §2: Õ hides a factor polylogarithmic in the bound itself; Õ(n + t) hides
+    # polylog(n + t), not a polynomial (20 November 2026: Bringmann's Õ(n + t) for Subset Sum
+    # was dropped as if Koiliaris–Xu's sqrt(n) t log^{5/2} t were at least as good)
+    from pear.bounds.compare import Context
+
+    s = {"n", "t"}
+    rel = compare(parse_bound(r"\tilde{O}(n + t)", s), parse_bound(r"\sqrt{n} t \log^{5/2} t", s), Context())
+    assert rel in (Relation.TIE, Relation.INCOMPARABLE)
+    # for an exponential bound the polylog is a polynomial, as before
+    assert compare(parse_bound(r"O(2^{n} n^{5})", s), parse_bound(r"\tilde{O}(2^{n})", s), Context()) == Relation.BETTER
+
+
+def test_constraint_keeps_its_coefficient():
+    from fractions import Fraction
+
+    from pear.bounds.compare import build_context
+
+    ctx = build_context({"n", "m", "k"}, [r"m \le n (n - 1)/2", r"k \le m"])
+    assert ctx.relation("m", "n") == 2 and ctx.scale("m", "n") == Fraction(1, 2)
+    assert ctx.relation("k", "n") == 2 and ctx.scale("k", "n") == Fraction(1, 2)  # closed
+    assert ctx.scale("k", "m") == 1
+
+
+def test_substitution_rewrites_epsilon_subscripts():
+    from pear.bounds.display import substitute
+    from pear.bounds.expr import Const, parse_expr
+
+    e = parse_expr(r"(2 - \varepsilon_{k})^{n}", {"n", "k"})
+    assert substitute(e, {"k": parse_expr("3", set())}).base.terms[1][1] == Const("varepsilon", ())
+    assert substitute(e, {"k": parse_expr("2 p", {"p"})}).base.terms[1][1] == Const("varepsilon", ("p",))
+
+
 # --- parameters a bound is listed under (rulebook §7, 20 November 2026) --------------------------
 
 from pear.bounds.params import listed_parameters  # noqa: E402

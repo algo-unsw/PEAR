@@ -1099,6 +1099,24 @@ def test_technique_validation(change, expected):
 
 
 
+def test_projection_keeps_subtracted_constants_and_constraint_coefficients():
+    # 20 November 2026: m <= n(n - 1)/2 projects 1.5^m to 1.5^{n^2/2}, not 1.5^{n^2}
+    data = dataset(
+        problem("a", params=("k",), constraints=[r"m \le n (n - 1)/2"]),
+        alg("a-alg", "a", r"O^*(1.5^{m})"),
+    )
+    shown = {r["shown"] for r in rows(data, "a")}
+    assert r"O^*(1.5^{n^{2}/2})" in shown and r"O^*(1.5^{n^{2}})" not in shown
+
+
+def test_drop_subtractions_keeps_constants():
+    from pear.bounds.expr import parse_expr, render
+    from pear.derive import _monotone_majorant
+
+    e = parse_expr(r"(3 \cdot 2^{\omega - 1} + 1)^{n - k}", {"n", "k"})
+    assert render(_monotone_majorant(e)) == r"(3 \cdot 2^{\omega - 1} + 1)^{n}"
+
+
 # --- folklore results count as earliest (20 November 2026) ------------------------------------
 
 
