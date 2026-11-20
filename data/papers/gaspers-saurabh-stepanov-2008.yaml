@@ -1,0 +1,12 @@
+id: gaspers-saurabh-stepanov-2008
+title: "A Moderately Exponential Time Algorithm for Full Degree Spanning Tree"
+authors: [Serge Gaspers, Saket Saurabh, Alexey A. Stepanov]
+identifiers: { dblp: "conf/tamc/GaspersSS08" }
+versions:
+  tamc:
+    kind: conference
+    venue: "Theory and Applications of Models of Computation (TAMC 2008), LNCS 4978, pp. 479–489"
+    year: 2008
+    doi: "10.1007/978-3-540-79228-4_42"
+    url: "https://cgi.cse.unsw.edu.au/~sergeg/papers/Tamc2008.pdf"
+    open_access: true

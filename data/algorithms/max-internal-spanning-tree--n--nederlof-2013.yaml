@@ -1,0 +1,19 @@
+id: max-internal-spanning-tree--n--nederlof-2013
+problem: max-internal-spanning-tree
+proved_for: decision
+bound:
+  as_stated: 'O^*(2^{n})'
+  notation: O*
+  parameters: [n]
+properties:
+  randomized: false
+  space: { class: polynomial, bound: 'Polynomial space, as stated.' }
+  algebraic: true
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: nederlof-2013
+  statements:
+    journal: { statement: "Theorem 6" }
+  note: 'Stated as "can be solved in $O(2^n)$ time and polynomial space", where the paper''s $O$ notation suppresses every factor polynomial in the input size (Section 2): stored as $O^*(2^n)$. Inclusion–exclusion over branching walks, counted by dynamic programming for each term (Section 4.3); no random choices. Decides whether a spanning tree with at least $c$ internal vertices exists. Preliminary version ICALP 2009.'

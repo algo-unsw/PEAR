@@ -17,8 +17,8 @@ properties:
 source:
   paper: gaspers-mnich-2009
   statements:
-    esa: { statement: "Corollary 4" }
+    esa-author-copy: { statement: "Corollary 4" }
     arxiv-v3: { statement: "Corollary 2" }
-  note: 'Finds a minimum feedback vertex set by enumerating all minimal feedback vertex sets of the tournament with polynomial delay in polynomial space (arXiv v3, Section 6), combined with the upper bound of $1.6740^n$ on their number (arXiv v3, Theorem 6; ESA version, Theorem 1 and Corollary 2). The ESA statement is read from the author copy on Serge Gaspers''s page (Esa2010.pdf), whose text does not name the venue. Journal version (J. Graph Theory 2013) not opened.'
+  note: 'Finds a minimum feedback vertex set by enumerating all minimal feedback vertex sets of the tournament with polynomial delay in polynomial space (arXiv v3, Section 6), combined with the upper bound of $1.6740^n$ on their number (arXiv v3, Theorem 6; ESA author copy, Theorem 1 and Corollary 2). The author copy Esa2010.pdf on Serge Gaspers''s page is the ESA 2010 paper with an appendix (at least 21 pages; its text does not name the venue), so its numbering may differ from the LNCS version, which was not opened. Journal version (J. Graph Theory 2013) not opened.'
 formal: { status: informal }
 status: valid

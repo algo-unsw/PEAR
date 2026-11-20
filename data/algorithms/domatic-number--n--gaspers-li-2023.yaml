@@ -1,0 +1,24 @@
+id: domatic-number--n--gaspers-li-2023
+problem: domatic-number
+proved_for: optimisation
+bound:
+  as_stated: O((2 - \varepsilon)^{n})
+  notation: O
+  parameters: [n]
+properties:
+  randomized: { error: two-sided }
+  space:
+    class: exponential
+    bound: 'Not stated. The algorithm of Theorem 8 (ICALP numbering), on which the corollary relies, first runs the inclusion–exclusion preprocessing of Theorem 6 for all subsets of size at most $n/4$ and stores the results in QRAM: $O^*(\binom{n}{n/4})$ space.'
+  algebraic: true
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: true
+source:
+  paper: gaspers-li-2023
+  statements:
+    icalp:
+      statement: Corollary 20
+    arxiv:
+      statement: Corollary 2 (current arXiv version, read 21 November 2026)
+  note: 'Corollary 20 (ICALP 2024): "There is a bounded-error quantum algorithm which computes the domatic number of any graph on $n$ vertices in $O((2-\varepsilon)^n)$ time for some constant $\varepsilon > 0$." Domatic Number is cast as packing $k$ minimal dominating sets; Theorem 18 enumerates the minimal dominating sets of $G$ inside a linear-sized vertex subset $X$ in $O^*((2-\varepsilon_d)^{|X|})$ time with a simple branching algorithm, which Theorem 8 (divide and conquer with Grover search over QRAM-stored preprocessing) turns into a quantum algorithm.'

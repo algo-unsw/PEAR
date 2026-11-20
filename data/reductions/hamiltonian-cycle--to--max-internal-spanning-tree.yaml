@@ -1,0 +1,10 @@
+id: hamiltonian-cycle--to--max-internal-spanning-tree
+from: { problem: hamiltonian-cycle, version: decision }
+to: { problem: max-internal-spanning-tree, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(n + m)"
+parameter_map: { n: "n + 3", m: "m + n + 1", k: "n + 1", tw: "tw + 1" }
+source:
+  folklore: true
+  note: "Pick a vertex $v$, add a copy $v'$ with the same neighbours, and pendant vertices $u$ at $v$ and $u'$ at $v'$ (the standard reduction to Hamiltonian Path, as in Longest Path's complexity note); for $n \\ge 3$, $G$ has a Hamiltonian cycle if and only if $G'$ has a Hamiltonian path, that is, a spanning tree with at least $(n + 3) - 2 = n + 1$ internal vertices (a tree on at least 3 vertices with exactly 2 leaves is a path). $G'$ has $n + 3$ vertices and $m + \\deg(v) + 2 \\le m + n + 1$ edges; adding $v'$ to every bag containing $v$, plus two bags for the pendant edges, gives a tree decomposition of width at most $\\mathrm{tw} + 1$. Graphs with $n \\le 2$ are solved directly."

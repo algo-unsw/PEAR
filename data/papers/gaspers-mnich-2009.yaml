@@ -5,7 +5,6 @@ identifiers: { dblp: journals/jgt/GaspersM13, openalex: null }
 versions:
   arxiv-v1:
     kind: preprint
-    title: "On Feedback Vertex Sets in Tournaments"
     arxiv: "0905.0567v1"
     year: 2009
     open_access: true
@@ -14,6 +13,10 @@ versions:
     venue: "Algorithms – ESA 2010, 18th Annual European Symposium, Part I, LNCS 6346, pp. 267–277"
     year: 2010
     doi: "10.1007/978-3-642-15775-2_23"
+    open_access: false
+  esa-author-copy:
+    kind: preprint
+    year: 2010
     url: "https://cgi.cse.unsw.edu.au/~sergeg/papers/Esa2010.pdf"
     open_access: true
   arxiv-v3:

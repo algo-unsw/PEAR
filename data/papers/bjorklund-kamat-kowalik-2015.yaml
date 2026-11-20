@@ -1,0 +1,22 @@
+id: bjorklund-kamat-kowalik-2015
+title: "Spotting Trees with Few Leaves"
+authors: [Andreas Björklund, Vikram Kamat, Łukasz Kowalik, Meirav Zehavi]
+identifiers: { dblp: "journals/siamdm/BjorklundKKZ17" }
+versions:
+  arxiv-v2:
+    kind: preprint
+    arxiv: "1501.00563v2"
+    year: 2015
+    open_access: true
+  icalp:
+    kind: conference
+    venue: "Automata, Languages, and Programming (ICALP 2015), Part I, LNCS 9134, pp. 243–255"
+    year: 2015
+    doi: "10.1007/978-3-662-47672-7_20"
+    open_access: false
+  journal:
+    kind: journal
+    venue: "SIAM Journal on Discrete Mathematics 31(2), pp. 687–713"
+    year: 2017
+    doi: "10.1137/15M1048975"
+    open_access: false

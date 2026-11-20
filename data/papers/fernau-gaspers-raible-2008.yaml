@@ -1,0 +1,37 @@
+id: fernau-gaspers-raible-2008
+title: "Exact and Parameterized Algorithms for Max Internal Spanning Tree"
+authors: [Henning Fernau, Serge Gaspers, Daniel Raible]
+identifiers: { dblp: "conf/wg/FernauGR09" }
+versions:
+  arxiv-v1:
+    kind: preprint
+    title: "Exact Exponential Time Algorithms for Max Internal Spanning Tree"
+    authors: [Henning Fernau, Daniel Raible, Serge Gaspers, Alexey A. Stepanov]
+    arxiv: "0811.1875v1"
+    year: 2008
+    open_access: true
+  arxiv-v3:
+    kind: preprint
+    title: "Exact Exponential Time Algorithms for Max Internal Spanning Tree"
+    arxiv: "0811.1875v3"
+    year: 2009
+    open_access: true
+  wg:
+    kind: workshop
+    venue: "35th International Workshop on Graph-Theoretic Concepts in Computer Science (WG 2009), LNCS 5911, pp. 100–111"
+    year: 2009
+    doi: "10.1007/978-3-642-11409-0_9"
+    open_access: false
+  journal:
+    kind: journal
+    authors: [Daniel Binkele-Raible, Henning Fernau, Serge Gaspers, Mathieu Liedloff]
+    venue: "Algorithmica 65(1), pp. 95–128"
+    year: 2013
+    doi: "10.1007/s00453-011-9575-5"
+    open_access: false
+  journal-author-copy:
+    kind: preprint
+    authors: [Daniel Binkele-Raible, Henning Fernau, Serge Gaspers, Mathieu Liedloff]
+    year: 2011
+    url: "https://cgi.cse.unsw.edu.au/~sergeg/papers/DegreeBoundedMIST.pdf"
+    open_access: true
