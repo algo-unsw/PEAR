@@ -11,6 +11,7 @@ incomparable, so mistakes can only keep too many bounds, never drop a correct be
 
 from __future__ import annotations
 
+import functools
 import itertools
 import math
 from dataclasses import dataclass, field
@@ -18,7 +19,7 @@ from enum import Enum
 from fractions import Fraction
 from typing import Iterable, Sequence
 
-from .expr import Bound, Var, fixed_parameters, parse_expr
+from .expr import Bound, Num, Pow, Var, fixed_parameters, parse_expr, variables
 from .numeric import interval
 from .growth import (
     CONST_EXPRS,
@@ -31,6 +32,7 @@ from .growth import (
     UnsupportedBound,
     bound_terms,
     exact,
+    is_monotone,
     value_growth,
 )
 
@@ -276,6 +278,7 @@ def _bounded_below_terms(g: Growth, ctx: Context) -> bool:
     (its unknowns may be chosen), negative ones from the other (its unknowns are arbitrary)."""
     pos: list[list] = []  # [key, coef, strict]: strict once it has beaten a smaller shape
     neg: list[tuple[Key, Coef]] = []
+    g = _cancel_named(g, ctx)
     for key, raw in g.terms.items():
         if not key:
             continue
@@ -323,6 +326,33 @@ def _positive(c: Coef) -> bool:
     return c.sign > 0 and not c.infinitesimal
 
 
+def _cancel_named(g: Growth, ctx: Context) -> Growth:
+    """Cancel a negative multiple of a positive named constant (ω) against a positive multiple
+    of the same constant on a monomial at least as large: ω x ≤ ω y when x ≤ y, whatever ω
+    is (20 November 2026: (n_G n_H)^{ω k/3} ≤ (n_G n_H)^{ω n_G n_H/3} for k ≤ n_G)."""
+    terms = {k: list(cs) for k, cs in g.terms.items()}
+    changed = False
+    for nkey in list(terms):
+        for i, nc in enumerate(terms[nkey]):
+            name = nc.kind[4:] if nc.kind.startswith("sym:") else None
+            if name is None or nc.value >= 0 or name not in ctx.constants or ctx.constants[name][0] <= 0:
+                continue
+            for pkey, pcs in terms.items():
+                if pkey == nkey or not pkey:
+                    continue
+                j = next((j for j, pc in enumerate(pcs) if pc.kind == nc.kind and pc.value + nc.value >= -EPS), None)
+                if j is None or _dominates(pkey, nkey, ctx) is None:
+                    continue
+                pcs[j] = Coef(nc.kind, pcs[j].value + nc.value)
+                terms[nkey][i] = Coef(nc.kind, 0.0)
+                changed = True
+                break
+    if not changed:
+        return g
+    return Growth({k: [c for c in cs if not (c.kind.startswith("sym:") and abs(c.value) <= EPS)]
+                   for k, cs in terms.items()})
+
+
 def _size(key: Key) -> Shape:
     return max((s for _, s in key), default=(Fraction(0), Fraction(0), Fraction(0)))
 
@@ -355,18 +385,23 @@ def _dominates(pkey: Key, nkey: Key, ctx: Context) -> str | None:
         return None
     for targets in itertools.permutations(pvars, len(nvars)):
         weak = True
+        # pointwise ≤ for variables ≥ 1 with the same logarithmic factors and no larger power:
+        # n_G log n_H ≤ n_G n_H log n_H (20 November 2026)
+        pointwise = True
         strict_ok = len(nvars) == 1 and len(pvars) == 1
         lex_less = False
         for (x, shape), y in zip(nvars, targets):
             p = ctx.relation(x, y)
             if p is None:
-                weak = strict_ok = False
+                weak = strict_ok = pointwise = False
                 break
             moved = _transport(shape, p)
             if moved is None:  # only exact transport keeps coefficients
-                weak = False
+                weak = pointwise = False
                 moved = (shape[0] * p, shape[1], shape[2])
             target = pvars[y]
+            if not (moved[1:] == target[1:] and moved[0] <= target[0] and min(target[1:]) >= 0):
+                pointwise = False
             if moved != target:
                 weak = False
             if moved < target:
@@ -387,10 +422,13 @@ def _dominates(pkey: Key, nkey: Key, ctx: Context) -> str | None:
                         return "strict"
                     if moved == collapsed:
                         return "weak"
-            if weak and all(any(s) and min(s) >= 0 for y, s in pkey if y not in targets):
+            extra_ok = all(any(s) and min(s) >= 0 for y, s in pkey if y not in targets)
+            if weak and extra_ok:
                 return "weak"
             if strict_ok and lex_less:
                 return "strict"
+            if pointwise and extra_ok:
+                return "weak"  # coefficients still have to compare
     return None
 
 
@@ -435,14 +473,73 @@ def analyse(b: Bound) -> Analysed:
 
 
 def le(a: Analysed, b: Analysed, ctx: Context, mode: str) -> bool:
-    """A = O(B): every term of A is dominated by a single term of B (bounds §5.1)."""
+    """A = O(B): every term of A is dominated by a single term of B (bounds §5.1), possibly
+    after raising A's variables along the constraints (bounds §5, item 9)."""
     if a.terms is None or b.terms is None:
         return False
     if a.fixed != b.fixed:
         # a bound for every fixed k (ε_k, hidden constants depending on k) is compared only
         # with bounds fixed in the same parameters (bounds §2, 17 November 2026)
         return False
+    if _le_terms(a, b, ctx, mode):
+        return True
+    return any(_le_terms(r, b, ctx, mode) for r in _raised(a, b, ctx))
+
+
+def _le_terms(a: Analysed, b: Analysed, ctx: Context, mode: str) -> bool:
+    assert a.terms is not None and b.terms is not None
+    if a.bound == b.bound and all(t.unspecified is None for t in a.terms):  # B3: f(k) beats nothing
+        return True  # identical statements imply each other, even where the estimates of a
+        # factor differ above and below (Bell numbers)
     return all(any(term_le(x, y, ctx, mode) for y in b.terms) for x in a.terms)
+
+
+MAX_RAISINGS = 16
+
+
+def _raised(a: Analysed, b: Analysed, ctx: Context) -> list[Analysed]:
+    """A with each variable x that B does not use replaced by y^p for a variable y of B with
+    x ≤ y^p, if A is nondecreasing in every variable: then A(x) ≤ A(y^p), so A ≤ B follows
+    from A(y^p) ≤ B. The monomial check alone cannot see k! 2^{o(k)} ≤ n! 2^{o(n)} for k ≤ n
+    (Stirling's x! has a negative x log e term), nor n^k ≤ n^n (20 November 2026)."""
+    a_vars = variables(a.bound.expr)
+    b_vars = variables(b.bound.expr)
+    extra = sorted(a_vars - b_vars)
+    if not extra or not b_vars or not _monotone(a.bound):
+        return []
+    options: list[list[tuple[str, Fraction]]] = []
+    for x in extra:
+        targets = [(y, p) for y in sorted(b_vars) if (p := ctx.relation(x, y)) is not None]
+        if not targets:
+            return []  # x would stay, and B does not bound it
+        options.append(targets)
+    out = []
+    for choice in itertools.islice(itertools.product(*options), MAX_RAISINGS):
+        mapping = tuple((x, y, p) for x, (y, p) in zip(extra, choice))
+        r = _raise(a.bound, mapping)
+        if r is not None and r.terms is not None and r.fixed == b.fixed:
+            out.append(r)
+    return out
+
+
+@functools.lru_cache(maxsize=65536)
+def _monotone(b: Bound) -> bool:
+    return is_monotone(b)
+
+
+@functools.lru_cache(maxsize=65536)
+def _raise(b: Bound, mapping: tuple[tuple[str, str, Fraction], ...]) -> Analysed | None:
+    from .display import simplify, substitute  # local import: display imports this module
+
+    subst = {x: Var(y) if p == 1 else Pow(Var(y), Num(Fraction(p), _fraction_text(Fraction(p)))) for x, y, p in mapping}
+    try:
+        return analyse(Bound(b.notation, simplify(substitute(b.expr, subst)), b.family))
+    except Exception:  # noqa: BLE001 - outside the supported class: no conclusion
+        return None
+
+
+def _fraction_text(p: Fraction) -> str:
+    return str(p.numerator) if p.denominator == 1 else f"{p.numerator}/{p.denominator}"
 
 
 def compare(a: Bound | Analysed, b: Bound | Analysed, ctx: Context) -> Relation:
