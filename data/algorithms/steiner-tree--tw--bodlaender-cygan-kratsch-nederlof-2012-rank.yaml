@@ -1,6 +1,6 @@
 id: steiner-tree--tw--bodlaender-cygan-kratsch-nederlof-2012-rank
 problem: steiner-tree
-proved_for: optimisation
+proved_for: weighted
 bound:
   as_stated: '(1 + 2^{\omega + 1})^{tw} tw^{O(1)} n'
   notation: O
@@ -23,4 +23,4 @@ source:
   statements:
     arxiv-v1:
       statement: Theorem 3.8
-  note: 'Rank-based approach, deterministic (abstract), for edge weights $\omega \colon E \to \mathbb{N}$; $n(1+2^{\omega})^{pw} pw^{O(1)}$ with a path decomposition.'
+  note: 'Rank-based approach, deterministic (abstract). Theorem 3.8 is for edge weights $w \colon E \to \mathbb{N} \setminus \{0\}$ (Section 3.3; the paper writes $\omega$ for the weights too), hence proved for the weighted version (Serge Gaspers, 20 November 2026). TODO(verify): PEAR''s weighted version allows weight 0, the theorem positive weights only; $n(1+2^{\omega})^{pw} pw^{O(1)}$ with a path decomposition.'

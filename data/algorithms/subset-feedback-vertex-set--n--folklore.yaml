@@ -1,0 +1,21 @@
+id: subset-feedback-vertex-set--n--folklore
+problem: subset-feedback-vertex-set
+proved_for: optimisation
+bound:
+  as_stated: '2^{n} (n + m)'
+  notation: O
+  parameters:
+  - n
+  - m
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'One set $S$ at a time.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  folklore: true
+  note: 'Try all $2^n$ sets $S \subseteq V$ and test in time $O(n + m)$, with the biconnected components of $G - S$, whether a cycle of $G - S$ passes through a vertex of the given subset (brute force; added at Serge Gaspers''s request, 20 November 2026).'

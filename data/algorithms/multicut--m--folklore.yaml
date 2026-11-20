@@ -1,0 +1,21 @@
+id: multicut--m--folklore
+problem: multicut
+proved_for: optimisation
+bound:
+  as_stated: '2^{m} N'
+  notation: O
+  parameters:
+  - m
+  - N
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'One set $S$ at a time.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  folklore: true
+  note: 'Try all $2^m$ sets $S \subseteq E$ and test whether every terminal pair is separated in $G - S$ (brute force; added at Serge Gaspers''s request, 20 November 2026).'

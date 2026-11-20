@@ -1,0 +1,20 @@
+id: longest-path--n--folklore
+problem: longest-path
+proved_for: optimisation
+bound:
+  as_stated: '2^{n} n^{2}'
+  notation: O
+  parameters:
+  - n
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'A table over all pairs $(S, v)$ with $S \subseteq V$ and $v \in S$.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  folklore: true
+  note: 'Dynamic programming over pairs $(S, v)$: is there a path with vertex set $S$ that ends in $v$? (as Bellman and Held–Karp for the travelling salesman problem) (brute force; added at Serge Gaspers''s request, 20 November 2026).'
