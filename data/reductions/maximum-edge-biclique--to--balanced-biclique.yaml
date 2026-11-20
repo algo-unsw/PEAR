@@ -1,0 +1,12 @@
+id: maximum-edge-biclique--to--balanced-biclique
+from: { problem: maximum-edge-biclique, version: decision }
+to: { problem: balanced-biclique, version: unbalanced }
+type: polytime-deterministic
+calls: "n"
+time: "O(n)"
+parameter_map: { n: "n", m: "m" }
+source:
+  folklore: true
+  note: "For $k \\ge 1$, $G$ has disjoint sets $X, Y$ with $|X| \\cdot |Y| \\ge k$ and all edges between them if and only if, for some $k_1 \\in \\{1, \\dots, n\\}$, it has such sets with $|X| = k_1$ and $|Y| = \\lceil k / k_1 \\rceil$ (shrink $Y$; then $|X| \\cdot |Y| \\ge k$ still holds). So at most $n$ calls to the unbalanced version $(k_1, k_2) = (k_1, \\lceil k / k_1 \\rceil)$ on the same graph decide the instance ($k \\le 0$ is a yes-instance)."
+formal: { status: informal }
+status: valid

@@ -1,0 +1,18 @@
+id: peeters-2000
+title: "The maximum edge biclique problem is NP-complete"
+authors: [René Peeters]
+identifiers: { dblp: "journals/dam/Peeters03", openalex: null }
+versions:
+  report:
+    kind: technical-report
+    venue: "FEW Research Memorandum 789, Tilburg University"
+    year: 2000
+    url: "https://research.tilburguniversity.edu/files/535705/789.pdf"
+    open_access: false
+  journal:
+    kind: journal
+    venue: "Discrete Applied Mathematics 131(3), pp. 651–654"
+    year: 2003
+    doi: "10.1016/S0166-218X(03)00333-0"
+    url: "https://core.ac.uk/download/420778571.pdf"
+    open_access: true
