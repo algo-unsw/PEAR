@@ -1,0 +1,23 @@
+id: komusiewicz-kratsch-le-2018
+title: "Matching Cut: Kernelization, Single-Exponential Time FPT, and Exact Exponential Algorithms"
+authors: [Christian Komusiewicz, Dieter Kratsch, Van Bang Le]
+identifiers: { dblp: "conf/iwpec/KomusiewiczKL18" }
+versions:
+  ipec:
+    kind: conference
+    venue: "13th International Symposium on Parameterized and Exact Computation (IPEC 2018), LIPIcs 115, 19:1–19:13"
+    year: 2018
+    doi: "10.4230/LIPIcs.IPEC.2018.19"
+    open_access: true
+  journal:
+    kind: journal
+    venue: "Discrete Applied Mathematics 283, pp. 44–58"
+    year: 2020
+    doi: "10.1016/j.dam.2019.12.010"
+    open_access: false
+  journal-author-copy:
+    kind: preprint
+    venue: "Accepted manuscript of the Discrete Applied Mathematics version (accepted 16 December 2019), University of Marburg algorithms group web page"
+    year: 2019
+    url: "https://www.uni-marburg.de/de/fb12/arbeitsgruppen/algorith/paper/mcrevisited-dam.pdf"
+    open_access: true

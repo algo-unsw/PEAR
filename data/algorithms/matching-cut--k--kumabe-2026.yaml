@@ -1,0 +1,21 @@
+id: matching-cut--k--kumabe-2026
+problem: matching-cut
+proved_for: minimum-decision
+bound:
+  as_stated: 'O^*(2^{O(k)})'
+  notation: O*
+  parameters: [k]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Not stated; educated guess: exponential (in $k$). Dynamic programming over a $(2k, k)$-edge-unbreakable tree decomposition with tables indexed by subsets of adhesions of size at most $2k$, with inclusion–exclusion and formal power series at large bags.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: kumabe-2026
+  statements:
+    arxiv-v1: { statement: 'Theorem 1.3' }
+  note: 'Problem as defined in Section 1: is there $\emptyset \ne A \subsetneq V$ with $|\delta_G(A)| \le k$ and $|\delta_G(A) \cap \delta_G(\{v\})| \le 1$ for every $v$, which is the minimum-decision version. Deterministic, and a witness can be recovered (Theorem 1.3). Improves the $2^{O(k \log k)} n^{O(1)}$ algorithm of Aravind and Saxena. Preprint (arXiv, November 2026).'

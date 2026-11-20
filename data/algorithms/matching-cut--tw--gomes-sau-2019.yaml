@@ -1,0 +1,22 @@
+id: matching-cut--tw--gomes-sau-2019
+problem: matching-cut
+proved_for: decision
+bound:
+  as_stated: 'O^*(8^{tw})'
+  notation: O*
+  parameters: [tw]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Not stated; educated guess: exponential. Dynamic programming over a nice tree decomposition with tables indexed by the states of the bag vertices.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+given: [tree-decomposition]
+source:
+  paper: gomes-sau-2019
+  statements:
+    arxiv-v1: { statement: 'Theorem 12 (with $d = 1$); Section 1 states the $O^*(8^{\mathrm{tw}(G)})$ bound for Matching Cut' }
+  note: 'Theorem 12 solves $d$-Cut in $O^*(2^{tw+1}(d+1)^{2tw+2})$ time given a nice tree decomposition of width $tw$; for $d = 1$ ($d$-Cut is Matching Cut) this is $O^*(8^{tw})$, as Section 1 states. Improves the $O^*(12^{tw})$ algorithm of Aravind, Kalyanasundaram and Kare (COCOA 2017).'

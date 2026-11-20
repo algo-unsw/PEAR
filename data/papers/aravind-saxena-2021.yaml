@@ -1,0 +1,17 @@
+id: aravind-saxena-2021
+title: "An FPT Algorithm for Matching Cut and d-Cut"
+authors: [N. R. Aravind, Roopam Saxena]
+identifiers: { dblp: "conf/iwoca/AravindS21" }
+versions:
+  arxiv-v3:
+    kind: preprint
+    title: "An FPT algorithm for Matching Cut and d-cut"
+    arxiv: "2101.06998v3"
+    year: 2021
+    open_access: true
+  iwoca:
+    kind: conference
+    venue: "Combinatorial Algorithms (IWOCA 2021), LNCS 12757, pp. 531–543"
+    year: 2021
+    doi: "10.1007/978-3-030-79987-8_37"
+    open_access: false
