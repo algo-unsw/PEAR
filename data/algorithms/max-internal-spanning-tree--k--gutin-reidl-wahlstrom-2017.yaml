@@ -1,0 +1,19 @@
+id: max-internal-spanning-tree--k--gutin-reidl-wahlstrom-2017
+problem: max-internal-spanning-tree
+proved_for: decision
+bound:
+  as_stated: 'O^*(3.86^{k})'
+  notation: O*
+  parameters: [k]
+properties:
+  randomized: false
+  space: { class: polynomial, bound: 'Polynomial space, as stated.' }
+  algebraic: true
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: gutin-reidl-wahlstrom-2017
+  statements:
+    arxiv: { statement: "Theorem 8" }
+  note: 'Theorem 8: a deterministic polynomial-space $O^*(3.86^k)$-time algorithm for $k$-Internal Out-Branching (directed); color coding of multivariate polynomials (determinant of a Matrix–Tree-type matrix) with splitters enumerated with polynomial delay. Applied to Maximum Internal Spanning Tree: a $k$-IST instance $(G, k)$ is a $k$-IOB instance $(D, k + 1)$ on the symmetric digraph $D$ of $G$: a spanning tree with $i$ internal vertices, rooted at one of its leaves and oriented away from the root, is an out-branching with $i + 1$ vertices of positive out-degree (the root has one child), and conversely only the root of an out-branching can be a leaf of the underlying tree, so an out-branching with at least $k + 1$ vertices of positive out-degree gives a spanning tree with at least $k$ internal vertices ($n \ge 3$). The bound applies with $c^{k+1} = O(c^{k})$. Gutin et al. (arXiv 1706.03698, Section 1) and Li et al. (arXiv 1412.8296v1, Section 1) note that $k$-IOB algorithms solve $k$-IST. arXiv version number not shown by the tools.'

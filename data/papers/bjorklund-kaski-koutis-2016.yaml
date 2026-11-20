@@ -1,0 +1,17 @@
+id: bjorklund-kaski-koutis-2016
+title: "Directed Hamiltonicity and Out-Branchings via Generalized Laplacians"
+authors: [Andreas Björklund, Petteri Kaski, Ioannis Koutis]
+identifiers: { dblp: "conf/icalp/BjorklundKK17" }
+versions:
+  arxiv-v2:
+    kind: preprint
+    arxiv: "1607.04002v2"
+    year: 2017
+    open_access: true
+  icalp:
+    kind: conference
+    venue: "44th International Colloquium on Automata, Languages, and Programming (ICALP 2017), LIPIcs 80, 91:1–91:14"
+    year: 2017
+    doi: "10.4230/LIPIcs.ICALP.2017.91"
+    url: "https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.ICALP.2017.91"
+    open_access: true
