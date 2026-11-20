@@ -541,3 +541,13 @@ def test_hide_constants_in_a_polynomial_base():
     b = parse_bound(r"O(2^{k} (2 n^{2})^{O(1)} (n_{G} n_{H})^{O(k)})", {"n", "k", "n_G", "n_H"})
     assert render(hide_constants(b.expr, Context())) == r"2^{k} n^{O(1)} (n_{G} n_{H})^{O(k)}"
 
+
+
+def test_comparison_ignores_constants_inside_o():
+    # 20 November 2026: 2^{O(2n (log log(2n))^2/sqrt(log(2n)))} was kept next to the strictly
+    # better 2^{O(n log log n/sqrt(log n))}, because log(2n) was outside the normal form
+    from pear.bounds.compare import Context
+
+    better = parse_bound(r"O^*(2^{O(n \log \log n/\sqrt{\log n})})", {"n"})
+    worse = parse_bound(r"O^*(2^{O(2 n (\log \log(2 n))^{2}/\sqrt{\log(2 n)})})", {"n"})
+    assert compare(better, worse, Context()) == Relation.BETTER
