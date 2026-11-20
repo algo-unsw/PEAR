@@ -1,0 +1,17 @@
+id: lokshtanov-panolan-saurabh-2025
+title: "Crossing Number in Slightly Superexponential Time (Extended Abstract)"
+authors: [Daniel Lokshtanov, Fahad Panolan, Saket Saurabh, Roohani Sharma, Jie Xue, Meirav Zehavi]
+identifiers: { dblp: "conf/soda/LokshtanovP0S0Z25" }
+versions:
+  accepted:
+    kind: preprint
+    venue: "Accepted manuscript, White Rose Research Online (eprint 221122)"
+    year: 2025
+    url: "https://eprints.whiterose.ac.uk/221122/1/CrossingNumber.pdf"
+    open_access: true
+  soda:
+    kind: conference
+    venue: "Proceedings of the 2025 Annual ACM-SIAM Symposium on Discrete Algorithms (SODA 2025), pp. 1412–1424"
+    year: 2025
+    doi: "10.1137/1.9781611978322.44"
+    open_access: false

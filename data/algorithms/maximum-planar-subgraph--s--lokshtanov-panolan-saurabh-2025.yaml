@@ -1,0 +1,25 @@
+id: maximum-planar-subgraph--s--lokshtanov-panolan-saurabh-2025
+problem: maximum-planar-subgraph
+proved_for: search
+bound:
+  as_stated: '2^{O(s \log s)} \cdot n'
+  notation: O
+  parameters:
+  - s
+  - n
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Not stated; educated guess: exponential. The algorithm is the Jansen–Lokshtanov–Saurabh planarization algorithm, which uses dynamic programming over tree decompositions of width bounded in $s$.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: lokshtanov-panolan-saurabh-2025
+  statements:
+    accepted: { statement: "Section 1.2 (Treewidth Reduction Step) and Section 3" }
+  note: 'Section 1.2: "We start by finding a set $F$ of at most $2k$ edges such that $G - F$ is planar. Such a set can be found in time $2^{O(k \log k)} \cdot n$ using the algorithm of Jansen, Lokshtanov and Saurabh"; Section 3 calls it "the algorithm for the Edge Planarization problem of Jansen et al." With budget $s = 2k$ this is $2^{O(s \log s)} \cdot n$ for finding a set of at most $s$ edges whose deletion leaves a planar graph, or reporting that none exists. TODO(verify): the result is attributed to Jansen, Lokshtanov and Saurabh (SODA 2014), whose statement for edge deletion was not checked here (the author copy URL redirects to another host); cite JLS directly once checked.'
+formal: { status: informal }
+status: valid

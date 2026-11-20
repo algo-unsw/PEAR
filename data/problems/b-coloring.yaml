@@ -18,6 +18,7 @@ parameters:
   tw: { shared: treewidth }
   vc: { shared: vertex-cover-number }
   fes: { shared: feedback-edge-set-number }
+  nd: { shared: neighborhood-diversity }
   dcc: { meaning: "the distance to co-cluster: the minimum number of vertices whose deletion leaves a complete multipartite graph (the complement of a disjoint union of cliques)" }
   cw: { meaning: "the width $w$ of a $w$-expression constructing $G$ (create, disjoint union, join and relabel operations with at most $w$ labels), given with the input; at least the clique-width of $G$" }
 constraints:
@@ -27,6 +28,7 @@ constraints:
   - { constraint: "vc \\le n", because: "$V$ is a vertex cover." }
   - { constraint: "fes \\le m", because: "Deleting all edges leaves a forest." }
   - { constraint: "dcc \\le n", because: "Deleting all vertices leaves the empty graph." }
+  - { constraint: "nd \\le n", because: "The partition into single vertices is a partition into twin classes." }
 versions:
   decision:
     kind: decision

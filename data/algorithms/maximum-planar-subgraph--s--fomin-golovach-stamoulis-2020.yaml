@@ -1,0 +1,25 @@
+id: maximum-planar-subgraph--s--fomin-golovach-stamoulis-2020
+problem: maximum-planar-subgraph
+proved_for: decision
+bound:
+  as_stated: 'f(s) \cdot n^{2}'
+  notation: O
+  parameters:
+  - s
+  - n
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Not stated; educated guess: $f(s) \cdot n$. The algorithm ends with Courcelle''s theorem (dynamic programming over a tree decomposition of width bounded by a function of $s$) and calls the Jansen–Lokshtanov–Saurabh planarization algorithm, itself a dynamic programming over tree decompositions.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: fomin-golovach-stamoulis-2020
+  statements:
+    arxiv-v2: { statement: "Main theorem, Section 2.1 (Modifications on graphs)" }
+  note: 'The main theorem: for every FOL sentence $\varphi$ and every operation (vertex deletion, edge deletion, edge contraction, edge addition), "Graph $\boxtimes$-Modification to Planarity and $\varphi$" is solvable in time $\mathcal{O}_{k,|\varphi|}(n^2)$, i.e. $h(k, |\varphi|) \cdot n^2$ for a computable $h$. With edge deletion and a sentence $\varphi$ true in every graph this is the decision version here, with the paper''s $k$ = our $s$ (the paper asks for a set of exactly $k$ edges; when $s \le m$ this is equivalent to at most $s$ edges, since deleting further edges keeps a graph planar). Read in the arXiv LaTeX source (latest version, v2); the theorem number was not visible there and the ESA and TOCT versions were not checked (LIPIcs PDF not fetched). TODO(verify): theorem number.'
+formal: { status: informal }
+status: valid

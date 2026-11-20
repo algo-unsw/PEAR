@@ -1,0 +1,21 @@
+id: b-coloring--nd--jaffke-lima-sharma-2023
+problem: b-coloring
+proved_for: decision
+bound:
+  as_stated: "2^{O(nd \\log nd)} \\log n + n^{O(1)}"
+  notation: O
+  parameters: [nd, n]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: "Not stated; educated guess: polynomial in $n$ times a function of $nd$. Guesses which twin classes contain $b$-vertices and solves $2^{O(nd)}$ integer linear programs one at a time (Jansen and Rohwedder's algorithm); no tables over subsets."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: jaffke-lima-sharma-2023
+  statements:
+    conference: { statement: "Theorem 22" }
+  note: "Stated as $2^{O(d \\log d)} \\log n + O(n)$ given a partition of $V$ into $d$ twin classes (an ND-partition). Such a partition of minimum size can be computed in polynomial time (twins are tested pairwise), so the bound is stored as the implied $2^{O(nd \\log nd)} \\log n + n^{O(1)}$ for the problem without a given partition. Read in the LIPIcs PDF. The same paper shows FPT by twin cover number $t$ in $2^{2^{O(t)}} n + O(m)$ (Theorem 24; no PEAR parameter for twin cover yet) and XNLP-completeness by pathwidth (Theorem 1)."

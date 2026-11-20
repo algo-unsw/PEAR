@@ -1,0 +1,41 @@
+id: maximum-planar-subgraph
+name: Maximum Planar Subgraph
+aliases: [MPS, Planar Subgraph, Edge Planarization, Planar Edge Deletion, Skewness]
+category: graph
+complexity:
+  class: NP-complete
+  source:
+    paper: chimani-2009
+    statements:
+      thesis: { statement: "Section 4.3.1", page: 45 }
+    note: "Section 4.3.1 (Skewness) states that the Maximum Planar Subgraph problem is a well-known NP-complete problem. Wikipedia (Planarization) cites this thesis, Section 4.3.1, for the NP-hardness."
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  k: { meaning: "the solution size: the integer $k$ in the input (decision, search), or the maximum number of edges of a planar spanning subgraph (optimisation)" }
+  s: { meaning: "the number of deleted edges, $s = m - k$; in the optimisation version, the minimum number of edges whose deletion leaves a planar graph (the skewness of $G$)" }
+constraints:
+  - { constraint: "k \\le m", because: "Every instance with $k > m$ is a no-instance, answered in polynomial time." }
+  - { constraint: "s \\le m", because: "Every instance with $k \\le 0$ is a yes-instance ($F = \\emptyset$), answered in polynomial time; otherwise $s = m - k < m$." }
+  - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
+versions:
+  decision:
+    kind: decision
+    input: "A graph $G = (V, E)$ and an integer $k$."
+    question: "Is there a set $F \\subseteq E$ with $|F| \\ge k$ such that the graph $(V, F)$ is planar?"
+  optimisation:
+    kind: optimisation
+    input: "A graph $G = (V, E)$."
+    goal: "Find the maximum size of a set $F \\subseteq E$ such that the graph $(V, F)$ is planar."
+  search:
+    kind: search
+    input: "A graph $G = (V, E)$ and an integer $k$."
+    goal: "Find a set $F \\subseteq E$ with $|F| \\ge k$ such that the graph $(V, F)$ is planar, or report that none exists."
+default_version: decision
+shared_bounds:
+  - versions: [decision, optimisation, search]
+    because: "Binary search on $k$ and self-reducibility."
+related:
+  - { problem: planar-vertex-deletion, relation: variant }

@@ -4,11 +4,11 @@ to: { problem: edge-clique-cover, version: decision }
 type: polytime-deterministic
 calls: 1
 time: "O(n^{3})"
-parameter_map: { n: "n", m: "n(n - 1)/2", k: "k + 2" }
+parameter_map: { n: "n", k: "k + 2" }
 source:
   paper: nor-et-al-2010
   statements:
     arxiv: { statement: "Theorem 3 (Section 4.2), with Rules 1–4 of Section 4.1" }
-  note: "First apply Rules 1–4 of Section 4.1 exhaustively ($O(n^3)$ time; Rule 3 deletes a degree-1 vertex with its neighbour and decreases $k$ by one, the others keep $k$). For the reduced bipartite graph $G'$ with sides $V_1, V_2$, let $G''$ add all edges inside $V_1$ and inside $V_2$. Theorem 3: the edges of $G'$ can be covered by $k$ bicliques if and only if the edges of $G''$ can be covered by $k + 2$ cliques. (The theorem says \"covered with $k$ cliques\" for $G'$; its proof is about bicliques.) $G''$ has at most $n$ vertices and $n(n-1)/2$ edges, and the parameter is at most $k + 2$ since Rule 3 only decreases it."
+  note: "First apply Rules 1–4 of Section 4.1 exhaustively ($O(n^3)$ time; Rule 3 deletes a degree-1 vertex with its neighbour and decreases $k$ by one, the others keep $k$). For the reduced bipartite graph $G'$ with sides $V_1, V_2$, let $G''$ add all edges inside $V_1$ and inside $V_2$. Theorem 3: the edges of $G'$ can be covered by $k$ bicliques if and only if the edges of $G''$ can be covered by $k + 2$ cliques. (The theorem says \"covered with $k$ cliques\" for $G'$; its proof is about bicliques.) $G''$ has at most $n$ vertices (and at most $n(n-1)/2$ edges; $m$ is left out of the parameter map because the bounds it carries over, $2^{O(n^2)}$ through Clique Cover and Chromatic Number, are useless here and left the comparator with undecided pairs), and the parameter is at most $k + 2$ since Rule 3 only decreases it."
 formal: { status: informal }
 status: valid

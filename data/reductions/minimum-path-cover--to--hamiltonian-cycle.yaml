@@ -1,0 +1,14 @@
+id: minimum-path-cover--to--hamiltonian-cycle
+from: { problem: minimum-path-cover, version: decision }
+to: { problem: hamiltonian-cycle, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(n^{2})"
+parameter_map: { n: "n + k", m: "m + k n", tw: "tw + k" }
+source:
+  paper: gajarsky-lampis-ordyniak-2013
+  statements:
+    arxiv: { statement: "Proposition 8 (Section 5, Partitioning into Paths)" }
+  note: "Let $G \\oplus k$ be $G$ with $k$ new pairwise non-adjacent vertices adjacent to every vertex of $G$. Proposition 8: the minimum number of paths partitioning $G$ equals the least $i$ such that $G \\oplus i$ has a Hamiltonian cycle. For $1 \\le k < n$ with $n + k \\ge 3$ (otherwise answer directly): if $G$ has a partition into at most $k$ paths it has one into exactly $k$ paths (split paths), and $1, P_1, 2, P_2, \\dots, k, P_k, 1$ is a Hamiltonian cycle of $G \\oplus k$; conversely, deleting the $k$ new vertices from a Hamiltonian cycle leaves at most $k$ paths. $G \\oplus k$ has $n + k$ vertices and $m + kn$ edges, and adding the new vertices to every bag of a tree decomposition of $G$ gives treewidth at most $tw + k$."
+formal: { status: informal }
+status: valid
