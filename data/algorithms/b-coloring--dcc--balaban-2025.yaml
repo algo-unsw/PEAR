@@ -1,0 +1,21 @@
+id: b-coloring--dcc--balaban-2025
+problem: b-coloring
+proved_for: decision
+bound:
+  as_stated: "2^{2^{O(dcc)}} \\cdot n^{O(1)}"
+  notation: O
+  parameters: [dcc, n]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: "Not stated; educated guess: polynomial. Computes a minimum co-cluster modulator (Boral et al.), then tries the $2^{2^{O(dcc)}}$ signatures and candidate sets one at a time, each checked in polynomial time."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: balaban-2025
+  statements:
+    arxiv-v2: { statement: "Theorem labelled thm:co-cluster (Section 3, \"Distance to Co-Cluster\")" }
+  note: "Read in the arXiv LaTeX source (latest version). The MFCS 2026 version (LIPIcs 386, paper 36) was not opened."

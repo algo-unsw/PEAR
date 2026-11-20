@@ -1,0 +1,17 @@
+id: cygan-pilipczuk-wojtaszczyk-2009
+title: "Beyond O*(2^n) in domination-type problems"
+authors: [Marek Cygan, Marcin Pilipczuk, Jakub Onufry Wojtaszczyk]
+identifiers: { dblp: "conf/swat/CyganPW10" }
+versions:
+  arxiv:
+    kind: preprint
+    arxiv: "0909.4021"
+    year: 2009
+    open_access: true
+  swat:
+    kind: conference
+    title: "Capacitated Domination Faster Than O(2^n)"
+    venue: "12th Scandinavian Symposium and Workshops on Algorithm Theory (SWAT 2010), LNCS 6139, pp. 74–80"
+    year: 2010
+    doi: "10.1007/978-3-642-13731-0_8"
+    open_access: false

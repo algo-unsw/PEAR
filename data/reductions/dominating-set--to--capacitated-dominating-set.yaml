@@ -1,0 +1,11 @@
+id: dominating-set--to--capacitated-dominating-set
+from: { problem: dominating-set, version: decision }
+to: { problem: capacitated-dominating-set, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(n + m)"
+parameter_map: { n: "n", m: "m", k: "k" }
+source:
+  folklore: true
+  note: "Give every vertex capacity equal to its degree: then the capacity constraint never binds, and $S$ is a capacitated dominating set if and only if it is a dominating set (map each $v \\notin S$ to any neighbour in $S$); $(G, k) \\mapsto (G, \\deg, k)$."
+status: valid

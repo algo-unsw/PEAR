@@ -1,0 +1,19 @@
+id: minimum-degree-spanning-tree--n--nederlof-2013
+problem: minimum-degree-spanning-tree
+proved_for: decision
+bound:
+  as_stated: 'O^*(2^{n})'
+  notation: O*
+  parameters: [n]
+properties:
+  randomized: false
+  space: { class: polynomial, bound: 'Polynomial space, as stated.' }
+  algebraic: true
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: nederlof-2013
+  statements:
+    journal: { statement: 'Theorem 5' }
+  note: 'Theorem 5: "The Degree Constrained Spanning Tree problem can be solved in $O^*(2^n)$ time and polynomial space", where the problem asks whether $G$ has a spanning tree of maximum degree at most a given $c$ (the decision version here). Inclusion–exclusion over branching walks, as for Maximum Internal Spanning Tree (Theorem 6). Preliminary version ICALP 2009.'

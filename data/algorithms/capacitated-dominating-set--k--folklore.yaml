@@ -1,0 +1,19 @@
+id: capacitated-dominating-set--k--folklore
+problem: capacitated-dominating-set
+proved_for: search
+bound:
+  as_stated: "O^*(n^{k})"
+  notation: O*
+  parameters: [n, k]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: One set $S$ at a time.
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  folklore: true
+  note: "Try all sets $S$ of size at most $k$ ($O(n^k)$ of them) and check each by maximum matching or max flow in polynomial time (Cygan, Pilipczuk and Wojtaszczyk, Section 1: \"for a given set $S$ checking whether it is a capacitated dominating set is a polynomial-time problem\"). XP baseline: the problem is W[1]-hard parameterized by $k$, even together with treewidth (Dom et al., IWPEC 2008, Theorem 1)."

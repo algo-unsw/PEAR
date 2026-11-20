@@ -1,0 +1,50 @@
+id: minimum-degree-spanning-tree
+name: Minimum Degree Spanning Tree
+aliases: [MDST, Minimum-Degree Spanning Tree, Degree-Constrained Spanning Tree, Degree Constrained Spanning Tree, Bounded Degree Spanning Tree]
+category: graph
+complexity:
+  class: NP-complete
+  source:
+    folklore: true
+    note: 'A spanning tree of maximum degree at most $2$ is a Hamiltonian path, so Hamiltonian Path (NP-complete) is the special case $k = 2$; membership in NP is immediate. Nederlof (Algorithmica 2013, Section 4) studies this decision problem as Degree Constrained Spanning Tree, and Bojikian, Firbas, Ganian, Hoang and Szilágyi (ICALP 2026, Section 1) note that degree-constrained spanning tree problems are NP-hard by a straightforward reduction from Hamiltonian Path. Wikipedia''s choice of source could not be checked (Wikipedia could not be fetched).'
+    reference: { paper: bojikian-firbas-ganian-2025, version: icalp, statement: 'Section 1' }
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  k: { meaning: 'the degree bound: the integer $k$ in the input (decision, search), or the minimum maximum degree of a spanning tree (optimisation)' }
+  tw: { shared: treewidth }
+  pw: { shared: pathwidth }
+  ctw: { shared: cutwidth }
+  cw: { shared: clique-width }
+constraints:
+  - { constraint: 'k \le n', because: 'Every spanning tree has maximum degree at most $n - 1$, so every instance with $k \ge n - 1$ is a yes-instance, answered in polynomial time.' }
+  - { constraint: 'm \le n(n - 1)/2', because: 'A simple graph has at most $n(n-1)/2$ edges.' }
+  - { constraint: 'tw \le pw', because: 'Every path decomposition is a tree decomposition.' }
+  - { constraint: 'pw \le ctw', because: 'Cutwidth upper-bounds pathwidth (Bojikian, Chekan and Kratsch, arXiv 2502.15884, Section 1).' }
+  - { constraint: 'pw \le n', because: 'A single bag containing all vertices is a path decomposition of width $n - 1$.' }
+  - { constraint: 'ctw \le m', because: 'Every cut of a linear ordering consists of edges of $G$.' }
+  - { constraint: 'cw \le n', because: 'Giving every vertex its own label builds the graph with $n$ labels.' }
+versions:
+  decision:
+    kind: decision
+    input: 'A connected graph $G = (V, E)$ and an integer $k$.'
+    question: 'Does $G$ have a spanning tree $T$ in which every vertex has degree at most $k$?'
+  optimisation:
+    kind: optimisation
+    input: 'A connected graph $G = (V, E)$.'
+    goal: 'Find the minimum, over all spanning trees $T$ of $G$, of the maximum degree of a vertex in $T$.'
+  search:
+    kind: search
+    input: 'A connected graph $G = (V, E)$ and an integer $k$.'
+    goal: 'Find a spanning tree $T$ of $G$ in which every vertex has degree at most $k$, or report that none exists.'
+default_version: decision
+shared_bounds:
+  - versions: [decision, optimisation, search]
+    because: 'Binary search on $k$ and self-reducibility: delete an edge whenever the graph without it is still a yes-instance; what remains is a spanning tree of maximum degree at most $k$.'
+related:
+  - { problem: hamiltonian-cycle, relation: variant }
+  - { problem: max-leaf-spanning-tree, relation: variant }
+  - { problem: max-internal-spanning-tree, relation: variant }
+  - { problem: full-degree-spanning-tree, relation: variant }

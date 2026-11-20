@@ -1,0 +1,23 @@
+id: capacitated-dominating-set--n--cygan-pilipczuk-wojtaszczyk-2009
+problem: capacitated-dominating-set
+proved_for: optimisation
+bound:
+  as_stated: "O(1.89^{n})"
+  notation: O
+  parameters: [n]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: "Stated: \"All algorithms in this paper require polynomial space\" (Section 1)."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: cygan-pilipczuk-wojtaszczyk-2009
+  statements:
+    arxiv: { statement: "Abstract; Section 2.2 (from the simplified problem to Capacitated Dominating Set): the $O^*(\\binom{n}{\\lceil n/3 \\rceil}) = O(1.89^n)$ sets $U$, each solved in polynomial time by maximum matching" }
+  note: "No numbered theorem for the exact algorithm. Liedloff, Todinca and Villanger (WG 2010) claim a faster algorithm via covering by subsets and maximum matching; no open copy found (see the unreachable ledger)."
+formal: { status: informal }
+status: valid

@@ -1,0 +1,18 @@
+id: fleischner-mujuni-paulusma-2007
+title: "Covering Graphs with Few Complete Bipartite Subgraphs"
+authors: [Herbert Fleischner, Egbert Mujuni, Daniël Paulusma, Stefan Szeider]
+identifiers: { dblp: "journals/tcs/FleischnerMPS09", openalex: null }
+versions:
+  fsttcs:
+    kind: conference
+    venue: "FSTTCS 2007: Foundations of Software Technology and Theoretical Computer Science, 27th International Conference, LNCS 4855, pp. 340–351"
+    year: 2007
+    doi: "10.1007/978-3-540-77050-3_28"
+    open_access: false
+  journal:
+    kind: journal
+    venue: "Theoretical Computer Science 410(21–23), pp. 2045–2053"
+    year: 2009
+    doi: "10.1016/j.tcs.2008.12.059"
+    url: "https://www.ac.tuwien.ac.at/files/pub/FleischnerMujuniPaulusmaSzeider09.pdf"
+    open_access: true

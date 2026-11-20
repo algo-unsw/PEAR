@@ -1,0 +1,16 @@
+id: balaban-2025
+title: "Finding b-Colorings Using Feedback Edges"
+authors: [Jakub Balabán]
+identifiers: { dblp: "conf/mfcs/Balaban26" }
+versions:
+  arxiv-v2:
+    kind: preprint
+    arxiv: "2512.14390"
+    year: 2025
+    open_access: true
+  conference:
+    kind: conference
+    venue: "MFCS 2026, LIPIcs 386"
+    year: 2026
+    doi: "10.4230/LIPIcs.MFCS.2026.36"
+    open_access: true

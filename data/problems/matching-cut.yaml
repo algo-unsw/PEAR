@@ -21,6 +21,7 @@ parameters:
   dc: { shared: distance-to-cluster }
   dcc: { meaning: 'the distance to co-cluster: the minimum size of a set $U \subseteq V$ such that $G - U$ is a co-cluster graph (a complete multipartite graph, the complement of a cluster graph), as in Komusiewicz, Kratsch and Le (IPEC 2018, Section 2)' }
   vc: { shared: vertex-cover-number }
+  nd: { meaning: 'the neighbourhood diversity of $G$ (Lampis): the minimum number of classes of a partition of $V$ in which any two vertices $u, v$ of the same class satisfy $N(u) \setminus \{v\} = N(v) \setminus \{u\}$' }
 constraints:
   - { constraint: 'k \le n', because: 'A matching cut is a matching, so it has at most $n/2$ edges; an instance with $k > n/2$ has the same answer with $k = \lfloor n/2 \rfloor$.' }
   - { constraint: 'm \le n(n - 1)/2', because: 'A simple graph has at most $n(n-1)/2$ edges.' }

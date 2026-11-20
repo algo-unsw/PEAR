@@ -1,0 +1,20 @@
+id: sparsest-cut--tw--javadi-nikabadi-2019
+problem: sparsest-cut
+proved_for: weighted
+bound:
+  as_stated: 'O(2^{tw} n^{3})'
+  notation: O
+  parameters: [tw, n]
+properties:
+  randomized: false
+  space: { class: exponential, bound: 'Stated: exponential in $tw$ (Theorem 1). Dynamic programming over a nice tree decomposition with a table entry for each subset of a bag and each size $s$.' }
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+given: [tree-decomposition]
+source:
+  paper: javadi-nikabadi-2019
+  statements:
+    arxiv-v2: { statement: 'Theorem 1' }
+  note: 'Theorem 1: given a tree decomposition of width $tw$, 2SC (Sparsest Cut with edge weights $w \colon E \to \mathbb{R}^+$: minimise $w(S, \overline{S})/|S|$ over $|S| \le |V|/2$) is solved in $O(2^{tw} n^3)$ time, as the special case $k = n/2$ of $k$-Small-Set Expansion. The dynamic program only adds and compares weights, so it applies unchanged to nonnegative integer weights (an edge of weight $0$ contributes nothing). Time counted with unit-cost arithmetic on weights, as in the paper. TODO(verify): the join-node recurrence as printed in arXiv v2 reads $A_j$ twice where one would expect the tables of both children.'

@@ -15,7 +15,7 @@ objects:
 parameters:
   k: { meaning: "the solution size: the integer $k$ in the input (decision, search), or the minimum number of vertices whose deletion leaves a graph of maximum degree at most $d$ (optimisation)" }
   d: { meaning: "the degree bound $d$ in the input" }
-  tcw: { meaning: "the treecut width of $G$ (Wollan; as defined in Ganian, Klute and Ordyniak, Algorithmica 2021, Section 2): the minimum width of a treecut decomposition, where the width is the maximum adhesion and torso size over all nodes" }
+  tcw: { shared: tree-cut-width }
 constraints:
   - { constraint: "k \\le n", because: "Every instance with $k \\ge n$ is a yes-instance ($S = V$), answered in polynomial time." }
   - { constraint: "d \\le n", because: "Every instance with $d \\ge n - 1$ is a yes-instance ($S = \\emptyset$), answered in polynomial time." }

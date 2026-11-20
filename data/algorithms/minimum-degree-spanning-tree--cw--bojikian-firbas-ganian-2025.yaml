@@ -1,0 +1,19 @@
+id: minimum-degree-spanning-tree--cw--bojikian-firbas-ganian-2025
+problem: minimum-degree-spanning-tree
+proved_for: decision
+bound:
+  as_stated: 'n^{O(cw)}'
+  notation: O
+  parameters: [n, cw]
+properties:
+  randomized: false
+  space: { class: exponential, bound: 'Not stated; educated guess: exponential. Dynamic programming over the given NLC-decomposition with $n^{O(cw)}$ table entries per node.' }
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: bojikian-firbas-ganian-2025
+  statements:
+    icalp: { statement: 'Theorem 3.1' }
+  note: 'Theorem 3.1 solves unweighted Set of Degrees MST in $n^{O(k)}$ time given an NLC-decomposition with $k$ labels; the decision version here is the special case $D(v) = \{1, \dots, k\}$. An expression of clique-width $cw$ converts in polynomial time into an NLC-decomposition with at most $cw$ labels (NLC-width is at most clique-width), so the bound holds with $cw$; Section 1 states it as $n^{O(cw)}$. The decomposition is part of the input.'

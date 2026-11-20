@@ -1,0 +1,19 @@
+id: minimum-degree-spanning-tree--ctw--bojikian-firbas-ganian-2025
+problem: minimum-degree-spanning-tree
+proved_for: decision
+bound:
+  as_stated: 'O^*(3^{ctw})'
+  notation: O*
+  parameters: [ctw]
+properties:
+  randomized: { error: one-sided }
+  space: { class: exponential, bound: 'Not stated; educated guess: exponential. Cut&Count dynamic programming along the given linear arrangement, with tables indexed by states of the cut edges.' }
+  algebraic: true
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: bojikian-firbas-ganian-2025
+  statements:
+    icalp: { statement: 'Theorem 4.2' }
+  note: 'Theorem 4.2 solves Set of Degrees MST in $O^*(3^{ctw})$ time given a linear arrangement of width $ctw$; the decision version here is the special case $D(v) = \{1, \dots, k\}$, all weights $0$ and budget $0$. Monte Carlo with false negatives only. The linear arrangement is part of the input.'

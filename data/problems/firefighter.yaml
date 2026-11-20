@@ -18,9 +18,11 @@ objects:
 parameters:
   k: { meaning: "the solution size: the integer $k$ in the input (decision, search), or the maximum number of saved vertices (optimisation)" }
   nb: { meaning: "the number of burned vertices: $n - k$ (the Saving All But $k$ Vertices parameterization)" }
+  dt: { meaning: "the distance to threshold graphs: the minimum number of vertices whose deletion leaves a threshold graph" }
 constraints:
   - { constraint: "k \\le n", because: "At most $n$ vertices can be saved, so every instance with $k > n$ is a no-instance." }
   - { constraint: "nb \\le n", because: "At most $n$ vertices burn." }
+  - { constraint: "dt \\le n", because: "Deleting all vertices leaves the empty graph, a threshold graph." }
   - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
 versions:
   decision:

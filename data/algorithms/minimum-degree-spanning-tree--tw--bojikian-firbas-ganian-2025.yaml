@@ -1,0 +1,20 @@
+id: minimum-degree-spanning-tree--tw--bojikian-firbas-ganian-2025
+problem: minimum-degree-spanning-tree
+proved_for: decision
+bound:
+  as_stated: 'O^*((2k+2)^{tw})'
+  notation: O*
+  parameters: [k, tw]
+properties:
+  randomized: { error: one-sided }
+  space: { class: exponential, bound: 'Not stated; educated guess: exponential. Cut&Count dynamic programming over the given nice tree decomposition, with tables indexed by states of the bag vertices.' }
+  algebraic: true
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+given: [tree-decomposition]
+source:
+  paper: bojikian-firbas-ganian-2025
+  statements:
+    icalp: { statement: 'Theorem 4.3' }
+  note: 'Theorem 4.3 solves Set of Degrees MST in $O^*((2r+2)^{tw})$ time given a nice tree decomposition of width $tw$, where $r$ is the largest number in any $D(v)$. The decision version here is the special case $D(v) = \{1, \dots, k\}$ (so $r = k$), all weights $0$ and budget $0$. Monte Carlo with false negatives only.'

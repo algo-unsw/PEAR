@@ -67,9 +67,9 @@ def _sentence_fragment(text: str) -> str:
 
 
 def version_label(vid: str) -> str:
-    m = re.fullmatch(r"(.+)-max-degree-(\d+)", vid)
-    if m:  # bounded-degree versions (21 November 2026): "Optimisation, max degree 3"
-        return f"{version_label(m.group(1))}, max degree {m.group(2)}"
+    m = re.fullmatch(r"(.+)-max-(degree|threshold)-(\d+)", vid)
+    if m:  # bounded-degree (and -threshold) versions (21 November 2026): "Optimisation, max degree 3"
+        return f"{version_label(m.group(1))}, max {m.group(2)} {m.group(3)}"
     return VERSION_LABELS.get(vid, vid.replace("-", " ").capitalize())
 
 

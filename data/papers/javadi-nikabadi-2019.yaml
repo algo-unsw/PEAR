@@ -1,0 +1,17 @@
+id: javadi-nikabadi-2019
+title: "On the parameterized complexity of Sparsest Cut and Small-Set Expansion problems"
+authors: [Ramin Javadi, Amir Nikabadi]
+identifiers: { dblp: "journals/dam/JavadiN24" }
+versions:
+  arxiv-v2:
+    kind: preprint
+    title: "On the Parameterized Complexity of Sparsest Cut and Small-set Expansion Problems"
+    arxiv: "1910.12353v2"
+    year: 2019
+    open_access: true
+  journal:
+    kind: journal
+    venue: "Discrete Applied Mathematics 355, pp. 1–12"
+    year: 2024
+    doi: "10.1016/j.dam.2024.04.014"
+    open_access: false
