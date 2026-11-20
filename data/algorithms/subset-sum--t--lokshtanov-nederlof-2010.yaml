@@ -14,7 +14,7 @@ properties:
     bound: '$\tilde O(n^2)$ space, as stated.'
   algebraic: true
   fast_matrix_multiplication: false
-  constructive: false
+  constructive: true
   quantum: false
 source:
   paper: lokshtanov-nederlof-2010

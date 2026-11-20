@@ -14,7 +14,7 @@ properties:
     bound: 'Not stated; educated guess: exponential. The algorithms combine constraint satisfaction algorithms with dynamic programming over tree and path decompositions, whose tables are exponential.'
   algebraic: false
   fast_matrix_multiplication: false
-  constructive: false
+  constructive: true
   quantum: false
 source:
   paper: yamano-shibuya-2026

@@ -19,4 +19,4 @@ source:
   statements:
     arxiv-v1:
       statement: 'Theorem 1 (LaTeX label thm:exactFAST), first sentence'
-  note: 'Stated for weighted FAST (a complete digraph with arc weights $w_{uv} + w_{vu} = 1$), parameterized by $OPT$, the cost of an optimal ranking; a tournament is the case of 0/1 weights, and $OPT$ is $k$ of the optimisation version. Deterministic. Theorem 2 of the paper (label thm:exactLB) rules out $O^*(2^{o(\sqrt{OPT})})$ for weighted FAST under ETH (lower bound, not entered). ISAAC 2010 version not opened. TODO(verify): constructive (an optimal ranking) assumed from the problem statement in Section 1.'
+  note: 'Stated for weighted FAST (a complete digraph with arc weights $w_{uv} + w_{vu} = 1$), parameterized by $OPT$, the cost of an optimal ranking; a tournament is the case of 0/1 weights, and $OPT$ is $k$ of the optimisation version. Deterministic. Theorem 2 of the paper (label thm:exactLB) rules out $O^*(2^{o(\sqrt{OPT})})$ for weighted FAST under ETH (lower bound, not entered). ISAAC 2010 version not opened. TODO(verify): that an optimal ranking is output (the search version) is assumed from the problem statement in Section 1.'

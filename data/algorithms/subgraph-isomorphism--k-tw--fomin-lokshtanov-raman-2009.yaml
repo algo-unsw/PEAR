@@ -10,7 +10,7 @@ properties:
   space: { class: exponential, bound: "Not stated for Theorem 1; educated guess: $n^{O(tw)}$. The algorithm evaluates an arithmetic circuit of size $n^{O(t)}$ for a homomorphism polynomial of degree at most $k$ (abstract), with $2^k$-term algebraic detection of a multilinear monomial; per the paper, its polynomial-space results are other theorems (Theorems 2 and 4)." }
   algebraic: true
   fast_matrix_multiplication: false
-  constructive: false
+  constructive: true
   quantum: false
 source:
   paper: fomin-lokshtanov-raman-2009

@@ -12,7 +12,7 @@ properties:
     bound: 'Not stated; educated guess: $2^{O(tw \log tw)} n^{O(1)}$. Dynamic programming over a tree decomposition indexed by orderings of the bag (Section 1: defined similarly to the vertex version).'
   algebraic: false
   fast_matrix_multiplication: false
-  constructive: false
+  constructive: true
   quantum: false
 source:
   paper: bonamy-et-al-2017

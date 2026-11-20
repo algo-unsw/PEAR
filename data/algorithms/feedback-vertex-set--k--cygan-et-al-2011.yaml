@@ -15,7 +15,7 @@ properties:
     bound: 'Polynomial space, as stated.'
   algebraic: true
   fast_matrix_multiplication: false
-  constructive: false
+  constructive: true
   quantum: false
 source:
   paper: cygan-et-al-2011

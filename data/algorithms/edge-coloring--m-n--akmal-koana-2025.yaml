@@ -10,7 +10,7 @@ properties:
   space: { class: polynomial, bound: "Polynomial space, as stated (Theorem 1.1)." }
   algebraic: true
   fast_matrix_multiplication: false
-  constructive: false
+  constructive: true
   quantum: false
 source:
   paper: akmal-koana-2025

@@ -12,7 +12,7 @@ properties:
     bound: 'Stated: polynomial space (Theorems 3 and 10): the recurrence is evaluated recursively, splitting the ordering in the middle, without a table.'
   algebraic: false
   fast_matrix_multiplication: false
-  constructive: false
+  constructive: true
   quantum: false
 source:
   paper: bodlaender-et-al-2009
