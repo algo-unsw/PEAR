@@ -1,0 +1,13 @@
+id: bounded-degree-vertex-deletion--to--k-plex
+from: { problem: bounded-degree-vertex-deletion, version: decision }
+to: { problem: k-plex, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(n^{2})"
+parameter_map: { n: "n", m: "n (n - 1) / 2 - m", k: "n - k", s: "d + 1" }
+source:
+  paper: wang-zhou-luo-2023
+  statements:
+    arxiv-v3: { statement: "Section 2.4 (The Dual Problem): \"In a graph $G=(V,E)$, there is a $k$-plex of size $p$ if and only if there is a $(k-1)$-bdd of size $|V|-p$ in the complement graph $\\overline{G}$.\"" }
+  note: "The converse direction of the same duality: $G - S'$ has maximum degree at most $d$ if and only if $V \\setminus S'$ is a $(d+1)$-plex of the complement $\\overline{G}$. So $(G, d, k) \\mapsto (\\overline{G}, d + 1, n - k)$; when $k \\ge n$ the instance is a yes-instance and is answered directly."
+status: valid

@@ -1,0 +1,23 @@
+id: k-plex--degeneracy--wang-zhou-xiao-2022
+problem: k-plex
+proved_for: optimisation
+bound:
+  as_stated: "O(n^{2s} + n (D d)^{s+1} (2 - \\varepsilon_{s})^{D})"
+  notation: O
+  parameters: [n, s, D, d]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: "Not stated; educated guess: polynomial. A Bron–Kerbosch-style branching (BKPivot) on seed graphs, one seed set at a time, keeping \"the status of at most $k$ vertices at each branch\" (remark after the theorem); no memoization or dynamic programming over subsets found."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: wang-zhou-xiao-2022
+  statements:
+    arxiv-v2: { statement: "Section 3.3 (Complexity analysis), the theorem labelled Thm:R-time: ListPlex lists all maximal $k$-plexes without repetition in time $O(n^{2k}+n(D\\Delta)^{k+1}\\gamma_k^D)$, where $\\gamma_k<2$ is the largest root of $1=x^{-1}+\\dots+x^{-k-1}$; proof in the appendix (Missing Proofs)" }
+  note: "Stated as $O(n^{2k}+n(D\\Delta)^{k+1}\\gamma_k^D)$ for listing all maximal $k$-plexes ($k$ is $s$ here, $\\Delta$ is $d$, $D$ the degeneracy); stored as the implied $O(n^{2s} + n(Dd)^{s+1}(2-\\varepsilon_s)^D)$, since the bound language has no symbol for the root $\\gamma_s$ ($\\gamma_s < 2$ for every $s$: the sum $x^{-1}+\\dots+x^{-s-1}$ is decreasing and below 1 at $x = 2$). A maximum $s$-plex is a maximal one, so returning the largest listed set solves the optimisation version within the same time. The remark after the theorem gives $\\gamma_k$ \"bounded by $O(2-\\frac{1}{2^{k+1}})$\". TODO(verify): the bound language cannot store the explicit base $\\gamma_s$; Xiao, Lin, Dai and Zeng (AAAI 2017) give $O^*(\\alpha_s^n)$ with the same kind of base ($\\alpha_1 = 1.618$, $\\alpha_2 = 1.839$, $\\alpha_3 = 1.928$, $\\alpha_4 = 1.966$, as quoted in arXiv 2306.13258, Section 2.3.1), which this bound implies through $D \\le d \\le n$."
+formal: { status: informal }
+status: valid

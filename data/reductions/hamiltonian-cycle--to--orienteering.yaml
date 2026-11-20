@@ -1,0 +1,10 @@
+id: hamiltonian-cycle--to--orienteering
+from: { problem: hamiltonian-cycle, version: decision }
+to: { problem: orienteering, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(n + m)"
+parameter_map: { n: "n", m: "m", tw: "tw" }
+source:
+  folklore: true
+  note: "Keep $G$ with all costs $1$ and all profits $1$, take $s = t$ to be any vertex, $B = n$ and $P = n$. For $n \\ge 3$, a closed walk from $s$ with at most $n$ edges that visits all $n$ vertices visits each exactly once, so it is a Hamiltonian cycle, and conversely."

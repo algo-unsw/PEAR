@@ -1,0 +1,11 @@
+id: slater-cockayne-hedetniemi-1981
+title: "Information Dissemination in Trees"
+authors: [Peter J. Slater, Ernest J. Cockayne, Stephen T. Hedetniemi]
+identifiers: { dblp: "journals/siamcomp/SlaterCH81", openalex: null }
+versions:
+  journal:
+    kind: journal
+    venue: "SIAM Journal on Computing 10(4), pp. 692–701"
+    year: 1981
+    doi: "10.1137/0210052"
+    open_access: false

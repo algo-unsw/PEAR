@@ -1,0 +1,17 @@
+id: kawarabayashi-mohar-reed-2008
+title: "A Simpler Linear Time Algorithm for Embedding Graphs into an Arbitrary Surface and the Genus of Graphs of Bounded Tree-Width"
+authors: [Ken-ichi Kawarabayashi, Bojan Mohar, Bruce A. Reed]
+identifiers: { dblp: conf/focs/KawarabayashiMR08 }
+versions:
+  focs:
+    kind: conference
+    venue: "49th Annual IEEE Symposium on Foundations of Computer Science (FOCS 2008), pp. 771–780"
+    year: 2008
+    doi: "10.1109/FOCS.2008.53"
+    open_access: false
+  preprint:
+    kind: technical-report
+    venue: "University of Ljubljana, Institute of Mathematics, Physics and Mechanics, Preprint series, Vol. 47 (2009), 1078"
+    year: 2009
+    url: "https://users.fmf.uni-lj.si/mohar/Reprints/2008/BM08_FOCS08_Kawarabayashi_EmbeddingGraphs.pdf"
+    open_access: true

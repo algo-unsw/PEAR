@@ -1,0 +1,21 @@
+id: minimum-broadcast-time--vc--bonnet-feghali-vasilakis-2026
+problem: minimum-broadcast-time
+proved_for: decision
+bound:
+  as_stated: 'vc^{O(vc)} n^{O(1)}'
+  notation: O
+  parameters: [vc, n]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Not stated; the algorithm computes a vertex cover by a polynomial-space branching algorithm, enumerates $k^{O(k)}$ templates one at a time and solves one $b$-matching instance per template; no exponential-space technique found (educated guess).'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: bonnet-feghali-vasilakis-2026
+  statements:
+    arxiv-v1: { statement: "The theorem of Section 3 (Vertex Cover Number)" }
+  note: 'The abstract states the same bound as $2^{O(\mathrm{vc} \log \mathrm{vc})} n^{O(1)}$. Preprint (July 2026).'

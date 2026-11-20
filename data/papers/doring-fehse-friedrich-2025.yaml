@@ -1,0 +1,17 @@
+id: doring-fehse-friedrich-2025
+title: "Parameterized Complexity of Vehicle Routing"
+authors: [Michelle Döring, Jan Fehse, Tobias Friedrich, Paula Marten, Niklas Mohrin, Kirill Simonov, Farehe Soheil, Jakob Timm, Shaily Verma]
+identifiers: { dblp: "conf/iwpec/DoringF0MMSSTV25" }
+versions:
+  arxiv:
+    kind: preprint
+    arxiv: "2509.10361"
+    year: 2025
+    open_access: true
+  conference:
+    kind: conference
+    venue: "20th International Symposium on Parameterized and Exact Computation (IPEC 2025), LIPIcs 358, Article 10, pp. 10:1–10:17"
+    year: 2025
+    doi: "10.4230/LIPIcs.IPEC.2025.10"
+    url: "https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.IPEC.2025.10"
+    open_access: true

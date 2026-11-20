@@ -1,0 +1,11 @@
+id: clique--to--k-plex
+from: { problem: clique, version: decision }
+to: { problem: k-plex, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(n + m)"
+parameter_map: { n: "n", m: "m", s: "1" }
+source:
+  folklore: true
+  note: "Special case $s = 1$: a set $S$ is a $1$-plex if and only if every vertex of $S$ is adjacent to all other vertices of $S$, that is, $S$ is a clique, so $(G, k) \\mapsto (G, 1, k)$. The solution size $k$ is left out of the parameter map on purpose: with $k \\mapsto k$, the brute-force $O(n^k k^2)$ bound for k-Plex reached Vertex Cover through Clique and Independent Set and made pairs there undecided for the comparator (batch-022 notes)."
+status: valid

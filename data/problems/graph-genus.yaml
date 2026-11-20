@@ -1,0 +1,33 @@
+id: graph-genus
+name: Graph Genus
+aliases: [Genus, Orientable Genus, Minimum Genus, Graph Genus Problem, Minimum Genus Embedding]
+category: graph
+complexity:
+  class: NP-complete
+  source:
+    paper: thomassen-1989
+    statements:
+      journal: { statement: "Theorem (stated after the proof of (8))", page: 574 }
+    note: "The theorem: given a graph $G$ and a natural number $k$, deciding whether $G$ has genus at most $k$ is NP-complete. Read in a copy of the journal article on a course page (Carleton University). The same attribution is made by Kawarabayashi, Mohar and Reed (Section 1.1) and in Mohar and Thomassen's book (Chapter 4, web version)."
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  g: { meaning: "the genus: the integer $g$ in the input (decision), or the (orientable) genus of $G$ (optimisation)" }
+constraints:
+  - { constraint: "g \\le m", because: "Every instance with $g \\ge m$ is a yes-instance: for a connected graph, any rotation system gives a cellular embedding with at least one face, so Euler's formula gives genus at most $(m - n + 1)/2$, and the genus of a graph is the sum of the genera of its components." }
+  - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
+versions:
+  decision:
+    kind: decision
+    input: "A graph $G = (V, E)$ and an integer $g$."
+    question: "Can $G$ be embedded without crossings in the orientable surface of genus $g$ (the sphere with $g$ handles)?"
+  optimisation:
+    kind: optimisation
+    input: "A graph $G = (V, E)$."
+    goal: "Find the minimum $g$ such that $G$ can be embedded without crossings in the orientable surface of genus $g$ (the sphere with $g$ handles)."
+default_version: decision
+shared_bounds:
+  - versions: [decision, optimisation]
+    because: "Binary search on $g$, with $g \\le m$."

@@ -1,0 +1,10 @@
+id: bonnet-feghali-vasilakis-2026
+title: "Faster Parameterized Broadcasting"
+authors: [Édouard Bonnet, Carl Feghali, Manolis Vasilakis]
+identifiers: { dblp: null, openalex: null }
+versions:
+  arxiv-v1:
+    kind: preprint
+    arxiv: 2607.01770v1
+    year: 2026
+    open_access: true

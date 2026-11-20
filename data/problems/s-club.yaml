@@ -1,0 +1,58 @@
+id: s-club
+name: s-Club
+aliases: [Maximum s-Club, Maximum k-Club, k-Club, s-Club Problem, 2-Club]
+category: graph
+complexity:
+  class: NP-complete
+  source:
+    folklore: true
+    note: "Clique is the special case $s = 1$ (see the reduction from Clique); membership in NP is clear (distances in $G[S]$ are computed in polynomial time). For each fixed $s \\ge 2$ the problem stays NP-complete: Hartung, Komusiewicz, Nichterlein and Suchý (arXiv 1305.3735, Section 1.1): \"For all $s \\ge 1$, $s$-Club is NP-complete on graphs of diameter $s+1$\", citing Balasundaram, Butenko and Trukhanov (2005)."
+    reference: { paper: hartung-komusiewicz-nichterlein-2013, version: arxiv, statement: "Section 1.1 (Related Work)" }
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  k: { meaning: "the solution size: the integer $k$ in the input (decision, search), or the maximum size of an $s$-club (optimisation)" }
+  d: { meaning: "the dual parameter $n - k$ (the distance to an $s$-club: the number of vertices outside the solution); in the optimisation version, $n$ minus the optimum" }
+  vc: { shared: vertex-cover-number }
+  tw: { shared: treewidth }
+  fes: { shared: feedback-edge-set-number }
+  ce: { meaning: "the cluster editing number: the minimum number of edge insertions and deletions that turn $G$ into a cluster graph (a disjoint union of cliques)" }
+constraints:
+  - { constraint: "k \\le n", because: "Every instance with $k > n$ is a no-instance, answered in polynomial time." }
+  - { constraint: "d \\le n", because: "$d = n - k$ with $k \\ge 0$." }
+  - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
+  - { constraint: "tw \\le vc", because: "For a vertex cover $C$, the bags $C \\cup \\{v\\}$, $v \\notin C$, arranged on a path, form a tree decomposition of width $|C|$." }
+  - { constraint: "vc \\le n", because: "$V$ is a vertex cover." }
+  - { constraint: "fes \\le m", because: "Deleting all edges leaves a forest." }
+  - { constraint: "ce \\le n(n - 1)/2", because: "Inserting all missing edges turns $G$ into a clique, a cluster graph." }
+versions:
+  decision:
+    kind: decision
+    input: "A graph $G = (V, E)$ and integers $s \\ge 1$ and $k$."
+    question: "Is there a set $S \\subseteq V$ with $|S| \\ge k$ such that $G[S]$ has diameter at most $s$?"
+    generalises: [decision-s-at-least-2]
+  optimisation:
+    kind: optimisation
+    input: "A graph $G = (V, E)$ and an integer $s \\ge 1$."
+    goal: "Find the maximum size of a set $S \\subseteq V$ such that $G[S]$ has diameter at most $s$."
+  search:
+    kind: search
+    input: "A graph $G = (V, E)$ and integers $s \\ge 1$ and $k$."
+    goal: "Find a set $S \\subseteq V$ with $|S| \\ge k$ such that $G[S]$ has diameter at most $s$, or report that none exists."
+  decision-s-at-least-2:
+    kind: decision
+    input: "A graph $G = (V, E)$ and integers $s \\ge 2$ and $k$."
+    question: "Is there a set $S \\subseteq V$ with $|S| \\ge k$ such that $G[S]$ has diameter at most $s$?"
+    generalises: [decision-s-2]
+  decision-s-2:
+    kind: decision
+    input: "A graph $G = (V, E)$, the integer $s = 2$ and an integer $k$."
+    question: "Is there a set $S \\subseteq V$ with $|S| \\ge k$ such that $G[S]$ has diameter at most $s$?"
+default_version: decision
+shared_bounds:
+  - versions: [decision, optimisation, search]
+    because: "Binary search on $k$ and self-reducibility."
+related:
+  - { problem: clique, relation: special-case }

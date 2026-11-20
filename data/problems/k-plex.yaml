@@ -1,0 +1,48 @@
+id: k-plex
+name: Maximum k-Plex
+aliases: [k-Plex, Maximum s-Plex, s-Plex, MKP]
+category: graph
+complexity:
+  class: NP-complete
+  source:
+    paper: moser-niedermeier-sorge-2009
+    statements:
+      journal-preprint: { statement: "Section 1 (Introduction): \"Maximum k-Plex is NP-complete, which follows directly from the duality between Maximum k-Plex and d-BDD; d-BDD is NP-complete due to a general framework by Lewis and Yannakakis (1980).\"" }
+    note: "No Wikipedia article on $k$-plexes was found. Moser, Niedermeier and Sorge also say that Balasundaram, Butenko and Hicks gave a direct NP-completeness proof by a reduction from Maximum Clique (Operations Research 59(1), 2011; no open copy found); Wang, Zhou, Luo, Xiao and Hao (arXiv 2306.13258, Section 1) cite Yannakakis (STOC 1978) for NP-hardness. For $s = 1$ the problem is Clique."
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  k: { meaning: "the solution size: the integer $k$ in the input (decision, search), or the maximum size of an $s$-plex (optimisation)" }
+  s: { meaning: "the integer $s \\ge 1$ in the input (the $k$ of the name \"$k$-plex\"): every vertex of the solution may be non-adjacent to at most $s$ vertices of the solution, itself included" }
+  D: { meaning: "the degeneracy of $G$: the least $D$ such that every subgraph of $G$ has a vertex of degree at most $D$" }
+  d: { meaning: "the maximum degree $\\Delta$ of $G$" }
+constraints:
+  - { constraint: "k \\le n", because: "Every instance with $k > n$ is a no-instance, answered in polynomial time." }
+  - { constraint: "s \\le n", because: "Every instance with $s \\ge n$ is solved by $S = V$, which is then an $s$-plex, in polynomial time." }
+  - { constraint: "D \\le d", because: "Every subgraph has a vertex of degree at most the maximum degree of $G$." }
+  - { constraint: "d \\le n", because: "A vertex of a simple graph has at most $n - 1$ neighbours." }
+  - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
+versions:
+  decision:
+    kind: decision
+    input: "A graph $G = (V, E)$ and integers $s \\ge 1$ and $k$."
+    question: "Is there a set $S \\subseteq V$ with $|S| \\ge k$ such that every vertex of $S$ is adjacent to at least $|S| - s$ vertices of $S$ (an $s$-plex)?"
+  optimisation:
+    kind: optimisation
+    input: "A graph $G = (V, E)$ and an integer $s \\ge 1$."
+    goal: "Find the maximum size of a set $S \\subseteq V$ such that every vertex of $S$ is adjacent to at least $|S| - s$ vertices of $S$ (an $s$-plex)."
+  search:
+    kind: search
+    input: "A graph $G = (V, E)$ and integers $s \\ge 1$ and $k$."
+    goal: "Find a set $S \\subseteq V$ with $|S| \\ge k$ such that every vertex of $S$ is adjacent to at least $|S| - s$ vertices of $S$ (an $s$-plex), or report that none exists."
+default_version: decision
+shared_bounds:
+  - versions: [decision, optimisation, search]
+    because: "Binary search on $k$ and self-reducibility."
+related:
+  - { problem: clique, relation: special-case }
+  - { problem: bounded-degree-vertex-deletion, relation: dual }
+lean: { status: none }
+review: { approved_by: null, date: null }

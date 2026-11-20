@@ -1,0 +1,39 @@
+id: boxicity
+name: Boxicity
+aliases: [Boxicity Problem, Box Representation, Box Dimension]
+category: graph
+complexity:
+  class: NP-complete
+  source:
+    paper: cozzens-1981
+    attested_by:
+      - "https://arxiv.org/pdf/1402.4992"
+      - "https://rajeshchitnis.github.io/fptBoxicity.pdf"
+      - "https://page.math.tu-berlin.de/~roch/files/boxicity.pdf"
+    note: "Cozzens's PhD thesis (Rutgers, 1981), as cited for the NP-hardness of boxicity by Bruhn, Chopin, Joos and Schaudt (arXiv 1402.4992, Section 1: \"Cozzens showed that Boxicity is NP-complete\"), Adiga, Chitnis and Saurabh (full version, Section 1) and Roch's seminar slides (TU Berlin, 2017). The problem stays NP-complete for every fixed $d \\ge 2$ (Yannakakis 1982 for $d = 3$, Kratochvíl 1994 for $d = 2$), as these sources also state. Wikipedia could not be fetched."
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  d: { meaning: "the dimension: the integer $d$ in the input (decision), or the boxicity of $G$ (optimisation)" }
+  vc: { shared: vertex-cover-number }
+  dc: { shared: distance-to-cluster }
+constraints:
+  - { constraint: "d \\le n", because: "Roberts (1969) proved that the boxicity of a graph on $n$ vertices is at most $n/2$ (as cited by Bruhn et al., arXiv 1402.4992, Section 1), so instances with $d \\ge n/2$ are yes-instances." }
+  - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
+  - { constraint: "vc \\le n", because: "$V$ is a vertex cover." }
+  - { constraint: "dc \\le vc", because: "Deleting a vertex cover leaves an edgeless graph, which is a cluster graph." }
+versions:
+  decision:
+    kind: decision
+    input: "A graph $G = (V, E)$ and an integer $d$."
+    question: "Are there axis-parallel boxes $B_v \\subseteq \\mathbb{R}^d$, $v \\in V$, such that for all distinct $u, v \\in V$, $B_u \\cap B_v \\neq \\emptyset$ if and only if $uv \\in E$?"
+  optimisation:
+    kind: optimisation
+    input: "A graph $G = (V, E)$."
+    goal: "Find the minimum $d$ such that there are axis-parallel boxes $B_v \\subseteq \\mathbb{R}^d$, $v \\in V$, such that for all distinct $u, v \\in V$, $B_u \\cap B_v \\neq \\emptyset$ if and only if $uv \\in E$."
+default_version: decision
+shared_bounds:
+  - versions: [decision, optimisation]
+    because: "Binary search on $d$, with $d \\le n/2$."

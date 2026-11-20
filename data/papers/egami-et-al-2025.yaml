@@ -1,0 +1,18 @@
+id: egami-et-al-2025
+title: "Broadcasting under Structural Restrictions"
+authors: [Yudai Egami, Tatsuya Gima, Tesshu Hanaka, Yasuaki Kobayashi, Michael Lampis, Valia Mitsou, Edouard Nemery, Yota Otachi, Manolis Vasilakis, Daniel Vaz]
+identifiers: { dblp: "conf/mfcs/EgamiGHKLMNOV025", openalex: null }
+versions:
+  arxiv-v2:
+    kind: preprint
+    arxiv: 2504.13669v2
+    year: 2025
+    open_access: true
+  mfcs:
+    kind: conference
+    title: "Broadcasting Under Structural Restrictions"
+    venue: "50th International Symposium on Mathematical Foundations of Computer Science (MFCS 2025), LIPIcs 345, 42:1–42:18"
+    year: 2025
+    doi: "10.4230/LIPIcs.MFCS.2025.42"
+    url: "https://drops.dagstuhl.de/storage/00lipics/lipics-vol345-mfcs2025/html/LIPIcs.MFCS.2025.42/LIPIcs.MFCS.2025.42.html"
+    open_access: true

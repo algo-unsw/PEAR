@@ -1,0 +1,20 @@
+id: tanglegram-layout--n--folklore
+problem: tanglegram-layout
+proved_for: optimisation
+bound:
+  as_stated: '2^{n} n \log n'
+  notation: O
+  parameters: [n]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'One leaf order of $S$ at a time.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  folklore: true
+  note: 'Try all $2^{n-1}$ leaf orders of $S$ (one child order at each of its $n - 1$ internal nodes); for each, the best layout of $T$ (one-sided binary TL) is found in $O(n \log n)$ time by the algorithm of Venkatachalam et al. (ISBRA 2009), as Buchin et al. report.'
+  reference: { paper: buchin-et-al-2008, version: journal, statement: "Section 1 (Previous Work)" }

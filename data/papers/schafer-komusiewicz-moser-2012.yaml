@@ -1,0 +1,16 @@
+id: schafer-komusiewicz-moser-2012
+title: "Parameterized computational complexity of finding small-diameter subgraphs"
+authors: [Alexander Schäfer, Christian Komusiewicz, Hannes Moser, Rolf Niedermeier]
+identifiers: { dblp: journals/ol/SchaferKMN12 }
+versions:
+  author-copy:
+    kind: preprint
+    year: 2012
+    url: "https://www.uni-marburg.de/de/fb12/arbeitsgruppen/algorith/paper/sclub-opt-letter.pdf"
+    open_access: true
+  journal:
+    kind: journal
+    venue: "Optimization Letters 6(5), pp. 883–891"
+    year: 2012
+    doi: "10.1007/s11590-011-0311-5"
+    open_access: false

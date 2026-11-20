@@ -1,0 +1,22 @@
+id: bruhn-chopin-joos-2014
+title: "Structural Parameterizations for Boxicity"
+authors: [Henning Bruhn, Morgan Chopin, Felix Joos, Oliver Schaudt]
+identifiers: { dblp: journals/algorithmica/BruhnCJS16 }
+versions:
+  arxiv:
+    kind: preprint
+    year: 2014
+    arxiv: "1402.4992"
+    open_access: true
+  wg:
+    kind: conference
+    venue: "Graph-Theoretic Concepts in Computer Science, 40th International Workshop (WG 2014), LNCS 8747, pp. 117–128"
+    year: 2014
+    doi: "10.1007/978-3-319-12340-0_10"
+    open_access: false
+  journal:
+    kind: journal
+    venue: "Algorithmica 74(4), pp. 1453–1472"
+    year: 2016
+    doi: "10.1007/s00453-015-0011-0"
+    open_access: false

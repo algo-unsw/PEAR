@@ -1,0 +1,13 @@
+id: k-plex--to--bounded-degree-vertex-deletion
+from: { problem: k-plex, version: decision }
+to: { problem: bounded-degree-vertex-deletion, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(n^{2})"
+parameter_map: { n: "n", m: "n (n - 1) / 2 - m", k: "n - k", d: "s - 1" }
+source:
+  paper: wang-zhou-luo-2023
+  statements:
+    arxiv-v3: { statement: "Section 2.4 (The Dual Problem): \"In a graph $G=(V,E)$, there is a $k$-plex of size $p$ if and only if there is a $(k-1)$-bdd of size $|V|-p$ in the complement graph $\\overline{G}$.\"" }
+  note: "$S$ is an $s$-plex of $G$ if and only if every vertex of $S$ has at most $s - 1$ neighbours in $S$ in the complement $\\overline{G}$, that is, $\\overline{G}[S] = \\overline{G} - (V \\setminus S)$ has maximum degree at most $s - 1$. So $(G, s, k) \\mapsto (\\overline{G}, s - 1, n - k)$. Moser, Niedermeier and Sorge (J. Comb. Optim. 2012, Section 1) state the same duality."
+status: valid

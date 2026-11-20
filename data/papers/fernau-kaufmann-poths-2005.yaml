@@ -1,0 +1,18 @@
+id: fernau-kaufmann-poths-2005
+title: "Comparing Trees Via Crossing Minimization"
+authors: [Henning Fernau, Michael Kaufmann, Mathias Poths]
+identifiers: { dblp: "journals/jcss/FernauKP10", openalex: null }
+versions:
+  fsttcs:
+    kind: conference
+    venue: "FSTTCS 2005: Foundations of Software Technology and Theoretical Computer Science, LNCS 3821, pp. 457–469"
+    year: 2005
+    doi: "10.1007/11590156_37"
+    open_access: false
+  journal:
+    kind: journal
+    title: "Comparing trees via crossing minimization"
+    venue: "Journal of Computer and System Sciences 76(7), pp. 593–608"
+    year: 2010
+    doi: "10.1016/j.jcss.2009.10.014"
+    open_access: false

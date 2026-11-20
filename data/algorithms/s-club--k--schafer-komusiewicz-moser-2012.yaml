@@ -1,0 +1,21 @@
+id: s-club--k--schafer-komusiewicz-moser-2012
+problem: s-club
+proved_for: decision-s-at-least-2
+bound:
+  as_stated: "O((k - 2)^{k} k! k^{3} n + n m)"
+  notation: O
+  parameters: [k, n, m]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: "Not stated; educated guess: polynomial. A search tree that grows the solution vertex by vertex from a start vertex after a reduction rule; no memoization or tables."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: schafer-komusiewicz-moser-2012
+  statements:
+    author-copy: { statement: "Theorem 4" }
+  note: "Theorem 4: $s$-Club, $s \\ge 2$, is fixed-parameter tractable in $k$. Stored in the form of the introduction, $O((k-2)^k \\cdot k! \\cdot k^3 |V| + |V||E|)$; the text extracted from the theorem statement reads \"$O((k-2)^k \\cdot k! \\cdot kn + nm)$\", which may have lost a superscript (TODO(verify): the polynomial factor in Theorem 4). The stored form is implied by either reading. The paper asks for size exactly $k$; Hartung, Komusiewicz, Nichterlein and Suchý (arXiv 1305.3735, footnote in Section 1.1) state that the fixed-parameter tractability results other than the dual one hold for both variants. Read in the authors' copy (\"To appear in Optimization Letters\")."

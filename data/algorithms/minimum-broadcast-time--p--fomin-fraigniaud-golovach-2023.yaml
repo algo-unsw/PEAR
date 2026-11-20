@@ -1,0 +1,21 @@
+id: minimum-broadcast-time--p--fomin-fraigniaud-golovach-2023
+problem: minimum-broadcast-time
+proved_for: decision
+bound:
+  as_stated: '2^{O(p)} n^{O(1)}'
+  notation: O
+  parameters: [p, n]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Not stated; a kernel with $O(p)$ vertices followed by the $3^n n^{O(1)}$-time dynamic programme over subsets, which stores up to $2^{O(p)}$ sets (educated guess).'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: fomin-fraigniaud-golovach-2023
+  statements:
+    arxiv-v1: { statement: "Theorem 4 and the sentence after it (Section 1.1)" }
+  note: 'Theorem 4 gives a kernel with $O(k)$ vertices for $k = n - t$; "as a direct consequence", the problem "can be solved in $2^{O(k)} \cdot n^{O(1)}$ time".'

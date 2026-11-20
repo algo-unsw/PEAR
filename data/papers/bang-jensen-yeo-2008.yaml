@@ -1,0 +1,16 @@
+id: bang-jensen-yeo-2008
+title: "The minimum spanning strong subdigraph problem is fixed parameter tractable"
+authors: [Jørgen Bang-Jensen, Anders Yeo]
+identifiers: { dblp: "journals/dam/Bang-JensenY08" }
+versions:
+  journal:
+    kind: journal
+    venue: "Discrete Applied Mathematics 156, pp. 2924–2929"
+    year: 2008
+    open_access: false
+  journal-author-copy:
+    kind: preprint
+    venue: "Copy of the Discrete Applied Mathematics article on Jørgen Bang-Jensen's course page (University of Southern Denmark)"
+    year: 2008
+    url: "https://imada.sdu.dk/u/jbj/DM209/JBJAYMSSS.pdf"
+    open_access: true

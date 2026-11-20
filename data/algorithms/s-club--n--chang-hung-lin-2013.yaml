@@ -1,0 +1,23 @@
+id: s-club--n--chang-hung-lin-2013
+problem: s-club
+proved_for: optimisation
+bound:
+  as_stated: "O(1.62^{n})"
+  notation: O
+  parameters: [n]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: "Not stated in the sources read; educated guess: polynomial. The algorithm is the search tree that branches on deleting one of two vertices at distance more than $s$ (JGAA 2015, Section 1.1; LIPIcs IPEC 2025, conclusion), analysed in $n$; no memoization or tables."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: chang-hung-lin-2013
+  attested_by:
+    - "https://jgaa.info/index.php/jgaa/article/download/paper352/2596"
+    - "https://drops.dagstuhl.de/storage/00lipics/lipics-vol358-ipec2025/LIPIcs.IPEC.2025.13/LIPIcs.IPEC.2025.13.pdf"
+    - "https://arxiv.org/pdf/1305.3735"
+  note: "No open copy of Chang, Hung, Lin and Su (Computing 2013) found. Hartung, Komusiewicz and Nichterlein (JGAA 2015, Section 1.1): the search tree algorithm \"can be analyzed to run in $O(\\alpha^n \\cdot nm)$ time where $\\alpha$ is the golden ratio $\\alpha < 1.62$\" [Chang et al.]; Dumont, Lampis, Liedloff, Perez and Todinca (IPEC 2025, Section 1): \"Chang et al. show that the $s$-club problem can be solved in $O(1.62^n)$-time\"; Hartung, Komusiewicz, Nichterlein and Suchý (arXiv 1305.3735, Section 1.1): the same search tree algorithm runs in $O(1.62^n)$ time. The first and third sources share three authors. TODO(verify): the exact statement in Chang et al."

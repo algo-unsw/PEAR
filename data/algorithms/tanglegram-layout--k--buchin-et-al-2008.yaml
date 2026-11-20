@@ -1,0 +1,21 @@
+id: tanglegram-layout--k--buchin-et-al-2008
+problem: tanglegram-layout
+proved_for: decision-complete
+bound:
+  as_stated: 'O(4^{k} n^{2})'
+  notation: O
+  parameters: [k, n]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Not stated; a bounded-height search tree explored one branch at a time; no exponential-space technique found (educated guess).'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: buchin-et-al-2008
+  statements:
+    journal: { statement: "Theorem 4.2" }
+  note: 'For complete binary trees with $n$ leaves each and an integer $k$, the algorithm "in $O(4^k n^2)$ time" either determines a layout with at most $k$ inter-tree edge crossings or reports that none exists. Read in the open-access Algorithmica version (CC BY-NC).'

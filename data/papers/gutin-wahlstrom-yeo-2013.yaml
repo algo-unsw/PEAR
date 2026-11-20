@@ -1,0 +1,18 @@
+id: gutin-wahlstrom-yeo-2013
+title: "Rural Postman Parameterized by the Number of Components of Required Edges"
+authors: [Gregory Gutin, Magnus Wahlström, Anders Yeo]
+identifiers: { dblp: "journals/jcss/GutinWY17" }
+versions:
+  arxiv:
+    kind: preprint
+    title: "Parameterized Rural Postman and Conjoining Bipartite Matching Problems"
+    arxiv: "1308.2599"
+    year: 2013
+    open_access: true
+  journal:
+    kind: journal
+    title: "Rural postman parameterized by the number of components of required edges"
+    venue: "Journal of Computer and System Sciences 83(1), pp. 121–131"
+    year: 2017
+    doi: "10.1016/j.jcss.2016.06.001"
+    open_access: false
