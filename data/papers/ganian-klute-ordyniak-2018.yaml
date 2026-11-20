@@ -1,0 +1,18 @@
+id: ganian-klute-ordyniak-2018
+title: "On Structural Parameterizations of the Bounded-Degree Vertex Deletion Problem"
+authors: [Robert Ganian, Fabian Klute, Sebastian Ordyniak]
+identifiers: { dblp: "journals/algorithmica/GanianKO21" }
+versions:
+  stacs:
+    kind: conference
+    venue: "35th Symposium on Theoretical Aspects of Computer Science (STACS 2018), LIPIcs 96, 33:1–33:14"
+    year: 2018
+    doi: "10.4230/LIPIcs.STACS.2018.33"
+    open_access: true
+  journal:
+    kind: journal
+    venue: "Algorithmica 83, pp. 297–336"
+    year: 2021
+    doi: "10.1007/s00453-020-00758-8"
+    url: "https://eprints.whiterose.ac.uk/167889/8/Ganian2021_Article_OnStructuralParameterizationsO%281%29.pdf"
+    open_access: true

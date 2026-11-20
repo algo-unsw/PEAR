@@ -1,0 +1,23 @@
+id: target-set-selection--vc--banerjee-mathew-panolan-2018
+problem: target-set-selection
+proved_for: optimisation
+bound:
+  as_stated: "2^{O(vc \\log vc)} n^{O(1)}"
+  notation: O
+  parameters: [vc, n]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: "Not stated; educated guess: exponential in $vc$. Guesses activation time stamps for the cover vertices ($2^{O(t \\log t)}$ guesses, Theorem 1) and solves Multi-Hitting Set instances by dynamic programming (Theorem 2)."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: banerjee-mathew-panolan-2018
+  statements:
+    arxiv-v5: { statement: "Theorem 3" }
+  note: "Theorem 3: for a graph with a threshold function and $t$ the size of an optimal vertex cover, \"the optimal target set for $G$ can be computed in time $2^{O(t \\log t)} n^{O(1)}$\" ($t$ written $vc$ here); a vertex cover is obtained with a polynomial-time 2-approximation. Improves $O(2^{(2^{t}+1)t} m)$ of Nichterlein et al. (Social Network Analysis and Mining, 2013). Read in the arXiv PDF (v5, 16 May 2021); not checked in the Theory Comput. Syst. 2022 version."
+formal: { status: informal }
+status: valid

@@ -1,0 +1,23 @@
+id: belmonte-fomin-golovach-2015
+title: "Metric Dimension of Bounded Tree-length Graphs"
+authors: [Rémy Belmonte, Fedor V. Fomin, Petr A. Golovach, M. S. Ramanujan]
+identifiers: { dblp: "journals/siamdm/BelmonteFGR17" }
+versions:
+  mfcs:
+    kind: conference
+    title: "Metric Dimension of Bounded Width Graphs"
+    venue: "40th International Symposium on Mathematical Foundations of Computer Science (MFCS 2015), LNCS 9235, pp. 115–126"
+    year: 2015
+    doi: "10.1007/978-3-662-48054-0_10"
+    open_access: false
+  arxiv-v1:
+    kind: preprint
+    arxiv: "1602.02610v1"
+    year: 2016
+    open_access: true
+  journal:
+    kind: journal
+    venue: "SIAM Journal on Discrete Mathematics 31(2), pp. 1217–1243"
+    year: 2017
+    doi: "10.1137/16M1057383"
+    open_access: false

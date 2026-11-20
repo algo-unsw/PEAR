@@ -21,6 +21,7 @@ parameters:
   tw: { shared: treewidth }
   diam: { meaning: "the diameter of $G$: the maximum distance $d(u, v)$ over all pairs of vertices" }
   ml: { meaning: "the max leaf number of $G$: the maximum number of leaves of a spanning tree of $G$" }
+  mw: { meaning: "the modular-width of $G$: the maximum number of children of a prime node in the modular decomposition of $G$ (the graph is built from single vertices by disjoint union, join, and substituting graphs for the vertices of a prime graph with at most $mw$ vertices)" }
 constraints:
   - { constraint: "k \\le n", because: "Every instance with $k \\ge n - 1$ is a yes-instance: all vertices but one form a resolving set." }
   - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
@@ -28,6 +29,7 @@ constraints:
   - { constraint: "tw \\le vc", because: "For a vertex cover $C$, the bags $C \\cup \\{v\\}$ for $v \\notin C$, arranged on a path, form a tree decomposition of width $|C|$." }
   - { constraint: "diam \\le n", because: "A shortest path in a connected graph has at most $n - 1$ edges." }
   - { constraint: "ml \\le n", because: "A spanning tree has at most $n$ leaves." }
+  - { constraint: "mw \\le n", because: "A prime node of the modular decomposition has at most $n$ children." }
 versions:
   decision:
     kind: decision

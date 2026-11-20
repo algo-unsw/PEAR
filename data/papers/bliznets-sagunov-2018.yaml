@@ -1,0 +1,22 @@
+id: bliznets-sagunov-2018
+title: "Solving Target Set Selection with Bounded Thresholds Faster than $2^n$"
+authors: [Ivan Bliznets, Danil Sagunov]
+identifiers: { dblp: "journals/algorithmica/BliznetsS23" }
+versions:
+  arxiv:
+    kind: preprint
+    arxiv: "1807.10789"
+    year: 2018
+    open_access: true
+  ipec:
+    kind: conference
+    venue: "13th International Symposium on Parameterized and Exact Computation (IPEC 2018), LIPIcs 115, pp. 22:1–22:14"
+    year: 2018
+    doi: "10.4230/LIPIcs.IPEC.2018.22"
+    open_access: true
+  journal:
+    kind: journal
+    venue: "Algorithmica 85(2), pp. 384–405"
+    year: 2023
+    doi: "10.1007/s00453-022-01031-w"
+    open_access: false

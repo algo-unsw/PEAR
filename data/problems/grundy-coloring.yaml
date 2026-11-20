@@ -1,0 +1,43 @@
+id: grundy-coloring
+name: Grundy Coloring
+aliases: [Grundy Colouring, Grundy Number, Grundy Chromatic Number, First-Fit Chromatic Number, Ochromatic Number]
+category: graph
+complexity:
+  class: NP-complete
+  source:
+    paper: zaker-2006
+    attested_by:
+      - "https://en.wikipedia.org/wiki/Grundy_number"
+      - "https://arxiv.org/abs/2012.10070"
+      - "https://math.ipm.ac.ir/conferences/2003/combinatorics2003/abstracts/zaker.pdf"
+    note: "Wikipedia's article on the Grundy number cites Zaker (2006) for NP-completeness when $k$ is part of the input. Zaker's own 2003 conference abstract (IPM, Tehran) announces that the Grundy number is NP-complete, even for complements of bipartite graphs, and polynomial for fixed $k$; Khaleghi and Zaker (arXiv 2012.10070, Introduction) state that the Grundy number is NP-complete even for very restricted families of graphs. The journal paper was not opened (no open URL found; Discrete Mathematics may be in Elsevier's open archive, TODO(verify))."
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  k: { meaning: "the number of colours: the integer $k$ in the input (decision), or the Grundy number $\\Gamma(G)$ (optimisation)" }
+  pw: { shared: pathwidth }
+  nd: { shared: neighborhood-diversity }
+  mw: { shared: modular-width }
+constraints:
+  - { constraint: "k \\le n", because: "Every colour class of a first-fit colouring is nonempty, so $\\Gamma(G) \\le n$; instances with $k > n$ are no-instances." }
+  - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
+  - { constraint: "pw \\le n", because: "A single bag containing all vertices is a path decomposition of width $n - 1$." }
+  - { constraint: "nd \\le n", because: "The partition into single vertices is a partition into twin classes." }
+  - { constraint: "mw \\le n", because: "The partition of $V$ into single vertices is a partition into at most $n$ modules of modular-width 1." }
+versions:
+  decision:
+    kind: decision
+    input: "A graph $G = (V, E)$ and an integer $k$."
+    question: "Is there an ordering $v_1, \\dots, v_n$ of $V$ such that the first-fit colouring along it, which gives each $v_i$ the smallest positive integer not used by its neighbours among $v_1, \\dots, v_{i-1}$, uses at least $k$ colours?"
+  optimisation:
+    kind: optimisation
+    input: "A graph $G = (V, E)$."
+    goal: "Find the Grundy number $\\Gamma(G)$: the maximum, over all orderings $v_1, \\dots, v_n$ of $V$, of the number of colours used by the first-fit colouring along it, which gives each $v_i$ the smallest positive integer not used by its neighbours among $v_1, \\dots, v_{i-1}$."
+default_version: decision
+shared_bounds:
+  - versions: [decision, optimisation]
+    because: "The optimum is the largest $k \\le n$ for which the decision version answers yes (at most $n$ calls), and it answers the decision version directly."
+related:
+  - { problem: chromatic-number, relation: variant }

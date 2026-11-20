@@ -1,0 +1,25 @@
+id: ben-zwi-hermelin-lokshtanov-2009
+title: "Treewidth Governs the Complexity of Target Set Selection"
+authors: [Oren Ben-Zwi, Danny Hermelin, Daniel Lokshtanov, Ilan Newman]
+identifiers: { dblp: "journals/disopt/Ben-ZwiHLN11" }
+versions:
+  author-copy:
+    kind: preprint
+    venue: "Author copy (Daniel Lokshtanov's web page); its first-page footnote cites the EC 2009 proceedings"
+    year: 2009
+    url: "https://sites.cs.ucsb.edu/~daniello/papers/TargetSetSelection.pdf"
+    open_access: true
+  ec:
+    kind: conference
+    title: "An exact almost optimal algorithm for target set selection in social networks"
+    venue: "Proceedings of the 10th ACM Conference on Electronic Commerce (EC 2009), pp. 355–362"
+    year: 2009
+    doi: "10.1145/1566374.1566424"
+    open_access: false
+  journal:
+    kind: journal
+    title: "Treewidth governs the complexity of target set selection"
+    venue: "Discrete Optimization 8(1), pp. 87–96"
+    year: 2011
+    doi: "10.1016/j.disopt.2010.09.007"
+    open_access: false

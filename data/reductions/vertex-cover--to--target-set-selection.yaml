@@ -1,0 +1,11 @@
+id: vertex-cover--to--target-set-selection
+from: { problem: vertex-cover, version: decision }
+to: { problem: target-set-selection, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(n + m)"
+parameter_map: { n: "n", m: "m", k: "k", tw: "tw" }
+source:
+  folklore: true
+  note: "Same graph and $k$, with thresholds $\\mathrm{thr}(v) = \\deg(v)$ (unanimity thresholds). If $S$ is a vertex cover, every vertex outside $S$ has all its neighbours in $S$ and becomes active. Conversely, if $S$ activates every vertex and an edge $uv$ had both ends outside $S$, the one of $u, v$ activated first would need the other already active, a contradiction; so $S$ is a vertex cover."
+status: valid

@@ -1,0 +1,23 @@
+id: bounded-degree-vertex-deletion--k--xiao-2016-d-2
+problem: bounded-degree-vertex-deletion
+proved_for: decision-d-2
+bound:
+  as_stated: "O^*(3.0645^{k})"
+  notation: O*
+  parameters: [k]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: "Not stated; educated guess: polynomial. The same recursive branch-and-search algorithm as for $d \\ge 3$; no memoization, dynamic programming or tables found."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: xiao-2016
+  statements:
+    arxiv: { statement: "Section 4.1 (The results), second theorem: \"The co-path/cycle problem can be solved in $O^*(3.0645^k)$ time.\"" }
+  note: "Co-path/cycle is the case $d = 2$ (Section 1). Improves the deterministic $O^*(3.24^k)$ of Chen et al. (AAIM 2010); Feng, Wang, Li and Chen (J. Comb. Optim. 2015) give a randomized $O^*(3^k)$ algorithm (as cited in Section 1; not opened, not entered)."
+formal: { status: informal }
+status: valid

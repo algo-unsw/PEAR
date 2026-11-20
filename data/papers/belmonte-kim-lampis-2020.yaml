@@ -1,0 +1,22 @@
+id: belmonte-kim-lampis-2020
+title: "Grundy Distinguishes Treewidth from Pathwidth"
+authors: [Rémy Belmonte, Eun Jung Kim, Michael Lampis, Valia Mitsou, Yota Otachi]
+identifiers: { dblp: "journals/siamdm/BelmonteKLMO22" }
+versions:
+  arxiv:
+    kind: preprint
+    arxiv: "2008.07425"
+    year: 2020
+    open_access: true
+  conference:
+    kind: conference
+    venue: "ESA 2020, LIPIcs 173"
+    year: 2020
+    doi: "10.4230/LIPIcs.ESA.2020.14"
+    open_access: true
+  journal:
+    kind: journal
+    venue: "SIAM Journal on Discrete Mathematics 36(3)"
+    year: 2022
+    doi: "10.1137/20M1385779"
+    open_access: false

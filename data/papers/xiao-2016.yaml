@@ -1,0 +1,16 @@
+id: xiao-2016
+title: "A Parameterized Algorithm for Bounded-Degree Vertex Deletion"
+authors: [Mingyu Xiao]
+identifiers: { dblp: "conf/cocoon/Xiao16" }
+versions:
+  arxiv:
+    kind: preprint
+    arxiv: "1601.00163"
+    year: 2016
+    open_access: true
+  cocoon:
+    kind: conference
+    venue: "22nd International Conference on Computing and Combinatorics (COCOON 2016), LNCS 9797, pp. 79–91"
+    year: 2016
+    doi: "10.1007/978-3-319-42634-1_7"
+    open_access: false

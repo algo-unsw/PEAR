@@ -1,0 +1,18 @@
+id: grundy-coloring--k--folklore
+problem: grundy-coloring
+proved_for: decision
+bound:
+  as_stated: "f(k) n^{2^{k-1}}"
+  notation: O
+  parameters: [k, n]
+properties:
+  randomized: false
+  space: { class: polynomial, bound: "One vertex subset of size at most $2^{k-1}$ at a time." }
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  folklore: true
+  note: "Brute force over witnesses, observed by Zaker (Discrete Math. 2006) according to Aboulker, Bonnet, Kim and Sikora: $\\Gamma(G) \\ge k$ if and only if $G$ contains a minimal $k$-witness as an induced subgraph, and a minimal $k$-witness has at most $2^{k-1}$ vertices (Bonnet, Foucaud, Kim and Sikora, arXiv 1407.5336, Observations used in the proof of the theorem labelled prop:FPT-H-minor-free). Try all vertex subsets of size at most $2^{k-1}$ and test each induced subgraph in time depending on $k$ only. Aboulker et al. state the bound $f(k)n^{2^{k-1}}$ and show it is essentially optimal under ETH (no $f(k)n^{o(2^{k-\\log k})}$ algorithm; ETH is claimed refuted, CLAUDE.md rule 7)."
+  reference: { paper: aboulker-bonnet-kim-2020, version: arxiv, statement: "Section 1 (Introduction)" }

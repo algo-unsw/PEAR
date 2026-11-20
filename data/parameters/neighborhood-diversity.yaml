@@ -1,0 +1,7 @@
+# Definition as in Belmonte, Kim, Lampis, Mitsou and Otachi, arXiv 2008.07425, Section 6.1
+# ("Neighborhood diversity"), which credits the notion to Lampis (2012).
+id: neighborhood-diversity
+name: Neighborhood Diversity
+symbol: nd
+aliases: [neighbourhood diversity]
+definition: "The minimum number of classes in a partition of $V$ into twin classes, where two vertices $u$ and $v$ are twins if $N(u) \\setminus \\{v\\} = N(v) \\setminus \\{u\\}$. Every twin class is a clique or an independent set."
