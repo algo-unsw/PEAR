@@ -186,6 +186,23 @@ def test_non_monotone_bounds_do_not_transfer_but_their_projections_do():
     assert [s["kind"] for s in r["chain"]] == ["projection", "reduction"]
 
 
+def test_substitution_uses_a_monotone_upper_bound():
+    # A1, A2 (20 November 2026): the complement map m -> n(n - 1)/2 - m makes b's bound decrease
+    # in m, a decrease its growth estimate hides; substituting the upper bound m -> n(n - 1)/2
+    # into it would give the lower bound 0, so the subtracted term is dropped first.
+    data = dataset(
+        problem("a"), problem("b"), problem("c"),
+        alg("c-alg", "c", r"O(1.1^{k} + m)"),
+        red("b-to-c", "b", "c", {"n": "n", "m": "n (n - 1) / 2 - m", "k": "k"}, time="O(n^{2})"),
+        red("a-to-b", "a", "b", {"n": "n", "m": "n (n - 1) / 2", "k": "k"}, time="O(n^{2})"),
+    )
+    (b,) = derived(data, "b")
+    assert "- m" in b["exact"]  # b's own bound keeps the exact form
+    (r,) = derived(data, "a")
+    assert r["exact"] == r"O(n^{2} + n^{2} + 1.1^{k} + n (n - 1)/2)"
+    assert r["shown"] == r"O^*(1.1^{k})"
+
+
 # --- §3 Turing reductions, §4 randomness -------------------------------------------------------
 
 

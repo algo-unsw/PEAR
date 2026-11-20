@@ -18,7 +18,7 @@ from typing import Iterable
 from .bounds import Bound, Relation, compare, display, ostar, parse_bound, parse_expr
 from .bounds.compare import Analysed, Context, _resolve, analyse, compare_ostar
 from .bounds.display import simplify, substitute
-from .bounds.expr import Add, Const, Log, Mul, Node, Num, Pow, Var, variables
+from .bounds.expr import Add, Asym, Bell, Const, Div, Fact, Log, Mul, Node, Num, Pow, Sqrt, Var, children, variables
 from .bounds.growth import Shape, UnsupportedBound, bound_terms, is_monotone
 from .bounds.numeric import dominates, samples, value
 from .schema import Algorithm, FolkloreSource, Hypothesis, PaperSource, Problem, Reduction, Variant
@@ -443,6 +443,17 @@ class Engine:
         if not is_monotone(b):
             self.log(f"{red.id}: cannot transfer {r.id}, bound not shown to be monotone (rulebook A2)")
             return None
+        # is_monotone checks the growth estimate, which ignores subtracted terms that a larger
+        # term dominates (n(n - 1)/2 - m grows like n^2). Substitution needs the bound itself
+        # to be nondecreasing (A1, A2), so subtracted terms with variables are dropped first:
+        # m ↦ (an upper bound on m) in n(n - 1)/2 - m would give a lower bound.
+        majorant = _monotone_majorant(b.expr)
+        if majorant != b.expr:
+            upper = Bound(b.notation, majorant, b.family)
+            if compare(analyse(b), analyse(upper), self.out.contexts[target.id]) not in (Relation.BETTER, Relation.EQUAL):
+                self.log(f"{red.id}: cannot transfer {r.id}, no monotone upper bound found (rulebook A2)")
+                return None
+            b = upper
         phi = {v: parse_expr(e, source.symbols()) for v, e in red.parameter_map.items()}
         f = simplify(substitute(b.expr, phi))
         calls: Node | None = None
@@ -910,6 +921,37 @@ def _drop_subtractions(node: Node) -> Node:
         return Mul(tuple(_drop_subtractions(f) for f in node.factors))
     if isinstance(node, Pow):
         return Pow(_drop_subtractions(node.base), _drop_subtractions(node.exp))
+    return node
+
+
+def _has_var(node: Node) -> bool:
+    """A variable occurs in node (a family constant such as ε_k does not count)."""
+    if isinstance(node, Var):
+        return True
+    return any(_has_var(c) for c in children(node))
+
+
+def _monotone_majorant(node: Node) -> Node:
+    """Drop subtracted terms that contain variables (all variables are nonnegative), outside
+    denominators: an upper bound on node that is nondecreasing wherever node's growth
+    estimate is. Subtracted constants such as 1 or ε_k stay. Checked by the comparator."""
+    if isinstance(node, Add):
+        kept = [(s, _monotone_majorant(t)) for s, t in node.terms if s > 0 or not _has_var(t)]
+        if not any(s > 0 for s, _ in kept):
+            return node  # nothing positive left: leave it to the monotonicity check
+        return kept[0][1] if len(kept) == 1 and kept[0][0] > 0 else Add(tuple(kept))
+    if isinstance(node, Mul):
+        return Mul(tuple(_monotone_majorant(f) for f in node.factors))
+    if isinstance(node, Pow):
+        return Pow(_monotone_majorant(node.base), _monotone_majorant(node.exp))
+    if isinstance(node, Div):
+        return Div(_monotone_majorant(node.num), node.den)
+    if isinstance(node, (Sqrt, Fact, Bell)):
+        return type(node)(_monotone_majorant(node.arg))
+    if isinstance(node, Log):
+        return replace(node, arg=_monotone_majorant(node.arg))
+    if isinstance(node, Asym):
+        return Asym(node.kind, _monotone_majorant(node.arg))
     return node
 
 

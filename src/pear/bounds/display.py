@@ -148,17 +148,32 @@ def simplify(node: Node) -> Node:
         if len(nums) > 1:
             value = math.prod((n.value for n in nums), start=Fraction(1))
             nums = [num(value)]
+        if nums and nums[0].value == 0:
+            return nums[0]  # a zero factor: the product is 0
         if nums and nums[0].value == 1 and rest:
             nums = []
         out = nums + rest
         return out[0] if len(out) == 1 else Mul(tuple(out))
     if isinstance(node, Add):
-        return _collect(Add(tuple((s, simplify(t)) for s, t in node.terms)))
+        out = _collect(Add(tuple((s, simplify(t)) for s, t in node.terms)))
+        if isinstance(out, Add):
+            # a summand that simplified to 0, e.g. n(n - 1)/2 - n(n - 1)/2, is dropped
+            terms = tuple((s, t) for s, t in out.terms if not _is_zero(t))
+            if not terms:
+                return num(0)
+            if len(terms) == 1 and terms[0][0] > 0:
+                return terms[0][1]
+            out = Add(terms) if len(terms) != len(out.terms) else out
+        return out
     if isinstance(node, Pow):
         return Pow(simplify(node.base), simplify(node.exp))
     if isinstance(node, Div):
         return Div(simplify(node.num), simplify(node.den))
     return node
+
+
+def _is_zero(node: Node) -> bool:
+    return isinstance(node, Num) and node.value == 0
 
 
 def _collect(node: Add) -> Node:

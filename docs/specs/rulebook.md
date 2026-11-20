@@ -9,7 +9,7 @@ The rulebook decides when an algorithm for a problem B, together with a reductio
 ## 1. Standing assumptions
 
 - **A1. Parameter maps are upper bounds.** `parameter_map: { k: "2k" }` on a reduction from A to B means every produced instance of B has $k_B \le 2k_A$. Equalities are a special case.
-- **A2. Bounds are monotone.** A stated bound is nondecreasing in each of its variables (for the large values that asymptotic statements are about). A1 and A2 together make substitution sound. The comparator refuses to substitute into a bound it cannot show to be monotone, such as one with a variable in a denominator.
+- **A2. Bounds are monotone.** A stated bound is nondecreasing in each of its variables (for the large values that asymptotic statements are about). A1 and A2 together make substitution sound. The comparator refuses to substitute into a bound it cannot show to be monotone, such as one with a variable in a denominator. The check reads the bound's growth estimate, which ignores a subtracted term that a larger one dominates ($n(n-1)/2 - m$ grows like $n^2$), so before substituting the engine drops subtracted terms that contain variables, outside denominators: an upper bound that is nondecreasing, checked by the comparator (20 November 2026). Otherwise an upper bound substituted into a decreasing term gives a lower bound, such as 0 edges after $m \mapsto n(n-1)/2$ and the complement $m \mapsto n(n-1)/2 - m$.
 - **A3. Only valid inputs count.** Results whose `status` is not `valid` or `fixed`, or whose hypothesis is `refuted`, are excluded from derivation. A result relying on a hypothesis that is `claimed-refuted` is still derived but carries that status (rule 7 of CLAUDE.md).
 
 ## 2. Polynomial-time many-one reductions (`calls: 1`)
