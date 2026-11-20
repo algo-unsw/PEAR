@@ -47,6 +47,8 @@ shared_bounds:
 related:
   - { problem: set-cover, relation: generalisation }
   - { problem: connected-dominating-set, relation: variant }
+  - { problem: domatic-number, relation: variant }
+  - { problem: sharp-dominating-set, relation: counting }
 implementations:
   as_of: 2026-11-11
   ranked: [uzl-pace-2025, bad-dominating-set-maker]

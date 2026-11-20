@@ -1,0 +1,12 @@
+id: kijima-okamoto-uno-2011
+title: "Dominating Set Counting in Graph Classes"
+authors: [Shuji Kijima, Yoshio Okamoto, Takeaki Uno]
+identifiers: { dblp: "conf/cocoon/KijimaOU11", openalex: null }
+versions:
+  cocoon:
+    kind: conference
+    venue: "Computing and Combinatorics (COCOON 2011), LNCS 6842, pp. 13–24"
+    year: 2011
+    doi: "10.1007/978-3-642-22685-4_2"
+    url: "https://dopal.cs.uec.ac.jp/okamotoy/PDF/2011/DS.pdf"
+    open_access: true

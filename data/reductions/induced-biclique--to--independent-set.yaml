@@ -1,0 +1,15 @@
+id: induced-biclique--to--independent-set
+from: { problem: induced-biclique, version: optimisation }
+to: { problem: independent-set, version: optimisation }
+type: polytime-deterministic
+calls: "n + 1"
+time: "O(n^{2})"
+parameter_map: { n: "n", m: "n^{2}", k: "k" }
+source:
+  paper: gaspers-kratsch-liedloff-2008
+  statements:
+    journal: { statement: "Lemma 1 and Corollary 2" }
+    wg: { statement: "Lemma 2 and Corollary 1" }
+  note: 'For every vertex $v$, build $H_v$: vertex set $N(v) \cup N_2(v)$, the edges of $G$ inside $N(v)$ and inside $N_2(v)$, and the non-edges of $G$ between $N(v)$ and $N_2(v)$ as edges. A set $B \ni v$ with $B \setminus \{v\} \subseteq V(H_v)$ is a biclique of $G$ if and only if $B - v$ is independent in $H_v$ (Lemma 1), so the optimum is $\max(\alpha(G), \max_v (1 + \alpha(H_v)))$. The paper makes the $n$ calls on the graphs $H_v$ (at most $n - 1$ vertices each). The extra call on $G$ itself is added here (site-written, TODO(verify) by Serge): the paper allows $X$ or $Y$ to be empty, and an independent set of $G$ that is not within distance 2 of one of its vertices is not found through any $H_v$ (example: a perfect matching). With both sides nonempty, every vertex of $X$ is within distance 2 of $v \in X$ and the paper''s $n$ calls suffice for the bicliques they cover. $k_B \le k_A$ since $1 + \alpha(H_v) \le k_A$ and $\alpha(G) \le k_A$.'
+formal: { status: informal }
+status: valid

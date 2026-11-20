@@ -1,0 +1,24 @@
+id: induced-biclique--n--gaspers-kratsch-liedloff-2008
+problem: induced-biclique
+proved_for: optimisation
+bound:
+  as_stated: 'O(1.2109^{n})'
+  notation: O
+  parameters: [n]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Not stated. The bound runs Robson''s 1986 maximum independent set algorithm (J. Algorithms 7, 1986) on the graphs $H_v$; Robson''s abstract says the version with constant about 0.276 ($2^{0.276n} \approx 1.2109^n$) "uses exponential space" (storing the values of the recursive function: memoization), so exponential space.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: gaspers-kratsch-liedloff-2008
+  statements:
+    journal: { statement: "Corollary 2 and the sentence after it (Section 3)" }
+    wg: { statement: "Corollary 1 and the sentence after it (Section 3)" }
+  note: 'Lemma 1 (journal; Lemma 2 in the WG version): $B$ is a biclique of $G$ if and only if $B - v$ is an independent set of $H_v$ for some $v \in B$, where $H_v$ has vertex set $N(v) \cup N_2(v)$ (vertices at distance 1 and exactly 2 from $v$), keeps the edges of $G$ inside $N(v)$ and inside $N_2(v)$, and complements the edges between them. "By this corollary and the algorithms in [28, 31], a maximum biclique of a graph can be found in time $O(1.2109^n)$", [28] = Robson 1986. The paper''s bicliques allow $X$ or $Y$ to be empty. TODO(verify): with $N_2(v)$ at distance exactly 2, an independent set $B$ with no vertex within distance 2 of all others is missed (a perfect matching on $n$ vertices has maximum biclique $n/2$, an independent set, but $\max_v (1 + \alpha(H_v)) = 2$); one more call computing $\alpha(G)$ repairs it, with the same bound. See the reduction induced-biclique--to--independent-set.'
+formal: { status: informal }
+status: valid

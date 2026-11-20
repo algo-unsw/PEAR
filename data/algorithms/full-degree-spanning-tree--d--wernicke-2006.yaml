@@ -1,0 +1,19 @@
+id: full-degree-spanning-tree--d--wernicke-2006
+problem: full-degree-spanning-tree
+proved_for: optimisation
+bound:
+  as_stated: 'O(4^{d} d^{2} + m)'
+  notation: O
+  parameters: [d, m]
+properties:
+  randomized: false
+  space: { class: polynomial, bound: 'Not stated; educated guess: polynomial. A linear-time kernelization to fewer than $4d$ vertices (Theorem 8.1), then enumeration of subsets of the kernel''s vertices of degree at least 3 as candidate reduced-degree sets, each checked with a maximum-weight spanning tree (cotree) computation; one subset at a time, no tables or dynamic programming.' }
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: wernicke-2006
+  statements:
+    thesis: { statement: "Theorem 8.2 (p. 130)" }
+  note: 'Theorem 8.2: "Given an $m$-edge graph $G = (V, E)$, a spanning tree which has a minimum number $k$ of reduced-degree vertices can be found in $O(4^k \cdot k^2 + m)$ time" (Minimum-Vertex Feedback Edge Set, the dual of Full Degree Spanning Tree; its $k$ is our $d = n - k$). The same results are published by Guo, Niedermeier and Wernicke (IWPEC 2006, LNCS 4169, doi:10.1007/11847250_19; Networks 56(2), 2010, doi:10.1002/net.20353), as Gaspers, Saurabh and Stepanov (TAMC 2008) and Lokshtanov, Raman, Saurabh and Sikdar (Discrete Optimization 2011) cite them; no open copy of those versions was found. The formula was read through a PDF-to-text extraction.'

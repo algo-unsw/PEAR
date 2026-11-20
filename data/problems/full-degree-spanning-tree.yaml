@@ -15,9 +15,11 @@ objects:
   N: total encoding length of the input
 parameters:
   k: { meaning: "the number of full-degree vertices (vertices $v$ with $\\deg_T(v) = \\deg_G(v)$): the integer $k$ in the input (decision, search), or the maximum number of full-degree vertices of a spanning tree $T$ (optimisation)" }
+  d: { meaning: "the dual parameter $n - k$: the number of vertices that may lose degree in the spanning tree (reduced-degree vertices, $\\deg_T(v) < \\deg_G(v)$); in the optimisation version, $n$ minus the optimum" }
   tw: { shared: treewidth }
 constraints:
   - { constraint: "k \\le n", because: "At most $n$ vertices have full degree; every instance with $k > n$ is a no-instance." }
+  - { constraint: "d \\le n", because: "$d = n - k$ with $k \\ge 0$." }
   - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
   - { constraint: "tw \\le n", because: "A single bag containing all vertices is a tree decomposition of width $n - 1$." }
 versions:

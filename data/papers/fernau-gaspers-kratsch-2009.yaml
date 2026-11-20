@@ -1,0 +1,11 @@
+id: fernau-gaspers-kratsch-2009
+title: "Exact Exponential-Time Algorithms for Finding Bicliques in a Graph"
+authors: [Henning Fernau, Serge Gaspers, Dieter Kratsch, Mathieu Liedloff, Daniel Raible]
+identifiers: { dblp: conf/colognetwente/FernauGKLR09, openalex: null }
+versions:
+  ctw:
+    kind: workshop
+    venue: "Proceedings of the 8th Cologne-Twente Workshop on Graphs and Combinatorial Optimization (CTW 2009), Paris, pp. 205–209"
+    year: 2009
+    url: "https://cgi.cse.unsw.edu.au/~sergeg/papers/Ctw2009.pdf"
+    open_access: true

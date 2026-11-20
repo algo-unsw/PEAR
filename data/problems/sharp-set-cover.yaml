@@ -1,0 +1,26 @@
+id: sharp-set-cover
+name: "#Set Cover"
+aliases: ["#SC", "Counting Set Covers"]
+category: sets
+complexity:
+  class: "#P-complete"
+  source:
+    paper: kijima-okamoto-uno-2011
+    statements:
+      cocoon:
+        statement: "Theorem 4"
+    note: "#P-hard through #Dominating Set (Theorem 4 of Kijima, Okamoto and Uno): the closed neighbourhoods of a graph's vertices form a family whose set covers are exactly its dominating sets, of the same size (a cardinality-preserving bijection, as Gaspers and Sorkin note in Section 5 of arXiv 1404.0753v2). In #P: a set cover is checked in polynomial time. Decided with this note (Serge Gaspers' rule of 21 November 2026 for simple steps)."
+objects:
+  n: number of elements of the universe
+  m: number of sets in the family
+  N: total encoding length of the input
+parameters: {}
+versions:
+  counting:
+    kind: counting
+    input: "A universe $U$ and a family $\\mathcal{F}$ of subsets of $U$."
+    goal: "Find, for every $k \\in \\{0, \\dots, m\\}$, the number of subfamilies $\\mathcal{C} \\subseteq \\mathcal{F}$ with $|\\mathcal{C}| = k$ whose union is $U$."
+default_version: counting
+related:
+  - { problem: set-cover, relation: counting }
+  - { problem: sharp-dominating-set, relation: generalisation }

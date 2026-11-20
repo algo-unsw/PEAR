@@ -1,0 +1,21 @@
+id: balanced-biclique--k--folklore
+problem: balanced-biclique
+proved_for: search
+bound:
+  as_stated: 'O(k n^{k+1})'
+  notation: O
+  parameters: [k, n]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'One set $X$ at a time.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  folklore: true
+  note: 'Brute force: for each of the at most $n^k$ sets $X$ of $k$ vertices, compute the common neighbourhood of $X$ in $O(kn)$ time and check whether it has at least $k$ vertices (it is disjoint from $X$, as $G$ has no loops); if so, any $k$ of them form $Y$. Lin (J. ACM 2018, arXiv 1406.3700) shows that the problem is W[1]-hard parameterized by $k$, so no $f(k) n^{O(1)}$ algorithm is expected. TODO(verify): Serge to approve this XP baseline.'
+formal: { status: informal }
+status: valid

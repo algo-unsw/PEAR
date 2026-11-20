@@ -1,0 +1,10 @@
+id: wernicke-2006
+title: "Combinatorial Algorithms to Cope with the Complexity of Biological Networks"
+authors: [Sebastian Wernicke]
+versions:
+  thesis:
+    kind: thesis
+    venue: "PhD thesis, Friedrich-Schiller-Universität Jena"
+    year: 2006
+    url: "https://fpt.akt.tu-berlin.de/publications/theses/wer06.pdf"
+    open_access: true

@@ -3,6 +3,7 @@ title: 'Separate, Measure and Conquer: Faster Polynomial-Space Algorithms for Ma
 authors:
 - Serge Gaspers
 - Gregory B. Sorkin
+identifiers: { dblp: "journals/talg/GaspersS17", openalex: null }
 versions:
   arxiv-v1:
     kind: preprint
