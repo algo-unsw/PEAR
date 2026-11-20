@@ -28,11 +28,11 @@ eleventyComputed:
 <ol class="chain"{% if cid %} id="{{ cid }}"{% endif %}{% if hide %} hidden{% endif %}>
 {%- for i in r.chain_items %}
 {%- if i.kind == "start" %}
-<li><a href="{{ ('/problems/' + i.problem_id + '/') | url }}">{{ i.problem }}</a> in {{ i.shown | tex | safe }} {{ i.refs | refs | safe }}{% if i.statements.length %} ({{ i.statements | join("; ") }}){% endif %}, proved for the {{ i.proved_for }} version</li>
+<li><a href="{{ ('/problems/' + i.problem_id + '/') | url }}">{{ i.problem }}</a> in {{ i.shown | tex | safe }} {{ i.refs | refs | safe }}{% if i.statements.length %} ({{ i.statements | join("; ") | mathtext | safe }}){% endif %}, proved for the {{ i.proved_for }} version</li>
 {%- elif i.kind == "reduction" %}
 <li>Reduction from <a href="{{ ('/problems/' + i.from_id + '/') | url }}">{{ i.from }}</a> to <a href="{{ ('/problems/' + i.to_id + '/') | url }}">{{ i.to }}</a>, {{ i.type }}, {{ i.calls }}: {{ i.map | tex | safe }}{% if i.folklore %} (folklore){% endif %}{% if i.refs.length %} {{ i.refs | refs | safe }}{% endif %}{% if i.note %}<span class="cellnote">{{ i.note | mathtext | safe }}</span>{% endif %}</li>
 {%- elif i.kind == "technique" %}
-<li>{{ i.name }} {{ i.refs | refs | safe }} ({{ i.statement }}): {{ i.text | mathtext | safe }}{% if i.because %}<span class="cellnote">{{ i.because | mathtext | safe }}</span>{% endif %}</li>
+<li>{{ i.name }} {{ i.refs | refs | safe }} ({{ i.statement | mathtext | safe }}): {{ i.text | mathtext | safe }}{% if i.because %}<span class="cellnote">{{ i.because | mathtext | safe }}</span>{% endif %}</li>
 {%- elif i.kind == "special-case" %}
 <li>The bound for the {{ i.general }} version also holds for the {{ i.special }} version, a special case</li>
 {%- elif i.kind == "projection" %}
@@ -85,7 +85,7 @@ eleventyComputed:
 {%- endif %}
 {%- for g in node.overview %}
 <div class="ov-group"{% if g.only_optional %} data-only-optional hidden{% endif %}>
-<h3>{{ g.heading }} {% for s in g.symbols_tex %}{{ s | tex | safe }}{% if not loop.last %} and {% endif %}{% endfor %}</h3>
+<h3>{{ g.heading | mathtext | safe }} {% for s in g.symbols_tex %}{{ s | tex | safe }}{% if not loop.last %} and {% endif %}{% endfor %}</h3>
 {%- for e in g.entries %}
 <div class="ov-entry" data-all="{{ '1' if e.in_all else '0' }}"{% if e.optional %} data-optional="{{ e.cite[0].id }}" hidden{% endif %}{% if e.only_all %} data-only-all hidden{% endif %}{% if e.beaten_by.length %} data-beaten-by="{{ e.beaten_by | join(' ') }}"{% endif %}>
 {%- for r in e.cite %}
@@ -120,7 +120,7 @@ eleventyComputed:
 <td class="nowrap">{{ bound(r) }}</td>
 <td>{{ r.props.short }}</td>
 <td>{{ r.proved_for }}{% if r.proved_for_problem %} ({{ r.proved_for_problem }}){% endif %}</td>
-<td>{{ r.refs | refs | safe }}{% if r.statements.length %}, {{ r.statements | join("; ") }}{% endif %}{% for u in r.uses %}<span class="cellnote">uses the {% if not u.same %}<a href="{{ ('/problems/' + u.problem_id + '/') | url }}">{{ u.problem }}</a> {% endif %}result {{ u.refs | refs | safe }}{% if u.statements.length %}, {{ u.statements | join("; ") }}{% endif %}</span>{% endfor %}{% if r.source_note %}<br><button type="button" class="disclose small" aria-expanded="false" aria-controls="note-{{ rid }}">{{ tri | safe }}Note</button>{% endif %}</td>
+<td>{{ r.refs | refs | safe }}{% if r.statements.length %}, {{ r.statements | join("; ") | mathtext | safe }}{% endif %}{% for u in r.uses %}<span class="cellnote">uses the {% if not u.same %}<a href="{{ ('/problems/' + u.problem_id + '/') | url }}">{{ u.problem }}</a> {% endif %}result {{ u.refs | refs | safe }}{% if u.statements.length %}, {{ u.statements | join("; ") | mathtext | safe }}{% endif %}</span>{% endfor %}{% if r.source_note %}<br><button type="button" class="disclose small" aria-expanded="false" aria-controls="note-{{ rid }}">{{ tri | safe }}Note</button>{% endif %}</td>
 <td>{% if r.origin == "derived" %}<span class="tag" title="Obtained by combining an algorithm with reductions or other derivation steps.">derived</span>, {{ r.steps }} step{% if r.steps != 1 %}s{% endif %}{% else %}direct{% endif %}{% for f in r.flags %}{% if f == "given-tree-decomposition" %}<span class="cellnote">tree decomposition given</span>{% elif f == "unverified" %} <span class="tag warn" title="From an unrefereed source; not in the Overview unless you include it.">unverified</span><label class="cellnote include"><input type="checkbox" data-include-unverified="{{ r.id }}"> include in Overview</label>{% elif f == "preprint" %}{% else %}<span class="cellnote">{{ f }}</span>{% endif %}{% endfor %}
 {%- if r.chain_items.length %}<br><button type="button" class="disclose small" aria-expanded="false" aria-controls="chainrow-{{ rid }}">{{ tri | safe }}Chain</button>{% endif %}</td>
 </tr>
@@ -141,7 +141,7 @@ eleventyComputed:
 <p class="note">Not used for any bound on this site, shown for reference.</p>
 <ul class="plain">
 {%- for f in node.flagged %}
-<li>{{ f.shown | tex | safe }} <span class="tag warn" title="{{ f.status_label }}">{{ f.status_label }}</span> {{ f.refs | refs | safe }}{% if f.statements.length %}, {{ f.statements | join("; ") }}{% endif %}; proved for the {{ f.proved_for }} version.{% if f.status_note %} {{ f.status_note | mathtext | safe }}{% endif %}</li>
+<li>{{ f.shown | tex | safe }} <span class="tag warn" title="{{ f.status_label }}">{{ f.status_label }}</span> {{ f.refs | refs | safe }}{% if f.statements.length %}, {{ f.statements | join("; ") | mathtext | safe }}{% endif %}; proved for the {{ f.proved_for }} version.{% if f.status_note %} {{ f.status_note | mathtext | safe }}{% endif %}</li>
 {%- endfor %}
 </ul>
 {%- endif %}
