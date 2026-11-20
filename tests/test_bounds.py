@@ -499,3 +499,14 @@ def test_numeric_cross_check_finds_what_the_comparator_misses():
     # k close to n is sampled, so 1.25^k is not taken to be below n^{n - k}
     assert not dominates(e(r"1.25^{k}"), e(r"n^{n - k}"), pts)
     assert not dominates(e(r"2^{n}"), e(r"1.1996^{n}"), pts)
+
+
+def test_simplify_drops_zero_terms():
+    # 20 November 2026: n(n - 1)/2 - n(n - 1)/2 is 0, and a 0 summand is not shown
+    from pear.bounds.display import simplify, substitute
+    from pear.bounds.expr import parse_expr, render
+
+    e = parse_expr(r"n + (n (n - 1)/2 - m) + 2^{n}", {"n", "m"})
+    out = simplify(substitute(e, {"m": parse_expr(r"n (n - 1)/2", {"n"})}))
+    assert render(out) == r"n + 2^{n}"
+    assert render(simplify(parse_expr(r"0 \cdot n + k", {"n", "k"}))) == "k"
