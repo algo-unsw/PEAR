@@ -11,6 +11,7 @@ incomparable, so mistakes can only keep too many bounds, never drop a correct be
 
 from __future__ import annotations
 
+import functools
 import itertools
 import math
 from dataclasses import dataclass, field
@@ -18,7 +19,7 @@ from enum import Enum
 from fractions import Fraction
 from typing import Iterable, Sequence
 
-from .expr import Bound, Var, fixed_parameters, parse_expr
+from .expr import Bound, Num, Pow, Var, fixed_parameters, parse_expr, variables
 from .numeric import interval
 from .growth import (
     CONST_EXPRS,
@@ -31,6 +32,7 @@ from .growth import (
     UnsupportedBound,
     bound_terms,
     exact,
+    is_monotone,
     value_growth,
 )
 
@@ -435,14 +437,73 @@ def analyse(b: Bound) -> Analysed:
 
 
 def le(a: Analysed, b: Analysed, ctx: Context, mode: str) -> bool:
-    """A = O(B): every term of A is dominated by a single term of B (bounds §5.1)."""
+    """A = O(B): every term of A is dominated by a single term of B (bounds §5.1), possibly
+    after raising A's variables along the constraints (bounds §5, item 9)."""
     if a.terms is None or b.terms is None:
         return False
     if a.fixed != b.fixed:
         # a bound for every fixed k (ε_k, hidden constants depending on k) is compared only
         # with bounds fixed in the same parameters (bounds §2, 17 November 2026)
         return False
+    if _le_terms(a, b, ctx, mode):
+        return True
+    return any(_le_terms(r, b, ctx, mode) for r in _raised(a, b, ctx))
+
+
+def _le_terms(a: Analysed, b: Analysed, ctx: Context, mode: str) -> bool:
+    assert a.terms is not None and b.terms is not None
+    if a.bound == b.bound and all(t.unspecified is None for t in a.terms):  # B3: f(k) beats nothing
+        return True  # identical statements imply each other, even where the estimates of a
+        # factor differ above and below (Bell numbers)
     return all(any(term_le(x, y, ctx, mode) for y in b.terms) for x in a.terms)
+
+
+MAX_RAISINGS = 16
+
+
+def _raised(a: Analysed, b: Analysed, ctx: Context) -> list[Analysed]:
+    """A with each variable x that B does not use replaced by y^p for a variable y of B with
+    x ≤ y^p, if A is nondecreasing in every variable: then A(x) ≤ A(y^p), so A ≤ B follows
+    from A(y^p) ≤ B. The monomial check alone cannot see k! 2^{o(k)} ≤ n! 2^{o(n)} for k ≤ n
+    (Stirling's x! has a negative x log e term), nor n^k ≤ n^n (20 November 2026)."""
+    a_vars = variables(a.bound.expr)
+    b_vars = variables(b.bound.expr)
+    extra = sorted(a_vars - b_vars)
+    if not extra or not b_vars or not _monotone(a.bound):
+        return []
+    options: list[list[tuple[str, Fraction]]] = []
+    for x in extra:
+        targets = [(y, p) for y in sorted(b_vars) if (p := ctx.relation(x, y)) is not None]
+        if not targets:
+            return []  # x would stay, and B does not bound it
+        options.append(targets)
+    out = []
+    for choice in itertools.islice(itertools.product(*options), MAX_RAISINGS):
+        mapping = tuple((x, y, p) for x, (y, p) in zip(extra, choice))
+        r = _raise(a.bound, mapping)
+        if r is not None and r.terms is not None and r.fixed == b.fixed:
+            out.append(r)
+    return out
+
+
+@functools.lru_cache(maxsize=65536)
+def _monotone(b: Bound) -> bool:
+    return is_monotone(b)
+
+
+@functools.lru_cache(maxsize=65536)
+def _raise(b: Bound, mapping: tuple[tuple[str, str, Fraction], ...]) -> Analysed | None:
+    from .display import simplify, substitute  # local import: display imports this module
+
+    subst = {x: Var(y) if p == 1 else Pow(Var(y), Num(Fraction(p), _fraction_text(Fraction(p)))) for x, y, p in mapping}
+    try:
+        return analyse(Bound(b.notation, simplify(substitute(b.expr, subst)), b.family))
+    except Exception:  # noqa: BLE001 - outside the supported class: no conclusion
+        return None
+
+
+def _fraction_text(p: Fraction) -> str:
+    return str(p.numerator) if p.denominator == 1 else f"{p.numerator}/{p.denominator}"
 
 
 def compare(a: Bound | Analysed, b: Bound | Analysed, ctx: Context) -> Relation:
