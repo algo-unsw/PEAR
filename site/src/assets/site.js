@@ -99,6 +99,13 @@
         tr.dataset.filteredOut = String(!ok);
         if (ok) shown++;
       });
+      // one entry per bound: the first visible result of a group shows the bound
+      const seen = new Set();
+      $$("table.results tbody tr[data-row]", panel).forEach((tr) => {
+        if (tr.hidden) return;
+        tr.classList.toggle("cont", seen.has(tr.dataset.group));
+        seen.add(tr.dataset.group);
+      });
       $$("table.results tbody tr.extra", panel).forEach((tr) => {
         const parent = panel.querySelector(`tr[data-row="${CSS.escape(tr.dataset.parent)}"]`);
         tr.classList.toggle("filtered", !!(parent && parent.hidden));

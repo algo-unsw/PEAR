@@ -118,9 +118,9 @@ eleventyComputed:
 <tbody>
 {%- for r in node.rows %}
 {%- set rid = v.id + "-" + r.id %}
-<tr data-row="{{ rid }}" data-det="{{ r.properties.deterministic }}" data-poly="{{ r.properties.polynomial_space }}" data-constr="{{ r.properties.constructive }}" data-nonalg="{{ not r.properties.algebraic }}" data-lean="{{ r.properties.lean_verified }}" data-derived="{{ r.origin == 'derived' }}">
-<td>{{ r.param_tex | tex | safe }}</td>
-<td class="nowrap">{{ bound(r) }}</td>
+<tr data-row="{{ rid }}" data-group="{{ r.group }}"{% if not r.group_first %} class="cont"{% endif %} data-det="{{ r.properties.deterministic }}" data-poly="{{ r.properties.polynomial_space }}" data-constr="{{ r.properties.constructive }}" data-nonalg="{{ not r.properties.algebraic }}" data-lean="{{ r.properties.lean_verified }}" data-derived="{{ r.origin == 'derived' }}">
+<td><span class="gb">{{ r.param_tex | tex | safe }}</span></td>
+<td class="nowrap"><span class="gb">{{ bound(r) }}</span></td>
 <td>{{ r.props.short }}</td>
 <td>{{ r.proved_for }}{% if r.proved_for_problem %} ({{ r.proved_for_problem }}){% endif %}</td>
 <td>{{ r.refs | refs | safe }}{% if r.statements.length %}, {{ r.statements | join("; ") | mathtext | safe }}{% endif %}{% for u in r.uses %}<span class="cellnote">uses the {% if not u.same %}<a href="{{ ('/problems/' + u.problem_id + '/') | url }}">{{ u.problem }}</a> {% endif %}result {{ u.refs | refs | safe }}{% if u.statements.length %}, {{ u.statements | join("; ") | mathtext | safe }}{% endif %}</span>{% endfor %}{% if r.source_note %}<br><button type="button" class="disclose small" aria-expanded="false" aria-controls="note-{{ rid }}">{{ tri | safe }}Note</button>{% endif %}</td>

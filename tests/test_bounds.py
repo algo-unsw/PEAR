@@ -617,3 +617,17 @@ LISTED_ORDER = ["k", "d", "p", "n", "m", "N", "tw"]
 def test_listed_parameters(bound, listed):
     expr = parse_bound(bound, LISTED_SYMS).expr
     assert [p.key for p in listed_parameters(expr, LISTED_ORDER)] == listed
+
+
+def test_exact_shape():
+    from pear.bounds.compare import Context
+    from pear.bounds.display import exact_shape
+
+    s = {"n", "m", "k", "t", "tw"}
+    assert exact_shape(parse_bound(r"O(n^{k + o(1)})", s), Context())
+    assert exact_shape(parse_bound(r"O(2^{O(k)} n^{\mathit{tw} + 1})", s), Context())
+    assert not exact_shape(parse_bound(r"O(k^{n})", s), Context())
+    assert not exact_shape(parse_bound(r"O(2^{n} n)", s), Context())
+    pseudo = Context(frozenset({"t"}))
+    assert exact_shape(parse_bound(r"O(\sqrt{n} t \log^{5/2} t)", s), pseudo)
+    assert not exact_shape(parse_bound(r"O(2^{n/2} t)", s), pseudo)
