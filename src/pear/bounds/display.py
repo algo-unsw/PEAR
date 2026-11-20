@@ -142,8 +142,9 @@ def simplify(node: Node) -> Node:
         flat: list[Node] = []
         for f in (simplify(f) for f in node.factors):
             flat.extend(f.factors if isinstance(f, Mul) else [f])
-        nums = [f for f in flat if isinstance(f, Num)]
-        rest = [f for f in flat if not isinstance(f, Num)]
+        # numbers written as symbols, such as \pi, stay as they are: 2\pi, not 6.2832...
+        nums = [f for f in flat if isinstance(f, Num) and not f.text.startswith("\\")]
+        rest = [f for f in flat if not (isinstance(f, Num) and not f.text.startswith("\\"))]
         if len(nums) > 1:
             value = math.prod((n.value for n in nums), start=Fraction(1))
             nums = [num(value)]
