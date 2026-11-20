@@ -343,6 +343,18 @@ def test_raising_variables_of_monotone_bounds(a, b, expected):
     assert compare(P(a), P(b), ctx).value == expected
 
 
+def test_omega_cancels_across_monomials_and_variables():
+    # 20 November 2026: ω x ≤ ω y for x ≤ y, and n_G log n_H ≤ n_G n_H log n_H pointwise
+    syms = {"n", "k", "n_G", "n_H", "N", "m"}
+    ctx = build_context(syms, [r"k \le n_G", r"k \le n_H", r"n_G \le n", r"n_H \le n"],
+                        constants={"omega": (2.0, 2.371339)})
+    Q = lambda s: parse_bound(s, syms)  # noqa: E731
+    assert compare(Q(r"O^*(n^{\omega k})"), Q(r"O^*(n^{\omega n})"), ctx) == Relation.BETTER
+    assert compare(Q(r"O^*((n_G n_H)^{\omega k/3})"), Q(r"O^*((n_G n_H)^{\omega n_G n_H/3})"), ctx) == Relation.BETTER
+    assert compare(Q(r"O^*(2^{n_G})"), Q(r"O^*(2^{n_G n_H})"), ctx) == Relation.BETTER
+    assert compare(Q(r"O^*(n^{\omega k})"), Q(r"O^*(n^{2 k})"), ctx) == Relation.WORSE
+
+
 def test_strict_domination_needs_a_coefficient_left():
     # 20 November 2026: with tw ≤ k, n^k beats n^tw, but its coefficient is then used up, so
     # it cannot also absorb 2^{O(k)}: Alon–Yuster–Zwick's 2^{O(k)} n^{tw+1} log n does not
