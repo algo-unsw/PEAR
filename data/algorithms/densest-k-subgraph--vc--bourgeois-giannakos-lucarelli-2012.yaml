@@ -1,0 +1,21 @@
+id: densest-k-subgraph--vc--bourgeois-giannakos-lucarelli-2012
+problem: densest-k-subgraph
+proved_for: optimisation
+bound:
+  as_stated: "O^*(2^{vc})"
+  notation: O*
+  parameters: [vc]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: "Stated: polynomial space (Theorem 6)."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: bourgeois-giannakos-lucarelli-2012
+  statements:
+    cahier: { statement: "Theorem 6", page: 10 }
+  note: "Theorem 6: \"There exists an $O^*(2^{\\tau})$-time algorithm for densest k-subgraph that uses polynomial space\", $\\tau$ the vertex cover number. Based on the generic method of Proposition 2 with $V_1$ a minimum vertex cover. Read in the open Cahier du LAMSADE 324 (June 2012)."

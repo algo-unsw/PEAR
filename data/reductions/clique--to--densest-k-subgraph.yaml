@@ -1,0 +1,10 @@
+id: clique--to--densest-k-subgraph
+from: { problem: clique, version: decision }
+to: { problem: densest-k-subgraph, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(n + m)"
+parameter_map: { n: "n", m: "m", k: "k" }
+source:
+  folklore: true
+  note: "Map $(G, k)$ to $(G, k, \\ell)$ with $\\ell = k(k-1)/2$; for $k \\le n$, a set of $k$ vertices induces at least $k(k-1)/2$ edges if and only if it is a clique (Clique asks for $|S| \\ge k$, and every clique of size at least $k$ contains one of size exactly $k$). Instances with $k > n$ are no-instances of both problems."
