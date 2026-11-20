@@ -127,7 +127,8 @@
   // plus the unverified results included one by one, which hide the entries they beat.
   function visible(el) {
     if (all) return el.dataset.all === "1";
-    if (el.dataset.optional) return included.has(el.dataset.optional);
+    // an entry may stand for several results with the same bound: shown if any is included
+    if (el.dataset.optional) return el.dataset.optional.split(" ").some((id) => included.has(id));
     if (el.hasAttribute("data-only-all")) return false;
     return !(el.dataset.beatenBy || "").split(" ").some((id) => id && included.has(id));
   }

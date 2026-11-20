@@ -316,8 +316,31 @@ def test_composite_parameter_is_kept_and_projected():
     )
     shown = {r["shown"]: r for r in derived(data, "a")}
     assert set(shown) == {r"O^*(1.5^{n - k})", r"O^*(1.5^{n})"}
+    # listed under the composite parameter n - k, not under k and n (20 November 2026)
+    assert shown[r"O^*(1.5^{n - k})"]["parameters"] == ["n - k"]
+    assert shown[r"O^*(1.5^{n - k})"]["composite"] is True
+    assert shown[r"O^*(1.5^{n})"]["parameters"] == ["n"]
     assert shown[r"O^*(1.5^{n})"]["chain"][-1]["kind"] == "projection"
     assert shown[r"O^*(1.5^{n})"]["steps"] == 1  # projections are not counted
+
+
+def test_composite_parameter_competes_through_its_variables():
+    # a bound by m - k is not dropped by a bound in k or m alone that does not beat it,
+    # and is dropped by one in k and m that does (D1 compares variables)
+    data = dataset(
+        problem("a", constraints=[r"k \le m"]), problem("b"),
+        alg("a-k", "a", r"O^*(1.1^{k})"),
+        alg("b-alg", "b", r"O^*(1.5^{k})"),
+        red("a-to-b", "a", "b", {"k": "m - k"}),
+    )
+    assert r"O^*(1.5^{m - k})" in {r["shown"] for r in rows(data, "a")}
+    data = dataset(
+        problem("a", constraints=[r"k \le m"]), problem("b"),
+        alg("a-km", "a", r"O^*(1.1^{m - k})"),
+        alg("b-alg", "b", r"O^*(1.5^{k})"),
+        red("a-to-b", "a", "b", {"k": "m - k"}),
+    )
+    assert r"O^*(1.5^{m - k})" not in {r["shown"] for r in rows(data, "a")}
 
 
 def test_projection_through_constraints():
@@ -1074,3 +1097,19 @@ def test_technique_validation(change, expected):
     _, issues = validate_raw(raw_of(problem("a"), paper("p-mls", 2015), tech))
     assert any(expected in str(i) for i in issues), [str(i) for i in issues]
 
+
+
+# --- folklore results count as earliest (20 November 2026) ------------------------------------
+
+
+def test_brute_force_drops_equal_later_derived_bounds_and_is_cited():
+    data = dataset(
+        problem("a", constraints=[r"k \le n"]), problem("b"), paper("p", 2000),
+        alg("a-brute", "a", r"O^*(2^{n})"),  # folklore
+        alg("b-alg", "b", r"O^*(2^{k})", paper="p"),
+        red("a-to-b", "a", "b", {"k": "n"}),
+        alg("b-slow", "b", r"O^*(4^{k})", paper="p"),
+    )
+    got = {r["shown"]: r for r in rows(data, "a")}
+    assert set(got) == {r"O^*(2^{n})"} and got[r"O^*(2^{n})"]["origin"] == "direct"
+    assert overview(data, "a") == [{"shown": r"O^*(2^{n})", "cite": ["a-brute"], "members": ["a-brute"], "year": None}]
