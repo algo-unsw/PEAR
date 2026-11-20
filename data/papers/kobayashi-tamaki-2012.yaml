@@ -1,0 +1,17 @@
+id: kobayashi-tamaki-2012
+title: "A Fast and Simple Subexponential Fixed Parameter Algorithm for One-Sided Crossing Minimization"
+authors: [Yasuaki Kobayashi, Hisao Tamaki]
+identifiers: { dblp: "journals/algorithmica/KobayashiT15" }
+versions:
+  esa:
+    kind: conference
+    venue: "Algorithms – ESA 2012, 20th Annual European Symposium, LNCS 7501, pp. 683–694"
+    year: 2012
+    doi: "10.1007/978-3-642-33090-2_59"
+    open_access: false
+  journal:
+    kind: journal
+    venue: "Algorithmica 72(3), pp. 778–790"
+    year: 2015
+    doi: "10.1007/s00453-014-9872-x"
+    open_access: true

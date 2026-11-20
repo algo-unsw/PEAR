@@ -39,3 +39,4 @@ shared_bounds:
     because: "Binary search on $k$ and self-reducibility."
 related:
   - { problem: planar-vertex-deletion, relation: variant }
+  - { problem: crossing-number, relation: variant }

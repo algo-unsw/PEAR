@@ -1,0 +1,41 @@
+id: book-embedding
+name: Book Embedding
+aliases: [Book Thickness, Pagenumber, Page Number, Stack Number, Book Embedding Problem]
+category: graph
+complexity:
+  class: NP-complete
+  source:
+    paper: bhore-ganian-montecchiani-2019
+    statements:
+      journal: { statement: "Section 1 (Introduction)" }
+      arxiv: { statement: "Section 1 (Introduction)" }
+    note: "The introduction states that Book Thickness is NP-complete in general, citing Chung, Leighton and Rosenberg (\"Embedding graphs in books: a layout problem with applications to VLSI design\", SIAM J. Algebraic Discrete Methods 8(1):33–58, 1987, doi:10.1137/0608002): by Bernhart and Kainen, book thickness at most 2 means subhamiltonian, and deciding subhamiltonicity is NP-complete. TODO(verify): Serge to choose whether to cite Chung–Leighton–Rosenberg directly (no open copy checked; it would need three attestations); Wikipedia's choice of source was not checked."
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  k: { meaning: "the number of pages: the integer $k$ in the input (decision, search), or the book thickness of $G$ (optimisation)" }
+  vc: { shared: vertex-cover-number }
+constraints:
+  - { constraint: "k \\le m", because: "Every instance with $k \\ge m$ is a yes-instance (any vertex order, each edge on its own page), answered in polynomial time." }
+  - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
+  - { constraint: "vc \\le n", because: "The whole vertex set is a vertex cover." }
+versions:
+  decision:
+    kind: decision
+    input: "A graph $G = (V, E)$ and an integer $k$."
+    question: "Is there a linear order $\\prec$ of $V$ and an assignment of the edges to $k$ pages such that no two edges $uv$, $wx$ on the same page have $u \\prec w \\prec v \\prec x$?"
+  optimisation:
+    kind: optimisation
+    input: "A graph $G = (V, E)$."
+    goal: "Find the minimum integer $k$ such that there is a linear order $\\prec$ of $V$ and an assignment of the edges to $k$ pages such that no two edges $uv$, $wx$ on the same page have $u \\prec w \\prec v \\prec x$."
+  search:
+    kind: search
+    input: "A graph $G = (V, E)$ and an integer $k$."
+    goal: "Find a linear order $\\prec$ of $V$ and an assignment of the edges to $k$ pages such that no two edges $uv$, $wx$ on the same page have $u \\prec w \\prec v \\prec x$, or report that none exists."
+default_version: decision
+shared_bounds:
+  - versions: [decision, optimisation]
+    because: "Binary search on $k$, which is at most $m$."
+related: []

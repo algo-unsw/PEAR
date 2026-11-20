@@ -1,0 +1,26 @@
+id: book-embedding--vc--bhore-ganian-montecchiani-2019
+problem: book-embedding
+proved_for: optimisation
+bound:
+  as_stated: '2^{vc^{O(vc)}} + vc \log vc \cdot n'
+  notation: O
+  parameters:
+  - vc
+  - n
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Not stated; educated guess: polynomial space suffices for the brute force over orders and page assignments of the kernel (one candidate at a time), so the space is dominated by the kernel, of size bounded in $vc$; recorded as exponential (in $vc$) to be safe. No memoization or dynamic programming tables are used.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: bhore-ganian-montecchiani-2019
+  statements:
+    journal: { statement: "Theorem 3" }
+    arxiv: { statement: "Corollary after the vertex cover kernel theorem (Section 4, Algorithms for Book Thickness)" }
+  note: 'JGAA Theorem 3: "A book embedding of $G$ with minimum number of pages can be computed in $O(2^{\tau^{O(\tau)}} + \tau \log \tau \cdot n)$ time", $\tau$ the vertex cover number. The arXiv LaTeX source (latest version) states the corollary as $O(\tau^{\tau^{O(\tau)}} + \tau \log \tau \cdot n)$, the same up to the form of the hidden constant. Kernel of size $O(k^{\tau})$ plus brute force over linear orders and page assignments.'
+formal: { status: informal }
+status: valid

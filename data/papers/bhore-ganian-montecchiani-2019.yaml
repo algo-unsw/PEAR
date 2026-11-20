@@ -1,0 +1,22 @@
+id: bhore-ganian-montecchiani-2019
+title: "Parameterized Algorithms for Book Embedding Problems"
+authors: [Sujoy Bhore, Robert Ganian, Fabrizio Montecchiani, Martin Nöllenburg]
+identifiers: { dblp: "journals/jgaa/BhoreGMN20" }
+versions:
+  arxiv:
+    kind: preprint
+    arxiv: "1908.08911"
+    year: 2019
+    open_access: true
+  gd:
+    kind: conference
+    venue: "Graph Drawing and Network Visualization, 27th International Symposium (GD 2019), LNCS 11904, pp. 365–378"
+    year: 2019
+    doi: "10.1007/978-3-030-35802-0_28"
+    open_access: false
+  journal:
+    kind: journal
+    venue: "Journal of Graph Algorithms and Applications 24(4), pp. 603–620"
+    year: 2020
+    doi: "10.7155/jgaa.00526"
+    open_access: true
