@@ -1054,3 +1054,4 @@ def test_technique_validation(change, expected):
     change(tech)
     _, issues = validate_raw(raw_of(problem("a"), paper("p-mls", 2015), tech))
     assert any(expected in str(i) for i in issues), [str(i) for i in issues]
+

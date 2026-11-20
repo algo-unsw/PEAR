@@ -24,9 +24,11 @@ from fractions import Fraction
 from .expr import (
     Add,
     Asym,
+    Bell,
     Bound,
     Const,
     Div,
+    Fact,
     Func,
     Log,
     Mul,
@@ -362,7 +364,23 @@ def log_growth(node: Node, upper: bool) -> Growth:
         raise Unspecified(variables(node.arg))
     if isinstance(node, Add):
         return _base_log(node, upper)
+    if isinstance(node, Fact):
+        # Robbins (1955): √(2π) x^{x+1/2} e^{-x} ≤ x! ≤ e x^{x+1/2} e^{-x} for x ≥ 1, so
+        # x! is √x (x/e)^x up to a constant factor (20 November 2026)
+        x = node.arg
+        return log_growth(Mul((Sqrt(x), Pow(Div(x, E_NUM), x))), upper)
+    if isinstance(node, Bell):
+        x = node.arg
+        if upper:
+            # B_x ≤ x^x: send each element to the least element of its block
+            return log_growth(Pow(x, x), True)
+        # B_x ≥ (x/8)^{x/4} for x ≥ 8: the partitions into pairs (and one singleton) of
+        # 2m ≥ x - 1 elements number (2m - 1)!! = (m+1)(m+2)...(2m)/2^m ≥ (m/2)^m
+        return log_growth(Pow(Div(x, Num(Fraction(8), "8")), Div(x, Num(Fraction(4), "4"))), False)
     raise UnsupportedBound(f"unsupported factor {type(node).__name__}")
+
+
+E_NUM = Num(Fraction(math.e), "e")  # just below e, so x/e is overestimated, which is safe above
 
 
 def _is_constant(g: Growth) -> bool:
@@ -405,7 +423,7 @@ def _has_unknowns(node: Node) -> bool:
         return _has_unknowns(node.num) or _has_unknowns(node.den)
     if isinstance(node, Pow):
         return _has_unknowns(node.base) or _has_unknowns(node.exp)
-    if isinstance(node, (Sqrt, Log)):
+    if isinstance(node, (Sqrt, Log, Fact, Bell)):
         return _has_unknowns(node.arg)
     return False
 
@@ -423,7 +441,7 @@ def _c_plus_delta(terms) -> float | None:  # noqa: ANN001
 
 def _base_log(node: Node, upper: bool) -> Growth:
     """log2 of a power's base. Handles constants, c - ε and sums of positive terms."""
-    if isinstance(node, (Add, Mul, Div, Pow, Sqrt)):
+    if isinstance(node, (Add, Mul, Div, Pow, Sqrt, Fact, Bell)):
         known = _constant_base(node)
         if known is not None:
             return known
@@ -496,8 +514,30 @@ def bound_terms(b: Bound) -> list[Term]:
     return out
 
 
+def _monotone_surrogate(node: Node) -> Node:
+    """Replace x! and B_x by x^x: nondecreasing in x like them, so a product or sum of
+    nondecreasing factors stays nondecreasing (Stirling's x! has a negative x log e term)."""
+    if isinstance(node, (Fact, Bell)):
+        x = _monotone_surrogate(node.arg)
+        return Pow(x, x)
+    if isinstance(node, Add):
+        return Add(tuple((s, _monotone_surrogate(t)) for s, t in node.terms))
+    if isinstance(node, Mul):
+        return Mul(tuple(_monotone_surrogate(f) for f in node.factors))
+    if isinstance(node, Div):
+        return Div(_monotone_surrogate(node.num), _monotone_surrogate(node.den))
+    if isinstance(node, Pow):
+        return Pow(_monotone_surrogate(node.base), _monotone_surrogate(node.exp))
+    if isinstance(node, Sqrt):
+        return Sqrt(_monotone_surrogate(node.arg))
+    if isinstance(node, Asym):
+        return Asym(node.kind, _monotone_surrogate(node.arg))
+    return node
+
+
 def is_monotone(b: Bound) -> bool:
     """Bounds A2: every term nondecreasing in every variable (sufficient check)."""
+    b = Bound(b.notation, _monotone_surrogate(b.expr), b.family)
     try:
         terms = bound_terms(b)
     except UnsupportedBound:

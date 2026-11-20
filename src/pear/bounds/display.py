@@ -15,8 +15,10 @@ from .compare import Context, _hidden, term_le
 from .expr import (
     Add,
     Asym,
+    Bell,
     Bound,
     Div,
+    Fact,
     Func,
     Log,
     Mul,
@@ -123,6 +125,10 @@ def substitute(node: Node, mapping: dict[str, Node]) -> Node:
         return Func(node.name, substitute(node.arg, mapping))
     if isinstance(node, Poly):
         return Poly(substitute(node.arg, mapping))
+    if isinstance(node, Fact):
+        return Fact(substitute(node.arg, mapping))
+    if isinstance(node, Bell):
+        return Bell(substitute(node.arg, mapping))
     return node
 
 
@@ -136,8 +142,9 @@ def simplify(node: Node) -> Node:
         flat: list[Node] = []
         for f in (simplify(f) for f in node.factors):
             flat.extend(f.factors if isinstance(f, Mul) else [f])
-        nums = [f for f in flat if isinstance(f, Num)]
-        rest = [f for f in flat if not isinstance(f, Num)]
+        # numbers written as symbols, such as \pi, stay as they are: 2\pi, not 6.2832...
+        nums = [f for f in flat if isinstance(f, Num) and not f.text.startswith("\\")]
+        rest = [f for f in flat if not (isinstance(f, Num) and not f.text.startswith("\\"))]
         if len(nums) > 1:
             value = math.prod((n.value for n in nums), start=Fraction(1))
             nums = [num(value)]

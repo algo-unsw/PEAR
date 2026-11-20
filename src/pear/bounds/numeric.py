@@ -14,7 +14,7 @@ import math
 import random
 from typing import Iterable
 
-from .expr import Add, Asym, Const, Div, Func, Log, Mul, Node, Num, Poly, Pow, Sqrt, Var, parse_expr
+from .expr import Add, Asym, Bell, Const, Div, Fact, Func, Log, Mul, Node, Num, Poly, Pow, Sqrt, Var, parse_expr
 
 
 def value(node: Node, env: dict[str, float]) -> float | None:
@@ -50,9 +50,40 @@ def value(node: Node, env: dict[str, float]) -> float | None:
             return None if a is None or a < 0 else math.sqrt(a)
         if isinstance(node, Log):
             return _log(node, env, value(node.arg, env))
+        if isinstance(node, (Fact, Bell)):
+            a = value(node.arg, env)
+            if a is None or a < 0:
+                return None
+            return math.gamma(a + 1) if isinstance(node, Fact) else math.exp(_log_bell(a))
     except (OverflowError, ZeroDivisionError, ValueError):
         return None
     return None  # Asym, Func, Poly: unknown functions
+
+
+def _bell_numbers(limit: int) -> list[int]:
+    """B_0, ..., B_limit by the Bell triangle."""
+    out, row = [1], [1]
+    for _ in range(limit):
+        nxt = [row[-1]]
+        for v in row:
+            nxt.append(nxt[-1] + v)
+        row = nxt
+        out.append(row[0])
+    return out
+
+
+_BELL = _bell_numbers(400)
+
+
+def _log_bell(x: float) -> float:
+    """ln B_x: exact for integers up to 400 (interpolated in between), else de Bruijn's
+    asymptotic expansion ln B_x = x(ln x - ln ln x - 1 + ln ln x/ln x + 1/ln x + (ln ln x/ln x)^2/2) + O(x (ln ln x/ln x)^2 / ln x)."""
+    if x <= 400:
+        lo = int(math.floor(x))
+        a, b = math.log(_BELL[lo]), math.log(_BELL[min(lo + 1, 400)])
+        return a + (x - lo) * (b - a)
+    l, ll = math.log(x), math.log(math.log(x))
+    return x * (l - ll - 1 + ll / l + 1 / l + (ll / l) ** 2 / 2)
 
 
 def _log(node: Log, env: dict[str, float], arg: float | None) -> float | None:
@@ -97,6 +128,11 @@ def log_value(node: Node, env: dict[str, float]) -> float | None:
             return None if q >= p else p + math.log1p(-math.exp(q - p))
         if isinstance(node, (Asym, Func, Poly)):
             return None
+        if isinstance(node, (Fact, Bell)):
+            a = value(node.arg, env)
+            if a is None or a < 0:
+                return None
+            return math.lgamma(a + 1) if isinstance(node, Fact) else _log_bell(a)
         v = value(node, env)
         return None if v is None or v <= 0 else math.log(v)
     except (OverflowError, ValueError, ZeroDivisionError):

@@ -381,7 +381,7 @@ def check_expressions(data: Dataset) -> list[Issue]:
             issues.append(
                 Issue(f"{where}.notation", f"'{b.notation}' does not match the notation of as_stated ('{parsed.notation or 'O'}')")
             )
-        for name in sorted(constants(parsed.expr) - {"varepsilon", "delta"}):
+        for name in sorted(constants(parsed.expr) - {"varepsilon", "delta", "e"}):  # e: the base of \ln
             if name not in data.entries["constants"]:
                 issues.append(Issue(f"{where}.as_stated", f"uses \\{name}, but data/constants/{name}.yaml does not exist"))
         used = variables(parsed.expr)

@@ -274,7 +274,7 @@ def _multipliers(g: Growth, e: Growth) -> list[float]:
 def _bounded_below_terms(g: Growth, ctx: Context) -> bool:
     """The monomial check: positive coefficients come from the bound that should be larger
     (its unknowns may be chosen), negative ones from the other (its unknowns are arbitrary)."""
-    pos: list[list] = []  # [key, coef]
+    pos: list[list] = []  # [key, coef, strict]: strict once it has beaten a smaller shape
     neg: list[tuple[Key, Coef]] = []
     for key, raw in g.terms.items():
         if not key:
@@ -287,24 +287,40 @@ def _bounded_below_terms(g: Growth, ctx: Context) -> bool:
                 pos.append([key, c])
             elif c.sign < 0:
                 neg.append((key, c))
+    for c in pos:
+        c.append(False)
     neg.sort(key=lambda kc: _size(kc[0]), reverse=True)
     for nkey, ncoef in neg:
         for slot in pos:
-            pkey, pcoef = slot
+            pkey, pcoef, strict = slot
             if pkey == N_LOG and pcoef.kind == "big" and _hidden(nkey, ctx, "ostar"):
                 break  # the polynomial O* hides absorbs any polynomial factor
             dom = _dominates(pkey, nkey, ctx)
             if dom is None:
                 continue
             if dom == "strict" and pcoef.sign > 0:
-                break  # a larger shape with any positive coefficient wins
+                # A larger shape with a positive coefficient beats any smaller one, but only
+                # if that coefficient stays positive: once used this way, the slot may not be
+                # used up by monomials of its own shape (20 November 2026: k log n - tw log n
+                # - c k is not bounded below when tw = k).
+                slot[2] = True
+                break
             absorbed, rest = _absorb_same(pcoef, ncoef)
+            if absorbed and strict and not _positive(rest):
+                continue
             if absorbed:
                 slot[1] = rest
                 break
         else:
             return False
     return True
+
+
+def _positive(c: Coef) -> bool:
+    """Is c a positive constant (not merely a positive infinitesimal)?"""
+    if c.kind == "exact":
+        return c.value > EPS
+    return c.sign > 0 and not c.infinitesimal
 
 
 def _size(key: Key) -> Shape:

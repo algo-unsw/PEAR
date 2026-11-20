@@ -25,13 +25,15 @@ bound     := [ notation "(" ] sum [ ")" ] [ "\text{ for every } \delta > 0" ]
 notation  := "O" | "O^*" | "\tilde{O}"
 sum       := term { "+" term }
 term      := factor { factor }
-factor    := atom [ "^" "{" exponent "}" ] | "\log" ... | "\sqrt{" sum "}" | "(" sum ")"
-atom      := number | variable | constant | "f(" variable ")"
+factor    := atom {"!"} [ "^" "{" exponent "}" ] | "\log" ... | "\sqrt{" sum "}" | "(" sum ")"
+atom      := number | "\pi" | variable | constant | "f(" variable ")" | "B_{" sum "}"
 exponent  := sum | asymptotic
 asymptotic:= ("O" | "o") "(" sum ")"
 constant  := "\varepsilon" ["_" (variable | "{" variable {variable} "}")] | "\omega" | named constant from data/constants
 variable  := a symbol the problem defines (objects or parameters)
 ```
+
+**Factorials, Bell numbers and π** (20 November 2026): `k!` and `(tw + 1)!` are factorials, `B_{k}` (or `B_k`) is the $k$-th Bell number, the number of partitions of a $k$-element set (so `B` cannot be a problem's symbol), and `\pi` is π. Bounds stated with them are stored as stated.
 
 The parser also checks what the schema could not: every variable in `as_stated`, `time`, `calls` and parameter-map right-hand sides is defined by the problem, and `bound.parameters` lists exactly the variables of `as_stated`. The `notation` field must match the outer notation of `as_stated` (or be `O` when there is none).
 
@@ -125,9 +127,10 @@ The best bounds of a problem (under any chosen filter) are the bounds no other b
 Code: `src/pear/bounds/` (`expr.py` parser and renderer, `growth.py` normal form, `compare.py` comparator, `display.py` O* form and folding). Tests: `tests/test_bounds.py`, one group per section above. These choices follow from the agreed rules; none changes them.
 
 - **Supported class.** Inside exponents: sums, products, constant powers, roots, logarithms of single monomials, `O(·)`, `o(·)`, $\varepsilon$, $\delta$. As factors: numbers, variables, powers, logarithms, `\mathrm{poly}(x)`, `O(·)`, sums of positive terms (estimated safely: $a + b \le 2ab$ for an upper bound, $a$ for a lower bound) and $c - \varepsilon$ as a base. Anything else, such as the logarithm of a sum, is outside the class: such a bound is **kept and treated as incomparable**, never rejected and never compared wrongly.
+- **Factorials and Bell numbers** (20 November 2026). By Robbins' form of Stirling's formula, $\sqrt{2\pi}\, x^{x+1/2} e^{-x} \le x! \le e\, x^{x+1/2} e^{-x}$ for $x \ge 1$, so $x!$ is compared as $\sqrt{x}\,(x/e)^x$ (the constant factor is irrelevant). For Bell numbers the comparator uses two elementary bounds: $B_x \le x^x$ (map each element to the least element of its block) and $B_x \ge (x/8)^{x/4}$ for $x \ge 8$ (partitions into pairs). Both are safe; tighter ones (e.g. Berend and Tassa's upper bound) can be added once checked. A bound with $x!$ or $B_x$ is monotone when the same bound with $x^x$ in their place is. π is a number (double precision).
 - **Named constants.** A coefficient involving $\omega$ stays symbolic and cancels exactly. Whatever is left is replaced by the safe value: the lower bound where it helps the bound that should be larger, the upper bound where it hurts. Without a `data/constants/` entry, such a comparison is incomparable.
 - **Constraints** use a single variable on the smaller side; the larger side may be $y$, $y^p$, $y - c$ or $y / c$. They are closed transitively ($a \le b$, $b \le c^2$ give $a \le c^2$).
 - **Mixed monomials.** $c\,k\log n$ is compared with a monomial in $k$ alone by lower-bounding $\log n \ge \log k$ through $k \le n$. This is how $2^k$ beats $n^{O(k)}$.
 - **Hidden factors.** Two bounds that are both $O^*$ (or both $\tilde O$) compare their stated parts in exact form. If only one hides a factor, that factor is unknown, which usually gives a tie (B6).
 - **Folding.** $c^{ax}$ is folded only when $c^a$ is exactly a number with at most four decimals. The hover folds every $c^{ax}$ with the base rounded up. `display()` returns both the shown form and the hover (`None` when they agree).
-- **Precision.** In the normal form, unknowns of the bound that should be larger may be chosen: an $O(\cdot)$ constant absorbs anything of the same shape, an $o(\cdot)$ absorbs an $o(\cdot)$, and any positive coefficient wins against a smaller shape. Unknowns of the other bound are arbitrary. The polynomial that $O^*$ hides absorbs every polynomial factor.
+- **Precision.** In the normal form, unknowns of the bound that should be larger may be chosen: an $O(\cdot)$ constant absorbs anything of the same shape, an $o(\cdot)$ absorbs an $o(\cdot)$, and any positive coefficient wins against a smaller shape, provided it stays positive after cancelling monomials of its own shape (20 November 2026: with $tw \le k$, $k \log n$ cancels $tw \log n$ but then has nothing left against $2^{O(k)}$, so Alon, Yuster and Zwick's $2^{O(k)} n^{tw+1} \log n$ does not beat $O(n^k k^2 + n^2)$). Unknowns of the other bound are arbitrary. The polynomial that $O^*$ hides absorbs every polynomial factor.
