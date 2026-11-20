@@ -1,0 +1,11 @@
+id: karp-1975
+title: "On the Computational Complexity of Combinatorial Problems"
+authors: [Richard M. Karp]
+identifiers: { dblp: journals/networks/Karp75 }
+versions:
+  journal:
+    kind: journal
+    venue: "Networks 5(1), pp. 45–68"
+    year: 1975
+    doi: "10.1002/net.1975.5.1.45"
+    open_access: false

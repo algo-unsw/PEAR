@@ -1,0 +1,22 @@
+id: tournament-fixing--k--wang-peng-liu-2026
+problem: tournament-fixing
+proved_for: decision
+bound:
+  as_stated: "(2 \\mathrm{e})^{k 2^{k} - k} n^{O(1)}"
+  notation: O
+  parameters: [k, n]
+properties:
+  randomized: { error: one-sided }
+  space:
+    class: polynomial
+    bound: "Not stated; educated guess: polynomial. Colour coding with $\\lceil e^{t} \\rceil$ independent repetitions; each repetition calls the colourful-subgraph routine of Lemma 1, stated to use polynomial space, and small instances ($k 2^{k} \\ge n$) go to the polynomial-space $2^{n} n^{O(1)}$ algorithm of Gupta et al. No memoization or dynamic programming over subsets found in the in-degree section."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+uses: [tournament-fixing--n--gupta-roy-saurabh-2018-bribery]
+source:
+  paper: wang-peng-liu-2026
+  statements:
+    arxiv-v1: { statement: "Lemma 7 (Algorithm 1), giving Theorem 3" }
+  note: "Lemma 7: Algorithm 1 runs in time $(2e)^{t} \\cdot n^{O(1)}$, where $t = k \\cdot 2^{k} - k$, stored here with $t$ substituted; $k = |N_{\\mathrm{in}}(v^*)|$. The paper calls it a one-sided error Monte Carlo algorithm with a constant probability of a false negative: a yes is always correct. Theorem 3 itself states only fixed-parameter tractability by the in-degree. Read in arXiv:2601.08530 (PDF only), 21 November 2026."

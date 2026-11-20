@@ -1,0 +1,24 @@
+id: vertex-disjoint-paths--fvs--fleszar-mnich-spoerhase-2016
+problem: vertex-disjoint-paths
+proved_for: maximum
+bound:
+  as_stated: "O((8k + 8fvs)^{2fvs + 2} n)"
+  notation: O
+  parameters: [k, fvs, n]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: "Not stated in Section 1; educated guess: exponential, from enumerating 'essential pairs' and 'realizations' over the feedback vertex set with dynamic programming over the forest (only the Introduction was read)."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+conditional_on: []
+source:
+  paper: fleszar-mnich-spoerhase-2016
+  statements:
+    arxiv: { statement: "Theorem in Section 1 labelled thm:maxndp-fpt-kr (MaxNDP in $(8k+8r)^{2r+2} \\cdot O(n)$)" }
+  note: "Stated for Maximum Node-Disjoint Paths (MaxNDP) on graphs with feedback vertex set number $r$ and $k$ terminal pairs; PEAR writes $fvs$ for $r$. MaxNDP is W[1]-hard parameterized by $r$ alone (same paper)."
+formal: { status: informal }
+status: valid

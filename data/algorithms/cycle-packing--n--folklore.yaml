@@ -1,0 +1,21 @@
+id: cycle-packing--n--folklore
+problem: cycle-packing
+proved_for: optimisation
+bound:
+  as_stated: "O^*(3^{n})"
+  notation: O*
+  parameters: [n]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: "$O^*(2^n)$: one table entry per vertex subset."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  folklore: true
+  note: "Dynamic programming over vertex subsets: $f(S)$, the maximum number of pairwise disjoint subsets of $S$ that each induce a graph with a cycle, equals the maximum number of vertex-disjoint cycles in $G[S]$. With $v$ the least vertex of $S$, $f(S) = \\max(f(S \\setminus \\{v\\}), \\max_T (1 + f(S \\setminus T)))$ over $T \\subseteq S$ with $v \\in T$ such that $G[T]$ has a cycle; the pairs $T \\subseteq S$ number $3^n$ (baseline: PEAR's derived bounds in $n$ alone were superexponential)."
+formal: { status: informal }
+status: valid

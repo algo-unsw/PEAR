@@ -1,0 +1,23 @@
+id: roman-domination--dc--ashok-das-pandey-2024
+problem: roman-domination
+proved_for: decision
+bound:
+  as_stated: "4^{dc} n^{O(1)}"
+  notation: O
+  parameters: [dc, n]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: "Not stated; educated guess: $O^*(2^{dc})$. For each guess of $S_1, S_2 \\subseteq S$, a dynamic programming table $OPT[W, j, b]$ over all subsets $W$ of the remaining deletion set (proof of the SET-CoverWithPartition theorem)."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: ashok-das-pandey-2024
+  statements:
+    arxiv-v1: { statement: "Theorem 14" }
+  note: "Theorem 14 (Section 3.1): \"The RD-CVD problem can be solved in time $4^k n^{O(1)}$\", where the input contains a cluster vertex deletion set $S$ of size $k$ (written $dc$ here). Section 3 notes that if $S$ is not given, the algorithm of Boral et al. (Theory Comput. Syst. 2016) finds one of size at most $k$ in $1.92^k n^{O(1)}$ time, so the bound holds without a given set. Theorem 23 of the same paper: no $2^{\\varepsilon k} n^{O(1)}$ algorithm for any $0 < \\varepsilon < 1$ under SETH (claimed refuted on 26 October 2026; lower bound not entered). Theorem number read in the arXiv PDF (v1); not checked in the COCOA 2024 version (paywalled)."
+formal: { status: informal }
+status: valid

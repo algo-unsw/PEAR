@@ -1,0 +1,47 @@
+id: vertex-disjoint-paths
+name: Vertex-Disjoint Paths
+aliases: [Disjoint Paths, k-Disjoint Paths, Node-Disjoint Paths, NDP, Disjoint Connecting Paths]
+category: graph
+complexity:
+  class: NP-complete
+  source:
+    paper: karp-1975
+    attested_by:
+      - "https://arxiv.org/pdf/2609.29294"
+      - "https://sites.cs.ucsb.edu/~daniello/papers/slightlySuperexpSICOMP18.pdf"
+      - "https://www.cs.bme.hu/~dmarx/papers/lokshtanov-marx-saurabh-soda2011-superexp.pdf"
+    note: "NP-complete when the number $k$ of terminal pairs is part of the input (Karp 1975), as stated in the Introduction of arXiv 2609.29294 ('NP-complete for a general $k$ [Karp75]') and in Lokshtanov, Marx and Saurabh (SODA 2011 and SICOMP 2018 author copies: 'NP-complete if $p$ is part of the input', citing Karp 1975 and Lynch 1975); Fleszar, Mnich and Spoerhase (arXiv 1603.01740, Section 1) say the same. The last two attestations are two versions of one paper."
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  k: { meaning: "the number of terminal pairs $(s_i, t_i)$ in the input" }
+  tw: { shared: treewidth }
+  fvs: { shared: feedback-vertex-set-number }
+constraints:
+  - { constraint: "k \\le n", because: "If two pairs share a vertex, no family of pairwise vertex-disjoint paths serves both and the instance is a no-instance (answered in polynomial time); otherwise the pairs are pairwise disjoint, so $k \\le n$." }
+  - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
+  - { constraint: "tw \\le n", because: "A single bag containing all vertices is a tree decomposition of width $n - 1$." }
+  - { constraint: "tw \\le fvs + 1", because: "Adding a feedback vertex set to every bag of a width-1 tree decomposition of the remaining forest gives a tree decomposition of width at most $fvs + 1$." }
+  - { constraint: "fvs \\le n", because: "$V$ itself is a feedback vertex set." }
+versions:
+  decision:
+    kind: decision
+    input: "A graph $G = (V, E)$ and $k$ pairs $(s_1, t_1), \\dots, (s_k, t_k)$ of vertices."
+    question: "Are there pairwise vertex-disjoint paths $P_1, \\dots, P_k$ such that $P_i$ connects $s_i$ and $t_i$ for every $i$?"
+  search:
+    kind: search
+    input: "A graph $G = (V, E)$ and $k$ pairs $(s_1, t_1), \\dots, (s_k, t_k)$ of vertices."
+    goal: "Find pairwise vertex-disjoint paths $P_1, \\dots, P_k$ such that $P_i$ connects $s_i$ and $t_i$ for every $i$, or report that none exist."
+  maximum:
+    kind: optimisation
+    input: "A graph $G = (V, E)$ and $k$ pairs $(s_1, t_1), \\dots, (s_k, t_k)$ of vertices."
+    goal: "Find the maximum size of a set $I \\subseteq \\{1, \\dots, k\\}$ for which there are pairwise vertex-disjoint paths $P_i$ ($i \\in I$) such that $P_i$ connects $s_i$ and $t_i$ for every $i \\in I$."
+    generalises: [decision]
+default_version: decision
+shared_bounds:
+  - versions: [decision, search]
+    because: "Self-reducibility: delete an edge and test again; the edges that remain once no deletion keeps a yes-instance form the paths."
+related:
+  - { problem: edge-disjoint-paths, relation: variant }

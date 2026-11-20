@@ -1,0 +1,13 @@
+id: roman-domination--to--set-cover
+from: { problem: roman-domination, version: optimisation }
+to: { problem: set-cover, version: weighted }
+type: polytime-deterministic
+calls: 1
+time: "O(n + m)"
+parameter_map: { n: "n", m: "2 n" }
+source:
+  paper: shi-koh-2014
+  statements:
+    arxiv-v2: { statement: "Section 3.1, Algorithm 1, step 1" }
+  note: "Universe $V$; for each vertex $v$ the sets $\\{v\\}$ with weight 1 and $N[v]$ with weight 2 ($2n$ sets). A Roman dominating function $f$ gives the cover $\\{N[v] : f(v) = 2\\} \\cup \\{\\{v\\} : f(v) = 1\\}$ of the same weight; conversely, from a minimum-weight cover set $f(v) = 2$ if $N[v]$ is chosen, else $f(v) = 1$ if $\\{v\\}$ is chosen, else $f(v) = 0$, a Roman dominating function of at most the same weight (a vertex with $f(v) = 0$ is covered by some $N[u]$ with $u \\ne v$, so $u$ is a neighbour with $f(u) = 2$)."
+status: valid

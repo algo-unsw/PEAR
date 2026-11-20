@@ -1,0 +1,25 @@
+id: edge-disjoint-paths--tw--ganian-ordyniak-ramanujan-2017
+problem: edge-disjoint-paths
+proved_for: decision
+bound:
+  as_stated: "2^{O(d \\, tw \\log tw)} n"
+  notation: O
+  parameters: [d, tw, n]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: "Not stated; educated guess: exponential, from dynamic programming over a nice tree decomposition with tables of $2^{O(d \\, tw \\log tw)}$ records per node."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+conditional_on: []
+source:
+  paper: ganian-ordyniak-ramanujan-2017
+  statements:
+    journal: { statement: "Theorem 2 (Section 4): $2^{O(\\Delta\\omega\\log\\omega)} \\cdot n$" }
+    arxiv: { statement: "Theorem 2 (Section 4): $2^{O(\\Delta\\omega^2)} \\cdot n$ (weaker)" }
+  note: "The bound changed between versions: the arXiv version states $2^{O(\\Delta\\omega^2)} n$, the open-access Algorithmica version $2^{O(\\Delta\\omega\\log\\omega)} n$; the paper's $\\omega$ is the treewidth and $\\Delta$ the maximum degree (PEAR's $tw$ and $d$). The algorithm computes a tree decomposition of width at most $5\\omega + 4$ itself, then runs dynamic programming that keeps a witnessing set of paths for each record. Read in the arXiv LaTeX source (Section 4) and the Algorithmica PDF (Theorem 2 and the running-time summary)."
+formal: { status: informal }
+status: valid

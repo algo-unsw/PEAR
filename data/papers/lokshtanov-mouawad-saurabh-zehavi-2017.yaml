@@ -1,0 +1,22 @@
+id: lokshtanov-mouawad-saurabh-zehavi-2017
+title: "Packing Cycles Faster Than Erdős–Pósa"
+authors: [Daniel Lokshtanov, Amer E. Mouawad, Saket Saurabh, Meirav Zehavi]
+identifiers: { dblp: journals/siamdm/LokshtanovMSZ19 }
+versions:
+  arxiv:
+    kind: preprint
+    year: 2017
+    arxiv: "1707.01037"
+    open_access: true
+  icalp:
+    kind: conference
+    venue: "44th International Colloquium on Automata, Languages, and Programming (ICALP 2017), LIPIcs 80, 71:1–71:15"
+    year: 2017
+    doi: "10.4230/LIPIcs.ICALP.2017.71"
+    open_access: true
+  journal:
+    kind: journal
+    venue: "SIAM Journal on Discrete Mathematics 33(3), pp. 1194–1215"
+    year: 2019
+    doi: "10.1137/17M1150037"
+    open_access: false

@@ -1,0 +1,16 @@
+id: bojikian-chekan-kratsch-2025
+title: "Tight Bounds for Some Classical Problems Parameterized by Cutwidth"
+authors: [Narek Bojikian, Vera Chekan, Stefan Kratsch]
+identifiers: { dblp: conf/esa/BojikianCK25 }
+versions:
+  arxiv:
+    kind: preprint
+    year: 2025
+    arxiv: "2502.15884"
+    open_access: true
+  esa:
+    kind: conference
+    venue: "33rd European Symposium on Algorithms (ESA 2025), LIPIcs 351, 13:1–13:17"
+    year: 2025
+    doi: "10.4230/LIPIcs.ESA.2025.13"
+    open_access: true

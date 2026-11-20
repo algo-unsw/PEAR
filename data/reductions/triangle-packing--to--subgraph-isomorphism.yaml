@@ -1,0 +1,11 @@
+id: triangle-packing--to--subgraph-isomorphism
+from: { problem: triangle-packing, version: decision }
+to: { problem: subgraph-isomorphism, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(n + m)"
+parameter_map: { n: "n", m: "m", k: "3 k", tw: "2" }
+source:
+  folklore: true
+  note: "Keep $G$ as the host and take the pattern $H$ to be $k$ disjoint triangles ($3k$ vertices, treewidth 2); an injective map of $H$ into $G$ that preserves edges is exactly a choice of $k$ vertex-disjoint triangles. (After the polynomial-time check $3k \\le n$.)"
+status: valid

@@ -1,0 +1,22 @@
+id: ganian-ordyniak-ramanujan-2017
+title: "On Structural Parameterizations of the Edge Disjoint Paths Problem"
+authors: [Robert Ganian, Sebastian Ordyniak, M. S. Ramanujan]
+identifiers: { dblp: journals/algorithmica/GanianOR21 }
+versions:
+  arxiv:
+    kind: preprint
+    year: 2017
+    arxiv: "1711.02076"
+    open_access: true
+  isaac:
+    kind: conference
+    venue: "28th International Symposium on Algorithms and Computation (ISAAC 2017), LIPIcs 92, 36:1–36:13"
+    year: 2017
+    doi: "10.4230/LIPIcs.ISAAC.2017.36"
+    open_access: true
+  journal:
+    kind: journal
+    venue: "Algorithmica 83(6), pp. 1605–1637"
+    year: 2021
+    doi: "10.1007/s00453-020-00795-3"
+    open_access: true

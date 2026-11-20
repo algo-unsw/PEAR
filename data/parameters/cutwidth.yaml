@@ -1,0 +1,8 @@
+# Definition as in Bojikian, Chekan and Kratsch, arXiv 2502.15884, Section 2 (Preliminaries, "Cutwidth"):
+# the cutwidth of a linear arrangement is the maximum number of edges of a cut-graph H_i = G[V_i, V \ V_i];
+# the cutwidth of G is the minimum over all linear arrangements.
+id: cutwidth
+name: Cutwidth
+symbol: ctw
+aliases: [cut-width]
+definition: "The minimum, over all linear orderings $v_1, \\dots, v_n$ of $V$, of the maximum over $i$ of the number of edges with one endpoint in $\\{v_1, \\dots, v_i\\}$ and the other in $\\{v_{i+1}, \\dots, v_n\\}$."

@@ -1,0 +1,16 @@
+id: gaspers-szeider-2011-kernels
+title: "Kernels for Global Constraints"
+authors: [Serge Gaspers, Stefan Szeider]
+identifiers: { dblp: conf/ijcai/GaspersS11 }
+versions:
+  arxiv:
+    kind: preprint
+    year: 2011
+    arxiv: "1104.2541"
+    open_access: true
+  ijcai:
+    kind: conference
+    venue: "Proceedings of the 22nd International Joint Conference on Artificial Intelligence (IJCAI 2011), IJCAI/AAAI, pp. 540–545"
+    year: 2011
+    doi: "10.5591/978-1-57735-516-8/IJCAI11-098"
+    open_access: false

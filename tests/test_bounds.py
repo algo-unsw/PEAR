@@ -645,3 +645,25 @@ def test_euler_number():
     b = parse_bound(r"(2 \mathrm{e})^{k 2^{k} - k} n^{O(1)}", {"k", "n"})
     assert ostar_tex(b, Context()) == r"O^*((2 \mathrm{e})^{k \cdot 2^{k} - k})"
     assert abs(value(parse_bound(r"\mathrm{e}^{k}", {"k"}).expr, {"k": 1.0}) - math.e) < 1e-12
+
+
+def test_absorbed_into_little_o_and_big_o():
+    # 21 November 2026: f + h + o(g) = f + o(g) for h = o(g) (one variable), and
+    # f + h + O(g) = f + O(g) for h = O(g); a - b = Θ(a) inside o(·) when b = o(a)
+    from pear.bounds.compare import Context
+    from pear.bounds.display import ostar_tex
+    from pear.bounds.expr import Bound, parse_expr
+
+    syms = frozenset({"k", "n"})
+
+    def shown(s):
+        return ostar_tex(Bound("O", parse_expr(s, syms)), Context())
+
+    assert shown("(2 \\mathrm{e})^{k 2^{k} - k + o(k 2^{k} - k)} n^{O(1)}") == \
+        "O^*((2 \\mathrm{e})^{k \\cdot 2^{k} + o(k \\cdot 2^{k})})"
+    # without o(·) the subtracted k matters under O*
+    assert shown("(2 \\mathrm{e})^{k 2^{k} - k} n^{O(1)}") == "O^*((2 \\mathrm{e})^{k \\cdot 2^{k} - k})"
+    assert shown("2^{n + O(n)}") == "O^*(2^{O(n)})"
+    # n is not o(n); and with two variables n is not o(n k)
+    assert shown("4^{n + o(n)}") == "O^*(4^{n + o(n)})"
+    assert shown("2^{n k - n + o(n k)}") == "O^*(2^{n k - n + o(n k)})"

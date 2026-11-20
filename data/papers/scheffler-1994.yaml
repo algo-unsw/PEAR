@@ -1,0 +1,11 @@
+id: scheffler-1994
+title: "A Practical Linear Time Algorithm for Disjoint Paths in Graphs with Bounded Tree-width"
+authors: [Petra Scheffler]
+unverified: true
+versions:
+  technical-report:
+    kind: technical-report
+    venue: "Technical Report 396/1994, Fachbereich 3 Mathematik, Technische Universität Berlin"
+    year: 1994
+    url: "https://page.math.tu-berlin.de/~combi/coga-old/publications/techreports/1994/Report-396-1994.html"
+    open_access: false

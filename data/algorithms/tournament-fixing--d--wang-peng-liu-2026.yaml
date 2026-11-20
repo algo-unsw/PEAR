@@ -19,4 +19,4 @@ source:
   paper: wang-peng-liu-2026
   statements:
     arxiv-v1: { statement: "Theorem 1" }
-  note: "Proof: $v^*$ must win $\\log n$ matches, so $d < \\log n$ gives a no-instance; otherwise $n \\le 2^{d}$ and the $2^{n} n^{O(1)}$ algorithm of Gupta et al. applies. Theorem 2 rules out $2^{2^{d/c}} n^{O(1)}$ for every constant $c > 1$ under ETH. Theorem 3 (fixed-parameter tractability by the in-degree $k$ of $v^*$; Lemma 7: randomized $(2e)^{t} n^{O(1)}$ with $t = k 2^{k} - k$) is not entered. The same Theorem 1 is Theorem 1 of the merged arXiv:2602.13422v2 (Liu, Peng, Wang, Xiao)."
+  note: "Proof: $v^*$ must win $\\log n$ matches, so $d < \\log n$ gives a no-instance; otherwise $n \\le 2^{d}$ and the $2^{n} n^{O(1)}$ algorithm of Gupta et al. applies. Theorem 2 rules out $2^{2^{d/c}} n^{O(1)}$ for every constant $c > 1$ under ETH. Theorem 3 (in-degree $k$) is entered as `tournament-fixing--k--wang-peng-liu-2026`. The same Theorem 1 is Theorem 1 of the merged arXiv:2602.13422v2 (Liu, Peng, Wang, Xiao)."

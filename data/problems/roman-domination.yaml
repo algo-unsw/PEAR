@@ -1,0 +1,44 @@
+id: roman-domination
+name: Roman Domination
+aliases: [Minimum Roman Domination, Roman Dominating Function, Roman Domination Number, RD, RDF]
+category: graph
+complexity:
+  class: NP-complete
+  source:
+    paper: cockayne-dreyer-hedetniemi-2004
+    attested_by:
+      - "https://en.wikipedia.org/wiki/Roman_dominating_set"
+      - "https://arxiv.org/pdf/1403.1019"
+      - "https://pdf.arxiv.org/pdf/1204.1438"
+    note: "Wikipedia (Roman dominating set): \"The decision problem for Roman domination is NP-complete, even when restricted to bipartite, chordal, or planar graphs\", citing Cockayne, Dreyer, Hedetniemi and Hedetniemi, Discrete Math. 278 (2004). Shi and Koh (arXiv 1403.1019) cite the same paper for NP-completeness; Bahremandpour, Hu, Sheikholeslami and Xu (arXiv 1204.1438, Corollary 5) prove NP-completeness for bipartite graphs by a reduction from 3-SAT."
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  k: { meaning: "the solution size: the integer $k$ in the input (decision, search), or the minimum weight of a Roman dominating function (optimisation)" }
+  dc: { meaning: "the distance to cluster: the minimum number of vertices whose deletion leaves a disjoint union of cliques" }
+constraints:
+  - { constraint: "k \\le n", because: "The constant function $f \\equiv 1$ is a Roman dominating function of weight $n$, so every instance with $k \\ge n$ is a yes-instance, answered in polynomial time." }
+  - { constraint: "dc \\le n", because: "Deleting all vertices leaves the empty graph, a disjoint union of (no) cliques." }
+  - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
+versions:
+  decision:
+    kind: decision
+    input: "A graph $G = (V, E)$ and an integer $k$."
+    question: "Is there a function $f \\colon V \\to \\{0, 1, 2\\}$ with $\\sum_{v \\in V} f(v) \\le k$ such that every vertex $v$ with $f(v) = 0$ has a neighbour $u$ with $f(u) = 2$?"
+  optimisation:
+    kind: optimisation
+    input: "A graph $G = (V, E)$."
+    goal: "Find the minimum weight $\\sum_{v \\in V} f(v)$ of a function $f \\colon V \\to \\{0, 1, 2\\}$ such that every vertex $v$ with $f(v) = 0$ has a neighbour $u$ with $f(u) = 2$."
+  search:
+    kind: search
+    input: "A graph $G = (V, E)$ and an integer $k$."
+    goal: "Find a function $f \\colon V \\to \\{0, 1, 2\\}$ with $\\sum_{v \\in V} f(v) \\le k$ such that every vertex $v$ with $f(v) = 0$ has a neighbour $u$ with $f(u) = 2$, or report that none exists."
+default_version: decision
+shared_bounds:
+  - versions: [decision, optimisation]
+    because: "Binary search on $k$ (at most $\\log_2 n$ calls, since $k \\le n$)."
+related:
+  - { problem: dominating-set, relation: variant }
+  - { problem: set-cover, relation: generalisation }

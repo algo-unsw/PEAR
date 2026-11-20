@@ -1,0 +1,25 @@
+id: vertex-disjoint-paths--k--korhonen-pilipczuk-stamoulis-2024
+problem: vertex-disjoint-paths
+proved_for: decision
+bound:
+  as_stated: "O(f(k) (n + m)^{1 + o(1)})"
+  notation: O
+  parameters: [k, n, m]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: "Not stated separately; at most the almost-linear running time."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  impractical_constants: "The dependence on $k$ comes from the graph minors structure theory (irrelevant vertex technique); it is not explicit."
+  quantum: false
+conditional_on: []
+source:
+  paper: korhonen-pilipczuk-stamoulis-2024
+  statements:
+    arxiv: { statement: "Theorem in Section 1 labelled thm:disjoint-paths (the third theorem of the Introduction), from the main theorem thm:main" }
+  note: "Stated as $\\mathcal{O}_k(m^{1+o(1)})$ where $m$ is the total number of vertices and edges and $\\mathcal{O}_k$ hides a computable factor in $k$; stored with PEAR's $n + m$. Computability of $f$ is contingent on Kawarabayashi, Thomas and Wollan's new proof of the Structure Theorem (not yet peer reviewed, per the Introduction); without it the result is a non-uniform algorithm (a separate almost-linear algorithm for every fixed $k$). The main theorem also returns a witnessing model, so the paths are found. Improves Kawarabayashi, Kobayashi and Reed's $O_k(n^2)$ (JCTB 2012) and Robertson and Seymour's $O_k(n^3)$."
+formal: { status: informal }
+status: valid
