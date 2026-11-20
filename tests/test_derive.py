@@ -1054,3 +1054,12 @@ def test_technique_validation(change, expected):
     change(tech)
     _, issues = validate_raw(raw_of(problem("a"), paper("p-mls", 2015), tech))
     assert any(expected in str(i) for i in issues), [str(i) for i in issues]
+
+
+def test_projection_of_a_monotone_bound_with_a_factorial():
+    # 20 November 2026: the monomial check cannot show k! 2^{o(k)} ≤ n! 2^{o(n)} for k ≤ n,
+    # but the bound is nondecreasing in k, so the projection is valid
+    data = dataset(problem("a", params=("k",), constraints=[r"k \le n"]), paper("p1", 2020),
+                   alg("a-k", "a", r"O(k! 2^{o(k)} n)", paper="p1"))
+    shown = {r["id"]: r["shown"] for r in rows(data, "a", "decision")}
+    assert shown["a-k|projection:n"] == r"O^*(n! \cdot 2^{o(n)})"

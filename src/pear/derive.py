@@ -527,9 +527,14 @@ class Engine:
             else:
                 candidates.append((y, simplify(substitute(base, mapping))))
         out = []
+        monotone = is_monotone(shown)
         for label, expr in candidates:
             proj = Bound("O*", expr, shown.family)
-            if compare(analyse(r.bound), analyse(proj), ctx) not in (Relation.BETTER, Relation.EQUAL):
+            # Valid if the comparator proves it, or, for a substitution x ↦ y^p along the
+            # constraints x ≤ y^p, if the bound is nondecreasing in every variable (A2): the
+            # monomial check cannot see that k! ≤ n! for k ≤ n (20 November 2026)
+            valid = compare(analyse(r.bound), analyse(proj), ctx) in (Relation.BETTER, Relation.EQUAL)
+            if not valid and not (monotone and label != "drop-subtractions"):
                 continue  # only provably valid projections are kept
             step = Step("projection", f"projection:{label}", f"{r.problem}:{r.node}", f"{r.problem}:{r.node}", counted=False)
             out.append(replace(r, bound=proj, chain=r.chain + (step,)))
