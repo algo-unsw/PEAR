@@ -584,3 +584,36 @@ def test_substitution_rewrites_epsilon_subscripts():
     e = parse_expr(r"(2 - \varepsilon_{k})^{n}", {"n", "k"})
     assert substitute(e, {"k": parse_expr("3", set())}).base.terms[1][1] == Const("varepsilon", ())
     assert substitute(e, {"k": parse_expr("2 p", {"p"})}).base.terms[1][1] == Const("varepsilon", ("p",))
+
+
+# --- parameters a bound is listed under (rulebook §7, 20 November 2026) --------------------------
+
+from pear.bounds.params import listed_parameters  # noqa: E402
+
+LISTED_SYMS = {"k", "n", "m", "tw", "d", "p"}
+LISTED_ORDER = ["k", "d", "p", "n", "m", "N", "tw"]
+
+
+@pytest.mark.parametrize(
+    ("bound", "listed"),
+    [
+        (r"O^*(1.977^{m - k})", ["m - k"]),
+        (r"O^*(2^{O((m - k)/\sqrt{\log(m - k)})})", ["m - k"]),
+        (r"O^*(1.2273^{m + n})", ["n + m"]),  # one key for n + m and m + n
+        (r"O^*(1.2279^{n + m})", ["n + m"]),
+        (r"O^*(2^{(m - k)/4})", ["m - k"]),  # constant factor stripped
+        # products, other coefficients, higher degrees: the variables, in reading order (20 November 2026)
+        (r"O^*(1.4423^{d k})", ["k", "d"]),
+        (r"O^*(2^{m - 3 n/5})", ["n", "m"]),
+        (r"O^*(2^{(n (n - 1)/2 - m)/4})", ["n", "m"]),
+        (r"O^*(2^{9 m/50 + o(m)})", ["m"]),
+        (r"O^*(1.2738^{k})", ["k"]),
+        (r"O^*(n^{\omega (n - k)/3})", ["k", "n"]),  # n and n - k: listed under the variables
+        (r"O^*((2 - \varepsilon_{k})^{n})", ["k", "n"]),
+        (r"O^*(1.5^{k} + 1.3^{n})", ["k", "n"]),
+        (r"O^*(n^{\omega k/3})", ["k", "n"]),
+    ],
+)
+def test_listed_parameters(bound, listed):
+    expr = parse_bound(bound, LISTED_SYMS).expr
+    assert [p.key for p in listed_parameters(expr, LISTED_ORDER)] == listed
