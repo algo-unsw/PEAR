@@ -4,3 +4,4 @@ name: Clique-Width
 symbol: cw
 aliases: [cliquewidth]
 definition: "The minimum number of labels in an expression that builds the graph from labelled vertices with the operations: create a vertex with label $i$; take the disjoint union of two labelled graphs; add all edges between the vertices of label $i$ and the vertices of label $j \\ne i$; relabel every vertex of label $i$ to $j$. The labels are removed at the end."
+review: { approved_by: Serge Gaspers, date: 2026-11-20 }

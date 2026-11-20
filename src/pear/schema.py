@@ -137,8 +137,8 @@ class VersionRef(Model):
 
 # --- problem -----------------------------------------------------------------
 
-# graph, satisfiability, sets and numbers are agreed; the others are proposed (catalogue
-# expansion, 20 November 2026) and need Serge's approval
+# graph, satisfiability, sets and numbers were agreed first; scheduling, strings, geometry,
+# social-choice, games and other were approved by Serge on 20 November 2026
 Category = Literal["graph", "satisfiability", "sets", "numbers", "scheduling", "strings", "geometry",
                    "social-choice", "games", "other"]
 VersionKind = Literal["decision", "optimisation", "search", "counting", "enumeration"]

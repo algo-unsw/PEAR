@@ -5,3 +5,4 @@ name: Feedback Edge Set Number
 symbol: fes
 aliases: []
 definition: "The minimum size of a feedback edge set of the graph: a set $F \\subseteq E$ such that $(V, E \\setminus F)$ is acyclic. It equals $m - n + c$, where $c$ is the number of connected components."
+review: { approved_by: Serge Gaspers, date: 2026-11-20 }

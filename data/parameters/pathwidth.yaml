@@ -3,3 +3,4 @@ name: Pathwidth
 symbol: pw
 aliases: [path-width]
 definition: "The minimum width of a path decomposition of the graph, that is, of a tree decomposition whose tree is a path: a sequence of bags $B_1, \\dots, B_r \\subseteq V$ such that every vertex is in some bag, both endpoints of every edge are in a common bag, and the bags containing any vertex are consecutive. Its width is $\\max_i |B_i| - 1$."
+review: { approved_by: Serge Gaspers, date: 2026-11-20 }

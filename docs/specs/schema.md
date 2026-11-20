@@ -34,7 +34,7 @@ The repository is the database. Each entry is one YAML file named after its ID:
 id: vertex-cover
 name: Vertex Cover
 aliases: [Node Cover]                 # for search and OpenAlex matching
-category: graph                       # controlled list: graph, satisfiability, sets, numbers; proposed 20 Nov 2026: scheduling, strings, geometry, social-choice, games, other
+category: graph                       # controlled list: graph, satisfiability, sets, numbers, scheduling, strings, geometry, social-choice, games, other (the last six approved 20 Nov 2026)
 complexity:
   class: NP-complete
   source: { paper: karp-YYYY, statements: { conference: { statement: "TODO(verify)" } } }   # §4

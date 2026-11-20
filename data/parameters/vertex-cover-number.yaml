@@ -4,3 +4,4 @@ name: Vertex Cover Number
 symbol: vc
 aliases: []
 definition: "The minimum size of a vertex cover of the graph: a set $S \\subseteq V$ such that every edge has an endpoint in $S$."
+review: { approved_by: Serge Gaspers, date: 2026-11-20 }

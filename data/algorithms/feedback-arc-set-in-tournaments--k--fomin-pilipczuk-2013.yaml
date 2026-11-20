@@ -2,7 +2,7 @@ id: feedback-arc-set-in-tournaments--k--fomin-pilipczuk-2013
 problem: feedback-arc-set-in-tournaments
 proved_for: search
 bound:
-  as_stated: '2^{5.24\sqrt{k}} n^{O(1)}'
+  as_stated: '2^{\frac{2\pi}{\sqrt{3} \ln 2} \sqrt{k}} n^{O(1)}'
   notation: O
   parameters: [k, n]
 properties:
@@ -19,4 +19,4 @@ source:
   statements:
     arxiv-v1:
       statement: 'Theorem in Section 4 (LaTeX label thm:alg-fast) and the abstract'
-  note: 'The theorem states time $\exp(C\sqrt{2k}) \cdot n^{O(1)}$ with $C = \pi\sqrt{2/3}$, for semi-complete digraphs (so for tournaments), and finds a feedback arc set of size at most $k$ if one exists. The abstract restates it as $2^{c\sqrt{k}} n^{O(1)}$ with $c = 2\pi/(\sqrt{3}\ln 2) \le 5.24$; the bound language has no $\pi$, so the abstract''s $c \le 5.24$ is stored. TODO(verify): Serge to confirm storing the rounded constant. Earlier $2^{O(\sqrt{k})} n^{O(1)}$ algorithms: Feige (arXiv:0911.5094) and Karpinski and Schudy (arXiv:1006.4396, ISAAC 2010). ESA 2013 version not opened.'
+  note: 'The theorem states time $\exp(C\sqrt{2k}) \cdot n^{O(1)}$ with $C = \pi\sqrt{2/3}$, for semi-complete digraphs (so for tournaments), and finds a feedback arc set of size at most $k$ if one exists. The abstract restates it as $2^{c\sqrt{k}} n^{O(1)}$ with $c = 2\pi/(\sqrt{3}\ln 2) \le 5.24$; this exact form is stored (the bound language gained $\pi$ on 20 November 2026). Earlier $2^{O(\sqrt{k})} n^{O(1)}$ algorithms: Feige (arXiv:0911.5094) and Karpinski and Schudy (arXiv:1006.4396, ISAAC 2010). ESA 2013 version not opened.'
