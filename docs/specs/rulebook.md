@@ -65,7 +65,7 @@ Substitution produces bounds in A's own variables, sometimes in combinations. Fo
 
 - The derived bound is stored in that form and appears under the parameter combination it uses (here $n - k$).
 - It is also **projected** onto single parameters using the problem's constraints (`bounds.md` B5) and A2: from $0 \le k \le n$, $1.5^{\,n-k} \le 1.5^n$. The projection competes in "by $n$" and is kept only if it is best or incomparable there (R4).
-- **Every bound is projected** (version 2), direct or derived and in one parameter or several: $1.2^k$ with $k \le n$ gives $1.2^n$, and $1.1^m$ with $m \le n^2$ gives $1.1^{n^2}$. A projection is a derived bound. A projection is kept when the comparator proves it, or, for a substitution along constraints $x \le y^p$, when the O* form is nondecreasing in every variable (A2): the monomial check alone cannot show $k!\,2^{o(k)} \le n!\,2^{o(n)}$ (20 November 2026).
+- **Every bound is projected** (version 2), direct or derived and in one parameter or several: $1.2^k$ with $k \le n$ gives $1.2^n$, and $1.1^m$ with $m \le n^2$ gives $1.1^{n^2}$. A projection is a derived bound.
 
 ## 8. Property inheritance
 
