@@ -1,0 +1,12 @@
+id: vertex-cover--to--k-path-vertex-cover
+from: { problem: vertex-cover, version: decision }
+to: { problem: k-path-vertex-cover, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(n + m)"
+parameter_map: { n: "n", m: "m", k: "k", d: "2" }
+source:
+  folklore: true
+  note: "Special case $d = 2$: a path on 2 vertices is an edge, so $S$ meets every such path if and only if $S$ is a vertex cover; $(G, k) \\mapsto (G, 2, k)$."
+  reference: { paper: bresar-et-al-2010, version: arxiv, statement: "Section 2 (\"2-PVCP coincides with VCP\")" }
+status: valid

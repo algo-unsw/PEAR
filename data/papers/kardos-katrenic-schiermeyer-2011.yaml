@@ -1,0 +1,17 @@
+id: kardos-katrenic-schiermeyer-2011
+title: "On computing the minimum 3-path vertex cover and dissociation number of graphs"
+authors: [František Kardoš, Ján Katrenič, Ingo Schiermeyer]
+identifiers: { dblp: "journals/tcs/KardosKS11" }
+versions:
+  hal:
+    kind: preprint
+    venue: "HAL inria-00635945 (preprint submitted to Elsevier, 4 August 2011)"
+    year: 2011
+    url: "https://core.ac.uk/download/49950789.pdf"
+    open_access: true
+  journal:
+    kind: journal
+    venue: "Theoretical Computer Science 412(50), pp. 7009–7017"
+    year: 2011
+    doi: "10.1016/j.tcs.2011.09.009"
+    open_access: false
