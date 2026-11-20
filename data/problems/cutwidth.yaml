@@ -17,9 +17,11 @@ objects:
   N: total encoding length of the input
 parameters:
   k: { meaning: 'the width bound: the integer $k$ in the input (decision, search), or the cutwidth of $G$ (optimisation)' }
+  vc: { shared: vertex-cover-number }
 constraints:
   - { constraint: 'k \le m', because: 'Every bijection has width at most $m$, so every instance with $k \ge m$ is a yes-instance, answered in polynomial time.' }
   - { constraint: 'm \le n(n - 1)/2', because: 'A simple graph has at most $n(n-1)/2$ edges.' }
+  - { constraint: 'vc \le n', because: 'The whole vertex set is a vertex cover.' }
 versions:
   decision:
     kind: decision
