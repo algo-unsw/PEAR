@@ -17,7 +17,7 @@ from typing import Iterable
 
 from .bounds import Bound, Relation, compare, display, ostar, parse_bound, parse_expr
 from .bounds.compare import Analysed, Context, _resolve, analyse, compare_ostar
-from .bounds.display import simplify, substitute
+from .bounds.display import hide_constants_exact, simplify, substitute
 from .bounds.expr import Add, Asym, Bell, Const, Div, Fact, Log, Mul, Node, Num, Pow, Sqrt, Var, children, variables
 from .bounds.growth import Shape, UnsupportedBound, bound_terms, is_monotone
 from .bounds.numeric import dominates, samples, value
@@ -924,6 +924,10 @@ def _drop_subtractions(node: Node) -> Node:
     return node
 
 
+def _hide_in_derived(b: Bound, ctx: Context) -> Bound:
+    return hide_constants_exact(b, ctx)
+
+
 def _has_var(node: Node) -> bool:
     """A variable occurs in node (a family constant such as ε_k does not count)."""
     if isinstance(node, Var):
@@ -1013,7 +1017,9 @@ def _row(r: Result, ctx: Context, beaten_by: list[str]) -> dict:
         "id": r.id,
         "origin": "derived" if r.derived else "direct",
         "algorithm": r.origin,
-        "exact": render_bound(r.bound),
+        # a derived exact form is the engine's own substitution: constants that O(·) hides go
+        # (bounds §4); a stated bound keeps the paper's form
+        "exact": render_bound(_hide_in_derived(r.bound, ctx) if r.derived else r.bound),
         "shown": shown.tex,
         "hover": shown.hover,
         "parameters": sorted(variables(ostar(r.bound, ctx).expr)),
