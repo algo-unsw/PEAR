@@ -10,7 +10,7 @@ complexity:
       - "https://arxiv.org/abs/1905.03134"
       - "https://ris.utwente.nl/ws/files/5111792/1655.pdf"
       - "https://link.springer.com/article/10.1007/s00453-020-00782-8"
-    note: 'Chvátal (1984) proved that recognising graphs with a matching cut (decomposable graphs) is NP-complete, already for graphs of maximum degree 4. Attested by Gomes and Sau (arXiv 1905.03134v1, Sections 1 and 3.1), Bonsma (University of Twente Memorandum 1655, Section 1) and Chen, Hsieh, Le, Le and Peng (Algorithmica 83(5), 2021, Section 1.1). Membership in NP is immediate. Wikipedia has no article on Matching Cut, so there was no Wikipedia choice of source to mirror.'
+    note: 'Chvátal (1984) proved that recognising graphs with a matching cut (decomposable graphs) is NP-complete, already for graphs of maximum degree 4. Attested by Gomes and Sau (arXiv 1905.03134v1, Sections 1 and 3.1), Bonsma (University of Twente Memorandum 1655) and Chen, Hsieh, Le, Le and Peng (Algorithmica 83(5), 2021, Section 1.1). Membership in NP is immediate. Wikipedia has no article on Matching Cut, so there was no Wikipedia choice of source to mirror.'
 objects:
   n: number of vertices
   m: number of edges

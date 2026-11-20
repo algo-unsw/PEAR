@@ -70,6 +70,9 @@ def version_label(vid: str) -> str:
     m = re.fullmatch(r"(.+)-max-(degree|threshold)-(\d+)", vid)
     if m:  # bounded-degree (and -threshold) versions (21 November 2026): "Optimisation, max degree 3"
         return f"{version_label(m.group(1))}, max {m.group(2)} {m.group(3)}"
+    m = re.fullmatch(r"(decision|optimisation|search|weighted|counting)-([a-z])-(at-least-)?(\d+)", vid)
+    if m:  # versions fixing an input integer (21 November 2026): "Decision, d = 3", "Decision, d ≥ 3"
+        return f"{version_label(m.group(1))}, {m.group(2)} {'≥' if m.group(3) else '='} {m.group(4)}"
     return VERSION_LABELS.get(vid, vid.replace("-", " ").capitalize())
 
 

@@ -6,7 +6,7 @@ complexity:
   class: NP-complete
   source:
     folklore: true
-    note: 'A spanning tree of maximum degree at most $2$ is a Hamiltonian path, so Hamiltonian Path (NP-complete) is the special case $k = 2$; membership in NP is immediate. Nederlof (Algorithmica 2013, Section 4) studies this decision problem as Degree Constrained Spanning Tree, and Bojikian, Firbas, Ganian, Hoang and Szilágyi (ICALP 2026, Section 1) note that degree-constrained spanning tree problems are NP-hard by a straightforward reduction from Hamiltonian Path. Wikipedia''s choice of source could not be checked (Wikipedia could not be fetched).'
+    note: 'A spanning tree of maximum degree at most $2$ is a Hamiltonian path, so Hamiltonian Path (NP-complete) is the special case $k = 2$; membership in NP is immediate. Nederlof (Algorithmica 2013, Theorem 5) studies this decision problem as Degree Constrained Spanning Tree, and Bojikian, Firbas, Ganian, Hoang and Szilágyi (ICALP 2026, Section 1) note that degree-constrained spanning tree problems are NP-hard by a straightforward reduction from Hamiltonian Path. Wikipedia''s choice of source could not be checked (Wikipedia could not be fetched).'
     reference: { paper: bojikian-firbas-ganian-2025, version: icalp, statement: 'Section 1' }
 objects:
   n: number of vertices

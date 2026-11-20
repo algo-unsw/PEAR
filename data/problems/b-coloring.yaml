@@ -6,11 +6,9 @@ complexity:
   class: NP-complete
   source:
     paper: irving-manlove-1999
-    attested_by:
-      - "https://arxiv.org/pdf/2512.14390"
-      - "https://drops.dagstuhl.de/storage/00lipics/lipics-vol043-ipec2015/LIPIcs.IPEC.2015.389/LIPIcs.IPEC.2015.389.pdf"
-      - "https://link.springer.com/article/10.1007/s00224-023-10132-0"
-    note: "Irving and Manlove (1999) proved that deciding whether $\\chi_b(G) \\ge k$ is NP-complete, and that the problem is polynomial on trees; Balabán (arXiv 2512.14390, Introduction), Panolan, Philip and Saurabh (IPEC 2015, Introduction) and Jaffke, Lima and Lokshtanov (Theory Comput. Syst. 2024, Introduction) all cite it. It is NP-complete for $k = 3$ in the exact-$k$ version (Jaffke and Lima, arXiv 1811.03966), and W[1]-hard parameterized by $k$ in the at-least version (Panolan, Philip and Saurabh). The journal paper was not opened (no open URL found; TODO(verify) whether Discrete Applied Mathematics' open archive has it)."
+    statements:
+      author-copy: { statement: "Theorem 3.3" }
+    note: "Theorem 3.3 states that the b-chromatic number problem (Definition 2.5: given $G$ and $K$, is $\\varphi(G) \\ge K$?) is NP-complete; Theorems 4.2 and 4.6 give a polynomial algorithm for trees. Read in the authors' postprint. The exact-$k$ version is NP-complete already for $k = 3$ (Jaffke and Lima, arXiv 1811.03966, abstract), and the at-least version is W[1]-hard parameterized by $k$ (Panolan, Philip and Saurabh, IPEC 2015)."
 objects:
   n: number of vertices
   m: number of edges

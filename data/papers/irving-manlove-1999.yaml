@@ -9,3 +9,9 @@ versions:
     year: 1999
     doi: "10.1016/S0166-218X(98)00146-2"
     open_access: false
+  author-copy:
+    kind: preprint
+    venue: "Author postprint of the Discrete Applied Mathematics article (University of Glasgow Enlighten repository, eprints.gla.ac.uk/12)"
+    year: 1999
+    url: "https://eprints.gla.ac.uk/12/1/bchrom.pdf"
+    open_access: true
