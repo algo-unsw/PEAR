@@ -28,6 +28,7 @@ Every problem has exactly one canonical definition, because small differences qu
 
 - The property that defines a solution is worded **identically** in every version, so the versions visibly differ only in what is asked.
 - Weighted and other genuinely different versions are versions of the same problem with `generalises`. Distinct problems (Connected Vertex Cover) get their own file (PLAN.md).
+- **Bounded-degree versions** (Serge, 21 November 2026). A result proved only for graphs of maximum degree at most $d$ goes to a version `<version>-max-degree-<d>` of the same problem, for example `optimisation-max-degree-3`. Its input adds "of maximum degree at most $d$" and is otherwise worded identically. The general version lists it in `generalises` (its bounds hold there too), and so does the version for the next larger $d$ that exists. If the general versions share bounds, the bounded-degree versions with one $d$ form their own `shared_bounds` group, with the same justification if it still applies (say so if self-reducibility needs larger degrees). Only versions that results need are added.
 
 ## 4. Parameters
 
