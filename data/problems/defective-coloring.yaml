@@ -1,0 +1,40 @@
+id: defective-coloring
+name: Defective Coloring
+aliases: [Defective Colouring, Improper Coloring, "(k,d)-Coloring"]
+category: graph
+complexity:
+  class: NP-complete
+  source:
+    folklore: true
+    note: "Membership in NP is clear, and the case $d = 0$ is Chromatic Number (Karp 1972); Belmonte, Lampis and Mitsou note that the problem is NP-hard even for small values of $k$ and $d$ as it generalises Coloring. Cowen and Jesurum (DIMACS TR 95-25, abstract) show that $(2, d)$-colouring is NP-complete for every $d \\ge 1$, even for planar graphs, and that $(3, 1)$-colouring is NP-complete for planar graphs. Wikipedia's article states NP-completeness of $(3,1)$-colouring for graphs of maximum degree 6 and planar graphs of maximum degree 7, citing a reference that was not identified (en.wikipedia.org could not be fetched; read through a mirror). TODO(verify) which source to cite."
+    reference: { paper: belmonte-lampis-mitsou-2018, version: arxiv, statement: "Section 1 (Introduction)" }
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  k: { meaning: "the number of colours: the integer $k$ in the input (decision), or the minimum number of colours (optimisation)" }
+  d: { meaning: "the defect: the maximum number of neighbours a vertex may have in its own colour class (the integer $d$ in the input)" }
+  tw: { shared: treewidth }
+  vc: { shared: vertex-cover-number }
+constraints:
+  - { constraint: "k \\le n", because: "Every instance with $k \\ge n$ is a yes-instance (one colour per vertex)." }
+  - { constraint: "d \\le n", because: "Every instance with $d \\ge n - 1$ is a yes-instance (one colour for all vertices)." }
+  - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
+  - { constraint: "tw \\le vc", because: "For a vertex cover $S$, the bags $S \\cup \\{v\\}$ for $v \\notin S$, arranged on a path, form a tree decomposition of width $|S|$." }
+  - { constraint: "vc \\le n", because: "$V$ is a vertex cover." }
+versions:
+  decision:
+    kind: decision
+    input: "A graph $G = (V, E)$ and integers $k$ and $d$."
+    question: "Is there a map $c \\colon V \\to \\{1, \\dots, k\\}$ such that every vertex $v$ has at most $d$ neighbours $u$ with $c(u) = c(v)$?"
+  optimisation:
+    kind: optimisation
+    input: "A graph $G = (V, E)$ and an integer $d$."
+    goal: "Find the minimum $k$ such that there is a map $c \\colon V \\to \\{1, \\dots, k\\}$ such that every vertex $v$ has at most $d$ neighbours $u$ with $c(u) = c(v)$."
+default_version: decision
+shared_bounds:
+  - versions: [decision, optimisation]
+    because: "The optimum is the least $k \\le n$ for which the decision version answers yes (binary search on $k$), and it answers the decision version directly."
+related:
+  - { problem: chromatic-number, relation: generalisation }

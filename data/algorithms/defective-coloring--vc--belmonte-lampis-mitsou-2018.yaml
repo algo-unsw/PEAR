@@ -1,0 +1,21 @@
+id: defective-coloring--vc--belmonte-lampis-mitsou-2018
+problem: defective-coloring
+proved_for: decision
+bound:
+  as_stated: "vc^{O(vc)} n^{O(1)}"
+  notation: O
+  parameters: [vc, n]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: "Not stated; educated guess: $vc^{O(vc)} n^{O(1)}$. A win/win argument: either the instance is decided directly, or $k$ and $d$ are bounded in terms of $vc$ and the treewidth algorithm (dynamic programming over a tree decomposition of width at most $vc$) is used."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: belmonte-lampis-mitsou-2018
+  statements:
+    arxiv: { statement: "Theorem labelled thm:alg-vc (Section 5, \"Exact Algorithms for Treewidth and Other Parameters\")" }
+  note: "The theorem assumes a vertex cover of size $vc$ is given; one of minimum size can be computed in $O(1.2738^{vc} + vc\\,n)$ time first, which the bound absorbs. Read in the arXiv LaTeX source; the space guess is from the paper's description of Theorem labelled thm:alg-vc as a win/win argument similar to the one for feedback vertex set (the proofs are in the omitted material, not read)."

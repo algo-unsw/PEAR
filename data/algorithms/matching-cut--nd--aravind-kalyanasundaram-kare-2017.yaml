@@ -1,0 +1,21 @@
+id: matching-cut--nd--aravind-kalyanasundaram-kare-2017
+problem: matching-cut
+proved_for: decision
+bound:
+  as_stated: 'O^*(2^{2nd})'
+  notation: O*
+  parameters: [nd]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Not stated; educated guess: polynomial. The proof was not read in detail; the bound has the form of an enumeration of $2^{2nd}$ cases with a polynomial-time check each, and no dynamic programming over a decomposition is involved. TODO(verify).'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: aravind-kalyanasundaram-kare-2017
+  statements:
+    author-copy: { statement: 'Theorem 3' }
+  note: 'Theorem 3 of the author copy (which prints no venue or date; taken to match the COCOA 2017 version, TODO(verify) the numbering there): Matching Cut in $O^*(2^{2d})$ time for neighbourhood diversity $d$. The type partition can be computed in linear time (as the paper notes).'

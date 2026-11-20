@@ -1,0 +1,22 @@
+id: defective-coloring--tw-k-d--belmonte-lampis-mitsou-2018
+problem: defective-coloring
+proved_for: decision
+bound:
+  as_stated: "(k d)^{O(tw)} n^{O(1)}"
+  notation: O
+  parameters: [k, d, tw, n]
+given: [tree-decomposition]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: "Not stated; educated guess: $(k d)^{O(tw)} n^{O(1)}$. Standard dynamic programming over the tree decomposition, with a table entry per colouring of a bag and per count of same-coloured neighbours of each bag vertex."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: belmonte-lampis-mitsou-2018
+  statements:
+    arxiv: { statement: "Theorem labelled thm:tw-exact (Section 5, \"Exact Algorithms for Treewidth and Other Parameters\")" }
+  note: "Stated with $\\chi_d$ colours and defect $\\Delta^*$ as $(\\chi_d \\Delta^*)^{O(tw)} n^{O(1)}$; the paper's Section 1 says the algorithm is the standard one sketched in their WG 2017 paper, and the problem is W[1]-hard parameterized by treewidth, pathwidth and tree-depth alone, with no $n^{o(pw)}$ algorithm under ETH (claimed refuted, CLAUDE.md rule 7). For $d = 0$ the bound is to be read as $k^{O(tw)} n^{O(1)}$ (Coloring). Read in the arXiv LaTeX source."

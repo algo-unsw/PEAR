@@ -29,6 +29,7 @@ constraints:
   - { constraint: 'dc \le vc', because: 'Deleting a vertex cover leaves an edgeless graph, which is a cluster graph (of single-vertex cliques).' }
   - { constraint: 'dcc \le n', because: 'Deleting all vertices leaves the empty graph, a co-cluster graph.' }
   - { constraint: 'vc \le n', because: 'A vertex cover is a set of vertices.' }
+  - { constraint: 'nd \le n', because: 'The partition into single vertices satisfies the condition.' }
   - { constraint: 'tw \le n', because: 'A single bag containing all vertices is a tree decomposition of width $n - 1$.' }
 versions:
   decision:

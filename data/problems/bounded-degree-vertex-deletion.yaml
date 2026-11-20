@@ -25,7 +25,7 @@ versions:
     kind: decision
     input: "A graph $G = (V, E)$ and integers $d \\ge 0$ and $k$."
     question: "Is there a set $S \\subseteq V$ with $|S| \\le k$ such that $G - S$ has maximum degree at most $d$?"
-    generalises: [decision-d-at-least-3, decision-d-2]
+    generalises: [decision-d-at-least-3, decision-d-2, decision-d-1]
   optimisation:
     kind: optimisation
     input: "A graph $G = (V, E)$ and an integer $d \\ge 0$."
@@ -41,6 +41,10 @@ versions:
   decision-d-2:
     kind: decision
     input: "A graph $G = (V, E)$, the integer $d = 2$ and an integer $k$."
+    question: "Is there a set $S \\subseteq V$ with $|S| \\le k$ such that $G - S$ has maximum degree at most $d$?"
+  decision-d-1:
+    kind: decision
+    input: "A graph $G = (V, E)$, the integer $d = 1$ and an integer $k$."
     question: "Is there a set $S \\subseteq V$ with $|S| \\le k$ such that $G - S$ has maximum degree at most $d$?"
 default_version: decision
 shared_bounds:
