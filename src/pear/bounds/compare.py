@@ -19,7 +19,7 @@ from enum import Enum
 from fractions import Fraction
 from typing import Iterable, Sequence
 
-from .expr import Bound, Num, Pow, Var, fixed_parameters, parse_expr, variables
+from .expr import Bound, Div, Mul, Node, Num, Pow, Var, fixed_parameters, parse_expr, variables
 from .numeric import interval
 from .growth import (
     CONST_EXPRS,
@@ -46,6 +46,9 @@ class Context:
     not_poly_bounded: frozenset[str] = frozenset()  # bounds B4: exceptions only
     # x ≤ y^p, from the problem's constraints (bounds B5), transitively closed
     le: dict[tuple[str, str], Fraction] = field(default_factory=dict)
+    # x ≤ c y^p with c ≤ 1, for the pairs in `le` where c < 1: m ≤ n(n-1)/2 gives m ≤ n^2/2
+    # (20 November 2026)
+    coef: dict[tuple[str, str], Fraction] = field(default_factory=dict)
     # named constants: (best lower bound, best upper bound), from data/constants
     constants: dict[str, tuple[float, float]] = field(default_factory=dict)
     # expressions known to be nonnegative on every instance, as growths: large - small for
@@ -60,6 +63,10 @@ class Context:
     def relation(self, x: str, y: str) -> Fraction | None:
         """The smallest p with x ≤ y^p (p = 1 for x = y), or None."""
         return Fraction(1) if x == y else self.le.get((x, y))
+
+    def scale(self, x: str, y: str) -> Fraction:
+        """The c ≤ 1 with x ≤ c y^p for p = relation(x, y)."""
+        return self.coef.get((x, y), Fraction(1))
 
 
 class ConstraintError(ValueError):
@@ -76,31 +83,35 @@ def build_context(
     """Parse constraints such as 'k \\le n', 'm \\le n^{2}', 'n \\ge k', 'tw \\le n - 1'.
     `nonneg`: further expressions known to be nonnegative (parameter-map expressions)."""
     syms = set(symbols)
-    edges: dict[tuple[str, str], Fraction] = {}
+    edges: dict[tuple[str, str], tuple[Fraction, Fraction]] = {}  # (x, y) -> (p, c): x ≤ c y^p
     known: list[Growth] = []
     for text in constraints:
-        for x, y, p in _parse_constraint(text, syms):
-            if (x, y) not in edges or p < edges[(x, y)]:
-                edges[(x, y)] = p
+        for x, y, p, c in _parse_constraint(text, syms):
+            if (x, y) not in edges or (p, c) < edges[(x, y)]:
+                edges[(x, y)] = (p, c)
         known += _constraint_gaps(text, syms)
     for text in nonneg:
         try:
             known.append(value_growth(parse_expr(text, syms)))
         except (UnsupportedBound, ValueError):
             pass
-    # transitive closure: x ≤ y^p and y ≤ z^q give x ≤ z^{pq}
+    # transitive closure: x ≤ c y^p and y ≤ d z^q give x ≤ c d^p z^{pq}
     changed = True
     while changed:
         changed = False
-        for (x, y), p in list(edges.items()):
-            for (y2, z), q in list(edges.items()):
+        for (x, y), (p, c) in list(edges.items()):
+            for (y2, z), (q, d) in list(edges.items()):
                 if y2 == y and x != z:
-                    r = p * q
+                    # d^p is kept only for an integer p (otherwise 1, which is weaker but sound)
+                    e = c * d ** int(p) if p.denominator == 1 else c
+                    r = (p * q, e)
                     if (x, z) not in edges or r < edges[(x, z)]:
                         edges[(x, z)] = r
                         changed = True
     useful = [g for g in known if any(c.sign < 0 for k, cs in g.terms.items() if k for c in cs)]
-    return Context(frozenset(not_poly_bounded), edges, dict(constants or {}), tuple(useful))
+    le = {k: p for k, (p, _) in edges.items()}
+    coef = {k: c for k, (_, c) in edges.items() if c < 1}
+    return Context(frozenset(not_poly_bounded), le, coef=coef, constants=dict(constants or {}), nonneg=tuple(useful))
 
 
 def _constraint_gaps(text: str, syms: set[str]) -> list[Growth]:
@@ -137,13 +148,14 @@ def _parse_constraint(text: str, syms: set[str]) -> list[tuple[str, str, Fractio
             continue  # only a single variable on the small side is used
         p = _upper_power(large)
         if p is not None:
-            out.append((small.name, p[0], p[1]))
+            out.append((small.name, p[0], p[1], p[2]))
     return out
 
 
-def _upper_power(node) -> tuple[str, Fraction] | None:
-    """If node ≤ y^p for a single variable y (e.g. y, y^{2}, y - 1, y/2, y(y-1)/2), return
-    (y, p): the highest power of y with coefficient at most 1, and every other term negative."""
+def _upper_power(node) -> tuple[str, Fraction, Fraction] | None:
+    """If node ≤ c y^p for a single variable y (e.g. y, y^{2}, y - 1, y/2, y(y-1)/2), return
+    (y, p, c): the highest power of y with coefficient c at most 1, and every other term
+    negative."""
     try:
         g = value_growth(node)
     except UnsupportedBound:
@@ -163,7 +175,7 @@ def _upper_power(node) -> tuple[str, Fraction] | None:
     rest = g.terms.get((), [])
     if any(r.sign > 0 for r in rest):
         return None  # y + 1 is not ≤ y
-    return y, a
+    return y, a, _exact_fraction(c.value)
 
 
 class Relation(Enum):
@@ -512,15 +524,15 @@ def _raised(a: Analysed, b: Analysed, ctx: Context) -> list[Analysed]:
     extra = sorted(a_vars - b_vars)
     if not extra or not b_vars or not _monotone(a.bound):
         return []
-    options: list[list[tuple[str, Fraction]]] = []
+    options: list[list[tuple[str, Fraction, Fraction]]] = []
     for x in extra:
-        targets = [(y, p) for y in sorted(b_vars) if (p := ctx.relation(x, y)) is not None]
+        targets = [(y, p, ctx.scale(x, y)) for y in sorted(b_vars) if (p := ctx.relation(x, y)) is not None]
         if not targets:
             return []  # x would stay, and B does not bound it
         options.append(targets)
     out = []
     for choice in itertools.islice(itertools.product(*options), MAX_RAISINGS):
-        mapping = tuple((x, y, p) for x, (y, p) in zip(extra, choice))
+        mapping = tuple((x, y, p, c) for x, (y, p, c) in zip(extra, choice))
         r = _raise(a.bound, mapping)
         if r is not None and r.terms is not None and r.fixed == b.fixed:
             out.append(r)
@@ -533,14 +545,32 @@ def _monotone(b: Bound) -> bool:
 
 
 @functools.lru_cache(maxsize=65536)
-def _raise(b: Bound, mapping: tuple[tuple[str, str, Fraction], ...]) -> Analysed | None:
+def _raise(b: Bound, mapping: tuple[tuple[str, str, Fraction, Fraction], ...]) -> Analysed | None:
     from .display import simplify, substitute  # local import: display imports this module
 
-    subst = {x: Var(y) if p == 1 else Pow(Var(y), Num(Fraction(p), _fraction_text(Fraction(p)))) for x, y, p in mapping}
+    subst = {x: power_of(y, p, c) for x, y, p, c in mapping}
     try:
         return analyse(Bound(b.notation, simplify(substitute(b.expr, subst)), b.family))
     except Exception:  # noqa: BLE001 - outside the supported class: no conclusion
         return None
+
+
+def power_of(y: str, p: Fraction, c: Fraction = Fraction(1)) -> Node:
+    """c y^p, written y, y^{2}, y^{2}/2 or 0.5 y."""
+    core: Node = Var(y) if p == 1 else Pow(Var(y), Num(Fraction(p), _fraction_text(Fraction(p))))
+    if c == 1:
+        return core
+    inv = 1 / c
+    if inv.denominator == 1:
+        return Div(core, Num(inv, _fraction_text(inv)))
+    return Mul((Num(c, _fraction_text(c)), core))
+
+
+def _exact_fraction(v: float) -> Fraction:
+    """A float coefficient from a constraint, as the nearby simple fraction (1/2, 1/4), never
+    below the float (a larger coefficient is a weaker, still valid constraint)."""
+    f = Fraction(v).limit_denominator(1000)
+    return f if f >= Fraction(v) or abs(f - Fraction(v)) < Fraction(1, 10**12) else Fraction(v)
 
 
 def _fraction_text(p: Fraction) -> str:

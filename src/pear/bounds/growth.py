@@ -508,10 +508,26 @@ def bound_terms(b: Bound) -> list[Term]:
         if b.notation == "O*":
             hidden = mono("N", (ZERO, ONE, ZERO), Coef("big", 1))
         elif b.notation == "Õ":
-            for v in sorted(all_vars):
-                hidden = hidden + mono(v, (ZERO, ONE, ZERO), Coef("big", 1))
+            # a factor polylogarithmic in the bound itself (bounds §2): log(2^n) = n gives
+            # n^{O(1)}, but log(n + t) gives (log n)^{O(1)} (log t)^{O(1)} (20 November 2026)
+            for v, power in _polylog_of(hi, all_vars):
+                hidden = hidden + mono(v, power, Coef("big", 1))
         out.append(Term(hi, lo, hidden, unspec, frozenset(variables(p))))
     return out
+
+
+def _polylog_of(g: Growth, all_vars: set[str]) -> list[tuple[str, tuple]]:
+    """The monomials of log(bound)^{O(1)} for a bound with log-growth g: v^{O(1)} for a
+    variable in an exponent, (log v)^{O(1)} for a variable only in polynomial or log factors."""
+    out: dict[str, tuple] = {}
+    for key in g.terms:
+        for v, (a, b, c) in key:
+            power = (ZERO, ONE, ZERO) if a > 0 else (ZERO, ZERO, ONE)
+            if v not in out or power > out[v]:
+                out[v] = power
+    if not out:  # a constant bound: nothing to hide but a constant
+        return []
+    return sorted(out.items())
 
 
 def _monotone_surrogate(node: Node) -> Node:

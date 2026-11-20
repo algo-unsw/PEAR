@@ -15,6 +15,7 @@ from .compare import Context, _hidden, term_le
 from .expr import (
     Add,
     children,
+    Const,
     Asym,
     Bell,
     Bound,
@@ -32,6 +33,7 @@ from .expr import (
     format_number,
     num,
     render_bound,
+    variables,
 )
 from .growth import Unspecified, UnsupportedBound, bound_terms, log_growth
 
@@ -322,6 +324,15 @@ def substitute(node: Node, mapping: dict[str, Node]) -> Node:
     """Replace variables by expressions, e.g. k ↦ 2k (rulebook §2)."""
     if isinstance(node, Var):
         return mapping.get(node.name, node)
+    if isinstance(node, Const) and node.deps:
+        # ε_k depends on the parameters it is written with: k ↦ 2k keeps ε_k, k ↦ 3 makes it
+        # a plain ε (20 November 2026)
+        deps: list[str] = []
+        for d in node.deps:
+            for v in sorted(variables(mapping[d])) if d in mapping else [d]:
+                if v not in deps:
+                    deps.append(v)
+        return Const(node.name, tuple(deps))
     if isinstance(node, Add):
         return Add(tuple((s, substitute(t, mapping)) for s, t in node.terms))
     if isinstance(node, Mul):

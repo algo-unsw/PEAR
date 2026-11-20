@@ -16,7 +16,7 @@ from fractions import Fraction
 from typing import Iterable
 
 from .bounds import Bound, Relation, compare, display, ostar, parse_bound, parse_expr
-from .bounds.compare import Analysed, Context, _resolve, analyse, compare_ostar
+from .bounds.compare import Analysed, Context, _resolve, analyse, compare_ostar, power_of
 from .bounds.display import hide_constants_exact, simplify, substitute
 from .bounds.expr import Add, Asym, Bell, Const, Div, Fact, Log, Mul, Node, Num, Pow, Sqrt, Var, children, variables
 from .bounds.growth import Shape, UnsupportedBound, bound_terms, is_monotone
@@ -520,7 +520,8 @@ class Engine:
         ctx = self.out.contexts[r.problem]
         shown = ostar(r.bound, ctx)
         candidates: list[tuple[str, Node]] = []
-        base = _drop_subtractions(shown.expr)
+        # only subtracted terms with variables go: (3 \cdot 2^{\omega - 1} + 1)^{tw} keeps its - 1
+        base = _monotone_majorant(shown.expr)
         if base != shown.expr:
             candidates.append(("drop-subtractions", base))
         base_vars = sorted(variables(base))
@@ -534,7 +535,8 @@ class Engine:
                 p = ctx.relation(x, y)
                 if p is None:
                     break
-                mapping[x] = Var(y) if p == 1 else Pow(Var(y), Num(p, _num_text(p)))
+                # m ≤ n(n - 1)/2 maps m to n^2/2, not n^2 (20 November 2026)
+                mapping[x] = power_of(y, p, ctx.scale(x, y))
             else:
                 candidates.append((y, simplify(substitute(base, mapping))))
         out = []
