@@ -1,0 +1,21 @@
+id: metric-dimension--n--folklore
+problem: metric-dimension
+proved_for: optimisation
+bound:
+  as_stated: "O^*(2^{n})"
+  notation: O*
+  parameters: [n]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: "All-pairs distances ($O(n^2)$ numbers), then one set $S$ at a time."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  folklore: true
+  note: "Compute all distances by breadth-first search from every vertex, then try all $2^n$ sets $S \\subseteq V$ and check in polynomial time that the distance vectors $(d(w, v))_{w \\in S}$ of the vertices $v$ are pairwise distinct. Foucaud et al. (STACS 2025, arXiv 2405.01344v2, Introduction) note that \"a simple brute-force algorithm enumerating all possible candidates runs in $2^{\\mathcal{O}(n)}$ time\"."
+formal: { status: informal }
+status: valid

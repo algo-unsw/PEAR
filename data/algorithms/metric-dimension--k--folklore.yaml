@@ -1,0 +1,21 @@
+id: metric-dimension--k--folklore
+problem: metric-dimension
+proved_for: decision
+bound:
+  as_stated: "O^*(n^{k})"
+  notation: O*
+  parameters: [n, k]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: "All-pairs distances, then one candidate set at a time."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  folklore: true
+  note: "Try all $\\sum_{i \\le k} \\binom{n}{i} = O(n^k)$ sets of at most $k$ vertices and check each in polynomial time (Wikipedia, Metric dimension: \"testing all possible k-tuples\" is not FPT). Hartung and Nichterlein (CCC 2013) proved the problem W[2]-hard parameterized by $k$ (cited in arXiv 2405.01344v2, Introduction), so an XP baseline is the natural bound. TODO(verify): Serge to approve this XP baseline."
+formal: { status: informal }
+status: valid

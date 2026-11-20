@@ -19,6 +19,7 @@ source:
   paper: lokshtanov-mouawad-saurabh-zehavi-2017
   statements:
     arxiv: { statement: "Theorem 1 (Section 1, labelled thm:main)" }
+    icalp: { statement: "Theorem 1" }
   note: "'There exists a (deterministic) polynomial-space algorithm that solves Cycle Packing in time $2^{O(\\frac{k\\log^2k}{\\log\\log k})}\\cdot|V|$. In case a solution exists, it also outputs a solution.' Improves Bodlaender's $2^{O(k^2)} |V|$ (1994) and the textbook $2^{O(k \\log^2 k)} |V|$ algorithm from the Erdős–Pósa theorem."
 formal: { status: informal }
 status: valid
