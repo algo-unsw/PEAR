@@ -22,6 +22,11 @@ versions:
     kind: counting
     input: "A graph $G = (V, E)$."
     goal: "Find, for every $k \\in \\{0, \\dots, n\\}$, the number of sets $S \\subseteq V$ with $|S| = k$ such that every vertex is in $S$ or has a neighbour in $S$."
+    generalises: [counting-max-degree-3]
+  counting-max-degree-3:
+    kind: counting
+    input: "A graph $G = (V, E)$ of maximum degree at most $3$."
+    goal: "Find, for every $k \\in \\{0, \\dots, n\\}$, the number of sets $S \\subseteq V$ with $|S| = k$ such that every vertex is in $S$ or has a neighbour in $S$."
 default_version: counting
 related:
   - { problem: dominating-set, relation: counting }

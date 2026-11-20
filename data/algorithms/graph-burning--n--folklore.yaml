@@ -1,0 +1,21 @@
+id: graph-burning--n--folklore
+problem: graph-burning
+proved_for: decision
+bound:
+  as_stated: "O^*(2^{n})"
+  notation: O*
+  parameters: [n]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: "Polynomial: the inclusion–exclusion sum is accumulated term by term, with the distance matrix precomputed."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  folklore: true
+  note: "Inclusion–exclusion over the uncovered vertices: the number of sequences $(b_0, \\dots, b_{k-1})$ with $\\bigcup_i N_i[b_i] = V$ is $\\sum_{X \\subseteq V} (-1)^{|X|} \\prod_{i=0}^{k-1} |\\{v \\in V : N_i[v] \\cap X = \\emptyset\\}|$, computed in $O^*(2^n)$ time and polynomial space after computing all distances by breadth-first search ($k \\le n$). The answer is yes if and only if the sum is positive."
+formal: { status: informal }
+status: valid

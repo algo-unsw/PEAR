@@ -19,6 +19,16 @@ versions:
     kind: counting
     input: "A graph $G = (V, E)$."
     goal: "Find the number of sets $S \\subseteq V$ such that no edge has both endpoints in $S$."
+    generalises: [counting-max-degree-4]
+  counting-max-degree-3:
+    kind: counting
+    input: "A graph $G = (V, E)$ of maximum degree at most $3$."
+    goal: "Find the number of sets $S \\subseteq V$ such that no edge has both endpoints in $S$."
+  counting-max-degree-4:
+    kind: counting
+    input: "A graph $G = (V, E)$ of maximum degree at most $4$."
+    goal: "Find the number of sets $S \\subseteq V$ such that no edge has both endpoints in $S$."
+    generalises: [counting-max-degree-3]
 default_version: counting
 related:
   - { problem: independent-set, relation: counting }

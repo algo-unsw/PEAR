@@ -1,0 +1,21 @@
+id: firefighter--n--folklore
+problem: firefighter
+proved_for: optimisation
+bound:
+  as_stated: "O^*(2^{n})"
+  notation: O*
+  parameters: [n]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: "Polynomial: one candidate set at a time."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  folklore: true
+  note: "Enumerate the set $P \\subseteq V \\setminus \\{s\\}$ of protected vertices. For $p \\in P$ let $d(p)$ be the distance from $s$ to $p$ in $G - (P \\setminus \\{p\\})$; $P$ can be protected in time if and only if, sorted by $d$, the $i$-th vertex has $d \\ge i$ (protect in this order: by induction the fire stays in $G - P$, and a vertex of $P$ adjacent to the fire at time $t - 1$ has $d \\le t$; conversely the fire reaches $p$ no later than $d(p)$ in any strategy protecting exactly $P$). Then exactly the component of $s$ in $G - P$ burns. Each set is checked in polynomial time; the optimum is the best feasible set."
+formal: { status: informal }
+status: valid

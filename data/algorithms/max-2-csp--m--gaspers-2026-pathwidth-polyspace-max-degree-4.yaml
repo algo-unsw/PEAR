@@ -1,0 +1,25 @@
+id: max-2-csp--m--gaspers-2026-pathwidth-polyspace-max-degree-4
+problem: max-2-csp
+proved_for: optimisation-max-degree-4
+bound:
+  as_stated: 'r^{0.169836m + o(m)}'
+  notation: O
+  parameters:
+  - r
+  - m
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Polynomial space, as stated.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: gaspers-2026-pathwidth
+  statements:
+    arxiv-v1:
+      statement: 'Theorem C.3(b)'
+      page: 153
+  note: 'Stated as $r^{(\frac18+\frac38\alpha)m+o(m)}$ in polynomial space if the constraint graph has maximum degree at most 4, with $\alpha = 2\gamma/3$, $\gamma = 2c_3/(1+4c_3)$; the paper states $\frac18+\frac38\alpha < 0.169836$ (after the theorem), so the implied $r^{0.169836m+o(m)}$ is stored. The algorithm of Gaspers and Sorkin (Separate, Measure and Conquer) with the separators of Lemma C.2(a), lifted to maximum degree 4 with the theorem of Scott and Sorkin. Part (a), for cubic constraint graphs, is not entered (cubic, not maximum degree 3). arXiv v1, 3 November 2026 (read: the LaTeX source of the latest arXiv version, and the v1 PDF for theorem numbers and pages); unrefereed preprint.'

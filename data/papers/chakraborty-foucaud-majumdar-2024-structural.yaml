@@ -1,0 +1,16 @@
+id: chakraborty-foucaud-majumdar-2024-structural
+title: "Structural Parameterization of Locating-Dominating Set and Test Cover"
+authors: [Dipayan Chakraborty, Florent Foucaud, Diptapriyo Majumdar, Prafullkumar Tale]
+identifiers: { dblp: "conf/ciac/ChakrabortyFMT25" }
+versions:
+  arxiv-v1:
+    kind: preprint
+    arxiv: "2411.17948v1"
+    year: 2024
+    open_access: true
+  ciac:
+    kind: conference
+    venue: "14th International Conference on Algorithms and Complexity (CIAC 2025), LNCS 15679, pp. 187–204"
+    year: 2025
+    doi: "10.1007/978-3-031-92932-8_13"
+    open_access: false

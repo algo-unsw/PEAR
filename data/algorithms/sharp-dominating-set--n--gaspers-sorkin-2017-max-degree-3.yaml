@@ -1,0 +1,23 @@
+id: sharp-dominating-set--n--gaspers-sorkin-2017-max-degree-3
+problem: sharp-dominating-set
+proved_for: counting-max-degree-3
+bound:
+  as_stated: '3^{n/5 + o(n)}'
+  notation: O
+  parameters:
+  - n
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Polynomial space, as stated.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: gaspers-sorkin-2017
+  statements:
+    arxiv-v2:
+      statement: 'Theorem 5.1'
+  note: 'Theorem 5.1 (Section 5.1): "The described algorithm solves #Dominating Set in $3^{n/5+o(n)}$ time and polynomial space on subcubic graphs" ($= O(1.2458^n)$, text before the theorem), where #Dominating Set computes the number of dominating sets of each size $k$, $0 \le k \le n$. Separator branching on the cubic structure of $G$ with a 3-way inclusion/exclusion branching, reusing the Max $(3,2)$-CSP analysis of Section 3. arXiv v2, 17 November 2017 (read: LaTeX source); ICALP 2015; ACM TALG 2017.'

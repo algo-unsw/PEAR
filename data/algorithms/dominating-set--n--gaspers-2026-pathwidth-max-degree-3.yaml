@@ -1,0 +1,24 @@
+id: dominating-set--n--gaspers-2026-pathwidth-max-degree-3
+problem: dominating-set
+proved_for: weighted-max-degree-3
+bound:
+  as_stated: '1.1661^{n}'
+  notation: O
+  parameters:
+  - n
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Exponential space, as stated (Theorem 11.4: time and space).'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: gaspers-2026-pathwidth
+  statements:
+    arxiv-v1:
+      statement: 'Theorem 11.4(a)'
+      page: 79
+  note: 'Theorem 11.4 (bounded-degree graph problems), Section 11.4. Part (a): if $\Delta(G) \le 3$, then in time and space $O^*(3^{c_3 n_3+o(n)}) = O(1.1661^n)$ one can count the dominating sets of $G$ of each size, find a minimum weight dominating set and count the dominating sets of minimum weight ($c_3 = \frac{3}{4\pi}\arccos\frac56 < 0.1398222$, $n_3$ the number of degree-3 vertices). Vertex weights are real numbers in Section 11 (PEAR''s nonnegative integer weights are a special case). The dynamic program of Lemma 11.1(b) ($3^{w+1}\mathrm{poly}(n)$, after van Rooij, Bodlaender and Rossmanith) over a path decomposition of width at most $c_3 n_3 + o(n) \le c_3 n + o(n)$ (Lemma 11.2) for maximum degree 3, or $\beta_4(G) + o(n) \le F_4 n + o(n)$ (Theorem 7.1 and Theorem 1.5) for maximum degree 4, computed in polynomial time. arXiv v1, 3 November 2026 (read: the LaTeX source of the latest arXiv version, and the v1 PDF for theorem numbers and pages); unrefereed preprint.'

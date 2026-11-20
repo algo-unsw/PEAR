@@ -1,0 +1,46 @@
+id: graph-burning
+name: Graph Burning
+aliases: [Burning Number, Burning Number Problem, Graph Burning Problem, BNP]
+category: graph
+complexity:
+  class: NP-complete
+  source:
+    paper: bonato-janssen-roshanbin-2015
+    statements:
+      arxiv-v1: { statement: "Theorem 6" }
+    note: "Theorem 6: \"The burning problem is NP-complete for trees of maximum degree three\" (also Theorem 13, spider graphs, and Corollary 14, path-forests). The journal version (Bessy, Bonato, Janssen, Rautenbach and Roshanbin, Discrete Appl. Math. 2017) is the reference cited for NP-completeness by Kobayashi and Otachi (arXiv 2007.08811, Section 1.1). No Wikipedia article on the problem was found (TODO(verify))."
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  k: { meaning: "the solution size: the integer $k$ in the input (decision, search), or the burning number of $G$ (optimisation)" }
+  td: { meaning: "the treedepth of $G$: the minimum height of a rooted forest $F$ on $V$ such that every edge of $G$ joins a vertex and one of its ancestors in $F$" }
+  mw: { meaning: "the modular-width of $G$" }
+  dco: { meaning: "the distance to cographs: the minimum number of vertices whose deletion leaves a cograph ($P_4$-free graph)" }
+  ds: { meaning: "the distance to split graphs: the minimum number of vertices whose deletion leaves a split graph" }
+constraints:
+  - { constraint: "k \\le n", because: "Any ordering of all $n$ vertices is a burning sequence, so every instance with $k \\ge n$ is a yes-instance, answered in polynomial time." }
+  - { constraint: "td \\le n", because: "A path through all vertices, rooted at one end, has height $n$ and contains every edge between ancestor and descendant." }
+  - { constraint: "dco \\le n", because: "Deleting all vertices leaves the empty graph, a cograph." }
+  - { constraint: "ds \\le n", because: "Deleting all vertices leaves the empty graph, a split graph." }
+  - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
+versions:
+  decision:
+    kind: decision
+    input: "A graph $G = (V, E)$ and an integer $k$."
+    question: "Is there a sequence $(b_0, \\dots, b_{k-1})$ of vertices such that every vertex of $G$ has distance at most $i$ from $b_i$ for some $i$?"
+  optimisation:
+    kind: optimisation
+    input: "A graph $G = (V, E)$."
+    goal: "Find the minimum length $k$ of a sequence $(b_0, \\dots, b_{k-1})$ of vertices such that every vertex of $G$ has distance at most $i$ from $b_i$ for some $i$ (the burning number of $G$)."
+  search:
+    kind: search
+    input: "A graph $G = (V, E)$ and an integer $k$."
+    goal: "Find a sequence $(b_0, \\dots, b_{k-1})$ of vertices such that every vertex of $G$ has distance at most $i$ from $b_i$ for some $i$, or report that none exists."
+default_version: decision
+shared_bounds:
+  - versions: [decision, optimisation]
+    because: "Binary search on $k$ (at most $\\log_2 n$ calls, since $k \\le n$)."
+related:
+  - { problem: dominating-set, relation: variant }

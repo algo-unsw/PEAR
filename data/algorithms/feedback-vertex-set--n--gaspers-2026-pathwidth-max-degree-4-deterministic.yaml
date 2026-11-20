@@ -1,0 +1,24 @@
+id: feedback-vertex-set--n--gaspers-2026-pathwidth-max-degree-4-deterministic
+problem: feedback-vertex-set
+proved_for: decision-max-degree-4
+bound:
+  as_stated: '1.4853^{n}'
+  notation: O
+  parameters:
+  - n
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Exponential space, as stated (Theorem 14.1: all algorithms of the theorem use exponential space).'
+  algebraic: true
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: gaspers-2026-pathwidth
+  statements:
+    arxiv-v1:
+      statement: 'Theorem 14.1(a)'
+      page: 86
+  note: 'Theorem 14.1 (connectivity problems): polynomial factors omitted, all algorithms use exponential space, and the Monte Carlo algorithms have one-sided error at most $\frac12$. Part (a): Feedback Vertex Set deterministically in time $5^{F_4 n+o(n)} = O(1.4853^n)$ on graphs of maximum degree 4 ($F_4 < 0.24577198$). Proof (Appendix A.7.3): the deterministic algorithm of Bodlaender, Cygan, Kratsch and Nederlof in time $5^{\mathrm{pw}} n^{O(1)}$ (their Theorem 4.5) on a path decomposition of width at most $F_4 n + o(n)$. arXiv v1, 3 November 2026 (read: the LaTeX source of the latest arXiv version, and the v1 PDF for theorem numbers and pages); unrefereed preprint.'

@@ -1,0 +1,25 @@
+id: connected-vertex-cover--n--gaspers-2026-pathwidth-max-degree-4
+problem: connected-vertex-cover
+proved_for: decision-max-degree-4
+bound:
+  as_stated: '1.2600^{n}'
+  notation: O
+  parameters:
+  - n
+properties:
+  randomized:
+    error: one-sided
+  space:
+    class: exponential
+    bound: 'Exponential space, as stated (Theorem 14.1: all algorithms of the theorem use exponential space).'
+  algebraic: true
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: gaspers-2026-pathwidth
+  statements:
+    arxiv-v1:
+      statement: 'Theorem 14.1(a)'
+      page: 86
+  note: 'Theorem 14.1 (connectivity problems): polynomial factors omitted, all algorithms use exponential space, and the Monte Carlo algorithms have one-sided error at most $\frac12$. Part (a): Connected Vertex Cover by a Monte Carlo algorithm in time $2^{m/6+o(n)} \le 2^{n/3+o(n)} = O(1.2600^n)$ on graphs with $m$ edges and maximum degree 4. Proof (Appendix A.7.3): the Monte Carlo algorithms of Bojikian, Chekan, Hegerfeld and Kratsch for a given linear ordering of cutwidth ctw, in time $2^{\mathrm{ctw}} n^{O(1)}$ (their Theorems 12 and 43), run on an ordering computed in deterministic polynomial time (Theorem 10.3), of cutwidth at most $\frac m6 + o(n)$. arXiv v1, 3 November 2026 (read: the LaTeX source of the latest arXiv version, and the v1 PDF for theorem numbers and pages); unrefereed preprint.'

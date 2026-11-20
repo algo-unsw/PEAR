@@ -1,0 +1,23 @@
+id: kobayashi-otachi-2020
+title: "Parameterized Complexity of Graph Burning"
+authors: [Yasuaki Kobayashi, Yota Otachi]
+identifiers: { dblp: "journals/algorithmica/KobayashiO22" }
+versions:
+  arxiv-v2:
+    kind: preprint
+    arxiv: "2007.08811v2"
+    year: 2020
+    open_access: true
+  ipec:
+    kind: conference
+    venue: "15th International Symposium on Parameterized and Exact Computation (IPEC 2020), LIPIcs 180, pp. 21:1–21:10"
+    year: 2020
+    doi: "10.4230/LIPIcs.IPEC.2020.21"
+    url: "https://drops.dagstuhl.de/storage/00lipics/lipics-vol180-ipec2020/LIPIcs.IPEC.2020.21/LIPIcs.IPEC.2020.21.pdf"
+    open_access: true
+  journal:
+    kind: journal
+    venue: "Algorithmica 84(8), pp. 2379–2393"
+    year: 2022
+    doi: "10.1007/s00453-022-00962-8"
+    open_access: false

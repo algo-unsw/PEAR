@@ -1,0 +1,23 @@
+id: aazami-stilp-2007
+title: "Approximation Algorithms and Hardness for Domination with Propagation"
+authors: [Ashkan Aazami, Michael D. Stilp]
+identifiers: { dblp: "journals/siamdm/AazamiS09" }
+versions:
+  arxiv-v1:
+    kind: preprint
+    arxiv: "0710.2139v1"
+    year: 2007
+    open_access: true
+  approx:
+    kind: workshop
+    venue: "10th International Workshop on Approximation Algorithms for Combinatorial Optimization Problems (APPROX 2007), LNCS 4627, pp. 1–15"
+    year: 2007
+    doi: "10.1007/978-3-540-74208-1_1"
+    open_access: false
+  journal:
+    kind: journal
+    authors: [Ashkan Aazami, Kael Stilp]
+    venue: "SIAM Journal on Discrete Mathematics 23(3), pp. 1382–1399"
+    year: 2009
+    doi: "10.1137/06066672X"
+    open_access: false

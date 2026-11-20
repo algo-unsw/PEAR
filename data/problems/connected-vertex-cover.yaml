@@ -27,6 +27,7 @@ versions:
     kind: decision
     input: "A connected graph $G = (V, E)$ and an integer $k$."
     question: "Is there a set $S \\subseteq V$ with $|S| \\le k$ such that every edge has an endpoint in $S$ and $G[S]$ is connected?"
+    generalises: [decision-max-degree-5]
   optimisation:
     kind: optimisation
     input: "A connected graph $G = (V, E)$."
@@ -40,10 +41,31 @@ versions:
     input: "A connected graph $G = (V, E)$ and vertex weights $w \\colon V \\to \\mathbb{Z}_{\\ge 0}$."
     goal: "Find the minimum weight $\\sum_{v \\in S} w(v)$ of a set $S \\subseteq V$ such that every edge has an endpoint in $S$ and $G[S]$ is connected."
     generalises: [optimisation]
+  decision-max-degree-4:
+    kind: decision
+    input: "A connected graph $G = (V, E)$ of maximum degree at most $4$ and an integer $k$."
+    question: "Is there a set $S \\subseteq V$ with $|S| \\le k$ such that every edge has an endpoint in $S$ and $G[S]$ is connected?"
+  optimisation-max-degree-4:
+    kind: optimisation
+    input: "A connected graph $G = (V, E)$ of maximum degree at most $4$."
+    goal: "Find the minimum size of a set $S \\subseteq V$ such that every edge has an endpoint in $S$ and $G[S]$ is connected."
+  decision-max-degree-5:
+    kind: decision
+    input: "A connected graph $G = (V, E)$ of maximum degree at most $5$ and an integer $k$."
+    question: "Is there a set $S \\subseteq V$ with $|S| \\le k$ such that every edge has an endpoint in $S$ and $G[S]$ is connected?"
+    generalises: [decision-max-degree-4]
+  optimisation-max-degree-5:
+    kind: optimisation
+    input: "A connected graph $G = (V, E)$ of maximum degree at most $5$."
+    goal: "Find the minimum size of a set $S \\subseteq V$ such that every edge has an endpoint in $S$ and $G[S]$ is connected."
 default_version: decision
 shared_bounds:
   - versions: [decision, optimisation, search]
     because: "Binary search on $k$ and self-reducibility."
+  - versions: [decision-max-degree-4, optimisation-max-degree-4]
+    because: "Binary search on $k$."
+  - versions: [decision-max-degree-5, optimisation-max-degree-5]
+    because: "Binary search on $k$."
 related:
   - { problem: vertex-cover, relation: variant }
   - { problem: connected-dominating-set, relation: variant }

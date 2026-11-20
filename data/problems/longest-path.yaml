@@ -23,6 +23,7 @@ versions:
     kind: decision
     input: "A graph $G = (V, E)$ and an integer $k$."
     question: "Does $G$ contain a path with $k$ vertices (as a subgraph)?"
+    generalises: [decision-max-degree-5]
   optimisation:
     kind: optimisation
     input: "A graph $G = (V, E)$."
@@ -31,9 +32,53 @@ versions:
     kind: search
     input: "A graph $G = (V, E)$ and an integer $k$."
     goal: "Find a path with $k$ vertices in $G$, or report that none exists."
+  decision-max-degree-3:
+    kind: decision
+    input: "A graph $G = (V, E)$ of maximum degree at most $3$ and an integer $k$."
+    question: "Does $G$ contain a path with $k$ vertices (as a subgraph)?"
+  optimisation-max-degree-3:
+    kind: optimisation
+    input: "A graph $G = (V, E)$ of maximum degree at most $3$."
+    goal: "Find the maximum number of vertices of a path in $G$."
+  search-max-degree-3:
+    kind: search
+    input: "A graph $G = (V, E)$ of maximum degree at most $3$ and an integer $k$."
+    goal: "Find a path with $k$ vertices in $G$, or report that none exists."
+  decision-max-degree-4:
+    kind: decision
+    input: "A graph $G = (V, E)$ of maximum degree at most $4$ and an integer $k$."
+    question: "Does $G$ contain a path with $k$ vertices (as a subgraph)?"
+    generalises: [decision-max-degree-3]
+  optimisation-max-degree-4:
+    kind: optimisation
+    input: "A graph $G = (V, E)$ of maximum degree at most $4$."
+    goal: "Find the maximum number of vertices of a path in $G$."
+  search-max-degree-4:
+    kind: search
+    input: "A graph $G = (V, E)$ of maximum degree at most $4$ and an integer $k$."
+    goal: "Find a path with $k$ vertices in $G$, or report that none exists."
+  decision-max-degree-5:
+    kind: decision
+    input: "A graph $G = (V, E)$ of maximum degree at most $5$ and an integer $k$."
+    question: "Does $G$ contain a path with $k$ vertices (as a subgraph)?"
+    generalises: [decision-max-degree-4]
+  optimisation-max-degree-5:
+    kind: optimisation
+    input: "A graph $G = (V, E)$ of maximum degree at most $5$."
+    goal: "Find the maximum number of vertices of a path in $G$."
+  search-max-degree-5:
+    kind: search
+    input: "A graph $G = (V, E)$ of maximum degree at most $5$ and an integer $k$."
+    goal: "Find a path with $k$ vertices in $G$, or report that none exists."
 default_version: decision
 shared_bounds:
   - versions: [decision, optimisation, search]
     because: "Search over $k$ and self-reducibility (delete a vertex or an edge and test again)."
+  - versions: [decision-max-degree-3, optimisation-max-degree-3, search-max-degree-3]
+    because: "Search over $k$ and self-reducibility (delete a vertex or an edge and test again); deletions keep the maximum degree at most $3$."
+  - versions: [decision-max-degree-4, optimisation-max-degree-4, search-max-degree-4]
+    because: "Search over $k$ and self-reducibility (delete a vertex or an edge and test again); deletions keep the maximum degree at most $4$."
+  - versions: [decision-max-degree-5, optimisation-max-degree-5, search-max-degree-5]
+    because: "Search over $k$ and self-reducibility (delete a vertex or an edge and test again); deletions keep the maximum degree at most $5$."
 related:
   - { problem: hamiltonian-cycle, relation: variant }

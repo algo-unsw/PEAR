@@ -25,14 +25,47 @@ versions:
     kind: decision
     input: "A graph $G = (V, E)$."
     question: "Is there a cycle in $G$ that contains every vertex exactly once?"
+    generalises: [decision-max-degree-5]
   search:
     kind: search
     input: "A graph $G = (V, E)$."
+    goal: "Find a cycle in $G$ that contains every vertex exactly once, or report that none exists."
+  decision-max-degree-3:
+    kind: decision
+    input: "A graph $G = (V, E)$ of maximum degree at most $3$."
+    question: "Is there a cycle in $G$ that contains every vertex exactly once?"
+  search-max-degree-3:
+    kind: search
+    input: "A graph $G = (V, E)$ of maximum degree at most $3$."
+    goal: "Find a cycle in $G$ that contains every vertex exactly once, or report that none exists."
+  decision-max-degree-4:
+    kind: decision
+    input: "A graph $G = (V, E)$ of maximum degree at most $4$."
+    question: "Is there a cycle in $G$ that contains every vertex exactly once?"
+    generalises: [decision-max-degree-3]
+  search-max-degree-4:
+    kind: search
+    input: "A graph $G = (V, E)$ of maximum degree at most $4$."
+    goal: "Find a cycle in $G$ that contains every vertex exactly once, or report that none exists."
+  decision-max-degree-5:
+    kind: decision
+    input: "A graph $G = (V, E)$ of maximum degree at most $5$."
+    question: "Is there a cycle in $G$ that contains every vertex exactly once?"
+    generalises: [decision-max-degree-4]
+  search-max-degree-5:
+    kind: search
+    input: "A graph $G = (V, E)$ of maximum degree at most $5$."
     goal: "Find a cycle in $G$ that contains every vertex exactly once, or report that none exists."
 default_version: decision
 shared_bounds:
   - versions: [decision, search]
     because: "Self-reducibility: delete edges one at a time while a Hamiltonian cycle remains."
+  - versions: [decision-max-degree-3, search-max-degree-3]
+    because: "Self-reducibility: delete edges one at a time while a Hamiltonian cycle remains; deleting edges keeps the maximum degree at most $3$."
+  - versions: [decision-max-degree-4, search-max-degree-4]
+    because: "Self-reducibility: delete edges one at a time while a Hamiltonian cycle remains; deleting edges keeps the maximum degree at most $4$."
+  - versions: [decision-max-degree-5, search-max-degree-5]
+    because: "Self-reducibility: delete edges one at a time while a Hamiltonian cycle remains; deleting edges keeps the maximum degree at most $5$."
 related: []
 implementations:
   as_of: 2026-11-13

@@ -1,0 +1,11 @@
+id: finbow-king-macgillivray-2007
+title: "The firefighter problem for graphs of maximum degree three"
+authors: [Stephen Finbow, Andrew D. King, Gary MacGillivray, Romeo Rizzi]
+identifiers: { dblp: "journals/dm/FinbowKMR07" }
+versions:
+  journal:
+    kind: journal
+    venue: "Discrete Mathematics 307(16), pp. 2094–2105"
+    year: 2007
+    doi: "10.1016/j.disc.2005.12.053"
+    open_access: false

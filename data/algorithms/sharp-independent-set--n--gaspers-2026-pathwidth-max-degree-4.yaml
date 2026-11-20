@@ -1,0 +1,24 @@
+id: sharp-independent-set--n--gaspers-2026-pathwidth-max-degree-4
+problem: sharp-independent-set
+proved_for: counting-max-degree-4
+bound:
+  as_stated: '1.2037^{n}'
+  notation: O
+  parameters:
+  - n
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Polynomial space, as stated.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: gaspers-2026-pathwidth
+  statements:
+    arxiv-v1:
+      statement: 'Theorem C.6(b)'
+      page: 158
+  note: 'Theorem C.6(b): the number of independent sets of $G$ can be computed in polynomial space and time $O(1.2037^n)$ if $\Delta(G) \le 4$. Previous bound $O(1.2070^n)$ (Gaspers and Lee, Lemma 6). Computer-assisted analysis. arXiv v1, 3 November 2026 (read: the LaTeX source of the latest arXiv version, and the v1 PDF for theorem numbers and pages); unrefereed preprint.'

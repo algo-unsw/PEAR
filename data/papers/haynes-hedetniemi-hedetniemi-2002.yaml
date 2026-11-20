@@ -1,0 +1,11 @@
+id: haynes-hedetniemi-hedetniemi-2002
+title: "Domination in Graphs Applied to Electric Power Networks"
+authors: [Teresa W. Haynes, Sandra M. Hedetniemi, Stephen T. Hedetniemi, Michael A. Henning]
+identifiers: { dblp: "journals/siamdm/HaynesHHH02" }
+versions:
+  journal:
+    kind: journal
+    venue: "SIAM Journal on Discrete Mathematics 15(4), pp. 519–529"
+    year: 2002
+    doi: "10.1137/S0895480100375831"
+    open_access: false

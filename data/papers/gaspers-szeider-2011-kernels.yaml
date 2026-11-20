@@ -14,3 +14,16 @@ versions:
     year: 2011
     doi: "10.5591/978-1-57735-516-8/IJCAI11-098"
     open_access: false
+  journal:
+    kind: journal
+    title: "Guarantees and limits of preprocessing in constraint satisfaction and reasoning"
+    venue: "Artificial Intelligence 216, pp. 1–19"
+    year: 2014
+    doi: "10.1016/j.artint.2014.06.006"
+    open_access: false
+  arxiv-journal:
+    kind: preprint
+    title: "Guarantees and Limits of Preprocessing in Constraint Satisfaction and Reasoning"
+    year: 2014
+    arxiv: "1406.3124"
+    open_access: true

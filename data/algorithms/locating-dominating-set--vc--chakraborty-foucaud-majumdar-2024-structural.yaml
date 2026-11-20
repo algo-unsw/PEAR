@@ -1,0 +1,23 @@
+id: locating-dominating-set--vc--chakraborty-foucaud-majumdar-2024-structural
+problem: locating-dominating-set
+proved_for: decision
+bound:
+  as_stated: "2^{O(vc \\log vc)} \\cdot n^{O(1)}"
+  notation: O
+  parameters: [vc, n]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: "Not stated. Guess: exponential, $2^{O(vc \\log vc)} n^{O(1)}$: a dynamic programming scheme for a generalised partition refinement problem with $2^{O(|B| \\log |B|)} |R|$ states."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: chakraborty-foucaud-majumdar-2024-structural
+  statements:
+    arxiv-v1: { statement: "Theorem 1.1" }
+  note: "No vertex cover needs to be given: the algorithm first computes a minimum vertex cover in $1.2528^{vc} n^{O(1)}$ time. Theorem 1.2 of the same paper gives a kernel with $O(fes)$ vertices and edges, $fes$ the feedback edge set number."
+formal: { status: informal }
+status: valid

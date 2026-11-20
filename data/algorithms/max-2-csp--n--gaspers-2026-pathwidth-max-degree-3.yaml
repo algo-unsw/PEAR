@@ -1,0 +1,25 @@
+id: max-2-csp--n--gaspers-2026-pathwidth-max-degree-3
+problem: max-2-csp
+proved_for: optimisation-max-degree-3
+bound:
+  as_stated: 'O^*(r^{0.1398222n + o(n)})'
+  notation: O*
+  parameters:
+  - r
+  - n
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Exponential space, as stated (Theorem 11.3: time and space).'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: gaspers-2026-pathwidth
+  statements:
+    arxiv-v1:
+      statement: 'Theorem 11.3(3)'
+      page: 78
+  note: 'Stated as $O^*(r^{c_3 n_3+o(n)})$ in time and space if the constraint graph has maximum degree at most 3, with $n_3$ its number of degree-3 vertices and $c_3 = \frac{3}{4\pi}\arccos\frac56 < 0.1398222$ (Section 11.1); since $n_3 \le n$, the implied $O^*(r^{0.1398222n+o(n)})$ is stored (the bound language has no $\arccos$). Dynamic program of Lemma 11.1(a), which finds an optimal assignment, over a path decomposition of the constraint graph (Lemma 11.2). For cubic constraint graphs the paper notes $r^{(2c_3/3)m+o(m)}$ with $2c_3/3 < 0.09322$. arXiv v1, 3 November 2026 (read: the LaTeX source of the latest arXiv version, and the v1 PDF for theorem numbers and pages); unrefereed preprint.'

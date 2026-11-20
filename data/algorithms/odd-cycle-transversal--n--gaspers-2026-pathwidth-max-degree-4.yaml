@@ -1,0 +1,24 @@
+id: odd-cycle-transversal--n--gaspers-2026-pathwidth-max-degree-4
+problem: odd-cycle-transversal
+proved_for: optimisation-max-degree-4
+bound:
+  as_stated: '1.2600^{n}'
+  notation: O
+  parameters:
+  - n
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Not stated (Theorem 11.4(e) says time only). Educated guess: exponential, since the algorithm of Bojikian, Chekan, Hegerfeld and Kratsch is a dynamic program over a linear ordering of small cutwidth (tables indexed by states of the edges of a cut).'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: gaspers-2026-pathwidth
+  statements:
+    arxiv-v1:
+      statement: 'Theorem 11.4(e)'
+      page: 79
+  note: 'Theorem 11.4 (bounded-degree graph problems), Section 11.4. Part (e): a minimum odd cycle transversal of $G$ can be found by a deterministic algorithm in time $O^*(2^{m/6+o(n)}) = O(1.2600^n)$ if $\Delta(G) \le 4$, where $m = |E(G)|$. Proof: an ordering of cutwidth at most $\frac m6 + o(n) \le \frac n3 + o(n)$ (Theorem 10.3) and the deterministic algorithm of Bojikian, Chekan, Hegerfeld and Kratsch in time $2^{\mathrm{ctw}} n^{O(1)}$ for a given ordering of cutwidth ctw (their Theorem 36). arXiv v1, 3 November 2026 (read: the LaTeX source of the latest arXiv version, and the v1 PDF for theorem numbers and pages); unrefereed preprint.'

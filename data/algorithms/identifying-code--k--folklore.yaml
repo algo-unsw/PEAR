@@ -1,0 +1,21 @@
+id: identifying-code--k--folklore
+problem: identifying-code
+proved_for: decision
+bound:
+  as_stated: "O^*(2^{k^{2}})"
+  notation: O*
+  parameters: [k]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: "One candidate set at a time."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  folklore: true
+  note: "If $S$ is an identifying code, the sets $N[v] \\cap S$ are $n$ distinct nonempty subsets of $S$, so $n \\le 2^{k} - 1$ (Karpovsky, Chakrabarty and Levitin 1998). Answer no if $n \\ge 2^{k}$; otherwise try all $\\sum_{i \\le k} \\binom{n}{i} \\le 2^{k^2}$ sets of at most $k$ vertices and check each in time polynomial in $n \\le 2^k$. Foucaud, Mertzios, Naserasr, Parreau and Valicov (arXiv 1405.2424, Introduction) describe this FPT algorithm for Identifying Code and Locating-Dominating Set without stating its running time; Chakraborty, Foucaud, Majumdar and Tale (arXiv 2402.08346v4, Proposition 13) state the same argument with time $2^{O(k^2)} + O(k \\log n)$ for Locating-Dominating Set."
+formal: { status: informal }
+status: valid
