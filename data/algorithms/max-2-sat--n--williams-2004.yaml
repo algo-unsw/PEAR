@@ -1,0 +1,24 @@
+id: max-2-sat--n--williams-2004
+problem: max-2-sat
+proved_for: optimisation
+bound:
+  as_stated: 'm^{3} 2^{\omega n / 3}'
+  notation: O
+  parameters:
+  - m
+  - n
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Not stated; educated guess: exponential. The algorithm lists the $2^{n/3}$ partial assignments of each third of the variables and counts triangles with matrix multiplication (the same algorithm as for Max Cut).'
+  algebraic: true
+  fast_matrix_multiplication: true
+  constructive: true
+  quantum: false
+source:
+  paper: williams-2004
+  statements:
+    eccc:
+      statement: 'Corollary 3.1 (abstract: $O(m^3 2^{\omega n/3})$)'
+  note: 'Counts the optimal assignments of a Max 2-SAT instance (Corollary 3.1: $O(m^3 1.732^n)$; an explicit optimal assignment in $O(n m^3 1.732^n)$); the abstract states $O(m^3 2^{\omega n/3})$. ICALP 2004; Theoretical Computer Science 2005.'

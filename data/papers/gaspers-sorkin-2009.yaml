@@ -1,0 +1,24 @@
+id: gaspers-sorkin-2009
+title: "A universally fastest algorithm for Max 2-Sat, Max 2-CSP, and everything in between"
+authors:
+- Serge Gaspers
+- Gregory B. Sorkin
+identifiers: { dblp: "journals/jcss/GaspersS12", openalex: null }
+versions:
+  arxiv-v1:
+    kind: preprint
+    year: 2009
+    arxiv: 0906.3527v1
+    open_access: true
+  soda:
+    kind: conference
+    venue: "Proceedings of the Twentieth Annual ACM-SIAM Symposium on Discrete Algorithms (SODA 2009)"
+    year: 2009
+    doi: "10.1137/1.9781611973068.67"
+    open_access: false
+  journal:
+    kind: journal
+    venue: "Journal of Computer and System Sciences 78(1), pp. 305–335"
+    year: 2012
+    doi: "10.1016/j.jcss.2011.05.010"
+    open_access: false

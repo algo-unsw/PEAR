@@ -1,0 +1,24 @@
+id: sharp-independent-set
+name: "#Independent Set"
+aliases: ["#IS", "Counting Independent Sets", "#Independent Sets"]
+category: graph
+complexity:
+  class: "#P-complete"
+  source:
+    folklore: true
+    note: "Provan and Ball (SIAM J. Comput. 12(4), 1983; not opened) proved counting independent sets #P-complete. Cited for this by Dyer and Müller, \"Counting Independent Sets in Cocomparability Graphs\" (https://arxiv.org/pdf/1808.09853: \"Counting independent sets in graphs is known to be #P-complete in general [12]\", [12] = Provan and Ball), and by Heinrich and Müller (https://eprints.whiterose.ac.uk/id/eprint/179329/: \"#P-hard in general graphs\", [PB83]); Dyer and Greenhill (https://algorithms.leeds.ac.uk/wp-content/uploads/sites/117/2017/09/dg00b.pdf) state it is #P-complete even on line graphs, citing Valiant 1979. Membership in #P is immediate. TODO(verify): add a paper file provan-ball-1983 with three attestations that cite it, or cite valiant-1979 as Wikipedia does (Wikipedia was not checked)."
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters: {}
+constraints:
+  - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
+versions:
+  counting:
+    kind: counting
+    input: "A graph $G = (V, E)$."
+    goal: "Find the number of sets $S \\subseteq V$ such that no edge has both endpoints in $S$."
+default_version: counting
+related:
+  - { problem: independent-set, relation: counting }

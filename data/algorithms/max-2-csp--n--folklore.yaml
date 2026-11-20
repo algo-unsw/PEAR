@@ -1,0 +1,21 @@
+id: max-2-csp--n--folklore
+problem: max-2-csp
+proved_for: optimisation
+bound:
+  as_stated: O^*(r^{n})
+  notation: O*
+  parameters:
+  - r
+  - n
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: One assignment at a time.
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  folklore: true
+  note: Try all $r^n$ assignments $\phi \colon V \to [r]$ and add up the scores of each in polynomial time (brute force).

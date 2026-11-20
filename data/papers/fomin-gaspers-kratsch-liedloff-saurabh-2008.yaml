@@ -1,0 +1,19 @@
+id: fomin-gaspers-kratsch-liedloff-saurabh-2008
+title: "Iterative Compression and Exact Algorithms"
+authors: [Fedor V. Fomin, Serge Gaspers, Dieter Kratsch, Mathieu Liedloff, Saket Saurabh]
+identifiers: { dblp: journals/tcs/FominGKLS10, openalex: null }
+versions:
+  mfcs:
+    kind: conference
+    venue: "Mathematical Foundations of Computer Science 2008 (MFCS 2008), LNCS 5162, pp. 335–346"
+    year: 2008
+    doi: "10.1007/978-3-540-85238-4_27"
+    url: "https://cgi.cse.unsw.edu.au/~sergeg/papers/Mfcs2008.pdf"
+    open_access: true
+  journal:
+    kind: journal
+    venue: "Theoretical Computer Science 411(7–9), pp. 1045–1053"
+    year: 2010
+    doi: "10.1016/j.tcs.2009.11.012"
+    url: "https://folk.uib.no/nmiff/articles/2010/2010b.pdf"
+    open_access: true

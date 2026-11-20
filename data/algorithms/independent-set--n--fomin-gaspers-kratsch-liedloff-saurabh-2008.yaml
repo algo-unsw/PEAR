@@ -1,0 +1,24 @@
+id: independent-set--n--fomin-gaspers-kratsch-liedloff-saurabh-2008
+problem: independent-set
+proved_for: optimisation
+bound:
+  as_stated: 'O(1.3196^{n})'
+  notation: O
+  parameters: [n]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Not stated; educated guess: polynomial. Iterative compression keeps only the current vertex cover; the compression step enumerates the minimal vertex covers of the old solution (maximal independent sets, listed with polynomial delay) and completes each by a bipartite matching. No memoization or dynamic programming found.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: fomin-gaspers-kratsch-liedloff-saurabh-2008
+  statements:
+    journal: { statement: "Theorem 5" }
+    mfcs: { statement: "Theorem 1" }
+  note: 'Stated for Maximum Independent Set and Minimum Vertex Cover, as an illustration of iterative compression for exact algorithms; much faster algorithms were known (e.g. Robson). Entered for the bound history.'
+formal: { status: informal }
+status: valid

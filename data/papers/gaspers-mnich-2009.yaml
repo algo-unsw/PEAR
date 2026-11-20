@@ -1,0 +1,29 @@
+id: gaspers-mnich-2009
+title: "Feedback Vertex Sets in Tournaments"
+authors: [Serge Gaspers, Matthias Mnich]
+identifiers: { dblp: journals/jgt/GaspersM13, openalex: null }
+versions:
+  arxiv-v1:
+    kind: preprint
+    title: "On Feedback Vertex Sets in Tournaments"
+    arxiv: "0905.0567v1"
+    year: 2009
+    open_access: true
+  esa:
+    kind: conference
+    venue: "Algorithms – ESA 2010, 18th Annual European Symposium, Part I, LNCS 6346, pp. 267–277"
+    year: 2010
+    doi: "10.1007/978-3-642-15775-2_23"
+    url: "https://cgi.cse.unsw.edu.au/~sergeg/papers/Esa2010.pdf"
+    open_access: true
+  arxiv-v3:
+    kind: preprint
+    arxiv: "0905.0567v3"
+    year: 2011
+    open_access: true
+  journal:
+    kind: journal
+    venue: "Journal of Graph Theory 72(1), pp. 72–89"
+    year: 2013
+    doi: "10.1002/jgt.21631"
+    open_access: false

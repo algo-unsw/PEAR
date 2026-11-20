@@ -1,0 +1,12 @@
+id: feedback-vertex-set-in-tournaments--to--directed-feedback-vertex-set
+from: { problem: feedback-vertex-set-in-tournaments, version: decision }
+to: { problem: directed-feedback-vertex-set, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(n + m)"
+parameter_map: { n: "n", m: "m", k: "k", tw: "n" }
+source:
+  folklore: true
+  note: "Special case: a tournament is a directed graph (Kumar and Lokshtanov, Section 1: FVST is Directed Feedback Vertex Set restricted to tournaments). Its underlying undirected graph is complete, of treewidth $n - 1$."
+  reference: { paper: kumar-lokshtanov-2015, version: arxiv-v1, statement: "Section 1" }
+status: valid

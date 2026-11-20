@@ -1,0 +1,38 @@
+id: max-2-csp
+name: Max 2-CSP
+aliases: ["Max (r,2)-CSP", "Max (d,2)-CSP", MAX-2-CSP, Maximum 2-Constraint Satisfaction, Binary Max-CSP]
+category: satisfiability
+complexity:
+  class: NP-complete
+  source:
+    folklore: true
+    note: "Max Cut and Max 2-SAT are the special cases with domain size $r = 2$ (reductions `max-cut--to--max-2-csp` and `max-2-sat--to--max-2-csp`), and both are NP-complete; the problem is in NP for scores given in binary."
+objects:
+  n: number of variables (vertices of the constraint graph)
+  m: number of constraints (edges of the constraint graph)
+  N: total encoding length of the input
+parameters:
+  r: { meaning: "the domain size: the variables take values in $[r] = \\{1, \\dots, r\\}$" }
+  k: { meaning: "the score: the integer $k$ in the input (decision, search), or the maximum score of an assignment (optimisation)", poly_bounded: false }
+constraints:
+  - { constraint: "m \\le n(n - 1)/2", because: "Two constraints on the same pair of variables can be merged into one by adding their score functions, and a constraint on a single variable is a unary score." }
+versions:
+  decision:
+    kind: decision
+    input: "An integer $r \\ge 2$, a graph $G = (V, E)$ (the constraint graph, whose vertices are the variables), integer score functions $s_v \\colon [r] \\to \\mathbb{Z}$ for $v \\in V$ and $s_{uv} \\colon [r]^2 \\to \\mathbb{Z}$ for $uv \\in E$, and an integer $k$."
+    question: "Is there an assignment $\\phi \\colon V \\to [r]$ whose score $\\sum_{v \\in V} s_v(\\phi(v)) + \\sum_{uv \\in E} s_{uv}(\\phi(u), \\phi(v))$ is at least $k$?"
+  optimisation:
+    kind: optimisation
+    input: "An integer $r \\ge 2$, a graph $G = (V, E)$ (the constraint graph, whose vertices are the variables), and integer score functions $s_v \\colon [r] \\to \\mathbb{Z}$ for $v \\in V$ and $s_{uv} \\colon [r]^2 \\to \\mathbb{Z}$ for $uv \\in E$."
+    goal: "Find the maximum score $\\sum_{v \\in V} s_v(\\phi(v)) + \\sum_{uv \\in E} s_{uv}(\\phi(u), \\phi(v))$ of an assignment $\\phi \\colon V \\to [r]$."
+  search:
+    kind: search
+    input: "An integer $r \\ge 2$, a graph $G = (V, E)$ (the constraint graph, whose vertices are the variables), integer score functions $s_v \\colon [r] \\to \\mathbb{Z}$ for $v \\in V$ and $s_{uv} \\colon [r]^2 \\to \\mathbb{Z}$ for $uv \\in E$, and an integer $k$."
+    goal: "Find an assignment $\\phi \\colon V \\to [r]$ whose score $\\sum_{v \\in V} s_v(\\phi(v)) + \\sum_{uv \\in E} s_{uv}(\\phi(u), \\phi(v))$ is at least $k$, or report that none exists."
+default_version: decision
+shared_bounds:
+  - versions: [decision, optimisation, search]
+    because: "Binary search on $k$ (the scores are integers in binary, so polynomially many steps suffice) and self-reducibility: fix variables one at a time."
+related:
+  - { problem: max-2-sat, relation: special-case }
+  - { problem: max-cut, relation: special-case }

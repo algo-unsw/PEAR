@@ -1,0 +1,28 @@
+id: clinch-gaspers-saffidine-zhang-2024
+title: A Piecewise Approach for the Analysis of Exact Algorithms
+authors:
+- Katie Clinch
+- Serge Gaspers
+- Abdallah Saffidine
+- Tiankuang Zhang
+identifiers: { dblp: journals/tcs/ClinchGHSZ26 }
+versions:
+  arxiv:
+    kind: preprint
+    year: 2024
+    arxiv: "2402.10015"
+    open_access: true
+  walcom:
+    kind: conference
+    authors: [Katie Clinch, Serge Gaspers, Zixu He, Abdallah Saffidine, Tiankuang Zhang]
+    venue: "WALCOM: Algorithms and Computation (WALCOM 2025), Lecture Notes in Computer Science"
+    year: 2025
+    doi: "10.1007/978-981-96-2845-2_6"
+    open_access: false
+  journal:
+    kind: journal
+    authors: [Katie Clinch, Serge Gaspers, Zixu He, Abdallah Saffidine, Tiankuang Zhang]
+    venue: "Theoretical Computer Science 1070, Article 115814"
+    year: 2026
+    doi: "10.1016/j.tcs.2026.115814"
+    open_access: false
