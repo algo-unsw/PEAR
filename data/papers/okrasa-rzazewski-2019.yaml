@@ -1,0 +1,23 @@
+id: okrasa-rzazewski-2019
+title: "Fine-Grained Complexity of the Graph Homomorphism Problem for Bounded-Treewidth Graphs"
+authors: [Karolina Okrasa, Paweł Rzążewski]
+identifiers: { dblp: "journals/siamcomp/OkrasaR21", openalex: null }
+versions:
+  arxiv:
+    kind: preprint
+    year: 2019
+    arxiv: "1906.08371"
+    open_access: true
+  soda:
+    kind: conference
+    title: "Fine-grained complexity of graph homomorphism problem for bounded-treewidth graphs"
+    venue: "Proceedings of the 2020 ACM-SIAM Symposium on Discrete Algorithms (SODA 2020), pp. 1578–1590"
+    year: 2020
+    doi: "10.1137/1.9781611975994.97"
+    open_access: false
+  journal:
+    kind: journal
+    venue: "SIAM Journal on Computing 50(2), pp. 487–508"
+    year: 2021
+    doi: "10.1137/20M1320146"
+    open_access: false

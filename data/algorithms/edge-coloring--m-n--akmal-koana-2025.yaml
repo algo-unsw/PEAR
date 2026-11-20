@@ -1,0 +1,19 @@
+id: edge-coloring--m-n--akmal-koana-2025
+problem: edge-coloring
+proved_for: optimisation
+bound:
+  as_stated: "O^*(2^{m - 3n/5})"
+  notation: O*
+  parameters: [m, n]
+properties:
+  randomized: { error: one-sided }
+  space: { class: polynomial, bound: "Polynomial space, as stated (Theorem 1.1)." }
+  algebraic: true
+  fast_matrix_multiplication: false
+  constructive: false
+  quantum: false
+source:
+  paper: akmal-koana-2025
+  statements:
+    arxiv-v1: { statement: "Theorem 1.1" }
+  note: "Randomized, with high probability and one-sided error. Computes the chromatic index (the paper's Edge Coloring problem); finding a colouring is not stated. Partition sieving over a Pfaffian-based polynomial, using a dominating set of size at most $2n/5$ (the dominating-set lemma of Section 1.1 gives $O^*(2^{m-n+|D|})$ for a given dominating set $D$). The paper notes that Theorem 1.3 (List Edge Coloring, same bound) subsumes Theorem 1.1."

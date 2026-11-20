@@ -1,0 +1,23 @@
+id: bourgeois-escoffier-paschos-2009
+title: Fast Algorithms for min independent dominating set
+authors: [Nicolas Bourgeois, Bruno Escoffier, Vangelis Th. Paschos]
+identifiers: { dblp: "journals/dam/BourgeoisCEP13" }
+versions:
+  arxiv-v1:
+    kind: preprint
+    arxiv: "0905.1993"
+    year: 2009
+    open_access: true
+  sirocco:
+    kind: conference
+    venue: "Structural Information and Communication Complexity (SIROCCO 2010), LNCS 6058, pp. 247–261"
+    year: 2010
+    doi: "10.1007/978-3-642-13284-1_20"
+    open_access: false
+  journal:
+    kind: journal
+    authors: [Nicolas Bourgeois, Federico Della Croce, Bruno Escoffier, Vangelis Th. Paschos]
+    venue: "Discrete Applied Mathematics 161(4–5), pp. 558–572"
+    year: 2013
+    doi: "10.1016/j.dam.2012.01.003"
+    open_access: false

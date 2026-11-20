@@ -1,0 +1,22 @@
+id: fomin-giannopoulou-pilipczuk-2013
+title: "Computing Tree-Depth Faster Than $2^{n}$"
+authors: [Fedor V. Fomin, Archontia C. Giannopoulou, Michał Pilipczuk]
+versions:
+  arxiv-v1:
+    kind: preprint
+    year: 2013
+    arxiv: "1306.3857"
+    open_access: true
+  ipec:
+    kind: conference
+    venue: "Parameterized and Exact Computation, 8th International Symposium (IPEC 2013), LNCS 8246, pp. 137–149"
+    year: 2013
+    doi: "10.1007/978-3-319-03898-8_13"
+    open_access: false
+  journal:
+    kind: journal
+    venue: "Algorithmica 73(1), pp. 202–216"
+    year: 2015
+    doi: "10.1007/s00453-014-9914-4"
+    url: "https://folk.uib.no/nmiff/articles/2015/2015b.pdf"
+    open_access: true

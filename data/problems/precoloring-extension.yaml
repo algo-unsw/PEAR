@@ -1,0 +1,37 @@
+id: precoloring-extension
+name: Precoloring Extension
+aliases: [Precolouring Extension, Pre-coloring Extension, PrExt]
+category: graph
+complexity:
+  class: NP-complete
+  source:
+    folklore: true
+    note: "Membership in NP is immediate, and $k$-Coloring is the special case $W = \\emptyset$ (3-Coloring is NP-complete)."
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  k: { meaning: "the number of colours: the integer $k$ in the input" }
+  s: { meaning: "the number of colours to save: $s = n - k$" }
+  dcl: { meaning: "the distance to clique: the minimum size of a set $D \\subseteq V$ such that $G - D$ is a clique" }
+constraints:
+  - { constraint: "s \\le n", because: "$s = n - k$ with $k \\ge 0$." }
+  - { constraint: "dcl \\le n", because: "Deleting all but one vertex leaves a clique." }
+  - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
+versions:
+  decision:
+    kind: decision
+    input: "A graph $G = (V, E)$, an integer $k$, a set $W \\subseteq V$ and a map $c_W \\colon W \\to \\{1, \\dots, k\\}$."
+    question: "Is there a map $c \\colon V \\to \\{1, \\dots, k\\}$ with $c(w) = c_W(w)$ for every $w \\in W$ such that $c(u) \\ne c(v)$ for every edge $uv$?"
+  search:
+    kind: search
+    input: "A graph $G = (V, E)$, an integer $k$, a set $W \\subseteq V$ and a map $c_W \\colon W \\to \\{1, \\dots, k\\}$."
+    goal: "Find a map $c \\colon V \\to \\{1, \\dots, k\\}$ with $c(w) = c_W(w)$ for every $w \\in W$ such that $c(u) \\ne c(v)$ for every edge $uv$, or report that none exists."
+default_version: decision
+shared_bounds:
+  - versions: [decision, search]
+    because: "Self-reducibility: precolour one more vertex with a colour that keeps the answer yes, and test again."
+related:
+  - { problem: list-coloring, relation: generalisation }
+  - { problem: chromatic-number, relation: special-case }

@@ -1,0 +1,25 @@
+id: planar-vertex-deletion--tw--jansen-lokshtanov-saurabh-2014
+problem: planar-vertex-deletion
+proved_for: optimisation
+bound:
+  as_stated: "2^{O(tw \\log tw)} \\cdot n"
+  notation: O
+  parameters: [tw, n]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: "Not stated; educated guess: exponential. Dynamic programming over a nice tree decomposition, storing a signature function for $w^{O(w)}$ reduced triples per node."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+given:
+- tree-decomposition
+source:
+  paper: jansen-lokshtanov-saurabh-2014
+  statements:
+    author-copy: { statement: "Theorem 3" }
+  note: "Theorem 3: \"There is a $2^{O(w \\log w)} \\cdot n$ algorithm for Weighted Vertex Planarization on Bounded Treewidth Graphs\", whose input is a graph with a tree decomposition of width $w$ and a non-negative integer cost per vertex (the unweighted problem is the case of unit costs). Pilipczuk (Discrete Appl. Math. 2017, arXiv:1511.08283) shows this is tight under ETH, even for treedepth; not entered (lower bound). Read in the author copy dated 31 October 2013 (via a PDF-to-text extraction). TODO(verify): Serge to confirm the theorem number and that the algorithm returns a solution (it is used as a subroutine of the construction algorithm of Theorem 4)."
+formal: { status: informal }
+status: valid

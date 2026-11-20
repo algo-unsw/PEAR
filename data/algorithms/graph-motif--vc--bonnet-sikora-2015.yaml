@@ -1,0 +1,23 @@
+id: graph-motif--vc--bonnet-sikora-2015
+problem: graph-motif
+proved_for: decision
+bound:
+  as_stated: "O^*(2^{2 vc \\log vc})"
+  notation: O*
+  parameters: [vc]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: "Not stated; educated guess: polynomial. The algorithm computes a minimum vertex cover by branching, guesses the part of the solution in the cover ($2^k$ choices) and an ordered partition of its components ($k! B_k$ choices), and finishes with a maximum bipartite matching; no memoization or dynamic programming found."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: bonnet-sikora-2015
+  statements:
+    arxiv: { statement: "Theorem 9 (Section 3.2); LaTeX label th:vcfpt" }
+  note: "Stated as \"Graph Motif can be solved in $O^*(2^{2k \\log k})$ on graphs with a vertex cover of size $k$\"; the proof bounds the running time by $O^*(2^k + 2^k k! B_k) = O^*(k^k k^k)$ ($B_k$ the Bell number). The paper presents it as an improvement of Ganian's double-exponential algorithm. Read in arXiv 1503.05110 as served on 20 November 2026 (titled as the DAM version; the PDF text showed no version stamp, so the version number is not checked). TODO(verify): whether the IPEC 2015 or DAM 2017 version, or Das, Enduri, Misra and Reddy (CALDAM 2017), improves the bound."
+formal: { status: informal }
+status: valid

@@ -1,0 +1,21 @@
+id: equitable-coloring--twc--gomes-lima-dos-santos-2018
+problem: equitable-coloring
+proved_for: decision
+bound:
+  as_stated: "f(twc) \\cdot n^{O(1)}"
+  notation: O
+  parameters: [twc, n]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: "Not stated; educated guess: $O^*(2^{twc})$. Dynamic programming over a nice tree decomposition of the complement graph with fast subset convolution (Theorem 5), tables indexed by subsets of a bag."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: gomes-lima-dos-santos-2018
+  statements:
+    journal: { statement: "Corollary 1" }
+  note: "Corollary 1 states fixed-parameter tractability parameterized by the treewidth of the complement graph. It follows from Theorem 5: #Clique Partitioning (partitions into $k$ cliques of size $r$ and the rest of size $r - 1$) in $O^*(2^{tw})$ time, given a nice tree decomposition. Read in the arXiv v3 HTML, which carries the DMTCS header (received 1 Nov 2018, revised 15 Apr 2019, accepted 4 May 2019)."

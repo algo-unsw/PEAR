@@ -1,0 +1,22 @@
+id: minimum-bisection--tw--brinkop-jansen-2021
+problem: minimum-bisection
+proved_for: weighted
+bound:
+  as_stated: 'O(2^{tw} n^{2})'
+  notation: O
+  parameters: [tw, n]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Not stated; educated guess: exponential in $tw$. Dynamic programming over a nice tree decomposition with a table of $O(2^{t} |F_i|)$ entries per node (Sections 4 and 5).'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+given: [tree-decomposition]
+source:
+  paper: brinkop-jansen-2021
+  statements:
+    arxiv: { statement: "Abstract (the framework applies to Min-Bisection); Section 1 (with negative weights allowed, Max-Bisection and Min-Bisection coincide); Section 5 (Running Time); Section 6 (Applications, Max-Bisection')" }
+  note: 'Stated as $O(2^t n^2)$ when a tree decomposition of width $t$ with $O(n)$ nodes is given with the input; Min-Bisection is solved as Max-Bisection with negated weights, which the framework allows. $t$ is written $tw$ here. Improves Hanaka, Kobayashi and Sone by a factor $t^2$. No numbered theorem states the bound. Read in arXiv v3 of 2101.00694 (the current version on 20 November 2026); SOFSEM 2023.'

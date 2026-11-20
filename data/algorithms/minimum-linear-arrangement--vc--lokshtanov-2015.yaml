@@ -1,0 +1,22 @@
+id: minimum-linear-arrangement--vc--lokshtanov-2015
+problem: minimum-linear-arrangement
+proved_for: optimisation
+bound:
+  as_stated: f(vc) \cdot n^{O(1)}
+  notation: O
+  parameters: [vc, n]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Not stated; educated guess: polynomial in $n$ for fixed $vc$ (the $vc!$ orders of the vertex cover are tried one at a time, each giving an integer quadratic program with at most $2^{vc}(vc + 1)$ variables); the space of the integer quadratic programming algorithm (Theorem 1) was not checked. No memoization or dynamic programming over subsets found in Section 4.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: lokshtanov-2015
+  statements:
+    arxiv-v2:
+      statement: Theorem 3
+  note: 'Theorem 3: Optimal Linear Arrangement parameterized by vertex cover is fixed-parameter tractable. The proof assumes a vertex cover of size at most $vc$ is given (one can be computed in FPT time), tries all $vc!$ orders of the cover and solves an integer quadratic program for each in time $f(vc) \cdot n$ by Theorem 1; $f$ is not specified. Resolves an open problem from the monograph of Downey and Fellows; earlier, Fellows et al. (ISAAC 2008) showed FPT results for other layout problems parameterized by vertex cover.'

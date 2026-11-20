@@ -1,0 +1,25 @@
+id: group-steiner-tree--g--ding-et-al-2007
+problem: group-steiner-tree
+proved_for: weighted
+bound:
+  as_stated: 'O(3^{g} n + 2^{g} ((g + \log n) n + m))'
+  notation: O
+  parameters:
+  - g
+  - n
+  - m
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'O(2^{g} n), as stated.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: ding-et-al-2007
+  statements:
+    icde:
+      statement: 'Section 4.2.2 (algorithm DPBF-1)'
+  note: 'Dynamic programming over subsets of the $l$ groups (keywords) with nonnegative node and edge weights, on undirected or directed graphs: $O(3^l n + 2^l((l + \log n)n + m))$ time and $O(2^l n)$ space. Not a numbered theorem.'

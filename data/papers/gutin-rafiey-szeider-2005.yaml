@@ -1,0 +1,29 @@
+id: gutin-rafiey-szeider-2005
+title: The Linear Arrangement Problem Parameterized Above Guaranteed Value
+authors: [Gregory Gutin, Arash Rafiey, Stefan Szeider, Anders Yeo]
+identifiers: { dblp: journals/mst/GutinRSY07 }
+versions:
+  arxiv-v3:
+    kind: preprint
+    arxiv: "cs/0511030v3"
+    year: 2006
+    open_access: true
+  ciac:
+    kind: conference
+    venue: "Algorithms and Complexity, 6th Italian Conference (CIAC 2006), LNCS 3998, pp. 356–367"
+    year: 2006
+    doi: "10.1007/11758471_34"
+    open_access: false
+  journal:
+    kind: journal
+    venue: "Theory of Computing Systems 41(3), pp. 521–538"
+    year: 2007
+    doi: "10.1007/s00224-007-1330-6"
+    open_access: false
+  corrigendum:
+    kind: journal
+    title: "Corrigendum. The Linear Arrangement Problem Parameterized Above Guaranteed Value"
+    venue: "Theory of Computing Systems 53(4), pp. 690–691"
+    year: 2013
+    doi: "10.1007/s00224-007-9037-2"
+    open_access: false

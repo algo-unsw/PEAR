@@ -1,0 +1,45 @@
+id: max-bisection
+name: Max Bisection
+aliases: [Maximum Bisection, Max-Bisection, MaxBisection]
+category: graph
+complexity:
+  class: NP-complete
+  source:
+    folklore: true
+    note: "Max Cut reduces to Max Bisection by adding $n$ isolated vertices: $G$ has a cut of size at least $k$ if and only if the new graph has a bisection of size at least $k$ (reduction max-cut--to--max-bisection). Hanaka, Kobayashi and Sone give this reduction and say it appears implicitly in Bui et al. (1987); Lyuu's lecture notes (https://www.csie.ntu.edu.tw/~lyuu/complexity/2005/20050602.pdf) prove that max bisection is NP-complete in the same way. Membership in NP is immediate. TODO(verify): Wikipedia's choice of source could not be checked (the page could not be fetched)."
+    reference: { paper: hanaka-kobayashi-sone-2020, version: arxiv, statement: "Section 3.3 (Optimality of our algorithm)" }
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  k: { meaning: "the bisection size: the integer $k$ in the input (decision), or the maximum number of edges with one endpoint in each side of a bisection (optimisation)" }
+  tw: { shared: treewidth }
+  vc: { shared: vertex-cover-number }
+constraints:
+  - { constraint: "k \\le m", because: "A bisection cuts at most $m$ edges, so every instance with $k > m$ is a no-instance." }
+  - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
+  - { constraint: "tw \\le vc", because: "For a vertex cover $C$, the bags $C \\cup \\{v\\}$ for $v \\notin C$, arranged on a path, form a tree decomposition of width $|C|$." }
+  - { constraint: "vc \\le n", because: "A vertex cover is a set of vertices." }
+  - { constraint: "tw \\le n", because: "A single bag containing all vertices is a tree decomposition of width $n - 1$." }
+versions:
+  decision:
+    kind: decision
+    input: "A graph $G = (V, E)$ and an integer $k$."
+    question: "Is there a partition of $V$ into sets $A$ and $B$ with $||A| - |B|| \\le 1$ such that at least $k$ edges have one endpoint in $A$ and the other in $B$?"
+  optimisation:
+    kind: optimisation
+    input: "A graph $G = (V, E)$."
+    goal: "Find the maximum number of edges with one endpoint in $A$ and the other in $B$, over all partitions of $V$ into sets $A$ and $B$ with $||A| - |B|| \\le 1$."
+  weighted:
+    kind: optimisation
+    input: "A graph $G = (V, E)$ and edge weights $w \\colon E \\to \\mathbb{Z}_{\\ge 0}$."
+    goal: "Find the maximum total weight of the edges with one endpoint in $A$ and the other in $B$, over all partitions of $V$ into sets $A$ and $B$ with $||A| - |B|| \\le 1$."
+    generalises: [optimisation]
+default_version: decision
+shared_bounds:
+  - versions: [decision, optimisation]
+    because: "Binary search on $k$."
+related:
+  - { problem: max-cut, relation: variant }
+  - { problem: minimum-bisection, relation: variant }

@@ -1,0 +1,21 @@
+id: max-cut--to--max-bisection
+from: { problem: max-cut, version: decision }
+to: { problem: max-bisection, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(n + m)"
+parameter_map: { n: "2n", m: "m", k: "k", tw: "tw" }
+variants:
+  - id: weighted
+    note: "Weighted versions: the same construction, keeping the edge weights."
+    from: { problem: max-cut, version: weighted }
+    to: { problem: max-bisection, version: weighted }
+    parameter_map: { n: "2n", m: "m", tw: "tw" }
+    source:
+      folklore: true
+      note: "Isolated vertices carry no edges, so every cut of $G$ extends to a bisection of the same weight, and every bisection restricts to a cut of $G$ of the same weight."
+source:
+  paper: hanaka-kobayashi-sone-2020
+  statements:
+    arxiv: { statement: "Section 3.3 (Optimality of our algorithm), paragraph before the last theorem" }
+  note: "Add $n$ isolated vertices to the $n$-vertex graph $G$: $G$ has a cut of size at least $k$ if and only if the new graph has a bisection of size at least $k$, and the treewidth is unchanged. Hanaka, Kobayashi and Sone say the reduction appears implicitly in Bui et al. (1987)."

@@ -1,0 +1,19 @@
+id: maximum-common-subgraph--to--clique
+from: { problem: maximum-common-subgraph, version: decision }
+to: { problem: clique, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(n_G^{2} n_H^{2})"
+parameter_map: { n: "n_G n_H", m: "n_G n_H (n_G n_H - 1)/2", k: "k" }
+variants:
+  - id: optimisation
+    note: "Optimisation versions: the same construction; the maximum size of a clique of the modular product is the maximum number of vertices of a common induced subgraph."
+    from: { problem: maximum-common-subgraph, version: optimisation }
+    to: { problem: clique, version: optimisation }
+    parameter_map: { n: "n_G n_H", m: "n_G n_H (n_G n_H - 1)/2", k: "k" }
+    source:
+      folklore: true
+      note: "Same construction (modular product)."
+source:
+  folklore: true
+  note: "The modular product of $G$ and $H$: vertex set $V \\times V_H$, with $(u, u')$ and $(v, v')$ adjacent if $u \\ne v$, $u' \\ne v'$, and $uv \\in E$ if and only if $u'v' \\in E_H$. Its cliques are exactly the sets $\\{(v, \\varphi(v)) : v \\in S\\}$ for isomorphisms $\\varphi$ from $G[S]$ to $H[T]$, so $(G, H, k) \\mapsto$ (modular product, $k$)."

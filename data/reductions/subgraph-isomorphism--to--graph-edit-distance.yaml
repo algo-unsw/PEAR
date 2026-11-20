@@ -1,0 +1,12 @@
+id: subgraph-isomorphism--to--graph-edit-distance
+from: { problem: subgraph-isomorphism, version: decision }
+to: { problem: graph-edit-distance, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(n + m + k^{2})"
+parameter_map: { n: "n + k", m: "m + k (k - 1)/2", k: "n + m" }
+source:
+  paper: zeng-tung-wang-2009
+  statements:
+    journal: { statement: "Lemmas 2.2 and 2.3" }
+  note: "Lemma 2.2: if $|V_1| \\le |V_2|$ and $|E_1| \\le |E_2|$, then $G_1$ is subgraph isomorphic to $G_2$ if and only if their edit distance is $(|E_2| - |E_1|) + (|V_2| - |V_1|)$; it is never smaller, as each operation changes the number of vertices or of edges by one. So $(G, H) \\mapsto (G_1 = H, G_2 = G, (n - k) + (m - |E_H|))$, or a fixed no-instance if $k > n$ or $|E_H| > m$. Lemma 2.3 uses this reduction. Also stated by Limmer and Kriege (2026), Section 2.2."

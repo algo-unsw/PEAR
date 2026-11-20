@@ -1,0 +1,16 @@
+id: rzazewski-2013
+title: "Exact Algorithm for Graph Homomorphism and Locally Injective Graph Homomorphism"
+authors: [Paweł Rzążewski]
+identifiers: { dblp: "journals/ipl/Rzazewski14", openalex: null }
+versions:
+  arxiv-v1:
+    kind: preprint
+    year: 2013
+    arxiv: "1310.3341"
+    open_access: true
+  journal:
+    kind: journal
+    venue: "Information Processing Letters 114(7), pp. 387–391"
+    year: 2014
+    doi: "10.1016/j.ipl.2014.02.012"
+    open_access: false

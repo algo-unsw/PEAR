@@ -1,0 +1,19 @@
+id: steiner-tree--to--group-steiner-tree
+from: { problem: steiner-tree, version: decision }
+to: { problem: group-steiner-tree, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(n + m)"
+parameter_map: { n: "n", m: "m", g: "t", k: "k" }
+variants:
+  - id: weighted
+    note: "Weighted versions: the same construction, keeping the edge weights."
+    from: { problem: steiner-tree, version: weighted }
+    to: { problem: group-steiner-tree, version: weighted }
+    parameter_map: { n: "n", m: "m", g: "t" }
+    source:
+      folklore: true
+      note: "Singleton groups $\\{t\\}$, $t \\in T$."
+source:
+  folklore: true
+  note: "One singleton group $\\{t\\}$ per terminal $t \\in T$: a tree meets every group if and only if it contains $T$ (Misra et al. observe that GST with groups of size one is Steiner Tree)."

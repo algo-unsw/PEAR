@@ -1,0 +1,23 @@
+id: independent-dominating-set--n--gaspers-liedloff-2006
+problem: independent-dominating-set
+proved_for: optimisation
+bound:
+  as_stated: 1.3569^{n}
+  notation: O
+  parameters:
+  - n
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Stated: polynomial space (Introduction, "Our results"); Theorem 8 itself does not mention space.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: gaspers-liedloff-2006
+  statements:
+    arxiv-v1:
+      statement: Theorem 8
+  note: 'Branch and reduce, analysed by measure and conquer; Theorem 9 shows that the running time of the algorithm is $\Omega(1.3247^n)$. The WG 2006 version claimed $O(1.3575^n)$, but its main reduction rule had a flaw, repaired in this version (Introduction of arXiv v1). The DMTCS 2012 abstract states the same $O(1.3569^n)$ (statement number not checked). Superseded by $O^*(2^{0.424n})$ of Bourgeois, Escoffier and Paschos.'

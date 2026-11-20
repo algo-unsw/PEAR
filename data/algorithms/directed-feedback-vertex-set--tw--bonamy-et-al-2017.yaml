@@ -1,0 +1,22 @@
+id: directed-feedback-vertex-set--tw--bonamy-et-al-2017
+problem: directed-feedback-vertex-set
+proved_for: optimisation
+bound:
+  as_stated: '2^{O(tw \log tw)} n^{O(1)}'
+  notation: O
+  parameters: [tw, n]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Not stated; educated guess: $2^{O(tw \log tw)} n^{O(1)}$. Dynamic programming over a tree decomposition with one table entry per subset $X$ of a bag and ordering $\sigma$ of the rest of the bag (Section 1).'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: false
+  quantum: false
+source:
+  paper: bonamy-et-al-2017
+  statements:
+    arxiv:
+      statement: 'Theorem 1 (LaTeX label thm:simple-dp), proved in Section 5; read in the current arXiv version (v2)'
+  note: 'Stated for a digraph of treewidth $t$ (the treewidth of its underlying undirected graph) on $n$ vertices; the algorithm determines the minimum size of a directed feedback vertex set and of a directed feedback arc set. Theorem 2 of the paper rules out $2^{o(t \log t)} n^{O(1)}$ under ETH. WG 2018 version not opened.'

@@ -1,0 +1,10 @@
+id: yannakakis-gavril-1980
+title: Edge Dominating Sets in Graphs
+authors: [Mihalis Yannakakis, Fanica Gavril]
+versions:
+  journal:
+    kind: journal
+    venue: "SIAM Journal on Applied Mathematics 38(3), pp. 364–372"
+    year: 1980
+    doi: "10.1137/0138030"
+    open_access: false

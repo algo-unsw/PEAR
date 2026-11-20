@@ -1,0 +1,11 @@
+id: edge-dominating-set--to--dominating-set
+from: { problem: edge-dominating-set, version: decision }
+to: { problem: dominating-set, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(n + n m)"
+parameter_map: { n: "m", m: "n m", k: "k" }
+source:
+  folklore: true
+  note: "The line graph $L(G)$ has one vertex per edge of $G$, two of them adjacent when the edges share an endpoint. A set of edges is an edge dominating set of $G$ if and only if it is a dominating set of $L(G)$. $L(G)$ has $m$ vertices and $\\sum_{v} \\binom{\\deg(v)}{2} \\le m(n-2)$ edges."
+status: valid

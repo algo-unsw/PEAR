@@ -1,0 +1,26 @@
+id: independent-dominating-set--tw--van-rooij-et-al-2018
+problem: independent-dominating-set
+proved_for: optimisation
+bound:
+  as_stated: n^{3} 3^{tw}
+  notation: O
+  parameters:
+  - n
+  - tw
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Not stated; educated guess: $O^*(3^{tw})$. Dynamic programming over the tree decomposition with tables indexed by three vertex states per bag vertex, expanded by solution size and transformed at join nodes (fast subset convolution with states).'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+given:
+- tree-decomposition
+source:
+  paper: van-rooij-et-al-2018
+  statements:
+    arxiv-v1:
+      statement: Proposition 3.7
+  note: 'Stated as $O(n^3 3^k)$ for a tree decomposition of width $k$, given with the input; $k$ is written $tw$ here. Proof sketch only (the techniques of Corollary 3.6); RAM model with $O(k)$-bit words. The factor $n^3$ is because the problem does not have the de Fluiter property for treewidth.'

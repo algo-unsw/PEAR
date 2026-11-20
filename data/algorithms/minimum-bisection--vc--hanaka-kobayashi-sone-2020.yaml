@@ -1,0 +1,21 @@
+id: minimum-bisection--vc--hanaka-kobayashi-sone-2020
+problem: minimum-bisection
+proved_for: weighted
+bound:
+  as_stated: 'O(2^{vc} vc n)'
+  notation: O
+  parameters: [vc, n]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Not stated; educated guess: polynomial. Branching for a vertex cover, then enumeration of the subsets of the cover with linear-time selection (Blum et al.) for each; no tables.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: hanaka-kobayashi-sone-2020
+  statements:
+    arxiv: { statement: "Theorem in Section 4 (A linear-time algorithm on graphs with bounded vertex cover number)" }
+  note: 'Stated as $O(2^{\tau(G)}\tau(G)n)$ for Min Bisection and Max Bisection with arbitrary edge weights, where $\tau(G)$ is the vertex cover number; written $vc$ here. Read in arXiv v2 of 2002.12706 (the current version on 20 November 2026); TODO(verify) the printed theorem number.'

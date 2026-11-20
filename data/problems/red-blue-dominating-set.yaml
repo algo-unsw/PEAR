@@ -1,0 +1,47 @@
+id: red-blue-dominating-set
+name: Red-Blue Dominating Set
+aliases: [RBDS]
+category: graph
+complexity:
+  class: NP-complete
+  source:
+    paper: dom-lokshtanov-saurabh-2009
+    statements:
+      journal:
+        statement: Section 4.1
+    note: "Equivalent to Set Cover and Hitting Set, hence NP-complete (Section 4.1, citing Garey and Johnson)."
+objects:
+  n: number of vertices (red and blue)
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  k: { meaning: "the solution size: the integer $k$ in the input (decision, search), or the minimum number of red vertices dominating $B$ (optimisation)" }
+  r: { meaning: "the number of red vertices, $|R|$" }
+  b: { meaning: "the number of blue vertices, $|B|$" }
+  tw: { shared: treewidth }
+constraints:
+  - { constraint: "k \\le r", because: "Every instance with $k \\ge r$ is decided in polynomial time by checking whether every blue vertex has a red neighbour." }
+  - { constraint: "r \\le n", because: "The red vertices are among the $n$ vertices." }
+  - { constraint: "b \\le n", because: "The blue vertices are among the $n$ vertices." }
+  - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
+  - { constraint: "tw \\le n", because: "A single bag containing all vertices is a tree decomposition of width $n - 1$." }
+versions:
+  decision:
+    kind: decision
+    input: "A bipartite graph $G = (R \\cup B, E)$ with red vertices $R$ and blue vertices $B$, and an integer $k$."
+    question: "Is there a set $S \\subseteq R$ with $|S| \\le k$ such that every vertex of $B$ has a neighbour in $S$?"
+  optimisation:
+    kind: optimisation
+    input: "A bipartite graph $G = (R \\cup B, E)$ with red vertices $R$ and blue vertices $B$."
+    goal: "Find the minimum size of a set $S \\subseteq R$ such that every vertex of $B$ has a neighbour in $S$, or report that none exists."
+  search:
+    kind: search
+    input: "A bipartite graph $G = (R \\cup B, E)$ with red vertices $R$ and blue vertices $B$, and an integer $k$."
+    goal: "Find a set $S \\subseteq R$ with $|S| \\le k$ such that every vertex of $B$ has a neighbour in $S$, or report that none exists."
+default_version: decision
+shared_bounds:
+  - versions: [decision, optimisation, search]
+    because: "Binary search on $k$ and self-reducibility."
+related:
+  - { problem: set-cover, relation: variant }
+  - { problem: dominating-set, relation: variant }

@@ -1,0 +1,44 @@
+id: equitable-coloring
+name: Equitable Coloring
+aliases: [Equitable Colouring, Equitable Chromatic Number]
+category: graph
+complexity:
+  class: NP-complete
+  source:
+    folklore: true
+    note: "Reduction from graph colouring by adding isolated vertices, as on Wikipedia (which gives it without a citation): a graph with $n$ vertices is $k$-colourable if and only if the graph with $(k-1)n$ further isolated vertices has an equitable $k$-colouring, since every colour class can be padded to exactly $n$ vertices."
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  k: { meaning: "the number of colours: the integer $k$ in the input (decision, search), or the equitable chromatic number (optimisation)" }
+  dc: { meaning: "the distance to cluster: the minimum number of vertices whose deletion leaves a disjoint union of cliques" }
+  dcc: { meaning: "the distance to co-cluster: the minimum number of vertices whose deletion leaves a complete multipartite graph (the complement of a disjoint union of cliques)" }
+  twc: { meaning: "the treewidth of the complement graph $\\overline{G}$ (see the shared parameter Treewidth)" }
+  cw: { meaning: "the width $w$ of a $w$-expression constructing $G$ (introduce, disjoint union, relabel and join operations with at most $w$ labels), given with the input; at least the clique-width of $G$" }
+constraints:
+  - { constraint: "k \\le n", because: "Every instance with $k \\ge n$ is a yes-instance: one colour per vertex gives classes of sizes 0 and 1." }
+  - { constraint: "dc \\le n", because: "Deleting all vertices leaves the empty graph." }
+  - { constraint: "dcc \\le n", because: "Deleting all vertices leaves the empty graph." }
+  - { constraint: "twc \\le n", because: "A single bag containing all vertices is a tree decomposition of width $n - 1$." }
+  - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
+versions:
+  decision:
+    kind: decision
+    input: "A graph $G = (V, E)$ and an integer $k$."
+    question: "Is there a map $c \\colon V \\to \\{1, \\dots, k\\}$ such that $c(u) \\ne c(v)$ for every edge $uv$ and any two colour classes $c^{-1}(i)$ and $c^{-1}(j)$ differ in size by at most one?"
+  optimisation:
+    kind: optimisation
+    input: "A graph $G = (V, E)$."
+    goal: "Find the equitable chromatic number: the minimum $k$ such that there is a map $c \\colon V \\to \\{1, \\dots, k\\}$ with $c(u) \\ne c(v)$ for every edge $uv$ such that any two colour classes $c^{-1}(i)$ and $c^{-1}(j)$ differ in size by at most one."
+  search:
+    kind: search
+    input: "A graph $G = (V, E)$ and an integer $k$."
+    goal: "Find a map $c \\colon V \\to \\{1, \\dots, k\\}$ such that $c(u) \\ne c(v)$ for every edge $uv$ and any two colour classes $c^{-1}(i)$ and $c^{-1}(j)$ differ in size by at most one, or report that none exists."
+default_version: decision
+shared_bounds:
+  - versions: [decision, optimisation]
+    because: "The optimum is the least $k \\le n$ for which the decision version answers yes: at most $n$ calls."
+related:
+  - { problem: chromatic-number, relation: variant }

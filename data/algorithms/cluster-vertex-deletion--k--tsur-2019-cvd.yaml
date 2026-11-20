@@ -1,0 +1,23 @@
+id: cluster-vertex-deletion--k--tsur-2019-cvd
+problem: cluster-vertex-deletion
+proved_for: decision
+bound:
+  as_stated: "O^*(1.811^{k})"
+  notation: O*
+  parameters: [k]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: "Not stated; educated guess: polynomial. A branching algorithm (branching on twins and on a family of vertex covers of the auxiliary graph $H_v$, found by a vertex-cover branching subroutine) built on the algorithm of Boral, Cygan, Kociumaka and Pilipczuk, whose main theorem (Section 1 of arXiv 1306.3877) states polynomial space; no memoization or dynamic programming found."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: tsur-2019-cvd
+  statements:
+    arxiv-v1: { statement: "Abstract; Section 6 (Analysis), end of the analysis of the main algorithm" }
+  note: "No numbered theorem: the abstract and Section 1 state the $O^*(1.811^k)$ running time, and Section 6 concludes that the largest branching number is at most 1.811. Improves the $O^*(1.911^k)$ algorithm of Boral, Cygan, Kociumaka and Pilipczuk (as cited in Section 1). TODO(verify): Tian, Xiao and Yang (COCOON 2023; Theory Comput. Syst. 2025) claim a faster algorithm, but no open copy was found (see the unreachable ledger)."
+formal: { status: informal }
+status: valid

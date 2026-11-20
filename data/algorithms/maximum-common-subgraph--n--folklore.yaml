@@ -1,0 +1,17 @@
+id: maximum-common-subgraph--n--folklore
+problem: maximum-common-subgraph
+proved_for: optimisation
+bound:
+  as_stated: 2^{O(n \log n)}
+  notation: O
+  parameters: [n]
+properties:
+  randomized: false
+  space: { class: polynomial, bound: "Enumerates the partial maps one at a time." }
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  folklore: true
+  note: "Exhaustive search over the at most $(n_H + 1)^{n_G} \\le n^n$ partial injective maps from $V$ to $V_H$, keeping a largest one that is an isomorphism between the subgraphs induced by its domain and its image."

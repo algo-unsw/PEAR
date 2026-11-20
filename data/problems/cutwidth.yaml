@@ -1,0 +1,42 @@
+id: cutwidth
+name: Cutwidth
+aliases: [Minimum Cut Linear Arrangement, Min Cut Linear Arrangement, Cutwidth Minimization]
+category: graph
+complexity:
+  class: NP-complete
+  source:
+    paper: monien-sudborough-1988
+    attested_by:
+      - "https://en.wikipedia.org/wiki/Cutwidth"
+      - "https://arxiv.org/abs/1606.05975"
+      - "https://grafo.etsii.urjc.es/cutwidth/"
+    note: 'Wikipedia cites Monien and Sudborough (1988) for NP-hardness, which holds even for planar graphs of maximum degree three. Giannopoulou et al. (arXiv 1606.05975) state that finding a layout of optimum width is NP-hard, citing Garey and Johnson (1979); the URJC cutwidth page states NP-hardness citing Gavril (1977).'
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  k: { meaning: 'the width bound: the integer $k$ in the input (decision, search), or the cutwidth of $G$ (optimisation)' }
+constraints:
+  - { constraint: 'k \le m', because: 'Every bijection has width at most $m$, so every instance with $k \ge m$ is a yes-instance, answered in polynomial time.' }
+  - { constraint: 'm \le n(n - 1)/2', because: 'A simple graph has at most $n(n-1)/2$ edges.' }
+versions:
+  decision:
+    kind: decision
+    input: 'A graph $G = (V, E)$ and an integer $k$.'
+    question: 'Is there a bijection $\pi \colon V \to \{1, \dots, n\}$ such that for every $i \in \{1, \dots, n - 1\}$ at most $k$ edges $uv \in E$ have $\pi(u) \le i < \pi(v)$?'
+  optimisation:
+    kind: optimisation
+    input: 'A graph $G = (V, E)$.'
+    goal: 'Find the minimum integer $k$ such that there is a bijection $\pi \colon V \to \{1, \dots, n\}$ such that for every $i \in \{1, \dots, n - 1\}$ at most $k$ edges $uv \in E$ have $\pi(u) \le i < \pi(v)$.'
+  search:
+    kind: search
+    input: 'A graph $G = (V, E)$ and an integer $k$.'
+    goal: 'Find a bijection $\pi \colon V \to \{1, \dots, n\}$ such that for every $i \in \{1, \dots, n - 1\}$ at most $k$ edges $uv \in E$ have $\pi(u) \le i < \pi(v)$, or report that none exists.'
+default_version: decision
+shared_bounds:
+  - versions: [decision, optimisation]
+    because: 'Binary search on $k$, which is at most $m$.'
+related:
+  - { problem: bandwidth, relation: variant }
+  - { problem: minimum-linear-arrangement, relation: variant }

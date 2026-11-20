@@ -1,0 +1,17 @@
+id: fomin-lokshtanov-raman-2009
+title: "Faster Algorithms for Finding and Counting Subgraphs"
+authors: [Fedor V. Fomin, Daniel Lokshtanov, Venkatesh Raman, Saket Saurabh, B. V. Raghavendra Rao]
+identifiers: { dblp: "journals/jcss/FominLRSR12", openalex: null }
+versions:
+  arxiv-v1:
+    kind: preprint
+    authors: [Fedor V. Fomin, Daniel Lokshtanov, Venkatesh Raman, B. V. Raghavendra Rao, Saket Saurabh]
+    year: 2009
+    arxiv: "0912.2371"
+    open_access: true
+  journal:
+    kind: journal
+    venue: "Journal of Computer and System Sciences 78(3), pp. 698–706"
+    year: 2012
+    doi: "10.1016/j.jcss.2011.10.001"
+    open_access: false

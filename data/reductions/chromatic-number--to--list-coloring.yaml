@@ -1,0 +1,11 @@
+id: chromatic-number--to--list-coloring
+from: { problem: chromatic-number, version: decision }
+to: { problem: list-coloring, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(k n + m)"
+parameter_map: { n: "n", m: "m" }
+source:
+  folklore: true
+  note: "Give every vertex the list $\\{1, \\dots, k\\}$."
+  reference: { paper: bjorklund-husfeldt-koivisto-2009, version: journal, statement: "Section 4.1" }

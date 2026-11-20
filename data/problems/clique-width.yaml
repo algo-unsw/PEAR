@@ -1,0 +1,39 @@
+id: clique-width
+name: Clique-Width
+aliases: [Computing Clique-Width, Clique-Width Recognition, Cliquewidth]
+category: graph
+complexity:
+  class: NP-complete
+  source:
+    paper: fellows-rosamond-rotics-2006
+    statements:
+      full-version: { statement: 'Theorem 2' }
+    note: 'Theorem 2 (cwd-recognition is NP-complete): given a graph $G$ and an integer $k$, is the clique-width of $G$ at most $k$? Wikipedia cites the SIAM J. Discrete Math. version (2009).'
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  k: { meaning: 'the width bound: the integer $k$ in the input (decision, search), or the clique-width of $G$ (optimisation)' }
+  tw: { shared: treewidth }
+constraints:
+  - { constraint: 'k \le n', because: 'Giving every vertex its own label yields an $n$-expression, so every instance with $k \ge n$ is a yes-instance.' }
+  - { constraint: 'm \le n(n - 1)/2', because: 'A simple graph has at most $n(n-1)/2$ edges.' }
+  - { constraint: 'tw \le n', because: 'A single bag containing all vertices is a tree decomposition of width $n - 1$.' }
+versions:
+  decision:
+    kind: decision
+    input: 'A graph $G = (V, E)$ and an integer $k$.'
+    question: 'Is there a $k$-expression for $G$, that is, a term over the operations $i(v)$ (create vertex $v$ with label $i$), disjoint union, $\eta_{i,j}$ (add all edges between vertices labelled $i$ and $j \ne i$) and $\rho_{i \to j}$ (relabel $i$ to $j$), with labels in $\{1, \dots, k\}$, that defines $G$?'
+  optimisation:
+    kind: optimisation
+    input: 'A graph $G = (V, E)$.'
+    goal: 'Find the minimum integer $k$ such that there is a $k$-expression for $G$, that is, a term over the operations $i(v)$ (create vertex $v$ with label $i$), disjoint union, $\eta_{i,j}$ (add all edges between vertices labelled $i$ and $j \ne i$) and $\rho_{i \to j}$ (relabel $i$ to $j$), with labels in $\{1, \dots, k\}$, that defines $G$.'
+  search:
+    kind: search
+    input: 'A graph $G = (V, E)$ and an integer $k$.'
+    goal: 'Find a $k$-expression for $G$, that is, a term over the operations $i(v)$ (create vertex $v$ with label $i$), disjoint union, $\eta_{i,j}$ (add all edges between vertices labelled $i$ and $j \ne i$) and $\rho_{i \to j}$ (relabel $i$ to $j$), with labels in $\{1, \dots, k\}$, that defines $G$, or report that none exists.'
+default_version: decision
+shared_bounds:
+  - versions: [decision, optimisation]
+    because: 'Binary search on $k$, which is at most $n$.'

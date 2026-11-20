@@ -1,0 +1,27 @@
+id: misra-philip-raman-saurabh-sikdar-2009
+title: FPT Algorithms for Connected Feedback Vertex Set
+authors:
+- Neeldhara Misra
+- Geevarghese Philip
+- Venkatesh Raman
+- Saket Saurabh
+- Somnath Sikdar
+identifiers: { dblp: conf/walcom/MisraPRSS10 }
+versions:
+  arxiv-v1:
+    kind: preprint
+    year: 2009
+    arxiv: 0909.3180v1
+    open_access: true
+  walcom:
+    kind: conference
+    venue: "WALCOM: Algorithms and Computation (WALCOM 2010), LNCS 5942, pp. 269–280"
+    year: 2010
+    doi: 10.1007/978-3-642-11440-3_25
+    open_access: false
+  journal:
+    kind: journal
+    venue: "Journal of Combinatorial Optimization 24(2), pp. 131–146"
+    year: 2012
+    doi: 10.1007/s10878-011-9394-2
+    open_access: false

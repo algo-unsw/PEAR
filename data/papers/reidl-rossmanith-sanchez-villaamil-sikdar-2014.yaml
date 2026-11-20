@@ -1,0 +1,15 @@
+id: reidl-rossmanith-sanchez-villaamil-sikdar-2014
+title: "A Faster Parameterized Algorithm for Treedepth"
+authors: [Felix Reidl, Peter Rossmanith, Fernando Sánchez Villaamil, Somnath Sikdar]
+versions:
+  arxiv-v4:
+    kind: preprint
+    year: 2014
+    arxiv: "1401.7540"
+    open_access: true
+  icalp:
+    kind: conference
+    venue: "41st International Colloquium on Automata, Languages, and Programming (ICALP 2014), Part I, LNCS 8572, pp. 931–942"
+    year: 2014
+    doi: "10.1007/978-3-662-43948-7_77"
+    open_access: false

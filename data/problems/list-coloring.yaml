@@ -1,0 +1,35 @@
+id: list-coloring
+name: List Coloring
+aliases: [List Colouring, List Vertex Coloring, LiCol]
+category: graph
+complexity:
+  class: NP-complete
+  source:
+    folklore: true
+    note: "Membership in NP is immediate, and $k$-Coloring is the special case $L(v) = \\{1, \\dots, k\\}$ for every vertex $v$ (3-Coloring is NP-complete)."
+    reference: { paper: bjorklund-husfeldt-koivisto-2009, version: journal, statement: "Section 4.1" }
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input, lists included
+parameters:
+  dcl: { meaning: "the distance to clique: the minimum size of a set $D \\subseteq V$ such that $G - D$ is a clique" }
+constraints:
+  - { constraint: "dcl \\le n", because: "Deleting all but one vertex leaves a clique." }
+  - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
+versions:
+  decision:
+    kind: decision
+    input: "A graph $G = (V, E)$ and a finite list $L(v) \\subseteq \\mathbb{Z}_{\\ge 1}$ of colours for every vertex $v \\in V$."
+    question: "Is there a map $c$ on $V$ with $c(v) \\in L(v)$ for every vertex $v$ such that $c(u) \\ne c(v)$ for every edge $uv$?"
+  search:
+    kind: search
+    input: "A graph $G = (V, E)$ and a finite list $L(v) \\subseteq \\mathbb{Z}_{\\ge 1}$ of colours for every vertex $v \\in V$."
+    goal: "Find a map $c$ on $V$ with $c(v) \\in L(v)$ for every vertex $v$ such that $c(u) \\ne c(v)$ for every edge $uv$, or report that none exists."
+default_version: decision
+shared_bounds:
+  - versions: [decision, search]
+    because: "Self-reducibility: shrink the list of one vertex to a single colour that keeps the answer yes, and test again."
+related:
+  - { problem: chromatic-number, relation: special-case }
+  - { problem: precoloring-extension, relation: special-case }

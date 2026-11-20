@@ -1,0 +1,10 @@
+id: chromatic-number--to--precoloring-extension
+from: { problem: chromatic-number, version: decision }
+to: { problem: precoloring-extension, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(n + m)"
+parameter_map: { n: "n", m: "m", k: "k" }
+source:
+  folklore: true
+  note: "Take $W = \\emptyset$: no vertex is precoloured."

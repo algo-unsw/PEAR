@@ -1,0 +1,23 @@
+id: edge-bipartization--k--pilipczuk-pilipczuk-wrochna-2015
+problem: edge-bipartization
+proved_for: decision
+bound:
+  as_stated: "O(1.977^{k} \\cdot nm)"
+  notation: O
+  parameters: [k, n, m]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: "Not stated; educated guess: polynomial. Iterative compression, then bounded-depth branching guided by a polynomial-time solvable VCSP relaxation (flow computations), started from the approximate solution of Kolay et al.; no memoization or dynamic programming over subsets found (Section 1 read)."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: pilipczuk-pilipczuk-wrochna-2015
+  statements:
+    arxiv-v3: { statement: "Theorem 1.1" }
+  note: "Stated as \"Edge Bipartization can be solved in time $O(1.977^k \\cdot nm)$\" (also in the abstracts of the arXiv and IPEC versions). The number is as printed in the current arXiv PDF (v3, 28 March 2017). Improves the $O(2^k \\cdot m^2)$ algorithm of Guo et al. (J. Comput. Syst. Sci. 2006)."
+formal: { status: informal }
+status: valid

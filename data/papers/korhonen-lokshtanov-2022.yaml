@@ -1,0 +1,16 @@
+id: korhonen-lokshtanov-2022
+title: "An Improved Parameterized Algorithm for Treewidth"
+authors: [Tuukka Korhonen, Daniel Lokshtanov]
+versions:
+  arxiv-v1:
+    kind: preprint
+    year: 2022
+    arxiv: "2211.07154"
+    open_access: true
+  stoc:
+    kind: conference
+    venue: "55th Annual ACM Symposium on Theory of Computing (STOC 2023), pp. 528–541"
+    year: 2023
+    doi: "10.1145/3564246.3585245"
+    url: "https://par.nsf.gov/servlets/purl/10608186"
+    open_access: true

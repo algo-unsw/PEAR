@@ -1,0 +1,44 @@
+id: edge-dominating-set
+name: Edge Dominating Set
+aliases: [Minimum Edge Dominating Set, Minimum Maximal Matching, EDS]
+category: graph
+complexity:
+  class: NP-complete
+  source:
+    paper: yannakakis-gavril-1980
+    attested_by:
+      - "https://en.wikipedia.org/wiki/Edge_dominating_set"
+      - "https://jgaa.info/index.php/jgaa/article/download/paper383/2572"
+      - "https://ics-archive.science.uu.nl/research/techreps/repo/CS-2007/2007-051.pdf"
+    note: "NP-complete even for planar and for bipartite graphs of maximum degree 3 (Yannakakis and Gavril 1980), as on Wikipedia. Garey and Johnson discuss the decision version under Dominating Set (GT2); Minimum Maximal Matching, whose optimum is the same, is GT10."
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  k: { meaning: "the solution size: the integer $k$ in the input (decision, search), or the minimum size of an edge dominating set (optimisation)" }
+  pw: { shared: pathwidth }
+constraints:
+  - { constraint: "k \\le n", because: "Every maximal matching is an edge dominating set with at most $n/2$ edges, so every instance with $k \\ge n/2$ is a yes-instance, answered in polynomial time." }
+  - { constraint: "k \\le m", because: "Every instance with $k \\ge m$ is a yes-instance ($S = E$)." }
+  - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
+  - { constraint: "pw \\le n", because: "A single bag containing all vertices is a path decomposition of width $n - 1$." }
+versions:
+  decision:
+    kind: decision
+    input: "A graph $G = (V, E)$ and an integer $k$."
+    question: "Is there a set $S \\subseteq E$ with $|S| \\le k$ such that every edge is in $S$ or shares an endpoint with an edge in $S$?"
+  optimisation:
+    kind: optimisation
+    input: "A graph $G = (V, E)$."
+    goal: "Find the minimum size of a set $S \\subseteq E$ such that every edge is in $S$ or shares an endpoint with an edge in $S$."
+  search:
+    kind: search
+    input: "A graph $G = (V, E)$ and an integer $k$."
+    goal: "Find a set $S \\subseteq E$ with $|S| \\le k$ such that every edge is in $S$ or shares an endpoint with an edge in $S$, or report that none exists."
+default_version: decision
+shared_bounds:
+  - versions: [decision, optimisation, search]
+    because: "Binary search on $k$ and self-reducibility."
+related:
+  - { problem: dominating-set, relation: generalisation }

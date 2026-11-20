@@ -1,0 +1,16 @@
+id: cygan-pilipczuk-2009
+title: Even Faster Exact Bandwidth
+authors: [Marek Cygan, Marcin Pilipczuk]
+identifiers: { dblp: journals/talg/CyganP12 }
+versions:
+  arxiv-v1:
+    kind: preprint
+    arxiv: "0902.1661v1"
+    year: 2009
+    open_access: true
+  journal:
+    kind: journal
+    venue: "ACM Transactions on Algorithms 8(1), Article 8, pp. 8:1–8:14"
+    year: 2012
+    doi: "10.1145/2071379.2071387"
+    open_access: false

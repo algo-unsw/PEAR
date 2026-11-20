@@ -1,0 +1,22 @@
+id: chaudhary-zehavi-2023
+title: "$\\mathcal{P}$-Matchings Parameterized by Treewidth"
+authors: [Juhi Chaudhary, Meirav Zehavi]
+identifiers: { dblp: "journals/siamdm/ChaudharyZ25" }
+versions:
+  arxiv-v1:
+    kind: preprint
+    year: 2023
+    arxiv: "2307.09333v1"
+    open_access: true
+  wg:
+    kind: workshop
+    venue: "49th International Workshop on Graph-Theoretic Concepts in Computer Science (WG 2023), LNCS 14093, pp. 217–231"
+    year: 2023
+    doi: "10.1007/978-3-031-43380-1_16"
+    open_access: false
+  journal:
+    kind: journal
+    venue: "SIAM Journal on Discrete Mathematics 39(2), pp. 1280–1311"
+    year: 2025
+    doi: "10.1137/23M160013X"
+    open_access: false

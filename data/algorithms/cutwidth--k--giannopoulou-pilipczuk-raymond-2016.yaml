@@ -1,0 +1,22 @@
+id: cutwidth--k--giannopoulou-pilipczuk-raymond-2016
+problem: cutwidth
+proved_for: decision
+bound:
+  as_stated: 2^{O(k^{2} \log k)} \cdot n
+  notation: O
+  parameters: [k, n]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Not stated; educated guess: $2^{O(k^2 \log k)} \cdot n$. The algorithm runs a dynamic programming procedure over the prefixes of an approximate ordering whose states are sets of bucket interfaces (Section 5), and a recursion that removes a large fraction of the edges at each step.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: giannopoulou-pilipczuk-raymond-2016
+  statements:
+    arxiv:
+      statement: Theorem 2 (read in the current arXiv version, v2)
+  note: 'Theorem 2: given an $n$-vertex graph $G$ and an integer $k$, runs in time $2^{O(k^2 \log k)} \cdot n$ and either concludes that the cutwidth of $G$ is larger than $k$ or outputs an ordering of width at most $k$ (graphs may have parallel edges). The introduction says that a careful analysis of the earlier algorithm of Thilikos, Bodlaender and Serna (J. Algorithms 2005) yields $2^{O(k^2)} \cdot n$, a bound those papers do not state. The abstract of the IPEC 2016 version (LIPIcs 63) states the same $2^{O(k^2 \log k)} \cdot n$ bound.'

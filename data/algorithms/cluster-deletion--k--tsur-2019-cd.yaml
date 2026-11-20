@@ -1,0 +1,23 @@
+id: cluster-deletion--k--tsur-2019-cd
+problem: cluster-deletion
+proved_for: decision
+bound:
+  as_stated: "O^*(1.404^{k})"
+  notation: O*
+  parameters: [k]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: "Not stated; educated guess: polynomial. A branching algorithm (the rules of Böcker and Damaschke plus a new rule on induced $C_4$s), each step polynomial; no memoization or dynamic programming found."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: tsur-2019-cd
+  statements:
+    arxiv-v1: { statement: "Abstract; Section 4 (New algorithm), last paragraph" }
+  note: "No numbered theorem: Section 4 concludes that all branching rules have branching numbers less than 1.404. The paper also finds an error in the analysis of the $O^*(1.415^k)$ algorithm of Böcker and Damaschke (Information Processing Letters 2011) and gives a corrected analysis with the same bound (Sections 1 and 3)."
+formal: { status: informal }
+status: valid

@@ -1,0 +1,25 @@
+id: edge-dominating-set--k--iwaide-nagamochi-2014
+problem: edge-dominating-set
+proved_for: decision
+bound:
+  as_stated: O^*(2.2351^{k})
+  notation: O*
+  parameters:
+  - k
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Stated: polynomial space (Theorem 1).'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: iwaide-nagamochi-2014
+  statements:
+    techreport:
+      statement: Theorem 1
+    journal:
+      statement: Theorem 1
+  note: 'The algorithm of Theorem 1 combines EdsStage1 with EdsStage2 and EdsStage3. Improves $O^*(2.3147^k)$ of Xiao, Kloks and Poon (TCS 2013, arXiv 1104.4160). Belmonte et al. (arXiv 1902.04919, Introduction) call it the current best FPT algorithm for Edge Dominating Set.'

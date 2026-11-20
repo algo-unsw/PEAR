@@ -1,0 +1,10 @@
+id: chu-liu-lokshtanov-2026
+title: "Faster Parameterized Vertex Multicut"
+authors: [Huairui Chu, Yuxi Liu, Daniel Lokshtanov, Junqiang Peng, Kangyi Tian, Mingyu Xiao]
+identifiers: { dblp: journals/corr/abs-2602-13981 }
+versions:
+  arxiv:
+    kind: preprint
+    year: 2026
+    arxiv: "2602.13981"
+    open_access: true

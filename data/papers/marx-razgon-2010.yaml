@@ -1,0 +1,22 @@
+id: marx-razgon-2010
+title: "Fixed-parameter tractability of multicut parameterized by the size of the cutset"
+authors: [Dániel Marx, Igor Razgon]
+identifiers: { dblp: journals/siamcomp/MarxR14 }
+versions:
+  arxiv:
+    kind: preprint
+    year: 2010
+    arxiv: "1010.3633"
+    open_access: true
+  stoc:
+    kind: conference
+    venue: "43rd ACM Symposium on Theory of Computing (STOC 2011), pp. 469–478"
+    year: 2011
+    doi: "10.1145/1993636.1993699"
+    open_access: false
+  journal:
+    kind: journal
+    venue: "SIAM Journal on Computing 43(2), pp. 355–388"
+    year: 2014
+    doi: "10.1137/110855247"
+    open_access: false

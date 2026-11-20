@@ -1,0 +1,22 @@
+id: abu-khzam-bonnet-sikora-2014
+title: "On the Complexity of Various Parameterizations of Common Induced Subgraph Isomorphism"
+authors: [Faisal N. Abu-Khzam, Édouard Bonnet, Florian Sikora]
+identifiers: { dblp: "journals/tcs/Abu-KhzamBS17", openalex: null }
+versions:
+  arxiv:
+    kind: preprint
+    year: 2014
+    arxiv: "1412.1261"
+    open_access: true
+  iwoca:
+    kind: workshop
+    venue: "25th International Workshop on Combinatorial Algorithms (IWOCA 2014), LNCS 8986, pp. 1–12"
+    year: 2014
+    doi: "10.1007/978-3-319-19315-1_1"
+    open_access: false
+  journal:
+    kind: journal
+    venue: "Theoretical Computer Science 697, pp. 69–78"
+    year: 2017
+    doi: "10.1016/j.tcs.2017.07.010"
+    open_access: false

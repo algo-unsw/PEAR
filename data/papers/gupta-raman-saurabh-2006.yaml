@@ -1,0 +1,19 @@
+id: gupta-raman-saurabh-2006
+title: "Fast Exponential Algorithms for Maximum $r$-Regular Induced Subgraph Problems"
+authors: [Sushmita Gupta, Venkatesh Raman, Saket Saurabh]
+identifiers: { dblp: "conf/fsttcs/GuptaRS06" }
+versions:
+  fsttcs:
+    kind: conference
+    venue: "26th Conference on Foundations of Software Technology and Theoretical Computer Science (FSTTCS 2006), LNCS 4337, pp. 139–151"
+    year: 2006
+    doi: "10.1007/11944836_15"
+    url: "https://www.imsc.res.in/~vraman/pub/srs_fsttcs06.pdf"
+    open_access: true
+  journal:
+    kind: journal
+    title: "Maximum $r$-Regular Induced Subgraph Problem: Fast Exponential Algorithms and Combinatorial Bounds"
+    venue: "SIAM Journal on Discrete Mathematics 26(4), pp. 1758–1780"
+    year: 2012
+    doi: "10.1137/09077850X"
+    open_access: false

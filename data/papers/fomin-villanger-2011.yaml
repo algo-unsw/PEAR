@@ -1,0 +1,22 @@
+id: fomin-villanger-2011
+title: "Subexponential Parameterized Algorithm for Minimum Fill-In"
+authors: [Fedor V. Fomin, Yngve Villanger]
+versions:
+  arxiv-v1:
+    kind: preprint
+    year: 2011
+    arxiv: "1104.2230"
+    open_access: true
+  soda:
+    kind: conference
+    venue: "23rd Annual ACM-SIAM Symposium on Discrete Algorithms (SODA 2012), pp. 1737–1746"
+    year: 2012
+    doi: "10.1137/1.9781611973099.138"
+    open_access: false
+  journal:
+    kind: journal
+    venue: "SIAM Journal on Computing 42(6), pp. 2197–2216"
+    year: 2013
+    doi: "10.1137/11085390X"
+    url: "https://folk.uib.no/nmiff/articles/2013/2013d.pdf"
+    open_access: true

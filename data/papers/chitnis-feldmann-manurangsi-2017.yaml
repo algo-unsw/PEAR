@@ -1,0 +1,27 @@
+id: chitnis-feldmann-manurangsi-2017
+title: Parameterized Approximation Algorithms for Bidirected Steiner Network Problems
+authors:
+- Rajesh Chitnis
+- Andreas Emil Feldmann
+- Pasin Manurangsi
+identifiers: { dblp: conf/esa/ChitnisFM18 }
+versions:
+  arxiv-v7:
+    kind: preprint
+    year: 2022
+    arxiv: 1707.06499v7
+    open_access: true
+  esa:
+    kind: conference
+    venue: "26th European Symposium on Algorithms (ESA 2018), LIPIcs 112, Article 20, pp. 20:1–20:16"
+    year: 2018
+    doi: 10.4230/LIPIcs.ESA.2018.20
+    url: "https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.ESA.2018.20"
+    open_access: true
+  journal:
+    kind: journal
+    venue: "ACM Transactions on Algorithms 17(2), Article 12, pp. 12:1–12:68"
+    year: 2021
+    doi: 10.1145/3447584
+    url: "https://eprints.whiterose.ac.uk/id/eprint/200944/1/1707.06499.pdf"
+    open_access: true

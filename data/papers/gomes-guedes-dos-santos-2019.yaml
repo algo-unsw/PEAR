@@ -1,0 +1,23 @@
+id: gomes-guedes-dos-santos-2019
+title: "Structural Parameterizations for Equitable Coloring"
+authors: [Guilherme C. M. Gomes, Matheus R. Guedes, Vinícius F. dos Santos]
+identifiers: { dblp: "journals/algorithmica/GomesGS23" }
+versions:
+  arxiv:
+    kind: preprint
+    year: 2019
+    arxiv: "1911.03297"
+    open_access: true
+  latin:
+    kind: conference
+    venue: "LATIN 2020: Theoretical Informatics, LNCS 12118, pp. 129–140"
+    year: 2020
+    doi: "10.1007/978-3-030-61792-9_11"
+    open_access: false
+  journal:
+    kind: journal
+    title: "Structural Parameterizations for Equitable Coloring: Complexity, FPT Algorithms, and Kernelization"
+    venue: "Algorithmica 85(7), pp. 1912–1947"
+    year: 2023
+    doi: "10.1007/s00453-022-01085-w"
+    open_access: false

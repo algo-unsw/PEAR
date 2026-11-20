@@ -1,0 +1,10 @@
+id: arnborg-corneil-proskurowski-1987
+title: "Complexity of Finding Embeddings in a k-Tree"
+authors: [Stefan Arnborg, Derek G. Corneil, Andrzej Proskurowski]
+versions:
+  journal:
+    kind: journal
+    venue: "SIAM Journal on Algebraic and Discrete Methods 8(2), pp. 277–284"
+    year: 1987
+    doi: "10.1137/0608024"
+    open_access: false

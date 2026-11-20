@@ -1,0 +1,14 @@
+id: set-cover--to--graph-motif
+from: { problem: set-cover, version: decision }
+to: { problem: graph-motif, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(k n m)"
+parameter_map: { n: "n + k m + 1", m: "k n m + k m", k: "n + k + 1" }
+source:
+  paper: bjorklund-kaski-kowalik-2012
+  statements:
+    arxiv-v3: { statement: "Proof of Theorem 6, part (1) (Section 5)" }
+  note: "From a Set Cover instance $(\\mathcal{S}, t)$ with universe $U$ ($|U| = n$) and $m$ sets, build the graph $H$ on $U$, $t$ copies $s^j_i$ of the family and a vertex $r$, with edges $\\{a, s^j_i\\}$ for $a \\in S_i$ and $\\{r, s^j_i\\}$; copy $j$ gets colour $j$, $r$ gets colour $t+1$ and the elements get the distinct colours $t+2, \\dots, n+t+1$; the motif is the set of all $n+t+1$ colours, so $k = n + t + 1$ and $H$ has $n + tm + 1$ vertices (both stated in the proof). Part (2) of the theorem gives a version with two colours. A solution may use the same set in several copies, so a cover with at most $t$ sets also gives a solution. The time is not stated (\"a polynomial-time reduction\"): $O(knm)$ is the size of $H$, and the edge count $k n m + k m$ is an upper bound ($t \\sum_i |S_i| + tm$). With a theorem of Cygan et al. (Set Cover in $O((2-\\varepsilon)^{n+t})$ time implies $O((2-\\varepsilon')^n)$ time), the paper concludes that an $O((2-\\varepsilon)^k)$-time algorithm for Graph Motif would give an $O((2-\\varepsilon')^n)$-time algorithm for Set Cover (Theorem 6 of arXiv v3, Theorem 10 of the STACS version)."
+formal: { status: informal }
+status: valid

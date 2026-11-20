@@ -1,0 +1,21 @@
+id: minimum-fill-in--n--fomin-villanger-2008
+problem: minimum-fill-in
+proved_for: optimisation
+bound:
+  as_stated: 'O(1.7549^{n})'
+  notation: O
+  parameters: [n]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Not stated; educated guess: exponential, like the treewidth algorithm of Theorem 5.2, which the paper calls an exponential-space algorithm (Section 1): dynamic programming over the enumerated potential maximal cliques.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: fomin-villanger-2008
+  statements:
+    journal: { statement: "Section 1 (Introduction)" }
+  note: 'Stated in the introduction of the Combinatorica version, without a numbered theorem: "Our techniques can be used to solve the problem in time $O(1.7549^n)$" (minimum fill-in); arXiv 0803.1321 says the same ("by combining the ideas from [Fomin, Kratsch, Todinca, ICALP 2004] it is possible to compute the fill-in of a graph"). TODO(verify): no separate proof is given. Read in the authors'' copy of the Combinatorica version.'

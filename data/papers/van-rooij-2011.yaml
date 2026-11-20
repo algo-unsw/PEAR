@@ -1,0 +1,10 @@
+id: van-rooij-2011
+title: Exact Exponential-Time Algorithms for Domination Problems in Graphs
+authors: [Johan M. M. van Rooij]
+versions:
+  thesis:
+    kind: thesis
+    venue: "PhD thesis, Utrecht University (ISBN 978-90-8891-293-1)"
+    year: 2011
+    url: "https://dspace.library.uu.nl/bitstream/handle/1874/205442/rooij.pdf?sequence=2"
+    open_access: true

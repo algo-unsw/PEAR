@@ -1,0 +1,19 @@
+id: dom-lokshtanov-saurabh-2009
+title: Incompressibility through Colors and IDs
+authors: [Michael Dom, Daniel Lokshtanov, Saket Saurabh]
+identifiers: { dblp: "journals/talg/DomLS14" }
+versions:
+  icalp:
+    kind: conference
+    venue: "Automata, Languages and Programming (ICALP 2009), Part I, LNCS 5555, pp. 378–389"
+    year: 2009
+    doi: "10.1007/978-3-642-02927-1_32"
+    open_access: false
+  journal:
+    kind: journal
+    title: Kernelization Lower Bounds Through Colors and IDs
+    venue: "ACM Transactions on Algorithms 11(2), Article 13, 20 pp."
+    year: 2014
+    doi: "10.1145/2650261"
+    url: "https://sites.cs.ucsb.edu/~daniello/papers/colorsIds.pdf"
+    open_access: true

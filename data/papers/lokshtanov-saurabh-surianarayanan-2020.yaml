@@ -1,0 +1,22 @@
+id: lokshtanov-saurabh-surianarayanan-2020
+title: "A Parameterized Approximation Scheme for Min $k$-Cut"
+authors: [Daniel Lokshtanov, Saket Saurabh, Vaishali Surianarayanan]
+identifiers: { dblp: "journals/siamcomp/LokshtanovSS24" }
+versions:
+  arxiv:
+    kind: preprint
+    year: 2020
+    arxiv: "2005.00134"
+    open_access: true
+  focs:
+    kind: conference
+    venue: "61st IEEE Annual Symposium on Foundations of Computer Science (FOCS 2020), pp. 798–809"
+    year: 2020
+    doi: "10.1109/FOCS46700.2020.00079"
+    open_access: false
+  journal:
+    kind: journal
+    venue: "SIAM Journal on Computing 53(6)"
+    year: 2024
+    doi: "10.1137/20M1383197"
+    open_access: false

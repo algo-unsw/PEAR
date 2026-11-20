@@ -1,0 +1,21 @@
+id: k-cut--n-w--lokshtanov-saurabh-surianarayanan-2023
+problem: k-cut
+proved_for: weighted
+bound:
+  as_stated: "2^{n + o(n)} (\\log W)^{O(1)}"
+  notation: O
+  parameters: [n, W]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: "Not stated; educated guess: polynomial (see the unweighted result of the same paper). TODO(verify)."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: lokshtanov-saurabh-surianarayanan-2023
+  statements:
+    icalp: { statement: "Theorem 2" }
+  note: "Edge weights in $[0, W]$."

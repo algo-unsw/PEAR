@@ -1,0 +1,12 @@
+id: lokshtanov-saurabh-surianarayanan-2023
+title: "Breaking the All Subsets Barrier for Min $k$-Cut"
+authors: [Daniel Lokshtanov, Saket Saurabh, Vaishali Surianarayanan]
+identifiers: { dblp: "conf/icalp/Lokshtanov0S23" }
+versions:
+  icalp:
+    kind: conference
+    venue: "50th International Colloquium on Automata, Languages, and Programming (ICALP 2023), LIPIcs 261, pp. 90:1–90:19"
+    year: 2023
+    doi: "10.4230/LIPIcs.ICALP.2023.90"
+    url: "https://drops.dagstuhl.de/opus/volltexte/2023/18142/pdf/LIPIcs-ICALP-2023-90.pdf"
+    open_access: true

@@ -1,0 +1,22 @@
+id: max-bisection--tw--hanaka-kobayashi-sone-2020
+problem: max-bisection
+proved_for: weighted
+bound:
+  as_stated: 'O(2^{tw}(tw n)^{2})'
+  notation: O
+  parameters: [tw, n]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Not stated; educated guess: exponential in $tw$. Dynamic programming over a nice tree decomposition with a value for every subset $S$ of a bag and every size $d \le n$ (Section 3.1).'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+given: [tree-decomposition]
+source:
+  paper: hanaka-kobayashi-sone-2020
+  statements:
+    arxiv: { statement: "Theorem thm:twdp (Section 3.2, A refined analysis for join nodes)" }
+  note: 'Stated as $O(2^t(tn)^2)$ for a tree decomposition of width $t$ given with the input and real edge weights; $t$ is written $tw$ here. Section 3.3 shows that the base 2 is optimal under SETH (via Max Cut). Refines the $O(2^t n^3)$ analysis of Jansen, Karpinski, Lingas and Seidel (SIAM J. Comput. 2005). Read in arXiv v2 of 2002.12706 (the current version on 20 November 2026); TODO(verify) the printed theorem number. Theoretical Computer Science 2021.'

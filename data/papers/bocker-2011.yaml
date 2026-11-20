@@ -1,0 +1,23 @@
+id: bocker-2011
+title: "A Golden Ratio Parameterized Algorithm for Cluster Editing"
+authors: [Sebastian Böcker]
+identifiers: { dblp: "journals/jda/Bocker12" }
+versions:
+  iwoca:
+    kind: conference
+    venue: "22nd International Workshop on Combinatorial Algorithms (IWOCA 2011), LNCS 7056, pp. 85–95"
+    year: 2011
+    doi: "10.1007/978-3-642-25011-8_7"
+    open_access: false
+  journal:
+    kind: journal
+    venue: "Journal of Discrete Algorithms 16, pp. 79–89"
+    year: 2012
+    doi: "10.1016/j.jda.2012.04.005"
+    open_access: false
+  journal-preprint:
+    kind: preprint
+    venue: "Author's preprint of the Journal of Discrete Algorithms article (Böcker group, Friedrich-Schiller-Universität Jena)"
+    year: 2012
+    url: "https://bio.informatik.uni-jena.de/wp-content/uploads/2025/07/Boecker_GoldenRatioParameterizedAlgorithm_JDiscreteAlgorithms_2012_preprint.pdf"
+    open_access: true

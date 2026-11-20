@@ -1,0 +1,23 @@
+id: bjorklund-kaski-kowalik-2012
+title: "Constrained Multilinear Detection and Generalized Graph Motifs"
+authors: [Andreas Björklund, Petteri Kaski, Łukasz Kowalik]
+identifiers: { dblp: "journals/algorithmica/BjorklundKK16", openalex: null }
+versions:
+  stacs:
+    kind: conference
+    title: "Probably Optimal Graph Motifs"
+    venue: "30th International Symposium on Theoretical Aspects of Computer Science (STACS 2013), LIPIcs 20, pp. 20–31"
+    year: 2013
+    doi: "10.4230/LIPIcs.STACS.2013.20"
+    open_access: true
+  journal:
+    kind: journal
+    venue: "Algorithmica 74(2), pp. 947–967"
+    year: 2016
+    doi: "10.1007/s00453-015-9981-1"
+    open_access: false
+  arxiv-v3:
+    kind: preprint
+    arxiv: "1209.1082"
+    year: 2013
+    open_access: true

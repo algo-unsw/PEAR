@@ -1,0 +1,19 @@
+id: subgraph-isomorphism--k-tw--alon-yuster-zwick-1994-randomized
+problem: subgraph-isomorphism
+proved_for: decision
+bound:
+  as_stated: 2^{O(k)} n^{tw + 1}
+  notation: O
+  parameters: [k, n, tw]
+properties:
+  randomized: { error: one-sided }
+  space: { class: exponential, bound: "Not stated; educated guess: $2^{O(k)} n^{tw + 1}$ (dynamic programming over a tree decomposition of $H$ under a random colouring)." }
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: alon-yuster-zwick-1994
+  statements:
+    journal: { statement: "Theorem 6.3" }
+  note: "Theorem 6.3 states $2^{O(k)} \\cdot V^{t+1}$ expected time to find a copy of $H$ when one exists ($H$ on $k$ vertices, tree-width $t$); stopping after a constant multiple of this time gives a one-sided-error decision algorithm. Read in the author's copy of the J. ACM version (superscripts flattened in the text extraction)."

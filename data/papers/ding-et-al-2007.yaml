@@ -1,0 +1,18 @@
+id: ding-et-al-2007
+title: Finding Top-k Min-Cost Connected Trees in Databases
+authors:
+- Bolin Ding
+- Jeffrey Xu Yu
+- Shan Wang
+- Lu Qin
+- Xiao Zhang
+- Xuemin Lin
+identifiers: { dblp: conf/icde/DingYWQZL07 }
+versions:
+  icde:
+    kind: conference
+    venue: "23rd International Conference on Data Engineering (ICDE 2007), pp. 836–845"
+    year: 2007
+    doi: 10.1109/ICDE.2007.367929
+    url: "https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/icde07steiner.pdf"
+    open_access: true

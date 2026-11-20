@@ -1,0 +1,21 @@
+id: multiway-cut--k--cao-chen-fan-2013
+problem: multiway-cut
+proved_for: weighted-decision
+bound:
+  as_stated: '1.84^{k} n^{O(1)}'
+  notation: O
+  parameters: [k, n]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Not stated; educated guess: polynomial. Bounded search tree with measure-based analysis, using maximum-volume minimum cuts and isolating cuts computed by flows; no memoization or dynamic programming found.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: cao-chen-fan-2013
+  statements:
+    arxiv: { statement: "Theorem thm:main (Section 1)" }
+  note: 'Stated for integer edge weights and total weight at most $k$. The same paper gives $1.36^k n^{O(1)}$ for three terminals and $1.84^{(p-2)k/(p-1)} n^{O(1)}$ for $p$ terminals (Theorem thm:p-terminal). FCT 2013; Information Processing Letters 2014; arXiv v1 (posted 2017, the only version on 20 November 2026), read 20 November 2026 (TODO(verify) the printed theorem number).'

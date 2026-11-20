@@ -1,0 +1,10 @@
+id: steiner-tree--to--prize-collecting-steiner-tree
+from: { problem: steiner-tree, version: weighted }
+to: { problem: prize-collecting-steiner-tree, version: optimisation }
+type: polytime-deterministic
+calls: 1
+time: "O(n + m)"
+parameter_map: { n: "n", m: "m", tw: "tw" }
+source:
+  folklore: true
+  note: "Same graph and edge costs; root $r = t_1$ for a terminal $t_1$ (an instance with $T = \\emptyset$ has optimum 0); penalty $1 + \\sum_{e \\in E} w(e)$ on every other terminal and $0$ on all other vertices. A tree containing $r$ that misses a terminal costs more than any tree containing $T$, so the optimum is at most $\\sum_{e} w(e)$ exactly when a Steiner tree exists, and then the two optima are equal."

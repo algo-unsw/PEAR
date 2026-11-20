@@ -1,0 +1,16 @@
+id: xiong-xiao-2024
+title: "A Simplified Parameterized Algorithm for Directed Feedback Vertex Set"
+authors: [Ziliang Xiong, Mingyu Xiao]
+identifiers: { dblp: conf/sosa/Xiong025, openalex: null }
+versions:
+  arxiv-v1:
+    kind: preprint
+    year: 2024
+    arxiv: "2410.15411v1"
+    open_access: true
+  sosa:
+    kind: conference
+    venue: "2025 Symposium on Simplicity in Algorithms (SOSA 2025), SIAM, pp. 378–384"
+    year: 2025
+    doi: "10.1137/1.9781611978315.29"
+    open_access: false

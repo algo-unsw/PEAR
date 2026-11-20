@@ -1,0 +1,21 @@
+id: k-cut--n--lokshtanov-saurabh-surianarayanan-2023
+problem: k-cut
+proved_for: optimisation
+bound:
+  as_stated: "O((2 - \\varepsilon)^{n})"
+  notation: O
+  parameters: [n]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: "Not stated; educated guess: polynomial. The paper only notes that the enumeration in its Lemma 3 uses polynomial space; no dynamic programming over subsets or memoization was found in the text extraction. TODO(verify)."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: lokshtanov-saurabh-surianarayanan-2023
+  statements:
+    icalp: { statement: "Theorem 1" }
+  note: "Unweighted simple graphs; the theorem says \"for some $\\varepsilon > 0$\", printed as $O(2-\\varepsilon)^n$, and the abstract gives $\\varepsilon > 10^{-50}$. The paper does not say explicitly whether the whole algorithm is deterministic; TODO(verify)."

@@ -1,0 +1,23 @@
+id: graph-motif--dc--bonnet-sikora-2015
+problem: graph-motif
+proved_for: decision
+bound:
+  as_stated: "O^*(3^{dc})"
+  notation: O*
+  parameters: [dc]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: "Not stated; educated guess: $O^*(2^{dc})$. After guessing the part $S'$ of the solution in the modulator, the algorithm solves an instance of Colored Set Cover with Thresholds over a universe of at most $dc$ elements by dynamic programming over subsets (a table $T[U, j]$ for all subsets $U$ of the universe, lemma before the theorem)."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: bonnet-sikora-2015
+  statements:
+    arxiv: { statement: "Theorem 8 (Section 3.2); LaTeX label th:distclique" }
+  note: "Stated as \"Graph Motif can be solved in $O^*(3^k)$, where $k$ is the distance to clique.\" The proof sums $O^*(2^{|S'|})$ over all subsets $S'$ of the modulator. Read in arXiv 1503.05110 as served on 20 November 2026 (titled as the DAM version; the PDF text showed no version stamp, so the version number is not checked). TODO(verify): whether the published versions state the same bound."
+formal: { status: informal }
+status: valid

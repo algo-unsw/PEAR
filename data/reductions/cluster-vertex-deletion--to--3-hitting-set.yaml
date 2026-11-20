@@ -1,0 +1,12 @@
+id: cluster-vertex-deletion--to--3-hitting-set
+from: { problem: cluster-vertex-deletion, version: decision }
+to: { problem: 3-hitting-set, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(n^{3})"
+parameter_map: { n: "n", m: "n^{3}", k: "k" }
+source:
+  folklore: true
+  note: "A graph is a cluster graph if and only if it has no induced $P_3$. Universe $V$ and family of the vertex sets of the induced $P_3$s (at most $n^3$ sets of size 3); the solutions are exactly the hitting sets."
+  reference: { paper: tsur-2019-cvd, version: arxiv-v1, statement: "Section 1" }
+status: valid

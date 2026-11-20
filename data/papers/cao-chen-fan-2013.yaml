@@ -1,0 +1,23 @@
+id: cao-chen-fan-2013
+title: "An $O^*(1.84^k)$ Parameterized Algorithm for the Multiterminal Cut Problem"
+authors: [Yixin Cao, Jianer Chen, Jia-Hao Fan]
+identifiers: { dblp: journals/ipl/CaoCF14 }
+versions:
+  fct:
+    kind: conference
+    venue: "Fundamentals of Computation Theory (FCT 2013), LNCS 8070, pp. 84–94"
+    year: 2013
+    doi: "10.1007/978-3-642-40164-0_11"
+    open_access: false
+  journal:
+    kind: journal
+    title: "An $O(1.84^k)$ parameterized algorithm for the multiterminal cut problem"
+    venue: "Information Processing Letters 114(4), pp. 167–173"
+    year: 2014
+    doi: "10.1016/j.ipl.2013.12.001"
+    open_access: false
+  arxiv:
+    kind: preprint
+    year: 2017
+    arxiv: "1711.06397"
+    open_access: true

@@ -1,0 +1,26 @@
+id: feldmann-marx-2016
+title: The Complexity Landscape of Fixed-Parameter Directed Steiner Network Problems
+authors:
+- Andreas Emil Feldmann
+- Dániel Marx
+identifiers: { dblp: conf/icalp/FeldmannM16 }
+versions:
+  icalp:
+    kind: conference
+    venue: "43rd International Colloquium on Automata, Languages, and Programming (ICALP 2016), LIPIcs 55, Article 27, pp. 27:1–27:14"
+    year: 2016
+    doi: 10.4230/LIPIcs.ICALP.2016.27
+    url: "https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.ICALP.2016.27"
+    open_access: true
+  arxiv:
+    kind: preprint
+    year: 2017
+    arxiv: '1707.06808'
+    open_access: true
+  journal:
+    kind: journal
+    venue: "ACM Transactions on Computation Theory 15(3–4), Article 4, pp. 4:1–4:28"
+    year: 2023
+    doi: 10.1145/3580376
+    url: "https://eprints.whiterose.ac.uk/id/eprint/200936/1/1707.06808.pdf"
+    open_access: true

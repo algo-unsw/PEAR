@@ -1,0 +1,17 @@
+id: subgraph-isomorphism--n-k--folklore
+problem: subgraph-isomorphism
+proved_for: decision
+bound:
+  as_stated: O(n^{k} k^{2} + n^{2})
+  notation: O
+  parameters: [n, k]
+properties:
+  randomized: false
+  space: { class: polynomial, bound: "The adjacency matrix of $G$; the maps are enumerated one at a time." }
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  folklore: true
+  note: "Build the adjacency matrix of $G$ in $O(n^2)$ time, then check each of the at most $n^k$ injective maps from $V_H$ to $V$ on the at most $k^2$ pairs of pattern vertices."

@@ -1,0 +1,10 @@
+id: vertex-cover--to--directed-feedback-vertex-set
+from: { problem: vertex-cover, version: decision }
+to: { problem: directed-feedback-vertex-set, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(n + m)"
+parameter_map: { n: "n", m: "2m", k: "k", tw: "tw" }
+source:
+  folklore: true
+  note: "Replace every edge $uv$ by the two arcs $uv$ and $vu$. Every edge becomes a directed cycle of length 2, and every directed cycle uses an arc of some edge, so $S$ meets every directed cycle if and only if $S$ is a vertex cover. The underlying undirected graph is $G$ itself."

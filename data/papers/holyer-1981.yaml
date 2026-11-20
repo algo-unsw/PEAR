@@ -1,0 +1,11 @@
+id: holyer-1981
+title: "The NP-Completeness of Edge-Coloring"
+authors: [Ian Holyer]
+identifiers: { dblp: "journals/siamcomp/Holyer81a" }
+versions:
+  journal:
+    kind: journal
+    venue: "SIAM Journal on Computing 10(4), pp. 718–720"
+    year: 1981
+    doi: "10.1137/0210055"
+    open_access: false

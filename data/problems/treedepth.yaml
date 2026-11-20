@@ -1,0 +1,44 @@
+id: treedepth
+name: Treedepth
+aliases: [Tree-Depth, Vertex Ranking, Elimination Tree Height, Centered Coloring]
+category: graph
+complexity:
+  class: NP-complete
+  source:
+    paper: pothen-1988
+    attested_by:
+      - "https://en.wikipedia.org/wiki/Tree-depth"
+      - "https://core.ac.uk/download/74507333.pdf"
+      - "https://arxiv.org/pdf/2004.08959"
+    note: 'As on Wikipedia (Tree-depth: "the corresponding decision problem is NP-complete"), which cites Pothen (1988). Kobayashi and Tamaki (IPEC 2016, Section 1: "known to be NP-hard [29]") and Trimble (arXiv 2004.08959: "The decision variant of the treedepth problem is NP-complete [13]") cite the same report. Wikipedia and Kobayashi and Tamaki give the report number as CS-88-13, Trimble as CS 88-16 (TODO(verify)). No open copy was found.'
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  k: { meaning: "the depth: the integer $k$ in the input (decision, search), or the treedepth of $G$ (optimisation)" }
+  vc: { shared: vertex-cover-number }
+constraints:
+  - { constraint: "k \\le n", because: "Every instance with $k \\ge n$ is a yes-instance (a path through all vertices, rooted at one end, is an elimination forest of depth $n$), answered in polynomial time." }
+  - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
+  - { constraint: "vc \\le n", because: "$V$ itself is a vertex cover." }
+versions:
+  decision:
+    kind: decision
+    input: "A graph $G = (V, E)$ and an integer $k$."
+    question: "Is there a rooted forest $F$ on the vertex set $V$ whose depth (the maximum number of vertices on a path from a root to a leaf) is at most $k$, such that for every edge $uv \\in E$, $u$ is an ancestor of $v$ in $F$ or $v$ is an ancestor of $u$?"
+  optimisation:
+    kind: optimisation
+    input: "A graph $G = (V, E)$."
+    goal: "Find the minimum depth (the maximum number of vertices on a path from a root to a leaf) of a rooted forest $F$ on the vertex set $V$ such that for every edge $uv \\in E$, $u$ is an ancestor of $v$ in $F$ or $v$ is an ancestor of $u$."
+  search:
+    kind: search
+    input: "A graph $G = (V, E)$ and an integer $k$."
+    goal: "Find a rooted forest $F$ on the vertex set $V$ whose depth (the maximum number of vertices on a path from a root to a leaf) is at most $k$, such that for every edge $uv \\in E$, $u$ is an ancestor of $v$ in $F$ or $v$ is an ancestor of $u$, or report that none exists."
+default_version: decision
+shared_bounds:
+  - versions: [decision, optimisation, search]
+    because: "Binary search on $k$ and self-reducibility."
+related:
+  - { problem: treewidth, relation: variant }
+  - { problem: pathwidth, relation: variant }

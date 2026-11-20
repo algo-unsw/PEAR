@@ -1,0 +1,11 @@
+id: chromatic-number--to--graph-homomorphism
+from: { problem: chromatic-number, version: decision }
+to: { problem: graph-homomorphism, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(n + m + k^{2})"
+parameter_map: { n: "n", m: "m", h: "k", b: "0", tw: "tw" }
+source:
+  folklore: true
+  note: "$(G, k) \\mapsto (G, K_k)$: a $k$-colouring of $G$ is exactly a homomorphism from $G$ to $K_k$. The complement of $K_k$ has no edges, so its bandwidth is $0$."
+  reference: { paper: rzazewski-2013, version: arxiv-v1, statement: "Section 1" }

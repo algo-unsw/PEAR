@@ -1,0 +1,22 @@
+id: bandwidth--n--ambainis-balodis-iraids-2018
+problem: bandwidth
+proved_for: decision
+bound:
+  as_stated: O^*(2.945^{n})
+  notation: O*
+  parameters: [n]
+properties:
+  randomized: { error: two-sided }
+  space:
+    class: exponential
+    bound: 'Stated: exponential space (Section 1.1): the algorithm stores a partial dynamic programming table over vertex subsets.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: false
+  quantum: true
+source:
+  paper: ambainis-balodis-iraids-2018
+  statements:
+    arxiv:
+      statement: Theorem in Section 4 (Graph Bandwidth), read in the current arXiv version
+  note: 'Theorem: a bounded-error quantum algorithm solves Bandwidth in time $O^*(2.945^n)$ (Table 1 in Section 1.1 lists $O^*(2.946^n)$). It speeds up the $O^*(5^n)$ algorithm of Cygan and Pilipczuk (WG 2008) for a fixed bound $b$, with binary search on $b$, by path finding in the hypercube with forbidden vertices. Section 1.1 states that the best known classical algorithm runs in time $O^*(4.383^n)$ (Cygan and Pilipczuk, TCS 2010) and that all the algorithms of the paper need exponential space and are correct with probability at least $2/3$.'

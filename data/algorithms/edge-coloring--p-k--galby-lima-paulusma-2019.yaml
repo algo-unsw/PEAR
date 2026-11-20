@@ -1,0 +1,21 @@
+id: edge-coloring--p-k--galby-lima-paulusma-2019
+problem: edge-coloring
+proved_for: decision
+bound:
+  as_stated: "O(p^{2} k^{k^{2} p/2 + 4} + n + m)"
+  notation: O
+  parameters: [p, k, n, m]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: "Not stated; educated guess: polynomial. The algorithm tries the at most $k^{k^2 p/2}$ colourings of the semi-core $G[X \\cup N(X)]$ ($X$ the vertices of maximum degree) one at a time and extends a valid one along alternating paths (Lemma 1); no memoization or dynamic programming found."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: galby-lima-paulusma-2019
+  statements:
+    arxiv: { statement: "Theorem 3" }
+  note: "Stated as: for every $k \\ge 1$, $k$-Edge Colouring can be solved in this time on graphs with $n$ vertices, $p$ of which have maximum degree, and $m$ edges; a colouring is found in $O(p^2 k^{k^2p/2+4} + k^2(n-p) + n + m)$ time. Instances with $\\Delta \\ne k$ are trivial by Vizing's theorem (Observation 1). Uses the semi-core theorem of Machado and de Figueiredo (Theorem 4). Read in the current arXiv version (no peer-reviewed version found in DBLP)."

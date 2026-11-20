@@ -1,0 +1,22 @@
+id: chapelle-liedloff-todinca-villanger-2013
+title: "Treewidth and Pathwidth Parameterized by the Vertex Cover Number"
+authors: [Mathieu Chapelle, Mathieu Liedloff, Ioan Todinca, Yngve Villanger]
+versions:
+  arxiv-v1:
+    kind: preprint
+    title: "TREEWIDTH and PATHWIDTH parameterized by vertex cover"
+    year: 2013
+    arxiv: "1305.0433"
+    open_access: true
+  wads:
+    kind: conference
+    venue: "Algorithms and Data Structures, 13th International Symposium (WADS 2013), LNCS 8037, pp. 232–243"
+    year: 2013
+    doi: "10.1007/978-3-642-40104-6_21"
+    open_access: false
+  journal:
+    kind: journal
+    venue: "Discrete Applied Mathematics 216, pp. 114–129"
+    year: 2017
+    doi: "10.1016/j.dam.2014.12.012"
+    open_access: false

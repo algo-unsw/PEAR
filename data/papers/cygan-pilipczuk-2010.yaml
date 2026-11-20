@@ -1,0 +1,16 @@
+id: cygan-pilipczuk-2010
+title: Bandwidth and Distortion Revisited
+authors: [Marek Cygan, Marcin Pilipczuk]
+identifiers: { dblp: journals/dam/CyganP12 }
+versions:
+  arxiv-v1:
+    kind: preprint
+    arxiv: "1004.5012v1"
+    year: 2010
+    open_access: true
+  journal:
+    kind: journal
+    venue: "Discrete Applied Mathematics 160(4–5), pp. 494–504"
+    year: 2012
+    doi: "10.1016/j.dam.2011.10.032"
+    open_access: false

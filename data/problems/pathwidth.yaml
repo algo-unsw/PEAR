@@ -1,0 +1,44 @@
+id: pathwidth
+name: Pathwidth
+aliases: [Path-Width, Vertex Separation Number]
+category: graph
+complexity:
+  class: NP-complete
+  source:
+    paper: arnborg-corneil-proskurowski-1987
+    attested_by:
+      - "https://en.wikipedia.org/wiki/Pathwidth"
+      - "https://arxiv.org/pdf/1302.2788"
+      - "https://folk.uib.no/nmiff/articles/2003/2003c.pdf"
+    note: 'Wikipedia (Pathwidth: "It is NP-complete to determine whether the pathwidth of a given graph is at most k") cites Kashiwabara and Fujisawa (1979), Ohtsuki et al. (1979), Lengauer (1981), Arnborg, Corneil and Proskurowski (1987) and Bodlaender et al. (1992) together. The 1987 paper is used here because, besides Wikipedia, Dereniowski, Kubiak and Zwols (arXiv 1302.2788, Section 1: "the pathwidth computation problem itself is an NP-hard problem [1]") and Fomin and Golovach (Interval degree and bandwidth of a graph, authors'' copy, Section 3: NP-hard even for cobipartite graphs "by the celebrated result of Arnborg et al.") cite it. No open copy of any of the five papers was found.'
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  k: { meaning: "the width: the integer $k$ in the input (decision, search), or the pathwidth of $G$ (optimisation)" }
+  vc: { shared: vertex-cover-number }
+constraints:
+  - { constraint: "k \\le n", because: "Every instance with $k \\ge n - 1$ is a yes-instance (a single bag containing $V$ has width $n - 1$), answered in polynomial time." }
+  - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
+  - { constraint: "vc \\le n", because: "$V$ itself is a vertex cover." }
+versions:
+  decision:
+    kind: decision
+    input: "A graph $G = (V, E)$ and an integer $k$."
+    question: "Is there a path decomposition of $G$ of width at most $k$, that is, a sequence of bags $B_1, \\dots, B_r \\subseteq V$ such that both endpoints of every edge are in a common bag, each vertex is in a nonempty set of consecutive bags, and $\\max_i |B_i| - 1 \\le k$?"
+  optimisation:
+    kind: optimisation
+    input: "A graph $G = (V, E)$."
+    goal: "Find the minimum width $\\max_i |B_i| - 1$ of a path decomposition of $G$, that is, a sequence of bags $B_1, \\dots, B_r \\subseteq V$ such that both endpoints of every edge are in a common bag and each vertex is in a nonempty set of consecutive bags."
+  search:
+    kind: search
+    input: "A graph $G = (V, E)$ and an integer $k$."
+    goal: "Find a path decomposition of $G$ of width at most $k$, that is, a sequence of bags $B_1, \\dots, B_r \\subseteq V$ such that both endpoints of every edge are in a common bag, each vertex is in a nonempty set of consecutive bags, and $\\max_i |B_i| - 1 \\le k$, or report that none exists."
+default_version: decision
+shared_bounds:
+  - versions: [decision, optimisation, search]
+    because: "Binary search on $k$ and self-reducibility."
+related:
+  - { problem: treewidth, relation: variant }
+  - { problem: treedepth, relation: variant }

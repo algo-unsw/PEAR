@@ -1,0 +1,10 @@
+id: limmer-kriege-2026
+title: "On the Complexity of Graph Edit Distance in Restricted Graph Classes"
+authors: [Maximilian Limmer, Nils M. Kriege]
+identifiers: { dblp: "journals/corr/abs-2607-18914", openalex: null }
+versions:
+  arxiv-v1:
+    kind: preprint
+    year: 2026
+    arxiv: "2607.18914"
+    open_access: true

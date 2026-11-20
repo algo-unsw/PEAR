@@ -1,0 +1,16 @@
+id: bonamy-et-al-2017
+title: "On Directed Feedback Vertex Set parameterized by treewidth"
+authors: [Marthe Bonamy, Łukasz Kowalik, Jesper Nederlof, Michał Pilipczuk, Arkadiusz Socała, Marcin Wrochna]
+identifiers: { dblp: conf/wg/BonamyKNPSW18, openalex: null }
+versions:
+  arxiv:
+    kind: preprint
+    year: 2017
+    arxiv: "1707.01470"
+    open_access: true
+  wg:
+    kind: workshop
+    venue: "44th International Workshop on Graph-Theoretic Concepts in Computer Science (WG 2018), LNCS 11159, pp. 65–78"
+    year: 2018
+    doi: "10.1007/978-3-030-00256-5_6"
+    open_access: false

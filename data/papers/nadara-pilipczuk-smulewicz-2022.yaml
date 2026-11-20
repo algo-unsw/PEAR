@@ -1,0 +1,15 @@
+id: nadara-pilipczuk-smulewicz-2022
+title: "Computing Treedepth in Polynomial Space and Linear FPT Time"
+authors: [Wojciech Nadara, Michał Pilipczuk, Marcin Smulewicz]
+versions:
+  arxiv-v1:
+    kind: preprint
+    year: 2022
+    arxiv: "2205.02656"
+    open_access: true
+  esa:
+    kind: conference
+    venue: "30th Annual European Symposium on Algorithms (ESA 2022), LIPIcs 244, pp. 79:1–79:14"
+    year: 2022
+    doi: "10.4230/LIPIcs.ESA.2022.79"
+    open_access: true

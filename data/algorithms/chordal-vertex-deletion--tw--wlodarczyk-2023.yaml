@@ -1,0 +1,26 @@
+id: chordal-vertex-deletion--tw--wlodarczyk-2023
+problem: chordal-vertex-deletion
+proved_for: optimisation
+bound:
+  as_stated: "(3 \\cdot 2^{\\omega - 1} + 1)^{tw} \\cdot tw^{\\omega + 1} \\cdot n"
+  notation: O
+  parameters: [tw, n]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: "Not stated; educated guess: exponential. Dynamic programming over the given tree decomposition with representative families, keeping tables exponential in the width."
+  algebraic: true
+  fast_matrix_multiplication: true
+  constructive: true
+  quantum: false
+given:
+- tree-decomposition
+source:
+  paper: wlodarczyk-2023
+  statements:
+    icalp: { statement: "Theorem 1.1" }
+    arxiv: { statement: "Theorem in Section 1 (label thm:intro:chordal), proved in Section 4" }
+  note: "Stated as: Chordal Vertex Deletion can be solved in deterministic time $O(c^k k^{\\omega+1} n)$ on $n$-vertex node-weighted graphs when a tree decomposition of width $k$ is provided, with $c = 2^{\\omega-1} \\cdot 3 + 1$. Section 1 adds that, with the single-exponential constant-factor approximation of treewidth of Bodlaender et al., this gives $2^{O(\\mathrm{tw})} n$ when no decomposition is given. Read in the LaTeX of the current arXiv version (version number not shown). The ICALP 2023 version (open access, CC BY 4.0) states it as Theorem 1.1 and defers the dynamic programming to the full version. TODO(verify): the theorem number in the arXiv version (presumably also 1.1); algebraic set because fast matrix multiplication is a sub-tag of it; constructive assumed (dynamic programming)."
+formal: { status: informal }
+status: valid

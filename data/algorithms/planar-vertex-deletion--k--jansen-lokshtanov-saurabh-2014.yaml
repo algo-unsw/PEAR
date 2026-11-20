@@ -1,0 +1,23 @@
+id: planar-vertex-deletion--k--jansen-lokshtanov-saurabh-2014
+problem: planar-vertex-deletion
+proved_for: search
+bound:
+  as_stated: "2^{O(k \\log k)} \\cdot n"
+  notation: O
+  parameters: [k, n]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: "Not stated; educated guess: exponential. The algorithm calls the bounded-treewidth algorithm (Theorem 3), a dynamic programming over a nice tree decomposition with $w^{O(w)}$ table entries per node."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: jansen-lokshtanov-saurabh-2014
+  statements:
+    author-copy: { statement: "Theorem 4" }
+  note: "Theorem 4: \"k-Vertex Planarization can be solved in $2^{O(k \\log k)} \\cdot n$ time\", for the construction version (input $G$ and $k$; output a minimum-size apex set, i.e. a set whose deletion leaves a planar graph, or no if $G$ is not $k$-apex). The conclusion leaves open whether $2^{O(k)} n$ is possible. Read in the author copy dated 31 October 2013 (via a PDF-to-text extraction); the theorem number in the SODA 2014 version was not checked (no open copy). TODO(verify): Serge to confirm the theorem number and that the result is deterministic."
+formal: { status: informal }
+status: valid

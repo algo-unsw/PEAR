@@ -1,0 +1,18 @@
+id: espelage-gurski-wanke-2001
+title: Deciding Clique-Width for Graphs of Bounded Tree-Width
+authors: [Wolfgang Espelage, Frank Gurski, Egon Wanke]
+identifiers: { dblp: journals/jgaa/EspelageGW03 }
+versions:
+  wads:
+    kind: conference
+    venue: "Algorithms and Data Structures, 7th International Workshop (WADS 2001), LNCS 2125, pp. 87–98"
+    year: 2001
+    doi: "10.1007/3-540-44634-6_9"
+    open_access: false
+  journal:
+    kind: journal
+    venue: "Journal of Graph Algorithms and Applications 7(2), pp. 141–180"
+    year: 2003
+    doi: "10.7155/jgaa.00065"
+    url: "https://www.jgaa.info/index.php/jgaa/article/view/paper65"
+    open_access: true

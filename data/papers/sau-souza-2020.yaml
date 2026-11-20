@@ -1,0 +1,27 @@
+id: sau-souza-2020
+title: "Hitting Forbidden Induced Subgraphs on Bounded Treewidth Graphs"
+authors: [Ignasi Sau, Uéverton dos Santos Souza]
+identifiers: { dblp: "journals/iandc/SauS21" }
+versions:
+  arxiv-v1:
+    kind: preprint
+    arxiv: "2004.08324v1"
+    year: 2020
+    open_access: true
+  arxiv-v2:
+    kind: preprint
+    arxiv: "2004.08324v2"
+    year: 2022
+    open_access: true
+  mfcs:
+    kind: conference
+    venue: "45th International Symposium on Mathematical Foundations of Computer Science (MFCS 2020), LIPIcs 170, pp. 82:1–82:15"
+    year: 2020
+    doi: "10.4230/LIPIcs.MFCS.2020.82"
+    open_access: true
+  journal:
+    kind: journal
+    venue: "Information and Computation 281, Article 104812"
+    year: 2021
+    doi: "10.1016/j.ic.2021.104812"
+    open_access: false

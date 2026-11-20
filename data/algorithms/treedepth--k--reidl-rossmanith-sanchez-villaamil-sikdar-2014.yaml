@@ -1,0 +1,21 @@
+id: treedepth--k--reidl-rossmanith-sanchez-villaamil-sikdar-2014
+problem: treedepth
+proved_for: search
+bound:
+  as_stated: '2^{O(k^{2})} n'
+  notation: O
+  parameters: [k, n]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Educated guess: $2^{O(k^2)} n$. Dynamic programming over a tree decomposition of width $w \le 5k$ (the 5-approximation of Bodlaender et al.); Theorem 1 states the bound $O(2^{4wt+3w\log wt} \cdot wt \cdot n)$ for both time and space.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: reidl-rossmanith-sanchez-villaamil-sikdar-2014
+  statements:
+    arxiv-v4: { statement: "Theorem 3" }
+  note: 'Stated with $t$ for the treedepth, written $k$ here: deciding whether $G$ has a treedepth decomposition of height $t$ and constructing one.'

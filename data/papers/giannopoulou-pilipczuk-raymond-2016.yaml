@@ -1,0 +1,23 @@
+id: giannopoulou-pilipczuk-raymond-2016
+title: "Cutwidth: Obstructions and Algorithmic Aspects"
+authors: [Archontia C. Giannopoulou, Michał Pilipczuk, Jean-Florent Raymond, Dimitrios M. Thilikos, Marcin Wrochna]
+identifiers: { dblp: journals/algorithmica/GiannopoulouPRT19 }
+versions:
+  arxiv:
+    kind: preprint
+    arxiv: "1606.05975"
+    year: 2016
+    open_access: true
+  ipec:
+    kind: conference
+    venue: "11th International Symposium on Parameterized and Exact Computation (IPEC 2016), LIPIcs 63, pp. 15:1–15:13"
+    year: 2016
+    doi: "10.4230/LIPIcs.IPEC.2016.15"
+    url: "https://drops.dagstuhl.de/opus/volltexte/2017/6930/"
+    open_access: true
+  journal:
+    kind: journal
+    venue: "Algorithmica 81(2), pp. 557–588"
+    year: 2019
+    doi: "10.1007/s00453-018-0424-7"
+    open_access: false

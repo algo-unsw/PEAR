@@ -1,0 +1,45 @@
+id: treewidth
+name: Treewidth
+aliases: [Tree-Width, Computing the Treewidth of a Graph]
+category: graph
+complexity:
+  class: NP-complete
+  source:
+    paper: arnborg-corneil-proskurowski-1987
+    attested_by:
+      - "https://en.wikipedia.org/wiki/Treewidth"
+      - "https://arxiv.org/pdf/2211.07154"
+      - "https://perso.ens-lyon.fr/edouard.bonnet/publi/NP_completeness_for_Bounded_Degree_Treewidth.pdf"
+    note: 'As on Wikipedia (Treewidth: it is NP-complete to determine whether a given graph has treewidth at most a given variable $k$), which cites Arnborg, Corneil and Proskurowski (1987). Korhonen and Lokshtanov (arXiv 2211.07154, Section 1: "This problem is known to be NP-complete") and Bodlaender et al., Treewidth is NP-Complete for Cubic Graphs (authors'' copy, Section 1: "shown to be NP-complete in 1987 by Arnborg et al.") cite the same paper. No open copy of the 1987 paper was found.'
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  k: { meaning: "the width: the integer $k$ in the input (decision, search), or the treewidth of $G$ (optimisation)" }
+  vc: { shared: vertex-cover-number }
+constraints:
+  - { constraint: "k \\le n", because: "Every instance with $k \\ge n - 1$ is a yes-instance (a single bag containing $V$ has width $n - 1$), answered in polynomial time." }
+  - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
+  - { constraint: "vc \\le n", because: "$V$ itself is a vertex cover." }
+versions:
+  decision:
+    kind: decision
+    input: "A graph $G = (V, E)$ and an integer $k$."
+    question: "Is there a tree decomposition of $G$ of width at most $k$, that is, a tree $T$ with a bag $B_t \\subseteq V$ for each node $t$ such that every vertex is in some bag, both endpoints of every edge are in a common bag, the nodes whose bags contain any given vertex form a connected subtree of $T$, and $\\max_t |B_t| - 1 \\le k$?"
+  optimisation:
+    kind: optimisation
+    input: "A graph $G = (V, E)$."
+    goal: "Find the minimum width $\\max_t |B_t| - 1$ of a tree decomposition of $G$, that is, a tree $T$ with a bag $B_t \\subseteq V$ for each node $t$ such that every vertex is in some bag, both endpoints of every edge are in a common bag, and the nodes whose bags contain any given vertex form a connected subtree of $T$."
+  search:
+    kind: search
+    input: "A graph $G = (V, E)$ and an integer $k$."
+    goal: "Find a tree decomposition of $G$ of width at most $k$, that is, a tree $T$ with a bag $B_t \\subseteq V$ for each node $t$ such that every vertex is in some bag, both endpoints of every edge are in a common bag, the nodes whose bags contain any given vertex form a connected subtree of $T$, and $\\max_t |B_t| - 1 \\le k$, or report that none exists."
+default_version: decision
+shared_bounds:
+  - versions: [decision, optimisation, search]
+    because: "Binary search on $k$ and self-reducibility."
+related:
+  - { problem: pathwidth, relation: variant }
+  - { problem: treedepth, relation: variant }
+  - { problem: minimum-fill-in, relation: variant }

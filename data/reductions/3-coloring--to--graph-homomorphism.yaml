@@ -1,0 +1,11 @@
+id: 3-coloring--to--graph-homomorphism
+from: { problem: 3-coloring, version: decision }
+to: { problem: graph-homomorphism, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(n + m)"
+parameter_map: { n: "n", m: "m", h: "3", b: "0", tw: "tw" }
+source:
+  folklore: true
+  note: "$G \\mapsto (G, K_3)$: a 3-colouring of $G$ is exactly a homomorphism from $G$ to $K_3$. The complement of $K_3$ has no edges, so its bandwidth is $0$."
+  reference: { paper: rzazewski-2013, version: arxiv-v1, statement: "Section 1" }

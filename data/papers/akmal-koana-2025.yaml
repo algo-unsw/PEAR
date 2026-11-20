@@ -1,0 +1,16 @@
+id: akmal-koana-2025
+title: "Faster Edge Coloring by Partition Sieving"
+authors: [Shyan Akmal, Tomohiro Koana]
+identifiers: { dblp: "conf/stacs/AkmalK25" }
+versions:
+  arxiv-v1:
+    kind: preprint
+    year: 2025
+    arxiv: "2501.05570v1"
+    open_access: true
+  stacs:
+    kind: conference
+    venue: "42nd International Symposium on Theoretical Aspects of Computer Science (STACS 2025), LIPIcs 327, pp. 7:1–7:18"
+    year: 2025
+    doi: "10.4230/LIPIcs.STACS.2025.7"
+    open_access: true

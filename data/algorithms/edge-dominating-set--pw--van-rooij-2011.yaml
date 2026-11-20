@@ -1,0 +1,24 @@
+id: edge-dominating-set--pw--van-rooij-2011
+problem: edge-dominating-set
+proved_for: optimisation
+bound:
+  as_stated: O^*(3^{pw})
+  notation: O*
+  parameters:
+  - pw
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Not stated in the proposition; the proof uses dynamic programming tables with $O(3^{pw})$ entries per bag.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: van-rooij-2011
+  statements:
+    thesis:
+      statement: Proposition 2.13
+      page: 31
+  note: 'Stated for a path decomposition of width $k$ given with the input; $k$ is written $pw$ here. The schema has no `given: path-decomposition` value yet, so the requirement is recorded here only. Fomin, Gaspers, Saurabh and Stepanov (Algorithmica 2009, Lemma 3 of the author copy) give the same base for Minimum Maximal Matching. No Edge Dominating Set algorithm parameterized by treewidth was found. TODO(verify): proved_for.'

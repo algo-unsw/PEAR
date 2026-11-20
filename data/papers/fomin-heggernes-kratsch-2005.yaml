@@ -1,0 +1,18 @@
+id: fomin-heggernes-kratsch-2005
+title: "Exact Algorithms for Graph Homomorphisms"
+authors: [Fedor V. Fomin, Pinar Heggernes, Dieter Kratsch]
+identifiers: { dblp: "journals/mst/FominHK07", openalex: null }
+versions:
+  fct:
+    kind: conference
+    venue: "15th International Symposium on Fundamentals of Computation Theory (FCT 2005), LNCS 3623, pp. 161–171"
+    year: 2005
+    doi: "10.1007/11537311_15"
+    open_access: false
+  journal:
+    kind: journal
+    venue: "Theory of Computing Systems 41(2), pp. 381–393"
+    year: 2007
+    doi: "10.1007/s00224-007-2007-x"
+    url: "https://folk.uib.no/nmiff/articles/2007/2007d.pdf"
+    open_access: true

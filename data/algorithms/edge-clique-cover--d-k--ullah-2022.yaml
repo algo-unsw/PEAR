@@ -1,0 +1,21 @@
+id: edge-clique-cover--d-k--ullah-2022
+problem: edge-clique-cover
+proved_for: search
+bound:
+  as_stated: "1.4423^{dk} n^{O(1)}"
+  notation: O
+  parameters: [d, k, n]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: "Not stated; educated guess: polynomial. A bounded search tree combined with data reduction rules, branching over cliques of subgraphs whose size is polynomial in the degeneracy; no memoization or dynamic programming was found."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: ullah-2022
+  statements:
+    arxiv: { statement: "Section 1.3 (Our Results), first theorem (label thm_ecc)" }
+  note: "\"ECC parameterized by $d$ and $k$ has an FPT algorithm running in $1.4423^{dk} n^{O(1)}$ time\", $d$ the degeneracy. The same section also states $2^{\\beta k \\log k} n^{O(1)}$ for the clique number $\\beta$ (not entered). Read in arXiv 2208.12438 (the version served on 20 November 2026)."

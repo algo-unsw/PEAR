@@ -1,0 +1,37 @@
+id: prize-collecting-steiner-tree
+name: Prize-Collecting Steiner Tree
+aliases: [PCST]
+category: graph
+complexity:
+  class: NP-complete
+  source:
+    folklore: true
+    note: "Steiner Tree with edge weights, NP-complete by Karp, is the special case with the root at a terminal, penalty larger than the total edge weight on every other terminal and penalty 0 elsewhere (reduction steiner-tree--to--prize-collecting-steiner-tree); membership in NP is immediate."
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  tw: { shared: treewidth }
+constraints:
+  - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
+  - { constraint: "tw \\le n", because: "A single bag containing all vertices is a tree decomposition of width $n - 1$." }
+versions:
+  decision:
+    kind: decision
+    input: "A graph $G = (V, E)$, a root $r \\in V$, edge costs $c \\colon E \\to \\mathbb{Z}_{\\ge 0}$, vertex penalties $\\pi \\colon V \\to \\mathbb{Z}_{\\ge 0}$, and an integer $k$."
+    question: "Is there a tree $H \\subseteq G$ containing $r$ with $\\sum_{e \\in E(H)} c(e) + \\sum_{v \\in V \\setminus V(H)} \\pi(v) \\le k$?"
+  optimisation:
+    kind: optimisation
+    input: "A graph $G = (V, E)$, a root $r \\in V$, edge costs $c \\colon E \\to \\mathbb{Z}_{\\ge 0}$, and vertex penalties $\\pi \\colon V \\to \\mathbb{Z}_{\\ge 0}$."
+    goal: "Find the minimum of $\\sum_{e \\in E(H)} c(e) + \\sum_{v \\in V \\setminus V(H)} \\pi(v)$ over all trees $H \\subseteq G$ containing $r$."
+  search:
+    kind: search
+    input: "A graph $G = (V, E)$, a root $r \\in V$, edge costs $c \\colon E \\to \\mathbb{Z}_{\\ge 0}$, vertex penalties $\\pi \\colon V \\to \\mathbb{Z}_{\\ge 0}$, and an integer $k$."
+    goal: "Find a tree $H \\subseteq G$ containing $r$ with $\\sum_{e \\in E(H)} c(e) + \\sum_{v \\in V \\setminus V(H)} \\pi(v) \\le k$, or report that none exists."
+default_version: decision
+shared_bounds:
+  - versions: [decision, optimisation, search]
+    because: "Binary search on $k$ (polynomially many calls, as the costs and penalties are in binary) and self-reducibility (delete an edge and test again)."
+related:
+  - { problem: steiner-tree, relation: special-case }

@@ -1,0 +1,7 @@
+# Definition as in Feldmann and Lampis, ICALP 2024 (arXiv 2402.09835), Theorem 4: "the size k of a vertex cover".
+id: vertex-cover-number
+name: Vertex Cover Number
+symbol: vc
+aliases: []
+definition: "The minimum size of a vertex cover of the graph: a set $S \\subseteq V$ such that every edge has an endpoint in $S$."
+review: { approved_by: Serge Gaspers, date: 2026-11-20 }

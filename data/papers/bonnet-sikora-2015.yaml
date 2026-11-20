@@ -1,0 +1,22 @@
+id: bonnet-sikora-2015
+title: "The Graph Motif Problem Parameterized by the Structure of the Input Graph"
+authors: [Édouard Bonnet, Florian Sikora]
+identifiers: { dblp: "journals/dam/BonnetS17", openalex: null }
+versions:
+  arxiv:
+    kind: preprint
+    arxiv: "1503.05110"
+    year: 2015
+    open_access: true
+  ipec:
+    kind: conference
+    venue: "10th International Symposium on Parameterized and Exact Computation (IPEC 2015), LIPIcs 43, pp. 319–330"
+    year: 2015
+    doi: "10.4230/LIPIcs.IPEC.2015.319"
+    open_access: true
+  journal:
+    kind: journal
+    venue: "Discrete Applied Mathematics 231, pp. 78–94"
+    year: 2017
+    doi: "10.1016/j.dam.2016.11.016"
+    open_access: false

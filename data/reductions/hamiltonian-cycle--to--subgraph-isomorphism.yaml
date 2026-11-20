@@ -1,0 +1,11 @@
+id: hamiltonian-cycle--to--subgraph-isomorphism
+from: { problem: hamiltonian-cycle, version: decision }
+to: { problem: subgraph-isomorphism, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(n + m)"
+parameter_map: { n: "n", m: "m", k: "n" }
+source:
+  folklore: true
+  note: "$G \\mapsto$ host $G$ and pattern the cycle $C_n$ (a fixed no-instance if $n \\le 2$): $G$ is Hamiltonian if and only if $C_n$ is a subgraph of $G$."
+  reference: { paper: cygan-fomin-golovnev-2015, version: arxiv-cps, statement: "Section 1" }

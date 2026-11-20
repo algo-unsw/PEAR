@@ -1,0 +1,12 @@
+id: garvardt-morawietz-nichterlein-2023
+title: "Graph Clustering Problems Under the Lens of Parameterized Local Search"
+authors: [Jaroslav Garvardt, Nils Morawietz, André Nichterlein, Mathias Weller]
+identifiers: { dblp: null }
+versions:
+  ipec:
+    kind: conference
+    venue: "18th International Symposium on Parameterized and Exact Computation (IPEC 2023), LIPIcs 285, pp. 20:1–20:19"
+    year: 2023
+    doi: "10.4230/LIPIcs.IPEC.2023.20"
+    url: "https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.IPEC.2023.20"
+    open_access: true

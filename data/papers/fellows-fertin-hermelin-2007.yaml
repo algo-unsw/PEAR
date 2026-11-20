@@ -1,0 +1,24 @@
+id: fellows-fertin-hermelin-2007
+title: "Upper and Lower Bounds for Finding Connected Motifs in Vertex-Colored Graphs"
+authors: [Michael R. Fellows, Guillaume Fertin, Danny Hermelin, Stéphane Vialette]
+identifiers: { dblp: "journals/jcss/FellowsFHV11", openalex: null }
+versions:
+  icalp:
+    kind: conference
+    title: "Sharp Tractability Borderlines for Finding Connected Motifs in Vertex-Colored Graphs"
+    venue: "34th International Colloquium on Automata, Languages and Programming (ICALP 2007), LNCS 4596, pp. 340–351"
+    year: 2007
+    doi: "10.1007/978-3-540-73420-8_31"
+    open_access: false
+  journal:
+    kind: journal
+    venue: "Journal of Computer and System Sciences 77(4), pp. 799–811"
+    year: 2011
+    doi: "10.1016/j.jcss.2010.07.003"
+    open_access: false
+  journal-preprint:
+    kind: preprint
+    venue: "HAL preprint of the Journal of Computer and System Sciences article (served by CORE)"
+    year: 2011
+    url: "https://core.ac.uk/download/53011185.pdf"
+    open_access: true

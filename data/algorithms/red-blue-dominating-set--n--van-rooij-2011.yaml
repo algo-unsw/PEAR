@@ -1,0 +1,24 @@
+id: red-blue-dominating-set--n--van-rooij-2011
+problem: red-blue-dominating-set
+proved_for: optimisation
+bound:
+  as_stated: 1.2279^{n}
+  notation: O
+  parameters:
+  - n
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Stated: polynomial space (Corollary 5.5).'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: van-rooij-2011
+  statements:
+    thesis:
+      statement: Corollary 5.5
+      page: 91
+  note: 'Section 5.5: the proof uses $|\mathcal{S}| + |\mathcal{U}| = n$ for the corresponding Set Cover instance. TODO(verify): proved_for; the thesis says "solves Red-Blue Dominating Set".'

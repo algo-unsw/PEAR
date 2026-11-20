@@ -1,0 +1,11 @@
+# Report number CS-88-13 as on Wikipedia (Tree-depth) and in Kobayashi and Tamaki (IPEC 2016);
+# Trimble (arXiv 2004.08959) gives CS 88-16. TODO(verify).
+id: pothen-1988
+title: "The Complexity of Optimal Elimination Trees"
+authors: [Alex Pothen]
+versions:
+  techreport:
+    kind: technical-report
+    venue: "Technical Report CS-88-13, Department of Computer Science, Pennsylvania State University"
+    year: 1988
+    open_access: false

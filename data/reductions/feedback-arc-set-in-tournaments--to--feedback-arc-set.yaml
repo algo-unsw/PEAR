@@ -1,0 +1,10 @@
+id: feedback-arc-set-in-tournaments--to--feedback-arc-set
+from: { problem: feedback-arc-set-in-tournaments, version: decision }
+to: { problem: feedback-arc-set, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(n + m)"
+parameter_map: { n: "n", m: "m", k: "k", tw: "n" }
+source:
+  folklore: true
+  note: "Special case: a tournament is a directed graph. Its underlying undirected graph is complete, of treewidth $n - 1$."

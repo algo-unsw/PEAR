@@ -1,0 +1,10 @@
+id: edge-clique-cover--to--clique-cover
+from: { problem: edge-clique-cover, version: decision }
+to: { problem: clique-cover, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(n^{2} + m^{2})"
+parameter_map: { n: "m", m: "m (m - 1) / 2", k: "k" }
+source:
+  folklore: true
+  note: "Build the graph $H$ on vertex set $E$ in which two edges $e \\ne f$ of $G$ are adjacent if $e \\cup f$ is a clique of $G$. The edges inside a clique of $G$ form a clique of $H$, and the endpoints of a clique of $H$ form a clique of $G$ that contains its edges, so $G$ has an edge clique cover with $k$ cliques if and only if $V(H)$ can be partitioned into $k$ cliques of $H$: $(G, k) \\mapsto (H, k)$. Hevia et al. (ESA 2023) build on a polynomial-time reduction of Kou, Stockmeyer and Wong (1978) from Edge Clique Cover to vertex clique cover."

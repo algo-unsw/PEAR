@@ -1,0 +1,20 @@
+id: graph-homomorphism--n-tw-h--fomin-heggernes-kratsch-2005
+problem: graph-homomorphism
+proved_for: decision
+bound:
+  as_stated: O^*((tw_H + 3)^{n})
+  notation: O*
+  parameters: [n, tw_H]
+properties:
+  randomized: false
+  space: { class: exponential, bound: "Not stated; educated guess: exponential. Dynamic programming along the tree decomposition of $H$, storing sets of 'characteristics' of partial maps (up to $(tw_H + 3)^n$ of them) in search trees." }
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+given: [tree-decomposition]
+source:
+  paper: fomin-heggernes-kratsch-2005
+  statements:
+    journal: { statement: "Theorem 8" }
+  note: "Theorem 8: an $O^*((\\mathrm{tw}(H)+3)^{|V(G)|})$ time algorithm taking as input $G$, $H$ and an optimal tree decomposition of $H$ decides whether $G$ is homomorphic to $H$ and produces a homomorphism if one exists. The given decomposition is of $H$ (width $tw_H$), not of $G$. Rzążewski's introduction (2013) cites this paper as $O^*((2\\mathrm{tw}(H)+1)^n)$; the journal version states $(\\mathrm{tw}(H)+3)^n$ (also in its abstract). TODO(verify): compare with the FCT 2005 version."

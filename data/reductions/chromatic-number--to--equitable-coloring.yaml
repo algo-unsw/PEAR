@@ -1,0 +1,10 @@
+id: chromatic-number--to--equitable-coloring
+from: { problem: chromatic-number, version: decision }
+to: { problem: equitable-coloring, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(k n + m)"
+parameter_map: { n: "k n", m: "m", k: "k" }
+source:
+  folklore: true
+  note: "Add $(k-1)n$ isolated vertices. A $k$-colouring of $G$ with classes of sizes $s_1, \\dots, s_k$ becomes an equitable one with every class of size exactly $n$ by giving $n - s_i$ isolated vertices colour $i$; conversely an equitable $k$-colouring restricts to a $k$-colouring of $G$. This is the straightforward reduction that Wikipedia's article on equitable colouring describes."

@@ -1,0 +1,10 @@
+id: max-bisection--to--minimum-bisection
+from: { problem: max-bisection, version: decision }
+to: { problem: minimum-bisection, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(n^{2})"
+parameter_map: { n: "n", m: "n(n - 1)/2 - m", k: "n^{2}/4 - k" }
+source:
+  folklore: true
+  note: "Complement the graph. A partition $(A, B)$ of $V$ with $||A| - |B|| \\le 1$ has exactly $\\lfloor n/2 \\rfloor \\lceil n/2 \\rceil \\le n^2/4$ pairs with one vertex on each side, so it has at least $k$ crossing edges in $G$ if and only if it has at most $\\lfloor n/2 \\rfloor \\lceil n/2 \\rceil - k$ crossing edges in the complement of $G$."

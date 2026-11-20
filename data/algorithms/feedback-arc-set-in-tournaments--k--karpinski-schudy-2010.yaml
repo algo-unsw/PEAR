@@ -1,0 +1,22 @@
+id: feedback-arc-set-in-tournaments--k--karpinski-schudy-2010
+problem: feedback-arc-set-in-tournaments
+proved_for: optimisation
+bound:
+  as_stated: '2^{O(\sqrt{k})} + n^{O(1)}'
+  notation: O
+  parameters: [k, n]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Not stated for this algorithm in Theorem 1; educated guess: $2^{O(\sqrt{k})} + n^{O(1)}$, as the corollary on Kemeny Rank Aggregation in Section 1 (label thm:exactKRA, through the standard reduction to weighted FAST) states this bound for runtime and space, and Theorem 1 offers a separate variant for polynomial space.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: karpinski-schudy-2010
+  statements:
+    arxiv-v1:
+      statement: 'Theorem 1 (LaTeX label thm:exactFAST), first sentence'
+  note: 'Stated for weighted FAST (a complete digraph with arc weights $w_{uv} + w_{vu} = 1$), parameterized by $OPT$, the cost of an optimal ranking; a tournament is the case of 0/1 weights, and $OPT$ is $k$ of the optimisation version. Deterministic. Theorem 2 of the paper (label thm:exactLB) rules out $O^*(2^{o(\sqrt{OPT})})$ for weighted FAST under ETH (lower bound, not entered). ISAAC 2010 version not opened. TODO(verify): constructive (an optimal ranking) assumed from the problem statement in Section 1.'

@@ -1,0 +1,23 @@
+id: jansen-karpinski-lingas-2000
+title: "Polynomial Time Approximation Schemes for MAX-BISECTION on Planar and Geometric Graphs"
+authors: [Klaus Jansen, Marek Karpinski, Andrzej Lingas, Eike Seidel]
+identifiers: { dblp: journals/siamcomp/JansenKLS05 }
+versions:
+  techreport:
+    kind: technical-report
+    venue: "Technical report 85219-CS, Institut für Informatik, Universität Bonn"
+    year: 2000
+    url: "https://theoryx.informatik.uni-bonn.de/ftp/reports/cs-reports/2000/85219-CS.pdf"
+    open_access: true
+  stacs:
+    kind: conference
+    venue: "18th Annual Symposium on Theoretical Aspects of Computer Science (STACS 2001), LNCS 2010, pp. 365–375"
+    year: 2001
+    doi: "10.1007/3-540-44693-1_32"
+    open_access: false
+  journal:
+    kind: journal
+    venue: "SIAM Journal on Computing 35(1), pp. 110–119"
+    year: 2005
+    doi: "10.1137/S009753970139567X"
+    open_access: false

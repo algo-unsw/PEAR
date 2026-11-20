@@ -1,0 +1,8 @@
+# Definition as in Feldmann and Lampis, arXiv 2402.09835, Section "Feedback Edge Set": a feedback edge set is a set of
+# edges whose removal renders the graph acyclic; for a connected graph all minimal ones have size m - n + 1.
+id: feedback-edge-set-number
+name: Feedback Edge Set Number
+symbol: fes
+aliases: []
+definition: "The minimum size of a feedback edge set of the graph: a set $F \\subseteq E$ such that $(V, E \\setminus F)$ is acyclic. It equals $m - n + c$, where $c$ is the number of connected components."
+review: { approved_by: Serge Gaspers, date: 2026-11-20 }

@@ -1,0 +1,22 @@
+id: gutin-majumdar-ordyniak-2019
+title: "Parameterized Pre-Coloring Extension and List Coloring Problems"
+authors: [Gregory Gutin, Diptapriyo Majumdar, Sebastian Ordyniak, Magnus Wahlström]
+identifiers: { dblp: "journals/siamdm/GutinMOW21" }
+versions:
+  arxiv:
+    kind: preprint
+    year: 2019
+    arxiv: "1907.12061"
+    open_access: true
+  stacs:
+    kind: conference
+    venue: "37th International Symposium on Theoretical Aspects of Computer Science (STACS 2020), LIPIcs 154, pp. 19:1–19:18"
+    year: 2020
+    doi: "10.4230/LIPIcs.STACS.2020.19"
+    open_access: true
+  journal:
+    kind: journal
+    venue: "SIAM Journal on Discrete Mathematics 35(1), pp. 575–596"
+    year: 2021
+    doi: "10.1137/20M1323369"
+    open_access: false

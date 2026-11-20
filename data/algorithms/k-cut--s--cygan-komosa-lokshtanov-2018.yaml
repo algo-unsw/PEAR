@@ -1,0 +1,21 @@
+id: k-cut--s--cygan-komosa-lokshtanov-2018
+problem: k-cut
+proved_for: decision
+bound:
+  as_stated: "2^{O(s \\log s)} n^{O(1)}"
+  notation: O
+  parameters: [s, n]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: "Not stated; educated guess: exponential in $s$. Bottom-up dynamic programming over a tree decomposition with adhesions of size at most $s$ and edge-unbreakable bags, with colour-coding families of size $2^{O(s \\log s)} \\log n$; no table exponential in $n$."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: cygan-komosa-lokshtanov-2018
+  statements:
+    arxiv: { statement: "Theorem on Steiner Cut in Section 1, Our results (LaTeX label thm:steinercut)" }
+  note: "Stated as \"Steiner Cut can be solved in time $2^{O(k \\log k)} n^{O(1)}$\": delete at most $k$ edges so that at least $p$ components contain a terminal. The paper notes that Steiner Cut generalizes $p$-Way Cut ($T = V(G)$); its $k$ and $p$ are $s$ and $k$ here. Improves $2^{O(k^2 \\log k)}$ of Chitnis et al. Determinism: the Minimum Bisection algorithm of the same paper is derandomized (Section 4); TODO(verify) the same for Steiner Cut. Read in the current arXiv version of 1810.06864 (20 November 2026)."

@@ -1,0 +1,24 @@
+id: cluster-vertex-deletion--n--tsur-2019-cvd
+problem: cluster-vertex-deletion
+proved_for: decision
+bound:
+  as_stated: "O(1.448^{n})"
+  notation: O
+  parameters: [n]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: "Not stated. Read as the deterministic monotone local search (Fomin, Gaspers, Lokshtanov and Saurabh, Theorem 2), time $(2 - 1/1.811)^{n + o(n)} n^{O(1)}$ and an additional $2^{o(n)}$ space; their randomized Theorem 1 gives the same bound in polynomial space with one-sided error."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+uses: [cluster-vertex-deletion--k--tsur-2019-cvd]
+source:
+  paper: tsur-2019-cvd
+  statements:
+    arxiv-v1: { statement: "Section 1 (Introduction)" }
+  note: "Stated as \"Using our algorithm with the method of [Fomin et al.] gives an $O(1.448^n)$-time algorithm\"; $2 - 1/1.811 < 1.4479$. The same section says that Boral et al.'s algorithm gives $O(1.477^n)$ this way, improving the previously fastest exact algorithm (Fomin et al. 2010, as cited there). TODO(verify): Serge to say whether this monotone-local-search application should instead come from the technique (add Cluster Vertex Deletion to its applies_to), and whether to read it as deterministic or randomized."
+formal: { status: informal }
+status: valid

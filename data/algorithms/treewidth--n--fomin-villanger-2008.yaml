@@ -1,0 +1,21 @@
+id: treewidth--n--fomin-villanger-2008
+problem: treewidth
+proved_for: optimisation
+bound:
+  as_stated: 'O(1.7549^{n})'
+  notation: O
+  parameters: [n]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'The paper calls it an exponential-space algorithm (arXiv 0803.1321, Section 1): dynamic programming over the enumerated potential maximal cliques.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: fomin-villanger-2008
+  statements:
+    journal: { statement: "Theorem 5.2" }
+  note: 'Read in the authors'' copy of the Combinatorica version. TODO(verify): the potential maximal cliques can be listed in $O(1.734601^n)$ time (Fomin and Villanger, STACS 2010), which with Theorem 5.21 of Fomin, Kratsch, Todinca and Villanger (2008) gives about $O^*(1.7347^n)$; no paper states that bound as a theorem in a version read here.'

@@ -1,0 +1,23 @@
+id: cygan-lokshtanov-pilipczuk-2013
+title: "Minimum Bisection is fixed parameter tractable"
+authors: [Marek Cygan, Daniel Lokshtanov, Marcin Pilipczuk, Michał Pilipczuk, Saket Saurabh]
+identifiers: { dblp: journals/siamcomp/CyganLPPS19 }
+versions:
+  arxiv:
+    kind: preprint
+    year: 2013
+    arxiv: "1311.2563"
+    open_access: true
+  stoc:
+    kind: conference
+    venue: "Symposium on Theory of Computing (STOC 2014), pp. 323–332"
+    year: 2014
+    doi: "10.1145/2591796.2591852"
+    open_access: false
+  journal:
+    kind: journal
+    title: "Minimum Bisection Is Fixed-Parameter Tractable"
+    venue: "SIAM Journal on Computing 48(2), pp. 417–450"
+    year: 2019
+    doi: "10.1137/140988553"
+    open_access: false

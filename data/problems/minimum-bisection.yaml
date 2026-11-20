@@ -1,0 +1,48 @@
+id: minimum-bisection
+name: Minimum Bisection
+aliases: [Graph Bisection, Min Bisection, Min-Bisection, Bisection, Minimum Graph Bisection]
+category: graph
+complexity:
+  class: NP-complete
+  source:
+    paper: garey-johnson-1979
+    attested_by:
+      - "https://arxiv.org/abs/1311.2563"
+      - "https://www.microsoft.com/en-us/research/wp-content/uploads/2012/01/bisection_alenex.pdf"
+      - "https://tracer.lcc.uma.es/problems/bisect/bisect.htm"
+    note: "Cygan, Lokshtanov, Pilipczuk, Pilipczuk and Saurabh (arXiv 1311.2563, Section 1) call Minimum Bisection one of the classic NP-complete problems, citing Garey and Johnson (1979). Delling, Goldberg, Razenshteyn and Werneck (ALENEX 2012) credit its NP-hardness to Garey, Johnson and Stockmeyer (Theoretical Computer Science 1976), and the TRACER problem page states that Bisection is NP-hard. TODO(verify): Wikipedia's choice of source could not be checked (the page could not be fetched)."
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  k: { meaning: "the bisection width: the integer $k$ in the input (decision), or the minimum number of edges with one endpoint in each side of a bisection (optimisation)" }
+  tw: { shared: treewidth }
+  vc: { shared: vertex-cover-number }
+  W: { meaning: "the largest edge weight (weighted version)", poly_bounded: false }
+constraints:
+  - { constraint: "k \\le m", because: "A bisection cuts at most $m$ edges, so every instance with $k \\ge m$ is a yes-instance." }
+  - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
+  - { constraint: "tw \\le vc", because: "For a vertex cover $C$, the bags $C \\cup \\{v\\}$ for $v \\notin C$, arranged on a path, form a tree decomposition of width $|C|$." }
+  - { constraint: "vc \\le n", because: "A vertex cover is a set of vertices." }
+  - { constraint: "tw \\le n", because: "A single bag containing all vertices is a tree decomposition of width $n - 1$." }
+versions:
+  decision:
+    kind: decision
+    input: "A graph $G = (V, E)$ and an integer $k$."
+    question: "Is there a partition of $V$ into sets $A$ and $B$ with $||A| - |B|| \\le 1$ such that at most $k$ edges have one endpoint in $A$ and the other in $B$?"
+  optimisation:
+    kind: optimisation
+    input: "A graph $G = (V, E)$."
+    goal: "Find the minimum number of edges with one endpoint in $A$ and the other in $B$, over all partitions of $V$ into sets $A$ and $B$ with $||A| - |B|| \\le 1$."
+  weighted:
+    kind: optimisation
+    input: "A graph $G = (V, E)$ and edge weights $w \\colon E \\to \\mathbb{Z}_{\\ge 0}$."
+    goal: "Find the minimum total weight of the edges with one endpoint in $A$ and the other in $B$, over all partitions of $V$ into sets $A$ and $B$ with $||A| - |B|| \\le 1$."
+    generalises: [optimisation]
+default_version: decision
+shared_bounds:
+  - versions: [decision, optimisation]
+    because: "Binary search on $k$."
+related:
+  - { problem: max-bisection, relation: variant }

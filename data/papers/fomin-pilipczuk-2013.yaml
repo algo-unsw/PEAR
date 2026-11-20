@@ -1,0 +1,16 @@
+id: fomin-pilipczuk-2013
+title: "Subexponential parameterized algorithm for computing the cutwidth of a semi-complete digraph"
+authors: [Fedor V. Fomin, Michał Pilipczuk]
+identifiers: { dblp: conf/esa/FominP13, openalex: null }
+versions:
+  arxiv-v1:
+    kind: preprint
+    year: 2013
+    arxiv: "1301.7314v1"
+    open_access: true
+  esa:
+    kind: conference
+    venue: "Algorithms – ESA 2013, 21st Annual European Symposium, LNCS 8125, pp. 505–516"
+    year: 2013
+    doi: "10.1007/978-3-642-40450-4_43"
+    open_access: false

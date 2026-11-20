@@ -1,0 +1,21 @@
+id: treewidth--k--korhonen-lokshtanov-2022
+problem: treewidth
+proved_for: search
+bound:
+  as_stated: '2^{O(k^{2})} n^{4}'
+  notation: O
+  parameters: [k, n]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Stated: space polynomial in $n$ (Theorem 1).'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: korhonen-lokshtanov-2022
+  statements:
+    stoc: { statement: "Theorem 1" }
+  note: 'Outputs a tree decomposition of width at most $k$ or concludes that the treewidth is larger than $k$. Read in the published STOC 2023 version (NSF PAR copy) and in the latest arXiv version (v2), where it is also Theorem 1. The paper notes that its dependence on $n$ is worse than that of the linear-time $2^{O(k^3)} n$ algorithm of Bodlaender (SIAM J. Comput. 1996), which is not entered.'

@@ -1,0 +1,19 @@
+id: graph-homomorphism--n-b--rzazewski-2013
+problem: graph-homomorphism
+proved_for: decision
+bound:
+  as_stated: O^*((b + 2)^{n})
+  notation: O*
+  parameters: [b, n]
+properties:
+  randomized: false
+  space: { class: exponential, bound: "Stated in the analysis (Section 3): dynamic programming over sets $T[k]$ of up to $(\\mathrm{bw}(\\overline{H}) + 2)^n$ vectors of length $n$, and the set $P$ of the characteristic vectors of the independent sets of $G$ (up to $n 2^n$ bits)." }
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: false
+  quantum: false
+source:
+  paper: rzazewski-2013
+  statements:
+    arxiv-v1: { statement: "Theorem 1" }
+  note: "Stated as $\\mathcal{O}^*((\\mathrm{bw}(\\overline{H}) + 2)^n)$, with $\\mathrm{bw}(\\overline{H})$ (written $b$ here) the bandwidth of the complement of $H$; the analysis in Section 3 gives $O(n^3 2^n + n^3 (\\mathrm{bw}(\\overline{H}) + 2)^n)$. The theorem decides existence; constructing a homomorphism is not stated. The same bound holds for locally injective homomorphisms (Theorem 2)."

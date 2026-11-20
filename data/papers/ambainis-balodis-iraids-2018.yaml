@@ -1,0 +1,16 @@
+id: ambainis-balodis-iraids-2018
+title: Quantum Speedups for Exponential-Time Dynamic Programming Algorithms
+authors: [Andris Ambainis, Kaspars Balodis, Jānis Iraids, Martins Kokainis, Krišjānis Prūsis, Jevgēnijs Vihrovs]
+identifiers: { dblp: conf/soda/AmbainisBIKPV19 }
+versions:
+  arxiv:
+    kind: preprint
+    arxiv: "1807.05209"
+    year: 2018
+    open_access: true
+  soda:
+    kind: conference
+    venue: "Proceedings of the Thirtieth Annual ACM-SIAM Symposium on Discrete Algorithms (SODA 2019), pp. 1783–1793"
+    year: 2019
+    doi: "10.1137/1.9781611975482.107"
+    open_access: false

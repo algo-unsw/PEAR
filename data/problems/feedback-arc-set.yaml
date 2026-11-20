@@ -1,0 +1,44 @@
+id: feedback-arc-set
+name: Feedback Arc Set
+aliases: [Directed Feedback Arc Set, DFAS, FAS, Minimum Feedback Arc Set]
+category: graph
+complexity:
+  class: NP-complete
+  source:
+    paper: karp-1972
+    attested_by:
+      - "https://en.wikipedia.org/wiki/Karp%27s_21_NP-complete_problems"
+      - "https://mathworld.wolfram.com/FeedbackArcSetProblem.html"
+      - "https://arxiv.org/abs/0907.2165"
+    note: "Feedback Arc Set (on directed graphs) is one of Karp's 21 NP-complete problems. TODO(verify): the Wikipedia and MathWorld pages were returned by a web search for Karp's 21 problems and feedback arc set on 20 November 2026 but could not be opened (page fetches were blocked); the third source (Bessy et al., arXiv:0907.2165, Section 1) was opened and defines Feedback Arc Set on digraphs but cites Alon and Charbit et al. only for tournaments. Serge to confirm the citation and the attestations."
+objects:
+  n: number of vertices
+  m: number of arcs
+  N: total encoding length of the input
+parameters:
+  k: { meaning: "the solution size: the integer $k$ in the input (decision, search), or the minimum size of a feedback arc set (optimisation)" }
+  tw: { shared: treewidth, of: "the underlying undirected graph" }
+constraints:
+  - { constraint: "k \\le m", because: "Every instance with $k \\ge m$ is a yes-instance ($S = A$)." }
+  - { constraint: "m \\le n(n - 1)", because: "A directed graph without loops or parallel arcs has at most $n(n-1)$ arcs." }
+  - { constraint: "tw \\le n", because: "A single bag containing all vertices is a tree decomposition of width $n - 1$." }
+versions:
+  decision:
+    kind: decision
+    input: "A directed graph $D = (V, A)$ and an integer $k$."
+    question: "Is there a set $S \\subseteq A$ with $|S| \\le k$ such that $D - S$ has no directed cycle?"
+  optimisation:
+    kind: optimisation
+    input: "A directed graph $D = (V, A)$."
+    goal: "Find the minimum size of a set $S \\subseteq A$ such that $D - S$ has no directed cycle."
+  search:
+    kind: search
+    input: "A directed graph $D = (V, A)$ and an integer $k$."
+    goal: "Find a set $S \\subseteq A$ with $|S| \\le k$ such that $D - S$ has no directed cycle, or report that none exists."
+default_version: decision
+shared_bounds:
+  - versions: [decision, optimisation, search]
+    because: "Binary search on $k$ and self-reducibility."
+related:
+  - { problem: directed-feedback-vertex-set, relation: variant }
+  - { problem: feedback-arc-set-in-tournaments, relation: special-case }

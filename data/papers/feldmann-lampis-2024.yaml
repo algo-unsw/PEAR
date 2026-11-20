@@ -1,0 +1,25 @@
+id: feldmann-lampis-2024
+title: Parameterized Algorithms for Steiner Forest in Bounded Width Graphs
+authors:
+- Andreas Emil Feldmann
+- Michael Lampis
+identifiers: { dblp: conf/icalp/FeldmannL24 }
+versions:
+  arxiv:
+    kind: preprint
+    year: 2024
+    arxiv: '2402.09835'
+    open_access: true
+  icalp:
+    kind: conference
+    venue: "51st International Colloquium on Automata, Languages, and Programming (ICALP 2024), LIPIcs 297, Article 61, pp. 61:1–61:20"
+    year: 2024
+    doi: 10.4230/LIPIcs.ICALP.2024.61
+    url: "https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.ICALP.2024.61"
+    open_access: true
+  journal:
+    kind: journal
+    venue: "ACM Transactions on Algorithms 21(4), Article 47, pp. 47:1–47:26"
+    year: 2025
+    doi: 10.1145/3748724
+    open_access: false

@@ -1,0 +1,14 @@
+id: lokshtanov-2015
+title: "Parameterized Integer Quadratic Programming: Variables and Coefficients"
+authors: [Daniel Lokshtanov]
+versions:
+  arxiv-v1:
+    kind: preprint
+    arxiv: "1511.00310v1"
+    year: 2015
+    open_access: true
+  arxiv-v2:
+    kind: preprint
+    arxiv: "1511.00310v2"
+    year: 2017
+    open_access: true

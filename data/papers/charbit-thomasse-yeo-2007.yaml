@@ -1,0 +1,11 @@
+id: charbit-thomasse-yeo-2007
+title: "The Minimum Feedback Arc Set Problem is NP-Hard for Tournaments"
+authors: [Pierre Charbit, Stéphan Thomassé, Anders Yeo]
+identifiers: { dblp: journals/cpc/CharbitTY07, openalex: null }
+versions:
+  journal:
+    kind: journal
+    venue: "Combinatorics, Probability and Computing 16(1), pp. 1–4"
+    year: 2007
+    doi: "10.1017/S0963548306007887"
+    open_access: false

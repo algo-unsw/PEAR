@@ -1,0 +1,10 @@
+id: koana-kumabe-otachi-2026
+title: "Complexity of Induced Subgraph Isomorphism and Maximum Common Induced Subgraph Parameterized by Cluster Vertex Deletion Number"
+authors: [Tomohiro Koana, Soh Kumabe, Yota Otachi]
+identifiers: { dblp: "journals/corr/abs-2608-03845", openalex: null }
+versions:
+  arxiv-v1:
+    kind: preprint
+    year: 2026
+    arxiv: "2608.03845"
+    open_access: true

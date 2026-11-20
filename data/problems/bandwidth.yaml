@@ -1,0 +1,42 @@
+id: bandwidth
+name: Bandwidth
+aliases: [Graph Bandwidth, Bandwidth Minimization, Minimum Bandwidth]
+category: graph
+complexity:
+  class: NP-complete
+  source:
+    paper: garey-johnson-1979
+    attested_by:
+      - "https://en.wikipedia.org/wiki/Graph_bandwidth"
+      - "https://arxiv.org/abs/2309.17204"
+      - "https://www.wisdom.weizmann.ac.il/~feige/mypapers/DubeyFeigeUnger.pdf"
+    note: 'Problem GT40 in Garey and Johnson, as on Wikipedia. Gima, Kim, Köhler, Melissinos and Vasilakis (arXiv 2309.17204) call Bandwidth a classical NP-complete problem, citing Papadimitriou (Computing, 1976) and Chinn et al. (J. Graph Theory, 1982); Dubey, Feige and Unger state that the bandwidth problem is NP-hard.'
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  k: { meaning: 'the bandwidth bound: the integer $k$ in the input (decision, search), or the bandwidth of $G$ (optimisation)' }
+constraints:
+  - { constraint: 'k \le n', because: 'Every bijection has bandwidth at most $n - 1$, so every instance with $k \ge n - 1$ is a yes-instance, answered in polynomial time.' }
+  - { constraint: 'm \le n(n - 1)/2', because: 'A simple graph has at most $n(n-1)/2$ edges.' }
+versions:
+  decision:
+    kind: decision
+    input: 'A graph $G = (V, E)$ and an integer $k$.'
+    question: 'Is there a bijection $\pi \colon V \to \{1, \dots, n\}$ such that $|\pi(u) - \pi(v)| \le k$ for every edge $uv \in E$?'
+  optimisation:
+    kind: optimisation
+    input: 'A graph $G = (V, E)$.'
+    goal: 'Find the minimum integer $k$ such that there is a bijection $\pi \colon V \to \{1, \dots, n\}$ with $|\pi(u) - \pi(v)| \le k$ for every edge $uv \in E$.'
+  search:
+    kind: search
+    input: 'A graph $G = (V, E)$ and an integer $k$.'
+    goal: 'Find a bijection $\pi \colon V \to \{1, \dots, n\}$ such that $|\pi(u) - \pi(v)| \le k$ for every edge $uv \in E$, or report that none exists.'
+default_version: decision
+shared_bounds:
+  - versions: [decision, optimisation]
+    because: 'Binary search on $k$, which is at most $n - 1$.'
+related:
+  - { problem: cutwidth, relation: variant }
+  - { problem: minimum-linear-arrangement, relation: variant }

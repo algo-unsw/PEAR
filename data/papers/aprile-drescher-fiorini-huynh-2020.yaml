@@ -1,0 +1,27 @@
+id: aprile-drescher-fiorini-huynh-2020
+title: "A Tight Approximation Algorithm for the Cluster Vertex Deletion Problem"
+authors: [Manuel Aprile, Matthew Drescher, Samuel Fiorini, Tony Huynh]
+identifiers: { dblp: "journals/mp/AprileDFH23" }
+versions:
+  arxiv-v1:
+    kind: preprint
+    arxiv: "2007.08057v1"
+    year: 2020
+    open_access: true
+  arxiv-v3:
+    kind: preprint
+    arxiv: "2007.08057v3"
+    year: 2021
+    open_access: true
+  ipco:
+    kind: conference
+    venue: "22nd International Conference on Integer Programming and Combinatorial Optimization (IPCO 2021), LNCS 12707, pp. 340–353"
+    year: 2021
+    doi: "10.1007/978-3-030-73879-2_24"
+    open_access: false
+  journal:
+    kind: journal
+    venue: "Mathematical Programming 197(2), pp. 1069–1091"
+    year: 2023
+    doi: "10.1007/s10107-021-01744-w"
+    open_access: false

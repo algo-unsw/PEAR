@@ -1,0 +1,48 @@
+id: multiway-cut
+name: Multiway Cut
+aliases: [Multiterminal Cut, Multi-terminal Cut, Edge Multiway Cut, Minimum Multiway Cut, p-Terminal Cut]
+category: graph
+complexity:
+  class: NP-complete
+  source:
+    paper: dahlhaus-johnson-papadimitriou-1992
+    attested_by:
+      - "https://arxiv.org/abs/1711.06397"
+      - "https://www.cs.bme.hu/~dmarx/papers/klein-marx-mway-icalp2012.pdf"
+      - "https://collaborate.princeton.edu/en/publications/complexity-of-multiterminal-cuts/"
+    note: "NP-hard already for three terminals (Dahlhaus, Johnson, Papadimitriou, Seymour and Yannakakis, SIAM J. Comput. 1994). Cao, Chen and Fan (arXiv 1711.06397, Section 1) and Klein and Marx (ICALP 2012, Section 1) credit this to that paper; the Princeton research portal reproduces its abstract (NP-hard as soon as there are three terminals). TODO(verify): Wikipedia's choice of source could not be checked."
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  k: { meaning: "the solution size: the integer $k$ in the input (decision, search; the weight budget in the weighted decision version), or the minimum size of a multiway cut (optimisation)" }
+  p: { meaning: "the number of terminals $|T|$" }
+constraints:
+  - { constraint: "k \\le m", because: "Deleting all edges separates the terminals, so every instance with $k \\ge m$ is a yes-instance." }
+  - { constraint: "p \\le n", because: "The terminals are vertices." }
+  - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
+versions:
+  decision:
+    kind: decision
+    input: "A graph $G = (V, E)$, a set $T \\subseteq V$ of terminals, and an integer $k$."
+    question: "Is there a set $S \\subseteq E$ with $|S| \\le k$ such that no two terminals are in the same connected component of $G - S$?"
+  optimisation:
+    kind: optimisation
+    input: "A graph $G = (V, E)$ and a set $T \\subseteq V$ of terminals."
+    goal: "Find the minimum size of a set $S \\subseteq E$ such that no two terminals are in the same connected component of $G - S$."
+  search:
+    kind: search
+    input: "A graph $G = (V, E)$, a set $T \\subseteq V$ of terminals, and an integer $k$."
+    goal: "Find a set $S \\subseteq E$ with $|S| \\le k$ such that no two terminals are in the same connected component of $G - S$, or report that none exists."
+  weighted-decision:
+    kind: decision
+    input: "A graph $G = (V, E)$, a set $T \\subseteq V$ of terminals, edge weights $w \\colon E \\to \\mathbb{Z}_{\\ge 0}$, and an integer $k$."
+    question: "Is there a set $S \\subseteq E$ with $\\sum_{e \\in S} w(e) \\le k$ such that no two terminals are in the same connected component of $G - S$?"
+    generalises: [decision]
+default_version: decision
+shared_bounds:
+  - versions: [decision, optimisation, search]
+    because: "Binary search on $k$ and self-reducibility (delete an edge and test again with $k - 1$)."
+related:
+  - { problem: multicut, relation: generalisation }

@@ -1,0 +1,10 @@
+id: chromatic-number--to--clique-cover
+from: { problem: chromatic-number, version: decision }
+to: { problem: clique-cover, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(n^{2})"
+parameter_map: { n: "n", m: "n (n - 1) / 2 - m", k: "k" }
+source:
+  folklore: true
+  note: "A map $c \\colon V \\to \\{1, \\dots, k\\}$ is a proper colouring of $G$ if and only if it puts only adjacent vertices of the complement $\\overline{G}$ into the same class, so $(G, k) \\mapsto (\\overline{G}, k)$."
