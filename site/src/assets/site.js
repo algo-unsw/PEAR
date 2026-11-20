@@ -44,14 +44,27 @@
   const page = document.querySelector("main[data-default-version]");
   if (page) {
     const tabs = $$("[role=tab][data-version]");
-    const versions = tabs.map((t) => t.dataset.version);
+    const versions = $$(".version-panel").map((p) => p.dataset.version);
+    // Bounded-degree versions (<base>-max-degree-<d>) are picked with the "Maximum degree"
+    // menu next to the tab of their general version (21 November 2026).
+    const degree = document.querySelector("select[data-degree]");
+    const split = (v) => {
+      const m = v.match(/^(.+)-max-degree-(\d+)$/);
+      return m && versions.includes(m[1]) ? [m[1], m[2]] : [v, ""];
+    };
+    const join = (base, d) => (d ? base + "-max-degree-" + d : base);
     const state = { version: page.dataset.defaultVersion, view: "overview" };
     function apply() {
+      const [base, d] = split(state.version);
       tabs.forEach((t) => {
-        const on = t.dataset.version === state.version;
+        const on = t.dataset.version === base;
         t.setAttribute("aria-selected", String(on));
         t.tabIndex = on ? 0 : -1;
       });
+      if (degree) {
+        degree.value = d;
+        $$("option", degree).forEach((o) => { o.disabled = o.value !== "" && !versions.includes(join(base, o.value)); });
+      }
       $$(".version-panel").forEach((p) => { p.hidden = p.dataset.version !== state.version; });
       document.body.dataset.view = state.view;
       $$("[data-view-button]").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.viewButton === state.view)));
@@ -70,7 +83,12 @@
       }
     }
     tabs.forEach((t) => {
-      t.addEventListener("click", () => { state.version = t.dataset.version; apply(); writeHash(); });
+      t.addEventListener("click", () => {
+        // keep the chosen maximum degree when the new version has it
+        const wanted = join(t.dataset.version, split(state.version)[1]);
+        state.version = versions.includes(wanted) ? wanted : t.dataset.version;
+        apply(); writeHash();
+      });
       t.addEventListener("keydown", (ev) => {
         const i = tabs.indexOf(t);
         const j = ev.key === "ArrowRight" ? (i + 1) % tabs.length : ev.key === "ArrowLeft" ? (i - 1 + tabs.length) % tabs.length : -1;
@@ -79,6 +97,12 @@
     });
     $$("[data-view-button]").forEach((b) =>
       b.addEventListener("click", () => { state.view = b.dataset.viewButton; apply(); writeHash(); }));
+    if (degree) {
+      degree.addEventListener("change", () => {
+        state.version = join(split(state.version)[0], degree.value);
+        apply(); writeHash();
+      });
+    }
     readHash();
     apply();
 

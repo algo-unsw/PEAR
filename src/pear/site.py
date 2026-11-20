@@ -817,9 +817,20 @@ def problem_page(data: Dataset, d: Derivation, derived: dict[str, Any], pid: str
         note = None
         if group is not None:
             names = _join([version_label(v).lower() for v in problem.versions if v in members])
-            note = (f"The {names} versions are equivalent up to polynomial factors "
-                    f"({_sentence_fragment(group.because)}) and share these bounds; "
-                    "each result names the version its paper proved.")
+            degs = {re.fullmatch(r".+-max-degree-(\d+)", v) for v in members}
+            if None not in degs and len({m.group(1) for m in degs}) == 1:
+                # "On graphs of maximum degree at most 3, the decision, optimisation and search
+                # versions are equivalent …" rather than repeating "max degree 3" per version
+                deg = next(iter(degs)).group(1)
+                names = _join([version_label(v.rsplit("-max-degree-", 1)[0]).lower()
+                               for v in problem.versions if v in members])
+                note = (f"On graphs of maximum degree at most ${deg}$, the {names} versions are equivalent "
+                        f"up to polynomial factors ({_sentence_fragment(group.because)}) and share these "
+                        "bounds; each result names the version its paper proved.")
+            if note is None:
+                note = (f"The {names} versions are equivalent up to polynomial factors "
+                        f"({_sentence_fragment(group.because)}) and share these bounds; "
+                        "each result names the version its paper proved.")
         else:
             specials = [w for v in members if v in problem.versions for w in problem.versions[v].generalises]
             if specials:
@@ -844,9 +855,16 @@ def problem_page(data: Dataset, d: Derivation, derived: dict[str, Any], pid: str
 
     versions = []
     for vid, v in problem.versions.items():
+        # a bounded-degree version is chosen with the "Maximum degree" menu next to the tab of
+        # its general version, not with a tab of its own (21 November 2026)
+        m = re.fullmatch(r"(.+)-max-degree-(\d+)", vid)
+        base, degree = (m.group(1), int(m.group(2))) if m and m.group(1) in problem.versions else (vid, None)
         versions.append({
             "id": vid,
+            "base": base,
+            "degree": degree,
             "label": version_label(vid),
+            "tab_label": version_label(base),
             "kind": v.kind,
             "input": v.input,
             "question": v.question,
@@ -854,6 +872,8 @@ def problem_page(data: Dataset, d: Derivation, derived: dict[str, Any], pid: str
             "node": node_key(problem, vid)[1],
             "default": vid == problem.default_version,
         })
+
+    degrees = sorted({v["degree"] for v in versions if v["degree"] is not None})
 
     complexity_src = refs.source(problem.complexity.source)
     reductions = reduction_lists(data, problem, refs)
@@ -879,6 +899,7 @@ def problem_page(data: Dataset, d: Derivation, derived: dict[str, Any], pid: str
         "parameters": params,
         "constraints": [{"tex": c.constraint, "because": c.because} for c in problem.constraints],
         "versions": versions,
+        "degrees": degrees,
         "default_version": problem.default_version,
         "nodes": nodes,
         "reductions": reductions,

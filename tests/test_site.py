@@ -430,3 +430,17 @@ def test_details_show_one_entry_per_bound():
     # (polynomial space) stay
     assert [r["id"] for r in out] == ["d", "y", "z", "w"]
     assert [r["group_first"] for r in out] == [True, False, False, True]
+
+
+def test_bounded_degree_versions_use_the_degree_menu(real):
+    # 21 November 2026: bounded-degree versions get no tab of their own; the "Maximum degree"
+    # menu picks them next to the tab of their general version
+    _, site, _ = real
+    page = site["pages"]["vertex-cover"]
+    tabs = [v["id"] for v in page["versions"] if not v["degree"]]
+    assert tabs == ["decision", "optimisation", "search", "weighted"]
+    assert page["degrees"] == [3, 4, 5, 6]
+    v3 = next(v for v in page["versions"] if v["id"] == "optimisation-max-degree-3")
+    assert (v3["base"], v3["degree"], v3["tab_label"]) == ("optimisation", 3, "Optimisation")
+    node = page["nodes"][v3["node"]]
+    assert node["note"].startswith("On graphs of maximum degree at most $3$, the decision, optimisation and search")
