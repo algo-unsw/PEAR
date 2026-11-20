@@ -15,8 +15,10 @@ from .compare import Context, _hidden, term_le
 from .expr import (
     Add,
     Asym,
+    Bell,
     Bound,
     Div,
+    Fact,
     Func,
     Log,
     Mul,
@@ -123,6 +125,10 @@ def substitute(node: Node, mapping: dict[str, Node]) -> Node:
         return Func(node.name, substitute(node.arg, mapping))
     if isinstance(node, Poly):
         return Poly(substitute(node.arg, mapping))
+    if isinstance(node, Fact):
+        return Fact(substitute(node.arg, mapping))
+    if isinstance(node, Bell):
+        return Bell(substitute(node.arg, mapping))
     return node
 
 

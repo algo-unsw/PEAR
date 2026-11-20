@@ -7,6 +7,7 @@ TeX writes products by juxtaposition: with symbols {k, n, tw}, "kn" is k·n and
 
 from __future__ import annotations
 
+import math
 import re
 from dataclasses import dataclass
 from fractions import Fraction
@@ -94,7 +95,25 @@ class Poly:
     arg: "Node"
 
 
-Node = Union[Num, Var, Const, Add, Mul, Div, Pow, Sqrt, Log, Asym, Func, Poly]
+@dataclass(frozen=True)
+class Fact:
+    """x!, written k! or (tw + 1)! (20 November 2026)."""
+
+    arg: "Node"
+
+
+@dataclass(frozen=True)
+class Bell:
+    """The Bell number B_x, the number of partitions of an x-element set, written B_{x}
+    (20 November 2026)."""
+
+    arg: "Node"
+
+
+Node = Union[Num, Var, Const, Add, Mul, Div, Pow, Sqrt, Log, Asym, Func, Poly, Fact, Bell]
+
+# π is a number written \pi: its value is exact to double precision (20 November 2026)
+PI = Num(Fraction(math.pi), "\\pi")
 
 NOTATIONS = ("O", "O*", "Õ")
 
@@ -128,7 +147,7 @@ def children(node: Node) -> Iterable[Node]:
         return [node.base, node.exp]
     if isinstance(node, Log):
         return [n for n in (node.arg, node.power, node.base) if n is not None]
-    if isinstance(node, (Sqrt, Asym, Func, Poly)):
+    if isinstance(node, (Sqrt, Asym, Func, Poly, Fact, Bell)):
         return [node.arg]
     return []
 
@@ -174,7 +193,7 @@ _TOKEN = re.compile(
       | (?P<cmd>\\[A-Za-z]+|\\\{|\\\})
       | (?P<num>\d+(?:\.\d+)?|\.\d+)
       | (?P<letter>[A-Za-z])
-      | (?P<sym>[{}()^_+\-*/|])""",
+      | (?P<sym>[{}()^_+\-*/|!])""",
     re.VERBOSE,
 )
 
@@ -256,7 +275,7 @@ def _subscript(raw: list[_Tok], j: int) -> tuple[str | None, int]:
     return None, j
 
 
-_RESERVED = {"O", "o", "f", "g"}
+_RESERVED = {"O", "o", "f", "g", "B"}  # B: Bell numbers B_{x}, unless a problem names a symbol B
 
 
 def _split_word(word: str, symbols: frozenset[str]) -> list[_Tok]:
@@ -343,9 +362,12 @@ class _Parser:
             factors.append(self.factor())
         return factors[0] if len(factors) == 1 else Mul(tuple(factors))
 
-    # factor := primary ['^' exponent]
+    # factor := primary {'!'} ['^' exponent]
     def factor(self) -> Node:
         base = self.primary()
+        while self.at("!"):
+            self.take()
+            base = Fact(base)
         if self.at("^"):
             self.take()
             base = Pow(base, self.exponent())
@@ -386,6 +408,9 @@ class _Parser:
             return Asym(tok.text, self.group("(", ")"))
         if tok.kind == "letter" and tok.text in ("f", "g") and self.at("("):
             return Func(tok.text, self.group("(", ")"))
+        if tok.kind == "letter" and tok.text == "B" and self.at("_"):
+            self.take()
+            return Bell(self.exponent())  # B_{x}, or B_k for a one-letter argument
         if tok.kind == "named":
             if tok.text == "poly":
                 return Poly(self.group("(", ")"))
@@ -417,6 +442,8 @@ class _Parser:
                     raise BoundSyntaxError("\\varepsilon_{} needs at least one parameter")
                 return Const(name, tuple(sorted(set(deps))))
             return Const(name)
+        if cmd == "\\pi":
+            return PI
         if cmd == "\\sqrt":
             return Sqrt(self.group("{", "}"))
         if cmd == "\\frac":
@@ -527,8 +554,8 @@ def _prec(node: Node) -> int:
         return _PREC_ADD
     if isinstance(node, (Mul, Div)):
         return _PREC_MUL
-    if isinstance(node, Pow):
-        return _PREC_POW
+    if isinstance(node, (Pow, Fact)):
+        return _PREC_POW  # (k!)^{2}, not k!^{2}
     if isinstance(node, Num) and node.value < 0:
         return _PREC_ADD
     return _PREC_ATOM
@@ -542,7 +569,7 @@ def _wrap(node: Node, min_prec: int) -> str:
 def _starts_with_digit(node: Node) -> bool:
     while isinstance(node, (Pow, Mul, Div)):
         node = node.base if isinstance(node, Pow) else node.factors[0] if isinstance(node, Mul) else node.num
-    return isinstance(node, Num)
+    return isinstance(node, Num) and not node.text.startswith("\\")  # 2\pi, not 2 \cdot \pi
 
 
 def _render(node: Node) -> str:
@@ -597,4 +624,8 @@ def _render(node: Node) -> str:
         return f"{node.name}({_render(node.arg)})"
     if isinstance(node, Poly):
         return f"\\mathrm{{poly}}({_render(node.arg)})"
+    if isinstance(node, Fact):
+        return f"{_wrap(node.arg, _PREC_ATOM)}!"
+    if isinstance(node, Bell):
+        return f"B_{{{_render(node.arg)}}}"
     raise TypeError(node)

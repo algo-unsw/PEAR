@@ -5,6 +5,8 @@ Every bound here is arithmetic only, not a research claim.
 
 from __future__ import annotations
 
+import math
+
 import pytest
 
 from pear.bounds import (
@@ -148,6 +150,15 @@ def rel(a: str, b: str, ctx=CTX) -> str:
         (r"f(k) n^{O(1)}", r"O^*(k^{k})", ">", "every explicit bound in k beats f(k)"),
         (r"f(k) n^{O(1)}", r"O^*(1.1^{n})", "?", "a bound in another parameter does not"),
         (r"f(k) n^{O(1)}", r"f(k) n^{O(1)}", "?", "f(k) beats nothing"),
+        # factorials, Bell numbers and π (20 November 2026)
+        (r"O^*(k!)", r"O^*(k^{k})", "<", "k! is (k/e)^k up to polynomial factors"),
+        (r"O^*(k!)", r"O^*((k/3)^{k})", ">", "k! is above (k/3)^k"),
+        (r"O^*(k! 4^{k})", r"O^*(k^{k})", ">", "k! 4^k is about (4k/e)^k"),
+        (r"O^*(k! 2^{o(k)})", r"O^*(k! 4^{k})", "<", "a subexponential factor beats 4^k"),
+        (r"O^*(B_{k})", r"O^*(k^{k})", "<", "B_k ≤ k^k, and B_k is not k^k"),
+        (r"O^*(2^{k})", r"O^*(B_{k})", "<", "B_k ≥ (k/8)^{k/4}"),
+        (r"O^*(2^{\pi k})", r"O^*(2^{3.15 k})", "<", "π < 3.15"),
+        (r"O^*(2^{\pi k})", r"O^*(2^{3.14 k})", ">", "π > 3.14"),
     ],
 )
 def test_compare(a, b, expected, rule):
@@ -262,10 +273,58 @@ def test_shown_bound_is_exact_and_hover_is_an_upper_bound():
         (r"O(2^{n/\log n})", True),
         (r"O(2^{n}/k)", False),
         (r"f(k) n^{O(1)}", True),
+        (r"O(k! 2^{o(k)} (n + m))", True),
+        (r"O(B_{tw + 1}^{3} n)", True),
     ],
 )
 def test_monotone(src, monotone):
     assert is_monotone(P(src)) is monotone
+
+
+@pytest.mark.parametrize(
+    ("src", "shown"),
+    [
+        (r"O(k! 2^{o(k)} (n + m))", r"O(k! \cdot 2^{o(k)} (n + m))"),
+        (r"O^*((k!)^{2})", r"O^*((k!)^{2})"),
+        (r"O^*((tw + 1)!)", r"O^*((\mathit{tw} + 1)!)"),
+        (r"O(B_{tw + 1}^{3} n)", r"O(B_{\mathit{tw} + 1}^{3} n)"),
+        (r"2^{\frac{2\pi}{\sqrt{3} \ln 2} \sqrt{k}} n^{O(1)}", r"2^{2 \pi/(\sqrt{3} \ln 2) \sqrt{k}} n^{O(1)}"),
+    ],
+)
+def test_factorial_bell_and_pi_parse_and_render(src, shown):
+    assert render_bound(P(src)) == shown
+
+
+def test_factorial_bell_and_pi_values():
+    from pear.bounds.numeric import log_value, value
+
+    assert value(P("5!").expr, {}) == 120
+    assert round(value(P("B_{5}").expr, {})) == 52
+    assert abs(value(P(r"2^{\pi}").expr, {}) - 2 ** math.pi) < 1e-9
+    assert abs(log_value(P("k!").expr, {"k": 1000.0}) - math.lgamma(1001)) < 1e-6
+    # de Bruijn's expansion beyond the exact table is close to the exact value
+    assert abs(log_value(P("B_k").expr, {"k": 400.0}) - math.log(_bell(400))) / math.log(_bell(400)) < 0.01
+
+
+def _bell(n: int) -> int:
+    row = [1]
+    for _ in range(n):
+        nxt = [row[-1]]
+        for v in row:
+            nxt.append(nxt[-1] + v)
+        row = nxt
+    return row[0]
+
+
+def test_strict_domination_needs_a_coefficient_left():
+    # 20 November 2026: with tw ≤ k, n^k beats n^tw, but its coefficient is then used up, so
+    # it cannot also absorb 2^{O(k)}: Alon–Yuster–Zwick's 2^{O(k)} n^{tw+1} log n does not
+    # beat O(n^k k^2 + n^2) (take tw = k)
+    ctx = build_context(SYMS, [r"k \le n", r"tw \le k"])
+    a, b = P(r"2^{O(k)} n^{tw + 1} \log n"), P(r"O(n^{k} k^{2} + n^{2})")
+    assert compare(a, b, ctx) == Relation.INCOMPARABLE
+    assert compare(P(r"n^{tw}"), P(r"n^{k}"), ctx) == Relation.BETTER
+    assert compare(P(r"2^{k} n^{tw}"), P(r"n^{k} \log n"), ctx) == Relation.INCOMPARABLE
 
 
 def test_subtraction_in_a_factor_is_bounded_above():
