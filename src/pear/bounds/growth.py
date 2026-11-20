@@ -491,8 +491,6 @@ def bound_terms(b: Bound) -> list[Term]:
         for sign, t in expr.terms:
             if sign < 0:
                 raise UnsupportedBound("a bound cannot subtract a term")
-            if isinstance(t, Num) and t.value == 0:
-                continue  # a zero term left by substitution adds nothing
             pieces.append(t)
     all_vars = variables(expr)
     out = []

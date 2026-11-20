@@ -47,8 +47,7 @@ def ostar(b: Bound, ctx: Context) -> Bound:
     if len(kept) > 1:
         # a term that was only polynomial factors is O*(1); a running time is at least 1,
         # so it adds nothing next to another term
-        # so it adds nothing next to another term; nor does a zero term left by substitution
-        kept = [t for t in kept if t != num(1) and not (isinstance(t, Num) and t.value == 0)] or [num(1)]
+        kept = [t for t in kept if t != num(1)] or [num(1)]
     kept = _drop_dominated(kept, ctx)
     expr = kept[0] if len(kept) == 1 else Add(tuple((1, t) for t in kept))
     return Bound("O*", expr, b.family)

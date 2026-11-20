@@ -527,7 +527,11 @@ LISTED_ORDER = ["k", "d", "p", "n", "m", "N", "tw"]
         (r"O^*(2^{O((m - k)/\sqrt{\log(m - k)})})", ["m - k"]),
         (r"O^*(1.2273^{m + n})", ["n + m"]),  # one key for n + m and m + n
         (r"O^*(1.2279^{n + m})", ["n + m"]),
-        (r"O^*(2^{(n (n - 1)/2 - m)/4})", ["n (n - 1)/2 - m"]),  # constant factor stripped
+        (r"O^*(2^{(m - k)/4})", ["m - k"]),  # constant factor stripped
+        # products, other coefficients, higher degrees: the variables, in reading order (20 November 2026)
+        (r"O^*(1.4423^{d k})", ["k", "d"]),
+        (r"O^*(2^{m - 3 n/5})", ["n", "m"]),
+        (r"O^*(2^{(n (n - 1)/2 - m)/4})", ["n", "m"]),
         (r"O^*(2^{9 m/50 + o(m)})", ["m"]),
         (r"O^*(1.2738^{k})", ["k"]),
         (r"O^*(n^{\omega (n - k)/3})", ["k", "n"]),  # n and n - k: listed under the variables

@@ -1,14 +1,15 @@
 """The parameters a bound is listed under (rulebook §7, D1).
 
-A bound whose O* form depends on its variables only through one composite expression is
-listed under that expression: $1.977^{m-k}$ is a bound "by $m - k$", not "by $k$ and $m$"
-(Serge, 20 November 2026: a general rule). Otherwise a bound is listed under its variables,
-as before.
+A bound whose O* form depends on its variables only through one sum or difference of
+variables is listed under that expression: $1.977^{m-k}$ is a bound "by $m - k$", not "by $k$
+and $m$" (Serge, 20 November 2026: a general rule). Otherwise a bound is listed under its
+variables, as before: $1.4423^{dk}$ by $d$ and $k$, $2^{m - 3n/5}$ by $m$ and $n$ (Serge,
+20 November 2026, same day).
 
 The composite expression is found syntactically. The maximal polynomial subterms that carry
 variables (the "atoms") are collected; a positive constant factor and an additive constant are
 stripped from each ($2^{(n(n-1)/2 - m)/4}$ has the atom $n(n-1)/2 - m$). If every atom is
-the same polynomial up to a constant factor and it has at least two variables, the bound is
+the same sum or difference of at least two variables up to a constant factor, the bound is
 listed under it; if every atom has a single variable, under those variables; anything mixed
 (e.g. $n^{\\omega (n - k)/3}$, atoms $n$ and $n - k$) is listed under its variables.
 """
@@ -175,6 +176,11 @@ def listed_parameters(expr: Node, order: Iterable[str] = ()) -> tuple[Parameter,
         return plain()
     forms = {_normal(_poly(a) or {}) for a in atoms}
     if len(forms) != 1 or any(len(variables(a)) < 2 for a in atoms):
+        return plain()
+    # only sums and differences of variables (m - k, n + m); products, other coefficients and
+    # higher degrees keep their variables: d k, m - 3n/5, n(n-1)/2 - m (Serge, 20 November 2026)
+    (form,) = forms
+    if any(len(mono) != 1 or mono[0][1] != 1 or abs(c) != 1 for mono, c in form):
         return plain()
     node = _ordered(atoms[0], order)
     return (Parameter(render(node), frozenset(variables(node)), True, node),)
