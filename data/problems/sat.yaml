@@ -20,12 +20,23 @@ parameters:
   tw_p: { shared: primal-treewidth }
   tw_d: { shared: dual-treewidth }
   tw_i: { shared: incidence-treewidth }
+  sb_horn: { meaning: "the size of a smallest strong Horn-backdoor set: a set $B$ of variables such that $F[\\tau]$ is Horn (every clause has at most one positive literal) for every truth assignment $\\tau$ to $B$; for Horn, strong and deletion backdoor sets coincide" }
+  sb_krom: { meaning: "the size of a smallest strong 2-CNF-backdoor set (2-CNF formulas are also called Krom formulas): a set $B$ of variables such that every clause of $F[\\tau]$ has at most two literals for every truth assignment $\\tau$ to $B$; for 2-CNF, strong and deletion backdoor sets coincide" }
+  db_qhorn: { meaning: "the size of a smallest deletion q-Horn-backdoor set: a set $B$ of variables such that the formula $F - B$, obtained by deleting all literals of variables in $B$ from the clauses, is q-Horn (Boros, Crama and Hammer)" }
+  sb_forest: { meaning: "the size of a smallest strong Forest-backdoor set: a set $B$ of variables such that the incidence graph of $F[\\tau]$ is a forest for every truth assignment $\\tau$ to $B$" }
+  sb_nest: { meaning: "the size of a smallest strong Nested-backdoor set: a set $B$ of variables such that $F[\\tau]$ is nested (Knuth) for every truth assignment $\\tau$ to $B$" }
 constraints:
   - { constraint: "tw_p \\le n", because: "The primal graph has $n$ vertices." }
   - { constraint: "tw_d \\le m", because: "The dual graph has $m$ vertices." }
   - { constraint: "tw_i \\le n + m", because: "The incidence graph has $n + m$ vertices." }
   - { constraint: "m \\le L", because: "Every clause is nonempty after removing empty clauses (an empty clause makes the formula unsatisfiable)." }
   - { constraint: "n \\le L", because: "Variables that occur in no clause can be removed." }
+  - { constraint: "sb_{horn} \\le n", because: "The set of all variables is a strong Horn-backdoor set: every total assignment leaves no clause or only the empty clause, which is Horn." }
+  - { constraint: "sb_{krom} \\le n", because: "The set of all variables is a strong 2-CNF-backdoor set: every total assignment leaves no clause or only the empty clause." }
+  - { constraint: "sb_{forest} \\le n", because: "The set of all variables is a strong Forest-backdoor set: every total assignment leaves a formula without variables, whose incidence graph has no edges." }
+  - { constraint: "sb_{nest} \\le n", because: "The set of all variables is a strong Nested-backdoor set: every total assignment leaves a formula without variables, which is nested." }
+  - { constraint: "db_{qhorn} \\le sb_{horn}", because: "Strong and deletion Horn-backdoor sets coincide, and Horn formulas are q-Horn, so a smallest strong Horn-backdoor set is a deletion q-Horn-backdoor set." }
+  - { constraint: "db_{qhorn} \\le sb_{krom}", because: "Strong and deletion 2-CNF-backdoor sets coincide, and 2-CNF (Krom) formulas are q-Horn, so a smallest strong 2-CNF-backdoor set is a deletion q-Horn-backdoor set." }
 versions:
   decision:
     kind: decision

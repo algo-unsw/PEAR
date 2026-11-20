@@ -1,0 +1,22 @@
+id: sat--sb-horn--nishimura-ragde-szeider-2004
+problem: sat
+proved_for: decision
+bound:
+  as_stated: O(2^{sb_{horn}} N)
+  notation: O
+  parameters: [sb_horn, N]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Educated guess: a bounded search tree plus one linear-time check per assignment of the backdoor; no memoization, dynamic programming or decomposition-based techniques found.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: nishimura-ragde-szeider-2004
+  statements:
+    sat:
+      statement: Theorem 2 and Section 4.1
+  note: 'Stated in two steps: Theorem 2 finds a strong Horn-backdoor set of size $k$ of a formula of length $N$ in time $O(2^k N)$ or concludes that none exists, and Section 4.1 decides the satisfiability of $F$ from a strong backdoor set by checking the at most $2^k$ formulas $F[\tau]$, each Horn and decided in time linear in its length. Trying $k = 0, 1, 2, \dots$ finds a smallest backdoor set in total time $O(2^{sb_{horn}} N)$ (a geometric sum), so the whole algorithm runs in $O(2^{sb_{horn}} N)$. Strong Horn-backdoor sets are exactly the vertex covers of the positive primal graph (Proposition 5 of Gaspers–Szeider, Backdoors to Satisfaction, arXiv 1110.6387).'

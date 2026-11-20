@@ -17,11 +17,13 @@ parameters:
   k: { meaning: "the committee size $k$ in the input" }
   d: { meaning: "the score: the rational number $d$ in the input (decision, search), or the maximum PAV score of a committee of size $k$ (optimisation)" }
   vc: { shared: vertex-cover-number, of: "the incidence graph: the bipartite graph on the candidates and the ballots with an edge between $c$ and $A_i$ whenever $c \\in A_i$" }
+  dc: { meaning: "the size of a candidate-deletion set given in the input: a set $D \\subseteq C$ of candidates such that, after deleting $D$, the candidates can be ordered so that every ballot is an interval (a candidate-interval, or single-peaked, profile)" }
 constraints:
   - { constraint: "k \\le n", because: "A committee is a set of $k$ of the $n$ candidates; an instance with $k > n$ has no committee and is answered in polynomial time." }
   - { constraint: "d \\le m n", because: "Each voter contributes at most $\\sum_{j=1}^{k} 1/j \\le k \\le n$ to the score, so an instance with $d > mn$ is a no-instance, answered in polynomial time." }
   - { constraint: "vc \\le n", because: "The candidates form a vertex cover of the incidence graph." }
   - { constraint: "vc \\le m", because: "The ballots form a vertex cover of the incidence graph." }
+  - { constraint: "dc \\le n", because: "The deletion set is a set of candidates." }
 versions:
   decision:
     kind: decision

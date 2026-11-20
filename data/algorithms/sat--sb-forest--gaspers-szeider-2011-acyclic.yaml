@@ -1,0 +1,22 @@
+id: sat--sb-forest--gaspers-szeider-2011-acyclic
+problem: sat
+proved_for: decision
+bound:
+  as_stated: f(sb_{forest}) N^{O(1)}
+  notation: O
+  parameters: [sb_forest, N]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Not stated; educated guess: the algorithm uses Courcelle-type model checking for monadic second-order logic on graphs of bounded treewidth (dynamic programming over a tree decomposition, tables whose size depends on the parameter), so space $f(k) N^{O(1)}$.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: gaspers-szeider-2011-acyclic
+  statements:
+    arxiv-v3:
+      statement: Theorem 6 and the remark that follows it in Section 1
+  note: 'Theorem 6: an FPT algorithm that, for a CNF formula $F$ and $k$, either concludes that $F$ has no strong Forest-backdoor set of size at most $k$ or finds one of size at most $2^k$; the paper concludes that SAT and #SAT, parameterized by the size of a smallest strong Forest-backdoor set, are fixed-parameter tractable (no explicit running time). Forest is the class of CNF formulas whose incidence graph is acyclic.'

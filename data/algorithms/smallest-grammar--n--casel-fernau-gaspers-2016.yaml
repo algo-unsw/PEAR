@@ -1,0 +1,21 @@
+id: smallest-grammar--n--casel-fernau-gaspers-2016
+problem: smallest-grammar
+proved_for: optimisation
+bound:
+  as_stated: "O^*(3^{n})"
+  notation: O*
+  parameters: [n]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: "Stated: $O^*(3^{|w|})$ (Theorem 13: dynamic programming over pairs of a factorisation of $w$ and a refinement)."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: casel-fernau-gaspers-2016
+  statements:
+    journal: { statement: "Theorem 13", page: 57 }
+  note: "Stated as time and space $O^*(3^{|w|})$ with $n = |w|$; the table $P$ lets the algorithm output a smallest grammar. The ICALP version announces the same $O^*(3^{|w|})$ algorithm (abstract and Section 5; theorem number not checked). For 1-level grammars the journal gives $O^*(1.8392^{|w|})$ (Section 5.1)."

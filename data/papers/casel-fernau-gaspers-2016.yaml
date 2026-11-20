@@ -1,0 +1,18 @@
+id: casel-fernau-gaspers-2016
+title: "On the Complexity of Grammar-Based Compression over Fixed Alphabets"
+authors: [Katrin Casel, Henning Fernau, Serge Gaspers, Benjamin Gras, Markus L. Schmid]
+identifiers: { dblp: conf/icalp/CaselFGGS16 }
+versions:
+  icalp:
+    kind: conference
+    venue: "43rd International Colloquium on Automata, Languages, and Programming (ICALP 2016), LIPIcs, Article 122, pp. 122:1–122:14"
+    year: 2016
+    doi: "10.4230/LIPIcs.ICALP.2016.122"
+    open_access: true
+  journal:
+    kind: journal
+    title: "On the Complexity of the Smallest Grammar Problem over Fixed Alphabets"
+    venue: "Theory of Computing Systems 65(2), pp. 344–409"
+    year: 2021
+    doi: "10.1007/s00224-020-10013-w"
+    open_access: true

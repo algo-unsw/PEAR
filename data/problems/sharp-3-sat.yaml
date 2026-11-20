@@ -19,11 +19,15 @@ parameters:
   tw_p: { shared: primal-treewidth }
   tw_d: { shared: dual-treewidth }
   tw_i: { shared: incidence-treewidth }
+  sb_forest: { meaning: "the size of a smallest strong Forest-backdoor set: a set $B$ of variables such that the incidence graph of $F[\\tau]$ is a forest for every truth assignment $\\tau$ to $B$" }
+  sb_nest: { meaning: "the size of a smallest strong Nested-backdoor set: a set $B$ of variables such that $F[\\tau]$ is nested (Knuth) for every truth assignment $\\tau$ to $B$" }
 constraints:
   - { constraint: "tw_p \\le n", because: "The primal graph has $n$ vertices." }
   - { constraint: "tw_d \\le m", because: "The dual graph has $m$ vertices." }
   - { constraint: "tw_i \\le n + m", because: "The incidence graph has $n + m$ vertices." }
   - { constraint: "m \\le 8 n^{3}", because: "Up to duplicates, there are at most $(2n)^3$ clauses with at most three literals; duplicate clauses can be removed." }
+  - { constraint: "sb_{forest} \\le n", because: "The set of all variables is a strong Forest-backdoor set: every total assignment leaves a formula without variables, whose incidence graph has no edges." }
+  - { constraint: "sb_{nest} \\le n", because: "The set of all variables is a strong Nested-backdoor set: every total assignment leaves a formula without variables, which is nested." }
 versions:
   counting:
     kind: counting

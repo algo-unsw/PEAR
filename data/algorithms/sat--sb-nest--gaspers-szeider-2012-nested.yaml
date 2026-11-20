@@ -1,0 +1,22 @@
+id: sat--sb-nest--gaspers-szeider-2012-nested
+problem: sat
+proved_for: decision
+bound:
+  as_stated: f(sb_{nest}) N^{O(1)}
+  notation: O
+  parameters: [sb_nest, N]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Not stated; educated guess: for small incidence treewidth the algorithm uses model checking for monadic second-order logic (dynamic programming over a tree decomposition, tables whose size depends on the parameter); then $2^{2^k}$ nested formulas are solved one at a time.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: gaspers-szeider-2012-nested
+  statements:
+    arxiv-v2:
+      statement: Theorem 2
+  note: 'Theorem 2: SAT and #SAT are fixed-parameter tractable parameterized by the size of a smallest strong Nested-backdoor set. Proved via Theorem 5 (an FPT algorithm that finds a strong Nested-backdoor set of size at most $2^k$ or concludes that none of size at most $k$ exists) and Knuth''s polynomial-time algorithm for nested formulas. The abstract states that the degree of the polynomial is independent of $k$; no explicit running time.'
