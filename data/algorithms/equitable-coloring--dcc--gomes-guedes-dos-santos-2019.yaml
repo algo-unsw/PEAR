@@ -12,7 +12,7 @@ properties:
     bound: "Not stated; educated guess: $O^*(2^{dcc})$. For each guessed colouring $\\psi$ of the modulator and each set $P$ of its colours, a dynamic programming table indexed by $(S, p, q, j)$ with $S$ a subset of the modulator's colours (Lemma on $f_{\\psi,P}$), whose transitions run the max-flow algorithm of the distance-to-cluster section."
   algebraic: false
   fast_matrix_multiplication: false
-  constructive: false
+  constructive: true
   quantum: false
 source:
   paper: gomes-guedes-dos-santos-2019

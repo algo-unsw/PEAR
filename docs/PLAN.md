@@ -27,7 +27,7 @@ Every algorithm and reduction is tagged with its model and resource properties, 
 - Deterministic or randomized. Comparisons use a single "randomized" tag (constant success probability, amplified as needed). An optional, information-only field records Las Vegas / one-sided / two-sided error (decided 7 November 2026).
 - Space: polynomial or exponential, with the space bound where known.
 - Algebraic or combinatorial (curator-assigned, since "combinatorial" has no formal definition), with an objective sub-tag "uses fast matrix multiplication" (matches conditional lower bounds stated for algorithms that avoid it).
-- Constructive: the algorithm or reduction can actually be written down. It is non-constructive when a paper proves that it exists but gives no way to write it down, even taking known results into account (e.g. results relying on Robertson–Seymour well-quasi-ordering). Optional note on impractical constants.
+- Constructive: the algorithm or reduction can actually be written down. It is non-constructive when a paper proves that it exists but gives no way to write it down, even taking known results into account (e.g. results relying on Robertson–Seymour well-quasi-ordering). An algorithm that decides, optimises or counts without outputting a solution is still constructive: `proved_for` records which version it solves. Optional note on impractical constants.
 - Classical or quantum.
 - Unconditional or conditional on a hypothesis.
 - Reductions carry the same tags; e.g. a randomized reduction yields only a randomized derived bound.

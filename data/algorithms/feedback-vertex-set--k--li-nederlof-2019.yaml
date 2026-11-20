@@ -15,7 +15,7 @@ properties:
     bound: 'Exponential in $k$, as stated (Cut&Count dynamic programming over a tree decomposition).'
   algebraic: true
   fast_matrix_multiplication: true
-  constructive: false
+  constructive: true
   quantum: false
 source:
   paper: li-nederlof-2019

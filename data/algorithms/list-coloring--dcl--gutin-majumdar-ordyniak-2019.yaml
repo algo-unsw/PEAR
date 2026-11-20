@@ -10,7 +10,7 @@ properties:
   space: { class: exponential, bound: "$O^*(2^{dcl})$, as stated in the proof of Theorem 2." }
   algebraic: true
   fast_matrix_multiplication: false
-  constructive: false
+  constructive: true
   quantum: false
 source:
   paper: gutin-majumdar-ordyniak-2019

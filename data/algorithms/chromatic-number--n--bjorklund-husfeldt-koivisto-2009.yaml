@@ -13,7 +13,7 @@ properties:
     bound: '$O(2^n n)$ space, as stated.'
   algebraic: true
   fast_matrix_multiplication: false
-  constructive: false
+  constructive: true
   quantum: false
 source:
   paper: bjorklund-husfeldt-koivisto-2009

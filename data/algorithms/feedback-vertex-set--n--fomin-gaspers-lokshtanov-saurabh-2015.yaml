@@ -14,7 +14,7 @@ properties:
     bound: 'Not stated; educated guess: exponential. The extension step is the randomized $3^k$ Cut&Count algorithm, whose space we have not checked; the sampling itself uses polynomial space.'
   algebraic: true
   fast_matrix_multiplication: false
-  constructive: false
+  constructive: true
   quantum: false
 source:
   paper: fomin-gaspers-lokshtanov-saurabh-2015

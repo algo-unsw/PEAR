@@ -13,7 +13,7 @@ properties:
     bound: 'Polynomial space, as the attesting sources state (inclusion–exclusion over vertex subsets, counting closed walks).'
   algebraic: false
   fast_matrix_multiplication: false
-  constructive: false
+  constructive: true
   quantum: false
 source:
   paper: karp-1982

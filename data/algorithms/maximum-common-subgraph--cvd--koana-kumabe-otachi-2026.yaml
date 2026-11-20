@@ -10,7 +10,7 @@ properties:
   space: { class: polynomial, bound: "Not stated; educated guess: polynomial. The overview (Section 1) enumerates $O^*(2^{O(k^2)})$ guesses, which can be done one at a time, and solves each by Weighted Exact Multicolored Matching, stated to take $(n + m)^{O(1)}$ space (Pfaffians, interpolation, inclusion–exclusion and polynomial identity testing). No memoization or dynamic programming over exponential tables found in Section 1; the proof sections were not read." }
   algebraic: true
   fast_matrix_multiplication: false
-  constructive: false
+  constructive: true
   quantum: false
 source:
   paper: koana-kumabe-otachi-2026

@@ -15,7 +15,7 @@ properties:
     bound: 'Not stated; educated guess: exponential. The preprocessing stores set families computed by fast subset convolution in a hash table (Lemma 4.1).'
   algebraic: true
   fast_matrix_multiplication: false
-  constructive: false
+  constructive: true
   quantum: false
 source:
   paper: pratt-2026
