@@ -407,6 +407,64 @@ def history(rows: list[dict[str, Any]], bases: dict[str, float], include_all: bo
     return out
 
 
+def _strength(r: dict[str, Any]) -> tuple[bool, bool, bool]:
+    p = r["properties"]
+    return bool(p["deterministic"]), bool(p["polynomial_space"]), bool(p["constructive"])
+
+
+def strongest(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Rows with the same bound, without those another row is at least as strong as in every
+    property and stronger in one (a randomized twin of a deterministic result)."""
+    def weaker(a: dict[str, Any], b: dict[str, Any]) -> bool:
+        sa, sb = _strength(a), _strength(b)
+        return sa != sb and all(y >= x for x, y in zip(sa, sb))
+    return [r for r in rows if not any(weaker(r, o) for o in rows if o is not r)]
+
+
+def merged_entries(entries: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Overview entries of one group that show the same bound and appear under the same
+    conditions become one entry, so the bound is stated once (20 November 2026). Such
+    entries differ in their properties (e.g. randomized in polynomial space against
+    deterministic in exponential space); each keeps its own sentence in the merged line.
+    A merged entry is hidden by an included unverified result only if every part is."""
+    out: list[dict[str, Any]] = []
+    for e in entries:
+        key = (e["cite"][0]["shown"], bool(e.get("optional")), bool(e.get("only_all")), bool(e.get("in_all")))
+        same = next((o for o in out if o["_key"] == key), None)
+        if same is None:
+            out.append({**e, "_key": key, "cite": list(e["cite"]), "members": list(e["members"]),
+                        "beaten_by": list(e["beaten_by"])})
+            continue
+        same["cite"] += [r for r in e["cite"] if r not in same["cite"]]
+        same["members"] += [m for m in e["members"] if m not in same["members"]]
+        same["beaten_by"] = [b for b in same["beaten_by"] if b in e["beaten_by"]]
+        years = [y for y in (same["year"], e["year"]) if y is not None]
+        same["year"] = min(years) if years and same["year"] is not None and e["year"] is not None else None
+    for o in out:
+        del o["_key"]
+    return out
+
+
+def merged_lines(cited: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """The Overview lines of one entry: cited results that would print the same sentence (same
+    bound, properties, origin, tags and source problem) share one line with all their
+    references, instead of repeating it (20 November 2026)."""
+    lines: list[dict[str, Any]] = []
+    for r in cited:
+        key = (r["shown"], r["props"]["sentence"], r["origin"], tuple(r["flags"]), r["properties"]["constructive"],
+               (r["from_problem"] or {}).get("id"), r["proved_for"] if r["origin"] == "direct" else None)
+        line = next((ln for ln in lines if ln["key"] == key), None)
+        if line is None:
+            lines.append({"key": key, "row": r, "rows": [r], "refs": list(r["refs"])})
+        else:
+            line["rows"].append(r)
+            line["refs"] += [n for n in r["refs"] if n not in line["refs"]]
+    for ln in lines:
+        ln["refs"].sort()
+        del ln["key"]
+    return lines
+
+
 # --- one problem page ---------------------------------------------------------------------------
 
 
@@ -579,9 +637,15 @@ def problem_page(data: Dataset, d: Derivation, derived: dict[str, Any], pid: str
     problem = data.problems[pid]
     refs = References(data)
     params = parameter_info(data, problem)
-    order = {p["symbol"]: i for i, p in enumerate(params)}
+    order: dict[str, float] = {p["symbol"]: i for i, p in enumerate(params)}
     by_symbol = {p["symbol"]: p for p in params}
     nodes_rows: dict[str, list[dict]] = derived["problems"].get(pid, {})
+    # a composite parameter ("m - k") comes right after the last of its variables
+    for rs in nodes_rows.values():
+        for row in rs:
+            if row.get("composite"):
+                (key,) = row["parameters"]
+                order[key] = max((order.get(v, 98) for v in row["parameter_variables"]), default=98) + 0.5
     overview: dict[str, list[dict]] = derived["overview"].get(pid, {})
 
     def enrich(row: dict[str, Any]) -> dict[str, Any]:
@@ -598,7 +662,8 @@ def problem_page(data: Dataset, d: Derivation, derived: dict[str, Any], pid: str
         out["proved_for_problem"] = None if alg.problem == pid else data.problems[alg.problem].name
         out["from_problem"] = None if alg.problem == pid else {"id": alg.problem, "name": data.problems[alg.problem].name}
         out["flag_text"] = [FLAG_TEXT.get(f, f) for f in row["flags"]]
-        out["param_tex"] = ", ".join(by_symbol[p]["tex"] for p in row["parameters"] if p in by_symbol)
+        # a composite parameter is keyed by its TeX ("m - k"; rulebook §7)
+        out["param_tex"] = ", ".join(by_symbol[p]["tex"] if p in by_symbol else p for p in row["parameters"])
         out["param_order"] = [order.get(p, 99) for p in row["parameters"]]
         out["chain_items"] = chain_items(data, d, row, refs, problem) if row["chain"] else []
         return out
@@ -635,8 +700,17 @@ def problem_page(data: Dataset, d: Derivation, derived: dict[str, Any], pid: str
                 for e in entries:
                     if beats & set(e["members"]):
                         e["beaten_by"].append(row["id"])
-            groups.setdefault(tuple(row["parameters"]), []).append(
-                {"cite": [enriched_by_id[row["id"]]], "year": row["year"], "members": [row["id"]], "beaten_by": [], "optional": True})
+            # one line per bound: an unverified result showing the same bound as another joins
+            # its entry, which shows when any of them is included (20 November 2026)
+            entries = groups.setdefault(tuple(row["parameters"]), [])
+            same = next((e for e in entries if e.get("optional") and e["cite"][0]["shown"] == row["shown"]), None)
+            if same is None:
+                entries.append({"cite": [enriched_by_id[row["id"]]], "year": row["year"], "members": [row["id"]],
+                                "beaten_by": [], "optional": True})
+            else:
+                same["members"].append(row["id"])
+                same["cite"] = strongest(same["cite"] + [enriched_by_id[row["id"]]])
+                same["year"] = min((y for y in (same["year"], row["year"]) if y is not None), default=None)
         # the Overview with preprints and unverified results included, with ω at its best
         # claimed value (18 November 2026): which entries it shows, and the entries only it shows
         all_groups = derived.get("overview_all", {}).get(pid, {}).get(node, [])
@@ -658,16 +732,21 @@ def problem_page(data: Dataset, d: Derivation, derived: dict[str, Any], pid: str
         for row in rows:
             if row["id"] not in enriched_by_id:
                 enriched_by_id[row["id"]] = enrich(row)
+        for key in list(groups):
+            groups[key] = merged_entries(groups[key])
+            for e in groups[key]:
+                e["lines"] = merged_lines(e["cite"])
         detail_rows = sorted(enriched_by_id.values(), key=sort_key)
         ordered_groups = sorted(groups.items(), key=lambda kv: [order.get(p, 99) for p in kv[0]])
         overview_out = []
         for key, entries in ordered_groups:
             names = [by_symbol[p]["short"] for p in key if p in by_symbol]
+            # "By $m - k$": a composite parameter has no short name
             overview_out.append({
                 "only_optional": all(e.get("optional") or e.get("only_all") for e in entries),
                 "parameters": list(key),
-                "heading": "By " + _join(names),
-                "symbols_tex": [by_symbol[p]["tex"] for p in key if p in by_symbol],
+                "heading": ("By " + _join(names)) if names else "By",
+                "symbols_tex": [by_symbol[p]["tex"] if p in by_symbol else p for p in key],
                 "entries": entries,
             })
         # bases with ω at its best published value, and at its best claimed value for the
@@ -869,7 +948,8 @@ def build(data: Dataset, d: Derivation, out_dir: Path) -> dict[str, Any]:
                 r = entry["cite"][0]
                 bounds.append({"shown": r["shown"], "params": group["symbols_tex"], "derived": r["origin"] == "derived",
                                "deterministic": r["properties"]["deterministic"], "year": entry["year"],
-                               "optional": bool(entry.get("optional")), "id": r["id"],
+                               "optional": bool(entry.get("optional")),
+                               "id": " ".join(entry["members"]) if entry.get("optional") else r["id"],
                                "beaten_by": entry["beaten_by"], "flags": r["flags"],
                                "in_all": bool(entry.get("in_all")), "only_all": bool(entry.get("only_all"))})
         return bounds

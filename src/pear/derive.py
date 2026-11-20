@@ -20,6 +20,7 @@ from .bounds.compare import Analysed, Context, _resolve, analyse, compare_ostar
 from .bounds.display import simplify, substitute
 from .bounds.expr import Add, Asym, Bell, Const, Div, Fact, Log, Mul, Node, Num, Pow, Sqrt, Var, children, variables
 from .bounds.growth import Shape, UnsupportedBound, bound_terms, is_monotone
+from .bounds.params import Parameter, listed_parameters
 from .bounds.numeric import dominates, samples, value
 from .schema import Algorithm, FolkloreSource, Hypothesis, PaperSource, Problem, Reduction, Variant
 from .validate import Dataset, problem_context
@@ -295,9 +296,15 @@ class Engine:
             self.analysed[key] = analyse(r.bound)
         return self.analysed[key]
 
-    def parameters(self, r: Result) -> frozenset[str]:
-        """The parameters a bound is listed under: the variables of its O* form."""
+    def variables(self, r: Result) -> frozenset[str]:
+        """The variables of a bound's O* form: what D1 compares."""
         return frozenset(variables(ostar(r.bound, self.out.contexts[r.problem]).expr))
+
+    def parameters(self, r: Result) -> frozenset[Parameter]:
+        """The parameters a bound is listed under: the variables of its O* form, or the one
+        composite expression it depends on (m - k for 1.977^{m-k}; §7, 20 November 2026)."""
+        expr = ostar(r.bound, self.out.contexts[r.problem]).expr
+        return frozenset(listed_parameters(expr, self.data.problems[r.problem].reading_order()))
 
     def dated(self, src: PaperSource | FolkloreSource) -> tuple[int | None, tuple[str, ...]]:
         """When a source's result became known, and its paper. The year is that of the earliest
@@ -311,12 +318,14 @@ class Engine:
 
     def dominates(self, s: Result, r: Result, ctx: Context) -> bool:
         """s makes r redundant: at least as good a bound, at least as good in every filter,
-        and listed under the same parameters or fewer (a bound "by n" competes "by n", §7)."""
+        and in the same variables or fewer (a bound "by n" competes "by n", §7). A bound
+        listed under a composite parameter competes through its variables: 2^k may drop
+        3^{m + kn}, but never 1.977^{m - k}, which it does not beat."""
         if r.derived is False and s.derived:
             return False  # the "include derived" filter: derived results never hide direct ones
         if not s.props.at_least(r.props):
             return False
-        if not self.parameters(s) <= self.parameters(r):
+        if not self.variables(s) <= self.variables(r):
             return False
         in_ostar = compare_ostar(self.analyse(s), self.analyse(r), ctx)
         if in_ostar == Relation.BETTER:
@@ -836,8 +845,9 @@ class Engine:
                     groups.append([r])
             entries = []
             for g in groups:
+                # folklore (undated) counts as earliest, so brute force is cited (20 November 2026)
                 dated = [r.year for r in g if r.year is not None]
-                first = min(dated) if dated else None
+                first = None if any(r.year is None for r in g) or not dated else min(dated)
                 entries.append({
                     "members": [r.id for r in g],
                     "cite": [r.id for r in g if r.year == first],
@@ -906,8 +916,9 @@ class Engine:
 
 
 def _earlier(s: Result, r: Result) -> bool:
-    """s became known strictly before r (undated counts as latest)."""
-    return s.year is not None and (r.year is None or s.year < r.year)
+    """s became known strictly before r. Undated results are folklore, such as brute force,
+    and count as earliest (20 November 2026; until then they counted as latest)."""
+    return r.year is not None and (s.year is None or s.year < r.year)
 
 
 def _drop_subtractions(node: Node) -> Node:
@@ -975,7 +986,8 @@ def to_json(data: Dataset, d: Derivation) -> dict:
     nodes: dict[str, dict[str, list[dict]]] = {}
     for (pid, node), kept in sorted(d.results.items()):
         ctx = d.contexts[pid]
-        rows = [_row(r, ctx, d.beaten_by.get(r.id, [])) for r in kept]
+        order = data.problems[pid].reading_order()
+        rows = [_row(r, ctx, d.beaten_by.get(r.id, []), order) for r in kept]
         nodes.setdefault(pid, {})[node] = rows
     overview: dict[str, dict[str, list[dict]]] = {}
     for (pid, node), groups in sorted(d.overview.items()):
@@ -987,7 +999,7 @@ def to_json(data: Dataset, d: Derivation) -> dict:
     for (pid, node), entries in sorted(d.superseded.items()):
         ctx = d.contexts[pid]
         superseded.setdefault(pid, {})[node] = [
-            {**_row(r, ctx, []), "superseded_by": ids} for r, ids in entries
+            {**_row(r, ctx, [], data.problems[pid].reading_order()), "superseded_by": ids} for r, ids in entries
         ]
     return {
         "rulebook_version": RULEBOOK_VERSION,
@@ -1004,11 +1016,13 @@ def to_json(data: Dataset, d: Derivation) -> dict:
     }
 
 
-def _row(r: Result, ctx: Context, beaten_by: list[str]) -> dict:
+def _row(r: Result, ctx: Context, beaten_by: list[str], order: list[str] | None = None) -> dict:
     from .bounds import render_bound
     from .bounds.expr import fixed_parameters
 
     shown = display(r.bound, ctx, derived=r.derived)
+    params = listed_parameters(ostar(r.bound, ctx).expr, order or ())
+    composite = any(p.composite for p in params)
     return {
         "id": r.id,
         "origin": "derived" if r.derived else "direct",
@@ -1016,7 +1030,10 @@ def _row(r: Result, ctx: Context, beaten_by: list[str]) -> dict:
         "exact": render_bound(r.bound),
         "shown": shown.tex,
         "hover": shown.hover,
-        "parameters": sorted(variables(ostar(r.bound, ctx).expr)),
+        # its variables ("k", "n"), or one composite expression in TeX ("m - k"); rulebook §7
+        "parameters": sorted(p.key for p in params) if not composite else [p.key for p in params],
+        "composite": composite,
+        "parameter_variables": sorted(set().union(*(p.variables for p in params))),
         "fixed": sorted(fixed_parameters(r.bound.expr)),
         "properties": {
             "deterministic": r.props.deterministic,

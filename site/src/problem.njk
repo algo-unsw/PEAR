@@ -87,11 +87,14 @@ eleventyComputed:
 <div class="ov-group"{% if g.only_optional %} data-only-optional hidden{% endif %}>
 <h3>{{ g.heading | mathtext | safe }} {% for s in g.symbols_tex %}{{ s | tex | safe }}{% if not loop.last %} and {% endif %}{% endfor %}</h3>
 {%- for e in g.entries %}
-<div class="ov-entry" data-all="{{ '1' if e.in_all else '0' }}"{% if e.optional %} data-optional="{{ e.cite[0].id }}" hidden{% endif %}{% if e.only_all %} data-only-all hidden{% endif %}{% if e.beaten_by.length %} data-beaten-by="{{ e.beaten_by | join(' ') }}"{% endif %}>
-{%- for r in e.cite %}
-<p class="bound">{{ bound(r) }}, {{ r.props.sentence }}{% if r.from_problem %}, from the algorithm for <a href="{{ ('/problems/' + r.from_problem.id + '/') | url }}">{{ r.from_problem.name }}</a>{% endif %} {{ r.refs | refs | safe }}.{{ tags(r) }}{% if r.origin == "direct" %} Proved for the {{ r.proved_for }} version.{% endif %}</p>
-{%- if r.chain_items.length %}{{ chain(r, "chain-" + v.id + "-" + r.id) }}{% endif %}
-{%- endfor %}
+<div class="ov-entry" data-all="{{ '1' if e.in_all else '0' }}"{% if e.optional %} data-optional="{{ e.members | join(' ') }}" hidden{% endif %}{% if e.only_all %} data-only-all hidden{% endif %}{% if e.beaten_by.length %} data-beaten-by="{{ e.beaten_by | join(' ') }}"{% endif %}>
+{%- if e.lines.length == 1 %}{% set l = e.lines[0] %}{% set r = l.row %}
+<p class="bound">{{ bound(r) }}, {{ r.props.sentence }}{% if r.from_problem %}, from the algorithm for <a href="{{ ('/problems/' + r.from_problem.id + '/') | url }}">{{ r.from_problem.name }}</a>{% endif %} {{ l.refs | refs | safe }}.{{ tags(r) }}{% if r.origin == "direct" %} Proved for the {{ r.proved_for }} version.{% endif %}</p>
+{%- else %}
+{#- one bound, several results with different properties: the bound is stated once (20 November 2026) #}
+<p class="bound">{{ bound(e.lines[0].row) }}:{% for l in e.lines %}{% set r = l.row %} {{ r.props.sentence }}{% if r.from_problem %}, from the algorithm for <a href="{{ ('/problems/' + r.from_problem.id + '/') | url }}">{{ r.from_problem.name }}</a>{% endif %} {{ l.refs | refs | safe }}{{ tags(r) }}{% if r.origin == "direct" %}, proved for the {{ r.proved_for }} version{% endif %}{{ ";" if not loop.last else "." }}{% endfor %}</p>
+{%- endif %}
+{%- for l in e.lines %}{% for c in l.rows %}{% if c.chain_items.length %}{{ chain(c, "chain-" + v.id + "-" + c.id) }}{% endif %}{% endfor %}{% endfor %}
 </div>
 {%- endfor %}
 </div>
