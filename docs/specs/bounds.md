@@ -26,14 +26,14 @@ notation  := "O" | "O^*" | "\tilde{O}"
 sum       := term { "+" term }
 term      := factor { factor }
 factor    := atom {"!"} [ "^" "{" exponent "}" ] | "\log" ... | "\sqrt{" sum "}" | "(" sum ")"
-atom      := number | "\pi" | variable | constant | "f(" variable ")" | "B_{" sum "}"
+atom      := number | "\pi" | "\mathrm{e}" | variable | constant | "f(" variable ")" | "B_{" sum "}"
 exponent  := sum | asymptotic
 asymptotic:= ("O" | "o") "(" sum ")"
 constant  := "\varepsilon" ["_" (variable | "{" variable {variable} "}")] | "\omega" | named constant from data/constants
 variable  := a symbol the problem defines (objects or parameters)
 ```
 
-**Factorials, Bell numbers and π** (20 November 2026): `k!` and `(tw + 1)!` are factorials, `B_{k}` (or `B_k`) is the $k$-th Bell number, the number of partitions of a $k$-element set (so `B` cannot be a problem's symbol), and `\pi` is π. Bounds stated with them are stored as stated.
+**Factorials, Bell numbers, π and e** (20–21 November 2026): `k!` and `(tw + 1)!` are factorials, `B_{k}` (or `B_k`) is the $k$-th Bell number, the number of partitions of a $k$-element set (so `B` cannot be a problem's symbol), `\pi` is π, and `\mathrm{e}` is Euler's number e (added 21 November 2026; written `\mathrm{e}` so that `e` stays free as a symbol). Bounds stated with them are stored as stated.
 
 The parser also checks what the schema could not: every variable in `as_stated`, `time`, `calls` and parameter-map right-hand sides is defined by the problem, and `bound.parameters` lists exactly the variables of `as_stated`. The `notation` field must match the outer notation of `as_stated` (or be `O` when there is none).
 

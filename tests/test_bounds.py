@@ -631,3 +631,17 @@ def test_exact_shape():
     pseudo = Context(frozenset({"t"}))
     assert exact_shape(parse_bound(r"O(\sqrt{n} t \log^{5/2} t)", s), pseudo)
     assert not exact_shape(parse_bound(r"O(2^{n/2} t)", s), pseudo)
+
+
+def test_euler_number():
+    # 21 November 2026: \mathrm{e} is Euler's number (Tournament Fixing by in-degree,
+    # (2e)^{k 2^k - k} n^{O(1)}); a plain e stays free as a variable name
+    import math
+
+    from pear.bounds.compare import Context
+    from pear.bounds.display import ostar_tex
+    from pear.bounds.numeric import value
+
+    b = parse_bound(r"(2 \mathrm{e})^{k 2^{k} - k} n^{O(1)}", {"k", "n"})
+    assert ostar_tex(b, Context()) == r"O^*((2 \mathrm{e})^{k \cdot 2^{k} - k})"
+    assert abs(value(parse_bound(r"\mathrm{e}^{k}", {"k"}).expr, {"k": 1.0}) - math.e) < 1e-12
