@@ -295,6 +295,13 @@ def test_factorial_bell_and_pi_parse_and_render(src, shown):
     assert render_bound(P(src)) == shown
 
 
+def test_ln_needs_no_constant_file(tmp_path):
+    # \ln is the logarithm to base e, a number, not a named constant from data/constants
+    from pear.bounds.expr import constants
+
+    assert constants(P(r"2^{\frac{2\pi}{\sqrt{3} \ln 2} \sqrt{k}}").expr) == {"e"}
+
+
 def test_factorial_bell_and_pi_values():
     from pear.bounds.numeric import log_value, value
 
