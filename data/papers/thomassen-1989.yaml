@@ -1,0 +1,12 @@
+id: thomassen-1989
+title: "The Graph Genus Problem is NP-Complete"
+authors: [Carsten Thomassen]
+identifiers: { dblp: journals/jal/Thomassen89 }
+versions:
+  journal:
+    kind: journal
+    venue: "Journal of Algorithms 10(4), pp. 568–576"
+    year: 1989
+    doi: "10.1016/0196-6774(89)90006-0"
+    url: "https://people.scs.carleton.ca/~kranakis/ROUTING/Papers/np-complete-genus.pdf"
+    open_access: true

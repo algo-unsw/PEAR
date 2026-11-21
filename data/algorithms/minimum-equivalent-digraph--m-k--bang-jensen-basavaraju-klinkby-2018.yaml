@@ -1,0 +1,23 @@
+id: minimum-equivalent-digraph--m-k--bang-jensen-basavaraju-klinkby-2018
+problem: minimum-equivalent-digraph
+proved_for: decision
+bound:
+  as_stated: "2^{O((m - k) \\log(m - k))} n^{O(1)}"
+  notation: O
+  parameters: [m, k, n]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: "Not stated; educated guess: polynomial. Theorem 1.1 rests on a greedy maximal deletion set, submodularity of cuts and a branching algorithm on a bounded number of deletable edges (Section 1); no dynamic programming, representative families or exponential-size tables found."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: bang-jensen-basavaraju-klinkby-2018
+  statements:
+    soda: { statement: "Theorem 1.1 (\"p-$\\lambda$-ECS can be solved in time $2^{O(k(\\log\\lambda+\\log k))} n^{O(1)}$\", graphs and digraphs, $k$ the number of deleted edges) with $\\lambda = 1$, applied to Minimum Equivalent Graph in Section 1 (pp. 2840–2841) via Proposition 1.1" }
+  note: "The paper's parameterized Minimum Equivalent Graph asks for an equivalent subgraph with at most $m - k'$ arcs, $k'$ the parameter; in PEAR's notation $k' = m - k$, written as the difference $m - k$. The paper solves it by running the algorithm of Theorem 1.1 with $\\lambda = 1$ (a $1$-arc-connected digraph is strongly connected, and the equivalent subdigraphs of a strongly connected digraph are its strongly connected spanning subdigraphs) on each strongly connected component, combined by Proposition 1.1 (Moyles and Thompson) in $O(n^\\omega)$ time. With $\\lambda = 1$ the exponent $k'(\\log\\lambda + \\log k')$ is $k' \\log k'$. Splitting the budget over the components is a simple step: for each component find the largest number $d_i \\le k'$ of deletable arcs by at most $k' + 1$ calls, and add the arcs between components that Proposition 1.1 removes. Read in the WRAP copy of the SODA paper (version of record, open access)."
+formal: { status: informal }
+status: valid

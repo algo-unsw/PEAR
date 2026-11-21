@@ -1,0 +1,16 @@
+id: buchin-hagedoorn-li-2024
+title: "Orienteering (with Time Windows) on Restricted Graph Classes"
+authors: [Kevin Buchin, Mart Hagedoorn, Guangping Li, Carolin Rehs]
+identifiers: { dblp: "conf/sofsem/BuchinHLR25" }
+versions:
+  arxiv:
+    kind: preprint
+    arxiv: "2410.12401"
+    year: 2024
+    open_access: true
+  conference:
+    kind: conference
+    venue: "SOFSEM 2025: Theory and Practice of Computer Science, LNCS 15538, pp. 151–165"
+    year: 2025
+    doi: "10.1007/978-3-031-82670-2_12"
+    open_access: false

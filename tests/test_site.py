@@ -287,11 +287,15 @@ def test_merged_journal_version_brings_its_authors(real):
 
 def test_corrected_deterministic_fvs_uses_kociumaka_pilipczuk(real):
     # decided 18 November 2026: Theorem 2 of Fomin et al. with the journal bound (2 + phi)^k
-    _, site, _ = real
-    node = site["pages"]["feedback-vertex-set"]["nodes"]["decision+optimisation+search"]
-    row = next(r for r in node["rows"] if r["id"] == "feedback-vertex-set--n--fomin-gaspers-lokshtanov-saurabh-2015-deterministic")
-    assert row["shown"] == "O^*(1.7237^{n})"
-    assert [u["id"] for u in row["uses"]] == ["feedback-vertex-set--k--kociumaka-pilipczuk-2014"]
+    # 21 November 2026: beaten by Gaspers–Lee's deterministic O(1.7117^n) (ICALP 2017), so it is
+    # in the bound history, no longer in Details
+    data, _, _ = real
+    alg = data.entries["algorithms"]["feedback-vertex-set--n--fomin-gaspers-lokshtanov-saurabh-2015-deterministic"]
+    assert alg.bound.as_stated == "1.7237^{n} n^{O(1)}"
+    assert list(alg.uses) == ["feedback-vertex-set--k--kociumaka-pilipczuk-2014"]
+    d = derive(data)
+    beaten = {r.id: ids for r, ids in d.superseded.get(("feedback-vertex-set", "decision+optimisation+search"), [])}
+    assert "feedback-vertex-set--n--gaspers-lee-2017" in beaten[alg.id]
 
 
 def test_preliminary_version_by_fewer_authors(real):
@@ -428,3 +432,17 @@ def test_details_show_one_entry_per_bound():
     # (polynomial space) stay
     assert [r["id"] for r in out] == ["d", "y", "z", "w"]
     assert [r["group_first"] for r in out] == [True, False, False, True]
+
+
+def test_bounded_degree_versions_use_the_degree_menu(real):
+    # 21 November 2026: bounded-degree versions get no tab of their own; the "Maximum degree"
+    # menu picks them next to the tab of their general version
+    _, site, _ = real
+    page = site["pages"]["vertex-cover"]
+    tabs = [v["id"] for v in page["versions"] if not v["degree"]]
+    assert tabs == ["decision", "optimisation", "search", "weighted"]
+    assert page["degrees"] == [3, 4, 5, 6]
+    v3 = next(v for v in page["versions"] if v["id"] == "optimisation-max-degree-3")
+    assert (v3["base"], v3["degree"], v3["tab_label"]) == ("optimisation", 3, "Optimisation")
+    node = page["nodes"][v3["node"]]
+    assert node["note"].startswith("On graphs of maximum degree at most $3$, the decision, optimisation and search")

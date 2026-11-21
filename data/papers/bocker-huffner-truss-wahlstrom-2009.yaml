@@ -1,0 +1,12 @@
+id: bocker-huffner-truss-wahlstrom-2009
+title: "A Faster Fixed-Parameter Approach to Drawing Binary Tanglegrams"
+authors: [Sebastian Böcker, Falk Hüffner, Anke Truß, Magnus Wahlström]
+identifiers: { dblp: "conf/iwpec/BockerHTW09", openalex: null }
+versions:
+  iwpec:
+    kind: workshop
+    venue: "Parameterized and Exact Computation, 4th International Workshop (IWPEC 2009), LNCS 5917, pp. 38–49"
+    year: 2009
+    doi: "10.1007/978-3-642-11269-0_3"
+    url: "https://people.engr.tamu.edu/j-chen3/iwpec2009/images/36.pdf"
+    open_access: true

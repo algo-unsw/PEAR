@@ -1,0 +1,12 @@
+id: chimani-2009
+title: "Computing Crossing Numbers"
+authors: [Markus Chimani]
+identifiers: { dblp: null }
+versions:
+  thesis:
+    kind: thesis
+    venue: "PhD thesis, Technische Universität Dortmund (Eldorado repository, issue date 5 January 2009)"
+    year: 2009
+    doi: "10.17877/DE290R-367"
+    url: "https://eldorado.tu-dortmund.de/handle/2003/25955"
+    open_access: true

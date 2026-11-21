@@ -1,0 +1,21 @@
+id: boxicity--n--adiga-chitnis-saurabh-2010
+problem: boxicity
+proved_for: decision
+bound:
+  as_stated: "2^{O(d n \\log n)} d n^{2}"
+  notation: O
+  parameters: [d, n]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: "Not stated; educated guess: polynomial, if the representations are generated one at a time from endpoint orderings (the paper's argument); no tables."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: adiga-chitnis-saurabh-2010
+  statements:
+    full-version: { statement: "Proposition 1", page: 5 }
+  note: "Proposition 1: \"There are at most $2^{O(nb \\log n)}$ distinct $b$-box representations of a graph $G$ on $n$ vertices\" and \"all these can be enumerated in time $2^{O(bn \\log n)} bn^2$\". Deciding whether $G$ has boxicity at most $d$ by enumerating the $d$-box representations on $n$ vertices and checking in $O(d n^2)$ time whether one represents $G$ takes $2^{O(dn \\log n)} d n^2$ time (a simple step; the paper does not state it as an algorithm for boxicity). With $d \\le n/2$ (Roberts) this is $2^{O(n^2 \\log n)}$."

@@ -1,0 +1,23 @@
+id: matching-cut--dc--komusiewicz-kratsch-le-2018
+problem: matching-cut
+proved_for: decision
+bound:
+  as_stated: '2^{dc} O(n^{2})'
+  notation: O
+  parameters: [dc, n]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Not stated; educated guess: polynomial. Tries all $2^{dc}$ partitions of a minimum distance-to-cluster set $U$ and decides each in polynomial time (Lemma 6 of the IPEC version, via 2-SAT); $U$ is computed by a branching algorithm (Boral et al.). No tables are kept.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: komusiewicz-kratsch-le-2018
+  statements:
+    ipec: { statement: 'Theorem 7' }
+    journal-author-copy: { statement: 'Theorem 2' }
+    journal: { statement: 'Theorem 2' }
+  note: 'A minimum distance-to-cluster set is computed in $O(1.92^{dc} n^2)$ time (Boral et al., cited in the paper), within the stated bound. Since $dc \le vc$, this improves the $2^{vc} O(n^2)$ algorithm of Kratsch and Le (TCS 2016).'

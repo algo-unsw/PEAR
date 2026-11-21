@@ -1,0 +1,24 @@
+id: max-cut--m--gaspers-2026-pathwidth-polyspace
+problem: max-cut
+proved_for: weighted
+bound:
+  as_stated: '2^{0.175869m + o(m)}'
+  notation: O
+  parameters:
+  - m
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Polynomial space, as stated.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: gaspers-2026-pathwidth
+  statements:
+    arxiv-v1:
+      statement: 'Theorem C.3(c) with $r = 2$'
+      page: 153
+  note: 'Stated as $r^{(\frac{7}{50}+\frac{3}{10}\alpha)m+o(m)}$ in polynomial space for all instances of Max $(r,2)$-CSP, where $\alpha = 2\gamma/3$, $\gamma = 2c_3/(1+4c_3)$ and $c_3 = \frac{3}{4\pi}\arccos\frac{5}{6}$; the paper states $\frac{7}{50}+\frac{3}{10}\alpha < 0.175869$, so the bound language stores the implied $2^{0.175869m+o(m)}$ (it has no $\arccos$). The Separate, Measure and Conquer algorithm of Gaspers and Sorkin with the new separators. Max Cut (with edge weights) is the case $r = 2$, $m$ = number of edges. arXiv v1, 3 November 2026 (read: LaTeX source and the v1 PDF); unrefereed preprint.'

@@ -1,0 +1,64 @@
+id: set-packing
+name: Set Packing
+aliases:
+- Maximum Set Packing
+- k-Set Packing
+- 3-Set Packing
+- d-Set Packing
+category: sets
+complexity:
+  class: NP-complete
+  source:
+    paper: karp-1972
+    attested_by:
+    - https://en.wikipedia.org/wiki/Karp%27s_21_NP-complete_problems
+    - https://www.iitg.ac.in/rinkulu/note/npprobs-note.pdf
+    - https://mathworld.wolfram.com/SetPackingProblem.html
+    note: 'Set Packing is one of Karp''s 21 NP-complete problems (MathWorld: ''The problem is NP-complete (Karp 1972)''). The Wikipedia page was found by web search, not opened.'
+objects:
+  n: number of elements of the universe
+  m: number of sets in the family
+  N: total encoding length of the input
+parameters:
+  k:
+    meaning: 'the solution size: the integer $k$ in the input (decision, search), or the maximum number of pairwise disjoint sets (optimisation)'
+constraints:
+- constraint: k \le m
+  because: A packing consists of distinct sets of $\mathcal{F}$, so an instance with $k > m$ is a no-instance.
+- constraint: k \le n
+  because: After removing the empty set from $\mathcal{F}$ (and decreasing $k$ by one if it was there), pairwise disjoint nonempty sets number at most $n$, so an instance with larger $k$ is a no-instance.
+versions:
+  decision:
+    kind: decision
+    input: A finite universe $U$, a family $\mathcal{F}$ of subsets of $U$, and an integer $k$.
+    question: Is there a subfamily $S \subseteq \mathcal{F}$ with $|S| \ge k$ whose sets are pairwise disjoint?
+    generalises:
+    - decision-max-set-size-3
+  optimisation:
+    kind: optimisation
+    input: A finite universe $U$ and a family $\mathcal{F}$ of subsets of $U$.
+    goal: Find the maximum size of a subfamily $S \subseteq \mathcal{F}$ whose sets are pairwise disjoint.
+  search:
+    kind: search
+    input: A finite universe $U$, a family $\mathcal{F}$ of subsets of $U$, and an integer $k$.
+    goal: Find a subfamily $S \subseteq \mathcal{F}$ with $|S| \ge k$ whose sets are pairwise disjoint, or report that none exists.
+  decision-max-set-size-3:
+    kind: decision
+    input: A finite universe $U$, a family $\mathcal{F}$ of subsets of $U$ each of size at most 3, and an integer $k$.
+    question: Is there a subfamily $S \subseteq \mathcal{F}$ with $|S| \ge k$ whose sets are pairwise disjoint?
+default_version: decision
+shared_bounds:
+- versions:
+  - decision
+  - optimisation
+  - search
+  because: Binary search on $k$ and self-reducibility (delete a set and test again).
+related:
+- problem: independent-set
+  relation: special-case
+- problem: triangle-packing
+  relation: special-case
+- problem: exact-cover
+  relation: variant
+- problem: set-cover
+  relation: variant

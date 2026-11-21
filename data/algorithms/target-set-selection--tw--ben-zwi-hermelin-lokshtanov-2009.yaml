@@ -1,0 +1,23 @@
+id: target-set-selection--tw--ben-zwi-hermelin-lokshtanov-2009
+problem: target-set-selection
+proved_for: decision
+bound:
+  as_stated: "n^{O(tw + 1)}"
+  notation: O
+  parameters: [n, tw]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: "Not stated; educated guess: $n^{O(tw)}$. Dynamic programming over a nice tree decomposition, with tables of $n^{O(w)}$ entries indexed by threshold vectors and activation orders on the bag (Lemma 3.4)."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: ben-zwi-hermelin-lokshtanov-2009
+  statements:
+    author-copy: { statement: "Theorem 1.1" }
+  note: "Theorem 1.1: \"Target Set Selection can be solved in $n^{O(w)}$ time\", where $w - 1$ is the treewidth (so $w = tw + 1$); stated for the more general problem with a target $\\ell$ of activated vertices, which gives this problem with $\\ell = n$. The algorithm computes a tree decomposition itself. The paper also notes the bound $t^{O(w)} n$ for maximum threshold $t$, and proves (Theorem 1.2) that no $n^{o(\\sqrt{w})}$ algorithm exists unless all problems in SNP have subexponential algorithms (ETH; claimed refuted on 26 October 2026; lower bound not entered). Read in the author copy (first-page footnote: EC 2009); numbering not checked in the Discrete Optimization 2011 version."
+formal: { status: informal }
+status: valid

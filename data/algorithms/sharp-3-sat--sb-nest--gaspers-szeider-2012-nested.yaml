@@ -1,0 +1,22 @@
+id: sharp-3-sat--sb-nest--gaspers-szeider-2012-nested
+problem: sharp-3-sat
+proved_for: counting
+bound:
+  as_stated: f(sb_{nest}) N^{O(1)}
+  notation: O
+  parameters: [sb_nest, N]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Not stated; educated guess: model checking for monadic second-order logic and model counting by dynamic programming over tree decompositions of bounded width (nested formulas have incidence treewidth at most 3).'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: gaspers-szeider-2012-nested
+  statements:
+    arxiv-v2:
+      statement: Theorem 2
+  note: 'Theorem 2: SAT and #SAT are fixed-parameter tractable parameterized by the size of a smallest strong Nested-backdoor set (no explicit running time; the abstract says the degree of the polynomial does not depend on $k$). For #SAT the paper sums the model counts of the $2^{2^k}$ nested formulas obtained from a backdoor set of size at most $2^k$ (Section 1). The algorithm counts the satisfying assignments of any CNF formula, so it applies to 3-CNF formulas, the input of #3-SAT.'

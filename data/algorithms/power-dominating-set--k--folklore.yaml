@@ -1,0 +1,21 @@
+id: power-dominating-set--k--folklore
+problem: power-dominating-set
+proved_for: decision
+bound:
+  as_stated: "O^*(n^{k})"
+  notation: O*
+  parameters: [n, k]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: "One candidate set at a time."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  folklore: true
+  note: "Try all $\\sum_{i \\le k} \\binom{n}{i} = O(n^k)$ sets of at most $k$ vertices and apply the observation rules to each in polynomial time. Bläsius and Göttlicher (arXiv 2306.09870, abstract) prove the problem W[P]-complete parameterized by $k$ (W[2]-hard before), so an XP baseline is the natural bound. TODO(verify): Serge to approve this XP baseline."
+formal: { status: informal }
+status: valid

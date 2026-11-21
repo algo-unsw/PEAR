@@ -1,0 +1,41 @@
+id: rural-postman
+name: Rural Postman
+aliases: [Rural Postman Problem, RPP, Undirected Rural Postman Problem, URPP]
+category: graph
+complexity:
+  class: NP-complete
+  source:
+    paper: lenstra-rinnooy-kan-1974
+    statements:
+      report: { statement: "Theorem in Section 2 (undirected and directed cases), by a reduction from Hamiltonian Circuit" }
+    note: "Lenstra and Rinnooy Kan prove the Rural Postman Problem polynomial complete (NP-complete) for undirected and directed graphs, by a reduction from Hamiltonian Circuit with weights $0$ and $1$ (reduction hamiltonian-cycle--to--rural-postman). Journal version: Networks 6 (1976)."
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  k: { meaning: "the number of connected components of the graph formed by the required edges $R$ (and their endpoints)" }
+  B: { meaning: "the weight bound $B$ in the input (decision, search), or the minimum weight of a closed walk that traverses every required edge (optimisation)", poly_bounded: false }
+constraints:
+  - { constraint: "k \\le n", because: "Each component of the required edges contains at least two vertices." }
+  - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
+versions:
+  decision:
+    kind: decision
+    input: "A connected graph $G = (V, E)$ with edge weights $w \\colon E \\to \\mathbb{Z}_{\\ge 0}$, a set $R \\subseteq E$ of required edges, and an integer $B$."
+    question: "Is there a closed walk in $G$ that traverses every edge of $R$ and has total weight at most $B$?"
+  optimisation:
+    kind: optimisation
+    input: "A connected graph $G = (V, E)$ with edge weights $w \\colon E \\to \\mathbb{Z}_{\\ge 0}$ and a set $R \\subseteq E$ of required edges."
+    goal: "Find the minimum total weight of a closed walk in $G$ that traverses every edge of $R$."
+  search:
+    kind: search
+    input: "A connected graph $G = (V, E)$ with edge weights $w \\colon E \\to \\mathbb{Z}_{\\ge 0}$, a set $R \\subseteq E$ of required edges, and an integer $B$."
+    goal: "Find a closed walk in $G$ that traverses every edge of $R$ and has total weight at most $B$, or report that none exists."
+default_version: optimisation
+shared_bounds:
+  - versions: [decision, optimisation, search]
+    because: "Binary search on $B$ (the optimum is at most $2 \\sum_{e \\in E} w(e)$: traverse every edge twice) and self-reducibility: delete non-required edges while the answer stays yes (dropping components without required edges); every remaining edge is then used by every solution of weight at most $B$, and a Chinese Postman tour of the remaining graph, computable in polynomial time, is one."
+related:
+  - { problem: travelling-salesman, relation: variant }
+  - { problem: hamiltonian-cycle, relation: special-case }

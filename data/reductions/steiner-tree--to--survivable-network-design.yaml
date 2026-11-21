@@ -1,0 +1,20 @@
+id: steiner-tree--to--survivable-network-design
+from: { problem: steiner-tree, version: decision }
+to: { problem: survivable-network-design, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(n^{2} + m)"
+parameter_map: { n: "n", m: "m", k: "k" }
+variants:
+  - id: weighted
+    note: "Weighted versions: the same construction, keeping the edge weights as costs."
+    from: { problem: steiner-tree, version: weighted }
+    to: { problem: survivable-network-design, version: weighted }
+    parameter_map: { n: "n", m: "m" }
+    source:
+      folklore: true
+      note: "With nonnegative costs, a minimum-cost set of edges connecting all terminals contains a tree spanning $T$ of at most the same cost."
+source:
+  folklore: true
+  note: "Demand $r(s, t) = 1$ for every two terminals $s, t \\in T$ and $0$ otherwise. A set $F$ with $|F| \\le k$ meets the demands if and only if one component of $(V, F)$ contains $T$; a spanning tree of that component, pruned, is a tree with at most $k$ edges containing $T$, and conversely the edge set of such a tree meets the demands."
+  reference: { paper: feldmann-mukherjee-van-leeuwen-2021, version: arxiv-v3, statement: "Section 1" }

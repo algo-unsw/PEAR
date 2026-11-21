@@ -1,0 +1,23 @@
+id: 4-coloring--n--fomin-gaspers-saurabh-2007
+problem: 4-coloring
+proved_for: decision
+bound:
+  as_stated: '1.7272^{n}'
+  notation: O
+  parameters:
+  - n
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Not stated; educated guess: exponential. When a path decomposition of small width can be computed, the branching stops and a dynamic program over the path decomposition (Lemma 4, $O(k^{\ell} n^{O(1)})$ for width $\ell$) is run on the input graph; its tables are exponential in the width.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: fomin-gaspers-saurabh-2007
+  statements:
+    cocoon-author-copy:
+      statement: Theorem 5
+  note: 'Algorithm enumIS enumerates maximal independent sets $I$ of size at least $\lceil n/4 \rceil$ and checks whether $G - I$ is 3-colourable with the $O(1.3289^n)$ algorithm of Beigel and Eppstein (Theorem 4 there), switching to a dynamic program over a path decomposition when the pathwidth is small. Theorem number read in the author copy (10 pages); the LNCS version (pp. 65–74) was not opened.'

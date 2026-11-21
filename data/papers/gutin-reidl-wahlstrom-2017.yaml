@@ -1,0 +1,16 @@
+id: gutin-reidl-wahlstrom-2017
+title: "Designing deterministic polynomial-space algorithms by color-coding multivariate polynomials"
+authors: [Gregory Gutin, Felix Reidl, Magnus Wahlström, Meirav Zehavi]
+identifiers: { dblp: "journals/jcss/GutinRWZ18" }
+versions:
+  arxiv:
+    kind: preprint
+    arxiv: "1706.03698"
+    year: 2017
+    open_access: true
+  journal:
+    kind: journal
+    venue: "Journal of Computer and System Sciences 95, pp. 69–85"
+    year: 2018
+    doi: "10.1016/j.jcss.2018.01.004"
+    open_access: false

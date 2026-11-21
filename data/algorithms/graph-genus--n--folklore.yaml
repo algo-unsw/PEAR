@@ -1,0 +1,19 @@
+id: graph-genus--n--folklore
+problem: graph-genus
+proved_for: optimisation
+bound:
+  as_stated: "O(n^{2m} m)"
+  notation: O
+  parameters: [n, m]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: "One rotation system at a time."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  folklore: true
+  note: "Brute force over rotation systems. For a connected graph, the genus is the minimum of $(2 - n + m - f)/2$ over all rotation systems, $f$ the number of faces traced by the rotation system (Heffter–Edmonds rotation principle; minimum genus embeddings are cellular, Youngs 1963); the genus of a graph is the sum of the genera of its components (Battle, Harary, Kodama and Youngs 1962). There are $\\prod_v (\\deg(v) - 1)! \\le n^{2m}$ rotation systems, and the faces of each are traced in $O(m)$ time."

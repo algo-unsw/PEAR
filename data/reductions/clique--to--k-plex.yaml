@@ -1,0 +1,11 @@
+id: clique--to--k-plex
+from: { problem: clique, version: decision }
+to: { problem: k-plex, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(n + m)"
+parameter_map: { n: "n", m: "m", s: "1", k: "k" }
+source:
+  folklore: true
+  note: "Special case $s = 1$: a set $S$ is a $1$-plex if and only if every vertex of $S$ is adjacent to all other vertices of $S$, that is, $S$ is a clique, so $(G, k) \\mapsto (G, 1, k)$. The solution size $k$ maps to itself (left out until the comparator rules of 21 November 2026)."
+status: valid

@@ -1,0 +1,25 @@
+id: power-dominating-set--tw--aazami-stilp-2007
+problem: power-dominating-set
+proved_for: optimisation
+bound:
+  as_stated: "2^{O(tw^{2})} \\cdot n"
+  notation: O
+  parameters: [tw, n]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: "Not stated. Guess: exponential, $2^{O(tw^2)} n$: dynamic programming over the tree decomposition on valid colourings (orientations) of the edges in each bag."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+given:
+  - tree-decomposition
+source:
+  paper: aazami-stilp-2007
+  statements:
+    arxiv-v1: { statement: "Theorem 4.7" }
+  note: "Stated as $O(c^{k^2} \\cdot n)$ for a global constant $c$, given a tree decomposition of width $k$ of the underlying undirected graph, for Directed PDS; stored as the equal $2^{O(tw^2)} n$. An undirected graph is the directed graph with both arcs $uv$ and $vu$ for every edge (antiparallel arcs are allowed there), on which rules (D1) and (D2) are exactly the undirected rules and the underlying undirected graph is $G$ itself, so the theorem applies to this problem. Section 1.1 attributes the same $O(c^{k^2} n)$ bound for undirected graphs to Guo, Niedermeier and Raible (FCT 2005; Algorithmica 2008), whose paper was not opened."
+formal: { status: informal }
+status: valid

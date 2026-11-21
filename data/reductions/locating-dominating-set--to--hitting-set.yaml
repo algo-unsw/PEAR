@@ -1,0 +1,12 @@
+id: locating-dominating-set--to--hitting-set
+from: { problem: locating-dominating-set, version: decision }
+to: { problem: hitting-set, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(n^{3})"
+parameter_map: { n: "n", m: "n + n(n - 1)/2", k: "k" }
+source:
+  folklore: true
+  note: "Universe $V$; the sets $N[v]$ for $v \\in V$ and $\\{u, v\\} \\cup (N(u) \\triangle N(v))$ for every pair of distinct vertices $u, v$. Hitting every $N[v]$ means that $S$ dominates $G$, so every $v \\notin S$ has $N(v) \\cap S \\neq \\emptyset$. For $u, v \\notin S$, hitting the second set means $S \\cap (N(u) \\triangle N(v)) \\neq \\emptyset$, that is, $N(u) \\cap S \\neq N(v) \\cap S$; the set is hit trivially when $u$ or $v$ is in $S$, where nothing is required. So the hitting sets are exactly the locating-dominating sets."
+formal: { status: informal }
+status: valid

@@ -1,0 +1,50 @@
+id: max-sat
+name: Maximum Satisfiability
+aliases: [MaxSAT, Max-SAT, MAX-SAT, Max SAT, MAXSAT]
+category: satisfiability
+complexity:
+  class: NP-complete
+  source:
+    folklore: true
+    note: 'SAT is the special case $k = m$ (reduction `sat--to--max-sat`), and SAT is NP-complete (Cook 1971); the decision version is in NP. Wikipedia was not consulted (fetches blocked).'
+objects:
+  n: number of variables
+  m: number of clauses
+  N: total encoding length of the input
+parameters:
+  k: { meaning: 'the number of satisfied clauses: the integer $k$ in the input (decision, search), or the maximum number of clauses satisfied by an assignment (optimisation)' }
+  a: { meaning: 'the excess over the guaranteed half: $a = k - \lceil m/2 \rceil$ (a uniformly random assignment satisfies each nonempty clause with probability at least $1/2$, so some assignment satisfies at least $\lceil m/2 \rceil$ clauses of a formula without empty clauses; Peng and Xiao write $\mu$)' }
+  r: { meaning: 'the excess over the maximum matching: $r = k - \nu(G_F)$, where $\nu(G_F)$ is the size of a maximum matching in the variable–clause (incidence) graph $G_F$ of the formula (Alferov, Bliznets and Brilliantov write $k$)' }
+  L: { meaning: 'the length of the formula: the total number of literal occurrences (as for SAT; added 21 November 2026)' }
+  tw_i: { shared: incidence-treewidth }
+  tw_p: { shared: primal-treewidth }
+constraints:
+  - { constraint: 'k \le m', because: 'At most $m$ clauses can be satisfied; an instance with $k > m$ is a no-instance.' }
+  - { constraint: 'a \le k', because: '$a = k - \lceil m/2 \rceil$; an instance with $a \le 0$ is a yes-instance.' }
+  - { constraint: 'r \le k', because: '$r = k - \nu(G_F)$ and $\nu(G_F) \ge 0$; an instance with $r \le 0$ is a yes-instance, since the clauses of a matching can be satisfied through their matched variables.' }
+  - { constraint: 'm \le L', because: 'Empty clauses are satisfied by no assignment and can be removed (lowering $k$ accordingly), so every clause is nonempty.' }
+  - { constraint: 'n \le L', because: 'Variables that occur in no clause can be removed.' }
+  - { constraint: 'tw_i \le n + m', because: 'The incidence graph has $n + m$ vertices.' }
+  - { constraint: 'tw_p \le n', because: 'The primal graph has $n$ vertices.' }
+versions:
+  decision:
+    kind: decision
+    input: 'A formula $\varphi$ in conjunctive normal form over variables $x_1, \dots, x_n$ (a set of clauses: no clause repeats), and an integer $k$.'
+    question: 'Is there an assignment of the variables that satisfies at least $k$ clauses of $\varphi$?'
+  optimisation:
+    kind: optimisation
+    input: 'A formula $\varphi$ in conjunctive normal form over variables $x_1, \dots, x_n$ (a set of clauses: no clause repeats).'
+    goal: 'Find the maximum number of clauses of $\varphi$ satisfied by an assignment of the variables.'
+  search:
+    kind: search
+    input: 'A formula $\varphi$ in conjunctive normal form over variables $x_1, \dots, x_n$ (a set of clauses: no clause repeats), and an integer $k$.'
+    goal: 'Find an assignment of the variables that satisfies at least $k$ clauses of $\varphi$, or report that none exists.'
+default_version: decision
+shared_bounds:
+  - versions: [decision, optimisation, search]
+    because: 'Binary search on $k$ and self-reducibility: fix variables one at a time.'
+related:
+  - { problem: max-2-sat, relation: special-case }
+  - { problem: sat, relation: variant }
+lean: { status: none }
+review: { approved_by: null, date: null }

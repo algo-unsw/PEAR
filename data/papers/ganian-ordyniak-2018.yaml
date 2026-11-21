@@ -1,0 +1,23 @@
+id: ganian-ordyniak-2018
+title: "The Power of Cut-Based Parameters for Computing Edge Disjoint Paths"
+authors: [Robert Ganian, Sebastian Ordyniak]
+identifiers: { dblp: journals/algorithmica/GanianO21 }
+versions:
+  arxiv:
+    kind: preprint
+    year: 2018
+    arxiv: "1808.03496"
+    open_access: true
+  wg:
+    kind: conference
+    venue: "45th International Workshop on Graph-Theoretic Concepts in Computer Science (WG 2019), LNCS 11789, pp. 190–204"
+    year: 2019
+    doi: "10.1007/978-3-030-30786-8_15"
+    open_access: false
+  journal:
+    kind: journal
+    title: "The Power of Cut-Based Parameters for Computing Edge-Disjoint Paths"
+    venue: "Algorithmica 83(2), pp. 726–752"
+    year: 2021
+    doi: "10.1007/s00453-020-00772-w"
+    open_access: false

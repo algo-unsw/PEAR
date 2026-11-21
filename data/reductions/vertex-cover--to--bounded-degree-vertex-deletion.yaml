@@ -1,0 +1,12 @@
+id: vertex-cover--to--bounded-degree-vertex-deletion
+from: { problem: vertex-cover, version: decision }
+to: { problem: bounded-degree-vertex-deletion, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(n + m)"
+parameter_map: { n: "n", m: "m", k: "k", d: "0" }
+source:
+  folklore: true
+  note: "Special case $d = 0$: $G - S$ has maximum degree $0$ if and only if $S$ is a vertex cover, so $(G, k) \\mapsto (G, 0, k)$."
+  reference: { paper: ganian-klute-ordyniak-2018, version: journal, statement: "Section 1" }
+status: valid

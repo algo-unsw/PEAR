@@ -1,0 +1,25 @@
+id: samer-szeider-2007
+title: Backdoor Sets of Quantified Boolean Formulas
+authors:
+- Marko Samer
+- Stefan Szeider
+identifiers: { dblp: journals/jar/SamerS09 }
+versions:
+  author-copy:
+    kind: preprint
+    venue: "Author copy of the journal version (TU Wien; undated, reuses material from the SAT 2007 version)"
+    year: 2009
+    url: 'https://www.ac.tuwien.ac.at/files/pub/SamerSzeider09a.pdf'
+    open_access: true
+  sat:
+    kind: conference
+    venue: "Theory and Applications of Satisfiability Testing (SAT 2007), LNCS 4501, pp. 230–243"
+    year: 2007
+    doi: 10.1007/978-3-540-72788-0_23
+    open_access: false
+  journal:
+    kind: journal
+    venue: "Journal of Automated Reasoning 42(1), pp. 77–97"
+    year: 2009
+    doi: 10.1007/s10817-008-9114-5
+    open_access: false

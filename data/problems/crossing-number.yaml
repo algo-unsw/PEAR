@@ -1,0 +1,42 @@
+id: crossing-number
+name: Crossing Number
+aliases: [Graph Crossing Number, Crossing Minimization, Crossing Number Problem]
+category: graph
+complexity:
+  class: NP-complete
+  source:
+    paper: garey-johnson-1983
+    attested_by:
+      - "https://eprints.whiterose.ac.uk/221122/1/CrossingNumber.pdf"
+      - "https://arxiv.org/abs/1204.0660"
+      - "https://eldorado.tu-dortmund.de/handle/2003/25955"
+    note: "Lokshtanov et al. (SODA 2025, accepted manuscript): \"The Crossing Number problem was shown NP-complete by Garey and Johnson in 1983\"; Cabello (arXiv 1204.0660, Introduction): Garey and Johnson showed that the optimisation problem is NP-hard, by a reduction from Linear Arrangement; Chimani's thesis (Section 2.3): the decision variant was shown NP-complete by Garey and Johnson. Wikipedia's choice of source was not checked (the Wikipedia fetch was redirected)."
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  k: { meaning: "the solution size: the integer $k$ in the input (decision, search), or the crossing number of $G$ (optimisation)" }
+constraints:
+  - { constraint: "k \\le m(m - 1)/2", because: "With the vertices in convex position, a straight-line drawing has at most one crossing per pair of edges, so every instance with $k \\ge m(m-1)/2$ is a yes-instance." }
+  - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
+versions:
+  decision:
+    kind: decision
+    input: "A graph $G = (V, E)$ and an integer $k$."
+    question: "Is there a drawing of $G$ in the plane (distinct points for the vertices, simple curves for the edges joining their endpoints and passing through no other vertex) with at most $k$ crossings, a crossing being a pair of distinct edges together with a point in the interior of both curves?"
+  optimisation:
+    kind: optimisation
+    input: "A graph $G = (V, E)$."
+    goal: "Find the minimum number of crossings of a drawing of $G$ in the plane (distinct points for the vertices, simple curves for the edges joining their endpoints and passing through no other vertex), a crossing being a pair of distinct edges together with a point in the interior of both curves."
+  search:
+    kind: search
+    input: "A graph $G = (V, E)$ and an integer $k$."
+    goal: "Find a drawing of $G$ in the plane (distinct points for the vertices, simple curves for the edges joining their endpoints and passing through no other vertex) with at most $k$ crossings, a crossing being a pair of distinct edges together with a point in the interior of both curves, or report that none exists."
+default_version: decision
+shared_bounds:
+  - versions: [decision, optimisation]
+    because: "Binary search on $k$, which is at most $m(m-1)/2$."
+related:
+  - { problem: maximum-planar-subgraph, relation: variant }
+  - { problem: minimum-linear-arrangement, relation: variant }

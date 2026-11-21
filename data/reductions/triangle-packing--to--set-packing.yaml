@@ -1,0 +1,17 @@
+id: triangle-packing--to--set-packing
+from:
+  problem: triangle-packing
+  version: decision
+to:
+  problem: set-packing
+  version: decision-max-set-size-3
+type: polytime-deterministic
+calls: 1
+time: O(n^{3})
+parameter_map:
+  n: n
+  m: n^{3}
+  k: k
+source:
+  folklore: true
+  note: The universe is $V$ and the family consists of the vertex sets of the triangles of $G$ (at most $n^3$, listed in $O(n^3)$ time); vertex-disjoint triangles are exactly pairwise disjoint sets. Björklund, Husfeldt, Kaski and Koivisto (arXiv 1007.1161, Section 1.2) describe vertex-disjoint triangle packing as this special case.

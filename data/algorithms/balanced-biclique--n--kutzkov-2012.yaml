@@ -1,0 +1,23 @@
+id: balanced-biclique--n--kutzkov-2012
+problem: balanced-biclique
+proved_for: unbalanced
+bound:
+  as_stated: 'O(1.561^{n})'
+  notation: O
+  parameters: [n]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Corollary 2 does not state the space; it applies Theorem 1 ("O(1.2491^n) time and polynomial space") to a bipartite graph on $2n$ vertices, so polynomial space.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: kutzkov-2012
+  statements:
+    journal: { statement: "Corollary 2", page: 6 }
+  note: 'Corollary 2: "The number of non-induced bipartite cliques in a graph G = (V, E) on n vertices can be computed in time O(1.561^n)", by Theorem 1 (counting $(k_l, k_r)$-bicliques with $|L_K| \ge k_l$, $|R_K| \ge k_r$ in a bipartite graph in $O(1.2491^n)$ time and polynomial space) applied to the bipartite double cover ($V$ and a copy $V''$, $(u, v'') \in E''$ iff $uv \in E$; since $G$ has no loops, the two sides of a biclique are disjoint). Stated for counting; the decision version follows since the answer is yes if and only if the count is positive (simple step). Page and statement numbers are from the author''s copy at the URL (TODO(verify) that they match the IPL version).'
+formal: { status: informal }
+status: valid

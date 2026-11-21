@@ -1,0 +1,19 @@
+id: sparsest-cut--vc--javadi-nikabadi-2019
+problem: sparsest-cut
+proved_for: weighted
+bound:
+  as_stated: 'O(2^{vc} n^{2} \log n)'
+  notation: O
+  parameters: [vc, n]
+properties:
+  randomized: false
+  space: { class: polynomial, bound: 'Stated: polynomial space (Theorem 2).' }
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: javadi-nikabadi-2019
+  statements:
+    arxiv-v2: { statement: 'Theorem 2' }
+  note: 'Theorem 2: 2SC is solved in $O(2^{vc} n^2 \log n)$ time and polynomial space. For each subset $\tilde{C}$ of a minimum vertex cover $C$ and each size $s$, the best $S$ with $S \cap C = \tilde{C}$ and $|S| = s$ takes the $s - |\tilde{C}|$ vertices of $V \setminus C$ with the smallest values $w(v, C \setminus \tilde{C}) - w(v, \tilde{C})$. A minimum vertex cover is found within the bound, e.g. in $O(2^{vc}(n + m))$ time by branching on the endpoints of an uncovered edge. Edge weights in $\mathbb{R}^+$ in the paper; nonnegative integer weights are handled identically.'

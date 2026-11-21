@@ -1,0 +1,19 @@
+id: minimum-equivalent-digraph--m--folklore
+problem: minimum-equivalent-digraph
+proved_for: weighted
+bound:
+  as_stated: "O^*(2^{m})"
+  notation: O*
+  parameters: [m]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: "One arc set $A'$ at a time."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  folklore: true
+  note: "Try all $2^m$ sets $A' \\subseteq A$, compare the reachability of $(V, A')$ with that of $D$ by $n$ graph searches each, and keep the cheapest equivalent one (brute force baseline over arc subsets; it beats the $2^{4\\omega n}$ algorithm on sparse digraphs)."

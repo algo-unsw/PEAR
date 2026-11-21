@@ -1,0 +1,25 @@
+id: max-2-csp--m--gaspers-2026-pathwidth-polyspace
+problem: max-2-csp
+proved_for: optimisation
+bound:
+  as_stated: 'r^{0.175869m + o(m)}'
+  notation: O
+  parameters:
+  - r
+  - m
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Polynomial space, as stated.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: gaspers-2026-pathwidth
+  statements:
+    arxiv-v1:
+      statement: 'Theorem C.3(c)'
+      page: 153
+  note: 'Stated as $r^{(\frac{7}{50}+\frac{3}{10}\alpha)m+o(m)}$ for all instances, in polynomial space, where $\alpha = 2\gamma/3$, $\gamma = 2c_3/(1+4c_3)$ and $c_3 = \frac{3}{4\pi}\arccos\frac{5}{6}$; the paper states $\frac{7}{50}+\frac{3}{10}\alpha < 0.175869$, so the implied $r^{0.175869m+o(m)}$ is stored (the bound language has no $\arccos$). Parts (a) and (b): $r^{\gamma n+o(n)}$ ($\gamma < 0.179341$) for cubic constraint graphs and $r^{(\frac18+\frac38\alpha)m+o(m)}$ ($< 0.169836$) for maximum degree 4. The algorithm of Gaspers and Sorkin (Separate, Measure and Conquer) with the separators of Lemma C.2(a). arXiv v1, 3 November 2026 (read: LaTeX source and the v1 PDF); unrefereed preprint.'

@@ -1,0 +1,39 @@
+id: orienteering
+name: Orienteering
+aliases: [Orienteering Problem, OP, Selective Travelling Salesman, Point-to-Point Orienteering]
+category: graph
+complexity:
+  class: NP-complete
+  source:
+    folklore: true
+    note: "Hamiltonian Cycle (Karp 1972) is the special case with unit costs and profits, $s = t$, $B = n$ and $P = n$ (reduction hamiltonian-cycle--to--orienteering). Buchin, Hagedoorn, Li and Rehs (Section 4, Proposition 'prop-op-np-trees') show NP-hardness even on trees, from Knapsack."
+    reference: { paper: buchin-hagedoorn-li-2024, version: arxiv, statement: "Section 4, Proposition prop-op-np-trees" }
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  tw: { shared: treewidth }
+constraints:
+  - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
+  - { constraint: "tw \\le n", because: "A single bag containing all vertices is a tree decomposition of width $n - 1$." }
+versions:
+  decision:
+    kind: decision
+    input: "A graph $G = (V, E)$ with edge costs $c \\colon E \\to \\mathbb{Z}_{\\ge 0}$, vertex profits $p \\colon V \\to \\mathbb{Z}_{\\ge 0}$, vertices $s, t \\in V$ (possibly $s = t$), a budget $B$, and an integer $P$."
+    question: "Is there a walk in $G$ from $s$ to $t$ of total cost at most $B$ such that the vertices it visits have total profit at least $P$?"
+  optimisation:
+    kind: optimisation
+    input: "A graph $G = (V, E)$ with edge costs $c \\colon E \\to \\mathbb{Z}_{\\ge 0}$, vertex profits $p \\colon V \\to \\mathbb{Z}_{\\ge 0}$, vertices $s, t \\in V$ (possibly $s = t$), and a budget $B$."
+    goal: "Find the maximum total profit of the vertices visited by a walk in $G$ from $s$ to $t$ of total cost at most $B$, or report that none exists."
+  rooted-unit-profits:
+    kind: optimisation
+    input: "A graph $G = (V, E)$ with edge costs $c \\colon E \\to \\mathbb{Z}_{\\ge 0}$, a vertex $s \\in V$, and a budget $B$."
+    goal: "Find the maximum number of distinct vertices visited by a walk in $G$ that starts at $s$ and has total cost at most $B$."
+default_version: optimisation
+shared_bounds:
+  - versions: [decision, optimisation]
+    because: "Binary search on $P$, since the optimum is an integer between $0$ and $\\sum_{v \\in V} p(v)$."
+related:
+  - { problem: travelling-salesman, relation: variant }
+  - { problem: hamiltonian-cycle, relation: special-case }

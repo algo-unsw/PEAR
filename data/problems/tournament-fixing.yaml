@@ -1,0 +1,32 @@
+id: tournament-fixing
+name: Tournament Fixing
+aliases: [Tournament Fixing Problem, TFP, Knockout Tournament Fixing, Fixing a Balanced Knockout Tournament]
+category: social-choice
+complexity:
+  class: NP-complete
+  source:
+    paper: aziz-gaspers-mackenzie-2014
+    statements:
+      aaai: { statement: "Theorem 1" }
+    note: "Aziz et al. settled the question, stated as open by Vu, Altman and Shoham (AAMAS 2009) and Vassilevska Williams (AAAI 2010); the reduction is from 3-SAT with every literal occurring at most twice."
+objects:
+  n: number of players (vertices of the tournament), a power of 2
+  N: total encoding length of the input
+parameters:
+  p: { meaning: "the feedback arc set number of $D$: the minimum number of arcs whose deletion (equivalently, reversal) makes $D$ acyclic" }
+  s: { meaning: "the sum of the sfas-in and sfas-out numbers of $v^*$: the minimum number of arcs whose deletion leaves no in-neighbour of $v^*$ on a directed cycle, plus the minimum number of arcs whose deletion leaves no out-neighbour of $v^*$ on a directed cycle" }
+  d: { meaning: "the out-degree of $v^*$ in $D$: the number of players that $v^*$ beats (written $\\ell$ by Liu, Peng and Xiao)" }
+  k: { meaning: "the in-degree of $v^*$ in $D$: the number of players that beat $v^*$ (written $k$ by Wang, Peng, Liu and Xiao); $d + k = n - 1$" }
+  q: { meaning: "the feedback vertex set number of $D$: the minimum number of players whose deletion makes $D$ acyclic (written $k$ by Zehavi)" }
+constraints:
+  - { constraint: "p \\le n(n - 1)/2", because: "A tournament has exactly $n(n-1)/2$ arcs." }
+  - { constraint: "s \\le n(n - 1)", because: "Each of the two summands is at most the number of arcs, $n(n-1)/2$ (delete all arcs)." }
+  - { constraint: "d \\le n", because: "$v^*$ beats at most the $n - 1$ other players." }
+  - { constraint: "k \\le n", because: "At most the $n - 1$ other players beat $v^*$." }
+  - { constraint: "q \\le p", because: "Deleting one endpoint of every arc of a minimum feedback arc set leaves no directed cycle." }
+versions:
+  decision:
+    kind: decision
+    input: "A tournament $D = (V, A)$ on $n = 2^{c}$ players, for an integer $c \\ge 0$, and a player $v^* \\in V$."
+    question: "Is there a seeding, a bijection from $V$ to the leaves of a complete binary tree with $n$ leaves, such that $v^*$ wins the resulting knockout tournament, in which the winners of the two subtrees of each internal node play each other and $u$ beats $w$ if and only if $(u, w) \\in A$?"
+default_version: decision

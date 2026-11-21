@@ -1,0 +1,24 @@
+id: triangle-packing--ctw--bojikian-chekan-kratsch-2025
+problem: triangle-packing
+proved_for: decision
+bound:
+  as_stated: "O^*(3^{ctw/3})"
+  notation: O*
+  parameters: [ctw]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: "Not stated; educated guess: exponential, dynamic programming over a path decomposition built from the linear arrangement, with $O^*(3^{ctw/3})$ states."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+conditional_on: []
+source:
+  paper: bojikian-chekan-kratsch-2025
+  statements:
+    arxiv: { statement: "Theorem in Section 3 labelled thm:tripack" }
+  note: "'There exists an algorithm that given an instance $(G, k)$ of Triangle Packing together with a linear arrangement of $G$ of width at most ctw, runs in time $O^*(\\sqrt[3]{3}^{ctw})$ and outputs whether $G$ admits a triangle packing of size $k$'; stored as $3^{ctw/3}$. The linear arrangement is part of the input (PEAR's `given` field only records tree decompositions). Tight under SETH even for Partition into Triangles (same section)."
+formal: { status: informal }
+status: valid

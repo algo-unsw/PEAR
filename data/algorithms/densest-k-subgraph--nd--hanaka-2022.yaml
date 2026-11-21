@@ -1,0 +1,21 @@
+id: densest-k-subgraph--nd--hanaka-2022
+problem: densest-k-subgraph
+proved_for: optimisation
+bound:
+  as_stated: "f(nd) n^{O(1)}"
+  notation: O
+  parameters: [nd, n]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: "Not stated; educated guess: polynomial. The algorithm solves an integer quadratic program with $nd$ variables by Lokshtanov's FPT algorithm for Integer Quadratic Programming; no memoization or dynamic programming found in the paper's part. TODO(verify): the space of the IQP algorithm."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: hanaka-2022
+  statements:
+    arxiv: { statement: "Theorem 1 (proved in Section 3)" }
+  note: "Theorem 1: Densest $k$-Subgraph and Sparsest $k$-Subgraph can be solved in time $f(nd(G)) n^{O(1)}$. Read in the arXiv LaTeX source (latest version, 21 November 2026). Mizutani and Sullivan (IPEC 2022) independently show fixed-parameter tractability for neighbourhood diversity (not opened)."

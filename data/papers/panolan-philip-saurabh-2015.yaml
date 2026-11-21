@@ -1,0 +1,19 @@
+id: panolan-philip-saurabh-2015
+title: "B-Chromatic Number: Beyond NP-Hardness"
+authors: [Fahad Panolan, Geevarghese Philip, Saket Saurabh]
+identifiers: { dblp: "journals/jcss/PanolanPS17" }
+versions:
+  conference:
+    kind: conference
+    venue: "IPEC 2015, LIPIcs 43"
+    year: 2015
+    doi: "10.4230/LIPIcs.IPEC.2015.389"
+    url: "https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.IPEC.2015.389"
+    open_access: true
+  journal:
+    kind: journal
+    title: "On the parameterized complexity of b-chromatic number"
+    venue: "Journal of Computer and System Sciences 84"
+    year: 2017
+    doi: "10.1016/j.jcss.2016.09.012"
+    open_access: false

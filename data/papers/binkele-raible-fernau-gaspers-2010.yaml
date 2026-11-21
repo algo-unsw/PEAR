@@ -1,0 +1,12 @@
+id: binkele-raible-fernau-gaspers-2010
+title: "Exact exponential-time algorithms for finding bicliques"
+authors: [Daniel Binkele-Raible, Henning Fernau, Serge Gaspers, Mathieu Liedloff]
+identifiers: { dblp: journals/ipl/Binkele-RaibleFGL10, openalex: null }
+versions:
+  journal:
+    kind: journal
+    venue: "Information Processing Letters 111(2), pp. 64–67"
+    year: 2010
+    doi: "10.1016/j.ipl.2010.10.020"
+    url: "https://cgi.cse.unsw.edu.au/~sergeg/papers/NonInducedBicliques.pdf"
+    open_access: true

@@ -1,0 +1,12 @@
+id: k-path-vertex-cover--to--bounded-degree-vertex-deletion
+from: { problem: k-path-vertex-cover, version: decision-d-3 }
+to: { problem: bounded-degree-vertex-deletion, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(n + m)"
+parameter_map: { n: "n", m: "m", k: "k", d: "1" }
+source:
+  folklore: true
+  note: "A graph has no path on 3 vertices as a subgraph if and only if its maximum degree is at most 1, so $(G, k) \\mapsto (G, 1, k)$. Červený and Suchý (Section 1) note that 3-PVC is also known as Bounded Degree-One Deletion."
+  reference: { paper: cerveny-suchy-2021, version: arxiv-v3, statement: "Section 1" }
+status: valid

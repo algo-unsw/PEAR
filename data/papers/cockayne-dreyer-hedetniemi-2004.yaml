@@ -1,0 +1,11 @@
+id: cockayne-dreyer-hedetniemi-2004
+title: "Roman domination in graphs"
+authors: [Ernest J. Cockayne, Paul A. Dreyer Jr., Sandra Mitchell Hedetniemi, Stephen T. Hedetniemi]
+identifiers: { dblp: "journals/dm/CockayneDHH04" }
+versions:
+  journal:
+    kind: journal
+    venue: "Discrete Mathematics 278(1–3), pp. 11–22"
+    year: 2004
+    doi: "10.1016/j.disc.2003.06.004"
+    open_access: false

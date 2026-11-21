@@ -1,0 +1,21 @@
+id: max-sat--k--chen-xu-wang-2015
+problem: max-sat
+proved_for: search
+bound:
+  as_stated: 'O^*(1.3248^{k})'
+  notation: O*
+  parameters: [k]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Not stated; a branch-and-reduce algorithm (search tree), with simplified instances solved through Min Set Cover by the algorithm of van Rooij and Bodlaender, which was not checked for memoization (educated guess).'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: chen-xu-wang-2015
+  statements:
+    arxiv-v1: { statement: "Main theorem of Section 5 (after Figure 'The main algorithm for MaxSAT')" }
+  note: 'Algorithm MaxSAT-Solver outputs an assignment satisfying at least $k$ clauses or reports that none exists, in time $O^*(1.3248^k)$; a formula is a collection of clauses. The WADS 2015 and Theoretical Computer Science 2017 versions (with Jianxin Wang) were not read.'

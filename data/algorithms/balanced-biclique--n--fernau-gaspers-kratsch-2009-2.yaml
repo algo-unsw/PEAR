@@ -1,0 +1,23 @@
+id: balanced-biclique--n--fernau-gaspers-kratsch-2009-2
+problem: balanced-biclique
+proved_for: unbalanced
+bound:
+  as_stated: 'O(1.8458^{n})'
+  notation: O
+  parameters: [n]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Exponential space, as stated (Theorem 3.1): a preprocessing step enumerates and stores sets in $O^*(4^{\alpha n})$ time, with $\alpha = \log 3/(2 + \log 3) \approx 0.44211$.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: fernau-gaspers-kratsch-2009
+  statements:
+    ctw: { statement: "Theorem 3.1", page: 5 }
+  note: '"The described algorithm solves the Non-Induced (k1, k2) Biclique problem in time O(1.8458^n) and exponential space." Page number from the authors'' copy at the URL (dated 23 February 2009).'
+formal: { status: informal }
+status: valid

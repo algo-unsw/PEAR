@@ -1,0 +1,18 @@
+id: gaspers-lee-2017
+title: Exact Algorithms via Multivariate Subroutines
+authors:
+- Serge Gaspers
+- Edward J. Lee
+identifiers: { dblp: conf/icalp/GaspersL17 }
+versions:
+  arxiv:
+    kind: preprint
+    year: 2017
+    arxiv: "1704.07982"
+    open_access: true
+  icalp:
+    kind: conference
+    venue: "44th International Colloquium on Automata, Languages, and Programming (ICALP 2017), LIPIcs 80, Article 69, pp. 69:1–69:13"
+    year: 2017
+    doi: "10.4230/LIPIcs.ICALP.2017.69"
+    open_access: true

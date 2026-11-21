@@ -1,0 +1,8 @@
+# Definition as in Ganian, Kim and Szeider, arXiv 2206.00752, Section 2 (Preliminaries, "Tree-Cut Width"), after Wollan:
+# a tree-cut decomposition is a tree T with a near-partition of V into bags; adh(t) = |cut(e(t))|; tor(t) = size of the
+# 3-center of the torso at t; width = max over t of max(adh(t), tor(t)); tcw(G) = minimum width.
+id: tree-cut-width
+name: Tree-Cut Width
+symbol: tcw
+aliases: [treecut width]
+definition: "The minimum width of a tree-cut decomposition of the graph (Wollan). A tree-cut decomposition is a rooted tree $T$ with a near-partition $\\{X_t : t \\in V(T)\\}$ of $V$ (bags may be empty). The adhesion of a node $t$ is the number of edges of $G$ between the vertices in the bags of the subtree rooted at $t$ and the other vertices (0 at the root). The torso at $t$ is obtained from $G$ by consolidating, for each component of $T - t$, the vertices in its bags into one vertex (keeping parallel edges); the torso size of $t$ is the number of vertices of the graph obtained from the torso by exhaustively suppressing vertices outside $X_t$ of degree at most 2. The width is the maximum over all nodes of the adhesion and the torso size."

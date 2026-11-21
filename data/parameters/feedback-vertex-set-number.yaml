@@ -1,0 +1,7 @@
+# Definition as in Fleszar, Mnich and Spoerhase, arXiv 1603.01740, Section 1: "the feedback vertex set number,
+# which for a graph G denotes the smallest size r of a set R of G for which G - R is a forest".
+id: feedback-vertex-set-number
+name: Feedback Vertex Set Number
+symbol: fvs
+aliases: [feedback vertex number]
+definition: "The minimum size of a feedback vertex set of the graph: a set $R \\subseteq V$ such that $G - R$ is a forest."

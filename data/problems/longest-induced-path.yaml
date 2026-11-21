@@ -1,0 +1,43 @@
+id: longest-induced-path
+name: Longest Induced Path
+aliases: [Induced Path, Maximum Induced Path, Chordless Path, LIP]
+category: graph
+complexity:
+  class: NP-complete
+  source:
+    paper: garey-johnson-1979
+    attested_by:
+      - "https://en.wikipedia.org/wiki/Induced_path"
+      - "https://www.numdam.org/item/10.1051/ro/2021004.pdf"
+      - "https://arxiv.org/pdf/2002.07012"
+    note: "Garey and Johnson (p. 196) credit the result to an unpublished communication of Mihalis Yannakakis, as on Wikipedia (Induced path). Marzo and Ribeiro (RAIRO Oper. Res. 2021, Section 1) and Bökler, Chimani, Wagner and Wiedera (arXiv 2002.07012, Section 1) state NP-completeness citing Garey and Johnson (\"even on bipartite graphs\")."
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  k: { meaning: "the solution size: the integer $k$ in the input (decision, search), or the maximum number of vertices of an induced path (optimisation)" }
+  mimw: { meaning: "the mim-width of a branch decomposition of $G$ given with the input (Vatshelle): the maximum, over the edges of the decomposition, of the size of a maximum induced matching in the bipartite graph of edges crossing the cut" }
+constraints:
+  - { constraint: "k \\le n", because: "An induced path has at most $n$ vertices; instances with $k > n$ are no-instances." }
+  - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
+  - { constraint: "mimw \\le n", because: "An induced matching has at most $n/2$ edges." }
+versions:
+  decision:
+    kind: decision
+    input: "A graph $G = (V, E)$ and an integer $k$."
+    question: "Is there a set $S \\subseteq V$ with $|S| \\ge k$ such that $G[S]$ is a path?"
+  optimisation:
+    kind: optimisation
+    input: "A graph $G = (V, E)$."
+    goal: "Find the maximum size of a set $S \\subseteq V$ such that $G[S]$ is a path."
+  search:
+    kind: search
+    input: "A graph $G = (V, E)$ and an integer $k$."
+    goal: "Find a set $S \\subseteq V$ with $|S| \\ge k$ such that $G[S]$ is a path, or report that none exists."
+default_version: decision
+shared_bounds:
+  - versions: [decision, optimisation, search]
+    because: "Binary search on $k$ and self-reducibility."
+related:
+  - { problem: longest-path, relation: variant }

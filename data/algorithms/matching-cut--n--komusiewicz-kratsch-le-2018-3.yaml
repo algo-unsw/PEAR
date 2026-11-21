@@ -1,0 +1,23 @@
+id: matching-cut--n--komusiewicz-kratsch-le-2018-3
+problem: matching-cut
+proved_for: decision
+bound:
+  as_stated: 'O^*(1.3803^{n})'
+  notation: O*
+  parameters: [n]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Not stated; educated guess: polynomial. A branching algorithm on partial assignments of vertices to the two sides, run for each of the $O(n^2)$ pairs $(a, b)$; no memoization or dynamic programming.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: komusiewicz-kratsch-le-2018
+  statements:
+    ipec: { statement: 'Theorem 10' }
+    journal-author-copy: { statement: 'Theorem 5' }
+    journal: { statement: 'Theorem 5' }
+  note: 'Branching algorithm, improving the $O^*(1.4143^n)$ algorithm of Kratsch and Le (TCS 2016).'

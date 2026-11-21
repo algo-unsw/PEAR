@@ -1,0 +1,23 @@
+id: bhatia-khuller-pless-1998
+title: "The Full Degree Spanning Tree Problem"
+authors: [Randeep Bhatia, Samir Khuller, Robert Pless, Yoram J. Sussmann]
+identifiers: { dblp: "journals/networks/BhatiaKPS00" }
+versions:
+  tech-report:
+    kind: technical-report
+    venue: "University of Maryland, Department of Computer Science, CS-TR-3931 (UMIACS-TR-98-47)"
+    year: 1998
+    url: "https://core.ac.uk/download/56097422.pdf"
+    open_access: true
+  soda:
+    kind: conference
+    venue: "Tenth Annual ACM-SIAM Symposium on Discrete Algorithms (SODA 1999), pp. 864–865"
+    year: 1999
+    url: "http://dl.acm.org/citation.cfm?id=314500.314975"
+    open_access: false
+  journal:
+    kind: journal
+    venue: "Networks 36(4), pp. 203–209"
+    year: 2000
+    doi: "10.1002/1097-0037(200012)36:4<203::AID-NET1>3.0.CO;2-U"
+    open_access: false

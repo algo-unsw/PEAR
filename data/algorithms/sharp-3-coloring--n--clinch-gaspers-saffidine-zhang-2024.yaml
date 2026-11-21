@@ -1,0 +1,23 @@
+id: sharp-3-coloring--n--clinch-gaspers-saffidine-zhang-2024
+problem: sharp-3-coloring
+proved_for: counting
+bound:
+  as_stated: '1.6225^{n}'
+  notation: O
+  parameters:
+  - n
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Not stated; educated guess: exponential. The paper reanalyses the algorithm of Fomin, Gaspers and Saurabh (COCOON 2007), which switches from enumerating independent sets to a dynamic program over a path decomposition ($O^*(c^w)$ for width $w$), whose tables are exponential in the width.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: clinch-gaspers-saffidine-zhang-2024
+  statements:
+    arxiv-v3:
+      statement: Theorem 8
+  note: 'Piecewise analysis of the #3-Coloring algorithm of Fomin, Gaspers and Saurabh (COCOON 2007), whose original analysis gave $O(1.6262^n)$. Theorem 8 (Section 5.2) of the latest arXiv version (v3, 29 June 2024; read: arXiv PDF and the Zotero copy). Zhu, Wu and Shao (Discrete Appl. Math. 322, 2022) improve it to $O(1.588^n)$: sharp-3-coloring--n--zhu-wu-shao-2022.'

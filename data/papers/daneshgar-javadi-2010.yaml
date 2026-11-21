@@ -1,0 +1,17 @@
+id: daneshgar-javadi-2010
+title: "On the complexity of isoperimetric problems on trees"
+authors: [Amir Daneshgar, Ramin Javadi]
+identifiers: { dblp: "journals/dam/DaneshgarJ12" }
+versions:
+  arxiv-v1:
+    kind: preprint
+    title: "On Complexity of Isoperimetric Problems on Trees"
+    arxiv: "1009.0706v1"
+    year: 2010
+    open_access: true
+  journal:
+    kind: journal
+    venue: "Discrete Applied Mathematics 160(1–2), pp. 116–131"
+    year: 2012
+    doi: "10.1016/j.dam.2011.08.015"
+    open_access: false

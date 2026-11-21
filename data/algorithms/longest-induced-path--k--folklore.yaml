@@ -1,0 +1,19 @@
+id: longest-induced-path--k--folklore
+problem: longest-induced-path
+proved_for: search
+bound:
+  as_stated: "O(n^{k} k^{2})"
+  notation: O
+  parameters: [n, k]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: One sequence of $k$ vertices at a time.
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  folklore: true
+  note: "Try all $n^k$ sequences of $k$ vertices and check in $O(k^2)$ time with an adjacency matrix whether they induce a path in this order; an induced path on at least $k$ vertices contains one on exactly $k$ vertices (XP baseline; the problem is W-hard parameterized by $k$, see the notes)."

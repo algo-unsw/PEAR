@@ -1,0 +1,11 @@
+id: nae-sat--to--sat
+from: { problem: nae-sat, version: decision }
+to: { problem: sat, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(N)"
+parameter_map: { n: "n", m: "2m", L: "2L", tw_p: "tw_p" }
+source:
+  folklore: true
+  note: "Keep every clause and add its conjugate, the clause with every literal negated: an assignment satisfies both a clause and its conjugate exactly when the clause has a true and a false literal. The variables, and hence the primal graph, do not change. Liu (arXiv 1809.04312, Section 4) uses this transformation (\"conjugate pairs\")."
+  reference: { paper: liu-2018, version: arxiv, statement: "Section 4" }

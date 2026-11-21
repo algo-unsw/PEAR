@@ -411,6 +411,51 @@ def test_results_under_review_are_not_used(what):
     assert derived(data, "a") == []
 
 
+@pytest.mark.parametrize("what", ["algorithm", "reduction"])
+def test_easily_fixable_results_count_with_a_site_written_fix(what):
+    # rulebook A3, version 5 (21 November 2026): PLAN's "easily fixable" grade counts, marked as
+    # relying on a site-written fix
+    data = dataset(
+        problem("a"), problem("b"),
+        alg("b-alg", "b", r"O^*(2^{k})", status="easily-fixable" if what == "algorithm" else "valid"),
+        red("a-to-b", "a", "b", {"k": "k"}, status="easily-fixable" if what == "reduction" else "valid"),
+    )
+    (r,) = derived(data, "a")
+    assert "site-written-fix" in r["flags"]
+    (b,) = rows(data, "b")
+    assert ("site-written-fix" in b["flags"]) == (what == "algorithm")
+
+
+def _counting(pid):
+    out = problem(pid, params=(), versions=("decision",))
+    out["versions"] = {"counting": {"kind": "counting", "input": "An input.", "goal": "Count."}}
+    out["default_version"] = "counting"
+    return out
+
+
+def test_counting_reduction_transfers_between_counting_versions():
+    # rulebook §2a (version 5, approved 21 November 2026)
+    data = dataset(
+        _counting("sharp-a"), _counting("sharp-b"),
+        alg("b-alg", "sharp-b", r"O^*(1.5^{n + m})", params=(), version="counting"),
+        red("a-to-b", "sharp-a", "sharp-b", {"n": "n", "m": "n"}, type="polytime-counting",
+            frm_v="counting", to_v="counting"),
+    )
+    (r,) = derived(data, "sharp-a", "counting")
+    assert r["shown"] == r"O^*(2.25^{n})"
+    assert r["chain"][0]["type"] == "polytime-counting"
+
+
+def test_counting_reduction_needs_counting_versions():
+    raw = {folder: {} for folder in ENTITY_TYPES}
+    for e in (_counting("sharp-a"), problem("b"),
+              red("a-to-b", "sharp-a", "b", {"n": "n"}, type="polytime-counting", frm_v="counting")):
+        folder = "problems" if "objects" in e else "reductions"
+        raw[folder][e["id"]] = e
+    _, issues = validate_raw(raw)
+    assert any("polytime-counting reduction needs counting versions" in str(i) for i in issues)
+
+
 # --- §9 chaining and keeping ---------------------------------------------------------------------------
 
 
@@ -575,7 +620,7 @@ def test_cli_writes_json(tmp_path):
     out = tmp_path / "derived.json"
     assert main(["derive", "tests/fixtures/valid", "--out", str(out)]) == 0
     payload = json.loads(out.read_text())
-    assert payload["rulebook_version"] == 4
+    assert payload["rulebook_version"] == 5
     chains = [[s["id"] for s in r["chain"]] for r in payload["problems"]["problem-b"]["decision"]]
     assert ["problem-b--to--problem-a"] in chains
 
@@ -1185,3 +1230,14 @@ def test_xp_bounds_are_shown_exactly():
     shown = {r["id"]: r["shown"] for r in rows(data, "a")}
     assert shown["a-alg"] == r"O(n^{k + 1})"  # not O^*(n^{k})
     assert shown["a-exp"] == r"O^*(k^{n})"  # an exact exponential algorithm keeps O*
+
+
+def test_other_given_structures_are_dropped_by_projection_to_n():
+    # 21 November 2026: given path decompositions, deletion sets, ... are trivial at size n
+    a = problem("a", params=("pw",), constraints=("pw \\le n",))
+    data = dataset(a, alg("a-alg", "a", r"O^*(2^{pw})", params=("pw",)) | {"given": ["path-decomposition"]})
+    got = rows(data, "a")
+    direct = next(r for r in got if r["id"] == "a-alg")
+    assert "given-path-decomposition" in direct["flags"]
+    projected = [r for r in got if r["id"] != "a-alg" and r["shown"] == r"O^*(2^{n})"]
+    assert projected and all("given-path-decomposition" not in r["flags"] for r in projected)

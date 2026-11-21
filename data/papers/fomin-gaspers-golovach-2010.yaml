@@ -1,0 +1,16 @@
+id: fomin-gaspers-golovach-2010
+title: "Parameterized algorithm for eternal vertex cover"
+authors: [Fedor V. Fomin, Serge Gaspers, Petr A. Golovach, Dieter Kratsch, Saket Saurabh]
+identifiers: { dblp: journals/ipl/FominGGKS10 }
+versions:
+  author-copy:
+    kind: preprint
+    year: 2010
+    url: "https://cgi.cse.unsw.edu.au/~sergeg/papers/EternalVertexCover.pdf"
+    open_access: true
+  journal:
+    kind: journal
+    venue: "Information Processing Letters 110(16), pp. 702–706"
+    year: 2010
+    doi: "10.1016/j.ipl.2010.05.029"
+    open_access: false

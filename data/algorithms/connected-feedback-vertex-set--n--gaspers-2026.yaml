@@ -1,0 +1,24 @@
+id: connected-feedback-vertex-set--n--gaspers-2026
+problem: connected-feedback-vertex-set
+proved_for: search
+bound:
+  as_stated: 'O^*(1.8^{n})'
+  notation: O*
+  parameters: [n]
+properties:
+  randomized:
+    error: one-sided
+  space:
+    class: polynomial
+    bound: 'Polynomial space, as stated (Theorem 11.8).'
+  algebraic: true
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: gaspers-2026
+  statements:
+    arxiv-v1: { statement: "Theorem 11.8" }
+  note: 'Theorem 11.8: a randomized algorithm that, given a connected graph with $n$ vertices, outputs a connected feedback vertex set in time $O^*(1.8^n)$ and polynomial space; the output always has size at least the optimum and has optimum size with probability at least $1 - 1/e$ (one-sided error for the decision version). Monotone Local Search with a sample-dependent running time; the extension algorithm (Lemma 11.7) is a Cut&Count algorithm in time $3^{k-|X|} 2^{\mathrm{comp}(G[X])} n^{O(1)}$ (isolation lemma and counting modulo 2, hence algebraic). The vertex-weighted version (weights in $\{1, \dots, w_{\max}\}$, $w_{\max} \le n^{O(1)}$) has the same bound (Theorem 11.17); not entered (PEAR has no weighted version with polynomially bounded weights). Numbering: read from the LaTeX source (one shared counter per section), matching the serge-08 notes; unrefereed preprint.'
+formal: { status: informal }
+status: valid

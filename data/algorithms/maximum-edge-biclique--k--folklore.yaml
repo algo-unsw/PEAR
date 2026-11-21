@@ -1,0 +1,20 @@
+id: maximum-edge-biclique--k--folklore
+problem: maximum-edge-biclique
+proved_for: decision
+bound:
+  as_stated: "O^*(2^{k})"
+  notation: O*
+  parameters: [k]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: "One pair $(x, Y')$ at a time."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  folklore: true
+  note: "If some vertex $v$ has degree at least $k$, then $X = \\{v\\}$ and $k$ of its neighbours form a solution. Otherwise every degree is below $k$: for every vertex $x$ and every nonempty $Y' \\subseteq N(x)$ (fewer than $2^k$ sets), compute the common neighbourhood $C(Y')$ (disjoint from $Y'$, as $G$ has no loops) and accept if $|C(Y')| \\cdot |Y'| \\ge k$. A solution $(X, Y)$ with $x \\in X$ has $Y \\subseteq N(x)$ and $X \\subseteq C(Y)$, so it is found. Feng, Zhou and Wang (FAW 2016, abstract) call $O^*(2^k)$ the previous best bound and improve it to $O^*(k^{\\lceil\\sqrt{k}\\rceil})$; the journal version (Feng, Li, Zhou and Wang, TCS 2018, Theorem 3.3) is entered as maximum-edge-biclique--k--feng-li-zhou-2016."
+formal: { status: informal }

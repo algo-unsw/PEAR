@@ -1,0 +1,23 @@
+id: longest-induced-path--mimw--jaffke-kwon-telle-2017
+problem: longest-induced-path
+proved_for: decision
+bound:
+  as_stated: "n^{O(mimw)}"
+  notation: O
+  parameters: [n, mimw]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: "Not stated; educated guess: exponential in $mimw$, $n^{O(mimw)}$ table entries per node of the branch decomposition (dynamic programming over the decomposition; Proposition prop:lip:table:size)."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: jaffke-kwon-telle-2017
+  statements:
+    arxiv: { statement: "Section 3.1 (Longest Induced Path), the theorem at its end: \"There is an algorithm that given a graph $G$ on $n$ vertices and a branch decomposition $(T, \\delta)$ of $G$, solves Longest Induced Path in time $n^{O(w)}$, where $w$ denotes the mim-width of $(T, \\delta)$.\"" }
+  note: "XP; the branch decomposition must be given (the schema has no `given: branch-decomposition` value, so the requirement is recorded here). Computing mim-width is W[1]-hard and no XP algorithm for it is known (Section 1). Gives polynomial-time algorithms on interval, permutation, circular-arc and other graph classes of bounded mim-width."
+formal: { status: informal }
+status: valid

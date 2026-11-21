@@ -1,0 +1,21 @@
+id: maximum-coverage--k--folklore
+problem: maximum-coverage
+proved_for: search
+bound:
+  as_stated: 'O(m^{k} N)'
+  notation: O
+  parameters: [m, k, N]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Polynomial space: one subfamily at a time.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  folklore: true
+  note: 'Try all $\sum_{i \le k} \binom{m}{i} = O(m^k)$ subfamilies of at most $k$ sets (for $m \ge 2$) and count the covered elements of each in $O(N)$ time. The problem is W[2]-hard by $k$, since it contains Set Cover ($t = n$).'
+formal: { status: informal }
+status: valid

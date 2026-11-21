@@ -1,0 +1,24 @@
+id: exact-cover--n--bjorklund-2009
+problem: exact-cover
+proved_for: decision-set-size-3
+bound:
+  as_stated: O^*(1.496^{n})
+  notation: O*
+  parameters:
+  - n
+properties:
+  randomized:
+    error: one-sided
+  space:
+    class: polynomial
+    bound: 'Stated: space polynomial in $n$ (Theorem 2).'
+  algebraic: true
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: bjorklund-2009
+  statements:
+    arxiv:
+      statement: Theorem 2
+  note: Exact Cover by $k$-Sets in $O^*(c_k^n)$ with $c_3 = 1.496$, by a Monte Carlo algorithm with exponentially low failure probability in $n$ and polynomial space (determinants of Tutte matrices over $\mathrm{GF}(2^m)$ inside an inclusion–exclusion sum, Section 4). A nonzero sum certifies a cover, so the error is one-sided (a cover can be missed). Theorem 2 also gives $c_4 = 1.642$, $c_5 = 1.721$, $c_6 = 1.771$, $c_7 = 1.806$ and a general bound; only $k = 3$ is entered. STACS 2010 (LIPIcs, open access); the theorem number in the STACS version was not checked.

@@ -1,0 +1,23 @@
+id: chen-xu-wang-2015
+title: "Dealing with 4-Variables by Resolution: An Improved MaxSAT Algorithm"
+authors: [Jianer Chen, Chao Xu, Jianxin Wang]
+identifiers: { dblp: "journals/tcs/ChenXW17", openalex: null }
+versions:
+  arxiv-v1:
+    kind: preprint
+    authors: [Jianer Chen, Chao Xu]
+    arxiv: 1503.02920v1
+    year: 2015
+    open_access: true
+  wads:
+    kind: conference
+    venue: "Algorithms and Data Structures, 14th International Symposium (WADS 2015), LNCS 9214, pp. 178–188"
+    year: 2015
+    doi: "10.1007/978-3-319-21840-3_15"
+    open_access: false
+  journal:
+    kind: journal
+    venue: "Theoretical Computer Science 670, pp. 33–44"
+    year: 2017
+    doi: "10.1016/j.tcs.2017.01.020"
+    open_access: false

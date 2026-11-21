@@ -1,0 +1,12 @@
+id: wu-gu-jiang-2024
+title: "A Faster Algorithm for the 4-Coloring Problem"
+authors: [Pu Wu, Huanyu Gu, Huiqin Jiang, Zehui Shao, Jin Xu]
+identifiers: { dblp: conf/esa/WuGJS024 }
+versions:
+  esa:
+    kind: conference
+    venue: "32nd Annual European Symposium on Algorithms (ESA 2024), LIPIcs 308, pp. 103:1–103:18"
+    year: 2024
+    doi: "10.4230/LIPIcs.ESA.2024.103"
+    url: "https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.ESA.2024.103"
+    open_access: true

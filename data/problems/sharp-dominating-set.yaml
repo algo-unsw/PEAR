@@ -1,0 +1,37 @@
+id: sharp-dominating-set
+name: "#Dominating Set"
+aliases: ["#DS", "Counting Dominating Sets"]
+category: graph
+complexity:
+  class: "#P-complete"
+  source:
+    paper: kijima-okamoto-uno-2011
+    statements:
+      cocoon:
+        statement: "Theorem 4"
+    note: "Theorem 4: counting the dominating sets of a split graph is #P-complete; the counts by size determine the total. Author copy read (the PDF says proofs of starred results are in the full version)."
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters: {}
+constraints:
+  - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
+versions:
+  counting:
+    kind: counting
+    input: "A graph $G = (V, E)$."
+    goal: "Find, for every $k \\in \\{0, \\dots, n\\}$, the number of sets $S \\subseteq V$ with $|S| = k$ such that every vertex is in $S$ or has a neighbour in $S$."
+    generalises: [counting-max-degree-3]
+  weighted:
+    kind: counting
+    input: "A graph $G = (V, E)$ and vertex weights $w \\colon V \\to \\mathbb{Z}_{\\ge 0}$."
+    goal: "Find the minimum weight $\\sum_{v \\in S} w(v)$ of a set $S \\subseteq V$ such that every vertex is in $S$ or has a neighbour in $S$, and the number of such sets of that weight."
+  counting-max-degree-3:
+    kind: counting
+    input: "A graph $G = (V, E)$ of maximum degree at most $3$."
+    goal: "Find, for every $k \\in \\{0, \\dots, n\\}$, the number of sets $S \\subseteq V$ with $|S| = k$ such that every vertex is in $S$ or has a neighbour in $S$."
+default_version: counting
+related:
+  - { problem: dominating-set, relation: counting }
+  - { problem: sharp-set-cover, relation: special-case }

@@ -1,0 +1,13 @@
+id: hamiltonian-cycle--to--connectivity-augmentation
+from: { problem: hamiltonian-cycle, version: decision }
+to: { problem: connectivity-augmentation, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(n + m)"
+parameter_map: { n: "n", m: "0", p: "m", k: "n" }
+source:
+  paper: korhonen-thorup-2026
+  statements:
+    arxiv-v1: { statement: "Section 1: \"both vertex and edge connectivity augmentation are NP-hard already when $\\lambda = 2$, as Hamiltonian cycle reduces to such case with $E(G) = \\emptyset$\"" }
+  note: "For $n \\ge 3$, map $G = (V, E)$ to the edgeless graph on $V$ with links $L = E$, $\\lambda = 2$ and $k = n$. A $2$-edge-connected graph on $V$ has minimum degree at least $2$, so at least $n$ edges, and with exactly $n$ edges it is $2$-regular and connected, that is, a Hamiltonian cycle of $G$; conversely a Hamiltonian cycle is a solution."
+status: valid

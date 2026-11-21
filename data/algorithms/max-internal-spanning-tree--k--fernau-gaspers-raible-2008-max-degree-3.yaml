@@ -1,0 +1,25 @@
+id: max-internal-spanning-tree--k--fernau-gaspers-raible-2008-max-degree-3
+problem: max-internal-spanning-tree
+proved_for: decision-max-degree-3
+bound:
+  as_stated: '2.1364^{k} n^{O(1)}'
+  notation: O
+  parameters:
+  - k
+  - n
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Polynomial space: the branching algorithm of Theorem 1, whose space Section 1 states is polynomial.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: fernau-gaspers-raible-2008
+  statements:
+    arxiv-v3:
+      statement: 'Theorem 3'
+      page: 13
+  note: 'Theorem 3: "Deciding whether a subcubic graph has a spanning tree with at least $k$ internal vertices can be done in time $2.1364^k n^{O(1)}$." The branching algorithm of Theorem 1 analysed with a Measure & Conquer measure in $k$. The same paper gives $2.7321^k n^{O(1)}$ (Theorem 2) and $3.4854^k n^{O(1)}$ (Corollary 1, via a $2k$-vertex kernel, Lemma 9), both beaten by Theorem 3 and not entered. Polynomial space: the same branching algorithm as Theorem 1. Read in the Zotero PDF stamped arXiv:0811.1875v3 [cs.DS] 12 Jun 2009. The Algorithmica version improves the analysis (author copy: $O(1.8612^n)$, Theorem 6, as recorded by serge-02; not re-read here: TODO(verify) its statement before adding a `journal-author-copy` statement).'

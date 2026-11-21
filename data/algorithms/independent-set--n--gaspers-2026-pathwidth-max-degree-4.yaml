@@ -1,0 +1,24 @@
+id: independent-set--n--gaspers-2026-pathwidth-max-degree-4
+problem: independent-set
+proved_for: weighted-max-degree-4
+bound:
+  as_stated: '1.1858^{n}'
+  notation: O
+  parameters:
+  - n
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Exponential space, as stated (Theorem 11.4: time and space).'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: gaspers-2026-pathwidth
+  statements:
+    arxiv-v1:
+      statement: 'Theorem 11.4(b)'
+      page: 79
+  note: 'Theorem 11.4 (bounded-degree graph problems), Section 11.4. Part (b): a maximum weight independent set of $G$ can be found, and the maximum weight independent sets counted, in time and space $O^*(2^{\beta_4(G)+o(n)}) = O(1.1858^n)$ if $\Delta(G) \le 4$ ($\beta_4(G) \le F_4 n$, $F_4 < 0.24577198$). Vertex weights are real numbers in Section 11. The dynamic program of Lemma 11.1(c) over a path decomposition of width at most $c_3 n_3 + o(n) \le c_3 n + o(n)$ (Lemma 11.2) for maximum degree 3, or $\beta_4(G) + o(n) \le F_4 n + o(n)$ (Theorem 7.1 and Theorem 1.5) for maximum degree 4, computed in polynomial time. arXiv v1, 3 November 2026 (read: the LaTeX source of the latest arXiv version, and the v1 PDF for theorem numbers and pages); unrefereed preprint.'

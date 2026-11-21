@@ -1,0 +1,12 @@
+id: schaefer-1978
+title: The Complexity of Satisfiability Problems
+authors:
+- Thomas J. Schaefer
+identifiers: { dblp: conf/stoc/Schaefer78 }
+versions:
+  stoc:
+    kind: conference
+    venue: "Proceedings of the 10th Annual ACM Symposium on Theory of Computing (STOC 1978), pp. 216–226"
+    year: 1978
+    doi: 10.1145/800133.804350
+    open_access: false

@@ -1,0 +1,21 @@
+id: minimum-bisection--k--kumabe-2026
+problem: minimum-bisection
+proved_for: decision
+bound:
+  as_stated: 'O^*(2^{O(k)})'
+  notation: O*
+  parameters: [k]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Not stated; educated guess: exponential (in $k$). Dynamic programming over a $(2k, k)$-edge-unbreakable tree decomposition with tables indexed by subsets of adhesions of size at most $2k$ (and polynomially many side sizes and cut sizes), with inclusion–exclusion and formal power series at large bags.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: kumabe-2026
+  statements:
+    arxiv-v1: { statement: 'Theorem 1.2' }
+  note: 'Theorem 1.2: the feasible solutions are counted deterministically in $O^*(2^{O(k)})$ time, and a feasible solution can be recovered within the same time. The paper''s problem asks for $|A| = \lfloor n/2 \rfloor$ and $|\delta_G(A)| \le k$, which is the decision version here (one side has $\lfloor n/2 \rfloor$ vertices exactly when the sides differ by at most one). Improves Cygan, Komosa, Lokshtanov, Pilipczuk, Pilipczuk, Saurabh and Wahlström (TALG 2021), $O^*(2^{O(k \log k)})$. Preprint (arXiv, November 2026).'

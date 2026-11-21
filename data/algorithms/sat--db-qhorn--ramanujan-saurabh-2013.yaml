@@ -1,0 +1,22 @@
+id: sat--db-qhorn--ramanujan-saurabh-2013
+problem: sat
+proved_for: decision
+bound:
+  as_stated: O(12^{db_{qhorn}} db_{qhorn}^{5} L)
+  notation: O
+  parameters: [db_qhorn, L]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Educated guess: a branching algorithm on skew-symmetric multicuts (flow computations) followed by one linear-time q-Horn check per assignment of the backdoor; no memoization, dynamic programming or decomposition-based techniques found.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: ramanujan-saurabh-2013
+  statements:
+    arxiv:
+      statement: Corollary 1
+  note: 'Corollary after Theorem 6 (Section "Applications", subsection on Deletion q-Horn Backdoor Set Detection): an algorithm for Satisfiability that runs in time $O(12^k k^5 \ell)$, where $k$ is the size of a smallest q-Horn deletion backdoor set and $\ell$ the length of the formula. Read in the LaTeX source of the current arXiv version of 1304.7505; the numbers Theorem 6 and Corollary 1 come from the rendered PDF as reported by a fetch, TODO(verify). SODA 2014 and TALG 2017 versions not read.'

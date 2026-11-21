@@ -1,0 +1,10 @@
+id: max-cut--to--max-2-sat
+from: { problem: max-cut, version: decision }
+to: { problem: max-2-sat, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(n + m)"
+parameter_map: { n: "n", m: "2m", k: "m + k" }
+source:
+  folklore: true
+  note: "One variable per vertex and, for each edge $uv$, the clauses $(x_u \\lor x_v)$ and $(\\lnot x_u \\lor \\lnot x_v)$: an edge with exactly one endpoint in $S = \\{v : x_v \\text{ true}\\}$ satisfies both clauses, any other edge exactly one. So an assignment satisfies $m + c$ clauses when $S$ cuts $c$ edges, and $G$ has a cut of size at least $k$ if and only if at least $m + k$ of the $2m$ clauses can be satisfied."

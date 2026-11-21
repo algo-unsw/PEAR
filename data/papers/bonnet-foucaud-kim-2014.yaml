@@ -1,0 +1,22 @@
+id: bonnet-foucaud-kim-2014
+title: "Complexity of Grundy coloring and its variants"
+authors: [Édouard Bonnet, Florent Foucaud, Eun Jung Kim, Florian Sikora]
+identifiers: { dblp: "journals/dam/BonnetFKS18" }
+versions:
+  arxiv-v3:
+    kind: preprint
+    arxiv: "1407.5336"
+    year: 2014
+    open_access: true
+  conference:
+    kind: conference
+    venue: "COCOON 2015, LNCS 9198"
+    year: 2015
+    doi: "10.1007/978-3-319-21398-9_9"
+    open_access: false
+  journal:
+    kind: journal
+    venue: "Discrete Applied Mathematics 243"
+    year: 2018
+    doi: "10.1016/j.dam.2017.12.022"
+    open_access: false

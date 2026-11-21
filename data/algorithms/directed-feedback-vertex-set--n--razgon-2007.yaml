@@ -1,0 +1,24 @@
+id: directed-feedback-vertex-set--n--razgon-2007
+problem: directed-feedback-vertex-set
+proved_for: optimisation
+bound:
+  as_stated: 'O^*(1.9977^{n})'
+  notation: O*
+  parameters: [n]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'TODO(verify): title only; space not stated there.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: razgon-2007
+  statements:
+    conference: { statement: "Title" }
+  note: 'The bound is stated in the title, "Computing Minimum Directed Feedback Vertex Set in O*(1.9977^n)"; no abstract or full text was found (closed; DBLP lists no electronic edition, and the Crossref record of the DOI has no abstract). Entered under the rule of 21 November 2026 that metadata of closed sources are valid data; all properties are TODO(verify).'
+formal: { status: informal }
+status: valid
+review: { approved_by: Serge Gaspers, date: 2026-11-22 }

@@ -17,3 +17,11 @@ versions:
     year: 2009
     doi: "10.1007/s00453-007-9133-3"
     open_access: false
+  journal-author-copy:
+    kind: preprint
+    title: "On Two Techniques of Combining Branching and Treewidth"
+    authors: [Fedor V. Fomin, Serge Gaspers, Saket Saurabh, Alexey A. Stepanov]
+    venue: "Author copy of the Algorithmica article (Serge Gaspers's web page); its first footnote names the ISAAC 2006 paper as the preliminary version"
+    year: 2009
+    url: "https://cgi.cse.unsw.edu.au/~sergeg/papers/Combine_Branching_Treewidth.pdf"
+    open_access: true

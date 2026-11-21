@@ -1,0 +1,22 @@
+id: minimum-path-cover--vc--fernau-foucaud-mann-2022
+problem: minimum-path-cover
+proved_for: optimisation
+bound:
+  as_stated: "O^*(vc! \\cdot 2^{vc})"
+  notation: O*
+  parameters: [vc]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: "Not stated. One permutation of the vertex cover and one bit-vector at a time, each followed by a maximum weight matching in an auxiliary bipartite graph; the minimum vertex cover is computed by a polynomial-space branching algorithm (guess)."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: fernau-foucaud-mann-2022
+  statements:
+    arxiv-v3: { statement: "Proposition 6.16" }
+  note: "Stated as $O^*(\\mathrm{vc}(G)! \\cdot 2^{\\mathrm{vc}(G)})$ for UPP (undirected Path Partition). The algorithm computes a minimum vertex cover $C$, tries all orders of $C$ and all bit-vectors saying which consecutive vertices of $C$ share a path, and completes each guess by a maximum weight matching; it keeps the best partition found."
+formal: { status: informal }

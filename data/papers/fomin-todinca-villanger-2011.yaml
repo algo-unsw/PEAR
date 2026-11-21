@@ -1,0 +1,11 @@
+id: fomin-todinca-villanger-2011
+title: "Exact Algorithm for the Maximum Induced Planar Subgraph Problem"
+authors: [Fedor V. Fomin, Ioan Todinca, Yngve Villanger]
+identifiers: { dblp: conf/esa/FominTV11 }
+versions:
+  conference:
+    kind: conference
+    venue: "Algorithms – ESA 2011, 19th Annual European Symposium, Lecture Notes in Computer Science 6942, pp. 287–298"
+    year: 2011
+    doi: "10.1007/978-3-642-23719-5_25"
+    open_access: false

@@ -1,0 +1,12 @@
+id: xiao-2022
+title: "An Exact MaxSAT Algorithm: Further Observations and Further Improvements"
+authors: [Mingyu Xiao]
+identifiers: { dblp: "conf/ijcai/Xiao22", openalex: null }
+versions:
+  ijcai:
+    kind: conference
+    venue: "Proceedings of the Thirty-First International Joint Conference on Artificial Intelligence (IJCAI 2022), pp. 1887–1893"
+    year: 2022
+    doi: "10.24963/ijcai.2022/262"
+    url: "https://www.ijcai.org/proceedings/2022/0262.pdf"
+    open_access: true

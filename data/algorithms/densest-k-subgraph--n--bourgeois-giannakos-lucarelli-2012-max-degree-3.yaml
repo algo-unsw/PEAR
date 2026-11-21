@@ -1,0 +1,21 @@
+id: densest-k-subgraph--n--bourgeois-giannakos-lucarelli-2012-max-degree-3
+problem: densest-k-subgraph
+proved_for: optimisation-max-degree-3
+bound:
+  as_stated: "O^*(2^{21n/46})"
+  notation: O*
+  parameters: [n]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: "Not stated for this lemma; educated guess: polynomial. A branching (branch-and-cut) algorithm analysed by measure and conquer; no memoization or dynamic programming over subsets found. The introduction says the exact algorithms of the paper \"need only polynomial space\", in contrast to Cai's algorithm."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: bourgeois-giannakos-lucarelli-2012
+  statements:
+    cahier: { statement: "Lemma 3", page: 8 }
+  note: "Lemma 3: densest k-subgraph \"can be solved on graphs of average degree $\\bar\\Delta \\le 3$ with running time $O^*(2^{21n/46})$\". A graph of maximum degree at most 3 has average degree at most 3, so the bound holds for the max-degree-3 version (a simple step). Theorem 4 extends it to average degree at most $d$: $O^*(2^{\\frac{d - 27/23}{d+1} n})$ for $d \\ge 3$. Read in the open Cahier du LAMSADE 324 (June 2012)."

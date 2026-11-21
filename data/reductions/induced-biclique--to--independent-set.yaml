@@ -1,0 +1,16 @@
+id: induced-biclique--to--independent-set
+from: { problem: induced-biclique, version: optimisation }
+to: { problem: independent-set, version: optimisation }
+type: polytime-deterministic
+calls: "n + 1"
+time: "O(n^{2})"
+parameter_map: { n: "n", m: "n^{2}", k: "k" }
+source:
+  paper: gaspers-kratsch-liedloff-2008
+  statements:
+    journal: { statement: "Lemma 1 and Corollary 2" }
+    wg: { statement: "Lemma 2 and Corollary 1" }
+  note: 'The paper''s reduction (Lemma 1 and Corollary 2): for every vertex $v$, build $H_v$ with vertex set $N(v) \cup N_2(v)$ ($N_2(v)$: the vertices at distance exactly 2), the edges of $G$ inside $N(v)$ and inside $N_2(v)$, and the non-edges of $G$ between $N(v)$ and $N_2(v)$ as edges; a set $B \ni v$ with $B \setminus \{v\} \subseteq V(H_v)$ is a biclique of $G$ if and only if $B - v$ is independent in $H_v$, and the maximum biclique is $\max_v (1 + \alpha(H_v))$ from $n$ calls. This is correct for bicliques whose two sides are nonempty: for $v \in X$, $Y \subseteq N(v)$ and every other vertex of $X$ is adjacent to all of $Y$, so $X \setminus \{v\} \subseteq N_2(v)$. **How the result extends to PEAR''s definition**, which also counts independent sets as bicliques (one side empty): add one call on $G$ itself and output $\max(\alpha(G), \max_v (1 + \alpha(H_v)))$, since a biclique with an empty side is an independent set of $G$ and need not lie within distance 2 of one of its vertices (a perfect matching on $n$ vertices has maximum independent set $n/2$, while $\max_v (1 + \alpha(H_v)) = 2$). The bound is unchanged ($n + 1$ calls on graphs with at most $n$ vertices); $k_B \le k_A$ since $1 + \alpha(H_v) \le k_A$ and $\alpha(G) \le k_A$. Extension written by the site (Serge Gaspers, 21 November 2026: the paper is correct for its definition of a biclique, not PEAR''s).'
+formal: { status: informal }
+status: valid
+review: { approved_by: Serge Gaspers, date: 2026-11-21 }

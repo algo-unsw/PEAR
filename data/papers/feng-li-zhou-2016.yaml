@@ -1,0 +1,19 @@
+id: feng-li-zhou-2016
+title: "Parameterized algorithms for Edge Biclique and related problems"
+authors: [Qilong Feng, Shaohua Li, Zeyang Zhou, Jianxin Wang]
+identifiers: { dblp: journals/tcs/FengLZW18 }
+versions:
+  conference:
+    kind: conference
+    title: "Parameterized Algorithms for Maximum Edge Biclique and Related Problems"
+    authors: [Qilong Feng, Zeyang Zhou, Jianxin Wang]
+    venue: "10th International Frontiers of Algorithmics Workshop (FAW 2016), Lecture Notes in Computer Science 9711, pp. 75–83"
+    year: 2016
+    doi: "10.1007/978-3-319-39817-4_8"
+    open_access: false
+  journal:
+    kind: journal
+    venue: "Theoretical Computer Science 734, pp. 105–118"
+    year: 2018
+    doi: "10.1016/j.tcs.2017.09.027"
+    open_access: true

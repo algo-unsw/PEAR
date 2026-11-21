@@ -1,0 +1,23 @@
+id: minimum-path-cover--kd--fernau-foucaud-mann-2022
+problem: minimum-path-cover
+proved_for: decision
+bound:
+  as_stated: "O^*((2kd)! \\cdot 4^{kd})"
+  notation: O*
+  parameters: [kd]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: "Not stated. A maximum matching, then the polynomial-space algorithm of Proposition 6.16 (guess)."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+uses: [minimum-path-cover--vc--fernau-foucaud-mann-2022]
+source:
+  paper: fernau-foucaud-mann-2022
+  statements:
+    arxiv-v3: { statement: "Theorem 7.5, with Lemma 7.1 and Proposition 6.16" }
+  note: "Theorem 7.5 states FPT for the dual parameter $k_d = n - k$ without an explicit bound. Its proof: compute a maximum matching $M$; if $|M| \\ge k_d$, the instance is a yes-instance (Lemma 7.1: the matching edges as two-vertex paths and the other vertices as single-vertex paths give $n - k_d$ paths); otherwise $\\mathrm{vc}(G) \\le 2|M| < 2k_d$, and Proposition 6.16 ($O^*(\\mathrm{vc}! \\cdot 2^{\\mathrm{vc}})$) decides the instance. The explicit bound $O^*((2k_d)! \\cdot 4^{k_d})$ is this composition, written by the site (a simple step)."
+formal: { status: informal }

@@ -1,0 +1,16 @@
+id: gajarsky-lampis-ordyniak-2013
+title: "Parameterized Algorithms for Modular-Width"
+authors: [Jakub Gajarský, Michael Lampis, Sebastian Ordyniak]
+identifiers: { dblp: "conf/iwpec/GajarskyLO13", openalex: null }
+versions:
+  arxiv:
+    kind: preprint
+    year: 2013
+    arxiv: "1308.2858"
+    open_access: true
+  ipec:
+    kind: conference
+    venue: "Parameterized and Exact Computation, 8th International Symposium (IPEC 2013), LNCS 8246, pp. 163–176"
+    year: 2013
+    doi: "10.1007/978-3-319-03898-8_15"
+    open_access: false

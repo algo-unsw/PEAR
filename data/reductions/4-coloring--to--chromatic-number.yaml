@@ -1,0 +1,10 @@
+id: 4-coloring--to--chromatic-number
+from: { problem: 4-coloring, version: decision }
+to: { problem: chromatic-number, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(n + m)"
+parameter_map: { n: "n", m: "m", tw: "tw", k: "4" }
+source:
+  folklore: true
+  note: "4-Coloring is the case $k = 4$."

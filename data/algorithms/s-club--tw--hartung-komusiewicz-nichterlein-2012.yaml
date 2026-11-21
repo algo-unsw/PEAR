@@ -1,0 +1,22 @@
+id: s-club--tw--hartung-komusiewicz-nichterlein-2012
+problem: s-club
+proved_for: decision-s-2
+bound:
+  as_stated: "2^{O(2^{tw})} n"
+  notation: O
+  parameters: [tw, n]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: "Not stated; educated guess: $2^{tw} 2^{2^{tw}}$ table entries per bag (dynamic programming over a nice tree decomposition)."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+given: [tree-decomposition]
+source:
+  paper: hartung-komusiewicz-nichterlein-2012
+  statements:
+    journal: { statement: "Theorem 6" }
+  note: "Theorem 6: \"2-Club is solvable in $2^{O(2^\\omega)} \\cdot n$ time where $\\omega$ denotes the treewidth of the input graph\" (the paper writes $\\omega$ for treewidth). The proof starts from a given nice tree decomposition of width $\\omega$; Section 1.2 states the bound with a factor $n^2$. Read in the open-access JGAA version (2015). Dumont et al. (IPEC 2025) show that, under ETH, the double-exponential dependence is needed already for vertex cover (ETH is claimed refuted; see CLAUDE.md rule 7)."

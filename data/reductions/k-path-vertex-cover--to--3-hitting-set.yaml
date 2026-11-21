@@ -1,0 +1,12 @@
+id: k-path-vertex-cover--to--3-hitting-set
+from: { problem: k-path-vertex-cover, version: decision-d-3 }
+to: { problem: 3-hitting-set, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(n^{3})"
+parameter_map: { n: "n", m: "n^{3}", k: "k" }
+source:
+  folklore: true
+  note: "Universe $V$ and family of the vertex sets of all paths on 3 vertices (at most $n^3$ three-element sets); $S$ meets every such path if and only if it hits every set. Červený and Suchý (Section 1) note that $d$-PVC is a special case of $d$-Hitting Set."
+  reference: { paper: cerveny-suchy-2021, version: arxiv-v3, statement: "Section 1" }
+status: valid

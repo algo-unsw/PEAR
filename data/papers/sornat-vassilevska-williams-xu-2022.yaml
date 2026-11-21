@@ -1,0 +1,16 @@
+id: sornat-vassilevska-williams-xu-2022
+title: "Near-Tight Algorithms for the Chamberlin-Courant and Thiele Voting Rules"
+authors: [Krzysztof Sornat, Virginia Vassilevska Williams, Yinzhan Xu]
+identifiers: { dblp: conf/ijcai/SornatWX22 }
+versions:
+  ijcai:
+    kind: conference
+    venue: "Proceedings of the Thirty-First International Joint Conference on Artificial Intelligence (IJCAI 2022), pp. 482–488"
+    year: 2022
+    doi: "10.24963/ijcai.2022/69"
+    open_access: false
+  arxiv:
+    kind: preprint
+    year: 2022
+    arxiv: "2212.14173"
+    open_access: true

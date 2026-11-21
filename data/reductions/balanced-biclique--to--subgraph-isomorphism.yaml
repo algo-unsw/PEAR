@@ -1,0 +1,12 @@
+id: balanced-biclique--to--subgraph-isomorphism
+from: { problem: balanced-biclique, version: decision }
+to: { problem: subgraph-isomorphism, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(k^{2})"
+parameter_map: { n: "n", m: "m", k: "2k", tw: "k" }
+source:
+  folklore: true
+  note: 'Special case: keep $G$ as the host and take the pattern $H = K_{k,k}$, which has $2k$ vertices and treewidth at most $k$ (the bags $Y \cup \{x\}$, $x \in X$, form a path decomposition of width $k$). An injective map of $K_{k,k}$ into $G$ is exactly a pair of disjoint sets $X, Y$ of size $k$ with every vertex of $X$ adjacent to every vertex of $Y$. Lin (arXiv 1406.3700, Section 1) calls k-Biclique a special case of Subgraph Isomorphism.'
+formal: { status: informal }
+status: valid

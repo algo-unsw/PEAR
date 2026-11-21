@@ -1,0 +1,21 @@
+id: graph-burning--k--folklore
+problem: graph-burning
+proved_for: decision
+bound:
+  as_stated: "n^{k} k (n + m)"
+  notation: O
+  parameters: [n, k, m]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: "Polynomial: one candidate sequence at a time."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  folklore: true
+  note: "Try all $n^k$ sequences $(b_0, \\dots, b_{k-1})$; each is checked by $k$ breadth-first searches, the one from $b_i$ cut off at depth $i$, in $O(k(n + m))$ time. Graph Burning is W[2]-complete parameterized by $k$ (Kobayashi and Otachi, arXiv 2007.08811, Theorem 3.1), so no FPT algorithm is expected."
+formal: { status: informal }
+status: valid

@@ -55,18 +55,28 @@ class Statement(Model):
 ATTESTATIONS = 3  # independent web sources needed for a closed paper (CLAUDE.md rule 2)
 
 
+class Confirmation(Model):
+    """Serge confirms a result from a closed source that we could not read (21 November 2026)."""
+
+    by: Literal["Serge Gaspers"]
+    date: dt.date
+
+
 class PaperSource(Model):
     paper: Id
-    statements: dict[Id, Statement] = {}  # keyed by paper version
-    # For a classic result whose paper has no open-access version: independent web sources
-    # (found by a web search) that confirm the paper proved it. They replace the open statement.
+    # keyed by paper version; a closed version we could read counts like an open one
+    # (21 November 2026)
+    statements: dict[Id, Statement] = {}
+    # For a classic result whose paper we cannot read: independent web sources (found by a
+    # web search) that confirm the paper proved it. They replace the statement.
     attested_by: list[Text] = []
+    confirmed_by: Confirmation | None = None
     note: Text | None = None
 
     @model_validator(mode="after")
     def _statement_or_attestation(self) -> PaperSource:
-        if not self.statements and not self.attested_by:
-            raise ValueError("a paper source needs statements, or attested_by for a closed paper")
+        if not self.statements and not self.attested_by and self.confirmed_by is None:
+            raise ValueError("a paper source needs statements, attested_by or confirmed_by")
         return self
 
 
@@ -400,7 +410,9 @@ class Algorithm(Model):
     uses: list[Id] = []
     # What the input comes with beyond the problem's definition, e.g. a tree decomposition
     # of width at most tw (definitions §4); shown as a note, carried along derivations.
-    given: list[Literal["tree-decomposition"]] = []
+    # structures given with the input (21 November 2026: extended beyond tree decompositions)
+    given: list[Literal["tree-decomposition", "path-decomposition", "clique-width-expression",
+                        "linear-arrangement", "interval-ordering", "deletion-set"]] = []
     source: Source
     formal: Formal = Formal()
     status: ResultStatus = "valid"
@@ -441,7 +453,8 @@ class Reduction(Model):
     id: Id
     from_: VersionRef = Field(alias="from")
     to: VersionRef
-    type: Literal["polytime-deterministic", "polytime-randomized", "serf"]
+    # polytime-counting: between counting versions, added 21 November 2026 (rulebook §2a)
+    type: Literal["polytime-deterministic", "polytime-randomized", "serf", "polytime-counting"]
     calls: Annotated[int, Field(ge=1, strict=True)] | Text = 1
     call_sizes: Text | None = None
     time: Text

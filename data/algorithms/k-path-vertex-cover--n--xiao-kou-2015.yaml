@@ -1,0 +1,24 @@
+id: k-path-vertex-cover--n--xiao-kou-2015
+problem: k-path-vertex-cover
+proved_for: optimisation-d-3
+bound:
+  as_stated: "O^*(1.3659^{n})"
+  notation: O*
+  parameters: [n]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: "Stated: $O^*(1.3659^n)$ time and space (Theorem 2). A database of the solutions of all sub-instances with at most $0.1845 n$ undecided vertices is built by dynamic programming (Robson's technique, Section 5)."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: xiao-kou-2015
+  statements:
+    journal: { statement: "Theorem 2" }
+  note: "Stated for Maximum Dissociation Set: \"A maximum dissociation set in an $n$-vertex graph can be found in $O^*(1.3659^n)$ time and space.\" A vertex set $D$ is a dissociation set if and only if $V \\setminus D$ is a 3-path vertex cover (abstract), so the same algorithm outputs a minimum 3-path vertex cover. Read in the journal version (Zotero copy of the publisher PDF). Open access: Theoretical Computer Science is in Elsevier's open archive, which opens articles 4 years after publication (elsevier.com, 'free access to archived articles', mathematics list, read 21 November 2026); Zotero's Unpaywall lookup also linked an open PDF for this DOI."
+formal: { status: informal }
+status: valid
+review: { approved_by: Serge Gaspers, date: 2026-11-21 }

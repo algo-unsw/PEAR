@@ -1,0 +1,17 @@
+id: bjorklund-husfeldt-2006
+title: "Exact Algorithms for Exact Satisfiability and Number of Perfect Matchings"
+authors: [Andreas Björklund, Thore Husfeldt]
+identifiers: { dblp: journals/algorithmica/BjorklundH08 }
+versions:
+  conference:
+    kind: conference
+    venue: "33rd International Colloquium on Automata, Languages and Programming (ICALP 2006), Part I, Lecture Notes in Computer Science 4051, pp. 548–559"
+    year: 2006
+    doi: "10.1007/11786986_48"
+    open_access: false
+  journal:
+    kind: journal
+    venue: "Algorithmica 52(2), pp. 226–249"
+    year: 2008
+    doi: "10.1007/s00453-007-9149-8"
+    open_access: false

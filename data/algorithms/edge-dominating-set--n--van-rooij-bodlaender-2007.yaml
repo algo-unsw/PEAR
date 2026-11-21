@@ -20,4 +20,4 @@ source:
   statements:
     techreport:
       statement: Theorem 4
-  note: 'Algorithm 4 of the technical report. Theorems 5 and 6 there state the same bound, in polynomial space, for Minimum Weight Edge Dominating Set and Minimum Weight Maximal Matching. Not the best known: Xiao and Nagamochi (TAMC 2012, TCS 2014) state $O^*(1.3160^n)$, but no open copy was found (unreachable ledger, batch-001).'
+  note: 'Algorithm 4 of the technical report. Theorems 5 and 6 there state the same bound, in polynomial space, for Minimum Weight Edge Dominating Set and Minimum Weight Maximal Matching. Xiao and Nagamochi state $O^*(1.3160^n)$, entered from the abstract of their technical report: edge-dominating-set--n--xiao-nagamochi-2011.'

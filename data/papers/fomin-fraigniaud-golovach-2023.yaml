@@ -1,0 +1,24 @@
+id: fomin-fraigniaud-golovach-2023
+title: "Parameterized Complexity of Broadcasting in Graphs"
+authors: [Fedor V. Fomin, Pierre Fraigniaud, Petr A. Golovach]
+identifiers: { dblp: "journals/tcs/FominFG24", openalex: null }
+versions:
+  arxiv-v1:
+    kind: preprint
+    arxiv: 2306.01536v1
+    year: 2023
+    open_access: true
+  wg:
+    kind: conference
+    venue: "Graph-Theoretic Concepts in Computer Science (WG 2023), LNCS 14093, pp. 334–347"
+    year: 2023
+    doi: "10.1007/978-3-031-43380-1_24"
+    open_access: false
+  journal:
+    kind: journal
+    title: "Parameterized complexity of broadcasting in graphs"
+    venue: "Theoretical Computer Science 997, article 114508"
+    year: 2024
+    doi: "10.1016/j.tcs.2024.114508"
+    url: "https://fedorvf.github.io/articles/2024/2024f.pdf"
+    open_access: true

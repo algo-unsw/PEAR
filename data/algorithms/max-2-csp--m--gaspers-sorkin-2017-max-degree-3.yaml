@@ -1,0 +1,22 @@
+id: max-2-csp--m--gaspers-sorkin-2017-max-degree-3
+problem: max-2-csp
+proved_for: optimisation-max-degree-3
+bound:
+  as_stated: 'r^{2m/15 + o(m)}'
+  notation: O
+  parameters: [r, m]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Polynomial space, as stated.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: gaspers-sorkin-2017
+  statements:
+    arxiv-v2:
+      statement: 'Theorem 3.1'
+  note: "Theorem 3.1: \"$r^{n/5+o(n)} = r^{2m/15+o(m)}$ if $G$ is cubic\", in polynomial space (read in the LaTeX source of arXiv v2, Section 3). Stated for cubic constraint graphs; it holds for maximum degree at most 3 (Serge Gaspers, 21 November 2026: transfer cubic results where they extend): the algorithm first applies Reductions 0, 1 and 2 of Scott and Sorkin, which take polynomial time, delete a vertex of degree at most 2 and never increase a degree, the number of vertices or the number of edges (Reduction 2 replaces $xy, yz$ by $xz$, merged with an existing edge), until the constraint graph is cubic or empty; the cubic instance has $n' \\le n$ vertices and $m' \\le m$ edges, so the cubic bound in $n'$ or $m'$ is at most the stated bound in $n$ or $m$."

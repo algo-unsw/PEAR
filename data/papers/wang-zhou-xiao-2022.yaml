@@ -1,0 +1,16 @@
+id: wang-zhou-xiao-2022
+title: "Listing Maximal k-Plexes in Large Real-World Graphs"
+authors: [Zhengren Wang, Yi Zhou, Mingyu Xiao, Bakhadyr Khoussainov]
+identifiers: { dblp: "conf/www/WangZXK22" }
+versions:
+  www:
+    kind: conference
+    venue: "The ACM Web Conference 2022 (WWW '22), pp. 1517–1527"
+    year: 2022
+    doi: "10.1145/3485447.3512198"
+    open_access: false
+  arxiv-v2:
+    kind: preprint
+    arxiv: "2202.08737v2"
+    year: 2022
+    open_access: true

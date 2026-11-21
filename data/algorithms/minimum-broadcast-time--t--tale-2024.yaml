@@ -1,0 +1,21 @@
+id: minimum-broadcast-time--t--tale-2024
+problem: minimum-broadcast-time
+proved_for: decision
+bound:
+  as_stated: '2^{2^{O(t)}} n^{O(1)}'
+  notation: O
+  parameters: [t, n]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'One vertex ordering at a time.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: tale-2024
+  statements:
+    arxiv-v1: { statement: "Abstract and Section 1" }
+  note: 'A non-trivial instance has $n \le 2^t$, since the number of informed vertices at most doubles in each round; "the brute force algorithm that checks all the permutations of the vertices runs in time $2^{2^{O(t)}} \cdot n^{O(1)}$". Tale proves that no $2^{2^{o(t)}} \cdot n^{O(1)}$-time algorithm exists unless ETH fails (lower bound, not entered).'

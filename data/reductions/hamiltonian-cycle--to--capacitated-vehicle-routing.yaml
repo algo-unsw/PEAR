@@ -1,0 +1,10 @@
+id: hamiltonian-cycle--to--capacitated-vehicle-routing
+from: { problem: hamiltonian-cycle, version: decision }
+to: { problem: capacitated-vehicle-routing, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(n + m)"
+parameter_map: { n: "n", m: "m", c: "n - 1" }
+source:
+  folklore: true
+  note: "Keep $G$ with all weights $1$, take any vertex as the depot $d$, every other vertex as a client of demand $1$, one vehicle, capacity $Q = n$ and $B = n$. For $n \\ge 3$, a closed walk from $d$ that visits all $n$ vertices and has at most $n$ edges visits every vertex exactly once, so it is a Hamiltonian cycle, and conversely."

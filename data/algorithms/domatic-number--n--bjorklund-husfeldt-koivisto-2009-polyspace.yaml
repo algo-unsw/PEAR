@@ -1,0 +1,22 @@
+id: domatic-number--n--bjorklund-husfeldt-koivisto-2009-polyspace
+problem: domatic-number
+proved_for: decision
+bound:
+  as_stated: O(2.8718^{n})
+  notation: O
+  parameters: [n]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Stated: polynomial space (Proposition 8).'
+  algebraic: true
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: bjorklund-husfeldt-koivisto-2009
+  statements:
+    journal:
+      statement: Proposition 8
+  note: 'Proposition 8: "Domatic Number can be solved in $O(2.8718^n)$ time and polynomial space." It counts $k$-packings of minimal dominating sets by inclusion–exclusion (Proposition 5), enumerating minimal dominating sets with the branching algorithm of Fomin, Grandoni, Pyatkin and Stepanov.'

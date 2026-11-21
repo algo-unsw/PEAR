@@ -1,0 +1,21 @@
+id: bojikian-firbas-ganian-2025
+title: "Fine-Grained Complexity of Computing Degree-Constrained Spanning Trees"
+authors: [Narek Bojikian, Alexander Firbas, Robert Ganian, Hung P. Hoang, Krisztina Szilágyi]
+identifiers: { dblp: null }
+versions:
+  arxiv-v1:
+    kind: preprint
+    arxiv: "2503.15226v1"
+    year: 2025
+    open_access: true
+  arxiv-v2:
+    kind: preprint
+    arxiv: "2503.15226v2"
+    year: 2026
+    open_access: true
+  icalp:
+    kind: conference
+    venue: "53rd International Colloquium on Automata, Languages, and Programming (ICALP 2026), LIPIcs, 38:1–38:14"
+    year: 2026
+    doi: "10.4230/LIPIcs.ICALP.2026.38"
+    open_access: true

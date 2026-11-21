@@ -1,0 +1,23 @@
+id: k-path-vertex-cover--k--cerveny-suchy-2021-d-3
+problem: k-path-vertex-cover
+proved_for: decision-d-3
+bound:
+  as_stated: "O^*(1.708^{k})"
+  notation: O*
+  parameters: [k]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: "Not stated; educated guess: polynomial. A recursive branching algorithm that applies precomputed branching and reduction rules (generated offline by computer search) to subgraphs around an occurrence of a $P_3$; brute force only on components of constant size; no memoization or dynamic programming found (section \"The Output Algorithm and Its Correctness\", Algorithm 1)."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: cerveny-suchy-2021
+  statements:
+    arxiv-v3: { statement: "Table 1 (results-summary) in Section 1, row 3-PVC; with the theorem labelled thm:output_algo_correct (section \"The Output Algorithm and Its Correctness\") and the appendix \"Additional Material to Applying the algorithm to d-PVC\", which says the table lists, for each $d$, the least $\\gamma$ for which the generation finished, giving an algorithm with running time $O^*(\\gamma^k)$" }
+  note: "Computer-generated branching algorithm (3-PVC); the rule sets are published at the authors' GitHub repository (cited in the paper). Previously known: $O^*(1.713^k)$ (Tsur, TCS 2019), as cited in Table 1. The abstract of arXiv v3 quotes $O(2.7^k \\cdot n^{O(1)})$ for 5-PVC while Table 1 gives $O^*(2.636^k)$; the table value is stored. TODO(verify): the WG 2023 version was not opened (paywalled); its numbers may differ."
+formal: { status: informal }
+status: valid

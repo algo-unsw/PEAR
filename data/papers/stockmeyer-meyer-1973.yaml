@@ -1,0 +1,13 @@
+id: stockmeyer-meyer-1973
+title: "Word Problems Requiring Exponential Time: Preliminary Report"
+authors:
+- Larry J. Stockmeyer
+- Albert R. Meyer
+identifiers: { dblp: conf/stoc/StockmeyerM73 }
+versions:
+  stoc:
+    kind: conference
+    venue: "Proceedings of the 5th Annual ACM Symposium on Theory of Computing (STOC 1973), pp. 1–9"
+    year: 1973
+    doi: 10.1145/800125.804029
+    open_access: false

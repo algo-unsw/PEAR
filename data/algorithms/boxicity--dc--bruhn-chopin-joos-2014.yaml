@@ -1,0 +1,21 @@
+id: boxicity--dc--bruhn-chopin-joos-2014
+problem: boxicity
+proved_for: decision
+bound:
+  as_stated: "f(dc) n^{O(1)}"
+  notation: O
+  parameters: [dc, n]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: "Not stated; educated guess: polynomial in $n$. A polynomial-time kernel with $dc^{2^{O(dc)}}$ vertices (twin removal and deletion of equivalent clusters), then any exact algorithm on the kernel; no tables over the whole input."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: bruhn-chopin-joos-2014
+  statements:
+    arxiv: { statement: "Theorem 1 (via the kernel lemma at the start of Section 3)" }
+  note: "Theorem 1: Boxicity \"is fixed-parameter tractable when parameterized by cluster vertex deletion number\". It follows from a kernel with at most $k^{2^{O(k)}}$ vertices, $k$ the cluster vertex deletion number; the proof computes a deletion set of size at most $3k$ greedily (induced $P_3$'s), so no deletion set needs to be given. No explicit function is stated. Read in the arXiv LaTeX source (v1, February 2014); the WG 2014 and Algorithmica 2016 versions were not opened."

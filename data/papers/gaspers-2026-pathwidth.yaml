@@ -1,0 +1,11 @@
+id: gaspers-2026-pathwidth
+title: Path Decompositions of Sparse Graphs via Gaussian Sweeps and Faster Exponential Algorithms
+authors:
+- Serge Gaspers
+versions:
+  arxiv-v1:
+    kind: preprint
+    year: 2026
+    arxiv: 2611.05146v1
+    open_access: true
+unverified: true

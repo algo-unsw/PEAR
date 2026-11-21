@@ -1,0 +1,23 @@
+id: metric-dimension--tw-diam--foucaud-et-al-2023
+problem: metric-dimension
+proved_for: decision
+bound:
+  as_stated: "2^{diam^{O(tw)}} \\cdot n^{O(1)}"
+  notation: O
+  parameters: [diam, tw, n]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: "Not stated. Guess: exponential, $2^{diam^{O(tw)}} n^{O(1)}$: dynamic programming over a nice tree decomposition whose table entries are sets of distance vectors in $[diam]^{|X_i|}$ for each bag $X_i$."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: foucaud-et-al-2023
+  statements:
+    arxiv-v5: { statement: "Theorem 26" }
+  note: "Section 8.1 of arXiv v5 (also Theorem 26 in v3). A tree decomposition of width at most $2tw + 1$ is computed in $2^{O(tw)} n$ time first (Korhonen), so none needs to be given. Metric Dimension is NP-hard on graphs of bounded pathwidth (Li and Pilipczuk) and on graphs of diameter 2, so neither parameter alone suffices. Theorem 6 (arXiv v3) shows that there is no $2^{f(diam)^{o(tw)}} n^{O(1)}$ algorithm unless ETH fails (ETH is claimed refuted; see CLAUDE.md rule 7)."
+formal: { status: informal }
+status: valid

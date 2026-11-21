@@ -1,0 +1,27 @@
+id: vertex-disjoint-paths--tw--scheffler-1994
+problem: vertex-disjoint-paths
+proved_for: search
+bound:
+  as_stated: "2^{O(tw \\log tw)} n"
+  notation: O
+  parameters: [tw, n]
+given: [tree-decomposition]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: "Not stated in the sources read; educated guess: dynamic programming over a tree decomposition with tables of $2^{O(tw \\log tw)}$ entries per bag."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+conditional_on: []
+source:
+  paper: scheffler-1994
+  attested_by:
+    - "https://arxiv.org/pdf/2609.29294"
+    - "https://www.cs.bme.hu/~dmarx/papers/lokshtanov-marx-saurabh-soda2011-superexp.pdf"
+    - "https://sites.cs.ucsb.edu/~daniello/papers/slightlySuperexpSICOMP18.pdf"
+  note: "Technical report not opened (only a PostScript file on an FTP server is listed). arXiv 2609.29294 (Introduction): Scheffler 'proposed a $2^{O(tw \\log tw)} \\cdot n$ time algorithm that takes $G$ and its tree decomposition of width tw as input', independent of $k$, and estimates it as $(3tw+3)^{2tw+2} O(tw \\cdot n) = 2^{2 tw \\log tw + O(tw)} n$. Lokshtanov, Marx and Saurabh (SODA 2011, Section 5; SICOMP 2018): 'The best known algorithm for this problem runs in time $2^{O(w \\log w)} \\cdot n$ [Scheffler]', and no $2^{o(w \\log w)} n^{O(1)}$ algorithm exists under ETH (SODA Theorem 5.2, SICOMP Theorem 5.4). The TU Berlin abstract says the algorithm finds the paths. The last two attestations are two versions of one paper."
+formal: { status: informal }
+status: valid

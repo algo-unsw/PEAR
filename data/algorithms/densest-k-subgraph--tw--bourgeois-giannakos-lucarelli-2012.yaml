@@ -1,0 +1,22 @@
+id: densest-k-subgraph--tw--bourgeois-giannakos-lucarelli-2012
+problem: densest-k-subgraph
+proved_for: optimisation
+bound:
+  as_stated: "O^*(2^{tw} k (tw^{2} + k))"
+  notation: O*
+  parameters: [tw, k]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: "Stated: \"uses space exponential to tw\" (Theorem 5); dynamic programming over a tree decomposition."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+given: [tree-decomposition]
+source:
+  paper: bourgeois-giannakos-lucarelli-2012
+  statements:
+    cahier: { statement: "Theorem 5", page: 9 }
+  note: "Stated as $O^*(2^{tw} \\cdot k \\cdot (tw^2 + k) \\cdot |X|)$, where $|X|$ is the number of nodes of the given tree decomposition; stored without the factor $|X|$, which is polynomial in $n$ and hidden by $O^*$. The introduction says the algorithm supposes that a tree decomposition is given. The problem is stated as finding $k$ vertices that induce the maximum number of edges (optimisation). Read in the open Cahier du LAMSADE 324 (June 2012); the WALCOM 2013 and EJOR 2017 versions were not opened (numbering may differ). Hanaka (arXiv 2207.09803, Section 1) cites the EJOR version for $2^{tw} n^{O(1)}$ time and exponential space."

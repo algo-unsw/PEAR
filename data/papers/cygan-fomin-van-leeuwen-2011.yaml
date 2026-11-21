@@ -1,0 +1,40 @@
+id: cygan-fomin-van-leeuwen-2011
+title: "Parameterized Complexity of Firefighting Revisited"
+authors: [Marek Cygan, Fedor V. Fomin, Erik Jan van Leeuwen]
+identifiers: { dblp: "conf/iwpec/CyganFL11" }
+versions:
+  arxiv-v1:
+    kind: preprint
+    arxiv: "1109.4729v1"
+    year: 2011
+    open_access: true
+  ipec:
+    kind: conference
+    venue: "Parameterized and Exact Computation (IPEC 2011), LNCS 7112, pp. 13–26"
+    year: 2011
+    doi: "10.1007/978-3-642-28050-4_2"
+    open_access: false
+  isaac:
+    kind: conference
+    title: "Parameterized Complexity of the Firefighter Problem"
+    authors: [Cristina Bazgan, Morgan Chopin, Michael R. Fellows]
+    venue: "Algorithms and Computation (ISAAC 2011), LNCS 7074, pp. 643–652"
+    year: 2011
+    doi: "10.1007/978-3-642-25591-5_66"
+    open_access: false
+  journal:
+    kind: journal
+    title: "Parameterized complexity of firefighting"
+    authors: [Cristina Bazgan, Morgan Chopin, Marek Cygan, Michael R. Fellows, Fedor V. Fomin, Erik Jan van Leeuwen]
+    venue: "Journal of Computer and System Sciences 80(7), pp. 1285–1297"
+    year: 2014
+    doi: "10.1016/j.jcss.2014.03.001"
+    open_access: false
+  journal-author-copy:
+    kind: preprint
+    title: "Parameterized complexity of firefighting"
+    authors: [Cristina Bazgan, Morgan Chopin, Marek Cygan, Michael R. Fellows, Fedor V. Fomin, Erik Jan van Leeuwen]
+    venue: "Author copy of the J. Comput. Syst. Sci. version (Cristina Bazgan's web page); merges the IPEC 2011 and ISAAC 2011 papers"
+    year: 2014
+    url: "https://www.lamsade.dauphine.fr/~bazgan/Papers/JCSS.pdf"
+    open_access: true

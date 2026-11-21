@@ -1,0 +1,45 @@
+id: firefighter
+name: Firefighter
+aliases: [Firefighter Problem, Firefighting, Saving k-Vertices, Saving All But k Vertices]
+category: graph
+complexity:
+  class: NP-complete
+  source:
+    paper: finbow-king-macgillivray-2007
+    attested_by:
+      - "https://core.ac.uk/display/82293074"
+      - "https://www.lamsade.dauphine.fr/~bazgan/Papers/JCSS.pdf"
+      - "https://arxiv.org/pdf/1109.4729"
+    note: "NP-complete for trees of maximum degree three (Finbow, King, MacGillivray and Rizzi, Discrete Math. 2007; abstract on CORE). Bazgan et al. (JCSS 2014, author copy, Section 1) and Cygan, Fomin and van Leeuwen (arXiv 1109.4729, Section 3) cite it for this. No Wikipedia article on the problem was found."
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  k: { meaning: "the solution size: the integer $k$ in the input (decision, search), or the maximum number of saved vertices (optimisation)" }
+  nb: { meaning: "the number of burned vertices: $n - k$ (the Saving All But $k$ Vertices parameterization)" }
+  dt: { meaning: "the distance to threshold graphs: the minimum number of vertices whose deletion leaves a threshold graph" }
+constraints:
+  - { constraint: "k \\le n", because: "At most $n$ vertices can be saved, so every instance with $k > n$ is a no-instance." }
+  - { constraint: "nb \\le n", because: "At most $n$ vertices burn." }
+  - { constraint: "dt \\le n", because: "Deleting all vertices leaves the empty graph, a threshold graph." }
+  - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
+versions:
+  decision:
+    kind: decision
+    input: "A graph $G = (V, E)$, a vertex $s \\in V$ and an integer $k$."
+    question: "Is there a firefighting strategy that saves at least $k$ vertices? (The fire starts at $s$ at time 0; at each time step $t \\ge 1$ one vertex that is not on fire is protected permanently, then the fire spreads from every burning vertex to all its unprotected neighbours; a vertex is saved if it never burns.)"
+  optimisation:
+    kind: optimisation
+    input: "A graph $G = (V, E)$ and a vertex $s \\in V$."
+    goal: "Find the maximum number of vertices saved by a firefighting strategy. (The fire starts at $s$ at time 0; at each time step $t \\ge 1$ one vertex that is not on fire is protected permanently, then the fire spreads from every burning vertex to all its unprotected neighbours; a vertex is saved if it never burns.)"
+  search:
+    kind: search
+    input: "A graph $G = (V, E)$, a vertex $s \\in V$ and an integer $k$."
+    goal: "Find a firefighting strategy that saves at least $k$ vertices, or report that none exists. (The fire starts at $s$ at time 0; at each time step $t \\ge 1$ one vertex that is not on fire is protected permanently, then the fire spreads from every burning vertex to all its unprotected neighbours; a vertex is saved if it never burns.)"
+default_version: decision
+shared_bounds:
+  - versions: [decision, optimisation]
+    because: "Binary search on $k$ (at most $\\log_2 n$ calls, since $k \\le n$)."
+related:
+  - { problem: graph-burning, relation: variant }

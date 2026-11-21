@@ -1,0 +1,23 @@
+id: partition-into-triangles--n--van-rooij-van-kooten-niekerk-bodlaender-2010
+problem: partition-into-triangles
+proved_for: decision-max-degree-4
+bound:
+  as_stated: '1.02220^{n}'
+  notation: O
+  parameters: [n]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Linear space, as stated (Theorem 5).'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: van-rooij-van-kooten-niekerk-bodlaender-2010
+  statements:
+    techreport: { statement: "Theorem 5" }
+  note: 'Theorem 5 of the technical report UU-CS-2010-005: "There is a $O(1.02220^n)$ time and linear space algorithm for Partition Into Triangles on graphs of maximum degree four." The abstract rounds it to $O(1.0222^n)$; the more precise form is stored. On maximum degree three the problem is solvable in linear time (Theorem 1). Statement read through WebFetch of the open PDF; the SOFSEM 2011 and TOCS 2013 numbering was not checked.'
+formal: { status: informal }
+status: valid

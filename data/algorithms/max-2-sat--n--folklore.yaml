@@ -1,0 +1,21 @@
+id: max-2-sat--n--folklore
+problem: max-2-sat
+proved_for: optimisation
+bound:
+  as_stated: 2^{n} N
+  notation: O
+  parameters:
+  - n
+  - N
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: One assignment at a time.
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  folklore: true
+  note: Try all $2^n$ assignments and count the satisfied clauses of each in $O(N)$ time (brute force).

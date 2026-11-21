@@ -1,0 +1,11 @@
+id: garey-johnson-1983
+title: "Crossing Number is NP-Complete"
+authors: [Michael R. Garey, David S. Johnson]
+identifiers: { dblp: null }
+versions:
+  journal:
+    kind: journal
+    venue: "SIAM Journal on Algebraic and Discrete Methods 4(3), pp. 312–316"
+    year: 1983
+    doi: "10.1137/0604033"
+    open_access: false

@@ -1,0 +1,22 @@
+id: sharp-3-sat--sb-forest--gaspers-szeider-2011-acyclic
+problem: sharp-3-sat
+proved_for: counting
+bound:
+  as_stated: f(sb_{forest}) N^{O(1)}
+  notation: O
+  parameters: [sb_forest, N]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Not stated; educated guess: Courcelle-type model checking for monadic second-order logic on graphs of bounded treewidth (dynamic programming over a tree decomposition, tables whose size depends on the parameter), and model counting by dynamic programming on acyclic formulas.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: gaspers-szeider-2011-acyclic
+  statements:
+    arxiv-v3:
+      statement: Theorem 6 and the remark that follows it in Section 1
+  note: 'Theorem 6 (FPT-approximation of strong Forest-backdoor sets, size at most $2^k$) and Section 1: SAT and #SAT, parameterized by the size of a smallest strong Forest-backdoor set, are fixed-parameter tractable (no explicit running time). The algorithm counts the satisfying assignments of any CNF formula, so it applies to 3-CNF formulas, the input of #3-SAT.'

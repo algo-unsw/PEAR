@@ -1,0 +1,20 @@
+id: steiner-forest--to--survivable-network-design
+from: { problem: steiner-forest, version: decision }
+to: { problem: survivable-network-design, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(n^{2} + m)"
+parameter_map: { n: "n", m: "m", k: "k" }
+variants:
+  - id: weighted
+    note: "Weighted versions: the same construction, keeping the edge weights as costs."
+    from: { problem: steiner-forest, version: weighted }
+    to: { problem: survivable-network-design, version: weighted }
+    parameter_map: { n: "n", m: "m" }
+    source:
+      folklore: true
+      note: "With nonnegative costs, a spanning forest of $(V, F)$ connects the same pairs at no larger cost."
+source:
+  folklore: true
+  note: "Demand $r(s, t) = 1$ for every demand pair $\\{s, t\\} \\in D$ and $0$ otherwise. A set $F$ with $|F| \\le k$ meets the demands if and only if every demand pair lies in one component of $(V, F)$; a spanning forest of $(V, F)$ is then a forest with at most $k$ edges connecting every demand pair, and conversely."
+  reference: { paper: feldmann-mukherjee-van-leeuwen-2021, version: arxiv-v3, statement: "Section 1" }

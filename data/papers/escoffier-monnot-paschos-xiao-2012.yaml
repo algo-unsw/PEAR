@@ -1,0 +1,17 @@
+id: escoffier-monnot-paschos-xiao-2012
+title: "New Results on Polynomial Inapproximability and Fixed Parameter Approximability of Edge Dominating Set"
+authors: [Bruno Escoffier, Jérôme Monnot, Vangelis Th. Paschos, Mingyu Xiao]
+identifiers: { openalex: null }
+versions:
+  ipec:
+    kind: conference
+    venue: "IPEC 2012, LNCS 7535, pp. 25–36"
+    year: 2012
+    doi: "10.1007/978-3-642-33293-7_5"
+    open_access: false
+  journal:
+    kind: journal
+    venue: "Theory of Computing Systems 56(2), pp. 330–346"
+    year: 2015
+    doi: "10.1007/s00224-014-9549-5"
+    open_access: false

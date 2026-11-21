@@ -1,0 +1,18 @@
+id: wang-zhou-luo-2023
+title: "Fast Maximum k-Plex Algorithms Parameterized by Small Degeneracy Gaps"
+authors: [Zhengren Wang, Yi Zhou, Chunyu Luo, Mingyu Xiao, Jin-Kao Hao]
+identifiers: { dblp: "conf/ijcai/WangZLX23" }
+versions:
+  ijcai:
+    kind: conference
+    title: "A Fast Maximum k-Plex Algorithm Parameterized by the Degeneracy Gap"
+    authors: [Zhengren Wang, Yi Zhou, Chunyu Luo, Mingyu Xiao]
+    venue: "32nd International Joint Conference on Artificial Intelligence (IJCAI 2023), pp. 5648–5656"
+    year: 2023
+    doi: "10.24963/ijcai.2023/627"
+    open_access: true
+  arxiv-v3:
+    kind: preprint
+    arxiv: "2306.13258v3"
+    year: 2023
+    open_access: true

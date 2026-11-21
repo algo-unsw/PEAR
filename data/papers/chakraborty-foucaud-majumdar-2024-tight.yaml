@@ -1,0 +1,16 @@
+id: chakraborty-foucaud-majumdar-2024-tight
+title: "Tight (Double) Exponential Bounds for Identification Problems: Locating-Dominating Set and Test Cover"
+authors: [Dipayan Chakraborty, Florent Foucaud, Diptapriyo Majumdar, Prafullkumar Tale]
+identifiers: { dblp: "conf/isaac/ChakrabortyFMT24" }
+versions:
+  arxiv-v4:
+    kind: preprint
+    arxiv: "2402.08346v4"
+    year: 2025
+    open_access: true
+  isaac:
+    kind: conference
+    venue: "35th International Symposium on Algorithms and Computation (ISAAC 2024), LIPIcs 322, pp. 19:1–19:18"
+    year: 2024
+    doi: "10.4230/LIPIcs.ISAAC.2024.19"
+    open_access: true

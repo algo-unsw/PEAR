@@ -1,0 +1,22 @@
+id: minimum-broadcast-time--dcl--egami-et-al-2025
+problem: minimum-broadcast-time
+proved_for: decision
+bound:
+  as_stated: '2^{O(dcl^{2})} n^{O(1)}'
+  notation: O
+  parameters: [dcl, n]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Not stated; the algorithm computes a modulator to a clique (a vertex cover of the complement) by branching, enumerates guesses one at a time and solves a maximum-flow problem for each; no exponential-space technique found (educated guess).'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: egami-et-al-2025
+  statements:
+    mfcs: { statement: "Theorem 9" }
+    arxiv-v2: { statement: "The theorem of Section 4.2 (FPT Algorithm Parameterized by Distance to Clique)" }
+  note: 'Stated as $2^{O(k^2)} n^{O(1)}$ for distance to clique $k$.'

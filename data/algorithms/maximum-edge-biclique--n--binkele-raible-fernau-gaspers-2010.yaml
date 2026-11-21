@@ -1,0 +1,22 @@
+id: maximum-edge-biclique--n--binkele-raible-fernau-gaspers-2010
+problem: maximum-edge-biclique
+proved_for: decision-bipartite
+bound:
+  as_stated: "O^*(1.30052^{n})"
+  notation: O*
+  parameters: [n]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: "Polynomial space, as stated (Theorem 2); the calls are made one after another."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: binkele-raible-fernau-gaspers-2010
+  statements:
+    journal: { statement: "Theorem 2", page: 4 }
+  note: "Theorem 2: \"Constraint Bipartite Vertex Cover and Bipartite (k1, k2) Biclique can be solved in time O(1.30052^n), using polynomial space\", where Bipartite $(k_1, k_2)$ Biclique asks whether a bipartite graph has disjoint sets $X, Y$ with $|X| = k_1$, $|Y| = k_2$ and all edges between them. A bipartite graph has a biclique with at least $k$ edges if and only if it has a $(k_1, \\lceil k / k_1 \\rceil)$ biclique for some $k_1 \\in \\{1, \\dots, n\\}$ (shrink $Y$), so $n$ calls decide Maximum Edge Biclique on bipartite graphs; stored as $O^*$ for the polynomial factor. Statement and page from the authors' preprint at the URL of the journal version, as in balanced-biclique--n--binkele-raible-fernau-gaspers-2010."
+formal: { status: informal }

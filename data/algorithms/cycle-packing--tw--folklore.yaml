@@ -1,0 +1,22 @@
+id: cycle-packing--tw--folklore
+problem: cycle-packing
+proved_for: optimisation
+bound:
+  as_stated: "2^{O(tw \\log tw)} n"
+  notation: O
+  parameters: [tw, n]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: "Stated: exponential space (dynamic programming over a tree decomposition)."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  folklore: true
+  note: "'A naive dynamic programming (DP) scheme solves Cycle Packing in time $2^{O(tw\\log tw)}\\cdot|V|$ and exponential space (see, e.g., [Cygan et al., Parameterized Algorithms])' (Lokshtanov, Mouawad, Saurabh and Zehavi, Section 1): for each bag, guess how the partial cycles connect the bag vertices (a matching-like partition of the bag). Optimal under ETH: no $2^{o(tw \\log tw)} |V|^{O(1)}$ algorithm (Cygan et al., Cut&Count, as cited there). TODO(verify): the textbook location was not opened."
+  reference: { paper: lokshtanov-mouawad-saurabh-zehavi-2017, version: arxiv, statement: "Section 1" }
+formal: { status: informal }
+status: valid

@@ -1,0 +1,17 @@
+id: aravind-kalyanasundaram-kare-2017
+title: "On Structural Parameterizations of the Matching Cut Problem"
+authors: [N. R. Aravind, Subrahmanyam Kalyanasundaram, Anjeneya Swami Kare]
+identifiers: { dblp: "conf/cocoa/AravindKK17" }
+versions:
+  cocoa:
+    kind: conference
+    venue: "Combinatorial Optimization and Applications (COCOA 2017), Part II, LNCS 10628, pp. 475–482"
+    year: 2017
+    doi: "10.1007/978-3-319-71147-8_34"
+    open_access: false
+  author-copy:
+    kind: preprint
+    venue: "Author copy (Subrahmanyam Kalyanasundaram's web page, IIT Hyderabad); no venue or date printed"
+    year: 2017
+    url: "https://people.iith.ac.in/~subruk/pdf/matchingcut.pdf"
+    open_access: true

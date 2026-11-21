@@ -1,0 +1,10 @@
+id: sat--to--max-sat
+from: { problem: sat, version: decision }
+to: { problem: max-sat, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(N)"
+parameter_map: { n: "n", m: "m", k: "m" }
+source:
+  folklore: true
+  note: "Remove repeated clauses (Maximum Satisfiability has no repeated clauses), which keeps satisfiability and leaves $m' \\le m$ clauses; the formula is satisfiable if and only if some assignment satisfies at least $k = m'$ of them."

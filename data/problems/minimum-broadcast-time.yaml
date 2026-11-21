@@ -1,0 +1,51 @@
+id: minimum-broadcast-time
+name: Minimum Broadcast Time
+aliases: [Telephone Broadcast, Telephone Broadcasting, Broadcast Time, MBT, Broadcasting]
+category: graph
+complexity:
+  class: NP-complete
+  source:
+    paper: slater-cockayne-hedetniemi-1981
+    attested_by:
+      - "https://arxiv.org/abs/2306.01536"
+      - "https://drops.dagstuhl.de/storage/00lipics/lipics-vol345-mfcs2025/html/LIPIcs.MFCS.2025.42/LIPIcs.MFCS.2025.42.html"
+      - "https://fedorvf.github.io/articles/2024/2024f.pdf"
+    note: 'Slater, Cockayne and Hedetniemi (SIAM J. Comput. 1981) proved NP-completeness in general and gave a polynomial algorithm for trees; it is problem ND49 of Garey and Johnson. Fomin, Fraigniaud and Golovach (arXiv 2306.01536, Section 1; TCS 2024 author copy) and Egami et al. (MFCS 2025, Section 1) credit the result to that paper; the integer-programming paper arXiv 2107.06359 (Section 1.1) cites Garey and Johnson and Slater et al. for NP-completeness. No Wikipedia article on the problem was found (21 November 2026).'
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  t: { meaning: 'the number of rounds: the integer $t$ in the input (decision), or the broadcast time $b(G, s)$ (optimisation)' }
+  p: { meaning: 'the number of rounds saved below the trivial bound: $p = n - t$ (Fomin, Fraigniaud and Golovach write $k = n - t$)' }
+  vc: { shared: vertex-cover-number }
+  fes: { shared: feedback-edge-set-number }
+  tw: { shared: treewidth }
+  vi: { meaning: 'the vertex integrity of $G$: the minimum of $|S| + \max_C |V(C)|$ over all sets $S \subseteq V$, where $C$ ranges over the connected components of $G - S$' }
+  dcl: { meaning: 'the distance to clique of $G$: the minimum size of a set $S \subseteq V$ such that $G - S$ is a clique' }
+constraints:
+  - { constraint: 't \le n', because: 'In a connected graph at least one new vertex is informed in every round, so $b(G, s) \le n - 1$ and an instance with $t \ge n - 1$ is a yes-instance.' }
+  - { constraint: 'p \le n', because: '$p = n - t$ and $t \ge 0$.' }
+  - { constraint: 'm \le n(n - 1)/2', because: 'A simple graph has at most $n(n-1)/2$ edges.' }
+  - { constraint: 'vc \le n', because: 'The vertex set is a vertex cover.' }
+  - { constraint: 'tw \le vc', because: 'Placing a vertex cover $S$ together with one vertex of the independent set $V \setminus S$ in each bag gives a tree decomposition of width $|S|$; Fomin, Fraigniaud and Golovach note that treewidth never exceeds the vertex cover number (arXiv 2306.01536, Section 1.1).' }
+  - { constraint: 'tw \le n', because: 'A single bag containing all vertices is a tree decomposition of width $n - 1$.' }
+  - { constraint: 'fes \le m', because: 'The edge set is a feedback edge set.' }
+  - { constraint: 'vi \le n', because: 'Take $S = V$: then $|S| = n$ and $G - S$ has no components.' }
+  - { constraint: 'dcl \le n', because: 'Deleting all vertices but one leaves a clique.' }
+versions:
+  decision:
+    kind: decision
+    input: 'A connected graph $G = (V, E)$, a vertex $s \in V$ and an integer $t$.'
+    question: 'Is there a broadcast protocol from $s$ that informs every vertex within $t$ rounds, where initially only $s$ knows the message and in each round every informed vertex may send it to at most one neighbour?'
+  optimisation:
+    kind: optimisation
+    input: 'A connected graph $G = (V, E)$ and a vertex $s \in V$.'
+    goal: 'Find the broadcast time $b(G, s)$: the minimum number $t$ of rounds of a broadcast protocol from $s$ that informs every vertex within $t$ rounds, where initially only $s$ knows the message and in each round every informed vertex may send it to at most one neighbour.'
+default_version: decision
+shared_bounds:
+  - versions: [decision, optimisation]
+    because: 'Linear search over $t \in \{0, \dots, n-1\}$: increasing $t$ from $0$ needs only queries with $t$ at most the optimum, and decreasing $t$ from $n - 1$ only queries with $n - t$ at most the optimal $p$ plus one; the structural parameters are unchanged.'
+related: []
+lean: { status: none }
+review: { approved_by: null, date: null }

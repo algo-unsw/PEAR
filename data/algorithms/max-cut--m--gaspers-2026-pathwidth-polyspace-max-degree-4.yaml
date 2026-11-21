@@ -1,0 +1,24 @@
+id: max-cut--m--gaspers-2026-pathwidth-polyspace-max-degree-4
+problem: max-cut
+proved_for: weighted-max-degree-4
+bound:
+  as_stated: '2^{0.169836m + o(m)}'
+  notation: O
+  parameters:
+  - m
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Polynomial space, as stated.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: gaspers-2026-pathwidth
+  statements:
+    arxiv-v1:
+      statement: 'Theorem C.3(b) with $r = 2$'
+      page: 153
+  note: 'Theorem C.3(b): Max $(r,2)$-CSP in polynomial space and time $r^{(\frac18+\frac38\alpha)m+o(m)}$ if the constraint graph has maximum degree at most 4; the paper states $\frac18+\frac38\alpha < 0.169836$, so the implied $2^{0.169836m+o(m)}$ is stored for $r = 2$. Max Cut with edge weights $w$ is the case $r = 2$: one variable per vertex and, for each edge $uv$, the score $w(uv)$ when $u$ and $v$ get different values and $0$ otherwise, so the constraint graph is $G$ itself (same maximum degree) and $m$ is the number of edges (as in `max-cut--m--gaspers-2026-pathwidth`). arXiv v1, 3 November 2026 (read: the LaTeX source of the latest arXiv version, and the v1 PDF for theorem numbers and pages); unrefereed preprint.'

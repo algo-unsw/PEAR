@@ -1,0 +1,17 @@
+id: exact-cover--to--set-packing
+from:
+  problem: exact-cover
+  version: decision-set-size-3
+to:
+  problem: set-packing
+  version: decision-max-set-size-3
+type: polytime-deterministic
+calls: 1
+time: O(N)
+parameter_map:
+  n: n
+  m: m
+  k: n/3
+source:
+  folklore: true
+  note: With all sets of size 3, an exact cover is a packing of $n/3$ sets, and a packing of $n/3$ pairwise disjoint 3-sets covers all $n$ elements; if $3$ does not divide $n$, output a fixed no-instance. The same instance with $k = n/3$.

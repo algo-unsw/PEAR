@@ -1,0 +1,18 @@
+id: hartung-komusiewicz-nichterlein-2012
+title: "Parameterized Algorithmics and Computational Experiments for Finding 2-Clubs"
+authors: [Sepp Hartung, Christian Komusiewicz, André Nichterlein]
+identifiers: { dblp: journals/jgaa/HartungKN15 }
+versions:
+  ipec:
+    kind: conference
+    venue: "Parameterized and Exact Computation, 7th International Symposium (IPEC 2012), LNCS 7535, pp. 231–241"
+    year: 2012
+    doi: "10.1007/978-3-642-33293-7_22"
+    open_access: false
+  journal:
+    kind: journal
+    venue: "Journal of Graph Algorithms and Applications 19(1), pp. 155–190"
+    year: 2015
+    doi: "10.7155/jgaa.00352"
+    url: "https://jgaa.info/index.php/jgaa/article/view/paper352"
+    open_access: true

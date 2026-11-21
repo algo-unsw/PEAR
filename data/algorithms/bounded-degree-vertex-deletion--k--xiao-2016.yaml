@@ -1,0 +1,23 @@
+id: bounded-degree-vertex-deletion--k--xiao-2016
+problem: bounded-degree-vertex-deletion
+proved_for: decision-d-at-least-3
+bound:
+  as_stated: "O^*((d+1)^{k})"
+  notation: O*
+  parameters: [d, k]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: "Not stated; educated guess: polynomial. A recursive branch-and-search algorithm (seven branching steps on high-degree vertices, dominations, pairs, triples and quadruples of degree-$(d+1)$ vertices); no memoization, dynamic programming or tables found."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: xiao-2016
+  statements:
+    arxiv: { statement: "Section 4.1 (The results), first theorem (label result): \"The $d$-bounded-degree vertex deletion problem for each $d\\geq 3$ can be solved in $O^*((d+1)^k)$ time.\"" }
+  note: "The paper calls the algorithm \"uniform\" (abstract): one algorithm for every $d$, whose branching factors are at most $d+1$ for each $d \\ge 3$ (Steps 1–7), so the bound is stored in $d$ and $k$. Stored on the version with $d \\ge 3$ because $(d+1)^k$ is false for $d \\le 2$ ($d = 0$ is Vertex Cover). Lemmas 1, 3 and the branching-factor lemma for Step 7 are proved only in the \"full version\" (no full version found; the arXiv copy is the conference text). For $d = 2$ the same algorithm gives $O^*(3.0645^k)$ (separate record)."
+formal: { status: informal }
+status: valid

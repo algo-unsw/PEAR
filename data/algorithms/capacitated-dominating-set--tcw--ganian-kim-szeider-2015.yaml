@@ -1,0 +1,23 @@
+id: capacitated-dominating-set--tcw--ganian-kim-szeider-2015
+problem: capacitated-dominating-set
+proved_for: decision
+bound:
+  as_stated: "2^{O(tcw^{2})} n^{2}"
+  notation: O
+  parameters: [n, tcw]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: "Not stated; educated guess: exponential in $tcw$. Dynamic programming over a nice tree-cut decomposition with snapshot tables per node, branching ($2^{O(tcw \\log tcw)}$ branches) and a constant-size ILP (Lenstra) per join."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: ganian-kim-szeider-2015
+  statements:
+    arxiv: { statement: "Section 4 (FPT Algorithms), the theorem labelled thm:CDSPalg: \"CDS can be solved in time $2^{O(k^2)} \\cdot n^2$\", $k$ the tree-cut width" }
+  note: "The algorithms assume a tree-cut decomposition given with the input (Section 1); the paper notes that Kim et al.'s algorithm, which computes one of width at most twice the optimum, removes this condition, but its running time is not included in the stated bound (TODO(verify)). Capacitated Dominating Set is W[1]-hard parameterized by treewidth and solution size together (Dom, Lokshtanov, Saurabh and Villanger, IWPEC 2008, Theorem 1)."
+formal: { status: informal }
+status: valid

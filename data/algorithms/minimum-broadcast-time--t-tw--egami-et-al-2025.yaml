@@ -1,0 +1,24 @@
+id: minimum-broadcast-time--t-tw--egami-et-al-2025
+problem: minimum-broadcast-time
+proved_for: decision
+bound:
+  as_stated: '2^{O(t \cdot tw)} n^{O(1)}'
+  notation: O
+  parameters: [t, tw, n]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Not stated; dynamic programming over a nice tree decomposition, storing for each bag vertex a subset of $[t]$ and an information time (Section 4.3, overview), so tables of size $2^{O(t \cdot tw)}$ (educated guess).'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+given:
+- tree-decomposition
+source:
+  paper: egami-et-al-2025
+  statements:
+    mfcs: { statement: "Theorem 12" }
+    arxiv-v2: { statement: "The theorem of Section 4.3 (Algorithm for Parameter Treewidth plus Time)" }
+  note: 'The algorithm takes a nice tree decomposition of width $tw$ as input; any tree decomposition can be made nice in polynomial time without increasing the width (Cygan et al., Lemma 7.4, as cited in the paper).'

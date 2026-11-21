@@ -138,8 +138,8 @@ versions:
     open_access: true
 ```
 
-- A version is `open_access: true` only if it can be read without a paywall or bot block (rule 2).
-- `unverified: true` marks a paper that is not peer reviewed or otherwise verified, such as an unrefereed technical report. A paper with no journal, conference, workshop, book or thesis version is a preprint; its results are treated like unverified ones in the Overview (left out by default, switched in all at once; decided 18 November 2026), but not tagged unverified in Details or the references. Its results, and bounds derived from them, appear in Details and are left out of the Overview by default (decided 8 November 2026); each reader can include them one by one, stored in their browser (12 November 2026). A result that relies on other results as black boxes lists them in `uses` (decided 13 November 2026), for example a theorem proved under an algorithmic assumption that another result establishes: Reverse Reductions (Kundu et al.) assume a fixed-width SAT algorithm, which the Lean-checked OpenAI and Anthropic theorems provide. Such a result is unverified if any result it uses (transitively) is, carries their hypotheses, and stays out of derivation if any of them has a status other than valid or fixed; it is then listed under Flagged results as relying on such a result. Exception: a result whose `formal` status is `proved` and whose `formal.statement_checked` records who checked the formal statement against the canonical definition and parameter mapping, and when, counts as verified (12 November 2026). The validator checks that every result cites at least one open-access version.
+- A version is `open_access: true` only if it can be read without a paywall or bot block. Closed versions are recorded too, and statements may cite them when we have read them (rule 2, 21 November 2026).
+- `unverified: true` marks a paper that is not peer reviewed or otherwise verified, such as an unrefereed technical report. A paper with no journal, conference, workshop, book or thesis version is a preprint; its results are treated like unverified ones in the Overview (left out by default, switched in all at once; decided 18 November 2026), but not tagged unverified in Details or the references. Its results, and bounds derived from them, appear in Details and are left out of the Overview by default (decided 8 November 2026); each reader can include them one by one, stored in their browser (12 November 2026). A result that relies on other results as black boxes lists them in `uses` (decided 13 November 2026), for example a theorem proved under an algorithmic assumption that another result establishes: Reverse Reductions (Kundu et al.) assume a fixed-width SAT algorithm, which the Lean-checked OpenAI and Anthropic theorems provide. Such a result is unverified if any result it uses (transitively) is, carries their hypotheses, and stays out of derivation if any of them has a status other than valid or fixed; it is then listed under Flagged results as relying on such a result. Exception: a result whose `formal` status is `proved` and whose `formal.statement_checked` records who checked the formal statement against the canonical definition and parameter mapping, and when, counts as verified (12 November 2026). The validator checks that every result cites a statement in some version, an attestation or a confirmation (rule 2).
 - Version keys (`conference`, `journal`, `arxiv-v2`) are local to the paper and are what statements refer to, because numbering differs between versions.
 - Books (e.g. textbooks with open-access PDFs) and theses use the same entity.
 - Record every published version (journal, conference), not only the ones statements cite: a reference names the journal version, else the conference version, else a technical report or preprint (decided 17 November 2026; DESIGN.md, References), with the cited statements and their versions next to it. A version whose title differs from the paper's (journal versions are often retitled) gives its own `title`; the reference shows the title of the version it names (approved 17 November 2026). Likewise a version whose authors differ gives its own `authors`, for a journal paper that merges the paper with another one and counts as its journal version (Fomin–Gaspers–Saurabh, ISAAC 2006 → Fomin–Gaspers–Saurabh–Stepanov, Algorithmica 2009; approved 18 November 2026), or for a preliminary version by a subset of the authors (Narayanaswamy–Raman–Ramanujan–Saurabh, STACS 2012, of Lokshtanov et al., TALG 2014). A paper's conference version, technical report and journal version are one paper entry, even when they are retitled.
@@ -155,7 +155,16 @@ source:
   note: null                          # e.g. "space bound from Lemma X.Y"
 ```
 
-or, for a classic result whose paper has **no open-access version** (decided 7 November 2026, definitions F7):
+Statements may cite any version we have read, open or closed (21 November 2026). A bound stated only in the abstract of a closed version (from the publisher's page, an index or Zotero metadata) may be cited as `{ statement: "Abstract" }` for that version; the note says the full text was not read, and the properties the abstract does not settle are conservative guesses marked `TODO(verify)` (decided 21 November 2026). A bound stated only in the title is cited as `{ statement: "Title" }` in the same way (titles are metadata; 22 November 2026). A closed-source result that Serge confirms without our reading it:
+
+```yaml
+source:
+  paper: some-closed-paper-YYYY
+  confirmed_by: { by: Serge Gaspers, date: YYYY-MM-DD }
+  note: "…"
+```
+
+or, for a classic result whose paper we **cannot read** (decided 7 November 2026, definitions F7):
 
 ```yaml
 source:
@@ -167,7 +176,7 @@ source:
   note: "Vertex Cover is one of Karp's 21 NP-complete problems."
 ```
 
-The validator accepts `attested_by` only when the paper has no open-access version, and counts distinct sites. A source needs `statements`, `attested_by`, or both.
+The validator accepts `attested_by` alone only when the paper has no open-access version, and counts distinct sites. A source needs `statements`, `attested_by` or `confirmed_by`.
 
 or, for an unpublished argument:
 
@@ -178,7 +187,7 @@ source:
   reference: { paper: some-textbook-YYYY, version: book, statement: "Section X.Y" }   # optional
 ```
 
-**Q4 (decided).** Every paper-sourced result must give a statement for **at least one open-access version** of the paper; other versions are optional. Only the label (and optionally the page) is stored, never the statement's text.
+**Q4 (decided, revised 21 November 2026).** Every paper-sourced result gives a statement for at least one version we have read, open or closed (or an attestation or confirmation, above); other versions are optional. External submissions must still point to an openly readable version. Only the label (and optionally the page) is stored, never the statement's text.
 
 ## 5. Algorithm
 
@@ -210,7 +219,7 @@ status_note: "…"                     # why the status is not valid (Phase 1)
 - `unverified: true` on a result (18 November 2026): its statement is in no peer-reviewed version of the paper, for example dropped from the journal version (Kociumaka–Pilipczuk's $O^*(3.592^k)$, arXiv v1 only). Such a result is treated like one from an unverified paper: tagged in Details, out of the Overview unless included.
 
 - The site never states a bound that is not in `as_stated`. The O* form and comparisons are computed.
-- `given: [tree-decomposition]` records that the input comes with a tree decomposition of width at most $\mathrm{tw}$, as is usual for results parameterized by treewidth. The result is stored as stated, and the site shows the note (decided 8 November 2026).
+- `given: [tree-decomposition]` records that the input comes with a tree decomposition of width at most $\mathrm{tw}$, as is usual for results parameterized by treewidth. The result is stored as stated, and the site shows the note (decided 8 November 2026). Since 21 November 2026 `given` may also list `path-decomposition`, `clique-width-expression`, `linear-arrangement`, `interval-ordering` and `deletion-set` (the modulator a deletion parameter measures); a bound projected to $n$, $m$ or $N$ drops these flags, since the trivial structure (one bag, one label per vertex, any order, all vertices) is computable.
 - `parameters` must match the variables in `as_stated`; the validator checks this once the bound parser exists.
 - Comparisons only ever use the single `randomized` tag (constant success probability). The optional error detail is for display only.
 
@@ -223,7 +232,7 @@ status_note: "…"                     # why the status is not valid (Phase 1)
 id: independent-set--to--vertex-cover
 from: { problem: independent-set, version: decision }
 to: { problem: vertex-cover, version: decision }
-type: polytime-deterministic          # polytime-deterministic | polytime-randomized | serf (owner decision)
+type: polytime-deterministic          # polytime-deterministic | polytime-randomized | serf | polytime-counting (counting versions only; rulebook §2a, 21 Nov 2026)
 calls: 1                              # 1 for many-one; an expression in A's parameters for Turing
 call_sizes: null                      # Turing only: paper's own analysis, if it exploits different sizes
 time: "O(n + m)"                      # the reduction's own running time

@@ -1,0 +1,24 @@
+id: feedback-vertex-set-in-tournaments--n--mnich-teutrine-2016
+problem: feedback-vertex-set-in-tournaments
+proved_for: optimisation
+bound:
+  as_stated: 'O(1.5949^{n})'
+  notation: O
+  parameters: [n]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Polynomial space, as stated (the listing has polynomial delay and polynomial space).'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: mnich-teutrine-2016
+  statements:
+    ipec: { statement: "Corollary 3" }
+    journal: { statement: "Corollary 1" }
+  note: 'Stated as: all minimal feedback vertex sets of an $n$-vertex tournament $T$ can be listed in time $M(T) \cdot n^{O(1)} = O(1.5949^n)$, with polynomial delay and in polynomial space, using Theorem 1 ($M(n) \le 1.5949^n$). A minimum feedback vertex set is a minimal one, so taking the smallest listed set solves the optimisation version within the same bound. Read from the IPEC 2016 version (LIPIcs, CC-BY; Corollary 3) and the PubMed Central copy of the journal version (Corollary 1).'
+formal: { status: informal }
+status: valid

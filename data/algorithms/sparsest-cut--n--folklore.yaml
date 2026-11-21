@@ -1,0 +1,17 @@
+id: sparsest-cut--n--folklore
+problem: sparsest-cut
+proved_for: weighted
+bound:
+  as_stated: '2^{n} N'
+  notation: O
+  parameters: [n, N]
+properties:
+  randomized: false
+  space: { class: polynomial, bound: 'One set $S$ at a time.' }
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  folklore: true
+  note: 'Try all $2^n$ sets $S$ with $1 \le |S| \le n/2$, add up the weights of the edges with exactly one endpoint in $S$ and keep the smallest ratio (brute force baseline).'

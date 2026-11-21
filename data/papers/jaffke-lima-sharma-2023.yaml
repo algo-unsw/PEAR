@@ -1,0 +1,12 @@
+id: jaffke-lima-sharma-2023
+title: "Structural Parameterizations of b-Coloring"
+authors: [Lars Jaffke, Paloma T. Lima, Roohani Sharma]
+identifiers: { dblp: "conf/isaac/JaffkeLS23" }
+versions:
+  conference:
+    kind: conference
+    venue: "ISAAC 2023, LIPIcs 283"
+    year: 2023
+    doi: "10.4230/LIPIcs.ISAAC.2023.40"
+    url: "https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.ISAAC.2023.40"
+    open_access: true

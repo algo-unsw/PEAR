@@ -1,0 +1,12 @@
+id: kutzkov-2012
+title: "An exact exponential time algorithm for counting bipartite cliques"
+authors: [Konstantin Kutzkov]
+identifiers: { dblp: journals/ipl/Kutzkov12, openalex: null }
+versions:
+  journal:
+    kind: journal
+    venue: "Information Processing Letters 112(13), pp. 535–539"
+    year: 2012
+    doi: "10.1016/j.ipl.2012.04.001"
+    url: "https://konstantinkutzkov.github.io/papers/bc.pdf"
+    open_access: true

@@ -1,0 +1,16 @@
+id: gaspers-szeider-2012-treewidth
+title: Strong Backdoors to Bounded Treewidth SAT
+authors: [Serge Gaspers, Stefan Szeider]
+identifiers: { dblp: conf/focs/GaspersS13, openalex: null }
+versions:
+  arxiv-v1:
+    kind: preprint
+    year: 2012
+    arxiv: "1204.6233v1"
+    open_access: true
+  focs:
+    kind: conference
+    venue: "54th IEEE Symposium on Foundations of Computer Science (FOCS 2013), pp. 489–498"
+    year: 2013
+    doi: "10.1109/FOCS.2013.59"
+    open_access: false

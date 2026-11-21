@@ -1,0 +1,23 @@
+id: graph-burning--dco--kobayashi-otachi-2020
+problem: graph-burning
+proved_for: decision
+bound:
+  as_stated: "f(dco) \\cdot n^{O(1)}"
+  notation: O
+  parameters: [dco, n]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: "Not stated; educated guess: $f(dco) n^{O(1)}$. The algorithm (Theorem 2.3) checks first-order formulas $\\varphi_I$ on each component by MSO$_1$ model checking on bounded clique-width (Courcelle, Makowsky and Rotics; Oum), a dynamic programming over a clique-width expression, then solves Disjoint Sets by colour coding."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: kobayashi-otachi-2020
+  statements:
+    arxiv-v2: { statement: "Corollary 2.6" }
+  note: "Corollary 2.6: \"Graph Burning is fixed-parameter tractable parameterized by distance to cographs.\" Section 2: a graph at distance at most $k$ from cographs has clique-width at most $2 \\cdot 2^k$ and components of diameter at most $k + 2$, so Theorem 2.3 applies; Theorem 2.3 gives time $g(d_{\\max} + \\mathrm{cw}) \\cdot n^{O(1)}$ for a computable $g$. Holds for possibly disconnected graphs (Section 1.2). No explicit function is given. Numbering read in the arXiv PDF (latest version, v2); not checked in the IPEC 2020 or Algorithmica 2022 versions."
+formal: { status: informal }
+status: valid

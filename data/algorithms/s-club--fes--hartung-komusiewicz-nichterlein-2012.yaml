@@ -1,0 +1,21 @@
+id: s-club--fes--hartung-komusiewicz-nichterlein-2012
+problem: s-club
+proved_for: decision-s-2
+bound:
+  as_stated: "O(11.1^{fes} fes^{3} + n^{2} m)"
+  notation: O
+  parameters: [fes, n, m]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: "Not stated; educated guess: polynomial. A kernel with at most $5 fes + 1$ vertices and $6 fes$ edges (Theorem 3), then the search tree algorithm; no tables."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: hartung-komusiewicz-nichterlein-2012
+  statements:
+    journal: { statement: "Corollary 2" }
+  note: "Corollary 2: \"2-Club parameterized by the feedback edge set size $k$ can be solved in $O(11.1^k \\cdot k^3 + n^2 m)$ time.\" A minimum feedback edge set is computable in linear time (spanning forest). Read in the open-access JGAA version (2015)."

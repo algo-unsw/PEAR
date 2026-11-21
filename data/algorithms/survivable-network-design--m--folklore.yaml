@@ -1,0 +1,21 @@
+id: survivable-network-design--m--folklore
+problem: survivable-network-design
+proved_for: weighted
+bound:
+  as_stated: '2^{m} n^{O(1)}'
+  notation: O
+  parameters:
+  - m
+  - n
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'One set $F$ at a time.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  folklore: true
+  note: 'Try all $2^m$ sets $F \subseteq E$; for each, check every demand with a maximum-flow computation (by Menger''s theorem the maximum number of edge-disjoint $s$–$t$ paths is the maximum flow with unit capacities), and keep the cheapest feasible set (brute force baseline).'

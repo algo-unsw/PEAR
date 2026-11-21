@@ -1,0 +1,25 @@
+id: hitting-set--n--fomin-gaspers-kratsch-liedloff-saurabh-2008-d-4
+problem: hitting-set
+proved_for: optimisation-d-4
+bound:
+  as_stated: 'O(1.8704^{n})'
+  notation: O
+  parameters:
+  - n
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Not stated; educated guess: exponential. Iterative compression (try all large subsets, then, for each subset of a compression set, call an algorithm for the rank-$(d-1)$ problem), built on Wahlström''s $O^*(1.6278^n)$ algorithm for Minimum 3-Hitting Set (Figure 1 of the MFCS version cites it), which uses exponential space; the compression itself stores no tables.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: fomin-gaspers-kratsch-liedloff-saurabh-2008
+  statements:
+    mfcs:
+      statement: 'Corollary 2; Figure 1 (row 4, column MHS_k)'
+    journal:
+      statement: 'Corollary 10'
+  note: 'Stated as "MHS$_4$ can be solved in time $O(1.8704^n)$" (Minimum Hitting Set in hypergraphs of rank 4). The base matches the compression bound $\max_{2n/3 \le j \le n} \binom{j}{2j-n} a_3^{n-j}$ of the MFCS Theorem 2 (stated for counting) with Wahlström''s $a_3 = 1.6278$ (our arithmetic: $1.87033$). Beaten by Fomin, Gaspers, Lokshtanov and Saurabh''s $1.6750^n$ (Monotone Local Search).'

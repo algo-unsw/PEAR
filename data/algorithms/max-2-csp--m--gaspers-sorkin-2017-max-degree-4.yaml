@@ -1,0 +1,24 @@
+id: max-2-csp--m--gaspers-sorkin-2017-max-degree-4
+problem: max-2-csp
+proved_for: optimisation-max-degree-4
+bound:
+  as_stated: 'r^{7m/40 + o(m)}'
+  notation: O
+  parameters:
+  - r
+  - m
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Polynomial space, as stated.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: gaspers-sorkin-2017
+  statements:
+    arxiv-v2:
+      statement: 'Theorem 3.1'
+  note: 'Theorem 3.1: the algorithm solves a Max 2-CSP instance on a constraint graph with $m$ edges in time $r^{7m/40+o(m)}$ if the graph has maximum degree 4, using polynomial space (the cubic case $r^{n/5+o(n)} = r^{2m/15+o(m)}$ is stated for cubic graphs only and not entered). The maximum-degree-4 bound comes from the cubic algorithm through Theorem 22 of Scott and Sorkin (Section 3). Scores are real numbers in the paper; integer scores are a special case. arXiv v2, 17 November 2017 (read: LaTeX source); ICALP 2015; ACM TALG 2017.'

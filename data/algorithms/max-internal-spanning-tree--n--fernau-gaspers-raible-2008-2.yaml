@@ -1,0 +1,20 @@
+id: max-internal-spanning-tree--n--fernau-gaspers-raible-2008-2
+problem: max-internal-spanning-tree
+proved_for: optimisation
+bound:
+  as_stated: 'O^*(3^{n})'
+  notation: O*
+  parameters: [n]
+properties:
+  randomized: false
+  space: { class: exponential, bound: '$O^*(2^n)$ space, as stated in Theorem 1 of the Algorithmica version (dynamic programming over pairs of disjoint vertex sets $(I, L)$, in stages).' }
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: fernau-gaspers-raible-2008
+  statements:
+    arxiv-v3: { statement: "Lemma 1" }
+    journal-author-copy: { statement: "Theorem 1" }
+  note: 'Dynamic programming over a table $M[I, L]$ indexed by disjoint sets of internal vertices and leaves of a subtree (at most $3^n$ entries). The Algorithmica version (Theorem 1) states time $O^*(3^n)$ and space $O^*(2^n)$; arXiv v3 states time only.'

@@ -1,0 +1,24 @@
+id: bourgeois-giannakos-lucarelli-2012
+title: "Exact and approximation algorithms for densest k-subgraph"
+authors: [Nicolas Bourgeois, Aristotelis Giannakos, Giorgio Lucarelli, Ioannis Milis, Vangelis Th. Paschos]
+identifiers: { dblp: conf/walcom/BourgeoisGLMP13 }
+versions:
+  cahier:
+    kind: technical-report
+    venue: "Cahier du LAMSADE 324, Université Paris-Dauphine"
+    year: 2012
+    url: "https://www.lamsade.dauphine.fr/CahiersLAMSADE/cahier_324.pdf"
+    open_access: true
+  walcom:
+    kind: conference
+    venue: "WALCOM: Algorithms and Computation, 7th International Workshop (WALCOM 2013), LNCS 7748, pp. 114–125"
+    year: 2013
+    doi: "10.1007/978-3-642-36065-7_12"
+    open_access: false
+  journal:
+    kind: journal
+    title: "Exact and superpolynomial approximation algorithms for the densest k-subgraph problem"
+    venue: "European Journal of Operational Research 262(3), pp. 894–903"
+    year: 2017
+    doi: "10.1016/j.ejor.2017.04.034"
+    open_access: false

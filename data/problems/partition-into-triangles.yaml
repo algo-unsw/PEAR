@@ -1,0 +1,45 @@
+id: partition-into-triangles
+name: Partition into Triangles
+aliases: [Triangle Partition, Partition Into Triangles, K3-Factor, Triangle Factor, Perfect Triangle Packing, PIT]
+category: graph
+complexity:
+  class: NP-complete
+  source:
+    paper: van-rooij-van-kooten-niekerk-bodlaender-2010
+    statements:
+      techreport: { statement: "Theorem 3" }
+    note: "Theorem 3 of the technical report: 'Partition Into Triangles on graphs of maximum degree four is NP-complete', hence NP-complete in general (membership in NP is immediate). The general problem is Garey and Johnson's GT11 (as cited for Triangle Packing and Cycle Packing in PEAR). TODO(verify): Wikipedia's choice of source (Wikipedia was not fetched)."
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  tw: { shared: treewidth }
+  ctw: { shared: cutwidth }
+constraints:
+  - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
+  - { constraint: "tw \\le n", because: "A single bag containing all vertices is a tree decomposition of width $n - 1$." }
+  - { constraint: "tw \\le ctw", because: "Cutwidth upper-bounds pathwidth, hence treewidth (Bojikian, Chekan and Kratsch, arXiv 2502.15884, Section 1)." }
+versions:
+  decision:
+    kind: decision
+    input: "A graph $G = (V, E)$."
+    question: "Can $V$ be partitioned into sets $V_1, \\dots, V_{n/3}$ of three vertices each such that every $G[V_i]$ is a triangle?"
+    generalises: [decision-max-degree-4]
+  search:
+    kind: search
+    input: "A graph $G = (V, E)$."
+    goal: "Find a partition of $V$ into sets $V_1, \\dots, V_{n/3}$ of three vertices each such that every $G[V_i]$ is a triangle, or report that none exists."
+  decision-max-degree-4:
+    kind: decision
+    input: "A graph $G = (V, E)$ of maximum degree at most $4$."
+    question: "Can $V$ be partitioned into sets $V_1, \\dots, V_{n/3}$ of three vertices each such that every $G[V_i]$ is a triangle?"
+default_version: decision
+shared_bounds:
+  - versions: [decision, search]
+    because: "Self-reducibility: delete an edge and test again; keep it deleted whenever the answer stays yes."
+related:
+  - { problem: triangle-packing, relation: special-case }
+  - { problem: exact-cover, relation: special-case }
+  - { problem: cycle-packing, relation: special-case }
+review: { approved_by: null, date: null }

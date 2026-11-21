@@ -1,0 +1,22 @@
+id: tournament-fixing--k--wang-peng-liu-2026-deterministic
+problem: tournament-fixing
+proved_for: decision
+bound:
+  as_stated: "(2 \\mathrm{e})^{k 2^{k} - k + o(k 2^{k} - k)} n^{O(1)}"
+  notation: O
+  parameters: [k, n]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: "Not stated; educated guess: polynomial. The random colouring is replaced by enumerating a family of $e^{t + o(t)} \\log n$ colourings (Naor, Schulman and Srinivasan), which can be generated one at a time; the rest is as in the randomized version (Lemma 1's routine uses polynomial space)."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+uses: [tournament-fixing--n--gupta-roy-saurabh-2018-bribery]
+source:
+  paper: wang-peng-liu-2026
+  statements:
+    arxiv-v1: { statement: "Text after Lemma 7 (derandomization), giving Theorem 3" }
+  note: "After Lemma 7: \"To derandomize the algorithm, we only need to derandomize the coloring step, which can be done in a standard way (Naor, Schulman, and Srinivasan 1995)\", by enumerating a family of $e^{t+o(t)} \\log n$ colourings, for a deterministic $(2e)^{t + o(t)} n^{O(1)}$ bound, with $t = k 2^{k} - k$ substituted here. Stated in prose, not as a numbered result. Read in arXiv:2601.08530 (PDF only), 21 November 2026."

@@ -1,0 +1,75 @@
+id: k-path-vertex-cover
+name: k-Path Vertex Cover
+aliases: [d-Path Vertex Cover, k-PVC, d-PVC, Path Vertex Cover]
+category: graph
+complexity:
+  class: NP-complete
+  source:
+    paper: bresar-et-al-2010
+    statements:
+      arxiv: { statement: "Section 2, the theorem labelled th:np: \"For any fixed integer $k\\ge 2$ the $k$-Path Vertex Cover Problem is NP-complete.\"" }
+    note: "NP-complete for every fixed path order ($d \\ge 2$ here; the paper writes $k$ for the path order and $t$ for the solution size), by a reduction from Vertex Cover that attaches a path on $\\lfloor (d-1)/2 \\rfloor$ new vertices to every vertex. No Wikipedia article was found; this is the paper that introduced the problem (as Červený and Suchý, arXiv 2111.05896, Section 1, say), and they note NP-completeness also follows from Lewis and Yannakakis (1980)."
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  k: { meaning: "the solution size: the integer $k$ in the input (decision, search), or the minimum size of a set meeting every path on $d$ vertices (optimisation)" }
+  d: { meaning: "the path order $d$ in the input: the number of vertices of the paths to be hit (the $k$ of the name \"$k$-Path Vertex Cover\")" }
+constraints:
+  - { constraint: "k \\le n", because: "Every instance with $k \\ge n$ is a yes-instance ($S = V$), answered in polynomial time." }
+  - { constraint: "d \\le n", because: "Every instance with $d > n$ is a yes-instance ($S = \\emptyset$), answered in polynomial time." }
+  - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
+versions:
+  decision:
+    kind: decision
+    input: "A graph $G = (V, E)$ and integers $d \\ge 2$ and $k$."
+    question: "Is there a set $S \\subseteq V$ with $|S| \\le k$ such that $G - S$ contains no path on $d$ vertices as a subgraph?"
+    generalises: [decision-d-3, decision-d-4, decision-d-5, decision-d-6, decision-d-7, decision-d-8]
+  optimisation:
+    kind: optimisation
+    input: "A graph $G = (V, E)$ and an integer $d \\ge 2$."
+    goal: "Find the minimum size of a set $S \\subseteq V$ such that $G - S$ contains no path on $d$ vertices as a subgraph."
+    generalises: [optimisation-d-3]
+  search:
+    kind: search
+    input: "A graph $G = (V, E)$ and integers $d \\ge 2$ and $k$."
+    goal: "Find a set $S \\subseteq V$ with $|S| \\le k$ such that $G - S$ contains no path on $d$ vertices as a subgraph, or report that none exists."
+  decision-d-3:
+    kind: decision
+    input: "A graph $G = (V, E)$, the integer $d = 3$ and an integer $k$."
+    question: "Is there a set $S \\subseteq V$ with $|S| \\le k$ such that $G - S$ contains no path on $d$ vertices as a subgraph?"
+  decision-d-4:
+    kind: decision
+    input: "A graph $G = (V, E)$, the integer $d = 4$ and an integer $k$."
+    question: "Is there a set $S \\subseteq V$ with $|S| \\le k$ such that $G - S$ contains no path on $d$ vertices as a subgraph?"
+  decision-d-5:
+    kind: decision
+    input: "A graph $G = (V, E)$, the integer $d = 5$ and an integer $k$."
+    question: "Is there a set $S \\subseteq V$ with $|S| \\le k$ such that $G - S$ contains no path on $d$ vertices as a subgraph?"
+  decision-d-6:
+    kind: decision
+    input: "A graph $G = (V, E)$, the integer $d = 6$ and an integer $k$."
+    question: "Is there a set $S \\subseteq V$ with $|S| \\le k$ such that $G - S$ contains no path on $d$ vertices as a subgraph?"
+  decision-d-7:
+    kind: decision
+    input: "A graph $G = (V, E)$, the integer $d = 7$ and an integer $k$."
+    question: "Is there a set $S \\subseteq V$ with $|S| \\le k$ such that $G - S$ contains no path on $d$ vertices as a subgraph?"
+  decision-d-8:
+    kind: decision
+    input: "A graph $G = (V, E)$, the integer $d = 8$ and an integer $k$."
+    question: "Is there a set $S \\subseteq V$ with $|S| \\le k$ such that $G - S$ contains no path on $d$ vertices as a subgraph?"
+  optimisation-d-3:
+    kind: optimisation
+    input: "A graph $G = (V, E)$ and the integer $d = 3$."
+    goal: "Find the minimum size of a set $S \\subseteq V$ such that $G - S$ contains no path on $d$ vertices as a subgraph."
+default_version: decision
+shared_bounds:
+  - versions: [decision, optimisation, search]
+    because: "Binary search on $k$ and self-reducibility."
+  - versions: [decision-d-3, optimisation-d-3]
+    because: "Binary search on $k$."
+related:
+  - { problem: vertex-cover, relation: variant }
+  - { problem: bounded-degree-vertex-deletion, relation: variant }
+  - { problem: hitting-set, relation: generalisation }

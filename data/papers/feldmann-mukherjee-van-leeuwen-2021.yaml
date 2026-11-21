@@ -1,0 +1,23 @@
+id: feldmann-mukherjee-van-leeuwen-2021
+title: "The Parameterized Complexity of the Survivable Network Design Problem"
+authors: [Andreas Emil Feldmann, Anish Mukherjee, Erik Jan van Leeuwen]
+identifiers: { dblp: "journals/jcss/FeldmannML25" }
+versions:
+  arxiv-v3:
+    kind: preprint
+    arxiv: "2111.02295v3"
+    year: 2022
+    open_access: true
+  conference:
+    kind: conference
+    venue: "5th Symposium on Simplicity in Algorithms (SOSA 2022), SIAM, pp. 37–56"
+    year: 2022
+    doi: "10.1137/1.9781611977066.4"
+    open_access: false
+  journal:
+    kind: journal
+    title: "The parameterized complexity of the survivable network design problem"
+    venue: "Journal of Computer and System Sciences 148, Article 103604"
+    year: 2025
+    doi: "10.1016/j.jcss.2024.103604"
+    open_access: false

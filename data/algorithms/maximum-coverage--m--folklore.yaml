@@ -1,0 +1,21 @@
+id: maximum-coverage--m--folklore
+problem: maximum-coverage
+proved_for: search
+bound:
+  as_stated: 'O^*(2^{m})'
+  notation: O*
+  parameters: [m]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Polynomial space: one subfamily at a time.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  folklore: true
+  note: 'Try all $2^m$ subfamilies of at most $k$ sets and count the elements each covers.'
+formal: { status: informal }
+status: valid

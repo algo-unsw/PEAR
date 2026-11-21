@@ -1,0 +1,21 @@
+id: sharp-set-cover--n-m--fomin-gaspers-saurabh-2006
+problem: sharp-set-cover
+proved_for: weighted
+bound:
+  as_stated: "1.2464^{m + n}"
+  notation: O
+  parameters: [m, n]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: "Stated in the proof of Theorem 4: the dynamic programming part uses space $O(1.2464^{|U| + |S|})$."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: false
+  quantum: false
+source:
+  paper: fomin-gaspers-saurabh-2006
+  statements:
+    journal-author-copy: { statement: "Theorem 4" }
+  note: "Weights $\\ge 1$ only: #MWSC (Section 5.1) has a collection $S$ of non-empty subsets of $U$ with weights $w \\colon S \\to \\mathbb{R}^+$ and counts all set covers of minimum weight, so here the bound holds for integer weights $\\ge 1$; PEAR's weighted version also allows weight 0, which the theorem does not cover (entered with this restriction, as decided by Serge Gaspers, 21 November 2026). Theorem 4: \"Algorithm countMWSC solves #MWSC in time $O(1.2464^{|S|+|U|})$\", with $|S| = m$ sets and $|U| = n$ elements; it outputs the minimum weight and the number of set covers of that weight (Figure 2). It branches and runs a dynamic program over a path decomposition (Lemma 6). Only the Algorithmica version is entered (decided by Serge Gaspers, 21 November 2026)."

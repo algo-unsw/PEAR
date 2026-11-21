@@ -1,0 +1,37 @@
+id: fomin-lokshtanov-panolan-2013
+title: "Efficient Computation of Representative Families with Applications in Parameterized and Exact Algorithms"
+authors: [Fedor V. Fomin, Daniel Lokshtanov, Fahad Panolan, Saket Saurabh]
+identifiers: { dblp: "journals/jacm/FominLPS16" }
+versions:
+  arxiv-v1:
+    kind: preprint
+    title: "Efficient Computation of Representative Sets with Applications in Parameterized and Exact Algorithms"
+    authors: [Fedor V. Fomin, Daniel Lokshtanov, Saket Saurabh]
+    arxiv: "1304.4626v1"
+    year: 2013
+    open_access: true
+  arxiv-v2:
+    kind: preprint
+    title: "Efficient Computation of Representative Sets with Applications in Parameterized and Exact Algorithms"
+    arxiv: "1304.4626v2"
+    year: 2013
+    open_access: true
+  soda:
+    kind: conference
+    title: "Efficient Computation of Representative Sets with Applications in Parameterized and Exact Algorithms"
+    authors: [Fedor V. Fomin, Daniel Lokshtanov, Saket Saurabh]
+    venue: "25th Annual ACM-SIAM Symposium on Discrete Algorithms (SODA 2014)"
+    year: 2014
+    open_access: false
+  journal:
+    kind: journal
+    venue: "Journal of the ACM 63(4), Article 29"
+    year: 2016
+    doi: "10.1145/2886094"
+    open_access: false
+  journal-author-copy:
+    kind: preprint
+    venue: "Author copy of the Journal of the ACM article (Fedor Fomin's page, University of Bergen)"
+    year: 2016
+    url: "https://folk.uib.no/nmiff/articles/2016/2016b.pdf"
+    open_access: true

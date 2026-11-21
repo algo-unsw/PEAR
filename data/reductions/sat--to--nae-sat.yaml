@@ -1,0 +1,10 @@
+id: sat--to--nae-sat
+from: { problem: sat, version: decision }
+to: { problem: nae-sat, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(N)"
+parameter_map: { n: "n + 1", m: "m", L: "L + m", tw_p: "tw_p + 1" }
+source:
+  folklore: true
+  note: "Add one new variable $z$ to every clause. If an assignment satisfies $\\varphi$, extending it by $z$ false gives every new clause a true and a false literal. Conversely, the complement of an NAE-satisfying assignment is NAE-satisfying, so some NAE-satisfying assignment has $z$ false, and it satisfies every original clause. In the primal graph $z$ is adjacent to every variable, so adding $z$ to every bag of a tree decomposition gives one of width $\\mathrm{tw}_p + 1$."

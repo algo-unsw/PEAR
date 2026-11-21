@@ -1,0 +1,24 @@
+id: survivable-network-design--k--feldmann-mukherjee-van-leeuwen-2021
+problem: survivable-network-design
+proved_for: weighted
+bound:
+  as_stated: '2^{O(k \log k)} n^{O(1)}'
+  notation: O
+  parameters:
+  - k
+  - n
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Not stated; educated guess: exponential. Each colour class is solved as a Steiner Tree instance with the Dreyfus–Wagner dynamic programming over subsets of terminals (at most $2k$ terminals), which keeps a table entry for every subset of terminals and vertex.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: feldmann-mukherjee-van-leeuwen-2021
+  statements:
+    arxiv-v3:
+      statement: 'Theorem 1 (Section 1), proved in Section 2.1'
+  note: 'Theorem 1: EC-SNDP and LC-SNDP can be solved in $2^{O(\ell \log \ell)} n^{O(1)}$ time, where $\ell$ is the number of edges of the solution. The proof (Section 2.1) shows that a minimal EC-SNDP solution is a union of edge-disjoint trees whose leaves are terminals (lemma labelled lem:tree-partition2), colours edges and terminals at random and solves one Steiner Tree instance per colour; it states that the colour coding can be derandomized to compute the optimum deterministically in the same time. Costs are nonnegative reals in the paper. arXiv v3 corrects the SOSA version, whose route to EC-SNDP through LC-SNDP may blow the parameter up quadratically (footnote in Section 2.1). The Open problems section restates the time as $2^{O(\ell)} n^{O(1)}$; stored as Theorem 1 states it. With unit costs, $\ell$ is the minimum number of edges of a solution.'

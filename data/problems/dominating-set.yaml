@@ -27,6 +27,7 @@ versions:
     kind: decision
     input: "A graph $G = (V, E)$ and an integer $k$."
     question: "Is there a set $S \\subseteq V$ with $|S| \\le k$ such that every vertex is in $S$ or has a neighbour in $S$?"
+    generalises: [decision-max-degree-3]
   optimisation:
     kind: optimisation
     input: "A graph $G = (V, E)$."
@@ -39,14 +40,31 @@ versions:
     kind: optimisation
     input: "A graph $G = (V, E)$ and vertex weights $w \\colon V \\to \\mathbb{Z}_{\\ge 0}$."
     goal: "Find the minimum weight $\\sum_{v \\in S} w(v)$ of a set $S \\subseteq V$ such that every vertex is in $S$ or has a neighbour in $S$."
-    generalises: [optimisation]
+    generalises: [optimisation, weighted-max-degree-3]
+  decision-max-degree-3:
+    kind: decision
+    input: "A graph $G = (V, E)$ of maximum degree at most $3$ and an integer $k$."
+    question: "Is there a set $S \\subseteq V$ with $|S| \\le k$ such that every vertex is in $S$ or has a neighbour in $S$?"
+  optimisation-max-degree-3:
+    kind: optimisation
+    input: "A graph $G = (V, E)$ of maximum degree at most $3$."
+    goal: "Find the minimum size of a set $S \\subseteq V$ such that every vertex is in $S$ or has a neighbour in $S$."
+  weighted-max-degree-3:
+    kind: optimisation
+    input: "A graph $G = (V, E)$ of maximum degree at most $3$ and vertex weights $w \\colon V \\to \\mathbb{Z}_{\\ge 0}$."
+    goal: "Find the minimum weight $\\sum_{v \\in S} w(v)$ of a set $S \\subseteq V$ such that every vertex is in $S$ or has a neighbour in $S$."
+    generalises: [optimisation-max-degree-3]
 default_version: decision
 shared_bounds:
   - versions: [decision, optimisation, search]
     because: "Binary search on $k$ and self-reducibility."
+  - versions: [decision-max-degree-3, optimisation-max-degree-3]
+    because: "Binary search on $k$."
 related:
   - { problem: set-cover, relation: generalisation }
   - { problem: connected-dominating-set, relation: variant }
+  - { problem: domatic-number, relation: variant }
+  - { problem: sharp-dominating-set, relation: counting }
 implementations:
   as_of: 2026-11-11
   ranked: [uzl-pace-2025, bad-dominating-set-maker]

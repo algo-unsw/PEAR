@@ -1,0 +1,21 @@
+id: bipartite-dimension--k--nor-et-al-2010
+problem: bipartite-dimension
+proved_for: decision-bipartite
+bound:
+  as_stated: "O(2^{k 2^{k - 1} + 3k} + n^{3})"
+  notation: O
+  parameters: [k, n]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: "Not stated. The algorithm kernelizes to at most $2^k$ vertices (Fleischner et al.), lists all inclusion-wise maximal bicliques of the kernel (up to $2^{2^{k-1}}$) and tries all $k$-subsets of that list; storing the list takes space exponential in $k$ (guess)."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: nor-et-al-2010
+  statements:
+    arxiv: { statement: "Theorem 4 (Section 4.3)" }
+  note: "Stated as $O(f(k) + n^3)$ with $f(k) := 2^{k2^{k-1}+3k}$, for Bipartite Biclique Edge Cover (bipartite input graphs; Definition 4). Statement number from the current arXiv version (1002.1292). The paper notes that the bound $O(2^{2k^2+3k})$ stated by Fleischner et al. (TCS 2009) for their brute-force step is inaccurate; Chandran, Issac and Karrenbauer (IPEC 2016) also cite this result as the best known."

@@ -1,0 +1,17 @@
+id: foucaud-majumder-momke-2025
+title: "Polynomial-time algorithms for Path Cover and Path Partition on trees and graphs of bounded treewidth"
+authors: [Florent Foucaud, Atrayee Majumder, Tobias Mömke, Aida Roshany-Tabrizi]
+identifiers: { dblp: "journals/corr/abs-2511-07160", openalex: null }
+versions:
+  caldam:
+    kind: conference
+    title: "Polynomial-Time Algorithms for Path Cover on Trees and Graphs of Bounded Treewidth"
+    venue: "Algorithms and Discrete Applied Mathematics, 11th International Conference (CALDAM 2025), LNCS 15536, pp. 147–159"
+    year: 2025
+    doi: "10.1007/978-3-031-83438-7_13"
+    open_access: false
+  arxiv-v1:
+    kind: preprint
+    year: 2025
+    arxiv: "2511.07160v1"
+    open_access: true

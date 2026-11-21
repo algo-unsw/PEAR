@@ -631,3 +631,84 @@ def test_exact_shape():
     pseudo = Context(frozenset({"t"}))
     assert exact_shape(parse_bound(r"O(\sqrt{n} t \log^{5/2} t)", s), pseudo)
     assert not exact_shape(parse_bound(r"O(2^{n/2} t)", s), pseudo)
+
+
+def test_euler_number():
+    # 21 November 2026: \mathrm{e} is Euler's number (Tournament Fixing by in-degree,
+    # (2e)^{k 2^k - k} n^{O(1)}); a plain e stays free as a variable name
+    import math
+
+    from pear.bounds.compare import Context
+    from pear.bounds.display import ostar_tex
+    from pear.bounds.numeric import value
+
+    b = parse_bound(r"(2 \mathrm{e})^{k 2^{k} - k} n^{O(1)}", {"k", "n"})
+    assert ostar_tex(b, Context()) == r"O^*((2 \mathrm{e})^{k \cdot 2^{k} - k})"
+    assert abs(value(parse_bound(r"\mathrm{e}^{k}", {"k"}).expr, {"k": 1.0}) - math.e) < 1e-12
+
+
+def test_absorbed_into_little_o_and_big_o():
+    # 21 November 2026: f + h + o(g) = f + o(g) for h = o(g) (one variable), and
+    # f + h + O(g) = f + O(g) for h = O(g); a - b = Θ(a) inside o(·) when b = o(a)
+    from pear.bounds.compare import Context
+    from pear.bounds.display import ostar_tex
+    from pear.bounds.expr import Bound, parse_expr
+
+    syms = frozenset({"k", "n"})
+
+    def shown(s):
+        return ostar_tex(Bound("O", parse_expr(s, syms)), Context())
+
+    assert shown("(2 \\mathrm{e})^{k 2^{k} - k + o(k 2^{k} - k)} n^{O(1)}") == \
+        "O^*((2 \\mathrm{e})^{k \\cdot 2^{k} + o(k \\cdot 2^{k})})"
+    # without o(·) the subtracted k matters under O*
+    assert shown("(2 \\mathrm{e})^{k 2^{k} - k} n^{O(1)}") == "O^*((2 \\mathrm{e})^{k \\cdot 2^{k} - k})"
+    assert shown("2^{n + O(n)}") == "O^*(2^{O(n)})"
+    # n is not o(n); and with two variables n is not o(n k)
+    assert shown("4^{n + o(n)}") == "O^*(4^{n + o(n)})"
+    assert shown("2^{n k - n + o(n k)}") == "O^*(2^{n k - n + o(n k)})"
+
+
+def test_comparator_xp_exponents_and_added_polynomials():
+    from fractions import Fraction
+
+    # 21 November 2026 (approved): n^{c(n-k)} pairs for k <= n, O* forms with polynomial
+    # factors dropped first, and equal exponents over bases that compare pointwise
+    from pear.bounds.compare import Context, Relation, compare
+    from pear.bounds.expr import parse_bound
+
+    syms = frozenset({"n", "m", "k", "d"})
+    ctx = Context(le={("k", "n"): Fraction(1)}, constants={"omega": (2.25, 2.371339)})
+    a = parse_bound(r"O^*(n^{\omega (n - k)/3})", syms)
+    b = parse_bound(r"O^*(n^{n - k})", syms)
+    assert compare(a, b, ctx) == Relation.BETTER
+    a2 = parse_bound(r"O(m + n^{2} + n^{2} n^{\omega (n - k)/3})", syms)
+    b2 = parse_bound(r"O(m + n^{2} + n^{n - k} (n - k)^{2})", syms)
+    assert compare(a2, b2, ctx) == Relation.BETTER
+    c = parse_bound(r"O^*((d + 1)^{k})", syms)
+    e = parse_bound(r"O((d + 2)^{k} + n (k + d))", syms)
+    assert compare(c, e, Context()) == Relation.BETTER
+    # still incomparable: different parameters
+    assert compare(parse_bound(r"O(n^{n-k} (n-k)^{2})", syms), parse_bound(r"O(2^{n})", syms), ctx) == Relation.INCOMPARABLE
+
+
+def test_comparator_big_o_through_linear_constraints():
+    # 21 November 2026: with p <= 2k (a constant factor, so not in `le`), an O(p) exponent
+    # compares through O(k): Steiner Forest's 2^{O(p)} beats 2^{O(k log k)}, never 3^k or 2^k
+    from pear.bounds.compare import Relation, build_context, compare_ostar, analyse
+    from pear.bounds import ostar
+    from pear.bounds.expr import parse_bound
+
+    syms = frozenset({"n", "k", "p", "t"})
+    ctx = build_context(syms, [r"p \le 2k", r"k \le n", r"p \le n"])
+
+    def rel(a, b, c=ctx):
+        return compare_ostar(analyse(ostar(parse_bound(a, syms), c)), analyse(ostar(parse_bound(b, syms), c)), c)
+
+    slow = r"2^{O(k \log k)} n^{O(1)}"
+    assert rel(r"2^{O(p)} n^{O(1)}", slow) == Relation.BETTER
+    assert rel(slow, r"2^{O(p)} n^{O(1)}") == Relation.WORSE
+    assert rel(r"2^{O(p)} n^{O(1)}", r"3^{k} n^{O(1)}") == Relation.INCOMPARABLE
+    assert rel(r"2^{O(p)} n^{O(1)}", r"2^{k} n^{O(1)}") == Relation.INCOMPARABLE
+    ctx2 = build_context(syms, [r"t \le k + 1", r"k \le n"])
+    assert rel(r"2^{O(t)} n^{O(1)}", slow, ctx2) == Relation.BETTER

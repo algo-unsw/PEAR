@@ -1,0 +1,21 @@
+id: grundy-coloring--n--bonnet-foucaud-kim-2014
+problem: grundy-coloring
+proved_for: optimisation
+bound:
+  as_stated: "O^*(2.4423^{n})"
+  notation: O*
+  parameters: [n]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: "Not stated; educated guess: $O^*(2^n)$. Dynamic programming over subsets: a table $\\Gamma^*(S)$ for every $S \\subseteq V$, filled bottom-up by enumerating the maximal independent sets of $G[S]$ (Moon–Moser)."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: bonnet-foucaud-kim-2014
+  statements:
+    arxiv-v3: { statement: "Theorem labelled thm:exact (Section 3.1, \"Exact algorithms\")" }
+  note: "The theorem states $O^*(2.4423^n)$; the abstract rounds it to $O^*(2.443^n)$. The dynamic programme computes $\\Gamma(G[S])$ for all $S \\subseteq V$ by $\\Gamma^*(S) = \\max\\{\\Gamma^*(S \\setminus X) + 1\\}$ over the independent dominating (that is, maximal independent) sets $X$ of $G[S]$, which gives $\\sum_i \\binom{n}{i} 1.4423^i = 2.4423^n$. Read in the arXiv LaTeX source (latest version, v3)."

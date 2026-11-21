@@ -1,0 +1,21 @@
+id: grundy-coloring--pw--belmonte-kim-lampis-2020
+problem: grundy-coloring
+proved_for: decision
+bound:
+  as_stated: "O^*(2^{O(pw^{2})})"
+  notation: O*
+  parameters: [pw]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: "Not stated; educated guess: $2^{O(pw^2)} n^{O(1)}$. The algorithm is Telle and Proskurowski's dynamic programming over a tree decomposition, with tables indexed by colourings of a bag."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: belmonte-kim-lampis-2020
+  statements:
+    arxiv: { statement: "Theorem labelled thm:pw (Section 4, \"FPT for pathwidth\")" }
+  note: "Combines Telle and Proskurowski's $O^*(2^{O(tw \\cdot \\Gamma(G))})$ algorithm (SIAM J. Discrete Math. 1997, used as a black box) with Dujmović, Joret and Wood's bound $\\Gamma(G) \\le 8(pw(G) + 1)$. The same paper shows W[1]-hardness parameterized by treewidth and NP-hardness for clique-width 8. Read in the arXiv LaTeX source."

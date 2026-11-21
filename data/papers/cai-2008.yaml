@@ -1,0 +1,11 @@
+id: cai-2008
+title: "Parameterized Complexity of Cardinality Constrained Optimization Problems"
+authors: [Leizhen Cai]
+identifiers: { dblp: journals/cj/Cai08 }
+versions:
+  journal:
+    kind: journal
+    venue: "The Computer Journal 51(1), pp. 102–121"
+    year: 2008
+    doi: "10.1093/comjnl/bxm086"
+    open_access: false

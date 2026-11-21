@@ -1,0 +1,31 @@
+id: sharp-4-coloring
+name: "#4-Coloring"
+aliases: ["#4-Colouring", "#4-COL", "Counting 4-Colorings", "Counting 4-Colourings"]
+category: graph
+complexity:
+  class: "#P-complete"
+  source:
+    paper: jaeger-vertigan-welsh-1990
+    attested_by:
+      - "https://en.wikipedia.org/wiki/Graph_coloring"
+      - "https://arxiv.org/pdf/2211.13790"
+      - "https://algorithms.leeds.ac.uk/wp-content/uploads/sites/117/2017/09/dg00b.pdf"
+    note: "As on Wikipedia (Graph coloring), which cites Jaeger, Vertigan and Welsh (1990): evaluating the chromatic polynomial $P(G, k)$ is #P-hard at every rational point except $k = 1$ and $k = 2$, and $P(G, 4)$ is the number of 4-colourings. De Boer et al. (arXiv:2211.13790, Section 1) state the same result (#P-hard except at $q = 0, 1, 2$); Dyer and Greenhill (The complexity of counting graph homomorphisms, Section 1) give the easy reduction from counting 3-colourings to counting $q$-colourings for every $q \\ge 4$, and their dichotomy (Theorem 1.1) covers $H = K_4$. Membership in #P is immediate."
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  pw: { shared: pathwidth }
+constraints:
+  - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
+  - { constraint: "pw \\le n", because: "A single bag containing all vertices is a path decomposition of width $n - 1$." }
+versions:
+  counting:
+    kind: counting
+    input: "A graph $G = (V, E)$."
+    goal: "Find the number of maps $c \\colon V \\to \\{1, 2, 3, 4\\}$ such that $c(u) \\ne c(v)$ for every edge $uv$."
+default_version: counting
+related:
+  - { problem: 4-coloring, relation: counting }
+  - { problem: sharp-3-coloring, relation: variant }

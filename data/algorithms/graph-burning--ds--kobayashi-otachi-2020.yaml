@@ -1,0 +1,23 @@
+id: graph-burning--ds--kobayashi-otachi-2020
+problem: graph-burning
+proved_for: decision
+bound:
+  as_stated: "f(ds) \\cdot n^{O(1)}"
+  notation: O
+  parameters: [ds, n]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: "Not stated; educated guess: $f(ds) n^{O(1)}$. After guessing the positions of the deletion-set vertices, the proof solves a Set Cover instance whose universe has size bounded in $ds$ with the algorithm of Fomin, Kratsch and Woeginger (Lemma 2), a dynamic programming over subsets of the universe."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: kobayashi-otachi-2020
+  statements:
+    arxiv-v2: { statement: "Theorem 2.7" }
+  note: "Theorem 2.7: \"Graph Burning is fixed-parameter tractable parameterized by distance to split graphs.\" A minimum split-deletion set is found in $5^{d} n^{O(1)}$ time by branching on the forbidden induced subgraphs $2K_2$, $C_4$, $C_5$, so it need not be given. The proof bounds the guesses by $(s + 3 \\cdot 2^s)^{s + 3 \\cdot 2^s + 3} \\cdot O(n^3)$ for $s = ds$, then solves Set Cover parameterized by the universe size; no explicit function is stated. Numbering read in the arXiv PDF (latest version, v2)."
+formal: { status: informal }
+status: valid

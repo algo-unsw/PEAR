@@ -1,0 +1,22 @@
+id: b-coloring--tw-k--jaffke-lima-lokshtanov-2020
+problem: b-coloring
+proved_for: decision
+bound:
+  as_stated: "2^{O(tw \\cdot k)} n"
+  notation: O
+  parameters: [tw, k, n]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: "Not stated; educated guess: $2^{O(tw \\cdot k)} n$. Dynamic programming over a nice tree decomposition with $2^{O(tw \\cdot k)}$ table entries per node."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: jaffke-lima-lokshtanov-2020
+  statements:
+    journal: { statement: "Proposition 2.1" }
+    arxiv-v2: { statement: "Proposition labelled prop:tw:numcol (Section 2, \"Parameterized by vertex cover\")" }
+  note: "No tree decomposition needs to be given: one of width at most $2tw + 1$ is computed first (Korhonen). Read in the arXiv LaTeX source; the journal numbering is from the open-access Springer page. Without $k$ in the parameter, b-Coloring is XNLP-complete parameterized by pathwidth (Jaffke, Lima and Sharma, arXiv 2209.07772)."

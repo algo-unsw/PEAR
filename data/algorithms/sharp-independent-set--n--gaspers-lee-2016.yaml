@@ -1,0 +1,23 @@
+id: sharp-independent-set--n--gaspers-lee-2016
+problem: sharp-independent-set
+proved_for: counting
+bound:
+  as_stated: '1.2356^{n}'
+  notation: O
+  parameters:
+  - n
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Polynomial space, as stated.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: gaspers-lee-2016
+  statements:
+    arxiv-v2:
+      statement: 'Theorem 1'
+  note: 'Polynomial-space branching algorithm with a compound measure and a Separate, Measure and Conquer subroutine for maximum degree 3 (Section 1, Our Results; statement as recorded for chromatic-number--n--gaspers-lee-2016). Gaspers (arXiv:2611.05146v1, Appendix C.5) reports gaps in this analysis (a missing condition (30) of Gaspers and Sorkin in the subcubic subroutine, a counterexample for the lazy 2-separator branching above degree 3, and unproved branching vectors in Lemma 8 for degrees 5 and 6) and reproves a bound of $O(1.2341^n)$ for a modified algorithm. TODO(verify): Serge to decide whether this result gets an error flag (high risk, CLAUDE.md rule 6). arXiv v2, 13 October 2016; COCOON 2017; Algorithmica 2023.'

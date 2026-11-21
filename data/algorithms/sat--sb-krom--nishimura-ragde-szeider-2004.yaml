@@ -1,0 +1,22 @@
+id: sat--sb-krom--nishimura-ragde-szeider-2004
+problem: sat
+proved_for: decision
+bound:
+  as_stated: O(3^{sb_{krom}} N)
+  notation: O
+  parameters: [sb_krom, N]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Educated guess: a bounded search tree plus one linear-time check per assignment of the backdoor; no memoization, dynamic programming or decomposition-based techniques found.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: nishimura-ragde-szeider-2004
+  statements:
+    sat:
+      statement: Theorem 3 and Section 4.1
+  note: 'Stated in two steps: Theorem 3 finds a strong 2-CNF-backdoor set of size $k$ of a formula of length $N$ in time $O(3^k N)$ or concludes that none exists, and Section 4.1 decides the satisfiability of $F$ by checking the at most $2^k$ formulas $F[\tau]$, each in 2-CNF and decided in linear time. Trying $k = 0, 1, 2, \dots$ gives $O(3^{sb_{krom}} N)$ in total. Strong 2-CNF-backdoor sets are exactly the hitting sets of the 3-uniform hypergraph of variable triples that occur together in a clause (Proposition 5 of Gaspers–Szeider, Backdoors to Satisfaction, arXiv 1110.6387), so a faster 3-Hitting Set algorithm gives a faster bound (see the serge-07 notes).'

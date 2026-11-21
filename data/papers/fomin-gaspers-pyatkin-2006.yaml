@@ -1,0 +1,20 @@
+id: fomin-gaspers-pyatkin-2006
+title: "Finding a Minimum Feedback Vertex Set in Time $O(1.7548^n)$"
+authors: [Fedor V. Fomin, Serge Gaspers, Artem V. Pyatkin]
+identifiers: { dblp: journals/algorithmica/FominGPR08, openalex: null }
+versions:
+  iwpec:
+    kind: workshop
+    venue: "Parameterized and Exact Computation, Second International Workshop (IWPEC 2006), LNCS 4169, pp. 184–191"
+    year: 2006
+    doi: "10.1007/11847250_17"
+    open_access: false
+  journal:
+    kind: journal
+    title: "On the Minimum Feedback Vertex Set Problem: Exact and Enumeration Algorithms"
+    authors: [Fedor V. Fomin, Serge Gaspers, Artem V. Pyatkin, Igor Razgon]
+    venue: "Algorithmica 52(2), pp. 293–307"
+    year: 2008
+    doi: "10.1007/s00453-007-9152-0"
+    url: "https://folk.uib.no/nmiff/articles/2008/2008d.pdf"
+    open_access: true

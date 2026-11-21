@@ -1,0 +1,23 @@
+id: longest-induced-path--n--fomin-todinca-villanger-2013
+problem: longest-induced-path
+proved_for: optimisation
+bound:
+  as_stated: "O(1.7347^{n})"
+  notation: O
+  parameters: [n]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: "Not stated; educated guess: exponential. Dynamic programming over all potential maximal cliques of $G$ (up to $O(1.7347^n)$ of them, listed and stored), with tables indexed by them."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: fomin-todinca-villanger-2013
+  statements:
+    arxiv-v1: { statement: "Section Applications: the remark after Theorem thm:applications (\"Such modifications easily capture problems like computing a longest induced path\"), with Corollary cor:exact_algorithms (all these problems in $O(1.7347^n)$)" }
+  note: "Not a numbered theorem: the main theorem (maximum induced subgraph of treewidth at most $t$ with a CMSO property, in time $|\\Pi_G| \\cdot n^{O(1)}$) applies with $t = 1$ and the property \"$G[F]$ is a path and $X = F$\", which is CMSO-expressible; the paper's remark says so for the longest induced path. The bound $O(1.7347^n)$ on the number of potential maximal cliques is from the abstract and Corollary cor:exact_algorithms."
+formal: { status: informal }
+status: valid

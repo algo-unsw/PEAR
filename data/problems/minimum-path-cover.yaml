@@ -1,0 +1,45 @@
+id: minimum-path-cover
+name: Path Cover
+aliases: [Minimum Path Cover, Vertex-Disjoint Path Cover, Path Partition, Partition into Paths, Path Cover Number]
+category: graph
+complexity:
+  class: NP-complete
+  source:
+    folklore: true
+    note: "In NP (guess the paths). NP-hard because the case $k = 1$ is Hamiltonian Path. Wikipedia (Path cover): \"The Hamiltonian path problem is NP-complete, and hence the minimum path cover problem is NP-hard\" (no citation given). Fernau, Foucaud, Mann, Padariya and Rao (arXiv 2212.11653v3, abstract) say Path Partition \"includes Hamiltonian Path as a special case\"; Foucaud, Majumder, Mömke and Roshany-Tabrizi (arXiv 2511.07160v1, Introduction) say it is NP-hard as it generalises Hamiltonian Path, even on 2-connected cubic bipartite planar graphs. TODO(verify): no paper file for Hamiltonian Path's NP-completeness (Garey and Johnson GT39) is linked here."
+    reference: { paper: fernau-foucaud-mann-2022, version: arxiv-v3, statement: "Abstract and Section 1" }
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  k: { meaning: "the number of paths: the integer $k$ in the input (decision, search), or the minimum number of paths (the path cover number; optimisation)" }
+  kd: { meaning: "the dual parameter $n - k$ (distance from triviality: $n$ single-vertex paths always form a solution); in the optimisation version, $n$ minus the optimum" }
+  tw: { shared: treewidth }
+  vc: { shared: vertex-cover-number }
+constraints:
+  - { constraint: "k \\le n", because: "The $n$ single-vertex paths form a solution, so every instance with $k \\ge n$ is a yes-instance, answered in polynomial time." }
+  - { constraint: "kd \\le n", because: "$kd = n - k$ with $k \\ge 0$." }
+  - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
+  - { constraint: "tw \\le vc", because: "For a minimum vertex cover $C$, the bags $C \\cup \\{v\\}$, $v \\notin C$, in a path form a tree decomposition of width $vc$." }
+  - { constraint: "vc \\le n", because: "$V$ is a vertex cover." }
+versions:
+  decision:
+    kind: decision
+    input: "A graph $G = (V, E)$ and an integer $k$."
+    question: "Are there at most $k$ pairwise vertex-disjoint paths in $G$ (a path may consist of a single vertex) such that every vertex lies on one of them?"
+  optimisation:
+    kind: optimisation
+    input: "A graph $G = (V, E)$."
+    goal: "Find the minimum number of pairwise vertex-disjoint paths in $G$ (a path may consist of a single vertex) such that every vertex lies on one of them."
+  search:
+    kind: search
+    input: "A graph $G = (V, E)$ and an integer $k$."
+    goal: "Find at most $k$ pairwise vertex-disjoint paths in $G$ (a path may consist of a single vertex) such that every vertex lies on one of them, or report that none exist."
+default_version: decision
+shared_bounds:
+  - versions: [decision, optimisation, search]
+    because: "Binary search on $k \\le n$, and self-reducibility: delete edges one at a time while a partition into at most $k$ paths remains; the remaining edges form the paths."
+related:
+  - { problem: hamiltonian-cycle, relation: variant }
+  - { problem: longest-path, relation: variant }

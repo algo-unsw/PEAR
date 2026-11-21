@@ -40,7 +40,7 @@ All text pairs meet WCAG AA (4.5:1) in both themes; keep it that way when adding
 
 1. **Header band**: "PEAR" wordmark + "Parameterized and Exact Algorithms and Reductions"; search field (placeholder: name, shorthand like "vc k", or describe the problem); nav (Browse, Recently improved, Hypotheses); **light/dark switch at the far right** (sliding switch, sun/moon on the knob, `role="switch"`). Dark is the default whatever the system setting (decided 11 November 2026); the reader's choice is remembered.
 2. **Title row**: H1 problem name, "Also known as …"; page tools on the right: History, Watch, Report an error, Suggest a link or DOI, Cite.
-3. **Tab row**: version tabs on the left (Decision default, Optimisation, Search, Weighted; encyclopedia-style tabs); **Overview / Details** segmented control on the right.
+3. **Tab row**: version tabs on the left (Decision default, Optimisation, Search, Weighted; encyclopedia-style tabs); **Overview / Details** segmented control on the right. Bounded-degree versions get no tabs: a **Maximum degree** menu (any, at most 3, …) left of the segmented control picks them for the selected tab; degrees the tab's version lacks are greyed out (21 November 2026, proposal).
 4. **Two columns**: article (flexible) + info box (280–340px) on the right; the info box wraps below on narrow screens.
    - Info box: also known as, complexity, parameters, versions, Lean status, papers tracked (OpenAlex), last checked.
 5. **Article sections, in order**: equivalence note (for decision/optimisation/search) → Fastest known algorithms → Definition → Reductions → Related problems → Implementations (Details only) → References → footer line (Data CC0 · code MIT · curated automatically · JSON).

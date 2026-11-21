@@ -1,0 +1,22 @@
+id: sat--db-qhorn--gaspers-ordyniak-ramanujan-2013
+problem: sat
+proved_for: decision
+bound:
+  as_stated: 2^{O(db_{qhorn}^{2})} L n
+  notation: O
+  parameters: [db_qhorn, L, n]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Educated guess: a depth-$k$ branching algorithm whose steps compute separators by flows in the implication graph of the quadratic cover, then one linear-time q-Horn check per assignment; no memoization, dynamic programming or decomposition-based techniques found.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: gaspers-ordyniak-ramanujan-2013
+  statements:
+    stacs:
+      statement: Corollary 16
+  note: 'Corollary 16: an algorithm that, given a formula $F$ of length $\ell$ with $n$ variables, runs in time $2^{O(k^2)} \ell n$ and decides the satisfiability of $F$, where $k$ is the size of a smallest deletion q-Horn-backdoor set of $F$. It uses the FPT-approximation of Theorem 1 (time $O(6^k k \ell n)$, a deletion q-Horn-backdoor set of size at most $k^2 + k$). Read in the STACS 2013 LIPIcs version (Zotero PDF, and the author copy on the UNSW page in the same format). The Algorithmica 2016 version was not read.'

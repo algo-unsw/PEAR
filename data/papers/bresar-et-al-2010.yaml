@@ -1,0 +1,16 @@
+id: bresar-et-al-2010
+title: "Minimum k-path vertex cover"
+authors: [Boštjan Brešar, František Kardoš, Ján Katrenič, Gabriel Semanišin]
+identifiers: { dblp: "journals/dam/BresarKKS11" }
+versions:
+  arxiv:
+    kind: preprint
+    arxiv: "1012.2088"
+    year: 2010
+    open_access: true
+  journal:
+    kind: journal
+    venue: "Discrete Applied Mathematics 159(12), pp. 1189–1195"
+    year: 2011
+    doi: "10.1016/j.dam.2011.04.008"
+    open_access: false

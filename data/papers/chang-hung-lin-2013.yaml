@@ -1,0 +1,11 @@
+id: chang-hung-lin-2013
+title: "Finding large k-clubs in undirected graphs"
+authors: [Maw-Shang Chang, Ling-Ju Hung, Chih-Ren Lin, Ping-Chen Su]
+identifiers: { dblp: journals/computing/ChangHLS13 }
+versions:
+  journal:
+    kind: journal
+    venue: "Computing 95(9), pp. 739–758"
+    year: 2013
+    doi: "10.1007/s00607-012-0263-3"
+    open_access: false

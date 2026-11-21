@@ -1,0 +1,21 @@
+id: exact-satisfiability--n--byskov-madsen-skjernaa-2003
+problem: exact-satisfiability
+proved_for: decision
+bound:
+  as_stated: "O(2^{0.2325n})"
+  notation: O
+  parameters: [n]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: "Not stated; educated guess: polynomial. A branching algorithm (branching vector (8, 2), Section 3.2); for sparse formulae it enumerates the assignments of a set of variables one at a time; no memoization or dynamic programming found."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: byskov-madsen-skjernaa-2003
+  statements:
+    brics: { statement: "Theorem 1 (Section 4) and Section 3.2" }
+  note: "Theorem 1: \"The presented algorithms for XSAT and X3SAT run in time $O(2^{0.2325n})$ and $O(2^{0.1379n})$, respectively.\" $2^{0.2325} = 1.17487\\ldots$. Superseded by Hoi (2020); entered for the bound history. Read in the BRICS report (October 2003)."

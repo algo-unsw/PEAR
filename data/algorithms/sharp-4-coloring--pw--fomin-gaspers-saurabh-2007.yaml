@@ -1,0 +1,24 @@
+id: sharp-4-coloring--pw--fomin-gaspers-saurabh-2007
+problem: sharp-4-coloring
+proved_for: counting
+bound:
+  as_stated: '4^{pw} n^{O(1)}'
+  notation: O
+  parameters:
+  - pw
+  - n
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Not stated; educated guess: exponential. Dynamic programming over the path decomposition, with a table entry for every colouring of a bag.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: fomin-gaspers-saurabh-2007
+  statements:
+    cocoon-author-copy:
+      statement: Lemma 4
+  note: 'Lemma 4: given a path decomposition of width $\ell$, #$k$-Coloring can be solved in time $O(k^{\ell} n^{O(1)})$; here $k = 4$. Stated for a path decomposition given with the input (the schema has no `given: path-decomposition` value yet). No proof is given in the paper (standard dynamic programming).'

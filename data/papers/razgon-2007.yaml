@@ -1,0 +1,11 @@
+id: razgon-2007
+title: "Computing Minimum Directed Feedback Vertex Set in O*(1.9977^n)"
+authors: [Igor Razgon]
+identifiers: { dblp: "conf/ictcs/Razgon07", openalex: null }
+versions:
+  conference:
+    kind: conference
+    venue: "Theoretical Computer Science, 10th Italian Conference (ICTCS 2007), World Scientific, pp. 70–81"
+    year: 2007
+    doi: "10.1142/9789812770998_0010"
+    open_access: false

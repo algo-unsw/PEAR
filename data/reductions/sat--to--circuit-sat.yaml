@@ -1,0 +1,16 @@
+id: sat--to--circuit-sat
+from:
+  problem: sat
+  version: decision
+to:
+  problem: circuit-sat
+  version: decision
+type: polytime-deterministic
+calls: 1
+time: O(N)
+parameter_map:
+  n: n
+  m: L + n
+source:
+  folklore: true
+  note: 'One NOT gate per variable that occurs negatively (at most $n$), a chain of $\ell - 1$ OR gates for a clause with $\ell$ literals, and a chain of $m - 1$ AND gates over the clauses: at most $(L - m) + (m - 1) + n \le L + n$ gates, with the same inputs.'

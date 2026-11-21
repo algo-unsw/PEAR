@@ -1,0 +1,23 @@
+id: csp--tw--freuder-1990
+problem: csp
+proved_for: decision-arity-2
+bound:
+  as_stated: "O(n (2d)^{tw+1})"
+  notation: O
+  parameters: [n, d, tw]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: "Not stated; educated guess: exponential. Adaptive consistency along the k-tree ordering records new constraints on up to $k+1$ variables, with up to $d^{k+1}$ tuples each."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+given:
+- tree-decomposition
+source:
+  paper: freuder-1990
+  statements:
+    aaai: { statement: "Theorem 4 with the remark after its proof (p. 7); Section 3.2 and the Conclusion for partial k-trees" }
+  note: "Theorem 4: \"A k-tree structured CSP can be solved in time $O(nd^{k+1})$\" for binary CSPs ($n$ variables, domains of at most $d$ values), with $k$ treated as a constant; after the proof: \"If we do not assume k to be a constant, we can derive an $O(n(2d)^{k+1})$ bound\", which is the bound stored. Section 3.2: \"Theorem 4 holds for weak k-trees\", and the Conclusion: CSPs with partial k-tree structure can be solved in $O(nd^{k+1})$ \"once a k-tree embedding has been found\". Simple steps used here: a primal graph of treewidth $\\mathrm{tw}$ is a partial $\\mathrm{tw}$-tree, and a $\\mathrm{tw}$-tree containing it can be built in polynomial time from a tree decomposition of width $\\mathrm{tw}$ (hence `given: tree-decomposition`); the added edges get the constraint $D \\times D$, which changes neither $n$ nor $d$ nor the solutions. Read in the AAAI open copy (cdn.aaai.org)."

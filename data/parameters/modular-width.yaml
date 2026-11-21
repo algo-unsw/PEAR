@@ -1,0 +1,7 @@
+# Definition as in Belmonte, Kim, Lampis, Mitsou and Otachi, arXiv 2008.07425, Section 6.2
+# ("Modular-width"), which credits the notion to Gajarský, Lampis and Ordyniak (2013).
+id: modular-width
+name: Modular-Width
+symbol: mw
+aliases: [modular width]
+definition: "A module is a set $X \\subseteq V$ such that every vertex outside $X$ is adjacent to all vertices of $X$ or to none. A single vertex has modular-width 1, and $G$ has modular-width at most $w$ if $V$ can be partitioned into at most $w$ modules $V_1, \\dots, V_w$ such that every $G[V_i]$ has modular-width at most $w$."

@@ -27,6 +27,7 @@ versions:
     kind: decision
     input: "A connected graph $G = (V, E)$ and an integer $k$."
     question: "Does $G$ have a spanning tree with at least $k$ leaves?"
+    generalises: [decision-max-degree-5]
   optimisation:
     kind: optimisation
     input: "A connected graph $G = (V, E)$."
@@ -35,9 +36,53 @@ versions:
     kind: search
     input: "A connected graph $G = (V, E)$ and an integer $k$."
     goal: "Find a spanning tree of $G$ with at least $k$ leaves, or report that none exists."
+  decision-max-degree-3:
+    kind: decision
+    input: "A connected graph $G = (V, E)$ of maximum degree at most $3$ and an integer $k$."
+    question: "Does $G$ have a spanning tree with at least $k$ leaves?"
+  optimisation-max-degree-3:
+    kind: optimisation
+    input: "A connected graph $G = (V, E)$ of maximum degree at most $3$."
+    goal: "Find the maximum number of leaves of a spanning tree of $G$."
+  search-max-degree-3:
+    kind: search
+    input: "A connected graph $G = (V, E)$ of maximum degree at most $3$ and an integer $k$."
+    goal: "Find a spanning tree of $G$ with at least $k$ leaves, or report that none exists."
+  decision-max-degree-4:
+    kind: decision
+    input: "A connected graph $G = (V, E)$ of maximum degree at most $4$ and an integer $k$."
+    question: "Does $G$ have a spanning tree with at least $k$ leaves?"
+    generalises: [decision-max-degree-3]
+  optimisation-max-degree-4:
+    kind: optimisation
+    input: "A connected graph $G = (V, E)$ of maximum degree at most $4$."
+    goal: "Find the maximum number of leaves of a spanning tree of $G$."
+  search-max-degree-4:
+    kind: search
+    input: "A connected graph $G = (V, E)$ of maximum degree at most $4$ and an integer $k$."
+    goal: "Find a spanning tree of $G$ with at least $k$ leaves, or report that none exists."
+  decision-max-degree-5:
+    kind: decision
+    input: "A connected graph $G = (V, E)$ of maximum degree at most $5$ and an integer $k$."
+    question: "Does $G$ have a spanning tree with at least $k$ leaves?"
+    generalises: [decision-max-degree-4]
+  optimisation-max-degree-5:
+    kind: optimisation
+    input: "A connected graph $G = (V, E)$ of maximum degree at most $5$."
+    goal: "Find the maximum number of leaves of a spanning tree of $G$."
+  search-max-degree-5:
+    kind: search
+    input: "A connected graph $G = (V, E)$ of maximum degree at most $5$ and an integer $k$."
+    goal: "Find a spanning tree of $G$ with at least $k$ leaves, or report that none exists."
 default_version: decision
 shared_bounds:
   - versions: [decision, optimisation, search]
     because: "Binary search on $k$ and self-reducibility."
+  - versions: [decision-max-degree-3, optimisation-max-degree-3, search-max-degree-3]
+    because: "Binary search on $k$ and self-reducibility; the self-reduction only deletes edges that are not bridges, so the maximum degree stays at most $3$ and the graph stays connected."
+  - versions: [decision-max-degree-4, optimisation-max-degree-4, search-max-degree-4]
+    because: "Binary search on $k$ and self-reducibility; the self-reduction only deletes edges that are not bridges, so the maximum degree stays at most $4$ and the graph stays connected."
+  - versions: [decision-max-degree-5, optimisation-max-degree-5, search-max-degree-5]
+    because: "Binary search on $k$ and self-reducibility; the self-reduction only deletes edges that are not bridges, so the maximum degree stays at most $5$ and the graph stays connected."
 related:
   - { problem: connected-dominating-set, relation: complement }

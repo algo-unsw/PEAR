@@ -1,0 +1,25 @@
+id: s-club--n--chang-hung-lin-2013
+problem: s-club
+proved_for: optimisation
+bound:
+  as_stated: "O^*(1.62^{n})"
+  notation: O*
+  parameters: [n]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: "Not stated; educated guess: polynomial. The algorithm is the search tree that branches on deleting one of two vertices at distance more than $s$ (JGAA 2015, Section 1.1; LIPIcs IPEC 2025, conclusion), analysed in $n$; no memoization or tables."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: chang-hung-lin-2013
+  statements:
+    journal: { statement: "Theorem 1" }
+  attested_by:
+    - "https://jgaa.info/index.php/jgaa/article/download/paper352/2596"
+    - "https://drops.dagstuhl.de/storage/00lipics/lipics-vol358-ipec2025/LIPIcs.IPEC.2025.13/LIPIcs.IPEC.2025.13.pdf"
+    - "https://arxiv.org/pdf/1305.3735"
+  note: "No open copy of Chang, Hung, Lin and Su (Computing 2013) found, so the attestations stay. Hartung, Komusiewicz and Nichterlein (JGAA 2015, Section 1.1): the search tree algorithm \"can be analyzed to run in $O(\\alpha^n \\cdot nm)$ time where $\\alpha$ is the golden ratio $\\alpha < 1.62$\" [Chang et al.]; Dumont, Lampis, Liedloff, Perez and Todinca (IPEC 2025, Section 1): \"Chang et al. show that the $s$-club problem can be solved in $O(1.62^n)$-time\"; Hartung, Komusiewicz, Nichterlein and Suchý (arXiv 1305.3735, Section 1.1): the same search tree algorithm runs in $O(1.62^n)$ time. The first and third sources share three authors. Read (Zotero copy of the Springer PDF of the Computing version): Theorem 1 states $O^*(1.62^n)$; the search tree has $O^*(1.62^{|R|})$ leaves (recurrence $L(|R|-1) + L(|R|-2)$) and computes all-pairs distances in $O(n^3)$ per node (Section 3). Stored as Theorem 1 states it, not in the stronger $O(1.62^n)$ form of the attestations."

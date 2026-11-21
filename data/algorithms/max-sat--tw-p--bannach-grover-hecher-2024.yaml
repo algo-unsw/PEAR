@@ -1,0 +1,23 @@
+id: max-sat--tw-p--bannach-grover-hecher-2024
+problem: max-sat
+proved_for: optimisation
+bound:
+  as_stated: 'O(2^{tw_p} N)'
+  notation: O
+  parameters: [tw_p, N]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Not stated; dynamic programming over a tree decomposition of the primal graph, with up to $2^{tw_p}$ table entries per node (educated guess).'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+given:
+- tree-decomposition
+source:
+  paper: bannach-grover-hecher-2024
+  statements:
+    arxiv: { statement: "Fact (fact:maxsattw), Section 4 (Intermezzo: Upper Bounds for Max2SAT)" }
+  note: 'Stated as: (weighted) MaxSAT "can be solved in time $O(2^{\mathrm{tw}(\phi)}|\phi|)$", the folklore dynamic programme over a tree decomposition implemented carefully as in the works the paper cites for this Fact (citation keys BodlaenderBL13, BovaCMS15, CapelliM18); $|\phi|$ is written $N$. The Fact does not say whether the decomposition is given; the cited dynamic programmes run on a given tree decomposition, so `given` is set. PEAR''s Maximum Satisfiability (no repeated clauses) is the special case with every clause weight 1. Read in the current arXiv version (v2).'
