@@ -1,0 +1,22 @@
+id: maximum-coverage--n--folklore
+problem: maximum-coverage
+proved_for: optimisation
+bound:
+  as_stated: 'O^*(2^{n})'
+  notation: O*
+  parameters: [n]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Exponential space: zeta and Möbius transforms over all $2^n$ subsets of $U$.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  folklore: true
+  note: 'Inclusion–exclusion as for Set Cover (Björklund, Husfeldt and Koivisto). For $Y \subseteq U$ let $a(Y)$ be the number of sets of $\mathcal{F}$ contained in $Y$ (all values by a zeta transform in $O^*(2^n)$). The number of $k$-tuples of sets whose union is exactly $X$ is $c(X) = \sum_{Y \subseteq X} (-1)^{|X \setminus Y|} a(Y)^k$, for all $X$ by a Möbius transform in $O^*(2^n)$ (numbers of $O(k \log m)$ bits). Some at most $k$ sets cover at least $t$ elements if and only if $c(X) > 0$ for some $X$ with $|X| \ge t$ (repeated sets are allowed in a tuple, and a union of at most $k$ sets is the union of a $k$-tuple when $\mathcal{F} \ne \emptyset$). Written by the site from the standard argument; TODO(verify) by Serge.'
+  reference: { paper: bjorklund-husfeldt-koivisto-2009, version: journal, statement: "inclusion–exclusion for Set Cover (section number not checked, TODO(verify))" }
+formal: { status: informal }
+status: valid

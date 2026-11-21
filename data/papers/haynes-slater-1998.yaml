@@ -1,0 +1,11 @@
+id: haynes-slater-1998
+title: "Paired-Domination in Graphs"
+authors: [Teresa W. Haynes, Peter J. Slater]
+identifiers: { dblp: journals/networks/HaynesS98 }
+versions:
+  journal:
+    kind: journal
+    venue: "Networks 32(3), pp. 199–206"
+    year: 1998
+    url: "https://dc.etsu.edu/etsu-works/12183"
+    open_access: false

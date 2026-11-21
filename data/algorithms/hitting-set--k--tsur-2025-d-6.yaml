@@ -1,0 +1,23 @@
+id: hitting-set--k--tsur-2025-d-6
+problem: hitting-set
+proved_for: decision-d-6
+bound:
+  as_stated: 'O^*((6 - 1 + 0.0409)^{k})'
+  notation: O*
+  parameters:
+  - k
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Not stated; educated guess: polynomial. Iterative compression (one call per subset of the current solution) over Tsur''s branching algorithm for 3-Hitting Set with reduction rules; no memoization or dynamic programming found.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: tsur-2025
+  statements:
+    arxiv-v1:
+      statement: 'Section 1 (Introduction), last paragraph: "This result yields an $O^*((d-1+0.0409)^k)$-time algorithm for $d$-Hitting Set" (Theorem 31 with the step of Dom et al. and Fomin et al.)'
+  note: 'The formula, evaluated by the site at $d = 6$. Tsur''s $O^*(2.0409^k)$ algorithm for 3-Hitting Set (Theorem 31) combined with the step "an $O^*(c^k)$-time algorithm for $d$-Hitting Set gives an $O^*((c+1)^k)$-time algorithm for $(d+1)$-Hitting Set" (Dom et al.; Fomin et al., Theorem 12 of the TCS version), as Section 1 states. Section 1 says the result is faster than Fernau''s algorithm for $d \le 6$ (Fernau''s bases about 3.115, 4.08, 5.049 for $d = 4, 5, 6$). Unrefereed preprint.'

@@ -1,0 +1,24 @@
+id: van-rooij-van-kooten-niekerk-bodlaender-2010
+title: "Partition Into Triangles on Bounded Degree Graphs"
+authors: [Johan M. M. van Rooij, Marcel E. van Kooten Niekerk, Hans L. Bodlaender]
+identifiers: { dblp: journals/mst/RooijNB13 }
+versions:
+  techreport:
+    kind: technical-report
+    title: "Partitioning Sparse Graphs Into Triangles: Relations to Exact Satisfiability and Very Fast Exponential Time Algorithms"
+    venue: "Technical Report UU-CS-2010-005, Department of Information and Computing Sciences, Utrecht University"
+    year: 2010
+    url: "https://ics-archive.science.uu.nl/research/techreps/repo/CS-2010/2010-005.pdf"
+    open_access: true
+  sofsem:
+    kind: conference
+    venue: "37th Conference on Current Trends in Theory and Practice of Computer Science (SOFSEM 2011), LNCS 6543"
+    year: 2011
+    doi: "10.1007/978-3-642-18381-2_46"
+    open_access: false
+  journal:
+    kind: journal
+    venue: "Theory of Computing Systems"
+    year: 2013
+    doi: "10.1007/s00224-012-9412-5"
+    open_access: false

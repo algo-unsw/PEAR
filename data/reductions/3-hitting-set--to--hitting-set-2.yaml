@@ -1,0 +1,10 @@
+id: 3-hitting-set--to--hitting-set-2
+from: { problem: 3-hitting-set, version: decision }
+to: { problem: hitting-set, version: decision-d-4 }
+type: polytime-deterministic
+calls: 1
+time: "O(N)"
+parameter_map: { n: "n", m: "m", k: "k" }
+source:
+  folklore: true
+  note: "A family of sets of size at most 3 is a family of sets of size at most 4, so the instance is unchanged. This refines 3-hitting-set--to--hitting-set (Hitting Set's decision version generalises decision-d-4 through decision-d-6 and decision-d-5)."

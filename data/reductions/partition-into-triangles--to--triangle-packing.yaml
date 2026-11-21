@@ -1,0 +1,11 @@
+id: partition-into-triangles--to--triangle-packing
+from: { problem: partition-into-triangles, version: decision }
+to: { problem: triangle-packing, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(n)"
+parameter_map: { n: "n", m: "m", k: "n / 3", tw: "tw", ctw: "ctw" }
+source:
+  folklore: true
+  note: "Same graph, $k = n/3$ (if $3 \\nmid n$, output a fixed no-instance): $n/3$ vertex-disjoint triangles cover all $n$ vertices, so they partition $V$. Bojikian, Chekan and Kratsch (arXiv 2502.15884, Section 1): 'There is a trivial reduction from Partition Into Triangles to Triangle Packing'."
+  reference: { paper: bojikian-chekan-kratsch-2025, version: arxiv, statement: "Section 1" }

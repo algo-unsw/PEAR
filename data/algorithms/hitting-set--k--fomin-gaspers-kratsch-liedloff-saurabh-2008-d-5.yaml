@@ -1,0 +1,24 @@
+id: hitting-set--k--fomin-gaspers-kratsch-liedloff-saurabh-2008-d-5
+problem: hitting-set
+proved_for: decision-d-5
+bound:
+  as_stated: 'O((2.0755 + 5 - 3)^{k} n^{O(1)})'
+  notation: O
+  parameters:
+  - k
+  - n
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Not stated; educated guess: polynomial. Iterative compression: for each subset of the current solution, one call to a branching algorithm for the rank-$(d-1)$ problem, down to Wahlström''s branching algorithm for 3-Hitting Set; no memoization or stored tables found.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: fomin-gaspers-kratsch-liedloff-saurabh-2008
+  statements:
+    journal:
+      statement: 'Corollary 13 (from Theorem 12) with Wahlström''s $a_3 = 2.0755$; Table 2'
+  note: 'Corollary 13: if k-HS$_3$ can be solved in time $O(a_3^k n^{O(1)})$, then for any fixed $d \ge 4$ k-HS$_d$ can be solved in time $O((a_3 + d - 3)^k n^{O(1)})$. The formula with Wahlström''s $a_3 = 2.0755$ is evaluated by the site at $d = 5$. Fomin, Gaspers, Lokshtanov and Saurabh (arXiv 1512.01621v1, Table 1) list "4-Hitting Set $3.0755^k$" and "$d$-Hitting Set $(d-0.9245)^k$" citing this paper, and the caption of the journal''s Table 2 says its rows for $4 \le d \le 5$ come from Corollary 13 (the table cells were not readable in the text extraction). Theorem 12 and Corollary 13 were not found in the MFCS author copy. Beaten by Tsur''s $(d - 1 + 0.0409)^k$ (2025).'

@@ -1,0 +1,10 @@
+id: feedback-vertex-set--to--connected-feedback-vertex-set
+from: { problem: feedback-vertex-set, version: decision }
+to: { problem: connected-feedback-vertex-set, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(n + m)"
+parameter_map: { n: "n + 1", m: "m + n", k: "k + 1", tw: "tw + 1" }
+source:
+  folklore: true
+  note: "Add a vertex $u$ adjacent to every vertex, giving a connected graph $G'$, and ask for $k + 1$. If $S$ is a feedback vertex set of $G$, then $S \\cup \\{u\\}$ is connected (through $u$) and $G' - (S \\cup \\{u\\}) = G - S$ is a forest. Conversely, let $S'$ be a connected feedback vertex set of $G'$ with $|S'| \\le k + 1$. If $u \\in S'$, then $S' \\setminus \\{u\\}$ is a feedback vertex set of $G$ of size at most $k$. If $u \\notin S'$, then $u$ is adjacent to every vertex of the forest $G' - S'$, so $G - S'$ has no edge; $S'$ is nonempty unless $G$ is edgeless (then $\\emptyset$ works), and for any $x \\in S'$, $G - (S' \\setminus \\{x\\})$ has edges only at $x$, a forest, so $S' \\setminus \\{x\\}$ is a feedback vertex set of size at most $k$. Adding a vertex to every bag gives width $tw + 1$."

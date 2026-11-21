@@ -667,3 +667,26 @@ def test_absorbed_into_little_o_and_big_o():
     # n is not o(n); and with two variables n is not o(n k)
     assert shown("4^{n + o(n)}") == "O^*(4^{n + o(n)})"
     assert shown("2^{n k - n + o(n k)}") == "O^*(2^{n k - n + o(n k)})"
+
+
+def test_comparator_xp_exponents_and_added_polynomials():
+    from fractions import Fraction
+
+    # 21 November 2026 (approved): n^{c(n-k)} pairs for k <= n, O* forms with polynomial
+    # factors dropped first, and equal exponents over bases that compare pointwise
+    from pear.bounds.compare import Context, Relation, compare
+    from pear.bounds.expr import parse_bound
+
+    syms = frozenset({"n", "m", "k", "d"})
+    ctx = Context(le={("k", "n"): Fraction(1)}, constants={"omega": (2.25, 2.371339)})
+    a = parse_bound(r"O^*(n^{\omega (n - k)/3})", syms)
+    b = parse_bound(r"O^*(n^{n - k})", syms)
+    assert compare(a, b, ctx) == Relation.BETTER
+    a2 = parse_bound(r"O(m + n^{2} + n^{2} n^{\omega (n - k)/3})", syms)
+    b2 = parse_bound(r"O(m + n^{2} + n^{n - k} (n - k)^{2})", syms)
+    assert compare(a2, b2, ctx) == Relation.BETTER
+    c = parse_bound(r"O^*((d + 1)^{k})", syms)
+    e = parse_bound(r"O((d + 2)^{k} + n (k + d))", syms)
+    assert compare(c, e, Context()) == Relation.BETTER
+    # still incomparable: different parameters
+    assert compare(parse_bound(r"O(n^{n-k} (n-k)^{2})", syms), parse_bound(r"O(2^{n})", syms), ctx) == Relation.INCOMPARABLE

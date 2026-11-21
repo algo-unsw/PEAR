@@ -290,7 +290,7 @@ def _bounded_below_terms(g: Growth, ctx: Context) -> bool:
     (its unknowns may be chosen), negative ones from the other (its unknowns are arbitrary)."""
     pos: list[list] = []  # [key, coef, strict]: strict once it has beaten a smaller shape
     neg: list[tuple[Key, Coef]] = []
-    g = _cancel_named(g, ctx)
+    g = _cancel_proportional(_cancel_named(g, ctx), ctx)
     for key, raw in g.terms.items():
         if not key:
             continue
@@ -365,6 +365,54 @@ def _cancel_named(g: Growth, ctx: Context) -> Growth:
                    for k, cs in terms.items()})
 
 
+def _coef_vector(cs: list[Coef]) -> dict[str, float] | None:
+    """The coefficients of one monomial as a vector over 1 and the named constants, or None
+    if a coefficient is not of these kinds (big, small, family, shifted)."""
+    out: dict[str, float] = {}
+    for c in cs:
+        if c.kind == "exact" and not c.shift:
+            out["1"] = out.get("1", 0.0) + c.value
+        elif c.kind.startswith("sym:"):
+            out[c.kind] = out.get(c.kind, 0.0) + c.value
+        else:
+            return None
+    return {k: v for k, v in out.items() if abs(v) > EPS}
+
+
+def _cancel_proportional(g: Growth, ctx: Context) -> Growth:
+    """Cancel a monomial against a larger one whose coefficient is a positive multiple of
+    minus its own: (1 - ω/3)(n log n) - (1 - ω/3)(k log n) is (1 - ω/3)(n log n - k log n),
+    nonnegative for k ≤ n, which resolving ω separately in each coefficient cannot see
+    (21 November 2026). The larger monomial keeps (1 - λ) times its coefficient."""
+    terms = {k: list(cs) for k, cs in g.terms.items()}
+    changed = False
+    for nkey in list(terms):
+        nv = _coef_vector(terms.get(nkey, []))
+        if not nv or not nkey:
+            continue
+        for pkey in list(terms):
+            if pkey == nkey or not pkey or pkey not in terms:
+                continue
+            pv = _coef_vector(terms[pkey])
+            if not pv or set(pv) != set(nv):
+                continue
+            ratios = {k: -nv[k] / pv[k] for k in pv}
+            lam = next(iter(ratios.values()))
+            if not (0 < lam <= 1 + EPS) or any(abs(r - lam) > 1e-9 for r in ratios.values()):
+                continue
+            resolved = _resolve(terms[pkey], ctx)
+            if resolved is None or not all(c.kind == "exact" and c.value > EPS for c in resolved):
+                continue  # the larger monomial's coefficient must be positive for every constant value
+            if _dominates(pkey, nkey, ctx) is None:
+                continue
+            scale = max(0.0, 1 - lam)
+            terms[pkey] = [Coef(c.kind, c.value * scale, c.shift) for c in terms[pkey]]
+            del terms[nkey]
+            changed = True
+            break
+    return Growth(terms) if changed else g
+
+
 def _size(key: Key) -> Shape:
     return max((s for _, s in key), default=(Fraction(0), Fraction(0), Fraction(0)))
 
@@ -394,7 +442,7 @@ def _dominates(pkey: Key, nkey: Key, ctx: Context) -> str | None:
     pvars = dict(pkey)
     nvars = list(nkey)
     if len(nvars) > len(pvars):
-        return None
+        return _dominates_merged(pkey, nvars, pvars, ctx)
     for targets in itertools.permutations(pvars, len(nvars)):
         weak = True
         # pointwise ≤ for variables ≥ 1 with the same logarithmic factors and no larger power:
@@ -441,6 +489,32 @@ def _dominates(pkey: Key, nkey: Key, ctx: Context) -> str | None:
                 return "strict"
             if pointwise and extra_ok:
                 return "weak"  # coefficients still have to compare
+    return _dominates_merged(pkey, nvars, pvars, ctx)
+
+
+def _dominates_merged(pkey: Key, nvars: list, pvars: dict, ctx: Context) -> str | None:
+    """Several variables of the smaller monomial onto one variable of the larger: k log n ≤
+    n log n for k ≤ n, so n^{c(n-k)} = 2^{c n log n - c k log n} can be compared
+    (21 November 2026). Only exact transports, nonnegative shapes; returns 'weak'."""
+    if any(min(shape) < 0 for _, shape in nvars) or len(nvars) > 4:
+        return None
+    for targets in itertools.product(list(pvars), repeat=len(nvars)):
+        if len(set(targets)) == len(targets):
+            continue  # one-to-one assignments are handled by _dominates
+        sums: dict[str, tuple] = {}
+        for (x, shape), y in zip(nvars, targets):
+            p = ctx.relation(x, y)
+            moved = None if p is None else _transport(shape, p)
+            if moved is None:
+                break
+            prev = sums.get(y, (Fraction(0), Fraction(0), Fraction(0)))
+            sums[y] = tuple(prev[i] + moved[i] for i in range(3))
+        else:
+            if not all(any(s) and min(s) >= 0 for y, s in pkey if y not in sums):
+                continue
+            if all(sums[y] == pvars[y] or (sums[y][1:] == pvars[y][1:] and sums[y][0] <= pvars[y][0]
+                                            and min(pvars[y][1:]) >= 0) for y in sums):
+                return "weak"
     return None
 
 
@@ -492,15 +566,150 @@ def analyse(b: Bound) -> Analysed:
 def le(a: Analysed, b: Analysed, ctx: Context, mode: str) -> bool:
     """A = O(B): every term of A is dominated by a single term of B (bounds §5.1), possibly
     after raising A's variables along the constraints (bounds §5, item 9)."""
-    if a.terms is None or b.terms is None:
-        return False
     if a.fixed != b.fixed:
         # a bound for every fixed k (ε_k, hidden constants depending on k) is compared only
         # with bounds fixed in the same parameters (bounds §2, 17 November 2026)
         return False
-    if _le_terms(a, b, ctx, mode):
+    if a.terms is not None and b.terms is not None:
+        if _le_terms(a, b, ctx, mode):
+            return True
+        if any(_le_terms(r, b, ctx, mode) for r in _raised(a, b, ctx)):
+            return True
+    if mode == "ostar":
+        return _le_ostar_forms(a, b, ctx)
+    return (a.bound.notation == b.bound.notation and a.bound.family == b.bound.family
+            and _pointwise_le(a.bound.expr, b.bound.expr, ctx))
+
+
+_IN_OSTAR = [False]
+_OSTAR_CACHE: dict[tuple[int, Bound], tuple[Context, Analysed]] = {}
+
+
+def _ostar_form(b: Bound, ctx: Context) -> Analysed:
+    from .display import ostar  # local import: display imports this module
+
+    key = (id(ctx), b)
+    hit = _OSTAR_CACHE.get(key)
+    if hit is not None and hit[0] is ctx:
+        return hit[1]
+    _IN_OSTAR[0] = True
+    try:
+        form = analyse(ostar(b, ctx))
+    except Exception:  # noqa: BLE001 - no O* form: no conclusion
+        form = Analysed(b, None, fixed_parameters(b.expr))
+    finally:
+        _IN_OSTAR[0] = False
+    if len(_OSTAR_CACHE) > 200000:
+        _OSTAR_CACHE.clear()
+    _OSTAR_CACHE[key] = (ctx, form)
+    return form
+
+
+def _le_ostar_forms(a: Analysed, b: Analysed, ctx: Context) -> bool:
+    """A = O*(B) read on the O* forms (21 November 2026): the polynomial factors are dropped
+    first, so (n-k)^2 in n^{n-k} (n-k)^2 no longer hides the comparison, and the bases of
+    equal exponents compare pointwise: (d+1)^k ≤ (d+2)^k."""
+    if _IN_OSTAR[0]:
+        return False  # computing an O* form itself compares bounds: no recursion
+    fa, fb = _ostar_form(a.bound, ctx), _ostar_form(b.bound, ctx)
+    if fa.terms is not None and fb.terms is not None and (fa.bound != a.bound or fb.bound != b.bound):
+        if _le_terms(fa, fb, ctx, "ostar") or any(_le_terms(r, fb, ctx, "ostar") for r in _raised(fa, fb, ctx)):
+            return True
+    return _pointwise_le(fa.bound.expr, fb.bound.expr, ctx)
+
+
+def _pointwise_le(x: Node, y: Node, ctx: Context) -> bool:
+    """x ≤ y on every input, read from the structure (sound, incomplete; 21 November 2026):
+    equal trees; numbers; a variable below another by a constraint; sums and products
+    matched part by part (every part nonnegative); equal exponents over bases that compare,
+    and bases at least 1 with exponents that compare."""
+    from .expr import Add  # local import keeps the top-level imports unchanged
+
+    if _has_func(x):
+        return False  # bounds B3: f(k) beats nothing
+    if x == y:
         return True
-    return any(_le_terms(r, b, ctx, mode) for r in _raised(a, b, ctx))
+    if isinstance(x, Num) and isinstance(y, Num):
+        return x.value <= y.value
+    if isinstance(x, Var) and isinstance(y, Var):
+        return ctx.relation(x.name, y.name) == 1 and ctx.scale(x.name, y.name) <= 1
+    if isinstance(x, Add) or isinstance(y, Add):
+        xs = [t for s, t in x.terms] if isinstance(x, Add) else [x]
+        ys = [t for s, t in y.terms] if isinstance(y, Add) else [y]
+        if (isinstance(x, Add) and any(s < 0 for s, _ in x.terms)) or (
+                isinstance(y, Add) and any(s < 0 for s, _ in y.terms)):
+            return False
+        return _matched(xs, ys, ctx)
+    if isinstance(x, Mul) or isinstance(y, Mul):
+        xs = list(x.factors) if isinstance(x, Mul) else [x]
+        ys = list(y.factors) if isinstance(y, Mul) else [y]
+        return _matched(xs, ys, ctx, factors=True)
+    if isinstance(x, Pow) and isinstance(y, Pow):
+        if x.exp == y.exp and _pointwise_le(x.base, y.base, ctx):
+            return _nonneg_exponent(x.exp)
+        if x.base == y.base and _at_least_one(x.base) and _pointwise_le(x.exp, y.exp, ctx):
+            return True
+    return False
+
+
+def _has_func(node: Node) -> bool:
+    from .expr import Func, children
+
+    return isinstance(node, Func) or any(_has_func(c) for c in children(node))
+
+
+def _matched(xs: list, ys: list, ctx: Context, factors: bool = False) -> bool:
+    """Every part of xs is at most a distinct part of ys; the unused parts of ys are
+    nonnegative (sums) or at least 1 (products)."""
+    if len(xs) > 6 or len(ys) > 6:
+        return False
+    for perm in itertools.permutations(range(len(ys)), len(xs)):
+        if all(_pointwise_le(xi, ys[j], ctx) for xi, j in zip(xs, perm)):
+            rest = [ys[j] for j in range(len(ys)) if j not in perm]
+            if all((_at_least_one(r) if factors else _nonneg(r)) for r in rest):
+                return True
+    return False
+
+
+def _nonneg(node: Node) -> bool:
+    if isinstance(node, Num):
+        return node.value >= 0
+    return isinstance(node, (Var, Pow)) or (isinstance(node, Mul) and all(_nonneg(f) for f in node.factors))
+
+
+def _at_least_one(node: Node) -> bool:
+    """Bases and factors read as at least 1: numbers ≥ 1, variables (parameters and sizes are
+    positive integers here), and sums or products of such."""
+    from .expr import Add
+
+    if isinstance(node, Num):
+        return node.value >= 1
+    if isinstance(node, Var):
+        return True
+    if isinstance(node, Add):
+        return all(s > 0 for s, _ in node.terms) and any(_at_least_one(t) for _, t in node.terms) and all(
+            _nonneg(t) for _, t in node.terms)
+    if isinstance(node, (Mul,)):
+        return all(_at_least_one(f) for f in node.factors)
+    if isinstance(node, Pow):
+        return _at_least_one(node.base) and _nonneg_exponent(node.exp)
+    return False
+
+
+def _nonneg_exponent(node: Node) -> bool:
+    from .expr import Add
+
+    if isinstance(node, Num):
+        return node.value >= 0
+    if isinstance(node, Var):
+        return True
+    if isinstance(node, Add):
+        return all(s > 0 and _nonneg_exponent(t) for s, t in node.terms)
+    if isinstance(node, Mul):
+        return all(_nonneg_exponent(f) for f in node.factors)
+    if isinstance(node, Div):
+        return _nonneg_exponent(node.num) and isinstance(node.den, Num) and node.den.value > 0
+    return False
 
 
 def _le_terms(a: Analysed, b: Analysed, ctx: Context, mode: str) -> bool:

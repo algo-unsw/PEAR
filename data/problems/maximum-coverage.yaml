@@ -1,0 +1,40 @@
+id: maximum-coverage
+name: Maximum Coverage
+aliases: [Max Coverage, Maximum k-Coverage, Max k-Cover, Maximum k-Set Cover, Partial Set Cover, MaxCover, Chamberlin–Courant (approval), Approval Chamberlin–Courant, Approval-CC]
+category: sets
+complexity:
+  class: NP-complete
+  source:
+    folklore: true
+    note: "Set Cover (one of Karp's 21 NP-complete problems) is the special case $t = n$ (`set-cover--to--maximum-coverage`); membership in NP is immediate. Chamberlin–Courant winner determination with approval ballots is the same problem, with the candidates as sets of voters (the voters who approve them), the committee size as $k$ and the score as $t$. TODO(verify): Wikipedia's choice of source for NP-hardness was not checked."
+objects:
+  n: number of elements of the universe (voters, for approval Chamberlin–Courant)
+  m: number of sets in the family (candidates, for approval Chamberlin–Courant)
+  N: total encoding length of the input
+parameters:
+  k: { meaning: "the number $k$ of sets allowed in the input (the committee size)" }
+  t: { meaning: "the coverage: the integer $t$ in the input (decision, search), or the maximum number of elements covered by $k$ sets (optimisation)" }
+constraints:
+  - { constraint: "k \\le m", because: "Every instance with $k \\ge m$ is solved by taking all sets, in polynomial time." }
+  - { constraint: "t \\le n", because: "At most $n$ elements can be covered; an instance with $t > n$ is a no-instance." }
+versions:
+  decision:
+    kind: decision
+    input: "A finite universe $U$, a family $\\mathcal{F}$ of subsets of $U$, and integers $k$ and $t$."
+    question: "Is there a subfamily $S \\subseteq \\mathcal{F}$ with $|S| \\le k$ such that at least $t$ elements of $U$ are in some set of $S$?"
+  optimisation:
+    kind: optimisation
+    input: "A finite universe $U$, a family $\\mathcal{F}$ of subsets of $U$, and an integer $k$."
+    goal: "Find the maximum number of elements of $U$ that are in some set of a subfamily $S \\subseteq \\mathcal{F}$ with $|S| \\le k$."
+  search:
+    kind: search
+    input: "A finite universe $U$, a family $\\mathcal{F}$ of subsets of $U$, and integers $k$ and $t$."
+    goal: "Find a subfamily $S \\subseteq \\mathcal{F}$ with $|S| \\le k$ such that at least $t$ elements of $U$ are in some set of $S$, or report that none exists."
+default_version: decision
+shared_bounds:
+  - versions: [decision, optimisation, search]
+    because: "Binary search on $t$ and self-reducibility (delete a set whenever the answer stays yes)."
+related:
+  - { problem: set-cover, relation: generalisation }
+  - { problem: proportional-approval-voting, relation: variant }
+review: { approved_by: null, date: null }

@@ -1,0 +1,24 @@
+id: connected-feedback-vertex-set--n--gaspers-2026-pathwidth-max-degree-5
+problem: connected-feedback-vertex-set
+proved_for: decision-max-degree-5
+bound:
+  as_stated: '4^{11n/32 + o(n)}'
+  notation: O
+  parameters: [n]
+properties:
+  randomized:
+    error: one-sided
+  space:
+    class: exponential
+    bound: 'Exponential space, as stated (Theorem 14.1: all algorithms of the theorem use exponential space).'
+  algebraic: true
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: gaspers-2026-pathwidth
+  statements:
+    arxiv-v1: { statement: "Theorem 14.1(b)" }
+  note: 'Theorem 14.1 (connectivity problems): polynomial factors omitted, all algorithms use exponential space, and the Monte Carlo algorithms have one-sided error at most $\frac12$. Part (b): Connected Feedback Vertex Set by a Monte Carlo algorithm in time $4^{11n/32+o(n)} = O(1.6105^n)$ (the more precise form is stored, as Serge asked on 21 November 2026) on graphs of maximum degree 5. The Cut&Count algorithm of Cygan et al. in time $4^{\mathrm{tw}} n^{O(1)}$ (their Theorem 1.2) run on a path decomposition computed in polynomial time. arXiv v1, 3 November 2026 (read: the LaTeX source of the arXiv version; numbering as in the existing records from this theorem); unrefereed preprint.'
+formal: { status: informal }
+status: valid
