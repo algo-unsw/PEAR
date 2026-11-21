@@ -1,0 +1,12 @@
+id: alferov-bliznets-brilliantov-2024
+title: "Parameterization of (Partial) Maximum Satisfiability above Matching in a Variable-Clause Graph"
+authors: [Vasily Alferov, Ivan Bliznets, Kirill Brilliantov]
+identifiers: { dblp: "conf/aaai/AlferovBB24", openalex: null }
+versions:
+  aaai:
+    kind: conference
+    venue: "Thirty-Eighth AAAI Conference on Artificial Intelligence (AAAI 2024), pp. 7918–7925"
+    year: 2024
+    doi: "10.1609/aaai.v38i8.28628"
+    url: "https://ojs.aaai.org/index.php/AAAI/article/download/28628/29220"
+    open_access: true

@@ -1,0 +1,12 @@
+id: peng-xiao-2024
+title: "A Fast Algorithm for MaxSAT above Half Number of Clauses"
+authors: [Junqiang Peng, Mingyu Xiao]
+identifiers: { dblp: "conf/ijcai/0001024", openalex: null }
+versions:
+  ijcai:
+    kind: conference
+    venue: "Proceedings of the Thirty-Third International Joint Conference on Artificial Intelligence (IJCAI 2024), pp. 1935–1943"
+    year: 2024
+    doi: "10.24963/ijcai.2024/214"
+    url: "https://ijcai.org/proceedings/2024/0214.pdf"
+    open_access: true

@@ -1,0 +1,43 @@
+id: connectivity-augmentation
+name: Connectivity Augmentation
+aliases: [Edge Connectivity Augmentation, Edge-Connectivity Augmentation, CAP]
+category: graph
+complexity:
+  class: NP-complete
+  source:
+    paper: crespelle-drange-fomin-2020
+    statements:
+      arxiv: { statement: "Section 3.2 (Connectivity): \"if the set of links is restricted, that is, there are pairs of vertices in the graph which do not constitute a link, or if the links have (non-identical) weights on them, then the problem of computing the minimum size (or weight) augmenting set is NP-complete\", citing Eswaran and Tarjan (SIAM J. Comput. 1976)" }
+    note: "No Wikipedia article on connectivity augmentation was found. With all non-edges available as links the problem is polynomial (Watanabe and Nakamura 1987; Frank 1992), as the same section says. Korhonen and Thorup (arXiv 2605.11757, Section 1) observe that it is NP-hard already for $\\lambda = 2$ and $E(G) = \\emptyset$, by a reduction from Hamiltonian Cycle (entered as a reduction). Membership in NP: $\\lambda$-edge-connectivity is checked by minimum cuts in polynomial time."
+objects:
+  n: number of vertices
+  m: number of edges of $G$
+  N: total encoding length of the input
+parameters:
+  k: { meaning: "the solution size: the integer $k$ in the input (decision, search), or the minimum number of links to add (optimisation)" }
+  p: { meaning: "the number $|L|$ of available links" }
+constraints:
+  - { constraint: "k \\le p", because: "Every instance with $k \\ge |L|$ is solved by checking whether $G \\cup L$ is $\\lambda$-edge-connected, in polynomial time." }
+  - { constraint: "p \\le n(n - 1)/2", because: "Links are pairs of distinct vertices." }
+  - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
+versions:
+  decision:
+    kind: decision
+    input: "A graph $G = (V, E)$, a set $L \\subseteq \\binom{V}{2} \\setminus E$ of links and integers $\\lambda$ and $k$."
+    question: "Is there a set $S \\subseteq L$ with $|S| \\le k$ such that $(V, E \\cup S)$ is $\\lambda$-edge-connected?"
+  optimisation:
+    kind: optimisation
+    input: "A graph $G = (V, E)$, a set $L \\subseteq \\binom{V}{2} \\setminus E$ of links and an integer $\\lambda$."
+    goal: "Find the minimum size of a set $S \\subseteq L$ such that $(V, E \\cup S)$ is $\\lambda$-edge-connected."
+  search:
+    kind: search
+    input: "A graph $G = (V, E)$, a set $L \\subseteq \\binom{V}{2} \\setminus E$ of links and integers $\\lambda$ and $k$."
+    goal: "Find a set $S \\subseteq L$ with $|S| \\le k$ such that $(V, E \\cup S)$ is $\\lambda$-edge-connected, or report that none exists."
+default_version: decision
+shared_bounds:
+  - versions: [decision, optimisation, search]
+    because: "Binary search on $k$ and self-reducibility."
+related:
+  - { problem: hamiltonian-cycle, relation: generalisation }
+lean: { status: none }
+review: { approved_by: null, date: null }

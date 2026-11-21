@@ -1,0 +1,21 @@
+id: max-sat--r--alferov-bliznets-brilliantov-2024
+problem: max-sat
+proved_for: decision
+bound:
+  as_stated: 'O^*(2^{3r/2})'
+  notation: O*
+  parameters: [r]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Not stated; the proof of Theorem 8 says that it does not "create a whole table in a memory to store the data" (educated guess: polynomial space).'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: alferov-bliznets-brilliantov-2024
+  statements:
+    aaai: { statement: "Theorems 7 and 8" }
+  note: 'Theorem 7: if $(n-k)$-Set Cover is solvable in $O^*(f(k))$ time with $f(k) \ge 2^k$, then Partial $(\nu(F)+k)$-SAT is solvable in $O^*(f(k))$ time when all hard clauses have length at most 2; Theorem 8 solves $(n-k)$-Set Cover in $O^*(2^{3k/2})$ time. With no hard clauses this is MaxSAT above the maximum matching of the variable–clause graph; the abstract states the bound as $O^*(2.83^k)$. Their $k$ is written $r$ here.'
