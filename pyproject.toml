@@ -11,6 +11,7 @@ requires-python = ">=3.12"
 dependencies = [
     "pyyaml>=6",
     "pydantic>=2.7",
+    "z3-solver>=4.12",  # MIT; the comparator's second tier (bounds §5)
 ]
 
 [project.optional-dependencies]
