@@ -132,3 +132,14 @@ def test_rules_refute_without_slices():
 def test_tiers(a, b, expected):
     # exponential rate first, then sub-exponential, then polynomial: strict edges between tiers
     assert compare(P(a), P(b), build_context(SYMS, [])) == expected
+
+
+def test_lower_bounds_of_variables_come_from_constraints():
+    # 21 November 2026: k >= 3 for Chromatic Number (k <= 2 is polynomial). Then
+    # k^{0.793 n} >= 3^{0.793 n} > 2^n, so 2^n is better; at k = 2 it would not be
+    with_k3 = build_context(SYMS, [r"k \le n", r"k \ge 3"])
+    without = build_context(SYMS, [r"k \le n"])
+    a, b = P(r"O^*(2^{n})"), P(r"O^*(k^{0.793 n})")
+    assert compare(a, b, with_k3) == Relation.BETTER
+    assert compare(a, b, without) == Relation.INCOMPARABLE  # witness k = 2
+    assert compare(P(r"O^*(2.2356^{n})"), P(r"O^*(k^{n})"), with_k3) == Relation.BETTER

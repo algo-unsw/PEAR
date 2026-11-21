@@ -19,6 +19,7 @@ parameters:
   k: { meaning: "the number of cliques: the integer $k$ in the input (decision, search), or the clique cover number of $G$ (optimisation)" }
 constraints:
   - { constraint: "k \\le n", because: "Every instance with $k \\ge n$ is a yes-instance (one clique per vertex)." }
+  - { constraint: "k \\ge 3", because: "Every instance with $k \\le 2$ is solved in polynomial time: $k = 1$ asks whether $G$ is complete, $k = 2$ whether the complement of $G$ is bipartite (21 November 2026)." }
   - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
 versions:
   decision:

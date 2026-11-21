@@ -19,6 +19,7 @@ parameters:
   cw: { meaning: "the width $w$ of a $w$-expression constructing $G$ (introduce, disjoint union, relabel and join operations with at most $w$ labels), given with the input; at least the clique-width of $G$" }
 constraints:
   - { constraint: "k \\le n", because: "Every instance with $k \\ge n$ is a yes-instance: one colour per vertex gives classes of sizes 0 and 1." }
+  - { constraint: "k \\ge 3", because: "Every instance with $k \\le 2$ is solved in polynomial time: $k = 1$ asks whether $G$ has no edges; for $k = 2$, $G$ must be bipartite, each component $i$ has a 2-colouring with sides of sizes $a_i, b_i$ (unique up to swapping), and a dynamic program over the components with sums at most $n$ decides whether the swaps can balance the two classes (21 November 2026)." }
   - { constraint: "dc \\le n", because: "Deleting all vertices leaves the empty graph." }
   - { constraint: "dcc \\le n", because: "Deleting all vertices leaves the empty graph." }
   - { constraint: "twc \\le n", because: "A single bag containing all vertices is a tree decomposition of width $n - 1$." }

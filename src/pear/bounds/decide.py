@@ -82,6 +82,14 @@ def _log2_up(c: Fraction) -> Fraction:
     return Fraction(math.log2(c)).limit_denominator(10**6) + Fraction(1, 10**6)
 
 
+def _log2_down(c: Fraction) -> Fraction:
+    """A rational lower bound on log2 c (c >= 2)."""
+    num, den = c.numerator, c.denominator
+    if num & (num - 1) == 0 and den & (den - 1) == 0:
+        return Fraction(num.bit_length() - den.bit_length())
+    return Fraction(math.log2(c)).limit_denominator(10**6) - Fraction(1, 10**6)
+
+
 def _powers(key: Key) -> dict[str, Fraction] | None:
     """The exponents of a power monomial; None if it has logarithmic factors."""
     out = {}
@@ -133,12 +141,14 @@ def _power_edge(frm: dict[str, Fraction], to: dict[str, Fraction], ctx) -> Edge 
     names, rows = _log_domain(ctx)
     names = sorted(set(names) | set(frm) | set(to))
     diff = {v: to.get(v, Fraction(0)) - frm.get(v, Fraction(0)) for v in names}
-    # every variable is at least 2 (bounds §2, definition item 1): u = 1 + u' with u' >= 0
-    shifted = [(coeffs, off - sum(coeffs.values())) for coeffs, off in rows]
+    # every variable is at least 2 (bounds §2, definition item 1), or more by a constraint
+    # such as k >= 3: u = L + u' with u' >= 0 and L <= log2 of the lower bound
+    low = {v: _log2_down(ctx.at_least(v)) for v in names}
+    shifted = [(coeffs, off - sum(w * low[v] for v, w in coeffs.items())) for coeffs, off in rows]
     weak = _lp_max(diff, names, shifted)
     if weak.status != "optimal":
         return None
-    kappa = _pow2_up(weak.value + sum(diff.values()))
+    kappa = _pow2_up(weak.value + sum(w * low[v] for v, w in diff.items()))
     # strict: on the recession cone (offsets 0), to·d <= rho · frm·d with rho < 1, and to·d <= 0
     # where frm·d = 0
     cone = [(coeffs, Fraction(0)) for coeffs, _ in rows]
@@ -198,6 +208,12 @@ def _edge(frm: Key, to: Key, ctx) -> Edge | None:  # noqa: ANN001
     if pf and all(b >= 0 and d == 0 for _, (_, b, d) in lf):
         if not lt:
             e = _power_edge(pf, pt, ctx)
+            if e is not None and e.kind == "weak" and lf:
+                # (log x)^b >= (log2 of x's lower bound)^b: k >= 3 gives log k >= 1.58
+                floor = Fraction(1)
+                for v, (_, b, _) in lf:
+                    floor *= _log2_down(ctx.at_least(v)) ** int(b) if b.denominator == 1 else Fraction(1)
+                e = Edge("weak", e.kappa / floor, e.why + ", log factors")
             if e is not None and (best is None or e.kind == "strict" or e.kappa < best.kappa):
                 best = e
         elif all(v in pf for v, _ in lt) and _logs_at_least_one(to):
@@ -669,7 +685,7 @@ def _prove_z3(slots: dict[Key, _Slot], ctx, values) -> Certificate | None:  # no
     s = z3.Solver()
     s.set("rlimit", Z3_RLIMIT)
     for v in names:
-        s.add(xs[v] >= 2)  # bounds §2, definition item 1
+        s.add(xs[v] >= z3.RealVal(str(ctx.at_least(v))))  # bounds §2, definition item 1
     for (x, y), p in ctx.le.items():
         if p.denominator == 1 and x in xs and y in xs:
             s.add(xs[x] <= z3.RealVal(str(ctx.scale(x, y))) * mono(((y, (p, Fraction(0), Fraction(0))),)))

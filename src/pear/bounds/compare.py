@@ -60,6 +60,11 @@ class Context:
     domain: tuple[tuple[Growth, Growth], ...] = ()
     exact_domain: bool = True
     symbols: tuple[str, ...] = ()
+    # lower bounds x >= c from constraints such as 'k \ge 3' (every variable is at least 2)
+    lower: dict[str, Fraction] = field(default_factory=dict)
+
+    def at_least(self, x: str) -> Fraction:
+        return max(Fraction(2), self.lower.get(x, Fraction(2)))
 
     def poly_bounded(self, var: str) -> bool:
         return var in ALWAYS_POLY or var not in self.not_poly_bounded
@@ -123,7 +128,28 @@ def build_context(
     le = {k: p for k, (p, _) in edges.items()}
     coef = {k: c for k, (_, c) in edges.items() if c < 1}
     return Context(frozenset(not_poly_bounded), le, coef=coef, constants=dict(constants or {}), nonneg=tuple(useful),
-                   domain=tuple(domain), exact_domain=exact_domain, symbols=tuple(sorted(syms)))
+                   domain=tuple(domain), exact_domain=exact_domain, symbols=tuple(sorted(syms)),
+                   lower=_lower_bounds(domain))
+
+
+def _lower_bounds(domain: list[tuple[Growth, Growth]]) -> dict[str, Fraction]:
+    """x >= c for constraints whose small side is a number and large side a variable."""
+    out: dict[str, Fraction] = {}
+    for small, large in domain:
+        if set(small.terms) - {()} or len(large.terms) != 1:
+            continue
+        (key, cs), = large.terms.items()
+        if len(key) != 1 or len(cs) != 1 or cs[0].kind != "exact" or cs[0].value != 1:
+            continue
+        (v, shape), = key
+        if shape != (Fraction(1), Fraction(0), Fraction(0)):
+            continue
+        cc = small.terms.get((), [])
+        if len(cc) != 1 or cc[0].kind != "exact":
+            continue
+        c = Fraction(cc[0].value).limit_denominator(10**6)
+        out[v] = max(out.get(v, Fraction(2)), c)
+    return out
 
 
 def _constraint_sides(text: str, syms: set[str]) -> list[tuple[Growth, Growth]] | None:

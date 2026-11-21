@@ -22,6 +22,7 @@ parameters:
 constraints:
   - { constraint: "p \\le n", because: "$p$ counts vertices." }
   - { constraint: "k \\le m", because: "Every instance with $k \\ge m$ is a yes-instance (one colour per edge)." }
+  - { constraint: "k \\ge 3", because: "Every instance with $k \\le 2$ is solved in polynomial time: $k = 1$ asks whether the edges form a matching, $k = 2$ whether every component is a path or an even cycle (21 November 2026)." }
   - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
 versions:
   decision:
