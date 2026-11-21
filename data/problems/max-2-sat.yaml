@@ -25,15 +25,15 @@ constraints:
 versions:
   decision:
     kind: decision
-    input: "A formula $\\varphi$ in conjunctive normal form over variables $x_1, \\dots, x_n$, with at most two literals per clause (clauses may repeat), and an integer $k$."
+    input: "A formula $\\varphi$ in conjunctive normal form over variables $x_1, \\dots, x_n$, with at most two literals per clause (a set of clauses: no clause repeats), and an integer $k$."
     question: "Is there an assignment of the variables that satisfies at least $k$ clauses of $\\varphi$?"
   optimisation:
     kind: optimisation
-    input: "A formula $\\varphi$ in conjunctive normal form over variables $x_1, \\dots, x_n$, with at most two literals per clause (clauses may repeat)."
+    input: "A formula $\\varphi$ in conjunctive normal form over variables $x_1, \\dots, x_n$, with at most two literals per clause (a set of clauses: no clause repeats)."
     goal: "Find the maximum number of clauses of $\\varphi$ satisfied by an assignment of the variables."
   search:
     kind: search
-    input: "A formula $\\varphi$ in conjunctive normal form over variables $x_1, \\dots, x_n$, with at most two literals per clause (clauses may repeat), and an integer $k$."
+    input: "A formula $\\varphi$ in conjunctive normal form over variables $x_1, \\dots, x_n$, with at most two literals per clause (a set of clauses: no clause repeats), and an integer $k$."
     goal: "Find an assignment of the variables that satisfies at least $k$ clauses of $\\varphi$, or report that none exists."
 default_version: decision
 shared_bounds:
@@ -42,4 +42,4 @@ shared_bounds:
 related:
   - { problem: max-2-csp, relation: generalisation }
   - { problem: sat, relation: variant }
-  - { problem: max-sat, relation: variant }
+  - { problem: max-sat, relation: generalisation }
