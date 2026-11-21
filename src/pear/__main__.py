@@ -86,12 +86,17 @@ def prominence(args: argparse.Namespace, data) -> int:
         if unknown:
             print(f"{args.queries}: unknown problem ids {', '.join(unknown)}", file=sys.stderr)
             return 1
-        snap = pm.fetch(data, overrides, only=args.only)
-        if args.only:
-            old = pm.load_signals(args.out) or {"problems": {}}
-            old["problems"].update(snap["problems"])
-            old["errors"] = snap["errors"]
-            snap = {**old, "as_of": snap["as_of"]}
+        old = pm.load_signals(args.out) if args.only else None
+
+        def merged(snap: dict) -> dict:
+            if old is None:
+                return snap
+            return {**old, "as_of": snap["as_of"], "problems": {**old["problems"], **snap["problems"]}, "errors": snap["errors"]}
+
+        def save(snap: dict) -> None:  # after every problem, so a cut-off run keeps what it got
+            pm.write_signals(merged(snap), args.out)
+
+        snap = merged(pm.fetch(data, overrides, only=args.only, log=lambda s: print(s, flush=True), checkpoint=save))
         pm.write_signals(snap, args.out)
         for e in snap["errors"]:
             print(f"error: {e}")

@@ -1,0 +1,826 @@
+# Prominence signals, fetched by `python -m pear prominence fetch` (src/pear/prominence.py).
+# Generated: edit prominence/queries.yaml instead, then refetch.
+as_of: '2026-11-21'
+problems:
+  3-coloring:
+    phrases:
+    - 3-Coloring
+    - 3-Colouring
+    wikipedia_title: null
+    wikipedia_section: null
+    openalex_works: 704
+    openlibrary_books: 1306
+    google_books: null
+    wikipedia_pageviews: 0
+    wikipedia_mentions: 35
+    stackexchange_questions: 156
+  3-hitting-set:
+    phrases:
+    - 3-Hitting Set
+    wikipedia_title: null
+    wikipedia_section: null
+    openalex_works: 39
+    openlibrary_books: 12
+    google_books: null
+    wikipedia_pageviews: 0
+    wikipedia_mentions: 0
+    stackexchange_questions: 7
+  bandwidth:
+    phrases:
+    - graph bandwidth
+    - bandwidth minimization
+    wikipedia_title: Graph bandwidth
+    wikipedia_section: null
+    openalex_works: 274
+    openlibrary_books: 176
+    google_books: null
+    wikipedia_pageviews: 5005
+    wikipedia_mentions: 13
+    stackexchange_questions: 5
+  chordal-vertex-deletion:
+    phrases:
+    - Chordal Vertex Deletion
+    wikipedia_title: null
+    wikipedia_section: null
+    openalex_works: 19
+    openlibrary_books: 0
+    google_books: null
+    wikipedia_pageviews: 0
+    wikipedia_mentions: 0
+    stackexchange_questions: 0
+  chromatic-number:
+    phrases:
+    - Chromatic Number
+    wikipedia_title: Chromatic number
+    wikipedia_section: Graph coloring#Chromatic number
+    openalex_works: 9421
+    openlibrary_books: 1327
+    google_books: null
+    wikipedia_pageviews: 6804
+    wikipedia_mentions: 323
+    stackexchange_questions: 1171
+  clique:
+    phrases:
+    - clique problem
+    - maximum clique
+    wikipedia_title: Clique problem
+    wikipedia_section: null
+    openalex_works: 2077
+    openlibrary_books: 698
+    google_books: null
+    wikipedia_pageviews: 31712
+    wikipedia_mentions: 60
+    stackexchange_questions: 185
+  clique-cover:
+    phrases:
+    - Clique Cover
+    wikipedia_title: Clique cover
+    wikipedia_section: null
+    openalex_works: 474
+    openlibrary_books: 148
+    google_books: null
+    wikipedia_pageviews: 4699
+    wikipedia_mentions: 22
+    stackexchange_questions: 53
+  clique-width:
+    phrases:
+    - clique-width
+    - cliquewidth
+    wikipedia_title: Clique-width
+    wikipedia_section: null
+    openalex_works: 687
+    openlibrary_books: 32
+    google_books: null
+    wikipedia_pageviews: 3367
+    wikipedia_mentions: 32
+    stackexchange_questions: 34
+  cluster-deletion:
+    phrases:
+    - Cluster Deletion
+    wikipedia_title: null
+    wikipedia_section: null
+    openalex_works: 301
+    openlibrary_books: 212
+    google_books: null
+    wikipedia_pageviews: 0
+    wikipedia_mentions: 2
+    stackexchange_questions: 1
+  cluster-editing:
+    phrases:
+    - Cluster Editing
+    wikipedia_title: null
+    wikipedia_section: null
+    openalex_works: 234
+    openlibrary_books: 17
+    google_books: null
+    wikipedia_pageviews: 0
+    wikipedia_mentions: 2
+    stackexchange_questions: 1
+  cluster-vertex-deletion:
+    phrases:
+    - Cluster Vertex Deletion
+    wikipedia_title: null
+    wikipedia_section: null
+    openalex_works: 88
+    openlibrary_books: 3
+    google_books: null
+    wikipedia_pageviews: 0
+    wikipedia_mentions: 1
+    stackexchange_questions: 1
+  connected-dominating-set:
+    phrases:
+    - Connected Dominating Set
+    wikipedia_title: Connected dominating set
+    wikipedia_section: null
+    openalex_works: 2045
+    openlibrary_books: 146
+    google_books: null
+    wikipedia_pageviews: 1959
+    wikipedia_mentions: 14
+    stackexchange_questions: 9
+  connected-vertex-cover:
+    phrases:
+    - Connected Vertex Cover
+    wikipedia_title: null
+    wikipedia_section: null
+    openalex_works: 146
+    openlibrary_books: 11
+    google_books: null
+    wikipedia_pageviews: 0
+    wikipedia_mentions: 3
+    stackexchange_questions: 2
+  cutwidth:
+    phrases:
+    - Cutwidth
+    wikipedia_title: Cutwidth
+    wikipedia_section: null
+    openalex_works: 288
+    openlibrary_books: 80
+    google_books: null
+    wikipedia_pageviews: 1537
+    wikipedia_mentions: 13
+    stackexchange_questions: 1
+  directed-feedback-vertex-set:
+    phrases:
+    - Directed Feedback Vertex Set
+    wikipedia_title: null
+    wikipedia_section: null
+    openalex_works: 86
+    openlibrary_books: 10
+    google_books: null
+    wikipedia_pageviews: 0
+    wikipedia_mentions: 3
+    stackexchange_questions: 2
+  directed-steiner-tree:
+    phrases:
+    - Directed Steiner Tree
+    wikipedia_title: null
+    wikipedia_section: null
+    openalex_works: 147
+    openlibrary_books: 52
+    google_books: null
+    wikipedia_pageviews: 0
+    wikipedia_mentions: 2
+    stackexchange_questions: 6
+  dominating-set:
+    phrases:
+    - Dominating Set
+    wikipedia_title: Dominating set
+    wikipedia_section: null
+    openalex_works: 10654
+    openlibrary_books: 758
+    google_books: null
+    wikipedia_pageviews: 21633
+    wikipedia_mentions: 83
+    stackexchange_questions: 229
+  edge-bipartization:
+    phrases:
+    - Edge Bipartization
+    wikipedia_title: null
+    wikipedia_section: null
+    openalex_works: 20
+    openlibrary_books: 4
+    google_books: null
+    wikipedia_pageviews: 0
+    wikipedia_mentions: 2
+    stackexchange_questions: 0
+  edge-clique-cover:
+    phrases:
+    - Edge Clique Cover
+    wikipedia_title: null
+    wikipedia_section: null
+    openalex_works: 96
+    openlibrary_books: 11
+    google_books: null
+    wikipedia_pageviews: 0
+    wikipedia_mentions: 4
+    stackexchange_questions: 7
+  edge-coloring:
+    phrases:
+    - Edge Coloring
+    - Edge Colouring
+    wikipedia_title: Edge coloring
+    wikipedia_section: null
+    openalex_works: 3684
+    openlibrary_books: 549
+    google_books: null
+    wikipedia_pageviews: 13549
+    wikipedia_mentions: 80
+    stackexchange_questions: 269
+  edge-dominating-set:
+    phrases:
+    - Edge Dominating Set
+    wikipedia_title: Edge dominating set
+    wikipedia_section: null
+    openalex_works: 379
+    openlibrary_books: 37
+    google_books: null
+    wikipedia_pageviews: 1242
+    wikipedia_mentions: 8
+    stackexchange_questions: 6
+  equitable-coloring:
+    phrases:
+    - Equitable Coloring
+    - Equitable Colouring
+    wikipedia_title: Equitable coloring
+    wikipedia_section: null
+    openalex_works: 255
+    openlibrary_books: 19
+    google_books: null
+    wikipedia_pageviews: 2375
+    wikipedia_mentions: 6
+    stackexchange_questions: 5
+  feedback-arc-set:
+    phrases:
+    - Feedback Arc Set
+    wikipedia_title: Feedback arc set
+    wikipedia_section: null
+    openalex_works: 315
+    openlibrary_books: 100
+    google_books: null
+    wikipedia_pageviews: 7085
+    wikipedia_mentions: 23
+    stackexchange_questions: 19
+  feedback-arc-set-in-tournaments:
+    phrases:
+    - Feedback Arc Set in Tournaments
+    wikipedia_title: null
+    wikipedia_section: null
+    openalex_works: 28
+    openlibrary_books: 2
+    google_books: null
+    wikipedia_pageviews: 0
+    wikipedia_mentions: 1
+    stackexchange_questions: 0
+  feedback-vertex-set:
+    phrases:
+    - Feedback Vertex Set
+    wikipedia_title: Feedback vertex set
+    wikipedia_section: null
+    openalex_works: 1138
+    openlibrary_books: 147
+    google_books: null
+    wikipedia_pageviews: 5406
+    wikipedia_mentions: 17
+    stackexchange_questions: 40
+  graph-edit-distance:
+    phrases:
+    - Graph Edit Distance
+    wikipedia_title: Graph edit distance
+    wikipedia_section: null
+    openalex_works: 802
+    openlibrary_books: 76
+    google_books: null
+    wikipedia_pageviews: 5844
+    wikipedia_mentions: 8
+    stackexchange_questions: 13
+  graph-homomorphism:
+    phrases:
+    - Graph Homomorphism
+    wikipedia_title: Graph homomorphism
+    wikipedia_section: null
+    openalex_works: 726
+    openlibrary_books: 182
+    google_books: null
+    wikipedia_pageviews: 10134
+    wikipedia_mentions: 34
+    stackexchange_questions: 108
+  graph-motif:
+    phrases:
+    - Graph Motif
+    wikipedia_title: null
+    wikipedia_section: null
+    openalex_works: 208
+    openlibrary_books: 10
+    google_books: null
+    wikipedia_pageviews: 0
+    wikipedia_mentions: 0
+    stackexchange_questions: 1
+  group-steiner-tree:
+    phrases:
+    - Group Steiner Tree
+    wikipedia_title: null
+    wikipedia_section: null
+    openalex_works: 167
+    openlibrary_books: 33
+    google_books: null
+    wikipedia_pageviews: 0
+    wikipedia_mentions: 1
+    stackexchange_questions: 1
+  hamiltonian-cycle:
+    phrases:
+    - Hamiltonian cycle
+    - Hamiltonian circuit
+    wikipedia_title: Hamiltonian path
+    wikipedia_section: null
+    openalex_works: 3345
+    openlibrary_books: 1054
+    google_books: null
+    wikipedia_pageviews: 76226
+    wikipedia_mentions: 159
+    stackexchange_questions: 656
+  hitting-set:
+    phrases:
+    - Hitting Set
+    wikipedia_title: Vertex cover in hypergraphs
+    wikipedia_section: null
+    openalex_works: 1307
+    openlibrary_books: 440
+    google_books: null
+    wikipedia_pageviews: 2082
+    wikipedia_mentions: 25
+    stackexchange_questions: 82
+  independent-dominating-set:
+    phrases:
+    - Independent Dominating Set
+    wikipedia_title: Independent dominating set
+    wikipedia_section: null
+    openalex_works: 454
+    openlibrary_books: 85
+    google_books: null
+    wikipedia_pageviews: 293
+    wikipedia_mentions: 8
+    stackexchange_questions: 16
+  independent-set:
+    phrases:
+    - Independent Set
+    wikipedia_title: Independent set (graph theory)
+    wikipedia_section: null
+    openalex_works: 18171
+    openlibrary_books: 15244
+    google_books: null
+    wikipedia_pageviews: 33795
+    wikipedia_mentions: 355
+    stackexchange_questions: 2083
+  induced-matching:
+    phrases:
+    - Induced Matching
+    wikipedia_title: Induced matching
+    wikipedia_section: null
+    openalex_works: 582
+    openlibrary_books: 43
+    google_books: null
+    wikipedia_pageviews: 1637
+    wikipedia_mentions: 10
+    stackexchange_questions: 12
+  k-cut:
+    phrases:
+    - Minimum k-Cut
+    wikipedia_title: Minimum k-cut
+    wikipedia_section: null
+    openalex_works: 62
+    openlibrary_books: 10
+    google_books: null
+    wikipedia_pageviews: 3818
+    wikipedia_mentions: 11
+    stackexchange_questions: 8
+  list-coloring:
+    phrases:
+    - List Coloring
+    - List Colouring
+    wikipedia_title: List coloring
+    wikipedia_section: null
+    openalex_works: 734
+    openlibrary_books: 83
+    google_books: null
+    wikipedia_pageviews: 4459
+    wikipedia_mentions: 30
+    stackexchange_questions: 31
+  longest-path:
+    phrases:
+    - Longest Path
+    wikipedia_title: Longest path problem
+    wikipedia_section: null
+    openalex_works: 1956
+    openlibrary_books: 7536
+    google_books: null
+    wikipedia_pageviews: 21051
+    wikipedia_mentions: 89
+    stackexchange_questions: 402
+  max-bisection:
+    phrases:
+    - Max Bisection
+    wikipedia_title: null
+    wikipedia_section: null
+    openalex_works: 96
+    openlibrary_books: 44
+    google_books: null
+    wikipedia_pageviews: 0
+    wikipedia_mentions: 1
+    stackexchange_questions: 6
+  max-cut:
+    phrases:
+    - max cut
+    - maximum cut
+    wikipedia_title: Max Cut
+    wikipedia_section: Ava Max#Public image
+    openalex_works: 1947
+    openlibrary_books: 2037
+    google_books: null
+    wikipedia_pageviews: 331
+    wikipedia_mentions: 44
+    stackexchange_questions: 153
+  max-leaf-spanning-tree:
+    phrases:
+    - Max Leaf Spanning Tree
+    wikipedia_title: null
+    wikipedia_section: null
+    openalex_works: 12
+    openlibrary_books: 9
+    google_books: null
+    wikipedia_pageviews: 0
+    wikipedia_mentions: 3
+    stackexchange_questions: 0
+  maximum-common-subgraph:
+    phrases:
+    - maximum common induced subgraph
+    - maximum common subgraph
+    wikipedia_title: Maximum common induced subgraph
+    wikipedia_section: null
+    openalex_works: 282
+    openlibrary_books: 94
+    google_books: null
+    wikipedia_pageviews: 1444
+    wikipedia_mentions: 11
+    stackexchange_questions: 5
+  minimum-bisection:
+    phrases:
+    - Minimum Bisection
+    wikipedia_title: null
+    wikipedia_section: null
+    openalex_works: 118
+    openlibrary_books: 58
+    google_books: null
+    wikipedia_pageviews: 0
+    wikipedia_mentions: 4
+    stackexchange_questions: 3
+  minimum-fill-in:
+    phrases:
+    - Minimum Fill-In
+    wikipedia_title: null
+    wikipedia_section: null
+    openalex_works: 136
+    openlibrary_books: 148
+    google_books: null
+    wikipedia_pageviews: 0
+    wikipedia_mentions: 4
+    stackexchange_questions: 2
+  minimum-linear-arrangement:
+    phrases:
+    - Minimum Linear Arrangement
+    wikipedia_title: null
+    wikipedia_section: null
+    openalex_works: 132
+    openlibrary_books: 31
+    google_books: null
+    wikipedia_pageviews: 0
+    wikipedia_mentions: 0
+    stackexchange_questions: 2
+  multicut:
+    phrases:
+    - Multicut
+    wikipedia_title: null
+    wikipedia_section: null
+    openalex_works: 810
+    openlibrary_books: 330
+    google_books: null
+    wikipedia_pageviews: 0
+    wikipedia_mentions: 9
+    stackexchange_questions: 18
+  multiway-cut:
+    phrases:
+    - Multiway Cut
+    wikipedia_title: null
+    wikipedia_section: null
+    openalex_works: 337
+    openlibrary_books: 47
+    google_books: null
+    wikipedia_pageviews: 0
+    wikipedia_mentions: 0
+    stackexchange_questions: 7
+  odd-cycle-transversal:
+    phrases:
+    - Odd Cycle Transversal
+    wikipedia_title: Odd cycle transversal
+    wikipedia_section: null
+    openalex_works: 190
+    openlibrary_books: 3
+    google_books: null
+    wikipedia_pageviews: 1513
+    wikipedia_mentions: 6
+    stackexchange_questions: 9
+  pathwidth:
+    phrases:
+    - pathwidth
+    - path-width
+    wikipedia_title: Pathwidth
+    wikipedia_section: null
+    openalex_works: 907
+    openlibrary_books: 1500
+    google_books: null
+    wikipedia_pageviews: 4846
+    wikipedia_mentions: 153
+    stackexchange_questions: 20
+  planar-vertex-deletion:
+    phrases:
+    - Planar Vertex Deletion
+    wikipedia_title: null
+    wikipedia_section: null
+    openalex_works: 6
+    openlibrary_books: 0
+    google_books: null
+    wikipedia_pageviews: 0
+    wikipedia_mentions: 0
+    stackexchange_questions: 1
+  precoloring-extension:
+    phrases:
+    - Precoloring Extension
+    wikipedia_title: Precoloring extension
+    wikipedia_section: null
+    openalex_works: 93
+    openlibrary_books: 18
+    google_books: null
+    wikipedia_pageviews: 568
+    wikipedia_mentions: 6
+    stackexchange_questions: 4
+  prize-collecting-steiner-tree:
+    phrases:
+    - Prize-Collecting Steiner Tree
+    wikipedia_title: null
+    wikipedia_section: null
+    openalex_works: 186
+    openlibrary_books: 25
+    google_books: null
+    wikipedia_pageviews: 0
+    wikipedia_mentions: 3
+    stackexchange_questions: 5
+  red-blue-dominating-set:
+    phrases:
+    - Red-Blue Dominating Set
+    wikipedia_title: null
+    wikipedia_section: null
+    openalex_works: 23
+    openlibrary_books: 4
+    google_books: null
+    wikipedia_pageviews: 0
+    wikipedia_mentions: 0
+    stackexchange_questions: 0
+  sat:
+    phrases:
+    - Boolean satisfiability
+    - satisfiability problem
+    - CNF satisfiability
+    wikipedia_title: Boolean satisfiability problem
+    wikipedia_section: null
+    openalex_works: 5175
+    openlibrary_books: 1520
+    google_books: null
+    wikipedia_pageviews: 140608
+    wikipedia_mentions: 181
+    stackexchange_questions: 194
+  set-cover:
+    phrases:
+    - Set Cover
+    wikipedia_title: Set cover problem
+    wikipedia_section: null
+    openalex_works: 4421
+    openlibrary_books: 4804
+    google_books: null
+    wikipedia_pageviews: 40521
+    wikipedia_mentions: 169
+    stackexchange_questions: 387
+  sharp-3-sat:
+    phrases:
+    - counting 3-SAT
+    - 3-SAT model counting
+    wikipedia_title: ♯SAT
+    wikipedia_section: null
+    openalex_works: 1
+    openlibrary_books: 0
+    google_books: null
+    wikipedia_pageviews: 1488
+    wikipedia_mentions: 0
+    stackexchange_questions: 0
+  steiner-forest:
+    phrases:
+    - Steiner Forest
+    wikipedia_title: null
+    wikipedia_section: null
+    openalex_works: 290
+    openlibrary_books: 45
+    google_books: null
+    wikipedia_pageviews: 0
+    wikipedia_mentions: 5
+    stackexchange_questions: 4
+  steiner-tree:
+    phrases:
+    - Steiner Tree
+    wikipedia_title: Steiner tree problem
+    wikipedia_section: null
+    openalex_works: 4460
+    openlibrary_books: 916
+    google_books: null
+    wikipedia_pageviews: 38852
+    wikipedia_mentions: 66
+    stackexchange_questions: 104
+  subgraph-isomorphism:
+    phrases:
+    - Subgraph Isomorphism
+    wikipedia_title: Subgraph isomorphism problem
+    wikipedia_section: null
+    openalex_works: 1416
+    openlibrary_books: 588
+    google_books: null
+    wikipedia_pageviews: 10783
+    wikipedia_mentions: 44
+    stackexchange_questions: 77
+  subset-feedback-vertex-set:
+    phrases:
+    - Subset Feedback Vertex Set
+    wikipedia_title: null
+    wikipedia_section: null
+    openalex_works: 67
+    openlibrary_books: 3
+    google_books: null
+    wikipedia_pageviews: 0
+    wikipedia_mentions: 0
+    stackexchange_questions: 0
+  subset-sum:
+    phrases:
+    - Subset Sum
+    wikipedia_title: Subset sum problem
+    wikipedia_section: null
+    openalex_works: 1592
+    openlibrary_books: 512
+    google_books: null
+    wikipedia_pageviews: 54053
+    wikipedia_mentions: 60
+    stackexchange_questions: 594
+  total-dominating-set:
+    phrases:
+    - Total Dominating Set
+    wikipedia_title: Total dominating set
+    wikipedia_section: Dominating set#Variants
+    openalex_works: 693
+    openlibrary_books: 22
+    google_books: null
+    wikipedia_pageviews: 134
+    wikipedia_mentions: 5
+    stackexchange_questions: 3
+  travelling-salesman:
+    phrases:
+    - Travelling Salesman
+    - Traveling Salesman
+    wikipedia_title: Travelling salesman problem
+    wikipedia_section: null
+    openalex_works: 21370
+    openlibrary_books: 56436
+    google_books: null
+    wikipedia_pageviews: 286349
+    wikipedia_mentions: 1110
+    stackexchange_questions: null
+  treedepth:
+    phrases:
+    - treedepth
+    - tree-depth
+    wikipedia_title: Tree-depth
+    wikipedia_section: null
+    openalex_works: 1252
+    openlibrary_books: 1349
+    google_books: null
+    wikipedia_pageviews: 5846
+    wikipedia_mentions: 44
+    stackexchange_questions: null
+  treewidth:
+    phrases:
+    - treewidth
+    - tree-width
+    wikipedia_title: Treewidth
+    wikipedia_section: null
+    openalex_works: 4328
+    openlibrary_books: 561
+    google_books: null
+    wikipedia_pageviews: 19232
+    wikipedia_mentions: 138
+    stackexchange_questions: null
+  vertex-cover:
+    phrases:
+    - Vertex Cover
+    wikipedia_title: Vertex cover
+    wikipedia_section: null
+    openalex_works: 4099
+    openlibrary_books: 704
+    google_books: null
+    wikipedia_pageviews: 37012
+    wikipedia_mentions: 102
+    stackexchange_questions: null
+errors:
+- 429 https://www.googleapis.com/books/v1/volumes?q=%223-Coloring%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%223-Colouring%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%223-Hitting+Set%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22graph+bandwidth%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22bandwidth+minimization%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22Chordal+Vertex+Deletion%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22Chromatic+Number%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22clique+problem%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22maximum+clique%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22Clique+Cover%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22clique-width%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22cliquewidth%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22Cluster+Deletion%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22Cluster+Editing%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22Cluster+Vertex+Deletion%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22Connected+Dominating+Set%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22Connected+Vertex+Cover%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22Cutwidth%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22Directed+Feedback+Vertex+Set%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22Directed+Steiner+Tree%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22Dominating+Set%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22Edge+Bipartization%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22Edge+Clique+Cover%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22Edge+Coloring%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22Edge+Colouring%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22Edge+Dominating+Set%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22Equitable+Coloring%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22Equitable+Colouring%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22Feedback+Arc+Set%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22Feedback+Arc+Set+in+Tournaments%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22Feedback+Vertex+Set%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22Graph+Edit+Distance%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22Graph+Homomorphism%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22Graph+Motif%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22Group+Steiner+Tree%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22Hamiltonian+cycle%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22Hamiltonian+circuit%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22Hitting+Set%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22Independent+Dominating+Set%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22Independent+Set%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22Induced+Matching%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22Minimum+k-Cut%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22List+Coloring%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22List+Colouring%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22Longest+Path%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22Max+Bisection%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22max+cut%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22maximum+cut%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22Max+Leaf+Spanning+Tree%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22maximum+common+induced+subgraph%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22maximum+common+subgraph%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22Minimum+Bisection%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22Minimum+Fill-In%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22Minimum+Linear+Arrangement%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22Multicut%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22Multiway+Cut%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22Odd+Cycle+Transversal%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22pathwidth%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22path-width%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22Planar+Vertex+Deletion%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22Precoloring+Extension%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22Prize-Collecting+Steiner+Tree%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22Red-Blue+Dominating+Set%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22Boolean+satisfiability%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22satisfiability+problem%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22CNF+satisfiability%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22Set+Cover%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22counting+3-SAT%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%223-SAT+model+counting%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22Steiner+Forest%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22Steiner+Tree%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22Subgraph+Isomorphism%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22Subset+Feedback+Vertex+Set%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22Subset+Sum%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22Total+Dominating+Set%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22Travelling+Salesman%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22Traveling+Salesman%22&maxResults=1
+- 400 https://api.stackexchange.com/2.3/search/advanced?q=%22Travelling+Salesman%22&site=cstheory&filter=total
+- 400 https://api.stackexchange.com/2.3/search/advanced?q=%22Traveling+Salesman%22&site=cs&filter=total
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22treedepth%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22tree-depth%22&maxResults=1
+- 400 https://api.stackexchange.com/2.3/search/advanced?q=%22treedepth%22&site=cs&filter=total
+- 400 https://api.stackexchange.com/2.3/search/advanced?q=%22tree-depth%22&site=cs&filter=total
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22treewidth%22&maxResults=1
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22tree-width%22&maxResults=1
+- 400 https://api.stackexchange.com/2.3/search/advanced?q=%22treewidth%22&site=cs&filter=total
+- 400 https://api.stackexchange.com/2.3/search/advanced?q=%22tree-width%22&site=cs&filter=total
+- 429 https://www.googleapis.com/books/v1/volumes?q=%22Vertex+Cover%22&maxResults=1
+- 400 https://api.stackexchange.com/2.3/search/advanced?q=%22Vertex+Cover%22&site=cs&filter=total

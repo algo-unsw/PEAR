@@ -31,13 +31,24 @@ hamiltonian-cycle:
   phrases: ["Hamiltonian cycle", "Hamiltonian circuit"]
 max-cut:
   phrases: ["max cut", "maximum cut"]
+  wikipedia: Maximum cut
+  why: "The Wikipedia redirect Max Cut points to a section about the singer Ava Max."
 maximum-common-subgraph:
   phrases: ["maximum common induced subgraph", "maximum common subgraph"]
+# Search engines read a hyphen as a space, and "tree width", "path width" and "tree depth" are
+# common outside graph theory (forestry, roads, decision trees), so the hyphenated spellings
+# are searched only in graph-theoretic phrases.
 treewidth:
-  phrases: ["treewidth", "tree-width"]
+  phrases: ["treewidth", "tree-width of a graph", "bounded tree-width"]
 pathwidth:
-  phrases: ["pathwidth", "path-width"]
+  phrases: ["pathwidth", "path-width of a graph", "bounded path-width"]
 treedepth:
-  phrases: ["treedepth", "tree-depth"]
+  phrases: ["treedepth", "tree-depth of a graph", "bounded tree-depth"]
+longest-path:
+  phrases: ["longest path problem", "longest simple path"]
+  why: "Longest path alone mostly matches the critical path method (longest paths in acyclic graphs, polynomial)."
+3-coloring:
+  phrases: ["3-colorability", "3-coloring problem", "graph 3-coloring"]
+  why: "3-coloring alone also matches colouring books (search engines read the hyphen as a space)."
 clique-width:
   phrases: ["clique-width", "cliquewidth"]

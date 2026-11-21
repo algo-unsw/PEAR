@@ -64,9 +64,9 @@ def test_score_formula(data):
     pid = sorted(data.problems)[0]
     rows = pm.scores(data, {"problems": {pid: {"openalex_works": 10}}})
     g = rows[pid]["groups"]
-    # scholarly (0.30) is the only external group with data: (0.3 * 100 + 0.2 * pear) / 0.5
+    # scholarly (0.30) is the only external group with data: (0.3 * 100 + 0.15 * pear) / 0.45
     assert g["scholarly"] == 100.0
-    assert rows[pid]["score"] == pytest.approx(round((0.3 * 100 + 0.2 * g["pear"]) / 0.5, 1), abs=0.11)
+    assert rows[pid]["score"] == pytest.approx(round((0.3 * 100 + 0.15 * g["pear"]) / 0.45, 1), abs=0.11)
 
 
 def test_pear_entries_counts_results_and_reductions(data):
@@ -80,6 +80,7 @@ def test_phrases_and_wikipedia_candidates():
     assert pm.phrases_for("3-Coloring", None) == ["3-Coloring", "3-Colouring"]
     assert pm.phrases_for("Travelling Salesman", None) == ["Travelling Salesman", "Traveling Salesman"]
     assert pm.phrases_for("SAT", {"phrases": ["Boolean satisfiability"]}) == ["Boolean satisfiability"]
+    assert pm.phrases_for("x", {"phrases": ["graph 3-coloring"]}) == ["graph 3-coloring", "graph 3-colouring"]
     c = pm.wikipedia_candidates("Vertex Cover", ["Vertex Cover"], {"wikipedia": "Vertex cover"})
     assert c[0] == "Vertex cover" and "Vertex Cover" in c and "Vertex cover problem" in c
 
@@ -119,6 +120,17 @@ def test_section_redirect_counts_the_redirect():
                           "pages": {"1": {"ns": 0, "title": "Dominating set"}}}}
     title, section = pm.Fetcher(delay=0, opener=fake).wikipedia_article(["Total dominating set"])
     assert title == "Total dominating set" and section == "Dominating set#Variants"
+
+
+def test_unrelated_section_redirects_are_skipped():
+    def fake(url: str):
+        if "titles=Max+Cut&" in url:
+            return {"query": {"redirects": [{"from": "Max Cut", "to": "Ava Max", "tofragment": "Public image"}],
+                              "pages": {"1": {"ns": 0, "title": "Ava Max"}}}}
+        return {"query": {"pages": {"2": {"ns": 0, "title": "Maximum cut"}}}}
+    words = pm.significant_words("max cut maximum cut")
+    title, section = pm.Fetcher(delay=0, opener=fake).wikipedia_article(["Max Cut", "Maximum cut"], words)
+    assert (title, section) == ("Maximum cut", None)
 
 
 def test_disambiguation_pages_are_skipped():

@@ -227,6 +227,7 @@ body[data-view="details"] .overview-only { display: none !important; }
 .category h2 a.plain { color: var(--text); text-decoration: none; }
 .category h2 a.plain:hover { color: var(--accent); text-decoration: underline; }
 .more { margin: 8px 0 0; font-size: 16px; }
+.category table.problems th:first-child { width: 32%; }
 .crumbs { margin: 0 0 6px; color: var(--muted); }
 th.num, td.num { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
 table.problems th.num:first-child { width: 3em; }

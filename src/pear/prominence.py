@@ -11,8 +11,10 @@ inflated count (an ambiguous search phrase, say) moves a problem by at most one 
                             inside, Google Books)
     wikipedia        0.20   page views of the problem's own English Wikipedia article over the last
                             12 full months; English Wikipedia articles mentioning the phrase
-    pear             0.20   results and reductions in PEAR involving the problem
-    web              0.10   Stack Exchange questions containing the phrase (cs, cstheory, math,
+    pear             0.15   results and reductions in PEAR involving the problem (it measures
+                            how far PEAR's own coverage has got as much as prominence, so it
+                            does not get more weight)
+    web              0.15   Stack Exchange questions containing the phrase (cs, cstheory, math,
                             MathOverflow), a proxy for web hit counts: no free web search API
                             reports hit counts (Google's Custom Search JSON API is closed to new
                             customers and ends on 1 January 2027)
@@ -49,8 +51,8 @@ GROUPS: dict[str, tuple[float, list[str]]] = {
     "scholarly": (0.30, ["openalex_works"]),
     "books": (0.20, ["openlibrary_books", "google_books"]),
     "wikipedia": (0.20, ["wikipedia_pageviews", "wikipedia_mentions"]),
-    "pear": (0.20, ["pear_entries"]),
-    "web": (0.10, ["stackexchange_questions"]),
+    "pear": (0.15, ["pear_entries"]),
+    "web": (0.15, ["stackexchange_questions"]),
 }
 
 SIGNAL_LABELS = {
@@ -68,7 +70,8 @@ GROUP_LABELS = {"scholarly": "Scholarly articles", "books": "Books", "wikipedia"
 
 STACKEXCHANGE_SITES = ["cs", "cstheory", "math", "mathoverflow.net"]
 
-SPELLINGS = [("Coloring", "Colouring"), ("Colorability", "Colourability"), ("Traveling", "Travelling")]
+SPELLINGS = [("Coloring", "Colouring"), ("coloring", "colouring"), ("Colorability", "Colourability"),
+             ("colorability", "colourability"), ("Traveling", "Travelling"), ("traveling", "travelling")]
 
 
 # --- scoring ---------------------------------------------------------------------------------
@@ -171,33 +174,46 @@ class Fetcher:
         self.errors: list[str] = []
         self._open = opener or self._http
         self._se_quota_out = False
+        self._failures: dict[str, int] = {}  # consecutive failures per host
+        self.skipped: set[str] = set()  # hosts given up on after repeated failures
 
     @staticmethod
     def _http(url: str) -> Any:
         req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT, "Accept-Encoding": "gzip"})
-        with urllib.request.urlopen(req, timeout=40) as resp:
+        with urllib.request.urlopen(req, timeout=25) as resp:
             body = resp.read()
             if resp.headers.get("Content-Encoding") == "gzip" or body[:2] == b"\x1f\x8b":
                 body = gzip.decompress(body)
         return json.loads(body)
 
-    def get(self, url: str, tries: int = 3) -> Any:
+    def get(self, url: str, tries: int = 2) -> Any:
+        """The decoded JSON, or None. A host that fails 5 times in a row is skipped from then on,
+        so one slow or blocked source leaves gaps instead of stalling the whole run."""
+        host = urllib.parse.urlsplit(url).netloc
+        if host in self.skipped:
+            return None
         for attempt in range(tries):
             time.sleep(self.delay)
             try:
-                return self._open(url)
+                result = self._open(url)
+                self._failures[host] = 0
+                return result
             except urllib.error.HTTPError as exc:
                 if exc.code in (429, 500, 502, 503, 504) and attempt + 1 < tries:
                     time.sleep(5 * (attempt + 1))
                     continue
-                self.errors.append(f"{exc.code} {url}")
-                return None
+                problem = f"{exc.code} {url}"
             except Exception as exc:  # noqa: BLE001 (network errors of every kind become a gap)
                 if attempt + 1 < tries:
-                    time.sleep(3)
+                    time.sleep(2)
                     continue
-                self.errors.append(f"{type(exc).__name__}: {exc} {url}")
-                return None
+                problem = f"{type(exc).__name__}: {exc} {url}"
+            self.errors.append(problem)
+            self._failures[host] = self._failures.get(host, 0) + 1
+            if self._failures[host] >= 5:
+                self.skipped.add(host)
+                self.errors.append(f"skipped {host} after 5 failures in a row")
+            return None
         return None
 
     # each returns a count, or None when the source failed
@@ -236,10 +252,12 @@ class Fetcher:
         r = self.get("https://en.wikipedia.org/w/api.php?" + urllib.parse.urlencode(params))
         return None if r is None else int(r["query"]["searchinfo"]["totalhits"])
 
-    def wikipedia_article(self, candidates: list[str]) -> tuple[str | None, str | None]:
+    def wikipedia_article(self, candidates: list[str], words: set[str] | None = None) -> tuple[str | None, str | None]:
         """The first candidate title that is (or redirects to) an article that is not a
         disambiguation page: (title whose views count, section if the redirect points into a
-        section of another article). For a redirect to a section, the redirect's own views count."""
+        section of another article). For a redirect to a section, the redirect's own views count,
+        and the section must share a word of at least four letters with the search phrases
+        (`words`): "Max Cut" redirects to a section of the singer Ava Max's article."""
         for title in candidates:
             params = {"action": "query", "titles": title, "redirects": 1, "prop": "pageprops",
                       "ppprop": "disambiguation", "format": "json"}
@@ -254,7 +272,10 @@ class Fetcher:
                 continue
             redirect = (q.get("redirects") or [{}])[-1]
             if redirect.get("tofragment"):
-                return redirect["from"], f"{redirect['to']}#{redirect['tofragment']}"
+                target = f"{redirect['to']}#{redirect['tofragment']}"
+                if words is not None and not (significant_words(target) & words):
+                    continue
+                return redirect["from"], target
             return pages[0]["title"], None
         return None, None
 
@@ -277,6 +298,8 @@ class Fetcher:
                 params["key"] = os.environ["STACKEXCHANGE_KEY"]
             r = self.get("https://api.stackexchange.com/2.3/search/advanced?" + urllib.parse.urlencode(params))
             if r is None:
+                if self.errors and self.errors[-1].startswith("400 https://api.stackexchange.com"):
+                    self._se_quota_out = True  # throttled for the day: leave the rest as gaps
                 return None
             if r.get("backoff"):
                 time.sleep(int(r["backoff"]))
@@ -284,6 +307,11 @@ class Fetcher:
                 self._se_quota_out = True
             total += int(r.get("total", 0))
         return total
+
+
+def significant_words(text: str) -> set[str]:
+    import re
+    return {w for w in re.findall(r"[a-z]+", text.lower()) if len(w) >= 4}
 
 
 def wikipedia_candidates(name: str, phrases: list[str], override: dict[str, Any] | None) -> list[str]:
@@ -306,7 +334,8 @@ def best(values: list[int | None]) -> int | None:
 
 
 def fetch(data: Dataset, overrides: dict[str, Any], today: dt.date | None = None,
-          fetcher: Fetcher | None = None, only: list[str] | None = None, log: Callable[[str], None] = print) -> dict[str, Any]:
+          fetcher: Fetcher | None = None, only: list[str] | None = None, log: Callable[[str], None] = print,
+          checkpoint: Callable[[dict[str, Any]], None] | None = None) -> dict[str, Any]:
     today = today or dt.date.today()
     f = fetcher or Fetcher()
     problems: dict[str, Any] = {}
@@ -314,7 +343,8 @@ def fetch(data: Dataset, overrides: dict[str, Any], today: dt.date | None = None
         prob = data.problems[pid]
         ov = (overrides or {}).get(pid)
         phrases = phrases_for(prob.name, ov)
-        title, section = f.wikipedia_article(wikipedia_candidates(prob.name, phrases, ov))
+        words = set().union(*(significant_words(p) for p in phrases + [prob.name]))
+        title, section = f.wikipedia_article(wikipedia_candidates(prob.name, phrases, ov), words)
         row = {
             "phrases": phrases,
             "wikipedia_title": title,
@@ -328,6 +358,8 @@ def fetch(data: Dataset, overrides: dict[str, Any], today: dt.date | None = None
         }
         problems[pid] = row
         log(f"{pid}: " + ", ".join(f"{k}={v}" for k, v in row.items() if k != "phrases"))
+        if checkpoint:
+            checkpoint({"as_of": today.isoformat(), "problems": problems, "errors": f.errors})
     return {"as_of": today.isoformat(), "problems": problems, "errors": f.errors}
 
 

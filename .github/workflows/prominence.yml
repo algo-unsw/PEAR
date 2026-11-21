@@ -24,7 +24,7 @@ permissions:
 jobs:
   fetch:
     runs-on: ubuntu-latest
-    timeout-minutes: 90
+    timeout-minutes: 120
     permissions:
       contents: write
       pull-requests: write
@@ -36,14 +36,20 @@ jobs:
           cache: pip
       - run: pip install -e .
       - name: Fetch signals
+        timeout-minutes: 100
         env:
           OPENALEX_MAILTO: ${{ secrets.OPENALEX_MAILTO }}
           GOOGLE_BOOKS_API_KEY: ${{ secrets.GOOGLE_BOOKS_API_KEY }}
           STACKEXCHANGE_KEY: ${{ secrets.STACKEXCHANGE_KEY }}
         run: python -m pear prominence fetch --out prominence/signals.yaml
-      - name: Show the resulting order
-        run: python -m pear prominence show
+      - name: Show the resulting order and the signals
+        if: always()
+        run: |
+          python -m pear prominence show
+          echo "----- prominence/signals.yaml -----"
+          cat prominence/signals.yaml
       - uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: prominence-signals
           path: prominence/signals.yaml

@@ -15,7 +15,9 @@ permalink: /
 <section class="category" aria-labelledby="cat-{{ c.id }}">
 <h2 id="cat-{{ c.id }}"><a class="plain" href="{{ ('/categories/' + c.id + '/') | url }}">{{ c.plural }}</a></h2>
 {{ problemsTable(c.top, false) }}
+{%- if c.count > c.top.length %}
 <p class="more"><a href="{{ ('/categories/' + c.id + '/') | url }}">More {{ c.name }} problems</a> <span class="muted">({{ c.count }} in all, most prominent first)</span></p>
+{%- endif %}
 </section>
 {%- endfor %}
 <p class="footer">Data CC0 · code MIT · rulebook version {{ pear.rulebook_version }} · data of {{ pear.generated }}</p>
