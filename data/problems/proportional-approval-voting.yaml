@@ -9,9 +9,11 @@ complexity:
     statements:
       arxiv-v1: { statement: "Theorem 1", page: 3 }
     note: "Theorem 1: winner determination for PAV is NP-complete even if each agent approves of two candidates (reduction from Independent Set). TODO(verify): Wikipedia's choice of source for the NP-hardness of PAV was not checked (WebFetch not used in this batch); Skowron, Faliszewski and Lang (Artificial Intelligence 2016) is the other usual citation."
+# Letters follow the social-choice convention (n voters, m candidates), as Serge decided on
+# 21 November 2026, an exception to CLAUDE.md rule 4.
 objects:
-  n: number of candidates
-  m: number of voters (approval ballots)
+  n: number of voters (approval ballots)
+  m: number of candidates
   N: total encoding length of the input
 parameters:
   k: { meaning: "the committee size $k$ in the input" }
@@ -19,24 +21,24 @@ parameters:
   vc: { shared: vertex-cover-number, of: "the incidence graph: the bipartite graph on the candidates and the ballots with an edge between $c$ and $A_i$ whenever $c \\in A_i$" }
   dc: { meaning: "the size of a candidate-deletion set given in the input: a set $D \\subseteq C$ of candidates such that, after deleting $D$, the candidates can be ordered so that every ballot is an interval (a candidate-interval, or single-peaked, profile)" }
 constraints:
-  - { constraint: "k \\le n", because: "A committee is a set of $k$ of the $n$ candidates; an instance with $k > n$ has no committee and is answered in polynomial time." }
-  - { constraint: "d \\le m n", because: "Each voter contributes at most $\\sum_{j=1}^{k} 1/j \\le k \\le n$ to the score, so an instance with $d > mn$ is a no-instance, answered in polynomial time." }
-  - { constraint: "vc \\le n", because: "The candidates form a vertex cover of the incidence graph." }
-  - { constraint: "vc \\le m", because: "The ballots form a vertex cover of the incidence graph." }
-  - { constraint: "dc \\le n", because: "The deletion set is a set of candidates." }
+  - { constraint: "k \\le m", because: "A committee is a set of $k$ of the $m$ candidates; an instance with $k > m$ has no committee and is answered in polynomial time." }
+  - { constraint: "d \\le m n", because: "Each voter contributes at most $\\sum_{j=1}^{k} 1/j \\le k \\le m$ to the score, so an instance with $d > mn$ is a no-instance, answered in polynomial time." }
+  - { constraint: "vc \\le m", because: "The candidates form a vertex cover of the incidence graph." }
+  - { constraint: "vc \\le n", because: "The ballots form a vertex cover of the incidence graph." }
+  - { constraint: "dc \\le m", because: "The deletion set is a set of candidates." }
 versions:
   decision:
     kind: decision
-    input: "A set $C$ of $n$ candidates, approval ballots $A_1, \\dots, A_m \\subseteq C$, an integer $k$ and a rational number $d$."
-    question: "Is there a committee $W \\subseteq C$ with $|W| = k$ whose PAV score $\\sum_{i=1}^{m} \\sum_{j=1}^{|W \\cap A_i|} \\frac{1}{j}$ is at least $d$?"
+    input: "A set $C$ of $m$ candidates, approval ballots $A_1, \\dots, A_n \\subseteq C$, an integer $k$ and a rational number $d$."
+    question: "Is there a committee $W \\subseteq C$ with $|W| = k$ whose PAV score $\\sum_{i=1}^{n} \\sum_{j=1}^{|W \\cap A_i|} \\frac{1}{j}$ is at least $d$?"
   optimisation:
     kind: optimisation
-    input: "A set $C$ of $n$ candidates, approval ballots $A_1, \\dots, A_m \\subseteq C$ and an integer $k$."
-    goal: "Find the maximum PAV score $\\sum_{i=1}^{m} \\sum_{j=1}^{|W \\cap A_i|} \\frac{1}{j}$ of a committee $W \\subseteq C$ with $|W| = k$."
+    input: "A set $C$ of $m$ candidates, approval ballots $A_1, \\dots, A_n \\subseteq C$ and an integer $k$."
+    goal: "Find the maximum PAV score $\\sum_{i=1}^{n} \\sum_{j=1}^{|W \\cap A_i|} \\frac{1}{j}$ of a committee $W \\subseteq C$ with $|W| = k$."
   search:
     kind: search
-    input: "A set $C$ of $n$ candidates, approval ballots $A_1, \\dots, A_m \\subseteq C$, an integer $k$ and a rational number $d$."
-    goal: "Find a committee $W \\subseteq C$ with $|W| = k$ whose PAV score $\\sum_{i=1}^{m} \\sum_{j=1}^{|W \\cap A_i|} \\frac{1}{j}$ is at least $d$, or report that none exists."
+    input: "A set $C$ of $m$ candidates, approval ballots $A_1, \\dots, A_n \\subseteq C$, an integer $k$ and a rational number $d$."
+    goal: "Find a committee $W \\subseteq C$ with $|W| = k$ whose PAV score $\\sum_{i=1}^{n} \\sum_{j=1}^{|W \\cap A_i|} \\frac{1}{j}$ is at least $d$, or report that none exists."
 default_version: decision
 shared_bounds:
   - versions: [decision, optimisation, search]

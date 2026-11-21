@@ -2,9 +2,9 @@ id: proportional-approval-voting--k--folklore
 problem: proportional-approval-voting
 proved_for: optimisation
 bound:
-  as_stated: O^*(n^{k})
+  as_stated: O^*(m^{k})
   notation: O*
-  parameters: [n, k]
+  parameters: [m, k]
 properties:
   randomized: false
   space:
@@ -16,6 +16,6 @@ properties:
   quantum: false
 source:
   folklore: true
-  note: 'Brute force: try all $\binom{n}{k} \le n^k$ committees of size $k$ and compute the PAV score of each in polynomial time. Aziz, Gaspers, Gudmundsson, Mackenzie, Mattei and Walsh (arXiv 1407.3247v1, Corollary 1 and the paragraph before it, p. 3) show that the problem is W[1]-hard parameterized by $k$, even if every voter approves two candidates, so that "a factor $m^k$ in the running time seems unavoidable" ($m$ = number of candidates there). TODO(verify): Serge to approve this XP baseline.'
+  note: 'Brute force: try all $\binom{m}{k} \le m^k$ committees of size $k$ and compute the PAV score of each in polynomial time. Aziz, Gaspers, Gudmundsson, Mackenzie, Mattei and Walsh (arXiv 1407.3247v1, Corollary 1 and the paragraph before it, p. 3) show that the problem is W[1]-hard parameterized by $k$, even if every voter approves two candidates, so that "a factor $m^k$ in the running time seems unavoidable" ($m$ = number of candidates, as here). TODO(verify): Serge to approve this XP baseline.'
 formal: { status: informal }
 status: valid
