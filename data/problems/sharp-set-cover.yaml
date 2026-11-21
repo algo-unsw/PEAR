@@ -20,6 +20,10 @@ versions:
     kind: counting
     input: "A universe $U$ and a family $\\mathcal{F}$ of subsets of $U$."
     goal: "Find, for every $k \\in \\{0, \\dots, m\\}$, the number of subfamilies $\\mathcal{C} \\subseteq \\mathcal{F}$ with $|\\mathcal{C}| = k$ whose union is $U$."
+  weighted:
+    kind: counting
+    input: "A universe $U$, a family $\\mathcal{F}$ of subsets of $U$ and weights $w \\colon \\mathcal{F} \\to \\mathbb{Z}_{\\ge 0}$."
+    goal: "Find the minimum weight $\\sum_{C \\in \\mathcal{C}} w(C)$ of a subfamily $\\mathcal{C} \\subseteq \\mathcal{F}$ whose union is $U$, and the number of such subfamilies of that weight."
 default_version: counting
 related:
   - { problem: set-cover, relation: counting }
