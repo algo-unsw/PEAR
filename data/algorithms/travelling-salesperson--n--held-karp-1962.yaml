@@ -1,5 +1,5 @@
-id: travelling-salesman--n--held-karp-1962
-problem: travelling-salesman
+id: travelling-salesperson--n--held-karp-1962
+problem: travelling-salesperson
 proved_for: optimisation
 bound:
   as_stated: 'n^{2} 2^{n}'

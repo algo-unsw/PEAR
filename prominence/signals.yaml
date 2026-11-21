@@ -694,7 +694,7 @@ problems:
     wikipedia_pageviews: 134
     wikipedia_mentions: 5
     stackexchange_questions: 3
-  travelling-salesman:
+  travelling-salesperson:
     phrases:
     - Travelling Salesman
     - Traveling Salesman

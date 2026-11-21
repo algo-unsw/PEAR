@@ -1,6 +1,6 @@
-id: hamiltonian-cycle--to--travelling-salesman
+id: hamiltonian-cycle--to--travelling-salesperson
 from: { problem: hamiltonian-cycle, version: decision }
-to: { problem: travelling-salesman, version: decision }
+to: { problem: travelling-salesperson, version: decision }
 type: polytime-deterministic
 calls: 1
 time: "O(n^{2})"

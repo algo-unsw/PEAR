@@ -1,15 +1,13 @@
-{#- Problems with their best classical bounds (front page and category pages).
-    rows: index entries, in prominence order; rank: show the rank and score columns. -#}
-{%- macro problemsTable(rows, rank) -%}
+{#- Problems with their best classical bounds (front page and category pages). -#}
+{%- macro problemsTable(rows) -%}
 <div class="tablewrap">
 <table class="problems">
-<thead><tr>{% if rank %}<th class="num" scope="col"><span class="sr-only">Rank</span>#</th>{% endif %}<th scope="col">Problem</th><th scope="col">Best known bounds</th>{% if rank %}<th class="num" scope="col"><a href="{{ '/prominence/' | url }}" title="How prominence is computed">Prominence</a></th>{% endif %}</tr></thead>
+<thead><tr><th scope="col">Problem</th><th scope="col">Best known bounds</th></tr></thead>
 <tbody>
 {%- for e in rows %}
 <tr>
-{% if rank %}<td class="num muted">{{ loop.index }}</td>{% endif %}<td><a href="{{ ('/problems/' + e.id + '/') | url }}">{{ e.name }}</a></td>
+<td><a href="{{ ('/problems/' + e.id + '/') | url }}">{{ e.name }}</a></td>
 <td>{% for b in e.bounds %}<div class="ov-entry" data-all="{{ '1' if b.in_all else '0' }}"{% if b.optional %} data-optional="{{ b.id }}" hidden{% endif %}{% if b.only_all %} data-only-all hidden{% endif %}{% if b.beaten_by.length %} data-beaten-by="{{ b.beaten_by | join(' ') }}"{% endif %}>{{ b.shown | tex | safe }}{% if not b.deterministic %} <span class="tag" title="Randomized algorithm">randomized</span>{% endif %}{% if b.derived %} <span class="tag" title="Obtained by chaining reductions">derived</span>{% endif %}{% if "unverified" in b.flags %} <span class="tag warn" title="From an unrefereed source">unverified</span>{% elif "preprint" in b.flags %} <span class="tag warn" title="From a preprint (no peer-reviewed version yet)">preprint</span>{% endif %}</div>{% else %}<span class="muted">No results yet.</span>{% endfor %}</td>
-{% if rank %}<td class="num">{{ e.prominence | round(0) }}</td>{% endif %}
 </tr>
 {%- endfor %}
 </tbody>

@@ -78,7 +78,7 @@ def test_pear_entries_counts_results_and_reductions(data):
 
 def test_phrases_and_wikipedia_candidates():
     assert pm.phrases_for("3-Coloring", None) == ["3-Coloring", "3-Colouring"]
-    assert pm.phrases_for("Travelling Salesman", None) == ["Travelling Salesman", "Traveling Salesman"]
+    assert pm.phrases_for("Travelling Salesperson", None) == ["Travelling Salesperson", "Traveling Salesperson"]
     assert pm.phrases_for("SAT", {"phrases": ["Boolean satisfiability"]}) == ["Boolean satisfiability"]
     assert pm.phrases_for("x", {"phrases": ["graph 3-coloring"]}) == ["graph 3-coloring", "graph 3-colouring"]
     c = pm.wikipedia_candidates("Vertex Cover", ["Vertex Cover"], {"wikipedia": "Vertex cover"})
@@ -152,14 +152,28 @@ def test_queries_file_names_real_problems(data):
 
 
 def test_front_page_groups_by_category_in_prominence_order(data, tmp_path):
-    site = build(data, derive(data), tmp_path, signals_path=ROOT / "prominence" / "signals.yaml")
+    signals = ROOT / "prominence" / "signals.yaml"
+    site = build(data, derive(data), tmp_path, signals_path=signals)
+    score = {pid: r["score"] for pid, r in pm.scores(data, pm.load_signals(signals)).items()}
     cats = site["categories"]
     assert [c["id"] for c in cats][0] == "graph"
     assert sum(c["count"] for c in cats) == len(data.problems)
     for c in cats:
-        scores = [e["prominence"] for e in c["problems"]]
-        assert scores == sorted(scores, reverse=True)
+        got = [score[e["id"]] for e in c["problems"]]
+        assert got == sorted(got, reverse=True)
         assert c["top"] == c["problems"][:FRONT_PAGE_TOP]
         assert all(e["category"] == c["id"] for e in c["problems"])
-    assert len(site["index"]) == len(data.problems)  # the search box still lists every problem
-    assert len(site["prominence"]["rows"]) == len(data.problems)
+    # the search list stays complete and alphabetical
+    names = [e["name"].lower() for e in site["index"]]
+    assert names == sorted(names) and len(names) == len(data.problems)
+
+
+def test_site_reveals_nothing_about_prominence(data, tmp_path):
+    """Serge, 21 November 2026: no scores, ranks or mention of prominence on the site."""
+    import json
+    site = build(data, derive(data), tmp_path, signals_path=ROOT / "prominence" / "signals.yaml")
+    text = json.dumps(site).lower()
+    assert text.find("prominen") == -1  # (find, not "in": pytest would diff the whole text)
+    templates = ROOT / "site" / "src"
+    for f in list(templates.rglob("*.njk")) + list(templates.rglob("*.css")) + list(templates.rglob("*.js")):
+        assert "prominen" not in f.read_text(encoding="utf-8").lower(), f

@@ -23,4 +23,4 @@ source:
   statements:
     arxiv-v1:
       statement: Theorem 3.18
-  note: Stated for the Traveling Salesman Problem, which includes Hamiltonian Cycle (edge weights 1); rank-based approach, deterministic, tree decomposition of width $tw$ given. Statement read in the current arXiv version (dated 8 November 2012).
+  note: Stated for the Travelling Salesperson Problem, which includes Hamiltonian Cycle (edge weights 1); rank-based approach, deterministic, tree decomposition of width $tw$ given. Statement read in the current arXiv version (dated 8 November 2012).

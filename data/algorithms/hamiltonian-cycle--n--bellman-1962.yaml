@@ -21,4 +21,4 @@ source:
   - https://en.wikipedia.org/wiki/Hamiltonian_path_problem
   - https://arxiv.org/pdf/1008.0541
   - https://people.csail.mit.edu/rrw/presentations/bjorklund-hamcycle.pdf
-  note: Dynamic programming for the Travelling Salesman Problem, which includes Hamiltonicity; found independently by Bellman and by Held and Karp. No open copy found.
+  note: Dynamic programming for the Travelling Salesperson Problem, which includes Hamiltonicity; found independently by Bellman and by Held and Karp. No open copy found.

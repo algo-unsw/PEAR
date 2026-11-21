@@ -56,3 +56,7 @@ clique-width:
 chromatic-number:
   wikipedia: Graph coloring
   why: "Graph Coloring is an alias; the redirect Chromatic number only reaches a section of that article."
+travelling-salesperson:
+  phrases: ["travelling salesman", "travelling salesperson"]
+  wikipedia: Travelling salesman problem
+  why: "PEAR says Salesperson (Serge, 21 November 2026), but most of the literature says Salesman."

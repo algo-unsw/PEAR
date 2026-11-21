@@ -7,15 +7,15 @@ permalink: "/categories/{{ c.id }}/"
 layout: base.njk
 eleventyComputed:
   title: "{{ c.plural }}"
-  description: "Fastest known exact and parameterized algorithms for {{ c.plural | lower }}, most prominent first."
+  description: "Fastest known exact and parameterized algorithms for {{ c.plural | lower }}."
 ---
 {%- from "problems-table.njk" import problemsTable -%}
 <main class="page">
 <p class="crumbs small"><a href="{{ '/' | url }}">Browse</a> › {{ c.plural }}</p>
 <h1>{{ c.plural }}</h1>
-<p class="note" style="margin-top: 12px">All {{ c.count }} {{ c.name }} problem{{ "s" if c.count != 1 }} in PEAR, most prominent first (<a href="{{ '/prominence/' | url }}">how prominence is measured</a>), with their best classical bounds for the default version: randomized and non-constructive algorithms allowed, quantum algorithms left out, and results from preprints and unverified papers shown only when you include them.</p>
+<p class="note" style="margin-top: 12px">All {{ c.count }} {{ c.name }} problem{{ "s" if c.count != 1 }} in PEAR, with their best classical bounds for the default version: randomized and non-constructive algorithms allowed, quantum algorithms left out, and results from preprints and unverified papers shown only when you include them.</p>
 <label class="include-all"><input type="checkbox" data-include-all> Include preprints and unverified results</label>
-{{ problemsTable(c.problems, true) }}
+{{ problemsTable(c.problems) }}
 {%- if c.others.length %}
 <p class="more">Other categories: {% for o in c.others %}<a href="{{ ('/categories/' + o.id + '/') | url }}">{{ o.plural }}</a> <span class="muted">({{ o.count }})</span>{% if not loop.last %} · {% endif %}{% endfor %}</p>
 {%- endif %}

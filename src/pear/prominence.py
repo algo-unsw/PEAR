@@ -1,5 +1,5 @@
-"""Prominence of a problem: how widely it is studied, used to order problems on the front page
-and on the category pages (requested by Serge Gaspers, 21 November 2026).
+"""Prominence of a problem: how widely it is studied, used (silently) to order problems on the
+front page and on the category pages (requested by Serge Gaspers, 21 November 2026).
 
 The score combines five groups of signals. Each raw count is turned into a percentile rank among
 PEAR's problems, so heavy-tailed counts from very different sources become comparable and one
@@ -26,8 +26,9 @@ Percentile rank of a count x among the problems with that count known: 0 when x 
 (#smaller + (#equal - 1)/2) / (#known - 1), so the most studied problem gets 1.
 
 External counts change slowly and the build must not depend on the network, so they are fetched
-by `python -m pear prominence fetch` (monthly on GitHub Actions) into prominence/signals.yaml;
-the PEAR count is computed from the data at build time.
+by `python -m pear prominence fetch` (run by hand, not on GitHub) into prominence/signals.yaml;
+the PEAR count is computed from the data at build time. Nothing about prominence is shown on the
+site, only the resulting order (Serge, 21 November 2026).
 """
 
 from __future__ import annotations
@@ -151,7 +152,7 @@ def load_signals(path: Path) -> dict[str, Any] | None:
     return yaml.safe_load(path.read_text(encoding="utf-8"))
 
 
-# --- fetching (network; run on GitHub Actions, not at build time) ---------------------------
+# --- fetching (network; run by hand, never at build time) ---------------------------
 
 
 USER_AGENT = "PEAR-prominence/1.0 (https://github.com/algo-unsw/pear)"

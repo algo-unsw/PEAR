@@ -23,7 +23,7 @@ from typing import Any, get_args
 from .bounds import display, ostar, parse_bound, parse_expr, render
 from .bounds.expr import Add, Const, Div, Mul, Node, Num, Pow, Sqrt, Var, variables
 from .derive import Derivation, node_key, to_json
-from .prominence import GROUP_LABELS, GROUPS, SIGNAL_LABELS, load_signals, scores
+from .prominence import load_signals, scores
 from .schema import (
     Category,
     Algorithm,
@@ -991,36 +991,30 @@ def build(data: Dataset, d: Derivation, out_dir: Path, signals_path: Path | None
                                "in_all": bool(entry.get("in_all")), "only_all": bool(entry.get("only_all"))})
         return bounds
 
-    # Problems ordered by prominence (src/pear/prominence.py), grouped by category on the front
-    # page and the category pages (requested 21 November 2026).
+    # Categories list their problems in prominence order (src/pear/prominence.py, 21 November
+    # 2026). Nothing about prominence reaches the site: no scores, no ranks, no mention (Serge,
+    # 21 November 2026); the order is the only trace. The index (search list) is alphabetical.
     signals = load_signals(signals_path) if signals_path else None
     prom = scores(data, signals)
     order = sorted(pages, key=lambda pid: (-prom[pid]["score"], data.problems[pid].name.lower()))
-    index = [{"name": data.problems[pid].name, "id": pid, "slug": pid, "category": data.problems[pid].category,
-              "prominence": prom[pid]["score"], "bounds": front_bounds(pid)} for pid in order]
+    entry = {pid: {"name": data.problems[pid].name, "id": pid, "slug": pid, "category": data.problems[pid].category,
+                   "bounds": front_bounds(pid)} for pid in order}
+    index = sorted(entry.values(), key=lambda e: e["name"].lower())
     categories = []
     for cat in get_args(Category):
-        members = [e for e in index if e["category"] == cat]
+        members = [entry[pid] for pid in order if entry[pid]["category"] == cat]
         if members:
             name, plural = CATEGORY_NAMES[cat]
             categories.append({"id": cat, "name": name, "plural": plural, "count": len(members),
                                "top": members[:FRONT_PAGE_TOP], "problems": members})
     for c in categories:
         c["others"] = [{"id": o["id"], "plural": o["plural"], "count": o["count"]} for o in categories if o["id"] != c["id"]]
-    prominence_rows = [{"id": pid, "name": data.problems[pid].name, "category": data.problems[pid].category,
-                        "category_name": CATEGORY_NAMES[data.problems[pid].category][0], **prom[pid]} for pid in order]
     site = {
         "generated": dt.date.today().isoformat(),
         "rulebook_version": derived["rulebook_version"],
         "index": index,
         "categories": categories,
         "front_page_top": FRONT_PAGE_TOP,
-        "prominence": {
-            "as_of": (signals or {}).get("as_of"),
-            "groups": [{"id": g, "label": GROUP_LABELS[g], "weight": w,
-                        "signals": [{"id": x, "label": SIGNAL_LABELS[x]} for x in sigs]} for g, (w, sigs) in GROUPS.items()],
-            "rows": prominence_rows,
-        },
         "pages": pages,
         "problem_names": {pid: p.name for pid, p in data.problems.items()},
     }
