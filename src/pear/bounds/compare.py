@@ -269,7 +269,46 @@ def _bounded_below(g: Growth, ctx: Context) -> bool:
         for lam in _multipliers(g, e):
             if _bounded_below_terms(g - e.scale(exact(lam)), ctx):
                 return True
+        for key in _big_cancellable(g, e):
+            if _bounded_below_terms(_cancel_big(g, e, key), ctx):
+                return True
     return False
+
+
+def _big_cancellable(g: Growth, e: Growth) -> list[Key]:
+    """Monomials where g has an unknown negative constant (from an O(·) of the bound that
+    should be smaller) and e its only negative term, every other term of e being an exact
+    positive one: with p ≤ 2k, 2^{O(p)} is compared through 2^{O(k)} (21 November 2026)."""
+    out = []
+    for key, ecs in e.terms.items():
+        if not key or key not in g.terms or len(ecs) != 1:
+            continue
+        if ecs[0].kind != "exact" or ecs[0].value >= -EPS:
+            continue
+        others = [c for k, cs in e.terms.items() if k != key for c in cs]
+        if any(c.kind != "exact" or c.value < -EPS for c in others):
+            continue
+        if any(c.kind == "big" and c.value < 0 for c in g.terms[key]):
+            out.append(key)
+    return out
+
+
+def _cancel_big(g: Growth, e: Growth, key: Key) -> Growth:
+    """g - Λe for the unknown Λ > 0 that cancels g's unknown negative constant at key: as
+    e ≥ 0, g - Λe ≤ g, and every other monomial of e turns into an unknown negative one."""
+    out = Growth({k: list(cs) for k, cs in g.terms.items()})
+    cs = out.terms[key]
+    i = next(i for i, c in enumerate(cs) if c.kind == "big" and c.value < 0)
+    del cs[i]
+    if not cs:
+        del out.terms[key]
+    for k, ecs in e.terms.items():
+        if k == key or not k:
+            continue
+        for c in ecs:
+            if c.value > EPS:
+                out.add_term(k, Coef("big", -1.0))
+    return out
 
 
 def _multipliers(g: Growth, e: Growth) -> list[float]:

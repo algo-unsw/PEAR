@@ -690,3 +690,25 @@ def test_comparator_xp_exponents_and_added_polynomials():
     assert compare(c, e, Context()) == Relation.BETTER
     # still incomparable: different parameters
     assert compare(parse_bound(r"O(n^{n-k} (n-k)^{2})", syms), parse_bound(r"O(2^{n})", syms), ctx) == Relation.INCOMPARABLE
+
+
+def test_comparator_big_o_through_linear_constraints():
+    # 21 November 2026: with p <= 2k (a constant factor, so not in `le`), an O(p) exponent
+    # compares through O(k): Steiner Forest's 2^{O(p)} beats 2^{O(k log k)}, never 3^k or 2^k
+    from pear.bounds.compare import Relation, build_context, compare_ostar, analyse
+    from pear.bounds import ostar
+    from pear.bounds.expr import parse_bound
+
+    syms = frozenset({"n", "k", "p", "t"})
+    ctx = build_context(syms, [r"p \le 2k", r"k \le n", r"p \le n"])
+
+    def rel(a, b, c=ctx):
+        return compare_ostar(analyse(ostar(parse_bound(a, syms), c)), analyse(ostar(parse_bound(b, syms), c)), c)
+
+    slow = r"2^{O(k \log k)} n^{O(1)}"
+    assert rel(r"2^{O(p)} n^{O(1)}", slow) == Relation.BETTER
+    assert rel(slow, r"2^{O(p)} n^{O(1)}") == Relation.WORSE
+    assert rel(r"2^{O(p)} n^{O(1)}", r"3^{k} n^{O(1)}") == Relation.INCOMPARABLE
+    assert rel(r"2^{O(p)} n^{O(1)}", r"2^{k} n^{O(1)}") == Relation.INCOMPARABLE
+    ctx2 = build_context(syms, [r"t \le k + 1", r"k \le n"])
+    assert rel(r"2^{O(t)} n^{O(1)}", slow, ctx2) == Relation.BETTER
