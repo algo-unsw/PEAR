@@ -155,7 +155,7 @@ source:
   note: null                          # e.g. "space bound from Lemma X.Y"
 ```
 
-Statements may cite any version we have read, open or closed (21 November 2026). A bound stated only in the abstract of a closed version (from the publisher's page, an index or Zotero metadata) may be cited as `{ statement: "Abstract" }` for that version; the note says the full text was not read, and the properties the abstract does not settle are conservative guesses marked `TODO(verify)` (decided 21 November 2026). A closed-source result that Serge confirms without our reading it:
+Statements may cite any version we have read, open or closed (21 November 2026). A bound stated only in the abstract of a closed version (from the publisher's page, an index or Zotero metadata) may be cited as `{ statement: "Abstract" }` for that version; the note says the full text was not read, and the properties the abstract does not settle are conservative guesses marked `TODO(verify)` (decided 21 November 2026). A bound stated only in the title is cited as `{ statement: "Title" }` in the same way (titles are metadata; 22 November 2026). A closed-source result that Serge confirms without our reading it:
 
 ```yaml
 source:

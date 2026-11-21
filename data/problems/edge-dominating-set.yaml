@@ -18,10 +18,13 @@ objects:
 parameters:
   k: { meaning: "the solution size: the integer $k$ in the input (decision, search), the minimum size of an edge dominating set (optimisation), or its minimum weight (weighted)" }
   pw: { shared: pathwidth }
+  vc: { shared: vertex-cover-number }
 constraints:
   - { constraint: "k \\le n", because: "Every maximal matching is an edge dominating set with at most $n/2$ edges, so every instance with $k \\ge n/2$ is a yes-instance, answered in polynomial time." }
   - { constraint: "k \\le m", because: "Every instance with $k \\ge m$ is a yes-instance ($S = E$)." }
   - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
+  - { constraint: "pw \\le vc", because: "For a vertex cover $C$, the bags $C \\cup \\{v\\}$, $v \\notin C$, in any order form a path decomposition of width $|C|$." }
+  - { constraint: "vc \\le n", because: "$V$ is a vertex cover." }
   - { constraint: "pw \\le n", because: "A single bag containing all vertices is a path decomposition of width $n - 1$." }
 versions:
   decision:
