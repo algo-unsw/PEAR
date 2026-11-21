@@ -1,7 +1,7 @@
 id: dominating-set
 name: Dominating Set
 aliases: [Minimum Dominating Set, MDS, DS]
-category: graph
+category: graphs
 complexity:
   class: NP-complete
   source:

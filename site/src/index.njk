@@ -4,25 +4,21 @@ title: Fastest known algorithms for NP-hard problems
 description: "PEAR catalogues NP-hard problems, the reductions between them and the fastest known exact and parameterized algorithms, including bounds derived by chaining reductions."
 permalink: /
 ---
+{%- from "problems-table.njk" import problemsTable -%}
 <main class="page">
 <h1>Parameterized and Exact Algorithms and Reductions</h1>
 <p style="margin-top: 12px; max-width: 760px">PEAR catalogues NP-hard problems, the reductions between them and the fastest known exact and parameterized algorithms, including bounds derived automatically by chaining reductions. Every result cites an openly readable source and the exact statement it relies on.</p>
 
-<h2>Pilot problems</h2>
-<p class="note">Best classical bounds for the default version: randomized and non-constructive algorithms allowed, quantum algorithms left out, and results from preprints and unverified papers shown only when you include them.</p>
+<p class="note">Problems by category, following the sections of Garey and Johnson’s <i>Computers and Intractability</i>, with their best classical bounds for the default version: randomized and non-constructive algorithms allowed, quantum algorithms left out, and results from preprints and unverified papers shown only when you include them.</p>
 <label class="include-all"><input type="checkbox" data-include-all> Include preprints and unverified results</label>
-<div class="tablewrap">
-<table class="problems">
-<thead><tr><th>Problem</th><th>Best known bounds</th></tr></thead>
-<tbody>
-{%- for e in pear.index %}
-<tr>
-<td>{% if e.id %}<a href="{{ ('/problems/' + e.id + '/') | url }}">{{ e.name }}</a>{% else %}{{ e.name }}{% endif %}</td>
-<td>{% if e.id %}{% for b in e.bounds %}<div class="ov-entry" data-all="{{ '1' if b.in_all else '0' }}"{% if b.optional %} data-optional="{{ b.id }}" hidden{% endif %}{% if b.only_all %} data-only-all hidden{% endif %}{% if b.beaten_by.length %} data-beaten-by="{{ b.beaten_by | join(' ') }}"{% endif %}>{{ b.shown | tex | safe }}{% if not b.deterministic %} <span class="tag" title="Randomized algorithm">randomized</span>{% endif %}{% if b.derived %} <span class="tag" title="Obtained by chaining reductions">derived</span>{% endif %}{% if "unverified" in b.flags %} <span class="tag warn" title="From an unrefereed source">unverified</span>{% elif "preprint" in b.flags %} <span class="tag warn" title="From a preprint (no peer-reviewed version yet)">preprint</span>{% endif %}</div>{% else %}<span class="muted">No results yet.</span>{% endfor %}{% else %}<span class="muted">Not entered yet.</span>{% endif %}</td>
-</tr>
+{%- for c in pear.categories %}
+<section class="category" aria-labelledby="cat-{{ c.id }}">
+<h2 id="cat-{{ c.id }}"><a class="plain" href="{{ ('/categories/' + c.id + '/') | url }}">{{ c.plural }}</a></h2>
+{{ problemsTable(c.top) }}
+{%- if c.count > c.top.length %}
+<p class="more"><a href="{{ ('/categories/' + c.id + '/') | url }}">{{ c.more }}</a> <span class="muted">({{ c.count }} in all)</span></p>
+{%- endif %}
+</section>
 {%- endfor %}
-</tbody>
-</table>
-</div>
 <p class="footer">Data CC0 · code MIT · rulebook version {{ pear.rulebook_version }} · data of {{ pear.generated }}</p>
 </main>

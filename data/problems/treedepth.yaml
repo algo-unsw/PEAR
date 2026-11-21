@@ -1,7 +1,7 @@
 id: treedepth
 name: Treedepth
 aliases: [Tree-Depth, Vertex Ranking, Elimination Tree Height, Centered Coloring]
-category: graph
+category: graphs
 complexity:
   class: NP-complete
   source:

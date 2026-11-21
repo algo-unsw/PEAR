@@ -1,7 +1,7 @@
 id: bandwidth
 name: Bandwidth
 aliases: [Graph Bandwidth, Bandwidth Minimization, Minimum Bandwidth]
-category: graph
+category: graphs
 complexity:
   class: NP-complete
   source:

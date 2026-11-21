@@ -1,7 +1,7 @@
 id: graph-motif
 name: Graph Motif
 aliases: []
-category: graph
+category: graphs
 complexity:
   class: NP-complete
   source:

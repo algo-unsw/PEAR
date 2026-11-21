@@ -1,7 +1,7 @@
 id: minimum-fill-in
 name: Minimum Fill-In
 aliases: [Chordal Completion, Minimum Chordal Completion]
-category: graph
+category: graphs
 complexity:
   class: NP-complete
   source:

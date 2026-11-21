@@ -1,0 +1,62 @@
+# Search phrases and Wikipedia articles for the prominence score (src/pear/prominence.py).
+#
+# By default a problem is searched by its name (both spellings of colouring and travelling are
+# added automatically), and its Wikipedia article is the first of these titles that exists and
+# is not a disambiguation page: the name as written, in sentence case, then with " problem".
+# Add an entry here only when that goes wrong: the name is ambiguous outside algorithms, or the
+# article has another title. Several phrases: each source counts the largest of their counts.
+#
+#   <problem id>:
+#     phrases: [...]      # replaces the name
+#     wikipedia: <title>  # tried first; false: the problem has no article of its own
+#     why: <one line>
+
+bandwidth:
+  phrases: ["graph bandwidth", "bandwidth minimization"]
+  wikipedia: Graph bandwidth
+  why: "Bandwidth alone also matches networks and signal processing."
+clique:
+  phrases: ["clique problem", "maximum clique"]
+  wikipedia: Clique problem
+  why: "Clique alone also matches social cliques."
+sat:
+  phrases: ["Boolean satisfiability", "satisfiability problem", "CNF satisfiability"]
+  wikipedia: Boolean satisfiability problem
+  why: "SAT alone also matches the admission test."
+sharp-3-sat:
+  phrases: ["counting 3-SAT", "3-SAT model counting"]
+  wikipedia: Sharp-SAT
+  why: "Search engines drop the #, so #3-SAT would count every 3-SAT hit."
+hamiltonian-cycle:
+  phrases: ["Hamiltonian cycle", "Hamiltonian circuit"]
+max-cut:
+  phrases: ["max cut", "maximum cut"]
+  wikipedia: Maximum cut
+  why: "The Wikipedia redirect Max Cut points to a section about the singer Ava Max."
+maximum-common-subgraph:
+  phrases: ["maximum common induced subgraph", "maximum common subgraph"]
+# Search engines read a hyphen as a space, and "tree width", "path width" and "tree depth" are
+# common outside graph theory (forestry, roads, decision trees), so the hyphenated spellings
+# are searched only in graph-theoretic phrases.
+treewidth:
+  phrases: ["treewidth", "tree-width of a graph", "bounded tree-width"]
+pathwidth:
+  phrases: ["pathwidth", "path-width of a graph", "bounded path-width"]
+treedepth:
+  phrases: ["treedepth", "tree-depth of a graph", "bounded tree-depth"]
+longest-path:
+  phrases: ["longest path problem", "longest simple path"]
+  why: "Longest path alone mostly matches the critical path method (longest paths in acyclic graphs, polynomial)."
+3-coloring:
+  phrases: ["3-colorability", "3-coloring problem", "graph 3-coloring"]
+  wikipedia: false
+  why: "3-coloring alone also matches colouring books (search engines read the hyphen as a space). Its Wikipedia redirects lead to the whole Graph coloring article, which is Chromatic Number's."
+clique-width:
+  phrases: ["clique-width", "cliquewidth"]
+chromatic-number:
+  wikipedia: Graph coloring
+  why: "Graph Coloring is an alias; the redirect Chromatic number only reaches a section of that article."
+travelling-salesperson:
+  phrases: ["travelling salesman", "travelling salesperson"]
+  wikipedia: Travelling salesman problem
+  why: "PEAR says Salesperson (Serge, 21 November 2026), but most of the literature says Salesman."

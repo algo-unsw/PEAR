@@ -1,7 +1,7 @@
 id: red-blue-dominating-set
 name: Red-Blue Dominating Set
 aliases: [RBDS]
-category: graph
+category: graphs
 complexity:
   class: NP-complete
   source:

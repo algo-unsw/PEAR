@@ -1,7 +1,7 @@
 id: feedback-arc-set
 name: Feedback Arc Set
 aliases: [Directed Feedback Arc Set, DFAS, FAS, Minimum Feedback Arc Set]
-category: graph
+category: graphs
 complexity:
   class: NP-complete
   source:

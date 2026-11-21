@@ -168,9 +168,11 @@ def test_entries_written_as_json(real):
 
 def test_index_lists_all_pilot_problems(real):
     _, site, _ = real
-    names = [e["name"] for e in site["index"]]
-    assert names[:2] == ["Vertex Cover", "Independent Set"] and len(names) >= 12
-    assert all(e["id"] for e in site["index"][:12])  # all pilot problems entered
+    names = {e["name"] for e in site["index"]}
+    pilot = {"Vertex Cover", "Independent Set", "Clique", "Set Cover", "Hitting Set", "SAT", "#3-SAT",
+             "3-Coloring", "Hamiltonian Cycle", "Dominating Set", "Connected Dominating Set", "Subset Sum"}
+    assert pilot <= names  # in prominence order now (21 November 2026)
+    assert all(e["id"] for e in site["index"])
 
 
 def test_fixture_data_builds(tmp_path):

@@ -1,7 +1,7 @@
 id: list-coloring
 name: List Coloring
 aliases: [List Colouring, List Vertex Coloring, LiCol]
-category: graph
+category: graphs
 complexity:
   class: NP-complete
   source:

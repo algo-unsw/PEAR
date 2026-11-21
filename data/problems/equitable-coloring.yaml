@@ -1,7 +1,7 @@
 id: equitable-coloring
 name: Equitable Coloring
 aliases: [Equitable Colouring, Equitable Chromatic Number]
-category: graph
+category: graphs
 complexity:
   class: NP-complete
   source:

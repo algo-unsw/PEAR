@@ -7,7 +7,7 @@ solves:
   - problem: hamiltonian-cycle
     versions: [decision, search]
     exact: true
-    note: "Through the symmetric Travelling Salesman Problem: give edges weight 1 and non-edges weight 2; the graph is Hamiltonian exactly when an optimal tour has length n."
+    note: "Through the symmetric Travelling Salesperson Problem: give edges weight 1 and non-edges weight 2; the graph is Hamiltonian exactly when an optimal tour has length n."
 facts:
   - fact: "Used to obtain the optimal solutions to all 110 TSPLIB instances."
     source: "https://www.math.uwaterloo.ca/tsp/concorde.html"

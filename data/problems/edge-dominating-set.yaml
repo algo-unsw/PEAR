@@ -1,7 +1,7 @@
 id: edge-dominating-set
 name: Edge Dominating Set
 aliases: [Minimum Edge Dominating Set, Minimum Maximal Matching, EDS]
-category: graph
+category: graphs
 complexity:
   class: NP-complete
   source:

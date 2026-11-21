@@ -1,7 +1,7 @@
 id: chromatic-number
 name: Chromatic Number
 aliases: [Graph Coloring, Graph Colouring, Vertex Coloring, k-Coloring]
-category: graph
+category: graphs
 complexity:
   class: NP-complete
   source:

@@ -1,7 +1,7 @@
 id: maximum-common-subgraph
 name: Maximum Common Induced Subgraph
 aliases: [Maximum Common Subgraph, MCIS, MCS, Common Induced Subgraph Isomorphism]
-category: graph
+category: graphs
 complexity:
   class: NP-complete
   source:

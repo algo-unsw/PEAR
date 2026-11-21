@@ -1,7 +1,7 @@
 id: multicut
 name: Multicut
 aliases: [Edge Multicut, Minimum Multicut, Multicut in Graphs]
-category: graph
+category: networks
 complexity:
   class: NP-complete
   source:

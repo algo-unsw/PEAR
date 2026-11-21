@@ -17,4 +17,4 @@ properties:
   quantum: false
 source:
   folklore: true
-  note: 'Dynamic programming over pairs $(S, v)$: is there a path with vertex set $S$ that ends in $v$? (as Bellman and Held–Karp for the travelling salesman problem) (brute force; added at Serge Gaspers''s request, 20 November 2026).'
+  note: 'Dynamic programming over pairs $(S, v)$: is there a path with vertex set $S$ that ends in $v$? (as Bellman and Held–Karp for the travelling salesperson problem) (brute force; added at Serge Gaspers''s request, 20 November 2026).'

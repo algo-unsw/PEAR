@@ -1,7 +1,7 @@
 id: edge-bipartization
 name: Edge Bipartization
 aliases: [Edge Odd Cycle Transversal, Edge OCT]
-category: graph
+category: graphs
 complexity:
   class: NP-complete
   source:

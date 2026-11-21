@@ -1,7 +1,7 @@
 id: feedback-vertex-set
 name: Feedback Vertex Set
 aliases: [Feedback Node Set, FVS, Decycling Set]
-category: graph
+category: graphs
 complexity:
   class: NP-complete
   source:

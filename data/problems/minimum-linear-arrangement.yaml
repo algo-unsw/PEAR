@@ -1,7 +1,7 @@
 id: minimum-linear-arrangement
 name: Minimum Linear Arrangement
 aliases: [Optimal Linear Arrangement, Linear Arrangement, MinLA, OLA]
-category: graph
+category: graphs
 complexity:
   class: NP-complete
   source:
