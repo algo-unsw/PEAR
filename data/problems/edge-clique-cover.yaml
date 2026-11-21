@@ -20,6 +20,7 @@ parameters:
   d: { meaning: "the degeneracy of $G$: the minimum $d$ such that every subgraph of $G$ has a vertex of degree at most $d$" }
 constraints:
   - { constraint: "k \\le m", because: "Every edge is a clique, so every instance with $k \\ge m$ is a yes-instance, answered in polynomial time." }
+  - { constraint: "k \\ge 3", because: "Every instance with $k \\le 2$ is solved in polynomial time. Let $V'$ be the vertices of positive degree. $k = 1$: $G[V']$ is complete. $k = 2$: the non-adjacent pairs in $V'$ form a complete bipartite graph between some $A$ and $B$ (the other vertices of $V'$, $S$, are adjacent to all of $V'$); then $A \\cup S$ and $B \\cup S$ are cliques covering every edge, and conversely two cliques $C_1, C_2$ give $A = C_1 \\setminus C_2$, $B = C_2 \\setminus C_1$ (21 November 2026)." }
   - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
   - { constraint: "d \\le n", because: "Every vertex has degree at most $n - 1$." }
 versions:

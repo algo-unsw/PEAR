@@ -181,9 +181,10 @@ def test_best_keeps_the_antichain():
 
 
 def test_unsupported_bounds_are_incomparable_not_errors():
-    # the log of a sum is outside the supported class: kept as incomparable (§5 principle)
+    # the log of a sum is outside the supported class: kept, and undecided (§5 principle;
+    # 21 November 2026: no proof and no witness is "undecided", not "incomparable")
     odd = P(r"O(2^{n} \log(n + m))")
-    assert compare(P(r"O(2^{n})"), odd, CTX) == Relation.INCOMPARABLE
+    assert compare(P(r"O(2^{n})"), odd, CTX) == Relation.UNDECIDED
     assert best([P(r"O(2^{n})"), odd], CTX) == [0, 1]
 
 
@@ -484,7 +485,7 @@ def test_constant_bases_are_evaluated():
     # with named constants, from their known range: 1 + 3 \cdot 2^{\omega - 1} >= 7 > 3
     rank = r"O^*((1 + 2^{\omega - 1} \cdot 3)^{tw})"
     assert _cmp(r"O^*(3^{tw})", rank, syms, constants={"omega": (2.0, 2.371339)}) == Relation.BETTER
-    assert _cmp(r"O^*(3^{tw})", rank, syms) == Relation.INCOMPARABLE  # no range: no proof
+    assert _cmp(r"O^*(3^{tw})", rank, syms) == Relation.UNDECIDED  # no range: no proof, no witness
 
 
 def test_numeric_cross_check_finds_what_the_comparator_misses():

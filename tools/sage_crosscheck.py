@@ -24,7 +24,9 @@ t^50 for polynomial factors. Then:
 
 - the comparator says a is at most b (better, equal, tie): a must be at most b on every
   slice; otherwise the comparator is wrong, or a constraint is missing (ERROR);
-- the comparator says incomparable: with --notes, list pairs where a is at most b on every
+- the comparator says incomparable: it has a witness slice (bounds §5) along which a is not at
+  most b; Sage must agree on that slice (ERROR otherwise).
+- the comparator says undecided: with --notes, list pairs where a is at most b on every
   slice (NOTE). Often this is only because the slices that separate them are not expressible
   (Sage has no 2^(t^2) or 2^(sqrt t)), so a NOTE is a hint, never a reason to change a result.
 
@@ -47,7 +49,7 @@ from collections import defaultdict
 from fractions import Fraction
 from pathlib import Path
 
-from pear.bounds.compare import Relation, compare_ostar
+from pear.bounds.compare import Relation, compare_ostar, refuted
 from pear.bounds.display import ostar
 from pear.bounds.expr import (Add, Asym, Bell, Const, Div, Fact, Func, Log, Mul, Num, Pow, Sqrt, Var, children,
                               render, variables)
@@ -68,7 +70,7 @@ class Inexpressible(Exception):
 
 # each variable is c * t^e + d; n-like variables also get the edge-count shapes
 MENU: list[tuple[str, str]] = [
-    ("t", "t"), ("t/2", "t/2"), ("2t", "2 t"), ("t-3", "t - 3"), ("3", "3"),
+    ("t", "t"), ("t/2", "t/2"), ("2t", "2 t"), ("t-3", "t - 3"), ("3", "3"), ("2", "2"),
     ("sqrt t", "t^{1/2}"), ("t^2/4", "t^{2}/4"), ("t(t-1)/2", "t (t - 1)/2"), ("t^2", "t^{2}"),
 ]
 
@@ -349,8 +351,22 @@ def run(args: argparse.Namespace) -> int:
             a, b = forms[ka], forms[kb]
             rel = compare_ostar(engine.analyse_ostar(a), engine.analyse_ostar(b), ctx)
             claim_le = rel in (Relation.BETTER, Relation.EQUAL, Relation.TIE)
-            if rel not in (Relation.BETTER, Relation.EQUAL, Relation.TIE, Relation.INCOMPARABLE):
+            if rel not in (Relation.BETTER, Relation.EQUAL, Relation.TIE, Relation.INCOMPARABLE, Relation.UNDECIDED):
                 continue  # WORSE is checked as the reversed pair
+            if rel == Relation.INCOMPARABLE:
+                # the comparator's own witness that a is not at most b must hold in Sage too
+                why = refuted(engine.analyse_ostar(a), engine.analyse_ostar(b), ctx, "ostar") or ""
+                if why.startswith("witness: "):
+                    cut = dict(item.split(" = ") for item in why[len("witness: "):].split(", "))
+                    got_a, got_b = growth(ka, cut), growth(kb, cut)
+                    if got_a is not None and got_b is not None:
+                        ends = {sage.le_star(x, y) for x, y in zip(got_a, got_b)}
+                        checked += 1
+                        if ends == {True}:
+                            errors += 1
+                            print(f"ERROR {pid} [{node}]: the comparator's witness {why[9:]} says O*({ka}) is not at "
+                                  f"most O*({kb}), but Sage finds it is\n      {a.id}\n      {b.id}")
+                        continue
             verdicts = []
             for cut in cuts:
                 ga, gb = growth(ka, cut), growth(kb, cut)

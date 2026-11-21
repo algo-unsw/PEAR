@@ -17,6 +17,7 @@ parameters:
   dcl: { meaning: "the distance to clique: the minimum size of a set $D \\subseteq V$ such that $G - D$ is a clique" }
 constraints:
   - { constraint: "s \\le n", because: "$s = n - k$ with $k \\ge 0$." }
+  - { constraint: "k \\ge 3", because: "Every instance with $k \\le 2$ is solved in polynomial time: for $k = 1$, $G$ must have no edges; for $k = 2$, $G$ must be bipartite, and each component has two 2-colourings, one of which must agree with the precoloured vertices of that component (21 November 2026)." }
   - { constraint: "dcl \\le n", because: "Deleting all but one vertex leaves a clique." }
   - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
 versions:

@@ -71,6 +71,9 @@ def main(argv: list[str] | None = None) -> int:
         rel = "equal to" if u["equal"] else "at most"
         print(f"undecided: {u['problem']} ({u['node']}): {u['smaller']} looks {rel} {u['larger']} "
               f"at all {u['samples']} sample points, but the comparator cannot prove it; add the missing fact or rule")
+    if result.open:
+        print(f"open: {len(result.open)} pairs of Overview bounds are undecided (no proof, no witness); "
+              f"listed under open_comparisons in {args.out}")
     print(f"OK: {kept} results kept ({derived} derived), written to {args.out}.")
     return 0
 

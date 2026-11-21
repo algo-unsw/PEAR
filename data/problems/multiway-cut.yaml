@@ -21,6 +21,7 @@ parameters:
 constraints:
   - { constraint: "k \\le m", because: "Deleting all edges separates the terminals, so every instance with $k \\ge m$ is a yes-instance." }
   - { constraint: "p \\le n", because: "The terminals are vertices." }
+  - { constraint: "p \\ge 3", because: "Every instance with $p \\le 2$ is solved in polynomial time: with one terminal the answer is yes, and with two terminals $s, t$ a minimum $s$–$t$ edge cut is computed by a maximum flow (21 November 2026)." }
   - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
 versions:
   decision:
