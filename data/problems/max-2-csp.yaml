@@ -66,3 +66,4 @@ shared_bounds:
 related:
   - { problem: max-2-sat, relation: special-case }
   - { problem: max-cut, relation: special-case }
+  - { problem: csp, relation: variant }

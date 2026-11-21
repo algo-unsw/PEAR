@@ -17,6 +17,7 @@ parameters:
   tw: { shared: treewidth, of: "the primal graph: the variables, two of them adjacent if they occur together in the scope of a constraint" }
 constraints:
   - { constraint: "tw \\le n", because: "The primal graph has $n$ vertices." }
+  - { constraint: "d \\le N", because: "The domain $D$ is listed in the input." }
 versions:
   decision:
     kind: decision

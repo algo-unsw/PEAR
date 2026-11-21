@@ -68,12 +68,20 @@ def _sentence_fragment(text: str) -> str:
 
 
 def version_label(vid: str) -> str:
-    m = re.fullmatch(r"(.+)-max-(degree|threshold)-(\d+)", vid)
-    if m:  # bounded-degree (and -threshold) versions (21 November 2026): "Optimisation, max degree 3"
-        return f"{version_label(m.group(1))}, max {m.group(2)} {m.group(3)}"
-    m = re.fullmatch(r"(decision|optimisation|search|weighted|counting)-([a-z])-(at-least-)?(\d+)", vid)
-    if m:  # versions fixing an input integer (21 November 2026): "Decision, d = 3", "Decision, d ≥ 3"
-        return f"{version_label(m.group(1))}, {m.group(2)} {'≥' if m.group(3) else '='} {m.group(4)}"
+    """Restricted-input versions (21 November 2026; definitions.md §3) are labelled from their id:
+    "Optimisation, max degree 3", "Decision, d = 3", "Decision, d ≥ 3", "Decision, arity 2, domain 3"."""
+    m = re.fullmatch(r"(decision|optimisation|search|weighted|counting)-(.+)", vid)
+    if m and m.group(2) not in VERSION_LABELS:
+        parts = re.findall(r"((?:[a-z]+-)*?)(at-least-)?(\d+)(?:-|$)", m.group(2))
+        if parts and "".join(w + a + d + "-" for w, a, d in parts).rstrip("-") == m.group(2):
+            out = []
+            for words, at_least, d in parts:
+                name = words.rstrip("-").replace("-", " ")
+                if len(name) == 1:  # an input integer: "d = 3", "s ≥ 2"
+                    out.append(f"{name} {'≥' if at_least else '='} {d}")
+                else:
+                    out.append(f"{name} {'at least ' if at_least else ''}{d}")
+            return f"{version_label(m.group(1))}, {', '.join(out)}"
     return VERSION_LABELS.get(vid, vid.replace("-", " ").capitalize())
 
 

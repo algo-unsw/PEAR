@@ -1,0 +1,12 @@
+id: freuder-1990
+title: Complexity of K-Tree Structured Constraint Satisfaction Problems
+authors:
+- Eugene C. Freuder
+identifiers: { dblp: conf/aaai/Freuder90 }
+versions:
+  aaai:
+    kind: conference
+    venue: "Proceedings of the 8th National Conference on Artificial Intelligence (AAAI-90), pp. 4–9"
+    year: 1990
+    url: 'https://cdn.aaai.org/AAAI/1990/AAAI90-001.pdf'
+    open_access: true

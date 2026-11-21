@@ -53,6 +53,10 @@ shared_bounds:
 related:
   - { problem: sharp-3-sat, relation: counting }
   - { problem: max-sat, relation: variant }
+  - { problem: nae-sat, relation: variant }
+  - { problem: exact-satisfiability, relation: variant }
+  - { problem: qbf, relation: generalisation }
+  - { problem: csp, relation: generalisation }
 implementations:
   as_of: 2026-11-11
   ranked: [kissat, cadical]
