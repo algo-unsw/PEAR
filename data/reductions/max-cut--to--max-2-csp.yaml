@@ -14,6 +14,38 @@ variants:
     source:
       folklore: true
       note: "The score function of edge $uv$ returns $w(uv)$ when the endpoints get different colours and 0 otherwise."
+  - id: max-degree-3
+    note: "Maximum degree at most 3: the constraint graph is the input graph, so it keeps its maximum degree."
+    from: { problem: max-cut, version: decision-max-degree-3 }
+    to: { problem: max-2-csp, version: decision-max-degree-3 }
+    parameter_map: { n: "n", m: "m", r: "2", k: "k" }
+    source:
+      folklore: true
+      note: "The same construction; the constraint graph is $G$ (added 21 November 2026 with the cubic Max 2-CSP results)."
+  - id: weighted-max-degree-3
+    note: "Weighted, maximum degree at most 3: as the weighted variant; the constraint graph is $G$."
+    from: { problem: max-cut, version: weighted-max-degree-3 }
+    to: { problem: max-2-csp, version: optimisation-max-degree-3 }
+    parameter_map: { n: "n", m: "m", r: "2" }
+    source:
+      folklore: true
+      note: "The score function of edge $uv$ returns $w(uv)$ when the endpoints get different colours and 0 otherwise; the constraint graph is $G$."
+  - id: max-degree-4
+    note: "Maximum degree at most 4: the constraint graph is the input graph, so it keeps its maximum degree."
+    from: { problem: max-cut, version: decision-max-degree-4 }
+    to: { problem: max-2-csp, version: decision-max-degree-4 }
+    parameter_map: { n: "n", m: "m", r: "2", k: "k" }
+    source:
+      folklore: true
+      note: "The same construction; the constraint graph is $G$ (added 21 November 2026 with the cubic Max 2-CSP results)."
+  - id: weighted-max-degree-4
+    note: "Weighted, maximum degree at most 4: as the weighted variant; the constraint graph is $G$."
+    from: { problem: max-cut, version: weighted-max-degree-4 }
+    to: { problem: max-2-csp, version: optimisation-max-degree-4 }
+    parameter_map: { n: "n", m: "m", r: "2" }
+    source:
+      folklore: true
+      note: "The score function of edge $uv$ returns $w(uv)$ when the endpoints get different colours and 0 otherwise; the constraint graph is $G$."
 source:
   paper: gaspers-sorkin-2017
   statements:
