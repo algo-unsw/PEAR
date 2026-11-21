@@ -1,0 +1,23 @@
+id: bounded-degree-vertex-deletion--k--moser-niedermeier-sorge-2009
+problem: bounded-degree-vertex-deletion
+proved_for: decision
+bound:
+  as_stated: "O((d+2)^{k} + n (k + d))"
+  notation: O
+  parameters: [d, k, n]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: "Not stated; educated guess: polynomial. A depth-bounded search tree (at most $p$ branchings) interleaved with the kernel of Theorem 1; no memoization, dynamic programming or tables found."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: moser-niedermeier-sorge-2009
+  statements:
+    journal-preprint: { statement: "Theorem 2: \"Bounded-Degree-$d$ Vertex Deletion can be solved in $O((d+2)^p + n \\cdot (p+d))$ time.\"" }
+  note: "The paper writes $p$ for the solution size (PEAR's $k$). The algorithm interleaves the search tree with the problem kernel of Theorem 1 ($O(p(p+d)d)$ vertices, computed in $O(n(p+d))$ time)."
+formal: { status: informal }
+status: valid

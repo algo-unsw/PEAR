@@ -4,7 +4,7 @@ to: { problem: densest-k-subgraph, version: decision }
 type: polytime-deterministic
 calls: 1
 time: "O(n + m)"
-parameter_map: { n: "n", m: "m" }
+parameter_map: { n: "n", m: "m", k: "k" }
 source:
   folklore: true
-  note: "Map $(G, k)$ to $(G, k, \\ell)$ with $\\ell = k(k-1)/2$; for $k \\le n$, a set of $k$ vertices induces at least $k(k-1)/2$ edges if and only if it is a clique (Clique asks for $|S| \\ge k$, and every clique of size at least $k$ contains one of size exactly $k$). Instances with $k > n$ are no-instances of both problems. The map leaves out $k$ (which is mapped to itself) because transferring the brute-force $O(n^k k^2 + n^2)$ bound in $k$ made the derivation report undecided pairs against Ne\\v{s}et\\v{r}il and Poljak's bound for Clique."
+  note: "Map $(G, k)$ to $(G, k, \\ell)$ with $\\ell = k(k-1)/2$; for $k \\le n$, a set of $k$ vertices induces at least $k(k-1)/2$ edges if and only if it is a clique (Clique asks for $|S| \\ge k$, and every clique of size at least $k$ contains one of size exactly $k$). Instances with $k > n$ are no-instances of both problems. $k$ maps to itself (left out until the comparator rules of 21 November 2026)."
