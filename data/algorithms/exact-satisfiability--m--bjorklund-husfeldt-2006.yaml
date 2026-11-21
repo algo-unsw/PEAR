@@ -1,0 +1,24 @@
+id: exact-satisfiability--m--bjorklund-husfeldt-2006
+problem: exact-satisfiability
+proved_for: decision
+bound:
+  as_stated: "2^{m} N^{O(1)}"
+  notation: O
+  parameters: [m, N]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: "Stated in the abstract: \"and polynomial space\"."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: bjorklund-husfeldt-2006
+  statements:
+    conference: { statement: "Abstract" }
+    journal: { statement: "Abstract" }
+  note: "Abstracts of the conference (ICALP 2006) and journal (Algorithmica 2008) versions only; the full text was not read (closed). Entered under the rule of 21 November 2026. Both abstracts (Springer chapter page; Lund University LUP record 1249695 of the journal version): Exact Satisfiability with $m$ clauses and size $l$ \"can be solved in time 2^m l^{O(1)} and polynomial space\" (superscripts flattened on both pages), by inclusion–exclusion; the same bounds hold for counting the solutions. The abstract's $l$ (the size of the formula) is written $N$ here; any polynomial in one is polynomial in the other. TODO(verify): deterministic assumed; whether an assignment is output (constructive) is not stated in the abstract, though self-reducibility gives one within the same bound."
+formal: { status: informal }
+status: valid
