@@ -139,8 +139,10 @@ class VersionRef(Model):
 
 # graph, satisfiability, sets and numbers were agreed first; scheduling, strings, geometry,
 # social-choice, games and other were approved by Serge on 20 November 2026
-Category = Literal["graph", "satisfiability", "sets", "numbers", "scheduling", "strings", "geometry",
-                   "social-choice", "games", "other"]
+# The twelve categories of Garey and Johnson's appendix (A1-A12), in their order, lightly reworded
+# (Serge, 21 November 2026): GT, ND, SP, SR, SS, MP, AN, GP, LO, AL, PO, MS.
+Category = Literal["graphs", "networks", "sets", "storage", "scheduling", "mathematical-programming", "algebra",
+                   "games", "logic", "automata", "programs", "miscellaneous"]
 VersionKind = Literal["decision", "optimisation", "search", "counting", "enumeration"]
 Relation = Literal[
     "complement",

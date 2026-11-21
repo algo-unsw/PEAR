@@ -9,14 +9,14 @@ permalink: /
 <h1>Parameterized and Exact Algorithms and Reductions</h1>
 <p style="margin-top: 12px; max-width: 760px">PEAR catalogues NP-hard problems, the reductions between them and the fastest known exact and parameterized algorithms, including bounds derived automatically by chaining reductions. Every result cites an openly readable source and the exact statement it relies on.</p>
 
-<p class="note">Problems by category, with their best classical bounds for the default version: randomized and non-constructive algorithms allowed, quantum algorithms left out, and results from preprints and unverified papers shown only when you include them.</p>
+<p class="note">Problems by category, following the sections of Garey and Johnson’s <i>Computers and Intractability</i>, with their best classical bounds for the default version: randomized and non-constructive algorithms allowed, quantum algorithms left out, and results from preprints and unverified papers shown only when you include them.</p>
 <label class="include-all"><input type="checkbox" data-include-all> Include preprints and unverified results</label>
 {%- for c in pear.categories %}
 <section class="category" aria-labelledby="cat-{{ c.id }}">
 <h2 id="cat-{{ c.id }}"><a class="plain" href="{{ ('/categories/' + c.id + '/') | url }}">{{ c.plural }}</a></h2>
 {{ problemsTable(c.top) }}
 {%- if c.count > c.top.length %}
-<p class="more"><a href="{{ ('/categories/' + c.id + '/') | url }}">More {{ c.name }} problems</a> <span class="muted">({{ c.count }} in all)</span></p>
+<p class="more"><a href="{{ ('/categories/' + c.id + '/') | url }}">{{ c.more }}</a> <span class="muted">({{ c.count }} in all)</span></p>
 {%- endif %}
 </section>
 {%- endfor %}

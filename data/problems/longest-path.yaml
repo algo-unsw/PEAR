@@ -1,7 +1,7 @@
 id: longest-path
 name: Longest Path
 aliases: [k-Path, k-PATH, Long Path]
-category: graph
+category: networks
 complexity:
   class: NP-complete
   source:

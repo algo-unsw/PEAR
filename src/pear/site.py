@@ -38,13 +38,20 @@ from .schema import (
 )
 from .validate import Dataset, constant_best
 
-# Category headings (singular for "More …" links, plural for headings), in the schema's order.
+# Category headings and "More …" links, in the schema's order (Garey and Johnson's appendix).
 CATEGORY_NAMES = {
-    "graph": ("graph", "Graph problems"), "satisfiability": ("satisfiability", "Satisfiability problems"),
-    "sets": ("set", "Set problems"), "numbers": ("number", "Number problems"),
-    "scheduling": ("scheduling", "Scheduling problems"), "strings": ("string", "String problems"),
-    "geometry": ("geometric", "Geometric problems"), "social-choice": ("social choice", "Social choice problems"),
-    "games": ("game", "Games"), "other": ("other", "Other problems"),
+    "graphs": ("Graph theory", "More graph problems"),
+    "networks": ("Network design", "More network design problems"),
+    "sets": ("Sets and partitions", "More problems on sets and partitions"),
+    "storage": ("Storage and retrieval", "More storage and retrieval problems"),
+    "scheduling": ("Sequencing and scheduling", "More scheduling problems"),
+    "mathematical-programming": ("Mathematical programming", "More mathematical programming problems"),
+    "algebra": ("Algebra and number theory", "More problems in algebra and number theory"),
+    "games": ("Games and puzzles", "More games and puzzles"),
+    "logic": ("Logic", "More logic problems"),
+    "automata": ("Automata and formal languages", "More problems on automata and formal languages"),
+    "programs": ("Program optimization", "More program optimization problems"),
+    "miscellaneous": ("Miscellaneous", "More miscellaneous problems"),
 }
 FRONT_PAGE_TOP = 6  # problems per category on the front page
 
@@ -1004,8 +1011,8 @@ def build(data: Dataset, d: Derivation, out_dir: Path, signals_path: Path | None
     for cat in get_args(Category):
         members = [entry[pid] for pid in order if entry[pid]["category"] == cat]
         if members:
-            name, plural = CATEGORY_NAMES[cat]
-            categories.append({"id": cat, "name": name, "plural": plural, "count": len(members),
+            plural, more = CATEGORY_NAMES[cat]
+            categories.append({"id": cat, "plural": plural, "more": more, "count": len(members),
                                "top": members[:FRONT_PAGE_TOP], "problems": members})
     for c in categories:
         c["others"] = [{"id": o["id"], "plural": o["plural"], "count": o["count"]} for o in categories if o["id"] != c["id"]]

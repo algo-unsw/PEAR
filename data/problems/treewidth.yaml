@@ -1,7 +1,7 @@
 id: treewidth
 name: Treewidth
 aliases: [Tree-Width, Computing the Treewidth of a Graph]
-category: graph
+category: graphs
 complexity:
   class: NP-complete
   source:

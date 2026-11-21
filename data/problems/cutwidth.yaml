@@ -1,7 +1,7 @@
 id: cutwidth
 name: Cutwidth
 aliases: [Minimum Cut Linear Arrangement, Min Cut Linear Arrangement, Cutwidth Minimization]
-category: graph
+category: graphs
 complexity:
   class: NP-complete
   source:

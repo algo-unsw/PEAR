@@ -1,7 +1,7 @@
 id: odd-cycle-transversal
 name: Odd Cycle Transversal
 aliases: [OCT, Graph Bipartization, Vertex Bipartization]
-category: graph
+category: graphs
 complexity:
   class: NP-complete
   source:

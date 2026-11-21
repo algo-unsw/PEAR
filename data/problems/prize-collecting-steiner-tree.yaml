@@ -1,7 +1,7 @@
 id: prize-collecting-steiner-tree
 name: Prize-Collecting Steiner Tree
 aliases: [PCST]
-category: graph
+category: networks
 complexity:
   class: NP-complete
   source:

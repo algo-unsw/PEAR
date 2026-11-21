@@ -156,7 +156,7 @@ def test_front_page_groups_by_category_in_prominence_order(data, tmp_path):
     site = build(data, derive(data), tmp_path, signals_path=signals)
     score = {pid: r["score"] for pid, r in pm.scores(data, pm.load_signals(signals)).items()}
     cats = site["categories"]
-    assert [c["id"] for c in cats][0] == "graph"
+    assert [c["id"] for c in cats][0] == "graphs"
     assert sum(c["count"] for c in cats) == len(data.problems)
     for c in cats:
         got = [score[e["id"]] for e in c["problems"]]

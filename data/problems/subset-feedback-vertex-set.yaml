@@ -1,7 +1,7 @@
 id: subset-feedback-vertex-set
 name: Subset Feedback Vertex Set
 aliases: [Subset FVS, SFVS, Subset-FVS]
-category: graph
+category: graphs
 complexity:
   class: NP-complete
   source:

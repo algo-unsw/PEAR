@@ -1,7 +1,7 @@
 id: minimum-bisection
 name: Minimum Bisection
 aliases: [Graph Bisection, Min Bisection, Min-Bisection, Bisection, Minimum Graph Bisection]
-category: graph
+category: networks
 complexity:
   class: NP-complete
   source:

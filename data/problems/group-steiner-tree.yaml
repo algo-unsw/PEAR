@@ -1,7 +1,7 @@
 id: group-steiner-tree
 name: Group Steiner Tree
 aliases: [GST]
-category: graph
+category: networks
 complexity:
   class: NP-complete
   source:

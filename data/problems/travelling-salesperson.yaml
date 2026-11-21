@@ -1,7 +1,7 @@
 id: travelling-salesperson
 name: Travelling Salesperson
 aliases: [TSP, Travelling Salesman, Traveling Salesman, Travelling Salesman Problem, Traveling Salesperson]
-category: graph
+category: networks
 complexity:
   class: NP-complete
   source:

@@ -1,7 +1,7 @@
 id: 3-coloring
 name: 3-Coloring
 aliases: [3-Colouring, 3-Colorability, 3-COL]
-category: graph
+category: graphs
 complexity:
   class: NP-complete
   source:
