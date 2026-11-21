@@ -2,7 +2,7 @@ id: hamiltonian-cycle--m--gaspers-2026-pathwidth
 problem: hamiltonian-cycle
 proved_for: decision
 bound:
-  as_stated: '1.1962^{m}'
+  as_stated: '(2 + \sqrt{2})^{7m/48 + o(m)}'
   notation: O
   parameters:
   - m
@@ -22,4 +22,4 @@ source:
     arxiv-v1:
       statement: 'Theorem 14.1(g)'
       page: 87
-  note: 'Theorem 14.1(g): on graphs with $m$ edges, Hamiltonian Cycle by a Monte Carlo algorithm (one-sided error at most $\frac12$) in time $(2+\sqrt{2})^{7m/48+o(m)} = O(1.1962^m)$, polynomial factors omitted: the Cygan–Kratsch–Nederlof algorithm for a given path decomposition run on a decomposition of width $\frac{7}{48}m + o(m)$. arXiv v1, 3 November 2026 (read: LaTeX source and the v1 PDF); unrefereed preprint.'
+  note: 'Theorem 14.1(g): on graphs with $m$ edges, Hamiltonian Cycle by a Monte Carlo algorithm (one-sided error at most $\frac12$) in time $(2+\sqrt{2})^{7m/48+o(m)} = O(1.1962^m)$, polynomial factors omitted: the Cygan–Kratsch–Nederlof algorithm for a given path decomposition run on a decomposition of width $\frac{7}{48}m + o(m)$. arXiv v1, 3 November 2026 (read: LaTeX source and the v1 PDF); unrefereed preprint. Stored in the theorem''s precise form; the rounded $O(1.1962^m)$ is the theorem''s own rounding.'

@@ -2,7 +2,7 @@ id: hamiltonian-cycle--n--gaspers-2026-pathwidth-max-degree-5
 problem: hamiltonian-cycle
 proved_for: decision-max-degree-5
 bound:
-  as_stated: '1.5252^{n}'
+  as_stated: '(2 + \sqrt{2})^{11n/32 + o(n)}'
   notation: O
   parameters:
   - n
@@ -22,4 +22,4 @@ source:
     arxiv-v1:
       statement: 'Theorem 14.1(c)'
       page: 86
-  note: 'Theorem 14.1 (connectivity problems): polynomial factors omitted, all algorithms use exponential space, and the Monte Carlo algorithms have one-sided error at most $\frac12$. Part (c): Hamiltonian Cycle by a Monte Carlo algorithm in time $(2+\sqrt2)^{11n/32+o(n)} = O(1.5252^n)$ on graphs of maximum degree 5. Proof (Appendix A.7.3): the Monte Carlo algorithm of Cygan, Kratsch and Nederlof in time $(2+\sqrt2)^{\mathrm{pw}} n^{O(1)}$ for a given path decomposition (their Theorem 4.3), of width at most $\frac{11}{32}n + o(n)$. arXiv v1, 3 November 2026 (read: the LaTeX source of the latest arXiv version, and the v1 PDF for theorem numbers and pages); unrefereed preprint.'
+  note: 'Theorem 14.1 (connectivity problems): polynomial factors omitted, all algorithms use exponential space, and the Monte Carlo algorithms have one-sided error at most $\frac12$. Part (c): Hamiltonian Cycle by a Monte Carlo algorithm in time $(2+\sqrt2)^{11n/32+o(n)} = O(1.5252^n)$ on graphs of maximum degree 5. Proof (Appendix A.7.3): the Monte Carlo algorithm of Cygan, Kratsch and Nederlof in time $(2+\sqrt2)^{\mathrm{pw}} n^{O(1)}$ for a given path decomposition (their Theorem 4.3), of width at most $\frac{11}{32}n + o(n)$. arXiv v1, 3 November 2026 (read: the LaTeX source of the latest arXiv version, and the v1 PDF for theorem numbers and pages); unrefereed preprint. Stored in the theorem''s precise form; the rounded $O(1.5252^n)$ is the theorem''s own rounding.'
