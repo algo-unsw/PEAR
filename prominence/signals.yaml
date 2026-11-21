@@ -10,12 +10,12 @@ problems:
     - 3-colouring problem
     - graph 3-coloring
     - graph 3-colouring
-    wikipedia_title: Graph coloring
+    wikipedia_title: null
     wikipedia_section: null
     openalex_works: 2916
     openlibrary_books: 210
     google_books: null
-    wikipedia_pageviews: 78254
+    wikipedia_pageviews: 0
     wikipedia_mentions: 12
     stackexchange_questions: 50
   3-hitting-set:
@@ -55,12 +55,12 @@ problems:
   chromatic-number:
     phrases:
     - Chromatic Number
-    wikipedia_title: Chromatic number
-    wikipedia_section: Graph coloring#Chromatic number
+    wikipedia_title: Graph coloring
+    wikipedia_section: null
     openalex_works: 9421
     openlibrary_books: 1327
     google_books: null
-    wikipedia_pageviews: 6804
+    wikipedia_pageviews: 78254
     wikipedia_mentions: 323
     stackexchange_questions: 1171
   clique:
@@ -467,7 +467,7 @@ problems:
     google_books: null
     wikipedia_pageviews: 1444
     wikipedia_mentions: 11
-    stackexchange_questions: 5
+    stackexchange_questions: 0
   minimum-bisection:
     phrases:
     - Minimum Bisection
@@ -604,7 +604,7 @@ problems:
     google_books: null
     wikipedia_pageviews: 140608
     wikipedia_mentions: 181
-    stackexchange_questions: 194
+    stackexchange_questions: 106
   set-cover:
     phrases:
     - Set Cover
@@ -638,7 +638,7 @@ problems:
     google_books: null
     wikipedia_pageviews: 0
     wikipedia_mentions: 5
-    stackexchange_questions: null
+    stackexchange_questions: 4
   steiner-tree:
     phrases:
     - Steiner Tree
@@ -649,7 +649,7 @@ problems:
     google_books: null
     wikipedia_pageviews: 38852
     wikipedia_mentions: 66
-    stackexchange_questions: null
+    stackexchange_questions: 104
   subgraph-isomorphism:
     phrases:
     - Subgraph Isomorphism
@@ -660,7 +660,7 @@ problems:
     google_books: null
     wikipedia_pageviews: 10783
     wikipedia_mentions: 44
-    stackexchange_questions: null
+    stackexchange_questions: 77
   subset-feedback-vertex-set:
     phrases:
     - Subset Feedback Vertex Set
@@ -671,7 +671,7 @@ problems:
     google_books: null
     wikipedia_pageviews: 0
     wikipedia_mentions: 0
-    stackexchange_questions: null
+    stackexchange_questions: 0
   subset-sum:
     phrases:
     - Subset Sum
@@ -682,7 +682,7 @@ problems:
     google_books: null
     wikipedia_pageviews: 54053
     wikipedia_mentions: 60
-    stackexchange_questions: null
+    stackexchange_questions: 594
   total-dominating-set:
     phrases:
     - Total Dominating Set
@@ -693,7 +693,7 @@ problems:
     google_books: null
     wikipedia_pageviews: 134
     wikipedia_mentions: 5
-    stackexchange_questions: null
+    stackexchange_questions: 3
   travelling-salesman:
     phrases:
     - Travelling Salesman
@@ -705,7 +705,7 @@ problems:
     google_books: null
     wikipedia_pageviews: 286349
     wikipedia_mentions: 1110
-    stackexchange_questions: null
+    stackexchange_questions: 254
   treedepth:
     phrases:
     - treedepth
@@ -718,7 +718,7 @@ problems:
     google_books: null
     wikipedia_pageviews: 5846
     wikipedia_mentions: 6
-    stackexchange_questions: null
+    stackexchange_questions: 0
   treewidth:
     phrases:
     - treewidth
@@ -731,7 +731,7 @@ problems:
     google_books: null
     wikipedia_pageviews: 19232
     wikipedia_mentions: 138
-    stackexchange_questions: null
+    stackexchange_questions: 218
   vertex-cover:
     phrases:
     - Vertex Cover
@@ -742,7 +742,7 @@ problems:
     google_books: null
     wikipedia_pageviews: 37012
     wikipedia_mentions: 102
-    stackexchange_questions: null
+    stackexchange_questions: 702
 errors:
 - 429 https://www.googleapis.com/books/v1/volumes?q=%223-colorability%22&maxResults=1
 - 429 https://www.googleapis.com/books/v1/volumes?q=%223-colourability%22&maxResults=1
@@ -750,4 +750,3 @@ errors:
 - 429 https://www.googleapis.com/books/v1/volumes?q=%223-colouring+problem%22&maxResults=1
 - 429 https://www.googleapis.com/books/v1/volumes?q=%22graph+3-coloring%22&maxResults=1
 - skipped www.googleapis.com after 5 failures in a row
-- 400 https://api.stackexchange.com/2.3/search/advanced?q=%223-SAT+model+counting%22&site=mathoverflow.net&filter=total
