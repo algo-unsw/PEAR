@@ -18,6 +18,6 @@ source:
   paper: cygan-pilipczuk-wojtaszczyk-2009
   statements:
     arxiv: { statement: "Abstract; Section 2.2 (from the simplified problem to Capacitated Dominating Set): the $O^*(\\binom{n}{\\lceil n/3 \\rceil}) = O(1.89^n)$ sets $U$, each solved in polynomial time by maximum matching" }
-  note: "No numbered theorem for the exact algorithm. Liedloff, Todinca and Villanger (WG 2010) claim a faster algorithm via covering by subsets and maximum matching; no open copy found (see the unreachable ledger)."
+  note: "No numbered theorem for the exact algorithm. Liedloff, Todinca and Villanger (WG 2010; DAM 2014) improve it to $O^*(1.8463^n)$: capacitated-dominating-set--n--liedloff-todinca-villanger-2010."
 formal: { status: informal }
 status: valid

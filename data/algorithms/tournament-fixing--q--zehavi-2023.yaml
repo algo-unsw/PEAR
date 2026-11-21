@@ -1,0 +1,23 @@
+id: tournament-fixing--q--zehavi-2023
+problem: tournament-fixing
+proved_for: decision
+bound:
+  as_stated: "2^{O(q \\log q)} n^{O(1)}"
+  notation: O
+  parameters: [q, n]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: "Not stated; educated guess: exponential in $q$. A table with one Boolean entry per index $(i, f, g, h)$, where $f, g, h$ are functions on the $O(q)$ nodes and arcs of a guessed annotated structure (Definitions 9–13), is filled by dynamic programming; $q^{O(q)} n^{O(1)}$ entries (Lemma 2)."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: zehavi-2023
+  statements:
+    aaai: { statement: "Theorem 1" }
+  note: "Stated with $k$ for the feedback vertex set number of the input tournament $D$ (written $q$ here). A minimum feedback vertex set is computed first in $3^k n^{O(1)}$ time (Proposition 4). By backtracking, the algorithm can also return the seeding (Introduction). Read in the AAAI version (Zotero copy of the OJS PDF; the OJS page is gold open access but bot-blocked for automated fetches)."
+formal: { status: informal }
+status: valid

@@ -6,11 +6,9 @@ complexity:
   class: NP-complete
   source:
     paper: charbit-thomasse-yeo-2007
-    attested_by:
-      - "https://dblp.org/rec/journals/cpc/CharbitTY07"
-      - "https://arxiv.org/abs/0907.2165"
-      - "https://doi.org/10.1017/S0963548306007887"
-    note: "The title of the paper states the result (DBLP record and publisher page). Bessy et al. (arXiv:0907.2165v2, Section 1, opened) state that FAST is NP-complete by results of Alon (SIAM J. Discrete Math. 2006) and Charbit et al.; membership in NP is immediate. TODO(verify): Wikipedia's choice of source (Alon 2006, Charbit et al. 2007, or both) could not be checked (page fetches were blocked), and an open copy of Charbit et al. may exist (see the unreachable ledger)."
+    statements:
+      hal: { statement: "Theorem 2" }
+    note: "Theorem 2 of the HAL author copy (lirmm-00140321v1, page 2 of the article) proves NP-hardness by a reduction from Minimum Feedback Arc Set in digraphs; membership in NP is immediate. The paper notes an independent, similar proof by Alon (Ranking tournaments, cited there as a preprint). Bessy et al. (arXiv:0907.2165v2, Section 1) also attribute the result to Alon (SIAM J. Discrete Math. 2006) and Charbit et al. TODO(verify): Wikipedia's choice of source (Alon 2006, Charbit et al. 2007, or both) could not be checked (page fetches were blocked)."
 objects:
   n: number of vertices
   m: number of arcs ($n(n-1)/2$ in a tournament)

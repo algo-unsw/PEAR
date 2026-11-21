@@ -18,6 +18,6 @@ source:
   paper: kardos-katrenic-schiermeyer-2011
   statements:
     hal: { statement: "Abstract; Theorem 3.1 with $X = \\emptyset$ (running time $O^*(1.5171^r)$, $r = |V(G) \\setminus X|$)" }
-  note: "Minimum 3-path vertex cover ($d = 3$). Faster algorithms are cited by Červený and Suchý (arXiv 2111.05896 v3, Section 1): $O(1.4613^n)$ in polynomial space (Chang et al., DAM 2018) and $O(1.3659^n)$ in exponential space (Xiao and Kou, TCS 2017); neither was entered (no open copy found; see the unreachable ledger)."
+  note: "Minimum 3-path vertex cover ($d = 3$). Faster algorithms are cited by Červený and Suchý (arXiv 2111.05896 v3, Section 1): $O(1.4613^n)$ in polynomial space (Chang et al., DAM 2018) and $O(1.3659^n)$ in exponential space (Xiao and Kou, TCS 2017); Xiao and Kou is now entered (k-path-vertex-cover--n--xiao-kou-2015 and its -polyspace companion); Chang et al. is still unreachable."
 formal: { status: informal }
 status: valid
