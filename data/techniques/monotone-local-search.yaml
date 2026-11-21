@@ -80,7 +80,97 @@ applies_to:
     extension:
       statement: "Section 1 and Table 1 of arXiv v1 ($d$-Hitting Set)"
       because: "The paper applies the theorems to $d$-Hitting Set with algorithms for the problem itself."
+  - problem: feedback-vertex-set
+    version: decision-max-degree-4
+    universe: n
+    budget: k
+    setting:
+      statement: "Section 1 of arXiv v1 ($\\Pi$-Vertex Deletion)"
+      because: "Vertex deletion into forests on graphs of maximum degree at most $4$: $U_I = V(G)$ and $\\mathcal{F}_I$ is the family of sets $S$ of at most $k$ vertices with $G - S$ forest. Extended to the bounded-degree versions by Serge Gaspers, 21 November 2026."
+    extension:
+      statement: "Section 1 of arXiv v1 ($\\Pi$-Vertex Deletion)"
+      because: "Deleting the vertices in $X$ solves the extension version with the same running time, and the graphs of maximum degree at most $4$ are closed under vertex deletion, so $G - X$ is again an instance of this version."
+  - problem: feedback-vertex-set
+    version: decision-max-degree-5
+    universe: n
+    budget: k
+    setting:
+      statement: "Section 1 of arXiv v1 ($\\Pi$-Vertex Deletion)"
+      because: "Vertex deletion into forests on graphs of maximum degree at most $5$: $U_I = V(G)$ and $\\mathcal{F}_I$ is the family of sets $S$ of at most $k$ vertices with $G - S$ forest. Extended to the bounded-degree versions by Serge Gaspers, 21 November 2026."
+    extension:
+      statement: "Section 1 of arXiv v1 ($\\Pi$-Vertex Deletion)"
+      because: "Deleting the vertices in $X$ solves the extension version with the same running time, and the graphs of maximum degree at most $5$ are closed under vertex deletion, so $G - X$ is again an instance of this version."
+  - problem: feedback-vertex-set
+    version: decision-max-degree-6
+    universe: n
+    budget: k
+    setting:
+      statement: "Section 1 of arXiv v1 ($\\Pi$-Vertex Deletion)"
+      because: "Vertex deletion into forests on graphs of maximum degree at most $6$: $U_I = V(G)$ and $\\mathcal{F}_I$ is the family of sets $S$ of at most $k$ vertices with $G - S$ forest. Extended to the bounded-degree versions by Serge Gaspers, 21 November 2026."
+    extension:
+      statement: "Section 1 of arXiv v1 ($\\Pi$-Vertex Deletion)"
+      because: "Deleting the vertices in $X$ solves the extension version with the same running time, and the graphs of maximum degree at most $6$ are closed under vertex deletion, so $G - X$ is again an instance of this version."
+  - problem: odd-cycle-transversal
+    version: decision-max-degree-4
+    universe: n
+    budget: k
+    setting:
+      statement: "Section 1 of arXiv v1 ($\\Pi$-Vertex Deletion)"
+      because: "Vertex deletion into bipartite graphs on graphs of maximum degree at most $4$: $U_I = V(G)$ and $\\mathcal{F}_I$ is the family of sets $S$ of at most $k$ vertices with $G - S$ bipartite. Extended to the bounded-degree versions by Serge Gaspers, 21 November 2026."
+    extension:
+      statement: "Section 1 of arXiv v1 ($\\Pi$-Vertex Deletion)"
+      because: "Deleting the vertices in $X$ solves the extension version with the same running time, and the graphs of maximum degree at most $4$ are closed under vertex deletion, so $G - X$ is again an instance of this version."
+  - problem: odd-cycle-transversal
+    version: decision-max-degree-5
+    universe: n
+    budget: k
+    setting:
+      statement: "Section 1 of arXiv v1 ($\\Pi$-Vertex Deletion)"
+      because: "Vertex deletion into bipartite graphs on graphs of maximum degree at most $5$: $U_I = V(G)$ and $\\mathcal{F}_I$ is the family of sets $S$ of at most $k$ vertices with $G - S$ bipartite. Extended to the bounded-degree versions by Serge Gaspers, 21 November 2026."
+    extension:
+      statement: "Section 1 of arXiv v1 ($\\Pi$-Vertex Deletion)"
+      because: "Deleting the vertices in $X$ solves the extension version with the same running time, and the graphs of maximum degree at most $5$ are closed under vertex deletion, so $G - X$ is again an instance of this version."
+  - problem: vertex-cover
+    version: decision-max-degree-3
+    universe: n
+    budget: k
+    setting:
+      statement: "Section 1 of arXiv v1 ($\\Pi$-Vertex Deletion)"
+      because: "Vertex deletion into edgeless graphs on graphs of maximum degree at most $3$: $U_I = V(G)$ and $\\mathcal{F}_I$ is the family of sets $S$ of at most $k$ vertices with $G - S$ edgeless. Extended to the bounded-degree versions by Serge Gaspers, 21 November 2026."
+    extension:
+      statement: "Section 1 of arXiv v1 ($\\Pi$-Vertex Deletion)"
+      because: "Deleting the vertices in $X$ solves the extension version with the same running time, and the graphs of maximum degree at most $3$ are closed under vertex deletion, so $G - X$ is again an instance of this version."
+  - problem: vertex-cover
+    version: decision-max-degree-4
+    universe: n
+    budget: k
+    setting:
+      statement: "Section 1 of arXiv v1 ($\\Pi$-Vertex Deletion)"
+      because: "Vertex deletion into edgeless graphs on graphs of maximum degree at most $4$: $U_I = V(G)$ and $\\mathcal{F}_I$ is the family of sets $S$ of at most $k$ vertices with $G - S$ edgeless. Extended to the bounded-degree versions by Serge Gaspers, 21 November 2026."
+    extension:
+      statement: "Section 1 of arXiv v1 ($\\Pi$-Vertex Deletion)"
+      because: "Deleting the vertices in $X$ solves the extension version with the same running time, and the graphs of maximum degree at most $4$ are closed under vertex deletion, so $G - X$ is again an instance of this version."
+  - problem: vertex-cover
+    version: decision-max-degree-5
+    universe: n
+    budget: k
+    setting:
+      statement: "Section 1 of arXiv v1 ($\\Pi$-Vertex Deletion)"
+      because: "Vertex deletion into edgeless graphs on graphs of maximum degree at most $5$: $U_I = V(G)$ and $\\mathcal{F}_I$ is the family of sets $S$ of at most $k$ vertices with $G - S$ edgeless. Extended to the bounded-degree versions by Serge Gaspers, 21 November 2026."
+    extension:
+      statement: "Section 1 of arXiv v1 ($\\Pi$-Vertex Deletion)"
+      because: "Deleting the vertices in $X$ solves the extension version with the same running time, and the graphs of maximum degree at most $5$ are closed under vertex deletion, so $G - X$ is again an instance of this version."
+  - problem: vertex-cover
+    version: decision-max-degree-6
+    universe: n
+    budget: k
+    setting:
+      statement: "Section 1 of arXiv v1 ($\\Pi$-Vertex Deletion)"
+      because: "Vertex deletion into edgeless graphs on graphs of maximum degree at most $6$: $U_I = V(G)$ and $\\mathcal{F}_I$ is the family of sets $S$ of at most $k$ vertices with $G - S$ edgeless. Extended to the bounded-degree versions by Serge Gaspers, 21 November 2026."
+    extension:
+      statement: "Section 1 of arXiv v1 ($\\Pi$-Vertex Deletion)"
+      because: "Deleting the vertices in $X$ solves the extension version with the same running time, and the graphs of maximum degree at most $6$ are closed under vertex deletion, so $G - X$ is again an instance of this version."
 status: valid
 review:
   approved_by: Serge Gaspers
-  date: 2026-11-18
+  date: 2026-11-21
