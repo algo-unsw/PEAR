@@ -1,0 +1,23 @@
+id: hitting-set--n--fomin-gaspers-kratsch-liedloff-saurabh-2008-d-6
+problem: hitting-set
+proved_for: optimisation-d-6
+bound:
+  as_stated: 'O^*(1.9781^{n})'
+  notation: O*
+  parameters:
+  - n
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Not stated; educated guess: exponential. Iterative compression (try all large subsets, then, for each subset of a compression set, call an algorithm for the rank-$(d-1)$ problem), built on Wahlström''s $O^*(1.6278^n)$ algorithm for Minimum 3-Hitting Set (Figure 1 of the MFCS version cites it), which uses exponential space; the compression itself stores no tables.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: fomin-gaspers-kratsch-liedloff-saurabh-2008
+  statements:
+    mfcs:
+      statement: 'Figure 1 (row 6, column MHS_k)'
+  note: 'Figure 1 of the MFCS author copy ("Running times for #MHS$_k$ and MHS$_k$"): the row $k = 6$ gives MHS$_6$ in $O^*(1.9781^n)$ as a result of this paper (no citation in that cell). The base matches the MFCS Theorem 3 bound $\min_{1/2 \le \alpha \le 1} \max\{\binom{n}{\alpha n}, 2^{\alpha n} a_5^{(1-\alpha) n}\}$ with $a_5 = 1.9489$ (our arithmetic: $1.97808$). The journal version has the same kind of table (Table 1), whose cells were not readable in the text extraction. Beaten by Cochefert et al.''s $1.9779^n$ and by Monotone Local Search.'

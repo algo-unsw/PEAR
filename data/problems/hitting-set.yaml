@@ -25,10 +25,12 @@ versions:
     kind: decision
     input: "A finite universe $U$, a family $\\mathcal{F}$ of subsets of $U$, and an integer $k$."
     question: "Is there a set $S \\subseteq U$ with $|S| \\le k$ such that every set of $\\mathcal{F}$ contains an element of $S$?"
+    generalises: [decision-d-6]
   optimisation:
     kind: optimisation
     input: "A finite universe $U$ and a family $\\mathcal{F}$ of subsets of $U$."
     goal: "Find the minimum size of a set $S \\subseteq U$ such that every set of $\\mathcal{F}$ contains an element of $S$, or report that none exists."
+    generalises: [optimisation-d-6]
   search:
     kind: search
     input: "A finite universe $U$, a family $\\mathcal{F}$ of subsets of $U$, and an integer $k$."
@@ -38,10 +40,44 @@ versions:
     input: "A finite universe $U$, a family $\\mathcal{F}$ of subsets of $U$, and element weights $w \\colon U \\to \\mathbb{Z}_{\\ge 0}$."
     goal: "Find the minimum weight $\\sum_{u \\in S} w(u)$ of a set $S \\subseteq U$ such that every set of $\\mathcal{F}$ contains an element of $S$, or report that none exists."
     generalises: [optimisation]
+  decision-d-6:
+    kind: decision
+    input: "A finite universe $U$, a family $\\mathcal{F}$ of subsets of $U$ in which every set has at most $6$ elements, and an integer $k$."
+    question: "Is there a set $S \\subseteq U$ with $|S| \\le k$ such that every set of $\\mathcal{F}$ contains an element of $S$?"
+    generalises: [decision-d-5]
+  optimisation-d-6:
+    kind: optimisation
+    input: "A finite universe $U$ and a family $\\mathcal{F}$ of subsets of $U$ in which every set has at most $6$ elements."
+    goal: "Find the minimum size of a set $S \\subseteq U$ such that every set of $\\mathcal{F}$ contains an element of $S$, or report that none exists."
+    generalises: [optimisation-d-5]
+  decision-d-5:
+    kind: decision
+    input: "A finite universe $U$, a family $\\mathcal{F}$ of subsets of $U$ in which every set has at most $5$ elements, and an integer $k$."
+    question: "Is there a set $S \\subseteq U$ with $|S| \\le k$ such that every set of $\\mathcal{F}$ contains an element of $S$?"
+    generalises: [decision-d-4]
+  optimisation-d-5:
+    kind: optimisation
+    input: "A finite universe $U$ and a family $\\mathcal{F}$ of subsets of $U$ in which every set has at most $5$ elements."
+    goal: "Find the minimum size of a set $S \\subseteq U$ such that every set of $\\mathcal{F}$ contains an element of $S$, or report that none exists."
+    generalises: [optimisation-d-4]
+  decision-d-4:
+    kind: decision
+    input: "A finite universe $U$, a family $\\mathcal{F}$ of subsets of $U$ in which every set has at most $4$ elements, and an integer $k$."
+    question: "Is there a set $S \\subseteq U$ with $|S| \\le k$ such that every set of $\\mathcal{F}$ contains an element of $S$?"
+  optimisation-d-4:
+    kind: optimisation
+    input: "A finite universe $U$ and a family $\\mathcal{F}$ of subsets of $U$ in which every set has at most $4$ elements."
+    goal: "Find the minimum size of a set $S \\subseteq U$ such that every set of $\\mathcal{F}$ contains an element of $S$, or report that none exists."
 default_version: decision
 shared_bounds:
   - versions: [decision, optimisation, search]
     because: "Binary search on $k$ and self-reducibility."
+  - versions: [decision-d-6, optimisation-d-6]
+    because: "Binary search on $k$; the family is unchanged, so every set still has at most $6$ elements."
+  - versions: [decision-d-5, optimisation-d-5]
+    because: "Binary search on $k$; the family is unchanged, so every set still has at most $5$ elements."
+  - versions: [decision-d-4, optimisation-d-4]
+    because: "Binary search on $k$; the family is unchanged, so every set still has at most $4$ elements."
 related:
   - { problem: set-cover, relation: dual }
   - { problem: vertex-cover, relation: special-case }

@@ -210,7 +210,7 @@ status_note: "…"                     # why the status is not valid (Phase 1)
 - `unverified: true` on a result (18 November 2026): its statement is in no peer-reviewed version of the paper, for example dropped from the journal version (Kociumaka–Pilipczuk's $O^*(3.592^k)$, arXiv v1 only). Such a result is treated like one from an unverified paper: tagged in Details, out of the Overview unless included.
 
 - The site never states a bound that is not in `as_stated`. The O* form and comparisons are computed.
-- `given: [tree-decomposition]` records that the input comes with a tree decomposition of width at most $\mathrm{tw}$, as is usual for results parameterized by treewidth. The result is stored as stated, and the site shows the note (decided 8 November 2026).
+- `given: [tree-decomposition]` records that the input comes with a tree decomposition of width at most $\mathrm{tw}$, as is usual for results parameterized by treewidth. The result is stored as stated, and the site shows the note (decided 8 November 2026). Since 21 November 2026 `given` may also list `path-decomposition`, `clique-width-expression`, `linear-arrangement`, `interval-ordering` and `deletion-set` (the modulator a deletion parameter measures); a bound projected to $n$, $m$ or $N$ drops these flags, since the trivial structure (one bag, one label per vertex, any order, all vertices) is computable.
 - `parameters` must match the variables in `as_stated`; the validator checks this once the bound parser exists.
 - Comparisons only ever use the single `randomized` tag (constant success probability). The optional error detail is for display only.
 

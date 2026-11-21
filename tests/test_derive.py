@@ -1230,3 +1230,14 @@ def test_xp_bounds_are_shown_exactly():
     shown = {r["id"]: r["shown"] for r in rows(data, "a")}
     assert shown["a-alg"] == r"O(n^{k + 1})"  # not O^*(n^{k})
     assert shown["a-exp"] == r"O^*(k^{n})"  # an exact exponential algorithm keeps O*
+
+
+def test_other_given_structures_are_dropped_by_projection_to_n():
+    # 21 November 2026: given path decompositions, deletion sets, ... are trivial at size n
+    a = problem("a", params=("pw",), constraints=("pw \\le n",))
+    data = dataset(a, alg("a-alg", "a", r"O^*(2^{pw})", params=("pw",)) | {"given": ["path-decomposition"]})
+    got = rows(data, "a")
+    direct = next(r for r in got if r["id"] == "a-alg")
+    assert "given-path-decomposition" in direct["flags"]
+    projected = [r for r in got if r["id"] != "a-alg" and r["shown"] == r"O^*(2^{n})"]
+    assert projected and all("given-path-decomposition" not in r["flags"] for r in projected)

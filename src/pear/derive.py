@@ -590,6 +590,12 @@ class Engine:
                 # holding all vertices, so the projected bound needs no given decomposition
                 # (rulebook §7, 20 November 2026)
                 flags = flags - {"given-tree-decomposition"}
+            if label in ("n", "m", "N"):
+                # a path decomposition (one bag), a clique-width expression (one label per
+                # vertex), a linear arrangement (any order), an interval ordering (any order)
+                # and a deletion set (all vertices) of the trivial size are computable, so a
+                # bound projected to n, m or N needs none given (21 November 2026)
+                flags = frozenset(f for f in flags if not f.startswith("given-"))
             out.append(replace(r, bound=proj, chain=r.chain + (step,), flags=flags))
         return out
 

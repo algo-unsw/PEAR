@@ -398,7 +398,9 @@ class Algorithm(Model):
     uses: list[Id] = []
     # What the input comes with beyond the problem's definition, e.g. a tree decomposition
     # of width at most tw (definitions §4); shown as a note, carried along derivations.
-    given: list[Literal["tree-decomposition"]] = []
+    # structures given with the input (21 November 2026: extended beyond tree decompositions)
+    given: list[Literal["tree-decomposition", "path-decomposition", "clique-width-expression",
+                        "linear-arrangement", "interval-ordering", "deletion-set"]] = []
     source: Source
     formal: Formal = Formal()
     status: ResultStatus = "valid"
