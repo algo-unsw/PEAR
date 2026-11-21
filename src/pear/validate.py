@@ -321,6 +321,22 @@ def check_references(data: Dataset) -> list[Issue]:
                     issues.append(Issue(f"{where}: {field_name}", f"parameter '{p}' is not defined by problem '{tgt.id}'"))
 
         check_map("parameter_map", red.parameter_map, target)
+
+        def counting_ends(field_name: str, ref) -> None:
+            """A counting reduction (rulebook §2a) runs between counting versions only."""
+            prob = data.problems.get(ref.problem)
+            if prob is None or ref.version not in prob.versions:
+                return
+            if prob.versions[ref.version].kind != "counting":
+                issues.append(Issue(f"{where}: {field_name}", f"a polytime-counting reduction needs counting versions, "
+                                    f"but '{ref.problem}' version '{ref.version}' is {prob.versions[ref.version].kind}"))
+
+        if red.type == "polytime-counting":
+            counting_ends("from", red.from_)
+            counting_ends("to", red.to)
+            for i, variant in enumerate(red.variants):
+                counting_ends(f"variants.{i}.from", variant.from_ or red.from_)
+                counting_ends(f"variants.{i}.to", variant.to or red.to)
         for i, variant in enumerate(red.variants):
             v_target = target
             if variant.from_ is not None:

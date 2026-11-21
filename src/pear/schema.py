@@ -439,7 +439,8 @@ class Reduction(Model):
     id: Id
     from_: VersionRef = Field(alias="from")
     to: VersionRef
-    type: Literal["polytime-deterministic", "polytime-randomized", "serf"]
+    # polytime-counting: between counting versions, added 21 November 2026 (rulebook §2a)
+    type: Literal["polytime-deterministic", "polytime-randomized", "serf", "polytime-counting"]
     calls: Annotated[int, Field(ge=1, strict=True)] | Text = 1
     call_sizes: Text | None = None
     time: Text

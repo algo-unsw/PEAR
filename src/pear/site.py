@@ -47,6 +47,7 @@ REDUCTION_TYPES = {
     "polytime-deterministic": "deterministic polynomial time",
     "polytime-randomized": "randomized polynomial time",
     "serf": "subexponential reduction family (SERF)",
+    "polytime-counting": "counting reduction (polynomial time; the counts of the source are computed from those of the target)",
 }
 NUMBER_WORDS = {1: "one call", 2: "two calls", 3: "three calls"}
 
@@ -321,6 +322,7 @@ FLAG_TEXT = {
     "adaptive-sizes": "Turing reduction: every call assumed to have the largest size",
     "claimed-refuted-hypothesis": "conditional on a hypothesis claimed to be refuted",
     "site-written-variant": "uses a reduction variant written by the site",
+    "site-written-fix": "relies on a fix of the paper written by the site and approved by a human (see the result's status note)",
 }
 
 

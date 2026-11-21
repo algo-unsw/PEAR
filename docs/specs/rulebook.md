@@ -2,7 +2,7 @@
 
 > **Status: agreed with Serge on 7 November 2026** (HANDOFF step 4; decisions R1–R7 at the end). Expands `docs/PLAN.md` → Rules for chaining reductions. The SERF definition in §5 was checked against the original paper on 7 November 2026.
 >
-> **Rulebook version: 3** (version 1: 7 November 2026; version 2, the same day: long chains are followed while they improve results, and polynomial factors transfer in O\* form; version 3, 10 November 2026: beaten direct results leave the Details list and stay in the bound history; version 4, 21 November 2026: a bound projected through constraints is not transferred, see §7). Every derived bound records the rulebook version it was computed under. Changing an agreed rule is high risk (CLAUDE.md rule 6) and bumps the version, which recomputes all derived bounds.
+> **Rulebook version: 5** (version 1: 7 November 2026; version 2, the same day: long chains are followed while they improve results, and polynomial factors transfer in O\* form; version 3, 10 November 2026: beaten direct results leave the Details list and stay in the bound history; version 4, 21 November 2026: a bound projected through constraints is not transferred, see §7; version 5, 21 November 2026, approved by Serge: counting reductions, §2a, and easily fixable results count with their site-written fix, A3). Every derived bound records the rulebook version it was computed under. Changing an agreed rule is high risk (CLAUDE.md rule 6) and bumps the version, which recomputes all derived bounds.
 
 The rulebook decides when an algorithm for a problem B, together with a reduction from A to B, gives a **derived bound** for A. Bounds use the language in `bounds.md`; reductions use the fields in `schema.md` §6.
 
@@ -10,7 +10,7 @@ The rulebook decides when an algorithm for a problem B, together with a reductio
 
 - **A1. Parameter maps are upper bounds.** `parameter_map: { k: "2k" }` on a reduction from A to B means every produced instance of B has $k_B \le 2k_A$. Equalities are a special case.
 - **A2. Bounds are monotone.** A stated bound is nondecreasing in each of its variables (for the large values that asymptotic statements are about). A1 and A2 together make substitution sound. The comparator refuses to substitute into a bound it cannot show to be monotone, such as one with a variable in a denominator. The check reads the bound's growth estimate, which ignores a subtracted term that a larger one dominates ($n(n-1)/2 - m$ grows like $n^2$), so before substituting the engine drops subtracted terms that contain variables, outside denominators: an upper bound that is nondecreasing, checked by the comparator (20 November 2026). Otherwise an upper bound substituted into a decreasing term gives a lower bound, such as 0 edges after $m \mapsto n(n-1)/2$ and the complement $m \mapsto n(n-1)/2 - m$.
-- **A3. Only valid inputs count.** Results whose `status` is not `valid` or `fixed`, or whose hypothesis is `refuted`, are excluded from derivation. A result relying on a hypothesis that is `claimed-refuted` is still derived but carries that status (rule 7 of CLAUDE.md).
+- **A3. Only valid inputs count.** Results whose `status` is not `valid`, `fixed` or `easily-fixable`, or whose hypothesis is `refuted`, are excluded from derivation. An `easily-fixable` result counts with its site-written fix, approved by a human (PLAN, error grades), and every bound that uses it carries the flag `site-written-fix` (version 5). A result relying on a hypothesis that is `claimed-refuted` is still derived but carries that status (rule 7 of CLAUDE.md).
 
 ## 2. Polynomial-time many-one reductions (`calls: 1`)
 
@@ -21,6 +21,12 @@ $$T_A \;=\; T_R + f_B(\varphi(x_A)).$$
 Under O* (the default display) $T_R$ disappears. The stored derived bound keeps the exact form, so it can still be compared on exact forms later (`bounds.md` §5.4). Example from the plan: $f_B = O^*(1.2^{k})$ and $k \mapsto 2k$ give $O^*(1.2^{2k}) = O^*(1.44^{k})$.
 
 **Transfer condition** (from the plan): every variable of $f_B$ must be expressible through $\varphi$. If $f_B$ uses a parameter of B that the map does not cover, nothing transfers, with one exception (version 2): if the uncovered variables only occur in factors polynomial in N (e.g. the $n^3$ in $1.2^k n^3$), the O\* form of $f_B$ ($1.2^k$) transfers. This is sound because a polynomial-time reduction produces instances of polynomial size.
+
+## 2a. Counting reductions (`polytime-counting`, version 5)
+
+Approved by Serge on 21 November 2026. A counting reduction from A to B runs between **counting versions** (the validator rejects other kinds): a deterministic polynomial-time map from instances of A to instances of B such that A's counts (for example the number of solutions of each size) are computed in polynomial time from B's counts on the produced instance. A parsimonious reduction, with equal counts, is the special case; a size- or weight-preserving bijection between solutions is the usual proof. With `calls` > 1 it is a counting Turing reduction (interpolation, for instance), and §3 applies.
+
+Bounds transfer exactly as in §2 and §3: $T_A = T_R + \text{calls} \cdot f_B(\varphi(x_A))$, with A1 and A2. A decision or optimisation reduction does not transfer counting bounds, and a counting reduction transfers nothing to decision versions (they are other nodes).
 
 ## 3. Polynomial-time Turing reductions (`calls` > 1)
 
@@ -116,7 +122,7 @@ Serge approved this on condition that a technique is applied **only when all its
 ## 10. Not covered yet
 
 - Transferring **lower bounds** (from A to B along a reduction from A to B). No lower bounds are entered in the pilot (schema Q5). Proposal: add this rule before the first lower bound is entered.
-- **FPT-time parameterized reductions** and other reduction types: adding a type is high risk and needs Serge's approval.
+- **FPT-time parameterized reductions** and other reduction types: adding a type is high risk and needs Serge's approval (`polytime-counting` was approved on 21 November 2026, §2a).
 - **Relations between parameters** (treewidth ≤ pathwidth, …) from HOPS: they will enter as constraints (§7) once agreed.
 
 ## Decisions (7 November 2026)

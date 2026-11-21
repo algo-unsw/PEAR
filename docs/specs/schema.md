@@ -223,7 +223,7 @@ status_note: "…"                     # why the status is not valid (Phase 1)
 id: independent-set--to--vertex-cover
 from: { problem: independent-set, version: decision }
 to: { problem: vertex-cover, version: decision }
-type: polytime-deterministic          # polytime-deterministic | polytime-randomized | serf (owner decision)
+type: polytime-deterministic          # polytime-deterministic | polytime-randomized | serf | polytime-counting (counting versions only; rulebook §2a, 21 Nov 2026)
 calls: 1                              # 1 for many-one; an expression in A's parameters for Turing
 call_sizes: null                      # Turing only: paper's own analysis, if it exploits different sizes
 time: "O(n + m)"                      # the reduction's own running time
