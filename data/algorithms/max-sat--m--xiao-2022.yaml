@@ -18,4 +18,4 @@ source:
   paper: xiao-2022
   statements:
     ijcai: { statement: "Theorem 1 (Section 5)" }
-  note: 'Theorem 1: "MaxSAT can be solved in $O^*(1.2886^m)$ time and polynomial space", for the decision version (at least $k$ satisfied clauses). The paper calls a formula a set of clauses, but its reduction rules count several copies of the same unit clause (R-Rule 3, Lemma 4) and its resolution rules can create clauses already present, so the algorithm handles repeated clauses; recorded for PEAR''s definition, in which clauses may repeat (see the batch notes).'
+  note: 'Theorem 1: "MaxSAT can be solved in $O^*(1.2886^m)$ time and polynomial space", for the decision version (at least $k$ satisfied clauses). The paper calls a formula a set of clauses, as PEAR''s definition does (no repeated clauses; Serge Gaspers, 21 November 2026).'

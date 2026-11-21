@@ -42,4 +42,4 @@ shared_bounds:
 related:
   - { problem: max-2-csp, relation: generalisation }
   - { problem: sat, relation: variant }
-  - { problem: max-sat, relation: generalisation }
+  - { problem: max-sat, relation: variant }

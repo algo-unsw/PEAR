@@ -7,4 +7,4 @@ time: "O(N)"
 parameter_map: { n: "n", m: "m", k: "m" }
 source:
   folklore: true
-  note: "A formula with $m$ clauses is satisfiable if and only if some assignment satisfies at least $k = m$ of its clauses; the formula is unchanged."
+  note: "Remove repeated clauses (Maximum Satisfiability has no repeated clauses), which keeps satisfiability and leaves $m' \\le m$ clauses; the formula is satisfiable if and only if some assignment satisfies at least $k = m'$ of them."
