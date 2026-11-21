@@ -1,0 +1,23 @@
+id: xiao-nagamochi-2011
+title: "A Refined Exact Algorithm for Edge Dominating Set"
+authors: [Mingyu Xiao, Hiroshi Nagamochi]
+identifiers: { dblp: journals/tcs/XiaoN14 }
+versions:
+  techreport:
+    kind: technical-report
+    venue: "Technical Report 2011-014, Department of Applied Mathematics and Physics, Kyoto University (22 September 2011)"
+    year: 2011
+    url: "https://www.amp.i.kyoto-u.ac.jp/tecrep/abst/2011/2011-014.html"
+    open_access: false
+  tamc:
+    kind: conference
+    venue: "Theory and Applications of Models of Computation (TAMC 2012), LNCS 7287, pp. 360–372"
+    year: 2012
+    doi: "10.1007/978-3-642-29952-0_36"
+    open_access: false
+  journal:
+    kind: journal
+    venue: "Theoretical Computer Science 560, pp. 207–216"
+    year: 2014
+    doi: "10.1016/j.tcs.2014.07.019"
+    open_access: false

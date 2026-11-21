@@ -1,0 +1,23 @@
+id: edge-dominating-set--n--xiao-nagamochi-2011
+problem: edge-dominating-set
+proved_for: optimisation
+bound:
+  as_stated: 'O^*(1.3160^{n})'
+  notation: O*
+  parameters: [n]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'TODO(verify): abstract only; space not stated there. The abstract describes a branching algorithm analysed by Measure and Conquer (often polynomial space), but the full text was not read.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: xiao-nagamochi-2011
+  statements:
+    techreport: { statement: "Abstract" }
+  note: 'Abstract of the technical-report version only; the full text was not read (closed). Entered under the rule of 21 November 2026. The abstract (report abstract page, Kyoto University): "We present an $O^*(1.3160^n)$-time algorithm for the edge dominating set problem", for $n$-vertex graphs. The report PDF could not be fetched from here, and the TAMC 2012 and TCS 2014 versions are paywalled, so whether they state the same bound is not checked. TODO(verify): the abstract does not name the problem version; decision, optimisation and search share bounds here.'
+formal: { status: informal }
+status: valid

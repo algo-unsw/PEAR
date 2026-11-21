@@ -1,0 +1,18 @@
+id: tian-xiao-yang-2023
+title: "Improved Parameterized Algorithms for Cluster Vertex Deletion"
+authors: [Kangyi Tian, Mingyu Xiao, Boting Yang]
+identifiers: { dblp: journals/mst/TianXY25 }
+versions:
+  cocoon:
+    kind: conference
+    title: "Parameterized Algorithms for Cluster Vertex Deletion on Degree-4 Graphs and General Graphs"
+    venue: "Computing and Combinatorics (COCOON 2023), Part I, LNCS 14422, pp. 182–194"
+    year: 2023
+    doi: "10.1007/978-3-031-49190-0_13"
+    open_access: false
+  journal:
+    kind: journal
+    venue: "Theory of Computing Systems 69(4), Article 37"
+    year: 2025
+    doi: "10.1007/s00224-025-10247-6"
+    open_access: false

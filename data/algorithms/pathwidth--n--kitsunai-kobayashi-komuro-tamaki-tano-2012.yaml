@@ -1,0 +1,23 @@
+id: pathwidth--n--kitsunai-kobayashi-komuro-tamaki-tano-2012
+problem: pathwidth
+proved_for: optimisation
+bound:
+  as_stated: 'O(1.89^{n})'
+  notation: O
+  parameters: [n]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'TODO(verify): abstract only; space not stated there.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: kitsunai-kobayashi-komuro-tamaki-tano-2012
+  statements:
+    journal: { statement: "Abstract" }
+  note: 'Abstract of the journal version only; the full text was not read (closed). Entered under the rule of 21 November 2026. The abstract (Crossref metadata, via Zotero) states $O(1.89^n)$ time for the directed pathwidth of an $n$-vertex digraph, and "As a special case, it computes the pathwidth of an undirected graph" in the same time, improving Suchan and Villanger''s $O(1.9657^n)$. Entered for (undirected) pathwidth, as computing the width (optimisation). The IPEC 2012 version was not checked.'
+formal: { status: informal }
+status: valid
