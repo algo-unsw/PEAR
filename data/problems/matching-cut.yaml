@@ -1,7 +1,7 @@
 id: matching-cut
 name: Matching Cut
 aliases: [Decomposable Graph Recognition, Decomposable Graph]
-category: graph
+category: graphs
 complexity:
   class: NP-complete
   source:

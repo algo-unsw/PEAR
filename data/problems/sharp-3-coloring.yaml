@@ -1,7 +1,7 @@
 id: sharp-3-coloring
 name: "#3-Coloring"
 aliases: ["#3-Colouring", "#3-COL", "Counting 3-Colorings", "Counting 3-Colourings"]
-category: graph
+category: graphs
 complexity:
   class: "#P-complete"
   source:

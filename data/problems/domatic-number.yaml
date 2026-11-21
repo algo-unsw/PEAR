@@ -1,7 +1,7 @@
 id: domatic-number
 name: Domatic Number
 aliases: [Domatic Partition, Domatic Number Problem, Maximum Domatic Partition]
-category: graph
+category: graphs
 complexity:
   class: NP-complete
   source:

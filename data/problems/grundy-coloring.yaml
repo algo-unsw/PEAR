@@ -1,7 +1,7 @@
 id: grundy-coloring
 name: Grundy Coloring
 aliases: [Grundy Colouring, Grundy Number, Grundy Chromatic Number, First-Fit Chromatic Number, Ochromatic Number]
-category: graph
+category: graphs
 complexity:
   class: NP-complete
   source:

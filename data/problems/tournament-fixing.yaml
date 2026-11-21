@@ -1,7 +1,7 @@
 id: tournament-fixing
 name: Tournament Fixing
 aliases: [Tournament Fixing Problem, TFP, Knockout Tournament Fixing, Fixing a Balanced Knockout Tournament]
-category: social-choice
+category: miscellaneous
 complexity:
   class: NP-complete
   source:

@@ -1,7 +1,7 @@
 id: graph-burning
 name: Graph Burning
 aliases: [Burning Number, Burning Number Problem, Graph Burning Problem, BNP]
-category: graph
+category: graphs
 complexity:
   class: NP-complete
   source:

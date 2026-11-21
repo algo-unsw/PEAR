@@ -1,7 +1,7 @@
 id: firefighter
 name: Firefighter
 aliases: [Firefighter Problem, Firefighting, Saving k-Vertices, Saving All But k Vertices]
-category: graph
+category: graphs
 complexity:
   class: NP-complete
   source:

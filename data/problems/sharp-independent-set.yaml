@@ -1,7 +1,7 @@
 id: sharp-independent-set
 name: "#Independent Set"
 aliases: ["#IS", "Counting Independent Sets", "#Independent Sets"]
-category: graph
+category: graphs
 complexity:
   class: "#P-complete"
   source:

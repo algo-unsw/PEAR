@@ -1,7 +1,7 @@
 id: orienteering
 name: Orienteering
 aliases: [Orienteering Problem, OP, Selective Travelling Salesman, Point-to-Point Orienteering]
-category: graph
+category: networks
 complexity:
   class: NP-complete
   source:
@@ -35,5 +35,5 @@ shared_bounds:
   - versions: [decision, optimisation]
     because: "Binary search on $P$, since the optimum is an integer between $0$ and $\\sum_{v \\in V} p(v)$."
 related:
-  - { problem: travelling-salesman, relation: variant }
+  - { problem: travelling-salesperson, relation: variant }
   - { problem: hamiltonian-cycle, relation: special-case }

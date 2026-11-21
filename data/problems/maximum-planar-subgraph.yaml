@@ -1,7 +1,7 @@
 id: maximum-planar-subgraph
 name: Maximum Planar Subgraph
 aliases: [MPS, Planar Subgraph, Edge Planarization, Planar Edge Deletion, Skewness]
-category: graph
+category: graphs
 complexity:
   class: NP-complete
   source:

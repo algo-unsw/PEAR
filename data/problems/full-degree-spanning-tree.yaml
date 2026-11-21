@@ -1,7 +1,7 @@
 id: full-degree-spanning-tree
 name: Full Degree Spanning Tree
 aliases: [FDST, Maximum Full Degree Spanning Tree, Full-Degree Spanning Tree, Degree-Preserving Spanning Tree, Degree Preserving Spanning Tree]
-category: graph
+category: networks
 complexity:
   class: NP-complete
   source:

@@ -1,7 +1,7 @@
 id: survivable-network-design
 name: Survivable Network Design
 aliases: [SNDP, Survivable Network Design Problem, EC-SNDP, Edge-Connectivity Survivable Network Design, Generalized Steiner Network]
-category: graph
+category: networks
 complexity:
   class: NP-complete
   source:

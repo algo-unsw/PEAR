@@ -1,7 +1,7 @@
 id: csp
 name: Constraint Satisfaction Problem
 aliases: [CSP, Constraint Satisfaction, "(d,k)-CSP", "(a,b)-CSP", Binary CSP]
-category: satisfiability
+category: logic
 complexity:
   class: NP-complete
   source:

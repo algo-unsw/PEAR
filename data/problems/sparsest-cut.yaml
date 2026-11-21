@@ -1,7 +1,7 @@
 id: sparsest-cut
 name: Sparsest Cut
 aliases: [Edge Expansion, Cheeger Constant, Isoperimetric Number, Minimum Quotient Cut, 2-Sparsest Cut]
-category: graph
+category: networks
 complexity:
   class: NP-complete
   source:

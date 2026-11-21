@@ -1,7 +1,7 @@
 id: minimum-path-cover
 name: Path Cover
 aliases: [Minimum Path Cover, Vertex-Disjoint Path Cover, Path Partition, Partition into Paths, Path Cover Number]
-category: graph
+category: graphs
 complexity:
   class: NP-complete
   source:

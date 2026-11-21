@@ -1,7 +1,7 @@
 id: boxicity
 name: Boxicity
 aliases: [Boxicity Problem, Box Representation, Box Dimension]
-category: graph
+category: graphs
 complexity:
   class: NP-complete
   source:

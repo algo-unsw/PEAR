@@ -1,7 +1,7 @@
 id: rural-postman
 name: Rural Postman
 aliases: [Rural Postman Problem, RPP, Undirected Rural Postman Problem, URPP]
-category: graph
+category: networks
 complexity:
   class: NP-complete
   source:
@@ -37,5 +37,5 @@ shared_bounds:
   - versions: [decision, optimisation, search]
     because: "Binary search on $B$ (the optimum is at most $2 \\sum_{e \\in E} w(e)$: traverse every edge twice) and self-reducibility: delete non-required edges while the answer stays yes (dropping components without required edges); every remaining edge is then used by every solution of weight at most $B$, and a Chinese Postman tour of the remaining graph, computable in polynomial time, is one."
 related:
-  - { problem: travelling-salesman, relation: variant }
+  - { problem: travelling-salesperson, relation: variant }
   - { problem: hamiltonian-cycle, relation: special-case }

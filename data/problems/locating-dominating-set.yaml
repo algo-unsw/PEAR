@@ -1,7 +1,7 @@
 id: locating-dominating-set
 name: Locating-Dominating Set
 aliases: [Locating Dominating Set, Locating-Dominating Code, Minimum Locating-Dominating Set, Location-Domination, LD, LDS]
-category: graph
+category: graphs
 complexity:
   class: NP-complete
   source:

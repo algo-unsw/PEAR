@@ -1,7 +1,7 @@
 id: minimum-degree-spanning-tree
 name: Minimum Degree Spanning Tree
 aliases: [MDST, Minimum-Degree Spanning Tree, Degree-Constrained Spanning Tree, Degree Constrained Spanning Tree, Bounded Degree Spanning Tree]
-category: graph
+category: networks
 complexity:
   class: NP-complete
   source:

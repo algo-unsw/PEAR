@@ -1,7 +1,7 @@
 id: induced-biclique
 name: Induced Biclique
 aliases: [Maximum Induced Biclique, Maximum Biclique, Maximum Cardinality Induced Biclique]
-category: graph
+category: graphs
 complexity:
   class: NP-complete
   source:

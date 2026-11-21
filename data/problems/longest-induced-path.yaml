@@ -1,7 +1,7 @@
 id: longest-induced-path
 name: Longest Induced Path
 aliases: [Induced Path, Maximum Induced Path, Chordless Path, LIP]
-category: graph
+category: graphs
 complexity:
   class: NP-complete
   source:

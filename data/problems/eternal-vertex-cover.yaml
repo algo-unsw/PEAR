@@ -1,7 +1,7 @@
 id: eternal-vertex-cover
 name: Eternal Vertex Cover
 aliases: [EVC, Eternal Vertex Cover Number]
-category: graph
+category: graphs
 complexity:
   class: NP-hard
   source:

@@ -1,7 +1,7 @@
 id: minimum-broadcast-time
 name: Minimum Broadcast Time
 aliases: [Telephone Broadcast, Telephone Broadcasting, Broadcast Time, MBT, Broadcasting]
-category: graph
+category: networks
 complexity:
   class: NP-complete
   source:

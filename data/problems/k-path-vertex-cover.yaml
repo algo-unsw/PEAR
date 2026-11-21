@@ -1,7 +1,7 @@
 id: k-path-vertex-cover
 name: k-Path Vertex Cover
 aliases: [d-Path Vertex Cover, k-PVC, d-PVC, Path Vertex Cover]
-category: graph
+category: graphs
 complexity:
   class: NP-complete
   source:

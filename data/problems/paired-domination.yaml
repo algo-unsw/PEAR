@@ -1,7 +1,7 @@
 id: paired-domination
 name: Paired Domination
 aliases: [Paired Dominating Set, Minimum Paired Dominating Set, Paired-Domination, Min-PD, PDS]
-category: graph
+category: graphs
 complexity:
   class: NP-complete
   source:

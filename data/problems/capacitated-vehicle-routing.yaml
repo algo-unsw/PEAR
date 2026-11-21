@@ -1,7 +1,7 @@
 id: capacitated-vehicle-routing
 name: Capacitated Vehicle Routing
 aliases: [CVRP, Capacitated Vehicle Routing Problem, Load-Capacitated Vehicle Routing, Load-CVRP]
-category: graph
+category: networks
 complexity:
   class: NP-complete
   source:
@@ -31,5 +31,5 @@ shared_bounds:
   - versions: [decision, optimisation]
     because: "Binary search on $B$: the optimum is an integer at most $c\\,(c + 1)(n - 1) W$, with $W$ the largest weight, since some optimal routing has at most $c$ non-empty walks, each a concatenation of at most $c + 1$ shortest paths."
 related:
-  - { problem: travelling-salesman, relation: variant }
+  - { problem: travelling-salesperson, relation: variant }
   - { problem: hamiltonian-cycle, relation: special-case }

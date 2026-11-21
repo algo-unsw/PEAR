@@ -1,7 +1,7 @@
 id: capacitated-dominating-set
 name: Capacitated Dominating Set
 aliases: [Capacitated Domination, CDS, Minimum Capacitated Dominating Set]
-category: graph
+category: graphs
 complexity:
   class: NP-complete
   source:

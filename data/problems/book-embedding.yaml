@@ -1,7 +1,7 @@
 id: book-embedding
 name: Book Embedding
 aliases: [Book Thickness, Pagenumber, Page Number, Stack Number, Book Embedding Problem]
-category: graph
+category: graphs
 complexity:
   class: NP-complete
   source:

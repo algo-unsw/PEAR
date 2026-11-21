@@ -1,7 +1,7 @@
 id: one-sided-crossing-minimization
 name: One-Sided Crossing Minimization
 aliases: [OSCM, 1-Layer Crossing Minimization, One-Layer Crossing Minimization, Two-Layer Crossing Minimization with One Fixed Layer]
-category: graph
+category: graphs
 complexity:
   class: NP-complete
   source:

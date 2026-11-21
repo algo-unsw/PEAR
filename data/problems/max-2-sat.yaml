@@ -1,7 +1,7 @@
 id: max-2-sat
 name: Max 2-SAT
 aliases: [MAX-2-SAT, Max-2-Sat, MAX2SAT, Maximum 2-Satisfiability, 2-MAXSAT]
-category: satisfiability
+category: logic
 complexity:
   class: NP-complete
   source:

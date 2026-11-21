@@ -1,7 +1,7 @@
 id: power-dominating-set
 name: Power Dominating Set
 aliases: [Power Domination, Minimum Power Dominating Set, PMU Placement, PDS]
-category: graph
+category: graphs
 complexity:
   class: NP-complete
   source:

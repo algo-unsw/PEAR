@@ -5,7 +5,7 @@ aliases:
 - Circuit-SAT
 - CircuitSAT
 - CSAT
-category: satisfiability
+category: logic
 complexity:
   class: NP-complete
   source:

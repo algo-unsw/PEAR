@@ -1,7 +1,7 @@
 id: s-club
 name: s-Club
 aliases: [Maximum s-Club, Maximum k-Club, k-Club, s-Club Problem, 2-Club]
-category: graph
+category: graphs
 complexity:
   class: NP-complete
   source:

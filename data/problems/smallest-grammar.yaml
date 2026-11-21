@@ -1,7 +1,7 @@
 id: smallest-grammar
 name: Smallest Grammar
 aliases: [Smallest Grammar Problem, SGP, Shortest Grammar Problem, Grammar-Based Compression, Smallest Straight-Line Program]
-category: strings
+category: storage
 complexity:
   class: NP-complete
   source:

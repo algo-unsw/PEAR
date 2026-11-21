@@ -1,7 +1,7 @@
 id: max-internal-spanning-tree
 name: Maximum Internal Spanning Tree
 aliases: [Max Internal Spanning Tree, MIST, k-Internal Spanning Tree, k-IST, p-Internal Spanning Tree, Minimum Leaf Spanning Tree, Minimum Leaf Tree]
-category: graph
+category: networks
 complexity:
   class: NP-complete
   source:

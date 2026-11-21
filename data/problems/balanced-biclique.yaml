@@ -1,7 +1,7 @@
 id: balanced-biclique
 name: Balanced Biclique
 aliases: [k-Biclique, Balanced Complete Bipartite Subgraph, Maximum Balanced Biclique, Non-Induced Biclique, Bipartite Clique]
-category: graph
+category: graphs
 complexity:
   class: NP-complete
   source:

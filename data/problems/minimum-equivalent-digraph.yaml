@@ -1,7 +1,7 @@
 id: minimum-equivalent-digraph
 name: Minimum Equivalent Digraph
 aliases: [Minimum Equivalent Graph, MEG, MED, Minimum Equivalent Subdigraph]
-category: graph
+category: graphs
 complexity:
   class: NP-complete
   source:

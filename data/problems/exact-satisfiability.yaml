@@ -1,7 +1,7 @@
 id: exact-satisfiability
 name: Exact Satisfiability
 aliases: [XSAT, X-SAT, Exact SAT, Exactly-1 SAT, 1-in-k SAT, X3SAT, 1-in-3 SAT, One-in-three SAT]
-category: satisfiability
+category: logic
 complexity:
   class: NP-complete
   source:

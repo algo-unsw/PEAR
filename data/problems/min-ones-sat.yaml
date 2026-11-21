@@ -5,7 +5,7 @@ aliases:
 - Min-Ones
 - Minimum-Ones SAT
 - Min-Ones d-SAT
-category: satisfiability
+category: logic
 complexity:
   class: NP-complete
   source:

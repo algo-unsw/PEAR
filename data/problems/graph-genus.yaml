@@ -1,7 +1,7 @@
 id: graph-genus
 name: Graph Genus
 aliases: [Genus, Orientable Genus, Minimum Genus, Graph Genus Problem, Minimum Genus Embedding]
-category: graph
+category: graphs
 complexity:
   class: NP-complete
   source:

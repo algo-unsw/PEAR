@@ -1,7 +1,7 @@
 id: identifying-code
 name: Identifying Code
 aliases: [Minimum Identifying Code, Identifying Code Problem, IC]
-category: graph
+category: graphs
 complexity:
   class: NP-complete
   source:

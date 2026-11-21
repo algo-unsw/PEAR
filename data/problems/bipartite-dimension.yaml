@@ -1,7 +1,7 @@
 id: bipartite-dimension
 name: Bipartite Dimension
 aliases: [Biclique Cover, Minimum Biclique Cover, Biclique Edge Cover, Biclique Cover Number, Covering by Complete Bipartite Subgraphs, Bipartite Biclique Edge Cover]
-category: graph
+category: graphs
 complexity:
   class: NP-complete
   source:

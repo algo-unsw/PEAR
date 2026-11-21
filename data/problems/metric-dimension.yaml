@@ -1,7 +1,7 @@
 id: metric-dimension
 name: Metric Dimension
 aliases: [Resolving Set, Minimum Resolving Set, Metric Basis, MD]
-category: graph
+category: graphs
 complexity:
   class: NP-complete
   source:

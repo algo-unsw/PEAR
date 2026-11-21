@@ -1,7 +1,7 @@
 id: achromatic-number
 name: Achromatic Number
 aliases: [Complete Coloring, Complete Colouring]
-category: graph
+category: graphs
 complexity:
   class: NP-complete
   source:

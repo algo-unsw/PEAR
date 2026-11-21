@@ -1,7 +1,7 @@
 id: roman-domination
 name: Roman Domination
 aliases: [Minimum Roman Domination, Roman Dominating Function, Roman Domination Number, RD, RDF]
-category: graph
+category: graphs
 complexity:
   class: NP-complete
   source:

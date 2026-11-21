@@ -1,7 +1,7 @@
 id: k-plex
 name: Maximum k-Plex
 aliases: [k-Plex, Maximum s-Plex, s-Plex, MKP]
-category: graph
+category: graphs
 complexity:
   class: NP-complete
   source:

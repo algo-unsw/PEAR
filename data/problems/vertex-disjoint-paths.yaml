@@ -1,7 +1,7 @@
 id: vertex-disjoint-paths
 name: Vertex-Disjoint Paths
 aliases: [Disjoint Paths, k-Disjoint Paths, Node-Disjoint Paths, NDP, Disjoint Connecting Paths]
-category: graph
+category: networks
 complexity:
   class: NP-complete
   source:

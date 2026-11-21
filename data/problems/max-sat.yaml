@@ -1,7 +1,7 @@
 id: max-sat
 name: Maximum Satisfiability
 aliases: [MaxSAT, Max-SAT, MAX-SAT, Max SAT, MAXSAT]
-category: satisfiability
+category: logic
 complexity:
   class: NP-complete
   source:

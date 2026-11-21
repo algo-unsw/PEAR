@@ -1,7 +1,7 @@
 id: max-2-csp
 name: Max 2-CSP
 aliases: ["Max (r,2)-CSP", "Max (d,2)-CSP", MAX-2-CSP, Maximum 2-Constraint Satisfaction, Binary Max-CSP]
-category: satisfiability
+category: logic
 complexity:
   class: NP-complete
   source:

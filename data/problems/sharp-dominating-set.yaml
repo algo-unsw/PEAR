@@ -1,7 +1,7 @@
 id: sharp-dominating-set
 name: "#Dominating Set"
 aliases: ["#DS", "Counting Dominating Sets"]
-category: graph
+category: graphs
 complexity:
   class: "#P-complete"
   source:

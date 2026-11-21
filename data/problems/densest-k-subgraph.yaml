@@ -1,7 +1,7 @@
 id: densest-k-subgraph
 name: Densest k-Subgraph
 aliases: [DkS, DKS, Densest k-Subgraph Problem, Heaviest Unweighted Subgraph, k-Cluster]
-category: graph
+category: graphs
 complexity:
   class: NP-complete
   source:

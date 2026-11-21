@@ -1,7 +1,7 @@
 id: connectivity-augmentation
 name: Connectivity Augmentation
 aliases: [Edge Connectivity Augmentation, Edge-Connectivity Augmentation, CAP]
-category: graph
+category: networks
 complexity:
   class: NP-complete
   source:

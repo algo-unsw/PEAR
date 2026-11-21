@@ -1,7 +1,7 @@
 id: crossing-number
 name: Crossing Number
 aliases: [Graph Crossing Number, Crossing Minimization, Crossing Number Problem]
-category: graph
+category: graphs
 complexity:
   class: NP-complete
   source:

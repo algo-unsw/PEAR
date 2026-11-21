@@ -1,7 +1,7 @@
 id: feedback-vertex-set-in-tournaments
 name: Feedback Vertex Set in Tournaments
 aliases: [FVST, TFVS, Tournament Feedback Vertex Set, Minimum Feedback Vertex Set in Tournaments]
-category: graph
+category: graphs
 complexity:
   class: NP-complete
   source:

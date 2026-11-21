@@ -1,7 +1,7 @@
 id: partition-into-triangles
 name: Partition into Triangles
 aliases: [Triangle Partition, Partition Into Triangles, K3-Factor, Triangle Factor, Perfect Triangle Packing, PIT]
-category: graph
+category: graphs
 complexity:
   class: NP-complete
   source:

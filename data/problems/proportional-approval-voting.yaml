@@ -1,7 +1,7 @@
 id: proportional-approval-voting
 name: Proportional Approval Voting
 aliases: [PAV, PAV Winner Determination, Winner Determination for Proportional Approval Voting, Thiele's Proportional Method]
-category: social-choice
+category: miscellaneous
 complexity:
   class: NP-complete
   source:

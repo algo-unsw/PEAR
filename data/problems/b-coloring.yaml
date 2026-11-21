@@ -1,7 +1,7 @@
 id: b-coloring
 name: b-Coloring
 aliases: [b-Colouring, b-Chromatic Number]
-category: graph
+category: graphs
 complexity:
   class: NP-complete
   source:

@@ -1,7 +1,7 @@
 id: edge-disjoint-paths
 name: Edge-Disjoint Paths
 aliases: [EDP, Edge Disjoint Paths, k-Edge-Disjoint Paths]
-category: graph
+category: networks
 complexity:
   class: NP-complete
   source:

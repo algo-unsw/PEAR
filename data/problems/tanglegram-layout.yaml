@@ -1,7 +1,7 @@
 id: tanglegram-layout
 name: Tanglegram Layout
 aliases: [Binary Tanglegram Layout, Binary TL, TL, Tanglegram Crossing Minimization, Two-Tree Crossing Minimization]
-category: graph
+category: graphs
 complexity:
   class: NP-complete
   source:

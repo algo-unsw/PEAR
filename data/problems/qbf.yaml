@@ -1,7 +1,7 @@
 id: qbf
 name: Quantified Boolean Formula
 aliases: [QBF, TQBF, QSAT, True Quantified Boolean Formula, Quantified Satisfiability, QBF-SAT]
-category: satisfiability
+category: logic
 complexity:
   class: PSPACE-complete
   source:

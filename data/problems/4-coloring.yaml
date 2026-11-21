@@ -1,7 +1,7 @@
 id: 4-coloring
 name: 4-Coloring
 aliases: [4-Colouring, 4-Colorability, 4-COL]
-category: graph
+category: graphs
 complexity:
   class: NP-complete
   source:

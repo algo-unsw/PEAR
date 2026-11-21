@@ -1,7 +1,7 @@
 id: nae-sat
 name: Not-All-Equal SAT
 aliases: [NAE-SAT, NAESAT, Not-All-Equal Satisfiability, NAE-3-SAT, NAE3SAT, Not-All-Equal 3-SAT]
-category: satisfiability
+category: logic
 complexity:
   class: NP-complete
   source:

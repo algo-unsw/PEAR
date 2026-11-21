@@ -1,7 +1,7 @@
 id: cycle-packing
 name: Cycle Packing
 aliases: [Vertex-Disjoint Cycle Packing, Disjoint Cycles, k-Disjoint Cycles, Vertex-Disjoint Cycles]
-category: graph
+category: graphs
 complexity:
   class: NP-complete
   source:

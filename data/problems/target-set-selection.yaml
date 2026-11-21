@@ -1,7 +1,7 @@
 id: target-set-selection
 name: Target Set Selection
 aliases: [TSS, Perfect Target Set Selection, Minimum Target Set, Monotone Dynamic Monopoly, Irreversible Conversion Set]
-category: graph
+category: graphs
 complexity:
   class: NP-complete
   source:

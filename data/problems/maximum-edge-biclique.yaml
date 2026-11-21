@@ -1,7 +1,7 @@
 id: maximum-edge-biclique
 name: Maximum Edge Biclique
 aliases: [Edge Biclique, Maximum-Edge Biclique, Maximum Edge Biclique Problem, MBP]
-category: graph
+category: graphs
 complexity:
   class: NP-complete
   source:
