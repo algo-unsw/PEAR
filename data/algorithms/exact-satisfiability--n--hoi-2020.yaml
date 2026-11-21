@@ -1,0 +1,21 @@
+id: exact-satisfiability--n--hoi-2020
+problem: exact-satisfiability
+proved_for: decision
+bound:
+  as_stated: "O(1.1674^{n})"
+  notation: O
+  parameters: [n]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: "Polynomial space (stated in Section 1); a DPLL-style branching algorithm."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: hoi-2020
+  statements:
+    arxiv: { statement: "Theorem at the end of Section 4 (Analysis of Algorithm)" }
+  note: "Read in the LaTeX source of the latest arXiv version (v3) on 21 November 2026. The largest branching factor is $\\tau(5,4) = 1.16730\\ldots$, rounded up to $1.1674$. The previous best bound cited is $O(1.1730^n)$."

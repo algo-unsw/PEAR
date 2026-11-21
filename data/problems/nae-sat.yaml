@@ -1,0 +1,53 @@
+id: nae-sat
+name: Not-All-Equal SAT
+aliases: [NAE-SAT, NAESAT, Not-All-Equal Satisfiability, NAE-3-SAT, NAE3SAT, Not-All-Equal 3-SAT]
+category: satisfiability
+complexity:
+  class: NP-complete
+  source:
+    paper: schaefer-1978
+    attested_by:
+      - "https://courses.csail.mit.edu/6.890/fall14/scribe/lec4.pdf"
+      - "https://www.wikiwand.com/en/articles/Schaefer's_dichotomy_theorem"
+      - "https://arxiv.org/pdf/1908.04198"
+    note: "NP-complete even with three literals per clause (NAE-3-SAT), as a special case of Schaefer's dichotomy theorem (STOC 1978). The MIT 6.890 scribe notes (lecture 4, 2014) state \"NAE (Not All Equal) 3SAT is NP-complete [Schaefer 1978]\"; Darmann and Döcker (arXiv 1908.04198, Section 1) cite Schaefer for NP-completeness with three literals per clause; Wikiwand's copy of the article on Schaefer's dichotomy theorem lists NAE-3SAT among its special cases. Wikipedia's article on NAE-3SAT was not opened (Wikipedia is not fetched)."
+objects:
+  n: number of variables
+  m: number of clauses
+  N: total encoding length of the input
+parameters:
+  L: { meaning: "the length of the formula: the total number of literal occurrences" }
+  tw_p: { shared: primal-treewidth }
+constraints:
+  - { constraint: "m \\le L", because: "A clause with fewer than two literals cannot be NAE-satisfied, so an instance with an empty clause is rejected first; then every clause has at least one literal." }
+  - { constraint: "n \\le L", because: "Variables that occur in no clause can be removed." }
+  - { constraint: "tw_p \\le n", because: "The primal graph has $n$ vertices." }
+versions:
+  decision:
+    kind: decision
+    input: "A formula $\\varphi$ in conjunctive normal form over variables $x_1, \\dots, x_n$."
+    question: "Is there an assignment of the variables under which every clause of $\\varphi$ contains a true literal and a false literal?"
+    generalises: [decision-max-width-3]
+  search:
+    kind: search
+    input: "A formula $\\varphi$ in conjunctive normal form over variables $x_1, \\dots, x_n$."
+    goal: "Find an assignment of the variables under which every clause of $\\varphi$ contains a true literal and a false literal, or report that none exists."
+    generalises: [search-max-width-3]
+  decision-max-width-3:
+    kind: decision
+    input: "A formula $\\varphi$ in conjunctive normal form over variables $x_1, \\dots, x_n$, with at most three literals per clause."
+    question: "Is there an assignment of the variables under which every clause of $\\varphi$ contains a true literal and a false literal?"
+  search-max-width-3:
+    kind: search
+    input: "A formula $\\varphi$ in conjunctive normal form over variables $x_1, \\dots, x_n$, with at most three literals per clause."
+    goal: "Find an assignment of the variables under which every clause of $\\varphi$ contains a true literal and a false literal, or report that none exists."
+default_version: decision
+shared_bounds:
+  - versions: [decision, search]
+    because: "Self-reducibility: the complement of an NAE-satisfying assignment is NAE-satisfying, so $x_1$ may be taken true; then $x_i$ is fixed relative to $x_1$ by adding the two-literal clause $(x_i \\vee \\neg x_1)$, which forces $x_i = x_1$, or $(x_i \\vee x_1)$, which forces $x_i \\ne x_1$, and testing again. The number of variables does not change."
+  - versions: [decision-max-width-3, search-max-width-3]
+    because: "Self-reducibility as for the general versions: the added clauses have two literals, so at most three literals per clause still holds."
+related:
+  - { problem: sat, relation: variant }
+  - { problem: exact-satisfiability, relation: variant }
+  - { problem: csp, relation: generalisation }

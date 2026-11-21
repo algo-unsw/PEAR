@@ -1,0 +1,18 @@
+id: williams-2002
+title: Algorithms for Quantified Boolean Formulas
+authors:
+- Ryan Williams
+identifiers: { dblp: conf/soda/Williams02 }
+versions:
+  author-copy:
+    kind: preprint
+    venue: "Author copy (undated; the latest reference is from 2001)"
+    year: 2002
+    url: 'https://people.csail.mit.edu/rrw/qbf2.pdf'
+    open_access: true
+  soda:
+    kind: conference
+    venue: "Proceedings of the Thirteenth Annual ACM-SIAM Symposium on Discrete Algorithms (SODA 2002), pp. 299–307"
+    year: 2002
+    url: 'http://dl.acm.org/citation.cfm?id=545381.545421'
+    open_access: false

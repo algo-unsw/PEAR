@@ -1,0 +1,21 @@
+id: qbf--sb-qhorn--samer-szeider-2007
+problem: qbf
+proved_for: decision
+bound:
+  as_stated: "f(sb_{qhorn}) N^{O(1)}"
+  notation: O
+  parameters: [sb_qhorn, N]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: "Not stated; educated guess: polynomial. A bounded search for the backdoor set (hitting set by branching), then the at most $2^k$ assignments to it are tried one at a time, each leaving a polynomial-time QHorn formula; no memoization or dynamic programming found."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: samer-szeider-2007
+  statements:
+    author-copy: { statement: "Theorem 3 (with the standard dependency scheme: Theorem 1 and Proposition 3)" }
+  note: "Theorem 3: for C in {QHorn, Q2CNF} and a cumulative, tractable dependency scheme, evaluating QCNF formulas is fixed-parameter tractable parameterized by the size of a smallest strong C-backdoor set; the standard dependency scheme is cumulative (Theorem 1) and its dependency sets are computed in $O(n)$ time (Proposition 3). The backdoor set is computed, not given. The proof finds it with a vertex cover algorithm running in $O(1.2738^k + kn)$ (Chen, Kanj, Xia) and then evaluates at most $2^k$ formulas $F[\\tau]$ in QHorn, each in polynomial time; stored as stated (FPT). Read in the author copy at ac.tuwien.ac.at."

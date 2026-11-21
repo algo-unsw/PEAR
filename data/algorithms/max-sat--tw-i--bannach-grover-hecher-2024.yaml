@@ -1,0 +1,23 @@
+id: max-sat--tw-i--bannach-grover-hecher-2024
+problem: max-sat
+proved_for: optimisation
+bound:
+  as_stated: '2^{tw_i} N^{O(1)}'
+  notation: O
+  parameters: [tw_i, N]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Not stated; the formula is reduced to #SAT, which is solved by the dynamic programme of Slivovsky and Szeider over a tree decomposition of the incidence graph (tables of up to $2^{tw_i}$ entries per node; educated guess).'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+given:
+- tree-decomposition
+source:
+  paper: bannach-grover-hecher-2024
+  statements:
+    arxiv: { statement: "Lemma 'First Part of Theorem (thm:max2sat)' in Section 5, Cost-optimal Reasoning via Model Counting" }
+  note: 'Stated as: Unary-MaxSAT (clause weights in unary) "can be solved in time $O(2^{\mathrm{itw}(\phi)})\mathrm{poly}(|\phi|)$", by reductions to #SAT that raise the incidence treewidth by at most one and the #SAT algorithm of Slivovsky and Szeider (which takes a tree decomposition). Corollary (cor:wcnf) in Section 1 states $O(2^{\mathrm{itw}(\phi)}|\phi|)$; the weaker form proved in Section 5 is stored. PEAR''s unweighted Max-SAT with repeated clauses is the special case: merge the $c$ copies of a clause into one clause of weight $c \le m$ (unary); this deletes twin vertices of the incidence graph, which does not increase its treewidth. Read in the current arXiv version (v2); the NFM 2025 version was not read.'

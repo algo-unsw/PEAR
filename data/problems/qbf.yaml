@@ -1,0 +1,32 @@
+id: qbf
+name: Quantified Boolean Formula
+aliases: [QBF, TQBF, QSAT, True Quantified Boolean Formula, Quantified Satisfiability, QBF-SAT]
+category: satisfiability
+complexity:
+  class: PSPACE-complete
+  source:
+    paper: stockmeyer-meyer-1973
+    attested_by:
+      - "https://archive.model.in.tum.de/um/courses/complexity/SS10/slides/lecture8.pdf"
+      - "https://people.csail.mit.edu/rrw/6.1400-2025/lec22-color.pdf"
+      - "https://hep.tsinghua.edu.cn/~liwj/lecture_02_06.pdf"
+    note: "Stockmeyer and Meyer (STOC 1973) proved that deciding the truth of quantified Boolean formulas is PSPACE-complete. The TUM complexity slides (lecture 8, 2010) state \"QBF is PSPACE-complete\" and name Stockmeyer–Meyer 1973 as \"the original proof of PSPACE completeness of QBF\"; Williams's MIT 6.1400 slides (lecture 22, 2025) state \"Theorem (Meyer-Stockmeyer): TQBF is PSPACE-complete\"; the Tsinghua lecture notes credit \"Stockmeyer et al.'s result on the PSPACE-completeness of TQBF\". The matrix can be brought into conjunctive normal form with Tseitin's transformation, whose new variables are existentially quantified in an innermost block, so the CNF version defined here is PSPACE-complete too. Wikipedia's choice of source was not checked (Wikipedia is not fetched)."
+objects:
+  n: number of variables
+  m: number of clauses of the matrix
+  N: total encoding length of the input
+parameters:
+  sb_qhorn: { meaning: "the size of a smallest strong QHorn-backdoor set with respect to the standard dependency scheme (Samer and Szeider): a set $B$ of variables, closed under the standard dependency scheme ($B = D^*_F(X)$ for some set $X$ of variables), such that $F[\\tau]$ is a Horn formula (every clause has at most one positive literal) for every truth assignment $\\tau$ to $B$" }
+  sb_qkrom: { meaning: "the size of a smallest strong Q2CNF-backdoor set (2-CNF formulas are also called Krom formulas) with respect to the standard dependency scheme (Samer and Szeider): a set $B$ of variables, closed under the standard dependency scheme ($B = D^*_F(X)$ for some set $X$ of variables), such that every clause of $F[\\tau]$ has at most two literals for every truth assignment $\\tau$ to $B$" }
+constraints:
+  - { constraint: "n \\le N", because: "Every variable is quantified in the prefix, which is part of the input." }
+  - { constraint: "sb_{qhorn} \\le n", because: "The set of all variables is closed under every dependency scheme and is a strong QHorn-backdoor set: every total assignment leaves no clause or only the empty clause." }
+  - { constraint: "sb_{qkrom} \\le n", because: "The set of all variables is closed under every dependency scheme and is a strong Q2CNF-backdoor set: every total assignment leaves no clause or only the empty clause." }
+versions:
+  decision:
+    kind: decision
+    input: "A closed quantified Boolean formula $Q_1 x_1 \\, Q_2 x_2 \\cdots Q_n x_n \\, \\varphi$ in prenex form, where each $Q_i \\in \\{\\exists, \\forall\\}$ and the matrix $\\varphi$ is a formula in conjunctive normal form over $x_1, \\dots, x_n$."
+    question: "Is the formula true?"
+default_version: decision
+related:
+  - { problem: sat, relation: special-case }

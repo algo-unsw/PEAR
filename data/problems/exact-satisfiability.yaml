@@ -1,0 +1,41 @@
+id: exact-satisfiability
+name: Exact Satisfiability
+aliases: [XSAT, X-SAT, Exact SAT, Exactly-1 SAT, 1-in-k SAT]
+category: satisfiability
+complexity:
+  class: NP-complete
+  source:
+    paper: schaefer-1978
+    attested_by:
+      - "https://courses.csail.mit.edu/6.890/fall14/scribe/lec4.pdf"
+      - "https://www.wikiwand.com/en/articles/Schaefer's_dichotomy_theorem"
+      - "https://arxiv.org/pdf/2010.03850"
+    note: "One-in-three SAT (1-in-3 SAT, X3SAT), the special case with at most three literals per clause, is NP-complete by Schaefer (STOC 1978), so Exact Satisfiability is NP-complete (it is in NP). The MIT 6.890 scribe notes (lecture 4, 2014) state \"1-in-3SAT = exactly-1 3SAT is NP-complete [Schaefer 1978]\"; Hoi (arXiv 2010.03850, Section 1) cites Schaefer and Cook for NP-completeness of XSAT; Wikiwand's copy of the article on Schaefer's dichotomy theorem lists 1-in-3 SAT among its special cases. Wikipedia's article on 1-in-3 SAT was not opened (Wikipedia is not fetched)."
+objects:
+  n: number of variables
+  m: number of clauses
+  N: total encoding length of the input
+parameters:
+  L: { meaning: "the length of the formula: the total number of literal occurrences" }
+  tw_p: { shared: primal-treewidth }
+constraints:
+  - { constraint: "m \\le L", because: "An empty clause has no true literal, so an instance with an empty clause is rejected first; then every clause has at least one literal." }
+  - { constraint: "n \\le L", because: "Variables that occur in no clause can be removed." }
+  - { constraint: "tw_p \\le n", because: "The primal graph has $n$ vertices." }
+versions:
+  decision:
+    kind: decision
+    input: "A formula $\\varphi$ in conjunctive normal form over variables $x_1, \\dots, x_n$."
+    question: "Is there an assignment of the variables under which every clause of $\\varphi$ contains exactly one true literal?"
+  search:
+    kind: search
+    input: "A formula $\\varphi$ in conjunctive normal form over variables $x_1, \\dots, x_n$."
+    goal: "Find an assignment of the variables under which every clause of $\\varphi$ contains exactly one true literal, or report that none exists."
+default_version: decision
+shared_bounds:
+  - versions: [decision, search]
+    because: "Self-reducibility: fix variables one at a time. Setting a literal false deletes it from its clauses, and setting it true deletes its clauses after setting their other literals false, which leaves an instance of the same problem with fewer variables."
+related:
+  - { problem: sat, relation: variant }
+  - { problem: nae-sat, relation: variant }
+  - { problem: csp, relation: generalisation }

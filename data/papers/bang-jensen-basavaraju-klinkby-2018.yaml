@@ -1,0 +1,12 @@
+id: bang-jensen-basavaraju-klinkby-2018
+title: "Parameterized Algorithms for Survivable Network Design with Uniform Demands"
+authors: [Jørgen Bang-Jensen, Manu Basavaraju, Kristine Vitting Klinkby, Pranabendu Misra, M. S. Ramanujan, Saket Saurabh, Meirav Zehavi]
+identifiers: { dblp: "conf/soda/Bang-JensenBKMR18" }
+versions:
+  soda:
+    kind: conference
+    venue: "29th Annual ACM-SIAM Symposium on Discrete Algorithms (SODA 2018), pp. 2838–2850"
+    year: 2018
+    doi: "10.1137/1.9781611975031.180"
+    url: "https://wrap.warwick.ac.uk/id/eprint/95500/7/WRAP-parameterized-algorithms-survivable-network-uniform-demands-Ramanujan-2018.pdf"
+    open_access: true

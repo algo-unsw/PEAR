@@ -1,0 +1,17 @@
+id: hoi-2020
+title: An Improved Exact Algorithm for the Exact Satisfiability Problem
+authors:
+- Gordon Hoi
+identifiers: { dblp: conf/cocoa/Hoi20 }
+versions:
+  arxiv:
+    kind: preprint
+    year: 2020
+    arxiv: '2010.03850'
+    open_access: true
+  cocoa:
+    kind: conference
+    venue: "Combinatorial Optimization and Applications (COCOA 2020), LNCS 12577, pp. 304–319"
+    year: 2020
+    doi: 10.1007/978-3-030-64843-5_21
+    open_access: false

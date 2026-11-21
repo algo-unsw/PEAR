@@ -1,0 +1,16 @@
+id: bannach-grover-hecher-2024
+title: "Strong Structural Bounds for MaxSAT: The Fine Details of Using Neuromorphic and Quantum Hardware Accelerators"
+authors: [Max Bannach, Jai Grover, Markus Hecher]
+identifiers: { dblp: "conf/nfm/BannachGH25", openalex: null }
+versions:
+  arxiv:
+    kind: preprint
+    arxiv: "2412.10289"
+    year: 2024
+    open_access: true
+  nfm:
+    kind: conference
+    venue: "NASA Formal Methods, 17th International Symposium (NFM 2025), LNCS 15682, pp. 72–90"
+    year: 2025
+    doi: "10.1007/978-3-031-93706-4_5"
+    open_access: false

@@ -1,0 +1,21 @@
+id: csp--tw--marx-2007
+problem: csp
+proved_for: decision
+bound:
+  as_stated: "N^{O(tw)}"
+  notation: O
+  parameters: [N, tw]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: "Not stated; educated guess: exponential. Dynamic programming over a tree decomposition of the primal graph, with a table over the assignments of each bag."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: marx-2007
+  statements:
+    journal: { statement: "Section 1, p. 2" }
+  note: "Marx states: \"If the treewidth of the primal graph is $k$, then CSP can be solved in time $n^{O(k)}$ [21]\", where \"$n$ is the size of the input\", citing E. C. Freuder, Complexity of $k$-tree structured constraint satisfaction problems, AAAI-90, pp. 4–9. Stored with $N$ for the input size. The statement is Marx's summary of Freuder's result, which was not opened. Marx's main theorem (ETH lower bound $f(G) \\|I\\|^{o(\\mathrm{tw}(G)/\\log \\mathrm{tw}(G))}$ for binary CSP) shows the exponent is optimal up to a logarithmic factor. Read in the Theory of Computing article (dated 17 February 2010) at cs.bme.hu."

@@ -1,0 +1,10 @@
+id: exact-satisfiability--to--sat
+from: { problem: exact-satisfiability, version: decision }
+to: { problem: sat, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(N + L^{2})"
+parameter_map: { n: "n", m: "m + L^{2}" }
+source:
+  folklore: true
+  note: "Keep every clause (at least one true literal) and add, for every clause and every two of its literal occurrences $a, b$, the clause $(\\neg a \\vee \\neg b)$ (at most one true literal). The variables do not change, and at most $L^2/2$ clauses are added."

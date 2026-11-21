@@ -1,0 +1,43 @@
+id: csp
+name: Constraint Satisfaction Problem
+aliases: [CSP, Constraint Satisfaction, "(d,k)-CSP", "(a,b)-CSP", Binary CSP]
+category: satisfiability
+complexity:
+  class: NP-complete
+  source:
+    folklore: true
+    note: "In NP: guess an assignment and check every constraint against its list of tuples. NP-hard because 3-Coloring is the special case with domain $\\{1, 2, 3\\}$ and, for every edge $uv$, the constraint $((u, v), \\{(a, b) : a \\ne b\\})$ (reduction `3-coloring--to--csp`); Beigel and Eppstein (arXiv cs/0006046, Section 2) describe this translation into $(3,2)$-CSP. TODO(verify): Wikipedia's choice of source was not checked (Wikipedia is not fetched)."
+    reference: { paper: beigel-eppstein-2000, version: arxiv, statement: "Section 2" }
+objects:
+  n: number of variables
+  m: number of constraints
+  N: "total encoding length of the input, with each constraint relation given as the list of its tuples"
+parameters:
+  d: { meaning: "the domain size $|D|$" }
+  tw: { shared: treewidth, of: "the primal graph: the variables, two of them adjacent if they occur together in the scope of a constraint" }
+constraints:
+  - { constraint: "tw \\le n", because: "The primal graph has $n$ vertices." }
+versions:
+  decision:
+    kind: decision
+    input: "A finite set $X = \\{x_1, \\dots, x_n\\}$ of variables, a finite domain $D$, and $m$ constraints, each a pair $(s, R)$ of a scope $s = (y_1, \\dots, y_r)$ of variables from $X$ and a relation $R \\subseteq D^r$ given as the list of its tuples."
+    question: "Is there an assignment $\\phi \\colon X \\to D$ such that $(\\phi(y_1), \\dots, \\phi(y_r)) \\in R$ for every constraint $((y_1, \\dots, y_r), R)$?"
+    generalises: [decision-arity-2]
+  decision-arity-2:
+    kind: decision
+    input: "A finite set $X = \\{x_1, \\dots, x_n\\}$ of variables, a finite domain $D$, and $m$ constraints of arity at most 2, each a pair $(s, R)$ of a scope $s = (y_1, \\dots, y_r)$ of variables from $X$ with $r \\le 2$ and a relation $R \\subseteq D^r$ given as the list of its tuples."
+    question: "Is there an assignment $\\phi \\colon X \\to D$ such that $(\\phi(y_1), \\dots, \\phi(y_r)) \\in R$ for every constraint $((y_1, \\dots, y_r), R)$?"
+    generalises: [decision-arity-2-domain-3]
+  decision-arity-2-domain-3:
+    kind: decision
+    input: "A finite set $X = \\{x_1, \\dots, x_n\\}$ of variables, a domain $D$ with $|D| \\le 3$, and $m$ constraints of arity at most 2, each a pair $(s, R)$ of a scope $s = (y_1, \\dots, y_r)$ of variables from $X$ with $r \\le 2$ and a relation $R \\subseteq D^r$ given as the list of its tuples."
+    question: "Is there an assignment $\\phi \\colon X \\to D$ such that $(\\phi(y_1), \\dots, \\phi(y_r)) \\in R$ for every constraint $((y_1, \\dots, y_r), R)$?"
+default_version: decision
+related:
+  - { problem: sat, relation: special-case }
+  - { problem: nae-sat, relation: special-case }
+  - { problem: exact-satisfiability, relation: special-case }
+  - { problem: graph-homomorphism, relation: special-case }
+  - { problem: 3-coloring, relation: special-case }
+  - { problem: max-2-csp, relation: variant }
+  - { problem: qbf, relation: variant }

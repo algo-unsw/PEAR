@@ -1,0 +1,21 @@
+id: nae-sat--n--liu-2018
+problem: nae-sat
+proved_for: search-max-width-3
+bound:
+  as_stated: "1.32573^{n} 2^{o(n)}"
+  notation: O
+  parameters: [n]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: "Not stated; educated guess: polynomial. A branching algorithm over a maximal set of independent conjugate pairs that calls a deterministic 2-SAT algorithm, followed by derandomized local search with a generalized covering code (Liu, ICALP 2018); no memoization, dynamic programming or decomposition tables found. TODO(verify): whether the covering code is enumerated block by block or stored."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: liu-2018
+  statements:
+    arxiv: { statement: "Theorem 5 (Result on Deterministic Algorithm) and Figure 1, k = 3" }
+  note: "Theorem 5: for $k \\ge 3$, a deterministic $(k-1)$-SAT algorithm in time $\\mathcal{O}(c_{k-1}^n)$ gives a deterministic NAE-$k$-SAT algorithm in time $\\mathcal{O}(c'^n_k)$; for $k = 3$, $(k-1)$-SAT is 2-SAT, which is polynomial ($c_2 = 1$). Figure 1 gives the rounded-up base $1.32573$ for $k = 3$. The paper's $\\mathcal{O}$ hides a $2^{o(n)}$ factor (Section 2), hence the stored form. A $k$-instance has clauses of at most $k$ literals (Section 2). Read in the LaTeX source of the latest arXiv version (v5) on 21 November 2026; the theorem number is counted from the source (Theorems 1–4 in Section 3 restate earlier results). The algorithm outputs an NAE-satisfying assignment or reports unsatisfiability (Algorithm 1)."
