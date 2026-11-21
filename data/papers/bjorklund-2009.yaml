@@ -1,0 +1,19 @@
+id: bjorklund-2009
+title: Exact Covers via Determinants
+authors:
+- Andreas Björklund
+identifiers:
+  dblp: conf/stacs/Bjorklund10
+  openalex: null
+versions:
+  arxiv:
+    kind: preprint
+    year: 2009
+    arxiv: '0910.0460'
+    open_access: true
+  stacs:
+    kind: conference
+    venue: 27th International Symposium on Theoretical Aspects of Computer Science (STACS 2010), LIPIcs 5, pp. 95–106
+    year: 2010
+    doi: 10.4230/LIPIcs.STACS.2010.2447
+    open_access: true

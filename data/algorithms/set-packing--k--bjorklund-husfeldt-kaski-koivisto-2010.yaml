@@ -1,0 +1,24 @@
+id: set-packing--k--bjorklund-husfeldt-kaski-koivisto-2010
+problem: set-packing
+proved_for: decision-max-set-size-3
+bound:
+  as_stated: O^*(1.493^{3k})
+  notation: O*
+  parameters:
+  - k
+properties:
+  randomized:
+    error: one-sided
+  space:
+    class: polynomial
+    bound: Polynomial space (abstract).
+  algebraic: true
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: bjorklund-husfeldt-kaski-koivisto-2010
+  statements:
+    arxiv-v1:
+      statement: Theorem 2 (p-packing of 3-sets)
+  note: 'Stated for families of size-3 subsets: randomized, constant one-sided error (never a false positive), determinant sieving. Sets of size 1 or 2 are padded with new elements, distinct for each set, which preserves disjointness, so the result holds for sets of size at most 3. The table after Theorem 3 lists $f(p, 3) = 1.4953^{3p}$, slightly above Theorem 2''s $1.493^{3p}$ (see the notes, TODO(verify)). Section 1.3 also gives $O^*(f(p,q))$ for $q$-sets.'

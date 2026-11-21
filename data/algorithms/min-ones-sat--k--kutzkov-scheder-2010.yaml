@@ -1,0 +1,23 @@
+id: min-ones-sat--k--kutzkov-scheder-2010
+problem: min-ones-sat
+proved_for: decision-max-clause-size-3
+bound:
+  as_stated: O^*(((1 + \sqrt{17})/2)^{k})
+  notation: O*
+  parameters:
+  - k
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Not stated; educated guess (conservative): exponential. The recursive branching uses polynomial space, but the case of pairwise disjoint negative clauses constructs a covering code of exponential size (Scheder''s lemma, ''construct C in time O(|C|)'') and runs the search from each codeword; if the code is stored, the space is exponential.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: kutzkov-scheder-2010
+  statements:
+    arxiv:
+      statement: Theorem 1 (Section 1; proof in Section 2)
+  note: 'Stated for Ball-3-SAT: given a 3-CNF formula, an assignment $\alpha$ and $r$, decide whether some satisfying assignment is within Hamming distance $r$ of $\alpha$, deterministically in $O^*(a^r)$ with $a \approx 2.562$ the largest root of $x^2 - x - 4$, i.e. $a = (1 + \sqrt{17})/2$. With $\alpha$ the all-zero assignment and $r = k$ this is Min-Ones 3-SAT (Section 2 treats the symmetric case $\alpha = (1, \dots, 1)$; the case analysis allows clauses of at most three literals). Fomin, Gaspers, Lokshtanov and Saurabh (arXiv 1512.01621, Section 1 and Table 1) cite it as the $2.562^k n^{O(1)}$ algorithm for Min-Ones 3-SAT. arXiv only (no peer-reviewed version found in DBLP); read in the version served by the arXiv tools on 21 November 2026.'

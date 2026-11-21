@@ -1,0 +1,50 @@
+id: exact-cover
+name: Exact Cover
+aliases:
+- Set Partitioning
+- Exact Set Cover
+- Exact Cover by 3-Sets
+- X3C
+- XkC
+category: sets
+complexity:
+  class: NP-complete
+  source:
+    paper: karp-1972
+    attested_by:
+    - https://en.wikipedia.org/wiki/Karp%27s_21_NP-complete_problems
+    - https://www.iitg.ac.in/rinkulu/note/npprobs-note.pdf
+    - https://arxiv.org/abs/0910.0460
+    note: Exact Cover is one of Karp's 21 NP-complete problems; Björklund (arXiv 0910.0460, Section 1) notes that Exact Cover by k-Sets and k-Dimensional Matching are on Karp's list for $k \ge 3$. The Wikipedia page was found by web search, not opened.
+objects:
+  n: number of elements of the universe
+  m: number of sets in the family
+  N: total encoding length of the input
+parameters: {}
+constraints: []
+versions:
+  decision:
+    kind: decision
+    input: A finite universe $U$ and a family $\mathcal{F}$ of subsets of $U$.
+    question: Is there a subfamily $S \subseteq \mathcal{F}$ such that every element of $U$ is in exactly one set of $S$?
+    generalises:
+    - decision-set-size-3
+  search:
+    kind: search
+    input: A finite universe $U$ and a family $\mathcal{F}$ of subsets of $U$.
+    goal: Find a subfamily $S \subseteq \mathcal{F}$ such that every element of $U$ is in exactly one set of $S$, or report that none exists.
+  decision-set-size-3:
+    kind: decision
+    input: A finite universe $U$ and a family $\mathcal{F}$ of subsets of $U$ each of size exactly 3.
+    question: Is there a subfamily $S \subseteq \mathcal{F}$ such that every element of $U$ is in exactly one set of $S$?
+default_version: decision
+shared_bounds:
+- versions:
+  - decision
+  - search
+  because: 'Self-reducibility: delete a set and test again; keep it deleted if a solution remains.'
+related:
+- problem: set-cover
+  relation: variant
+- problem: exact-satisfiability
+  relation: generalisation

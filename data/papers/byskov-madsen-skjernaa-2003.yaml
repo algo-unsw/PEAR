@@ -1,0 +1,21 @@
+id: byskov-madsen-skjernaa-2003
+title: New Algorithms for Exact Satisfiability
+authors:
+- Jesper Makholm Byskov
+- Bolette Ammitzbøll Madsen
+- Bjarke Skjernaa
+identifiers: { dblp: journals/tcs/ByskovMS05 }
+versions:
+  brics:
+    kind: technical-report
+    venue: "BRICS Report Series RS-03-30, University of Aarhus (October 2003)"
+    year: 2003
+    doi: 10.7146/brics.v10i30.21798
+    url: 'https://brics.dk/RS/03/30/BRICS-RS-03-30.pdf'
+    open_access: true
+  journal:
+    kind: journal
+    venue: "Theoretical Computer Science 332(1–3), pp. 515–541"
+    year: 2005
+    doi: 10.1016/j.tcs.2004.12.023
+    open_access: false

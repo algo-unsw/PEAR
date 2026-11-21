@@ -1,0 +1,17 @@
+id: set-packing--to--independent-set
+from:
+  problem: set-packing
+  version: decision
+to:
+  problem: independent-set
+  version: decision
+type: polytime-deterministic
+calls: 1
+time: O(m^{2} n)
+parameter_map:
+  n: m
+  m: m^{2}
+  k: k
+source:
+  folklore: true
+  note: 'The intersection graph: one vertex per set, with an edge between two sets that intersect (at most $m(m-1)/2 \le m^2$ edges). Packings of $k$ sets are exactly independent sets of size $k$.'

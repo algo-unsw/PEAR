@@ -1,0 +1,16 @@
+id: exact-cover--to--exact-satisfiability
+from:
+  problem: exact-cover
+  version: decision
+to:
+  problem: exact-satisfiability
+  version: decision
+type: polytime-deterministic
+calls: 1
+time: O(N)
+parameter_map:
+  n: m
+  m: n
+source:
+  folklore: true
+  note: One variable $x_F$ per set $F \in \mathcal{F}$ and, for each element $u$, the clause $\bigvee_{F \ni u} x_F$ of positive literals; an assignment has exactly one true literal per clause iff the sets set to true cover every element exactly once. An element in no set gives an empty clause, which has no true literal, as required.

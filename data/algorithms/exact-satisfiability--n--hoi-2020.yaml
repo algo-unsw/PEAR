@@ -17,5 +17,5 @@ properties:
 source:
   paper: hoi-2020
   statements:
-    arxiv: { statement: "Theorem at the end of Section 4 (Analysis of Algorithm)" }
-  note: "Read in the LaTeX source of the latest arXiv version (v3) on 21 November 2026. The largest branching factor is $\\tau(5,4) = 1.16730\\ldots$, rounded up to $1.1674$. The previous best bound cited is $O(1.1730^n)$."
+    arxiv: { statement: "Theorem 1 (end of Section 4, Analysis of Algorithm)" }
+  note: "Read in the LaTeX source of the latest arXiv version (v3) on 21 November 2026. It is the paper's only theorem environment (llncs class, whose theorem-like environments are numbered separately by default), hence Theorem 1. The largest branching factor is $\\tau(5,4) = 1.16730\\ldots$, rounded up to $1.1674$. The previous best bound cited is $O(1.1730^n)$."

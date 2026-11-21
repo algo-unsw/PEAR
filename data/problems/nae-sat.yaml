@@ -10,7 +10,7 @@ complexity:
       - "https://courses.csail.mit.edu/6.890/fall14/scribe/lec4.pdf"
       - "https://www.wikiwand.com/en/articles/Schaefer's_dichotomy_theorem"
       - "https://arxiv.org/pdf/1908.04198"
-    note: "NP-complete even with three literals per clause (NAE-3-SAT), as a special case of Schaefer's dichotomy theorem (STOC 1978). The MIT 6.890 scribe notes (lecture 4, 2014) state \"NAE (Not All Equal) 3SAT is NP-complete [Schaefer 1978]\"; Darmann and Döcker (arXiv 1908.04198, Section 1) cite Schaefer for NP-completeness with three literals per clause; Wikiwand's copy of the article on Schaefer's dichotomy theorem lists NAE-3SAT among its special cases. Wikipedia's article on NAE-3SAT was not opened (Wikipedia is not fetched)."
+    note: "NP-complete even with three literals per clause (NAE-3-SAT), as a special case of Schaefer's dichotomy theorem (STOC 1978). The MIT 6.890 scribe notes (lecture 4, 2014) state \"NAE (Not All Equal) 3SAT is NP-complete [Schaefer 1978]\"; Darmann and Döcker (arXiv 1908.04198, Section 1) cite Schaefer for NP-completeness with three literals per clause; Wikiwand's copy of the article on Schaefer's dichotomy theorem lists NAE-3SAT among its special cases. Wikipedia's article on NAE-3SAT, read in the Wikiwand mirror, cites a reference for NP-completeness that the mirror did not show. TODO(verify): which source it is."
 objects:
   n: number of variables
   m: number of clauses

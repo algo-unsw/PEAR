@@ -1,0 +1,23 @@
+id: circuit-sat--m--lialina-2018
+problem: circuit-sat
+proved_for: decision
+bound:
+  as_stated: O(2^{0.389667 m})
+  notation: O
+  parameters:
+  - m
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Not stated; educated guess: polynomial. A recursive branching algorithm analysed by counting the leaves of its recursion tree; no memoization or tables found.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: lialina-2018
+  statements:
+    journal:
+      statement: Section 5 (Circuit SAT algorithm), running-time analysis
+  note: 'Savinov''s algorithm for general Circuit SAT (his MSc thesis ''Upper bound for Circuit SAT'', reference [10] of the paper, not seen), presented in Section 5 ''for completeness'': it decides Circuit-SAT in time $O(2^{.389667m})$ with $m$ the number of internal gates. The paper''s circuits have fan-in two with gates labelled by any of the sixteen binary Boolean functions (the basis $B_2$), so negations are free. PEAR''s circuits (AND/OR of fan-in two and NOT gates, all counted in $m$) become $B_2$ circuits with at most $m$ gates by merging each NOT gate into the gates that read it (a NOT at the output is merged into its input gate, or the instance is trivial), so the bound applies. Full text read at mathnet.ru on 21 November 2026; the paper''s main result is Theorem 3, Unique Circuit SAT in $O(2^{.374589m})$. Several branching rules are only sketched there (see the notes).'
