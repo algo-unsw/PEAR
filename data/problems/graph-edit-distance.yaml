@@ -1,7 +1,7 @@
 id: graph-edit-distance
 name: Graph Edit Distance
 aliases: [GED, Graph Edit Distance Computation]
-category: graph
+category: graphs
 complexity:
   class: NP-complete
   source:

@@ -1,7 +1,7 @@
 id: sat
 name: SAT
 aliases: [CNF-SAT, Satisfiability, Boolean Satisfiability]
-category: satisfiability
+category: logic
 complexity:
   class: NP-complete
   source:

@@ -1,7 +1,7 @@
 id: total-dominating-set
 name: Total Dominating Set
 aliases: [Minimum Total Dominating Set, Total Domination, TDS]
-category: graph
+category: graphs
 complexity:
   class: NP-complete
   source:

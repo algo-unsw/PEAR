@@ -1,7 +1,7 @@
 id: connected-dominating-set
 name: Connected Dominating Set
 aliases: [Minimum Connected Dominating Set, MCDS, CDS]
-category: graph
+category: graphs
 complexity:
   class: NP-complete
   source:

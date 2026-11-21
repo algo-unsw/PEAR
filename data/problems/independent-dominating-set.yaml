@@ -1,7 +1,7 @@
 id: independent-dominating-set
 name: Independent Dominating Set
 aliases: [Minimum Independent Dominating Set, Minimum Maximal Independent Set, Independent Domination, IDS, MIDS]
-category: graph
+category: graphs
 complexity:
   class: NP-complete
   source:

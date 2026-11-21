@@ -18,12 +18,14 @@ import json
 import math
 import re
 from pathlib import Path
-from typing import Any
+from typing import Any, get_args
 
 from .bounds import display, ostar, parse_bound, parse_expr, render
 from .bounds.expr import Add, Const, Div, Mul, Node, Num, Pow, Sqrt, Var, variables
 from .derive import Derivation, node_key, to_json
+from .prominence import load_signals, scores
 from .schema import (
+    Category,
     Algorithm,
     FolkloreSource,
     Implementation,
@@ -36,11 +38,22 @@ from .schema import (
 )
 from .validate import Dataset, constant_best
 
-# The pilot problems of Phase 1 (HANDOFF.md), in the order the brief lists them.
-PILOT = [
-    "Vertex Cover", "Independent Set", "Clique", "Set Cover", "Hitting Set", "SAT", "#3-SAT",
-    "3-Coloring", "Hamiltonian Cycle", "Dominating Set", "Connected Dominating Set", "Subset Sum",
-]
+# Category headings and "More …" links, in the schema's order (Garey and Johnson's appendix).
+CATEGORY_NAMES = {
+    "graphs": ("Graph theory", "More graph problems"),
+    "networks": ("Network design", "More network design problems"),
+    "sets": ("Sets and partitions", "More problems on sets and partitions"),
+    "storage": ("Storage and retrieval", "More storage and retrieval problems"),
+    "scheduling": ("Sequencing and scheduling", "More scheduling problems"),
+    "mathematical-programming": ("Mathematical programming", "More mathematical programming problems"),
+    "algebra": ("Algebra and number theory", "More problems in algebra and number theory"),
+    "games": ("Games and puzzles", "More games and puzzles"),
+    "logic": ("Logic", "More logic problems"),
+    "automata": ("Automata and formal languages", "More problems on automata and formal languages"),
+    "programs": ("Program optimization", "More program optimization problems"),
+    "miscellaneous": ("Miscellaneous", "More miscellaneous problems"),
+}
+FRONT_PAGE_TOP = 6  # problems per category on the front page
 
 VERSION_LABELS = {"decision": "Decision", "optimisation": "Optimisation", "search": "Search", "weighted": "Weighted"}
 REDUCTION_TYPES = {
@@ -999,7 +1012,7 @@ def _slug(name: str) -> str:
     return re.sub(r"[^a-z0-9]+", "-", name.lower().replace("#", "sharp-")).strip("-")
 
 
-def build(data: Dataset, d: Derivation, out_dir: Path) -> dict[str, Any]:
+def build(data: Dataset, d: Derivation, out_dir: Path, signals_path: Path | None = None) -> dict[str, Any]:
     CONSTANT_VALUES.clear()
     CLAIMED_VALUES.clear()
     for cid, const in data.entries["constants"].items():
@@ -1028,20 +1041,30 @@ def build(data: Dataset, d: Derivation, out_dir: Path) -> dict[str, Any]:
                                "in_all": bool(entry.get("in_all")), "only_all": bool(entry.get("only_all"))})
         return bounds
 
-    index = []
-    for name in PILOT:
-        pid = next((p for p, prob in data.problems.items() if prob.name == name), None)
-        if pid is None:
-            index.append({"name": name, "id": None, "slug": _slug(name), "bounds": []})
-            continue
-        index.append({"name": name, "id": pid, "slug": pid, "bounds": front_bounds(pid)})
-    others = [pid for pid in sorted(pages) if data.problems[pid].name not in PILOT]
-    for pid in others:
-        index.append({"name": data.problems[pid].name, "id": pid, "slug": pid, "bounds": front_bounds(pid)})
+    # Categories list their problems in prominence order (src/pear/prominence.py, 21 November
+    # 2026). Nothing about prominence reaches the site: no scores, no ranks, no mention (Serge,
+    # 21 November 2026); the order is the only trace. The index (search list) is alphabetical.
+    signals = load_signals(signals_path) if signals_path else None
+    prom = scores(data, signals)
+    order = sorted(pages, key=lambda pid: (-prom[pid]["score"], data.problems[pid].name.lower()))
+    entry = {pid: {"name": data.problems[pid].name, "id": pid, "slug": pid, "category": data.problems[pid].category,
+                   "bounds": front_bounds(pid)} for pid in order}
+    index = sorted(entry.values(), key=lambda e: e["name"].lower())
+    categories = []
+    for cat in get_args(Category):
+        members = [entry[pid] for pid in order if entry[pid]["category"] == cat]
+        if members:
+            plural, more = CATEGORY_NAMES[cat]
+            categories.append({"id": cat, "plural": plural, "more": more, "count": len(members),
+                               "top": members[:FRONT_PAGE_TOP], "problems": members})
+    for c in categories:
+        c["others"] = [{"id": o["id"], "plural": o["plural"], "count": o["count"]} for o in categories if o["id"] != c["id"]]
     site = {
         "generated": dt.date.today().isoformat(),
         "rulebook_version": derived["rulebook_version"],
         "index": index,
+        "categories": categories,
+        "front_page_top": FRONT_PAGE_TOP,
         "pages": pages,
         "problem_names": {pid: p.name for pid, p in data.problems.items()},
     }

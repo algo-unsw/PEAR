@@ -1,7 +1,7 @@
 id: multiway-cut
 name: Multiway Cut
 aliases: [Multiterminal Cut, Multi-terminal Cut, Edge Multiway Cut, Minimum Multiway Cut, p-Terminal Cut]
-category: graph
+category: networks
 complexity:
   class: NP-complete
   source:

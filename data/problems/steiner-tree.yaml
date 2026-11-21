@@ -1,7 +1,7 @@
 id: steiner-tree
 name: Steiner Tree
 aliases: [Steiner Tree in Graphs, Graph Steiner Tree]
-category: graph
+category: networks
 complexity:
   class: NP-complete
   source:

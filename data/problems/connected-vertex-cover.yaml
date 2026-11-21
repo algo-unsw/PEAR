@@ -1,7 +1,7 @@
 id: connected-vertex-cover
 name: Connected Vertex Cover
 aliases: [CVC, Minimum Connected Vertex Cover]
-category: graph
+category: graphs
 complexity:
   class: NP-complete
   source:

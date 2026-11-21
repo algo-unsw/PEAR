@@ -1,0 +1,23 @@
+---
+pagination:
+  data: pear.categories
+  size: 1
+  alias: c
+permalink: "/categories/{{ c.id }}/"
+layout: base.njk
+eleventyComputed:
+  title: "{{ c.plural }}"
+  description: "Fastest known exact and parameterized algorithms for problems in {{ c.plural | lower }}."
+---
+{%- from "problems-table.njk" import problemsTable -%}
+<main class="page">
+<p class="crumbs small"><a href="{{ '/' | url }}">Browse</a> › {{ c.plural }}</p>
+<h1>{{ c.plural }}</h1>
+<p class="note" style="margin-top: 12px">{{ "All " + c.count + " problems" if c.count != 1 else "The one problem" }} in this category, with their best classical bounds for the default version: randomized and non-constructive algorithms allowed, quantum algorithms left out, and results from preprints and unverified papers shown only when you include them.</p>
+<label class="include-all"><input type="checkbox" data-include-all> Include preprints and unverified results</label>
+{{ problemsTable(c.problems) }}
+{%- if c.others.length %}
+<p class="more">Other categories: {% for o in c.others %}<a href="{{ ('/categories/' + o.id + '/') | url }}">{{ o.plural }}</a> <span class="muted">({{ o.count }})</span>{% if not loop.last %} · {% endif %}{% endfor %}</p>
+{%- endif %}
+<p class="footer">Data CC0 · code MIT · rulebook version {{ pear.rulebook_version }} · data of {{ pear.generated }}</p>
+</main>

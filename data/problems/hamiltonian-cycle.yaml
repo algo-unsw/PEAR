@@ -1,7 +1,7 @@
 id: hamiltonian-cycle
 name: Hamiltonian Cycle
 aliases: [Hamiltonian Circuit, HAM-CYCLE, Undirected Hamiltonian Cycle]
-category: graph
+category: graphs
 complexity:
   class: NP-complete
   source:

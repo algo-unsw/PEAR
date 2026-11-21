@@ -1,7 +1,7 @@
 id: pathwidth
 name: Pathwidth
 aliases: [Path-Width, Vertex Separation Number]
-category: graph
+category: graphs
 complexity:
   class: NP-complete
   source:

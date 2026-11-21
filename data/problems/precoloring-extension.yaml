@@ -1,7 +1,7 @@
 id: precoloring-extension
 name: Precoloring Extension
 aliases: [Precolouring Extension, Pre-coloring Extension, PrExt]
-category: graph
+category: graphs
 complexity:
   class: NP-complete
   source:

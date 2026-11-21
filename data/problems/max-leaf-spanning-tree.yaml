@@ -1,7 +1,7 @@
 id: max-leaf-spanning-tree
 name: Max Leaf Spanning Tree
 aliases: [Maximum Leaf Spanning Tree, MLST, Spanning Tree with Many Leaves]
-category: graph
+category: networks
 complexity:
   class: NP-complete
   source:

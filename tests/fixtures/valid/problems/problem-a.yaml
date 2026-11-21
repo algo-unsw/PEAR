@@ -1,7 +1,7 @@
 id: problem-a
 name: Problem A
 aliases: [Fixture Problem A]
-category: graph
+category: graphs
 complexity:
   class: NP-complete
   source: { paper: author-example-2000, statements: { arxiv-v1: { statement: "Theorem 1" } } }

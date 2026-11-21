@@ -1,7 +1,7 @@
 id: feedback-arc-set-in-tournaments
 name: Feedback Arc Set in Tournaments
 aliases: [FAST, k-FAST, Tournament Feedback Arc Set, Minimum Feedback Arc Set in Tournaments]
-category: graph
+category: graphs
 complexity:
   class: NP-complete
   source:

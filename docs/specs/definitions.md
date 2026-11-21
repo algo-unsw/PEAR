@@ -43,6 +43,7 @@ Every problem has exactly one canonical definition, because small differences qu
 - **Question**: "Is there …?" **Goal**: "Find …".
 - Solutions are named $S$ where possible. Maths is written in `$…$`, and Greek letters always as TeX commands (`\omega`, never a Unicode character; CLAUDE.md rule 10).
 - `name` is in Title Case. `aliases` lists other common names and abbreviations ("VC").
+- Exception to using the most widely used name (Serge, 21 November 2026): Travelling **Salesperson**, not Salesman, everywhere on the site and in PEAR's own text, ids included (`travelling-salesperson`). "Salesman" stays only among the aliases ("also known as", which search uses), in paper titles, and in search phrases for external counts.
 
 ## Open questions
 

@@ -1,7 +1,7 @@
 id: graph-homomorphism
 name: Graph Homomorphism
 aliases: [H-Coloring, H-Colouring, Homomorphism, HOM]
-category: graph
+category: graphs
 complexity:
   class: NP-complete
   source:

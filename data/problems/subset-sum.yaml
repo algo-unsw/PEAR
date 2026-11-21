@@ -1,7 +1,7 @@
 id: subset-sum
 name: Subset Sum
 aliases: [SSP]
-category: numbers
+category: sets
 complexity:
   class: NP-complete
   source:

@@ -1,7 +1,7 @@
 id: chordal-vertex-deletion
 name: Chordal Vertex Deletion
 aliases: [Chordal Deletion, ChVD]
-category: graph
+category: graphs
 complexity:
   class: NP-complete
   source:

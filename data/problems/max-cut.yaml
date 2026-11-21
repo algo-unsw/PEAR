@@ -1,7 +1,7 @@
 id: max-cut
 name: Max Cut
 aliases: [Maximum Cut, MaxCut, Simple Max Cut]
-category: graph
+category: networks
 complexity:
   class: NP-complete
   source:

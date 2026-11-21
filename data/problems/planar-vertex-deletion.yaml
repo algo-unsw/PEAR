@@ -1,7 +1,7 @@
 id: planar-vertex-deletion
 name: Planar Vertex Deletion
 aliases: [Vertex Planarization, k-Vertex Planarization]
-category: graph
+category: graphs
 complexity:
   class: NP-complete
   source:

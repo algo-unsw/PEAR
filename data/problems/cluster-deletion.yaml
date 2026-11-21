@@ -1,7 +1,7 @@
 id: cluster-deletion
 name: Cluster Deletion
 aliases: []
-category: graph
+category: graphs
 complexity:
   class: NP-complete
   source:

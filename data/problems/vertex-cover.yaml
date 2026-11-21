@@ -1,7 +1,7 @@
 id: vertex-cover
 name: Vertex Cover
 aliases: [Node Cover, VC, Minimum Vertex Cover]
-category: graph
+category: graphs
 complexity:
   class: NP-complete
   source:

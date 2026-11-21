@@ -1,7 +1,7 @@
 id: clique-cover
 name: Clique Cover
 aliases: [Partition into Cliques, Clique Partition, Minimum Clique Cover, Minimum Clique Partition, Vertex Clique Cover, VCC]
-category: graph
+category: graphs
 complexity:
   class: NP-complete
   source:

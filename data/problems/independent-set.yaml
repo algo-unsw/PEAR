@@ -1,7 +1,7 @@
 id: independent-set
 name: Independent Set
 aliases: [Maximum Independent Set, MIS, Stable Set]
-category: graph
+category: graphs
 complexity:
   class: NP-complete
   source:

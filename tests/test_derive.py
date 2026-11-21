@@ -34,7 +34,7 @@ def problem(pid, params=("k",), versions=("decision",), shared=None, generalises
     out = {
         "id": pid,
         "name": pid,
-        "category": "graph",
+        "category": "graphs",
         "complexity": {"class": "NP-complete", "source": {"folklore": True, "note": "Fixture."}},
         "objects": {"n": "objects", "m": "relations", "N": "size"},
         "parameters": {p: {"meaning": p} for p in params},

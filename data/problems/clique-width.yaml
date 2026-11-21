@@ -1,7 +1,7 @@
 id: clique-width
 name: Clique-Width
 aliases: [Computing Clique-Width, Clique-Width Recognition, Cliquewidth]
-category: graph
+category: graphs
 complexity:
   class: NP-complete
   source:

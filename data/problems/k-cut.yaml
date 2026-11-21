@@ -1,7 +1,7 @@
 id: k-cut
 name: Minimum k-Cut
 aliases: [k-Cut, Min k-Cut, Minimum k-Way Cut, k-Way Cut, p-Way Cut]
-category: graph
+category: networks
 complexity:
   class: NP-complete
   source:

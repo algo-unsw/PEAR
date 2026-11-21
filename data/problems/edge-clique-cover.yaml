@@ -1,7 +1,7 @@
 id: edge-clique-cover
 name: Edge Clique Cover
 aliases: [Clique Cover of Edges, Covering by Cliques, Intersection Number, Intersection Graph Basis, Keyword Conflict, ECC]
-category: graph
+category: graphs
 complexity:
   class: NP-complete
   source:
