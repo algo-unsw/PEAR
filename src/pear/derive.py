@@ -10,6 +10,7 @@ polynomial space, constructive, non-algebraic, Lean-verified, direct, classical)
 
 from __future__ import annotations
 
+import itertools
 import math
 from dataclasses import dataclass, field, replace
 from fractions import Fraction
@@ -152,6 +153,9 @@ class Derivation:
     # common-sense check (18 November 2026): Overview bounds the comparator calls incomparable
     # although one is at most the other at every sample point; each needs a fact or a rule
     undecided: list[dict] = field(default_factory=list)
+    # 21 November 2026: pairs of Overview bounds the comparator can neither order nor show
+    # incomparable (no proof and no witness, bounds §5); both are kept
+    open: list[dict] = field(default_factory=list)
 
 
 # --- nodes: versions that share bounds ------------------------------------------------
@@ -341,14 +345,14 @@ class Engine:
             return False
         if not self.variables(s) <= self.variables(r):
             return False
-        in_ostar = compare_ostar(self.analyse_ostar(s), self.analyse_ostar(r), ctx)
+        in_ostar = compare_ostar(self.analyse_ostar(s), self.analyse_ostar(r), ctx, witnesses=False)
         if in_ostar == Relation.BETTER:
             return True
         if in_ostar != Relation.EQUAL:
             return False
         # Equal in O*: the Overview cites the earliest, so only an earlier
         # result (or the same algorithm by a shorter route) may replace r.
-        if compare(self.analyse(s), self.analyse(r), ctx) not in (Relation.BETTER, Relation.EQUAL):
+        if compare(self.analyse(s), self.analyse(r), ctx, witnesses=False) not in (Relation.BETTER, Relation.EQUAL):
             return False
         return _earlier(s, r) or (s.year == r.year and s.origin == r.origin)
 
@@ -475,7 +479,8 @@ class Engine:
         majorant = _monotone_majorant(b.expr)
         if majorant != b.expr:
             upper = Bound(b.notation, majorant, b.family)
-            if compare(analyse(b), analyse(upper), self.out.contexts[target.id]) not in (Relation.BETTER, Relation.EQUAL):
+            ctx_t = self.out.contexts[target.id]
+            if compare(analyse(b), analyse(upper), ctx_t, witnesses=False) not in (Relation.BETTER, Relation.EQUAL):
                 self.log(f"{red.id}: cannot transfer {r.id}, no monotone upper bound found (rulebook A2)")
                 return None
             b = upper
@@ -509,7 +514,7 @@ class Engine:
             self.log(f"{red.id}: SERF measure must be a single variable of {source.id} (rulebook §5)")
             return None
         family_b = _family(q)
-        if compare(self.analyse(r), analyse(family_b), self.out.contexts[target.id]) not in (
+        if compare(self.analyse(r), analyse(family_b), self.out.contexts[target.id], witnesses=False) not in (
             Relation.BETTER,
             Relation.EQUAL,
         ):
@@ -580,7 +585,7 @@ class Engine:
             if expr in seen:
                 continue
             proj = Bound("O*", expr, shown.family)
-            if compare(analyse(against), analyse(proj), ctx) not in (Relation.BETTER, Relation.EQUAL):
+            if compare(analyse(against), analyse(proj), ctx, witnesses=False) not in (Relation.BETTER, Relation.EQUAL):
                 continue  # only provably valid projections are kept
             seen.add(expr)
             step = Step("projection", f"projection:{label}", f"{r.problem}:{r.node}", f"{r.problem}:{r.node}", counted=False)
@@ -837,7 +842,22 @@ class Engine:
         self.out.overview_all = self.overview(include_all=True)
         self.out.optional = self.optional_overview()
         self.out.undecided = self.undecided()
+        self.out.open = self.open_comparisons()
         return self.out
+
+    def open_comparisons(self) -> list[dict]:
+        """Pairs of Overview bounds (published constants) that the comparator leaves undecided:
+        no proof either way and no witness of incomparability (bounds §5)."""
+        out: list[dict] = []
+        for (pid, node), entries in sorted(self.out.overview.items()):
+            ctx = self.out.published[pid]
+            kept = {r.id: r for r in self.out.results.get((pid, node), [])}
+            rs = [kept[m] for e in entries for m in e["members"] if m in kept and not kept[m].props.quantum]
+            for a, b in itertools.combinations(rs, 2):
+                rel = compare_ostar(self.analyse_ostar(a), self.analyse_ostar(b), ctx)
+                if rel == Relation.UNDECIDED:
+                    out.append({"problem": pid, "node": node, "a": a.id, "b": b.id})
+        return out
 
     def undecided(self) -> list[dict]:
         """Pairs among the Overview bounds (with the optional ones) that the comparator cannot
@@ -862,7 +882,8 @@ class Engine:
             exprs = {r.id: ostar(r.bound, ctx).expr for r in rs}
             for a in rs:
                 for b in rs:
-                    if a is b or compare_ostar(self.analyse_ostar(a), self.analyse_ostar(b), ctx) != Relation.INCOMPARABLE:
+                    if a is b or compare_ostar(self.analyse_ostar(a), self.analyse_ostar(b), ctx, witnesses=False) not in (
+                            Relation.INCOMPARABLE, Relation.UNDECIDED):
                         continue
                     if dominates(exprs[a.id], exprs[b.id], points):
                         both = dominates(exprs[b.id], exprs[a.id], points)
@@ -879,7 +900,7 @@ class Engine:
         stronger (decided 18 November 2026): deterministic beats randomized and polynomial
         space beats exponential space, since such an algorithm is also one of the weaker kind
         (ignore the random bits; space is bounded by time)."""
-        rel = compare_ostar(self.analyse_ostar(s), self.analyse_ostar(r), ctx)
+        rel = compare_ostar(self.analyse_ostar(s), self.analyse_ostar(r), ctx, witnesses=False)
         return rel == Relation.BETTER or (rel in (Relation.EQUAL, Relation.TIE) and stronger(s.props, r.props))
 
     def overview(self, include_all: bool = False) -> dict[tuple[str, str], list[dict]]:
@@ -905,7 +926,7 @@ class Engine:
             groups: list[list[Result]] = []
             for r in best:
                 for g in groups:
-                    if compare_ostar(self.analyse_ostar(g[0]), self.analyse_ostar(r), ctx) == Relation.EQUAL:
+                    if compare_ostar(self.analyse_ostar(g[0]), self.analyse_ostar(r), ctx, witnesses=False) == Relation.EQUAL:
                         g.append(r)
                         break
                 else:
@@ -945,7 +966,7 @@ class Engine:
             for u in kept:
                 if (u.props.verified and u.props.reviewed) or u.props.quantum:
                     continue
-                rel = [compare_ostar(self.analyse_ostar(b), self.analyse_ostar(u), ctx) for b in best]
+                rel = [compare_ostar(self.analyse_ostar(b), self.analyse_ostar(u), ctx, witnesses=False) for b in best]
                 # including u changes nothing if an Overview member beats it, or matches it and is
                 # at least as strong (deterministic, polynomial space)
                 ties = [b for b, x in zip(best, rel) if x in (Relation.EQUAL, Relation.TIE)]
@@ -984,7 +1005,8 @@ class Engine:
             ctx = self.out.published[pid]
             for r in kept:
                 out[r.id] = [
-                    s.id for s in kept if s is not r and compare(self.analyse(s), self.analyse(r), ctx) == Relation.BETTER
+                    s.id for s in kept
+                    if s is not r and compare(self.analyse(s), self.analyse(r), ctx, witnesses=False) == Relation.BETTER
                 ]
         return out
 
@@ -1100,6 +1122,7 @@ def to_json(data: Dataset, d: Derivation) -> dict:
         },
         "superseded": superseded,
         "undecided": d.undecided,
+        "open_comparisons": d.open,
         "log": d.log,
     }
 

@@ -31,7 +31,6 @@ from .growth import (
     Term,
     UnsupportedBound,
     bound_terms,
-    exact,
     is_monotone,
     value_growth,
 )
@@ -56,6 +55,20 @@ class Context:
     # from this problem (it bounds a parameter of the produced instance, which is >= 0);
     # e.g. n(n-1)/2 - m for Clique (18 November 2026)
     nonneg: tuple[Growth, ...] = ()
+    # every constraint as (small, large) growths, for checking that a witness lies in the
+    # domain (disprove.py); `exact_domain` is False if some constraint could not be read
+    domain: tuple[tuple[Growth, Growth], ...] = ()
+    exact_domain: bool = True
+    symbols: tuple[str, ...] = ()
+    # lower bounds x >= c from constraints such as 'k \ge 3' (every variable is at least 2)
+    lower: dict[str, Fraction] = field(default_factory=dict)
+    # x <= c y^p with a constant c > 1 (p <= 2k; t <= k + 1 read as t <= 1.5 k, as k >= 2):
+    # kept out of `le`, whose rules need c <= 1, and used only by the log-domain linear
+    # programs of decide.py, where c is an offset (bounds §5 rule (6), 22 November 2026)
+    loose: dict[tuple[str, str], tuple[Fraction, Fraction]] = field(default_factory=dict)
+
+    def at_least(self, x: str) -> Fraction:
+        return max(Fraction(2), self.lower.get(x, Fraction(2)))
 
     def poly_bounded(self, var: str) -> bool:
         return var in ALWAYS_POLY or var not in self.not_poly_bounded
@@ -85,11 +98,22 @@ def build_context(
     syms = set(symbols)
     edges: dict[tuple[str, str], tuple[Fraction, Fraction]] = {}  # (x, y) -> (p, c): x ≤ c y^p
     known: list[Growth] = []
+    domain: list[tuple[Growth, Growth]] = []
+    exact_domain = True
+    loose: dict[tuple[str, str], tuple[Fraction, Fraction]] = {}
     for text in constraints:
         for x, y, p, c in _parse_constraint(text, syms):
             if (x, y) not in edges or (p, c) < edges[(x, y)]:
                 edges[(x, y)] = (p, c)
+        for x, y, p, c in _parse_loose(text, syms):
+            if (x, y) not in loose or (p, c) < loose[(x, y)]:
+                loose[(x, y)] = (p, c)
         known += _constraint_gaps(text, syms)
+        sides = _constraint_sides(text, syms)
+        if sides is None:
+            exact_domain = False
+        else:
+            domain += sides
     for text in nonneg:
         try:
             known.append(value_growth(parse_expr(text, syms)))
@@ -111,7 +135,47 @@ def build_context(
     useful = [g for g in known if any(c.sign < 0 for k, cs in g.terms.items() if k for c in cs)]
     le = {k: p for k, (p, _) in edges.items()}
     coef = {k: c for k, (_, c) in edges.items() if c < 1}
-    return Context(frozenset(not_poly_bounded), le, coef=coef, constants=dict(constants or {}), nonneg=tuple(useful))
+    loose = {k: v for k, v in loose.items() if k not in le}
+    return Context(frozenset(not_poly_bounded), le, coef=coef, constants=dict(constants or {}), nonneg=tuple(useful),
+                   domain=tuple(domain), exact_domain=exact_domain, symbols=tuple(sorted(syms)),
+                   lower=_lower_bounds(domain), loose=loose)
+
+
+def _lower_bounds(domain: list[tuple[Growth, Growth]]) -> dict[str, Fraction]:
+    """x >= c for constraints whose small side is a number and large side a variable."""
+    out: dict[str, Fraction] = {}
+    for small, large in domain:
+        if set(small.terms) - {()} or len(large.terms) != 1:
+            continue
+        (key, cs), = large.terms.items()
+        if len(key) != 1 or len(cs) != 1 or cs[0].kind != "exact" or cs[0].value != 1:
+            continue
+        (v, shape), = key
+        if shape != (Fraction(1), Fraction(0), Fraction(0)):
+            continue
+        cc = small.terms.get((), [])
+        if len(cc) != 1 or cc[0].kind != "exact":
+            continue
+        c = Fraction(cc[0].value).limit_denominator(10**6)
+        out[v] = max(out.get(v, Fraction(2)), c)
+    return out
+
+
+def _constraint_sides(text: str, syms: set[str]) -> list[tuple[Growth, Growth]] | None:
+    """(small, large) growths of a constraint ('=' gives both directions); None if unread."""
+    for op, flip in (("\\le", False), ("\\ge", True), ("=", None)):
+        if op in text:
+            left, right = (s.strip() for s in text.split(op, 1))
+            break
+    else:
+        return None
+    try:
+        lhs, rhs = value_growth(parse_expr(left, syms)), value_growth(parse_expr(right, syms))
+    except (UnsupportedBound, ValueError):
+        return None
+    if flip is None:
+        return [(lhs, rhs), (rhs, lhs)]
+    return [(rhs, lhs)] if flip else [(lhs, rhs)]
 
 
 def _constraint_gaps(text: str, syms: set[str]) -> list[Growth]:
@@ -152,6 +216,49 @@ def _parse_constraint(text: str, syms: set[str]) -> list[tuple[str, str, Fractio
     return out
 
 
+def _parse_loose(text: str, syms: set[str]) -> list[tuple[str, str, Fraction, Fraction]]:
+    """x <= c y^p + d with c > 1 or d > 0, read as x <= (c + d/2^p) y^p (every variable is at
+    least 2): only for the log-domain linear programs (Context.loose)."""
+    for op, flip in (("\\le", False), ("\\ge", True), ("=", None)):
+        if op in text:
+            left, right = (s.strip() for s in text.split(op, 1))
+            break
+    else:
+        return []
+    try:
+        lhs, rhs = parse_expr(left, syms), parse_expr(right, syms)
+    except ValueError:
+        return []
+    if flip:
+        lhs, rhs = rhs, lhs
+    pairs = [(lhs, rhs)] if flip is not None else [(lhs, rhs), (rhs, lhs)]
+    out = []
+    for small, large in pairs:
+        if not isinstance(small, Var):
+            continue
+        try:
+            g = value_growth(large)
+        except UnsupportedBound:
+            continue
+        lead = [(k, cs) for k, cs in g.terms.items() if k]
+        if len(lead) != 1:
+            continue
+        (key, cs), = lead
+        if len(key) != 1 or len(cs) != 1 or cs[0].kind != "exact" or cs[0].value <= EPS:
+            continue
+        (y, (a, b, d)), = key
+        if b or d or a <= 0 or y == small.name:
+            continue
+        rest = g.terms.get((), [])
+        if any(r.kind != "exact" for r in rest):
+            continue
+        extra = sum(r.value for r in rest if r.value > 0)
+        c = _exact_fraction(cs[0].value) + _exact_fraction(extra) / Fraction(2) ** a if a.denominator == 1 \
+            else _exact_fraction(cs[0].value) + _exact_fraction(extra)
+        out.append((small.name, y, a, c))
+    return out
+
+
 def _upper_power(node) -> tuple[str, Fraction, Fraction] | None:
     """If node ≤ c y^p for a single variable y (e.g. y, y^{2}, y - 1, y/2, y(y-1)/2), return
     (y, p, c): the highest power of y with coefficient c at most 1, and every other term
@@ -183,7 +290,8 @@ class Relation(Enum):
     WORSE = ">"
     EQUAL = "="
     TIE = "~"  # equal in O*, exact forms incomparable (bounds B6)
-    INCOMPARABLE = "?"
+    INCOMPARABLE = "?"  # neither is at most the other: a witness for each direction (bounds §5)
+    UNDECIDED = "??"  # no proof and no witness for at least one direction (bounds §5)
 
 
 # --- term level -----------------------------------------------------------------
@@ -260,220 +368,10 @@ def _resolve(cs: list[Coef], ctx: Context) -> list[Coef] | None:
 
 
 def _bounded_below(g: Growth, ctx: Context) -> bool:
-    """Is this sum of monomials bounded below on all inputs? Sound, incomplete. Besides the
-    monomial check, g is bounded below if g - λE is, for an expression E known to be
-    nonnegative and λ >= 0 (18 November 2026): e.g. 2^{X} beats 1.1996^{X} only if X >= 0."""
-    if _bounded_below_terms(g, ctx):
-        return True
-    for e in ctx.nonneg:
-        for lam in _multipliers(g, e):
-            if _bounded_below_terms(g - e.scale(exact(lam)), ctx):
-                return True
-        for key in _big_cancellable(g, e):
-            if _bounded_below_terms(_cancel_big(g, e, key), ctx):
-                return True
-    return False
+    """Is g bounded below on the problem's domain? Decided by certificates (decide.py)."""
+    from .decide import bounded_below
 
-
-def _big_cancellable(g: Growth, e: Growth) -> list[Key]:
-    """Monomials where g has an unknown negative constant (from an O(·) of the bound that
-    should be smaller) and e its only negative term, every other term of e being an exact
-    positive one: with p ≤ 2k, 2^{O(p)} is compared through 2^{O(k)} (21 November 2026)."""
-    out = []
-    for key, ecs in e.terms.items():
-        if not key or key not in g.terms or len(ecs) != 1:
-            continue
-        if ecs[0].kind != "exact" or ecs[0].value >= -EPS:
-            continue
-        others = [c for k, cs in e.terms.items() if k != key for c in cs]
-        if any(c.kind != "exact" or c.value < -EPS for c in others):
-            continue
-        if any(c.kind == "big" and c.value < 0 for c in g.terms[key]):
-            out.append(key)
-    return out
-
-
-def _cancel_big(g: Growth, e: Growth, key: Key) -> Growth:
-    """g - Λe for the unknown Λ > 0 that cancels g's unknown negative constant at key: as
-    e ≥ 0, g - Λe ≤ g, and every other monomial of e turns into an unknown negative one."""
-    out = Growth({k: list(cs) for k, cs in g.terms.items()})
-    cs = out.terms[key]
-    i = next(i for i, c in enumerate(cs) if c.kind == "big" and c.value < 0)
-    del cs[i]
-    if not cs:
-        del out.terms[key]
-    for k, ecs in e.terms.items():
-        if k == key or not k:
-            continue
-        for c in ecs:
-            if c.value > EPS:
-                out.add_term(k, Coef("big", -1.0))
-    return out
-
-
-def _multipliers(g: Growth, e: Growth) -> list[float]:
-    """Candidate λ > 0 that cancel a negative monomial of e against the same one in g."""
-    out = []
-    for key, ecs in e.terms.items():
-        if not key or key not in g.terms:
-            continue
-        ev = [c for c in ecs if c.kind == "exact"]
-        gv = [c for c in g.terms[key] if c.kind == "exact"]
-        if len(ev) == 1 and len(gv) == 1 and ev[0].value < 0 and gv[0].value < 0:
-            out.append(gv[0].value / ev[0].value)
-    return sorted(set(out))
-
-
-def _bounded_below_terms(g: Growth, ctx: Context) -> bool:
-    """The monomial check: positive coefficients come from the bound that should be larger
-    (its unknowns may be chosen), negative ones from the other (its unknowns are arbitrary)."""
-    pos: list[list] = []  # [key, coef, strict]: strict once it has beaten a smaller shape
-    neg: list[tuple[Key, Coef]] = []
-    g = _cancel_proportional(_cancel_named(g, ctx), ctx)
-    for key, raw in g.terms.items():
-        if not key:
-            continue
-        cs = _resolve(raw, ctx)
-        if cs is None:
-            return False
-        for c in cs:
-            if c.sign > 0:
-                pos.append([key, c])
-            elif c.sign < 0:
-                neg.append((key, c))
-    for c in pos:
-        c.append(False)
-    neg.sort(key=lambda kc: _size(kc[0]), reverse=True)
-    for nkey, ncoef in neg:
-        for slot in pos:
-            pkey, pcoef, strict = slot
-            if pkey == N_LOG and pcoef.kind == "big" and _hidden(nkey, ctx, "ostar"):
-                break  # the polynomial O* hides absorbs any polynomial factor
-            dom = _dominates(pkey, nkey, ctx)
-            if dom is None:
-                continue
-            if dom == "strict" and pcoef.sign > 0:
-                # A larger shape with a positive coefficient beats any smaller one, but only
-                # if that coefficient stays positive: once used this way, the slot may not be
-                # used up by monomials of its own shape (20 November 2026: k log n - tw log n
-                # - c k is not bounded below when tw = k).
-                slot[2] = True
-                break
-            absorbed, rest = _absorb_same(pcoef, ncoef)
-            if absorbed and strict and not _positive(rest):
-                continue
-            if absorbed:
-                slot[1] = rest
-                break
-        else:
-            return False
-    return True
-
-
-def _positive(c: Coef) -> bool:
-    """Is c a positive constant (not merely a positive infinitesimal)?"""
-    if c.kind == "exact":
-        return c.value > EPS
-    return c.sign > 0 and not c.infinitesimal
-
-
-def _cancel_named(g: Growth, ctx: Context) -> Growth:
-    """Cancel a negative multiple of a positive named constant (ω) against a positive multiple
-    of the same constant on a monomial at least as large: ω x ≤ ω y when x ≤ y, whatever ω
-    is (20 November 2026: (n_G n_H)^{ω k/3} ≤ (n_G n_H)^{ω n_G n_H/3} for k ≤ n_G)."""
-    terms = {k: list(cs) for k, cs in g.terms.items()}
-    changed = False
-    for nkey in list(terms):
-        for i, nc in enumerate(terms[nkey]):
-            name = nc.kind[4:] if nc.kind.startswith("sym:") else None
-            if name is None or nc.value >= 0 or name not in ctx.constants or ctx.constants[name][0] <= 0:
-                continue
-            for pkey, pcs in terms.items():
-                if pkey == nkey or not pkey:
-                    continue
-                j = next((j for j, pc in enumerate(pcs) if pc.kind == nc.kind and pc.value + nc.value >= -EPS), None)
-                if j is None or _dominates(pkey, nkey, ctx) is None:
-                    continue
-                pcs[j] = Coef(nc.kind, pcs[j].value + nc.value)
-                terms[nkey][i] = Coef(nc.kind, 0.0)
-                changed = True
-                break
-    if not changed:
-        return g
-    return Growth({k: [c for c in cs if not (c.kind.startswith("sym:") and abs(c.value) <= EPS)]
-                   for k, cs in terms.items()})
-
-
-def _coef_vector(cs: list[Coef]) -> dict[str, float] | None:
-    """The coefficients of one monomial as a vector over 1 and the named constants, or None
-    if a coefficient is not of these kinds (big, small, family, shifted)."""
-    out: dict[str, float] = {}
-    for c in cs:
-        if c.kind == "exact" and not c.shift:
-            out["1"] = out.get("1", 0.0) + c.value
-        elif c.kind.startswith("sym:"):
-            out[c.kind] = out.get(c.kind, 0.0) + c.value
-        else:
-            return None
-    return {k: v for k, v in out.items() if abs(v) > EPS}
-
-
-def _cancel_proportional(g: Growth, ctx: Context) -> Growth:
-    """Cancel a monomial against a larger one whose coefficient is a positive multiple of
-    minus its own: (1 - ω/3)(n log n) - (1 - ω/3)(k log n) is (1 - ω/3)(n log n - k log n),
-    nonnegative for k ≤ n, which resolving ω separately in each coefficient cannot see
-    (21 November 2026). The larger monomial keeps (1 - λ) times its coefficient."""
-    terms = {k: list(cs) for k, cs in g.terms.items()}
-    changed = False
-    for nkey in list(terms):
-        nv = _coef_vector(terms.get(nkey, []))
-        if not nv or not nkey:
-            continue
-        for pkey in list(terms):
-            if pkey == nkey or not pkey or pkey not in terms:
-                continue
-            pv = _coef_vector(terms[pkey])
-            if not pv or set(pv) != set(nv):
-                continue
-            ratios = {k: -nv[k] / pv[k] for k in pv}
-            lam = next(iter(ratios.values()))
-            if not (0 < lam <= 1 + EPS) or any(abs(r - lam) > 1e-9 for r in ratios.values()):
-                continue
-            resolved = _resolve(terms[pkey], ctx)
-            if resolved is None or not all(c.kind == "exact" and c.value > EPS for c in resolved):
-                continue  # the larger monomial's coefficient must be positive for every constant value
-            if _dominates(pkey, nkey, ctx) is None:
-                continue
-            scale = max(0.0, 1 - lam)
-            terms[pkey] = [Coef(c.kind, c.value * scale, c.shift) for c in terms[pkey]]
-            del terms[nkey]
-            changed = True
-            break
-    return Growth(terms) if changed else g
-
-
-def _size(key: Key) -> Shape:
-    return max((s for _, s in key), default=(Fraction(0), Fraction(0), Fraction(0)))
-
-
-def _absorb_same(p: Coef, n: Coef) -> tuple[bool, Coef]:
-    """Can p·m absorb n·m (n negative) for the same monomial m? Returns what is left."""
-    if p.kind == "exact" and n.kind == "exact":
-        need, need_shift = -n.value, -n.shift
-        if p.value > need + EPS or (abs(p.value - need) <= EPS and p.shift >= need_shift):
-            v = p.value + n.value
-            s = p.shift + n.shift
-            return True, Coef("exact", v, (s > 0) - (s < 0))
-        return False, p
-    if p.kind == "big":
-        return True, p  # an unknown constant can be chosen as large as needed
-    if n.infinitesimal and not p.infinitesimal and p.sign > 0:
-        return True, p  # any positive constant beats an infinitesimal
-    if p.kind == "small":
-        return n.kind == "small", p  # o(x) implies o(x); a family does not give one o(x)
-    if p.sign > 0 and n.kind in ("small", "family"):
-        return True, p  # 2^{o(n)} implies the family form; equal families coincide
-    return False, p
+    return bounded_below(g, ctx).proved
 
 
 def _dominates(pkey: Key, nkey: Key, ctx: Context) -> str | None:
@@ -825,10 +723,76 @@ def _fraction_text(p: Fraction) -> str:
     return str(p.numerator) if p.denominator == 1 else f"{p.numerator}/{p.denominator}"
 
 
-def compare(a: Bound | Analysed, b: Bound | Analysed, ctx: Context) -> Relation:
+# --- disproof: witnesses that A is not at most B (bounds §5) -----------------------------
+
+
+def refuted(a: Analysed, b: Analysed, ctx: Context, mode: str) -> str | None:
+    """Why A ⪯ B fails, if it can be shown: a rule (B3, fixed parameters) or a slice of the
+    domain along which some term of A outgrows every term of B (faster than any polynomial
+    in O* mode)."""
+    from .disprove import POLY3, ZERO3, slices, leading_terms, tends_to_minus_infinity
+
+    if a.terms is None or b.terms is None:
+        return None
+    if a.fixed != b.fixed:
+        return "fixed parameters differ (bounds §2)"
+    if any(t.unspecified is not None for t in a.terms):
+        return "f(k) beats nothing (B3)"
+    if any(t.unspecified is not None for t in b.terms):
+        return "explicit bounds in other parameters do not beat f(k) (B3)"
+    ranges: dict[str, tuple[float, float]] = {}
+    for t in (*a.terms, *b.terms):
+        for g in (t.hi, t.lo):
+            for cs in (g.terms.values() if g is not None else ()):
+                for c in cs:
+                    if c.kind.startswith("sym:expr#"):
+                        name = c.kind[4:]
+                        r = interval(CONST_EXPRS[name], ctx.constants) if name in CONST_EXPRS else None
+                        if r is None or r[0] <= 0:
+                            return None
+                        ranges[name] = (math.log2(r[0]) - 1e-9, math.log2(r[1]) + 1e-9)
+    if mode == "ostar" and any(not ctx.poly_bounded(v) for t in (*a.terms, *b.terms) for v in t.vars):
+        return None  # O* hides polynomials in N only: no slice reasoning about such variables
+    above = POLY3 if mode == "ostar" else ZERO3
+    names = sorted(ctx.constants)
+    scenarios = [dict(zip(names, ends)) for ends in itertools.product(*[ctx.constants[n] for n in names])] or [{}]
+    for ta in a.terms:
+        if ta.lo is None:
+            continue
+        for values in scenarios:
+            gs = []
+            for tb in b.terms:
+                hi_b = tb.hi if mode == "ostar" else tb.hi + tb.hidden
+                lo_a = ta.lo if mode == "ostar" else ta.lo + ta.hidden
+                gs.append(_reduce(hi_b, ctx, mode) - _reduce(lo_a, ctx, mode))
+            names_g = set(ctx.symbols) | {v for g in gs for k in g.terms for v, _ in k}
+            for sl in slices(ctx, names_g):
+                ok = True
+                for g in gs:
+                    terms = leading_terms(g, sl, values, ranges)
+                    if terms is None or not tends_to_minus_infinity(terms, above):
+                        ok = False
+                        break
+                if ok:
+                    return f"witness: {sl.label()}"
+    return None
+
+
+def le_status(a: Analysed, b: Analysed, ctx: Context, mode: str) -> str:
+    """proved | refuted | unknown."""
+    if le(a, b, ctx, mode):
+        return "proved"
+    return "refuted" if refuted(a, b, ctx, mode) is not None else "unknown"
+
+
+def compare(a: Bound | Analysed, b: Bound | Analysed, ctx: Context, witnesses: bool = True) -> Relation:
+    """`witnesses=False` skips the search that tells INCOMPARABLE from UNDECIDED (both are
+    then reported as UNDECIDED), for callers that only act on an order."""
     a = a if isinstance(a, Analysed) else analyse(a)
     b = b if isinstance(b, Analysed) else analyse(b)
     ab, ba = le(a, b, ctx, "ostar"), le(b, a, ctx, "ostar")
+    if not ab and not ba:
+        return _unordered(a, b, ctx) if witnesses else Relation.UNDECIDED
     if ab and ba:  # equal in O*: compare exact forms (bounds §5.4)
         ab, ba = le(a, b, ctx, "exact"), le(b, a, ctx, "exact")
         if ab and ba:
@@ -845,7 +809,7 @@ def compare(a: Bound | Analysed, b: Bound | Analysed, ctx: Context) -> Relation:
     return Relation.INCOMPARABLE
 
 
-def compare_ostar(a: Bound | Analysed, b: Bound | Analysed, ctx: Context) -> Relation:
+def compare_ostar(a: Bound | Analysed, b: Bound | Analysed, ctx: Context, witnesses: bool = True) -> Relation:
     """Compare O* forms only (what the Overview tab shows)."""
     a = a if isinstance(a, Analysed) else analyse(a)
     b = b if isinstance(b, Analysed) else analyse(b)
@@ -856,7 +820,25 @@ def compare_ostar(a: Bound | Analysed, b: Bound | Analysed, ctx: Context) -> Rel
         return Relation.BETTER
     if ba:
         return Relation.WORSE
-    return Relation.INCOMPARABLE
+    return _unordered(a, b, ctx) if witnesses else Relation.UNDECIDED
+
+
+_UNORDERED: dict[tuple, Relation] = {}
+
+
+def _unordered(a: Analysed, b: Analysed, ctx: Context) -> Relation:
+    """Neither is proved at most the other: incomparable with a witness each way, else
+    undecided."""
+    key = (a.bound, b.bound, id(ctx))
+    got = _UNORDERED.get(key)
+    if got is None:
+        both = refuted(a, b, ctx, "ostar") is not None and refuted(b, a, ctx, "ostar") is not None
+        got = _UNORDERED[key] = Relation.INCOMPARABLE if both else Relation.UNDECIDED
+        _KEEP_CTX[id(ctx)] = ctx
+    return got
+
+
+_KEEP_CTX: dict[int, Context] = {}
 
 
 def best(bounds: Sequence[Bound | Analysed], ctx: Context) -> list[int]:

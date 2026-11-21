@@ -47,7 +47,7 @@ Shown in Details only, never in the Overview.
 - paper `yamano-shibuya-2026`: Faster Exact Algorithms for 3- and 4-Coloring: Deterministic Improvements and Further Randomized Speedups
 - paper `zamir-2026`: k-Coloring is Faster than Computing the Chromatic Number
 
-## 4. `TODO(verify)` markers (144)
+## 4. `TODO(verify)` markers (145)
 
 | Record | Field | Text |
 | --- | --- | --- |
@@ -182,6 +182,7 @@ Shown in Details only, never in the Overview.
 | `minimum-equivalent-digraph` | `complexity.source.note` | …nfirm it. The decision version is in NP (problem GT33 of Garey and Johnson, as the compendium says), hence NP-complete. TODO(verify): no open copy of Aho–Garey–Ullman was found. |
 | `minimum-path-cover` | `complexity.source.note` | … Introduction) say it is NP-hard as it generalises Hamiltonian Path, even on 2-connected cubic bipartite planar graphs. TODO(verify): no paper file for Hamiltonian Path's NP-completeness (Garey and Johnson GT39) is linked here. |
 | `multicut` | `complexity.source.note` | …hat paper; Klein and Marx (ICALP 2012) and the Princeton research portal attest the three-terminal Multiway Cut result. TODO(verify): Wikipedia's choice of source could not be checked. |
+| `multicut` | `constraints[1].because` | …tributed to Yannakakis, Kanellakis, Cosmadakis and Papadimitriou, ICALP 1983, by Dahlhaus et al., SIAM J. Comput. 1994: TODO(verify) against the papers). |
 | `multiway-cut` | `complexity.source.note` | …is to that paper; the Princeton research portal reproduces its abstract (NP-hard as soon as there are three terminals). TODO(verify): Wikipedia's choice of source could not be checked. |
 | `nae-sat` | `complexity.source.note` | …s article on NAE-3SAT, read in the Wikiwand mirror, cites a reference for NP-completeness that the mirror did not show. TODO(verify): which source it is. |
 | `odd-cycle-transversal` | `complexity.source.note` | …r two sources give the general node-deletion result of Lewis and Yannakakis (JCSS 1980), which covers bipartite graphs. TODO(verify): Serge to confirm the citation choice. |

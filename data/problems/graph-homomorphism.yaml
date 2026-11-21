@@ -21,6 +21,7 @@ constraints:
   - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
   - { constraint: "tw \\le n", because: "A single bag containing all vertices of $G$ is a tree decomposition of width $n - 1$." }
   - { constraint: "b \\le h", because: "Every graph on $h$ vertices has bandwidth at most $h - 1$." }
+  - { constraint: "h \\ge 3", because: "Every instance with $h \\le 2$ is solved in polynomial time: if $H$ has no edge, $G$ must have no edge; otherwise $H$ is $K_2$ and $G$ must be bipartite (21 November 2026)." }
   - { constraint: "tw_H \\le h", because: "A single bag containing all vertices of $H$ is a tree decomposition of width $h - 1$." }
 versions:
   decision:

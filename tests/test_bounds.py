@@ -181,9 +181,10 @@ def test_best_keeps_the_antichain():
 
 
 def test_unsupported_bounds_are_incomparable_not_errors():
-    # the log of a sum is outside the supported class: kept as incomparable (§5 principle)
+    # the log of a sum is outside the supported class: kept, and undecided (§5 principle;
+    # 21 November 2026: no proof and no witness is "undecided", not "incomparable")
     odd = P(r"O(2^{n} \log(n + m))")
-    assert compare(P(r"O(2^{n})"), odd, CTX) == Relation.INCOMPARABLE
+    assert compare(P(r"O(2^{n})"), odd, CTX) == Relation.UNDECIDED
     assert best([P(r"O(2^{n})"), odd], CTX) == [0, 1]
 
 
@@ -484,7 +485,7 @@ def test_constant_bases_are_evaluated():
     # with named constants, from their known range: 1 + 3 \cdot 2^{\omega - 1} >= 7 > 3
     rank = r"O^*((1 + 2^{\omega - 1} \cdot 3)^{tw})"
     assert _cmp(r"O^*(3^{tw})", rank, syms, constants={"omega": (2.0, 2.371339)}) == Relation.BETTER
-    assert _cmp(r"O^*(3^{tw})", rank, syms) == Relation.INCOMPARABLE  # no range: no proof
+    assert _cmp(r"O^*(3^{tw})", rank, syms) == Relation.UNDECIDED  # no range: no proof, no witness
 
 
 def test_numeric_cross_check_finds_what_the_comparator_misses():
@@ -688,8 +689,10 @@ def test_comparator_xp_exponents_and_added_polynomials():
     c = parse_bound(r"O^*((d + 1)^{k})", syms)
     e = parse_bound(r"O((d + 2)^{k} + n (k + d))", syms)
     assert compare(c, e, Context()) == Relation.BETTER
-    # still incomparable: different parameters
-    assert compare(parse_bound(r"O(n^{n-k} (n-k)^{2})", syms), parse_bound(r"O(2^{n})", syms), ctx) == Relation.INCOMPARABLE
+    # not ordered either way (k = 2 vs k = n - 2); main's witnesses (bounds §5, 21 November
+    # 2026) do not find this pair yet, so it may be reported undecided rather than incomparable
+    assert compare(parse_bound(r"O(n^{n-k} (n-k)^{2})", syms), parse_bound(r"O(2^{n})", syms), ctx) in (
+        Relation.INCOMPARABLE, Relation.UNDECIDED)
 
 
 def test_comparator_big_o_through_linear_constraints():

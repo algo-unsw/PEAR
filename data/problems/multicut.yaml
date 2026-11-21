@@ -20,6 +20,7 @@ parameters:
   p: { meaning: "the number of terminal pairs" }
 constraints:
   - { constraint: "k \\le m", because: "Deleting all edges separates every pair $(s, t)$ with $s \\ne t$, so every instance with $k \\ge m$ is decided in polynomial time." }
+  - { constraint: "p \\ge 3", because: "Every instance with $p \\le 2$ is solved in polynomial time. $p = 1$: a minimum $s$–$t$ edge cut, by maximum flow. $p = 2$: for any multicut $S$, the components of $G - S$ can be split into two sides with $s_1, t_1$ on different sides and $s_2, t_2$ on different sides (two such requirements never form an odd cycle), and the edges between the sides are a multicut contained in $S$; so an optimal multicut is the cheaper of a minimum cut separating $\\{s_1, s_2\\}$ from $\\{t_1, t_2\\}$ and one separating $\\{s_1, t_2\\}$ from $\\{t_1, s_2\\}$, each one maximum flow (22 November 2026; the result is attributed to Yannakakis, Kanellakis, Cosmadakis and Papadimitriou, ICALP 1983, by Dahlhaus et al., SIAM J. Comput. 1994: TODO(verify) against the papers)." }
   - { constraint: "p \\le n(n - 1)/2", because: "Repeated pairs (in either order) can be removed, and a pair $(s, s)$ makes the instance a no-instance." }
   - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
 versions:

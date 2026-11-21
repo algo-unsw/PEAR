@@ -20,6 +20,7 @@ parameters:
   tw: { shared: treewidth }
 constraints:
   - { constraint: "k \\le n", because: "Every instance with $k \\ge n$ is a yes-instance (one colour per vertex)." }
+  - { constraint: "k \\ge 3", because: "Every instance with $k \\le 2$ is solved in polynomial time: $k = 1$ asks whether $G$ has no edges, $k = 2$ whether $G$ is bipartite (decided 21 November 2026)." }
   - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
   - { constraint: "tw \\le n", because: "A single bag containing all vertices is a tree decomposition of width $n - 1$." }
 versions:
