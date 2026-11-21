@@ -8,7 +8,7 @@
 #
 #   <problem id>:
 #     phrases: [...]      # replaces the name
-#     wikipedia: <title>  # tried first
+#     wikipedia: <title>  # tried first; false: the problem has no article of its own
 #     why: <one line>
 
 bandwidth:
@@ -49,6 +49,10 @@ longest-path:
   why: "Longest path alone mostly matches the critical path method (longest paths in acyclic graphs, polynomial)."
 3-coloring:
   phrases: ["3-colorability", "3-coloring problem", "graph 3-coloring"]
-  why: "3-coloring alone also matches colouring books (search engines read the hyphen as a space)."
+  wikipedia: false
+  why: "3-coloring alone also matches colouring books (search engines read the hyphen as a space). Its Wikipedia redirects lead to the whole Graph coloring article, which is Chromatic Number's."
 clique-width:
   phrases: ["clique-width", "cliquewidth"]
+chromatic-number:
+  wikipedia: Graph coloring
+  why: "Graph Coloring is an alias; the redirect Chromatic number only reaches a section of that article."

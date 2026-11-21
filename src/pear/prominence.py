@@ -14,8 +14,8 @@ inflated count (an ambiguous search phrase, say) moves a problem by at most one 
     pear             0.15   results and reductions in PEAR involving the problem (it measures
                             how far PEAR's own coverage has got as much as prominence, so it
                             does not get more weight)
-    web              0.15   Stack Exchange questions containing the phrase (cs, cstheory, math,
-                            MathOverflow), a proxy for web hit counts: no free web search API
+    web              0.15   Stack Exchange questions containing the (first) phrase (cs,
+                            cstheory, math, MathOverflow), a proxy for web hit counts: no free web search API
                             reports hit counts (Google's Custom Search JSON API is closed to new
                             customers and ends on 1 January 2027)
 
@@ -318,6 +318,8 @@ def wikipedia_candidates(name: str, phrases: list[str], override: dict[str, Any]
     def sentence(s: str) -> str:
         return s[:1] + s[1:].lower()
     out: list[str] = []
+    if (override or {}).get("wikipedia") is False:
+        return []  # no article of its own (the queries file says why)
     if (override or {}).get("wikipedia"):
         out.append(override["wikipedia"])  # type: ignore[index]
     for p in [name] + phrases:
@@ -354,7 +356,8 @@ def fetch(data: Dataset, overrides: dict[str, Any], today: dt.date | None = None
             "google_books": best([f.google_books(p) for p in phrases]),
             "wikipedia_pageviews": f.wikipedia_pageviews(title, today) if title else 0,
             "wikipedia_mentions": best([f.wikipedia_mentions(p) for p in phrases]),
-            "stackexchange_questions": best([f.stackexchange(p) for p in phrases]),
+            # the first phrase only: the free quota (300 requests a day) covers 4 sites x 65 problems
+            "stackexchange_questions": f.stackexchange(phrases[0]),
         }
         problems[pid] = row
         log(f"{pid}: " + ", ".join(f"{k}={v}" for k, v in row.items() if k != "phrases"))

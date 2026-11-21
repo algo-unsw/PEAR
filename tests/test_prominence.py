@@ -83,6 +83,7 @@ def test_phrases_and_wikipedia_candidates():
     assert pm.phrases_for("x", {"phrases": ["graph 3-coloring"]}) == ["graph 3-coloring", "graph 3-colouring"]
     c = pm.wikipedia_candidates("Vertex Cover", ["Vertex Cover"], {"wikipedia": "Vertex cover"})
     assert c[0] == "Vertex cover" and "Vertex Cover" in c and "Vertex cover problem" in c
+    assert pm.wikipedia_candidates("3-Coloring", ["3-colorability"], {"wikipedia": False}) == []
 
 
 def test_fetch_with_fake_network(data):
