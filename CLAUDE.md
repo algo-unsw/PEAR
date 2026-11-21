@@ -25,3 +25,4 @@ PEAR (Parameterized and Exact Algorithms and Reductions) is a research website c
 - **Check, don't assume.** For example, read the paper version a result is dated by: a bound can change between arXiv versions.
 - **Space usage not stated:** check the algorithm and the subroutines it calls for exponential-space techniques (memoization, dynamic programming, tree or path decompositions, inclusion–exclusion tables, …) and make an educated guess. When asking Serge, always say which such techniques you found, if any, together with the guess.
 - **Citations of classic results:** mirror Wikipedia's choice of source (e.g. a problem's NP-completeness).
+- **What still needs reading:** `docs/to-verify.md` lists results entered from abstracts or titles, results on Serge's confirmation, unverified items and every `TODO(verify)`. Regenerate it with `python -m pear verify-list` after changing data (a test fails when it is stale).

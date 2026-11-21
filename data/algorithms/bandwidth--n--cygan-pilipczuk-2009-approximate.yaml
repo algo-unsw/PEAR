@@ -21,3 +21,4 @@ source:
   note: 'Abstract of the conference (ICALP 2009) version only; the full text was not read (closed). Entered under the rule of 21 November 2026. The abstract (Springer Professional page) improves the best known exact algorithm for arbitrary graphs "with a $O(4.473^n)$ time and space algorithm" (superscript lost on the page; $4.473 \approx \sqrt{20}$, matching the $O^*(20^{n/2})$ that later papers cite). TODO(verify): the abstract does not say whether the ordering is output; entered for the decision version. The TCS 2010 version reportedly states $O(4.383^n)$ time and space (Cygan and Pilipczuk, arXiv 1004.5012, footnote), not entered: its abstract was not found.'
 formal: { status: informal }
 status: valid
+review: { approved_by: Serge Gaspers, date: 2026-11-22 }

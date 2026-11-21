@@ -176,11 +176,11 @@ applies_to:
     budget: k
     setting:
       statement: "Section 1 of arXiv v1 ($\\Pi$-Vertex Deletion)"
-      because: "Vertex deletion into cluster graphs (disjoint unions of cliques), a hereditary class: $U_I = V(G)$ and $\\mathcal{F}_I$ is the family of sets $S$ of at most $k$ vertices with $G - S$ a cluster graph. Added 22 November 2026 (rule 6, for Serge's review)."
+      because: "Vertex deletion into cluster graphs (disjoint unions of cliques), a hereditary class: $U_I = V(G)$ and $\\mathcal{F}_I$ is the family of sets $S$ of at most $k$ vertices with $G - S$ a cluster graph. Added 22 November 2026 and approved by Serge Gaspers the same day."
     extension:
       statement: "Section 1 of arXiv v1 ($\\Pi$-Vertex Deletion)"
       because: "An algorithm for $\\Pi$-Vertex Deletion gives the same running time for its extension version, since the vertices in $X$ can simply be deleted."
 status: valid
 review:
   approved_by: Serge Gaspers
-  date: 2026-11-21
+  date: 2026-11-22

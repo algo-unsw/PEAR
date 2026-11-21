@@ -21,3 +21,4 @@ source:
   note: 'Abstract of the journal (Theory Comput. Syst. 2015) version only; the full text was not read (closed; the HAL record hal-01926689 blocks automated access). Entered under the rule of 21 November 2026. The abstract (Zotero item RGMYAM8T, from Crossref): "an $O^*(1.821^\tau)$-time exact algorithm where τ is the size of a minimum vertex cover". Whether a minimum vertex cover must be given is not said there: TODO(verify).'
 formal: { status: informal }
 status: valid
+review: { approved_by: Serge Gaspers, date: 2026-11-22 }

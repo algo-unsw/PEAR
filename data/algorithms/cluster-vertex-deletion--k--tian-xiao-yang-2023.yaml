@@ -21,3 +21,4 @@ source:
   note: 'Abstract of the journal version only; the full text was not read (closed). Entered under the rule of 21 November 2026. The abstract (Crossref metadata, via Zotero): "Cluster Vertex Deletion can be solved in $O^*(1.7549^k)$ time", improving $O^*(1.811^k)$; it defines the problem with $G$ and $k$ given (decision). It also states $O^*(1.7485^k)$ for graphs of maximum degree at most 4 (not entered: no such version here). The COCOON 2023 version was not checked.'
 formal: { status: informal }
 status: valid
+review: { approved_by: Serge Gaspers, date: 2026-11-22 }
