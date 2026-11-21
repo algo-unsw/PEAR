@@ -7,8 +7,8 @@ const REPO = "https://github.com/algo-unsw/PEAR";
 const escapeHtml = (s) =>
   String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
-function tex(source) {
-  return katex.renderToString(String(source), { throwOnError: true, output: "html", strict: "error" });
+function tex(source, display = false) {
+  return katex.renderToString(String(source), { throwOnError: true, output: "html", strict: "error", displayMode: !!display });
 }
 
 // Text with inline $...$ maths: escape the prose, typeset the maths.

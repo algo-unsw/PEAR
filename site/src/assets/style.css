@@ -222,3 +222,15 @@ body[data-view="details"] .overview-only { display: none !important; }
 
 /* One switch for the whole site: include results from preprints and unverified papers */
 .include-all { display: inline-flex; gap: 6px; align-items: center; margin: 4px 0 10px; font-size: 0.92em; }
+
+/* front page by category, category pages, prominence (21 November 2026) */
+.category h2 a.plain { color: var(--text); text-decoration: none; }
+.category h2 a.plain:hover { color: var(--accent); text-decoration: underline; }
+.more { margin: 8px 0 0; font-size: 16px; }
+.crumbs { margin: 0 0 6px; color: var(--muted); }
+th.num, td.num { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+table.problems th.num:first-child { width: 3em; }
+.method-notes { max-width: 860px; padding-left: 22px; }
+.method-notes li { margin: 6px 0; }
+.math-block { overflow-x: auto; }
+table.prominence-table { min-width: 980px; }

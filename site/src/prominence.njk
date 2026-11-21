@@ -1,0 +1,56 @@
+---
+layout: base.njk
+title: How prominence is measured
+description: "How PEAR orders problems from most to least prominent: scholarly articles, books, Wikipedia, PEAR entries and Stack Exchange."
+permalink: /prominence/
+---
+<main class="page">
+<p class="crumbs small"><a href="{{ '/' | url }}">Browse</a> › Prominence</p>
+<h1>How prominence is measured</h1>
+<p style="margin-top: 12px; max-width: 860px">The front page and the category pages list problems from most to least prominent: how widely each problem is studied and known. The score combines five groups of signals. Each raw count is replaced by its percentile rank among PEAR’s problems, so counts from very different sources become comparable, and one inflated count (an ambiguous search phrase, say) can move a problem by at most its group’s weight.</p>
+
+<h2>Signals and weights</h2>
+<div class="tablewrap">
+<table class="method">
+<thead><tr><th scope="col">Group</th><th class="num" scope="col">Weight</th><th scope="col">Signals (the mean of their percentile ranks)</th></tr></thead>
+<tbody>
+{%- for g in pear.prominence.groups %}
+<tr><td>{{ g.label }}</td><td class="num">{{ g.weight }}</td><td>{% for s in g.signals %}{{ s.label }}{% if not loop.last %}; {% endif %}{% endfor %}</td></tr>
+{%- endfor %}
+</tbody>
+</table>
+</div>
+<ul class="method-notes">
+<li><b>Scholarly articles</b>: works in <a href="https://openalex.org/">OpenAlex</a> whose title or abstract contains the problem’s name as a phrase.</li>
+<li><b>Books</b>: books whose full text contains the phrase, in <a href="https://openlibrary.org/">Open Library</a> (search inside) and <a href="https://books.google.com/">Google Books</a>.</li>
+<li><b>Wikipedia</b>: page views of the problem’s own English Wikipedia article over the last 12 full months (none if it has no article; for a redirect into a section of another article, the redirect’s own views), and the number of English Wikipedia articles that mention the phrase.</li>
+<li><b>PEAR entries</b>: results and reductions in PEAR involving the problem.</li>
+<li><b>Web</b>: questions containing the phrase on the Stack Exchange sites <a href="https://cs.stackexchange.com/">Computer Science</a>, <a href="https://cstheory.stackexchange.com/">Theoretical Computer Science</a>, <a href="https://math.stackexchange.com/">Mathematics</a> and <a href="https://mathoverflow.net/">MathOverflow</a>. This stands in for web search hit counts, which no free search API reports; it has the smallest weight.</li>
+</ul>
+<p class="math-block">{{ "\\text{prominence} = 100 \\cdot \\frac{\\sum_g w_g\\, p_g}{\\sum_g w_g}" | tex(true) | safe }}</p>
+<p>summing over the groups with data for the problem, where {{ "w_g" | tex | safe }} is the group’s weight and {{ "p_g" | tex | safe }} the mean percentile rank of its signals. The percentile rank of a count {{ "x" | tex | safe }} among the {{ "N" | tex | safe }} problems with that count known is {{ "0" | tex | safe }} if {{ "x = 0" | tex | safe }}, and otherwise {{ "(s + (e-1)/2)/(N-1)" | tex | safe }}, where {{ "s" | tex | safe }} problems have a smaller count and {{ "e" | tex | safe }} (including this one) the same count; the most studied problem gets {{ "1" | tex | safe }}.</p>
+<p class="note">A problem is searched by its name, in both spellings of colouring and travelling. Where the name is ambiguous outside algorithms (Clique, SAT, Bandwidth, …) other phrases are used; they are listed below and kept in <code>prominence/queries.yaml</code>. When a problem has several phrases, each source counts the largest of their counts. External counts are refreshed monthly{% if pear.prominence.as_of %} (last on {{ pear.prominence.as_of }}){% else %}; <b>they have not been fetched yet, so the order uses PEAR entries alone</b>{% endif %}; PEAR entries are counted at every build.</p>
+
+<h2>All problems</h2>
+<p class="note">Group columns show the percentile rank (0–100); hover a cell for the raw counts. A dash means the source returned nothing.</p>
+<div class="tablewrap">
+<table class="method prominence-table">
+<thead><tr><th class="num" scope="col">#</th><th scope="col">Problem</th><th scope="col">Category</th><th class="num" scope="col">Score</th>{% for g in pear.prominence.groups %}<th class="num" scope="col">{{ g.label }}</th>{% endfor %}<th scope="col">Searched as · Wikipedia article</th></tr></thead>
+<tbody>
+{%- for r in pear.prominence.rows %}
+<tr>
+<td class="num muted">{{ loop.index }}</td>
+<td><a href="{{ ('/problems/' + r.id + '/') | url }}">{{ r.name }}</a></td>
+<td><a href="{{ ('/categories/' + r.category + '/') | url }}">{{ r.category_name }}</a></td>
+<td class="num"><b>{{ r.score }}</b></td>
+{%- for g in pear.prominence.groups %}
+<td class="num" title="{% for s in g.signals %}{{ s.label }}: {{ r.signals[s.id] if r.signals[s.id] != null else '–' }}{% if not loop.last %}&#10;{% endif %}{% endfor %}">{{ r.groups[g.id] if r.groups[g.id] != null else '–' }}</td>
+{%- endfor %}
+<td class="small">{% if r.phrases %}{% for p in r.phrases %}“{{ p }}”{% if not loop.last %}, {% endif %}{% endfor %}{% else %}<span class="muted">not fetched</span>{% endif %}{% if r.wikipedia_title %} · <a href="https://en.wikipedia.org/wiki/{{ r.wikipedia_title | replace(' ', '_') | urlencode }}">{{ r.wikipedia_section or r.wikipedia_title }}</a>{% elif r.phrases %} · <span class="muted">no article</span>{% endif %}</td>
+</tr>
+{%- endfor %}
+</tbody>
+</table>
+</div>
+<p class="footer">Data CC0 · code MIT · rulebook version {{ pear.rulebook_version }} · data of {{ pear.generated }}</p>
+</main>

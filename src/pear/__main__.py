@@ -2,7 +2,9 @@
 
     python -m pear validate [DATA_DIR]
     python -m pear derive [DATA_DIR] [--out build/derived.json]
-    python -m pear site [DATA_DIR] [--out build/site]
+    python -m pear site [DATA_DIR] [--out build/site] [--signals prominence/signals.yaml]
+    python -m pear prominence fetch [DATA_DIR] [--out prominence/signals.yaml] [--only ID ...]
+    python -m pear prominence show [DATA_DIR] [--signals prominence/signals.yaml]
 """
 
 from __future__ import annotations
@@ -26,6 +28,14 @@ def main(argv: list[str] | None = None) -> int:
     site = sub.add_parser("site", help="write the page data for the static site")
     site.add_argument("data_dir", nargs="?", default="data", type=Path)
     site.add_argument("--out", type=Path, default=Path("build/site"))
+    site.add_argument("--signals", type=Path, default=Path("prominence/signals.yaml"))
+    prom = sub.add_parser("prominence", help="fetch or show the prominence signals (front page order)")
+    prom.add_argument("action", choices=["fetch", "show"])
+    prom.add_argument("data_dir", nargs="?", default="data", type=Path)
+    prom.add_argument("--out", type=Path, default=Path("prominence/signals.yaml"))
+    prom.add_argument("--signals", type=Path, default=Path("prominence/signals.yaml"))
+    prom.add_argument("--queries", type=Path, default=Path("prominence/queries.yaml"))
+    prom.add_argument("--only", nargs="*", help="fetch these problems only, keeping the others' signals")
     args = parser.parse_args(argv)
 
     data, issues = validate_dir(args.data_dir)
@@ -39,13 +49,16 @@ def main(argv: list[str] | None = None) -> int:
         print(f"OK: {counts}.")
         return 0
 
+    if args.command == "prominence":
+        return prominence(args, data)
+
     from .derive import derive as run, to_json
 
     result = run(data)
     if args.command == "site":
         from .site import build
 
-        site_data = build(data, result, args.out)
+        site_data = build(data, result, args.out, signals_path=args.signals)
         print(f"OK: {len(site_data['pages'])} problem pages, written to {args.out}.")
         return 0
     args.out.parent.mkdir(parents=True, exist_ok=True)
@@ -59,6 +72,37 @@ def main(argv: list[str] | None = None) -> int:
         print(f"undecided: {u['problem']} ({u['node']}): {u['smaller']} looks {rel} {u['larger']} "
               f"at all {u['samples']} sample points, but the comparator cannot prove it; add the missing fact or rule")
     print(f"OK: {kept} results kept ({derived} derived), written to {args.out}.")
+    return 0
+
+
+def prominence(args: argparse.Namespace, data) -> int:
+    import yaml
+
+    from . import prominence as pm
+
+    if args.action == "fetch":
+        overrides = yaml.safe_load(args.queries.read_text(encoding="utf-8")) if args.queries.is_file() else {}
+        unknown = sorted(set(overrides or {}) - set(data.problems))
+        if unknown:
+            print(f"{args.queries}: unknown problem ids {', '.join(unknown)}", file=sys.stderr)
+            return 1
+        snap = pm.fetch(data, overrides, only=args.only)
+        if args.only:
+            old = pm.load_signals(args.out) or {"problems": {}}
+            old["problems"].update(snap["problems"])
+            old["errors"] = snap["errors"]
+            snap = {**old, "as_of": snap["as_of"]}
+        pm.write_signals(snap, args.out)
+        for e in snap["errors"]:
+            print(f"error: {e}")
+        print(f"OK: signals for {len(snap['problems'])} problems written to {args.out} ({len(snap['errors'])} errors).")
+        return 0
+    rows = pm.scores(data, pm.load_signals(args.signals))
+    groups = list(pm.GROUPS)
+    print(f"{'problem':34} {'score':>6} " + " ".join(f"{g[:9]:>9}" for g in groups))
+    for pid, r in sorted(rows.items(), key=lambda kv: (-kv[1]["score"], data.problems[kv[0]].name)):
+        cells = " ".join(f"{'-' if r['groups'][g] is None else r['groups'][g]:>9}" for g in groups)
+        print(f"{data.problems[pid].name[:34]:34} {r['score']:>6} {cells}")
     return 0
 
 

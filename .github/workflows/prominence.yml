@@ -1,0 +1,64 @@
+name: Refresh prominence signals
+
+# Fetches the external counts behind the prominence score (src/pear/prominence.py) into
+# prominence/signals.yaml. Monthly, it opens a pull request with the new counts (needs
+# Settings → Actions → General → "Allow GitHub Actions to create and approve pull requests").
+# On a pull request that changes the fetcher or the search phrases it only uploads the result
+# as an artifact, to check before committing.
+# Optional repository secrets: OPENALEX_MAILTO (OpenAlex polite pool), GOOGLE_BOOKS_API_KEY,
+# STACKEXCHANGE_KEY (raises the Stack Exchange quota from 300 to 10,000 requests a day).
+
+on:
+  schedule:
+    - cron: "17 3 2 * *"
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - src/pear/prominence.py
+      - prominence/queries.yaml
+      - .github/workflows/prominence.yml
+
+permissions:
+  contents: read
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -e .
+      - name: Fetch signals
+        env:
+          OPENALEX_MAILTO: ${{ secrets.OPENALEX_MAILTO }}
+          GOOGLE_BOOKS_API_KEY: ${{ secrets.GOOGLE_BOOKS_API_KEY }}
+          STACKEXCHANGE_KEY: ${{ secrets.STACKEXCHANGE_KEY }}
+        run: python -m pear prominence fetch --out prominence/signals.yaml
+      - name: Show the resulting order
+        run: python -m pear prominence show
+      - uses: actions/upload-artifact@v4
+        with:
+          name: prominence-signals
+          path: prominence/signals.yaml
+      - name: Open a pull request
+        if: github.event_name != 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          branch="prominence-refresh-$(date -u +%Y-%m)"
+          git checkout -b "$branch"
+          git add prominence/signals.yaml
+          if git diff --cached --quiet; then echo "No change."; exit 0; fi
+          git commit -m "Refresh prominence signals ($(date -u +%Y-%m-%d))"
+          git push --force origin "$branch"
+          gh pr create --base main --head "$branch" --title "Refresh prominence signals ($(date -u +%Y-%m))" \
+            --body "Monthly refresh of the external counts behind the front page order (python -m pear prominence fetch). Check the order in the job log (python -m pear prominence show)." || true
