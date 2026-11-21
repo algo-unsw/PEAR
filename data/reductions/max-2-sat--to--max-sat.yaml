@@ -4,7 +4,7 @@ to: { problem: max-sat, version: decision }
 type: polytime-deterministic
 calls: 1
 time: "O(N)"
-parameter_map: { n: "n", m: "m", k: "k" }
+parameter_map: { n: "n", m: "m", k: "k", L: "2m" }
 source:
   folklore: true
   note: "Max 2-SAT is the special case of Maximum Satisfiability with at most two literals per clause; the instance is unchanged (neither problem has repeated clauses, decided by Serge Gaspers, 21 November 2026)."

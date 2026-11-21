@@ -1,0 +1,11 @@
+id: brilliantov-alferov-bliznets-2023
+title: "Improved Algorithms for Maximum Satisfiability and Its Special Cases"
+authors: [Kirill Brilliantov, Vasily Alferov, Ivan Bliznets]
+identifiers: { dblp: "conf/aaai/BrilliantovAB23", openalex: null }
+versions:
+  aaai:
+    kind: conference
+    venue: "Thirty-Seventh AAAI Conference on Artificial Intelligence (AAAI 2023), pp. 3898–3905"
+    year: 2023
+    doi: "10.1609/aaai.v37i4.25503"
+    open_access: true
