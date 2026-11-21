@@ -21,3 +21,5 @@ source:
     cocoon-author-copy:
       statement: Theorem 3
   note: 'Algorithm enumIS enumerates all independent sets of $G - I - C$ (not only maximal ones), switching to the path decomposition DP of Lemma 4 when the pathwidth is small. The paper says no algorithm faster than $2^n n^{O(1)}$ for #4-Coloring was known before. Theorem number read in the author copy (10 pages); the LNCS version (pp. 65–74) was not opened.'
+status: unrepaired
+status_note: "Marked as flawed by Serge Gaspers, a co-author, on 21 November 2026."
