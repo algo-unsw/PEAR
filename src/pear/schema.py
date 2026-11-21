@@ -55,18 +55,28 @@ class Statement(Model):
 ATTESTATIONS = 3  # independent web sources needed for a closed paper (CLAUDE.md rule 2)
 
 
+class Confirmation(Model):
+    """Serge confirms a result from a closed source that we could not read (21 November 2026)."""
+
+    by: Literal["Serge Gaspers"]
+    date: dt.date
+
+
 class PaperSource(Model):
     paper: Id
-    statements: dict[Id, Statement] = {}  # keyed by paper version
-    # For a classic result whose paper has no open-access version: independent web sources
-    # (found by a web search) that confirm the paper proved it. They replace the open statement.
+    # keyed by paper version; a closed version we could read counts like an open one
+    # (21 November 2026)
+    statements: dict[Id, Statement] = {}
+    # For a classic result whose paper we cannot read: independent web sources (found by a
+    # web search) that confirm the paper proved it. They replace the statement.
     attested_by: list[Text] = []
+    confirmed_by: Confirmation | None = None
     note: Text | None = None
 
     @model_validator(mode="after")
     def _statement_or_attestation(self) -> PaperSource:
-        if not self.statements and not self.attested_by:
-            raise ValueError("a paper source needs statements, or attested_by for a closed paper")
+        if not self.statements and not self.attested_by and self.confirmed_by is None:
+            raise ValueError("a paper source needs statements, attested_by or confirmed_by")
         return self
 
 

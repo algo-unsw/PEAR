@@ -1,0 +1,25 @@
+id: roman-domination--tw--fernau-2006
+problem: roman-domination
+proved_for: optimisation
+bound:
+  as_stated: "5^{tw} \\cdot n"
+  notation: O
+  parameters: [tw, n]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: "Not stated; educated guess: exponential, $O(4^{tw})$ table entries per node: dynamic programming over a nice tree decomposition with four states per bag vertex ($0$, $\\hat{0}$, $1$, $2$)."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+given:
+  - tree-decomposition
+source:
+  paper: fernau-2006
+  statements:
+    conference: { statement: "Theorem 5" }
+  note: "Stated as $O(5^{tw(G)}|V(G)|)$ for minimum Roman domination, given a nice tree decomposition (Section 5 of the SOFSEM 2006 version; the join nodes use the monotonicity trick of Alber et al. instead of the naive $O(16^{tw})$ combination). Read in Serge's Zotero copy of the SOFSEM version (closed; entered under the rule of 21 November 2026). Also stated, citing it, in the introduction of arXiv:2509.23615v1."
+formal: { status: informal }
+status: valid

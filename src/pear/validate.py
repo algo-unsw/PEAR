@@ -184,12 +184,15 @@ def check_references(data: Dataset) -> list[Issue]:
         for version in src.statements:
             if version not in paper.versions:
                 issues.append(Issue(where, f"paper '{src.paper}' has no version '{version}'"))
-        if any(paper.versions[v].open_access for v in src.statements if v in paper.versions):
+        # A statement in any version we read, open or closed, or Serge's confirmation of a
+        # closed-source result, is enough (CLAUDE.md rule 2, 21 November 2026).
+        if src.statements or src.confirmed_by is not None:
             return
         if any(v.open_access for v in paper.versions.values()):
-            issues.append(Issue(where, f"no statement for an open-access version of paper '{src.paper}'"))
+            issues.append(Issue(where, f"no statement for an open-access version of paper '{src.paper}' "
+                                       "(attestations replace a statement only for a paper we cannot read)"))
             return
-        # A closed paper: independent web sources must confirm the result (CLAUDE.md rule 2).
+        # A closed paper we could not read: independent web sources must confirm the result.
         hosts = {urlparse(u).netloc.lower().removeprefix("www.") for u in src.attested_by}
         hosts.discard("")
         if len(hosts) < ATTESTATIONS:

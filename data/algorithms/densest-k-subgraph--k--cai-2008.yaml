@@ -1,0 +1,23 @@
+id: densest-k-subgraph--k--cai-2008
+problem: densest-k-subgraph
+proved_for: optimisation
+bound:
+  as_stated: '\tilde{O}(k^{2} n^{\omega k/3 + 2 - 2\omega/3})'
+  notation: Õ
+  parameters: [k, n]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Not stated; educated guess: exponential (in $k$). Triangle detection by fast matrix multiplication in an auxiliary graph whose vertices are vertex subsets of size about $k/3$, so its adjacency matrix has about $n^{2k/3}$ entries.'
+  algebraic: true
+  fast_matrix_multiplication: true
+  constructive: true
+  quantum: false
+source:
+  paper: cai-2008
+  statements:
+    journal: { statement: "Theorem 4.8" }
+  note: 'Theorem 4.8 states $\tilde O(k^2 n^{\omega\lfloor k/3\rfloor + k \bmod 3})$ for MaxVS($k$) (Densest k-Subgraph); Corollary 4.9 gives the same for MinVS($k$), MinVC($n-k$) and MaxVC($n-k$). The bound language has no floor or mod, so the stored form is the tightest that holds for every $k$: with $r = k \bmod 3$, $\omega\lfloor k/3\rfloor + r = \omega k/3 + r(1 - \omega/3) \le \omega k/3 + 2 - 2\omega/3$, since $\omega < 3$ (written by the site). Read in Serge''s Zotero copy of the Computer Journal version (closed; entered under the rule of 21 November 2026). Bourgeois, Giannakos, Lucarelli, Milis and Paschos (Cahier du LAMSADE 324, Section 1) quote the weaker form of Theorem 4.4 and say the algorithm needs exponential space.'
+formal: { status: informal }
+status: valid
