@@ -5,8 +5,9 @@ identifiers: { dblp: "journals/dam/Bang-JensenY08" }
 versions:
   journal:
     kind: journal
-    venue: "Discrete Applied Mathematics 156, pp. 2924–2929"
+    venue: "Discrete Applied Mathematics 156(15), pp. 2924–2929"
     year: 2008
+    doi: "10.1016/j.dam.2007.12.003"
     open_access: false
   journal-author-copy:
     kind: preprint
