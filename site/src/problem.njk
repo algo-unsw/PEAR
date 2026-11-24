@@ -27,7 +27,7 @@ eleventyComputed:
 <thead><tr><th>Time</th><th>Space</th><th>Source</th></tr></thead>
 <tbody>
 {%- for pt in tb.points %}
-<tr><td class="nowrap">{{ bound(pt.row) }}</td><td class="nowrap">{% if pt.space == "poly" %}polynomial{% elif pt.space == "time" %}as the time{% else %}{{ pt.space_tex | tex | safe }}{% endif %}</td><td>{{ pt.refs | refs | safe }}{% if pt.derived %} <span class="tag" title="Obtained by combining an algorithm with reductions or other derivation steps.">derived</span>{% endif %}</td></tr>
+<tr><td class="nowrap">{{ bound(pt.row) }}</td><td class="nowrap">{% if pt.space == "poly" %}polynomial{% elif pt.space == "time" %}exp{% else %}{{ pt.space_tex | tex | safe }}{% endif %}</td><td>{{ pt.refs | refs | safe }}{% if pt.derived %} <span class="tag" title="Obtained by combining an algorithm with reductions or other derivation steps.">derived</span>{% endif %}</td></tr>
 {%- endfor %}
 </tbody>
 </table>
@@ -124,7 +124,7 @@ eleventyComputed:
 <button type="button" class="disclose small" aria-expanded="false" aria-controls="{{ tid }}">{{ tri | safe }}Time–space trade-offs ({{ g.tradeoffs.points.length }})</button>
 <div id="{{ tid }}" hidden>
 {{ tradeoffTable(g.tradeoffs) }}
-<p class="small muted">Algorithms that no other one beats in both time and space, up to polynomial factors. Exponential space with no stated bound counts as equal to the running time.</p>
+<p class="small muted">Algorithms that no other one beats in both time and space, up to polynomial factors. “exp”: exponential space with no stated bound, compared as equal to the running time.</p>
 </div>
 {%- endif %}
 </div>
@@ -171,7 +171,7 @@ eleventyComputed:
 {%- endif %}
 {%- if node.tradeoffs.length %}
 <h3>Time–space trade-offs</h3>
-<p class="note">Algorithms that no other one beats in both time and space, up to polynomial factors. Polynomial space is one class; exponential space with no stated bound counts as equal to the running time.</p>
+<p class="note">Algorithms that no other one beats in both time and space, up to polynomial factors. Polynomial space is one class; “exp” is exponential space with no stated bound, compared as equal to the running time.</p>
 {%- for tb in node.tradeoffs %}
 <p class="small" style="margin-bottom: 2px">By {{ tb.param_tex | tex | safe }}</p>
 {{ tradeoffTable(tb) }}
