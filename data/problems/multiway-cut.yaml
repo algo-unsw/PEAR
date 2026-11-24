@@ -16,7 +16,8 @@ objects:
   m: number of edges
   N: total encoding length of the input
 parameters:
-  k: { meaning: "the solution size: the integer $k$ in the input (decision, search; the weight budget in the weighted decision version), or the minimum size of a multiway cut (optimisation)" }
+  k: { meaning: "the solution size: the integer $k$ in the input (decision, search), or the minimum size of a multiway cut (optimisation)" }
+  k_w: { meaning: "the solution weight: the weight budget $k_w$ in the input (weighted decision); with unit weights it is $k$", poly_bounded: false }
   p: { meaning: "the number of terminals $|T|$" }
 constraints:
   - { constraint: "k \\le m", because: "Deleting all edges separates the terminals, so every instance with $k \\ge m$ is a yes-instance." }
@@ -38,9 +39,9 @@ versions:
     goal: "Find a set $S \\subseteq E$ with $|S| \\le k$ such that no two terminals are in the same connected component of $G - S$, or report that none exists."
   weighted-decision:
     kind: decision
-    input: "A graph $G = (V, E)$, a set $T \\subseteq V$ of terminals, edge weights $w \\colon E \\to \\mathbb{Z}_{\\ge 0}$, and an integer $k$."
-    question: "Is there a set $S \\subseteq E$ with $\\sum_{e \\in S} w(e) \\le k$ such that no two terminals are in the same connected component of $G - S$?"
-    generalises: [decision]
+    input: "A graph $G = (V, E)$, a set $T \\subseteq V$ of terminals, edge weights $w \\colon E \\to \\mathbb{Z}_{\\ge 0}$, and an integer $k_w$."
+    question: "Is there a set $S \\subseteq E$ with $\\sum_{e \\in S} w(e) \\le k_w$ such that no two terminals are in the same connected component of $G - S$?"
+    generalises: [{ version: decision, parameter_map: { k_w: "k" } }]
 default_version: decision
 shared_bounds:
   - versions: [decision, optimisation, search]
