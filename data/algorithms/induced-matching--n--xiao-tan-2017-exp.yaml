@@ -21,3 +21,4 @@ source:
   note: "Read in the full text (PDF in Serge's Zotero library, 23 November 2026). Theorem 2: \"A maximum induced matching in an $n$-vertex graph can be computed in $O^*(1.3752^n)$ time and space\": the branching algorithm of Theorem 1 with a database of solutions for instances of size at most $\\eta n$, $\\eta = 0.09705$."
 formal: { status: informal }
 status: valid
+review: { approved_by: Serge Gaspers, date: 2026-11-24 }

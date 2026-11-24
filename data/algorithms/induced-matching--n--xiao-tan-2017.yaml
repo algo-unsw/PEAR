@@ -21,3 +21,4 @@ source:
   note: "Read in the full text (PDF in Serge's Zotero library, 23 November 2026). Theorem 1: \"A maximum induced matching in an $n$-vertex graph can be computed in $O^*(1.4231^n)$ time and polynomial space\", by a branching algorithm."
 formal: { status: informal }
 status: valid
+review: { approved_by: Serge Gaspers, date: 2026-11-24 }
