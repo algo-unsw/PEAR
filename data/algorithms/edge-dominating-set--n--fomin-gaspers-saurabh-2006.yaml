@@ -10,7 +10,7 @@ properties:
   randomized: false
   space:
     class: exponential
-    bound: 'Not stated; educated guess: exponential. The algorithm branches and switches to a dynamic program over a path decomposition (Lemma 2 of the ISAAC paper, Lemma 3 of the journal author copy: $O(3^p n^{O(1)})$ for width $p$) when the pathwidth is small.'
+    note: 'Not stated; educated guess: exponential. The algorithm branches and switches to a dynamic program over a path decomposition (Lemma 2 of the ISAAC paper, Lemma 3 of the journal author copy: $O(3^p n^{O(1)})$ for width $p$) when the pathwidth is small.'
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

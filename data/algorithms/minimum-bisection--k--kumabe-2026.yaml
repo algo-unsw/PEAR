@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: exponential
-    bound: 'Not stated; educated guess: exponential (in $k$). Dynamic programming over a $(2k, k)$-edge-unbreakable tree decomposition with tables indexed by subsets of adhesions of size at most $2k$ (and polynomially many side sizes and cut sizes), with inclusion–exclusion and formal power series at large bags.'
+    note: 'Not stated; educated guess: exponential (in $k$). Dynamic programming over a $(2k, k)$-edge-unbreakable tree decomposition with tables indexed by subsets of adhesions of size at most $2k$ (and polynomially many side sizes and cut sizes), with inclusion–exclusion and formal power series at large bags.'
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

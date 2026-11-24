@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: exponential
-    bound: 'Not stated; educated guess: $2^{O(tw \log tw)} n^{O(1)}$. Dynamic programming over a tree decomposition with one table entry per subset $X$ of a bag and ordering $\sigma$ of the rest of the bag (Section 1).'
+    note: 'Not stated; educated guess: $2^{O(tw \log tw)} n^{O(1)}$. Dynamic programming over a tree decomposition with one table entry per subset $X$ of a bag and ordering $\sigma$ of the rest of the bag (Section 1).'
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

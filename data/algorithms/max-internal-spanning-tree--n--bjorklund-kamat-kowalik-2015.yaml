@@ -7,7 +7,7 @@ bound:
   parameters: [n]
 properties:
   randomized: { error: one-sided }
-  space: { class: polynomial, bound: 'Polynomial space, as stated.' }
+  space: { class: polynomial, note: 'Polynomial space, as stated.' }
   algebraic: true
   fast_matrix_multiplication: false
   constructive: true

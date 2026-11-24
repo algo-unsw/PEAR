@@ -11,7 +11,7 @@ properties:
   randomized: false
   space:
     class: polynomial
-    bound: '$\tilde O(n^2)$ space, as stated.'
+    note: '$\tilde O(n^2)$ space, as stated.'
   algebraic: true
   fast_matrix_multiplication: false
   constructive: true

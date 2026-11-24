@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: polynomial
-    bound: "Not stated; educated guess: polynomial. The algorithm tries the at most $k^{k^2 p/2}$ colourings of the semi-core $G[X \\cup N(X)]$ ($X$ the vertices of maximum degree) one at a time and extends a valid one along alternating paths (Lemma 1); no memoization or dynamic programming found."
+    note: "Not stated; educated guess: polynomial. The algorithm tries the at most $k^{k^2 p/2}$ colourings of the semi-core $G[X \\cup N(X)]$ ($X$ the vertices of maximum degree) one at a time and extends a valid one along alternating paths (Lemma 1); no memoization or dynamic programming found."
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

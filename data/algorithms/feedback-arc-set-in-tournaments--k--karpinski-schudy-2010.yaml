@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: exponential
-    bound: 'Not stated for this algorithm in Theorem 1; educated guess: $2^{O(\sqrt{k})} + n^{O(1)}$, as the corollary on Kemeny Rank Aggregation in Section 1 (label thm:exactKRA, through the standard reduction to weighted FAST) states this bound for runtime and space, and Theorem 1 offers a separate variant for polynomial space.'
+    note: 'Not stated for this algorithm in Theorem 1; educated guess: $2^{O(\sqrt{k})} + n^{O(1)}$, as the corollary on Kemeny Rank Aggregation in Section 1 (label thm:exactKRA, through the standard reduction to weighted FAST) states this bound for runtime and space, and Theorem 1 offers a separate variant for polynomial space.'
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

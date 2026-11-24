@@ -7,7 +7,7 @@ bound:
   parameters: [n]
 properties:
   randomized: false
-  space: { class: exponential, bound: '$O^*(2^n)$ space, as stated (fast subset convolution).' }
+  space: { class: exponential, note: '$O^*(2^n)$ space, as stated (fast subset convolution).' }
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

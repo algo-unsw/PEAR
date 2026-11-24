@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: exponential
-    bound: "Not stated; educated guess: exponential, dynamic programming over a path decomposition built from the linear arrangement, with $O^*(3^{ctw/3})$ states."
+    note: "Not stated; educated guess: exponential, dynamic programming over a path decomposition built from the linear arrangement, with $O^*(3^{ctw/3})$ states."
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

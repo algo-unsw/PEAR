@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: polynomial
-    bound: "Educated guess: backtracking (depth-first) search over reduced instances with a polynomial-time matching step (proof of Theorem 1); no memoization or dynamic programming found."
+    note: "Educated guess: backtracking (depth-first) search over reduced instances with a polynomial-time matching step (proof of Theorem 1); no memoization or dynamic programming found."
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

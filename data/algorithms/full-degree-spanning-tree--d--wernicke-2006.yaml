@@ -7,7 +7,7 @@ bound:
   parameters: [d, m]
 properties:
   randomized: false
-  space: { class: polynomial, bound: 'Not stated; educated guess: polynomial. A linear-time kernelization to fewer than $4d$ vertices (Theorem 8.1), then enumeration of subsets of the kernel''s vertices of degree at least 3 as candidate reduced-degree sets, each checked with a maximum-weight spanning tree (cotree) computation; one subset at a time, no tables or dynamic programming.' }
+  space: { class: polynomial, note: 'Not stated; educated guess: polynomial. A linear-time kernelization to fewer than $4d$ vertices (Theorem 8.1), then enumeration of subsets of the kernel''s vertices of degree at least 3 as candidate reduced-degree sets, each checked with a maximum-weight spanning tree (cotree) computation; one subset at a time, no tables or dynamic programming.' }
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

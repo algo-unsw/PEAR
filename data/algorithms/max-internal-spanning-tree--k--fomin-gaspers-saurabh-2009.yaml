@@ -7,7 +7,7 @@ bound:
   parameters: [k, n]
 properties:
   randomized: false
-  space: { class: polynomial, bound: 'Not stated; educated guess: polynomial. A polynomial-time $3k$-vertex kernel, then Nederlof''s polynomial-space $2^n n^{O(1)}$ algorithm on the kernel; no memoization or dynamic programming found.' }
+  space: { class: polynomial, note: 'Not stated; educated guess: polynomial. A polynomial-time $3k$-vertex kernel, then Nederlof''s polynomial-space $2^n n^{O(1)}$ algorithm on the kernel; no memoization or dynamic programming found.' }
   algebraic: true
   fast_matrix_multiplication: false
   constructive: true

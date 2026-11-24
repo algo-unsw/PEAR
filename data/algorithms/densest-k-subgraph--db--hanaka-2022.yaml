@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: polynomial
-    bound: "Not stated; educated guess: polynomial. A block vertex deletion set is computed by the $4^{k} n^{O(1)}$ algorithm of Agrawal et al. (iterative compression and branching); then $2^{db}$ guesses, each solved by dynamic programming over the block-cut tree with $O(k^2 n)$ table entries (polynomial)."
+    note: "Not stated; educated guess: polynomial. A block vertex deletion set is computed by the $4^{k} n^{O(1)}$ algorithm of Agrawal et al. (iterative compression and branching); then $2^{db}$ guesses, each solved by dynamic programming over the block-cut tree with $O(k^2 n)$ table entries (polynomial)."
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

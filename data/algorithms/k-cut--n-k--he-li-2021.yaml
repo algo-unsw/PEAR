@@ -9,7 +9,7 @@ properties:
   randomized: true
   space:
     class: exponential
-    bound: "Not stated; educated guess: $n^{O(k)}$. The islands are found by a matrix multiplication-based algorithm similar to Nešetřil and Poljak's $k$-clique algorithm, whose matrices are indexed by tuples of vertices."
+    note: "Not stated; educated guess: $n^{O(k)}$. The islands are found by a matrix multiplication-based algorithm similar to Nešetřil and Poljak's $k$-clique algorithm, whose matrices are indexed by tuples of vertices."
   algebraic: true
   fast_matrix_multiplication: true
   constructive: true

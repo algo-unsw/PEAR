@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: exponential
-    bound: 'Not stated; educated guess: exponential (in $k$). Triangle detection by fast matrix multiplication in an auxiliary graph whose vertices are vertex subsets of size about $k/3$, so its adjacency matrix has about $n^{2k/3}$ entries.'
+    note: 'Not stated; educated guess: exponential (in $k$). Triangle detection by fast matrix multiplication in an auxiliary graph whose vertices are vertex subsets of size about $k/3$, so its adjacency matrix has about $n^{2k/3}$ entries.'
   algebraic: true
   fast_matrix_multiplication: true
   constructive: true

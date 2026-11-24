@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: polynomial
-    bound: "One labelling at a time."
+    note: "One labelling at a time."
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

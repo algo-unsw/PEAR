@@ -7,7 +7,7 @@ bound:
   parameters: [k, n, tw]
 properties:
   randomized: { error: one-sided }
-  space: { class: exponential, bound: "Not stated; educated guess: $2^{O(k)} n^{tw + 1}$ (dynamic programming over a tree decomposition of $H$ under a random colouring)." }
+  space: { class: exponential, note: "Not stated; educated guess: $2^{O(k)} n^{tw + 1}$ (dynamic programming over a tree decomposition of $H$ under a random colouring)." }
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

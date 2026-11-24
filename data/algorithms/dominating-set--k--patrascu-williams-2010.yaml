@@ -11,7 +11,7 @@ properties:
   randomized: false
   space:
     class: exponential
-    bound: 'Not stated; educated guess: $n^{k + o(1)}$. The algorithm forms the product $A_k A_k^{T}$ of $\binom{n}{k/2} \times n$ Boolean matrices (rectangular matrix multiplication), an $\binom{n}{k/2} \times \binom{n}{k/2}$ table.'
+    note: 'Not stated; educated guess: $n^{k + o(1)}$. The algorithm forms the product $A_k A_k^{T}$ of $\binom{n}{k/2} \times n$ Boolean matrices (rectangular matrix multiplication), an $\binom{n}{k/2} \times \binom{n}{k/2}$ table.'
   algebraic: true
   fast_matrix_multiplication: true
   constructive: true

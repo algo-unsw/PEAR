@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: exponential
-    bound: 'Not stated. The bound runs Robson''s 1986 maximum independent set algorithm (J. Algorithms 7, 1986) on the graphs $H_v$; Robson''s abstract says the version with constant about 0.276 ($2^{0.276n} \approx 1.2109^n$) "uses exponential space" (storing the values of the recursive function: memoization), so exponential space.'
+    note: 'Not stated. The bound runs Robson''s 1986 maximum independent set algorithm (J. Algorithms 7, 1986) on the graphs $H_v$; Robson''s abstract says the version with constant about 0.276 ($2^{0.276n} \approx 1.2109^n$) "uses exponential space" (storing the values of the recursive function: memoization), so exponential space.'
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: exponential
-    bound: 'Educated guess: $2^{O(k^2)} n$. Dynamic programming over a tree decomposition of width $w \le 5k$ (the 5-approximation of Bodlaender et al.); Theorem 1 states the bound $O(2^{4wt+3w\log wt} \cdot wt \cdot n)$ for both time and space.'
+    note: 'Educated guess: $2^{O(k^2)} n$. Dynamic programming over a tree decomposition of width $w \le 5k$ (the 5-approximation of Bodlaender et al.); Theorem 1 states the bound $O(2^{4wt+3w\log wt} \cdot wt \cdot n)$ for both time and space.'
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

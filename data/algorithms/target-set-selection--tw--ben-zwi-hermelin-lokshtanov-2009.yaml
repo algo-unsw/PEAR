@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: exponential
-    bound: "Not stated; educated guess: $n^{O(tw)}$. Dynamic programming over a nice tree decomposition, with tables of $n^{O(w)}$ entries indexed by threshold vectors and activation orders on the bag (Lemma 3.4)."
+    note: "Not stated; educated guess: $n^{O(tw)}$. Dynamic programming over a nice tree decomposition, with tables of $n^{O(w)}$ entries indexed by threshold vectors and activation orders on the bag (Lemma 3.4)."
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

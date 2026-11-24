@@ -11,7 +11,7 @@ properties:
   randomized: false
   space:
     class: exponential
-    bound: 'Not stated; educated guess: exponential. The algorithm builds a tree decomposition of width $O(vc)$ with one partition of the active terminals per bag and runs the dynamic program of Bateni, Hajiaghayi and Marx over it (Theorem 5 of the arXiv version), whose tables over the bags are exponential in the width.'
+    note: 'Not stated; educated guess: exponential. The algorithm builds a tree decomposition of width $O(vc)$ with one partition of the active terminals per bag and runs the dynamic program of Bateni, Hajiaghayi and Marx over it (Theorem 5 of the arXiv version), whose tables over the bags are exponential in the width.'
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

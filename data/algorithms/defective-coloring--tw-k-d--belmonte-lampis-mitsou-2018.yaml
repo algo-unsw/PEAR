@@ -10,7 +10,7 @@ properties:
   randomized: false
   space:
     class: exponential
-    bound: "Not stated; educated guess: $(k d)^{O(tw)} n^{O(1)}$. Standard dynamic programming over the tree decomposition, with a table entry per colouring of a bag and per count of same-coloured neighbours of each bag vertex."
+    note: "Not stated; educated guess: $(k d)^{O(tw)} n^{O(1)}$. Standard dynamic programming over the tree decomposition, with a table entry per colouring of a bag and per count of same-coloured neighbours of each bag vertex."
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

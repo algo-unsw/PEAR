@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: polynomial
-    bound: "Not stated; educated guess: polynomial. The algorithm keeps one vertex per neighbourhood class of the independent set, enumerates box representations of the reduced graph (by endpoint orderings, Proposition 1) and checks each for extendability (Lemma 3); no dynamic programming, memoization or ILP found."
+    note: "Not stated; educated guess: polynomial. The algorithm keeps one vertex per neighbourhood class of the independent set, enumerates box representations of the reduced graph (by endpoint orderings, Proposition 1) and checks each for extendability (Lemma 3); no dynamic programming, memoization or ILP found."
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

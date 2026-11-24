@@ -11,7 +11,7 @@ properties:
   randomized: false
   space:
     class: polynomial
-    bound: 'Not stated; a depth-$k$ branching algorithm with no memoization: polynomial space.'
+    note: 'Not stated; a depth-$k$ branching algorithm with no memoization: polynomial space.'
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

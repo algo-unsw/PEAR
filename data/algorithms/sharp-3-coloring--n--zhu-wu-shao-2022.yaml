@@ -10,7 +10,7 @@ properties:
   randomized: false
   space:
     class: exponential
-    bound: 'Not stated; educated guess: exponential. Branch and reduce analysed by measure and conquer, with dynamic programming over a tree or path decomposition for a special case (procedure branchTHD), whose tables are exponential in the width.'
+    note: 'Not stated; educated guess: exponential. Branch and reduce analysed by measure and conquer, with dynamic programming over a tree or path decomposition for a special case (procedure branchTHD), whose tables are exponential in the width.'
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

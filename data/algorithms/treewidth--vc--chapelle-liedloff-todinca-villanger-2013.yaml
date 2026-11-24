@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: exponential
-    bound: 'Not stated for Theorem 16; educated guess: exponential, about $O^*(3^{vc})$. The dynamic programming runs over valid three-partitions of a minimum vertex cover (at most $3^{vc+1}$) and stores tables indexed by subsets for fast subset convolution; the $O^*(4^{vc})$ version (Theorem 6) is stated to take $O^*(4^{vc})$ time and space.'
+    note: 'Not stated for Theorem 16; educated guess: exponential, about $O^*(3^{vc})$. The dynamic programming runs over valid three-partitions of a minimum vertex cover (at most $3^{vc+1}$) and stores tables indexed by subsets for fast subset convolution; the $O^*(4^{vc})$ version (Theorem 6) is stated to take $O^*(4^{vc})$ time and space.'
   algebraic: true
   fast_matrix_multiplication: false
   constructive: true

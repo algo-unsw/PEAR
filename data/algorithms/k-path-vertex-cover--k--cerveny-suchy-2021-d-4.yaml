@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: polynomial
-    bound: "Not stated; educated guess: polynomial. A recursive branching algorithm that applies precomputed branching and reduction rules (generated offline by computer search) to subgraphs around an occurrence of a $P_4$; brute force only on components of constant size; no memoization or dynamic programming found (section \"The Output Algorithm and Its Correctness\", Algorithm 1)."
+    note: "Not stated; educated guess: polynomial. A recursive branching algorithm that applies precomputed branching and reduction rules (generated offline by computer search) to subgraphs around an occurrence of a $P_4$; brute force only on components of constant size; no memoization or dynamic programming found (section \"The Output Algorithm and Its Correctness\", Algorithm 1)."
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

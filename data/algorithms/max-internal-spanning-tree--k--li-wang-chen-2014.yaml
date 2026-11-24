@@ -7,7 +7,7 @@ bound:
   parameters: [k]
 properties:
   randomized: false
-  space: { class: polynomial, bound: 'Not stated; educated guess: polynomial. A polynomial-time kernelization to $2k$ vertices (local exchanges and the reduction rule of Fomin et al.), then Nederlof''s polynomial-space $O^*(2^n)$ inclusion–exclusion algorithm on the kernel; no memoization, dynamic programming or tables found.' }
+  space: { class: polynomial, note: 'Not stated; educated guess: polynomial. A polynomial-time kernelization to $2k$ vertices (local exchanges and the reduction rule of Fomin et al.), then Nederlof''s polynomial-space $O^*(2^n)$ inclusion–exclusion algorithm on the kernel; no memoization, dynamic programming or tables found.' }
   algebraic: true
   fast_matrix_multiplication: false
   constructive: true

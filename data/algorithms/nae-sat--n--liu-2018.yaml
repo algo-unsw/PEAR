@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: polynomial
-    bound: "Not stated; educated guess: polynomial. A branching algorithm over a maximal set of independent conjugate pairs that calls a deterministic 2-SAT algorithm, followed by derandomized local search with a generalized covering code (Liu, ICALP 2018); no memoization, dynamic programming or decomposition tables found. TODO(verify): whether the covering code is enumerated block by block or stored."
+    note: "Not stated; educated guess: polynomial. A branching algorithm over a maximal set of independent conjugate pairs that calls a deterministic 2-SAT algorithm, followed by derandomized local search with a generalized covering code (Liu, ICALP 2018); no memoization, dynamic programming or decomposition tables found. TODO(verify): whether the covering code is enumerated block by block or stored."
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

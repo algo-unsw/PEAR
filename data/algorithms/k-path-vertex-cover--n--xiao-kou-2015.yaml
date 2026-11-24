@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: exponential
-    bound: "Stated: $O^*(1.3659^n)$ time and space (Theorem 2). A database of the solutions of all sub-instances with at most $0.1845 n$ undecided vertices is built by dynamic programming (Robson's technique, Section 5)."
+    note: "Stated: $O^*(1.3659^n)$ time and space (Theorem 2). A database of the solutions of all sub-instances with at most $0.1845 n$ undecided vertices is built by dynamic programming (Robson's technique, Section 5)."
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

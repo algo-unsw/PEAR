@@ -11,7 +11,7 @@ properties:
   randomized: false
   space:
     class: polynomial
-    bound: 'Not stated; educated guess: polynomial. The algorithm tries the $2^{5k}$ guesses of fully used topological edges one at a time and applies polynomial-time reduction rules and Min Cut computations (section Feedback Edge Set of the arXiv version); no dynamic programming, memoization or exponential tables found.'
+    note: 'Not stated; educated guess: polynomial. The algorithm tries the $2^{5k}$ guesses of fully used topological edges one at a time and applies polynomial-time reduction rules and Min Cut computations (section Feedback Edge Set of the arXiv version); no dynamic programming, memoization or exponential tables found.'
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

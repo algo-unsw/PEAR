@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: polynomial
-    bound: "Not stated; educated guess: polynomial. Iterative compression, then bounded-depth branching guided by a polynomial-time solvable VCSP relaxation (flow computations), started from the approximate solution of Kolay et al.; no memoization or dynamic programming over subsets found (Section 1 read)."
+    note: "Not stated; educated guess: polynomial. Iterative compression, then bounded-depth branching guided by a polynomial-time solvable VCSP relaxation (flow computations), started from the approximate solution of Kolay et al.; no memoization or dynamic programming over subsets found (Section 1 read)."
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

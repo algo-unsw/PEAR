@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: polynomial
-    bound: "Not stated; educated guess: polynomial. A Bron–Kerbosch-style branching (BKPivot) on seed graphs, one seed set at a time, keeping \"the status of at most $k$ vertices at each branch\" (remark after the theorem); no memoization or dynamic programming over subsets found."
+    note: "Not stated; educated guess: polynomial. A Bron–Kerbosch-style branching (BKPivot) on seed graphs, one seed set at a time, keeping \"the status of at most $k$ vertices at each branch\" (remark after the theorem); no memoization or dynamic programming over subsets found."
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: exponential
-    bound: "Not stated; educated guess: $O^*(2^{n})$. For each candidate set $D$ of $b$-vertices the algorithm multiplies polynomials stored as bit strings of length $2^{n-k}$ (Hamming projections and fast multiplication)."
+    note: "Not stated; educated guess: $O^*(2^{n})$. For each candidate set $D$ of $b$-vertices the algorithm multiplies polynomials stored as bit strings of length $2^{n-k}$ (Hamming projections and fast multiplication)."
   algebraic: true
   fast_matrix_multiplication: false
   constructive: true

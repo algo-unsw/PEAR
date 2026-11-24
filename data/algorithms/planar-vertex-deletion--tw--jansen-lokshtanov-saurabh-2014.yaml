@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: exponential
-    bound: "Not stated; educated guess: exponential. Dynamic programming over a nice tree decomposition, storing a signature function for $w^{O(w)}$ reduced triples per node."
+    note: "Not stated; educated guess: exponential. Dynamic programming over a nice tree decomposition, storing a signature function for $w^{O(w)}$ reduced triples per node."
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

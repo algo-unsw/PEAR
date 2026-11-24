@@ -10,7 +10,7 @@ properties:
   randomized: false
   space:
     class: exponential
-    bound: 'Not stated; educated guess (conservative): exponential. The recursive branching uses polynomial space, but the case of pairwise disjoint negative clauses constructs a covering code of exponential size (Scheder''s lemma, ''construct C in time O(|C|)'') and runs the search from each codeword; if the code is stored, the space is exponential.'
+    note: 'Not stated; educated guess (conservative): exponential. The recursive branching uses polynomial space, but the case of pairwise disjoint negative clauses constructs a covering code of exponential size (Scheder''s lemma, ''construct C in time O(|C|)'') and runs the search from each codeword; if the code is stored, the space is exponential.'
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

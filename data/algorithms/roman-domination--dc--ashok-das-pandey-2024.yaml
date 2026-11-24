@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: exponential
-    bound: "Not stated; educated guess: $O^*(2^{dc})$. For each guess of $S_1, S_2 \\subseteq S$, a dynamic programming table $OPT[W, j, b]$ over all subsets $W$ of the remaining deletion set (proof of the SET-CoverWithPartition theorem)."
+    note: "Not stated; educated guess: $O^*(2^{dc})$. For each guess of $S_1, S_2 \\subseteq S$, a dynamic programming table $OPT[W, j, b]$ over all subsets $W$ of the remaining deletion set (proof of the SET-CoverWithPartition theorem)."
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

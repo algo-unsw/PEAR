@@ -12,7 +12,7 @@ properties:
     error: one-sided
   space:
     class: exponential
-    bound: 'Exponential in $k$, as stated (Cut&Count dynamic programming over a tree decomposition).'
+    note: 'Exponential in $k$, as stated (Cut&Count dynamic programming over a tree decomposition).'
   algebraic: true
   fast_matrix_multiplication: true
   constructive: true

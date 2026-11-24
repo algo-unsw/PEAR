@@ -11,7 +11,7 @@ properties:
   randomized: false
   space:
     class: polynomial
-    bound: 'Stated: $(n + m)^{O_k(1)}$ bits of space (Theorem 1.1).'
+    note: 'Stated: $(n + m)^{O_k(1)}$ bits of space (Theorem 1.1).'
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

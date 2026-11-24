@@ -10,7 +10,7 @@ properties:
   randomized: false
   space:
     class: exponential
-    bound: 'Not stated; educated guess: exponential. Iterative compression (try all large subsets, then, for each subset of a compression set, call an algorithm for the rank-$(d-1)$ problem), built on Wahlström''s $O^*(1.6278^n)$ algorithm for Minimum 3-Hitting Set (Figure 1 of the MFCS version cites it), which uses exponential space; the compression itself stores no tables.'
+    note: 'Not stated; educated guess: exponential. Iterative compression (try all large subsets, then, for each subset of a compression set, call an algorithm for the rank-$(d-1)$ problem), built on Wahlström''s $O^*(1.6278^n)$ algorithm for Minimum 3-Hitting Set (Figure 1 of the MFCS version cites it), which uses exponential space; the compression itself stores no tables.'
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

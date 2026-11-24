@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: polynomial
-    bound: "Not stated; educated guess: polynomial. Judging from the running time, the algorithm guesses the part of a vertex cover in the solution ($2^{vc}$ choices) and a set of twin classes ($2^{2^{vc}}$ choices) and checks each in polynomial time; no dynamic programming table found in the statement. TODO(verify): read the proof of Theorem 5."
+    note: "Not stated; educated guess: polynomial. Judging from the running time, the algorithm guesses the part of a vertex cover in the solution ($2^{vc}$ choices) and a set of twin classes ($2^{2^{vc}}$ choices) and checks each in polynomial time; no dynamic programming table found in the statement. TODO(verify): read the proof of Theorem 5."
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

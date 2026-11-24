@@ -7,7 +7,7 @@ bound:
   parameters: [h, tw, n]
 properties:
   randomized: false
-  space: { class: exponential, bound: "Dynamic programming over the tree decomposition: a table of up to $h^{tw + 1}$ partial maps per bag." }
+  space: { class: exponential, note: "Dynamic programming over the tree decomposition: a table of up to $h^{tw + 1}$ partial maps per bag." }
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

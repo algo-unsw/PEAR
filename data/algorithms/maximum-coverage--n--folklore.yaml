@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: exponential
-    bound: 'Exponential space: zeta and Möbius transforms over all $2^n$ subsets of $U$.'
+    note: 'Exponential space: zeta and Möbius transforms over all $2^n$ subsets of $U$.'
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

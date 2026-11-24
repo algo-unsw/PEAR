@@ -12,7 +12,7 @@ properties:
     error: one-sided
   space:
     class: polynomial
-    bound: Polynomial space (abstract).
+    note: Polynomial space (abstract).
   algebraic: true
   fast_matrix_multiplication: false
   constructive: true

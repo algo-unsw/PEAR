@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: exponential
-    bound: "Not stated; educated guess: exponential. The same dynamic programme as the unweighted algorithm, with min $q$-representative families of size up to $\\binom{4n-4}{4\\ell}$."
+    note: "Not stated; educated guess: exponential. The same dynamic programme as the unweighted algorithm, with min $q$-representative families of size up to $\\binom{4n-4}{4\\ell}$."
   algebraic: true
   fast_matrix_multiplication: true
   constructive: true

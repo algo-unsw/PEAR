@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: exponential
-    bound: 'Not stated; educated guess: exponential in $vc$. The algorithm reduces to Annotated PAV with at most $vc$ voters and runs the integer-programming algorithm of Theorem 1, whose program has $2^{vc} + vc$ variables.'
+    note: 'Not stated; educated guess: exponential in $vc$. The algorithm reduces to Annotated PAV with at most $vc$ voters and runs the integer-programming algorithm of Theorem 1, whose program has $2^{vc} + vc$ variables.'
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

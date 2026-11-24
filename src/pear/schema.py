@@ -133,8 +133,21 @@ class RandomError(Model):
 
 
 class Space(Model):
+    """Space usage (time–space frontiers, decided 23 November 2026). `bound` is a bound in
+    the bound language, in the same parameters as the running time, and only for exponential
+    space; without it, exponential space counts as equal to the time bound (an algorithm never
+    uses more space than time). `note` says where the space usage is stated, or why it was
+    guessed."""
+
     class_: Literal["polynomial", "exponential"] = Field(alias="class")
     bound: Text | None = None
+    note: Text | None = None
+
+    @model_validator(mode="after")
+    def _bound_is_exponential(self) -> Space:
+        if self.bound is not None and self.class_ != "exponential":
+            raise ValueError("a space bound is given only for exponential space")
+        return self
 
 
 ResultStatus = Literal["valid", "flagged", "fixed", "easily-fixable", "unrepaired", "broken"]

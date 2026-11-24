@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: exponential
-    bound: "Not stated; educated guess: $f(ds) n^{O(1)}$. After guessing the positions of the deletion-set vertices, the proof solves a Set Cover instance whose universe has size bounded in $ds$ with the algorithm of Fomin, Kratsch and Woeginger (Lemma 2), a dynamic programming over subsets of the universe."
+    note: "Not stated; educated guess: $f(ds) n^{O(1)}$. After guessing the positions of the deletion-set vertices, the proof solves a Set Cover instance whose universe has size bounded in $ds$ with the algorithm of Fomin, Kratsch and Woeginger (Lemma 2), a dynamic programming over subsets of the universe."
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

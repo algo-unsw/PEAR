@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: exponential
-    bound: 'Not stated; educated guess: exponential, about $O^*(3^{vc})$. Bottom-up dynamic programming stores a table of values $td(X, P)$ for $X \subseteq C$ and $P \subseteq C \setminus X$, $C$ a minimum vertex cover.'
+    note: 'Not stated; educated guess: exponential, about $O^*(3^{vc})$. Bottom-up dynamic programming stores a table of values $td(X, P)$ for $X \subseteq C$ and $P \subseteq C \setminus X$, $C$ a minimum vertex cover.'
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

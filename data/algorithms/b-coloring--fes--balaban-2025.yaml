@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: polynomial
-    bound: "Not stated; educated guess: polynomial. Guesses a colouring of the fen-core $S$ ($|S| \\le 4 fes$), a set of $b$-vertices and a colour plan, one at a time, and extends each in polynomial time; no tables over subsets."
+    note: "Not stated; educated guess: polynomial. Guesses a colouring of the fen-core $S$ ($|S| \\le 4 fes$), a set of $b$-vertices and a colour plan, one at a time, and extends each in polynomial time; no tables over subsets."
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true
