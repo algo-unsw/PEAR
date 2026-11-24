@@ -202,7 +202,7 @@ bound:
   parameters: [k, n]
 properties:
   randomized: false                   # or { error: one-sided }; see Q6
-  space: { class: polynomial }        # polynomial | exponential; optional bound: "O*(...)"
+  space: { class: polynomial }        # polynomial | exponential; for exponential, an optional bound (below)
   algebraic: false                    # curator-assigned
   fast_matrix_multiplication: false
   constructive: true
@@ -215,6 +215,8 @@ formal: { status: informal }          # informal | statement | proved; prover, l
 status: valid                         # Phase 2 grading via data/flags/
 status_note: "…"                     # why the status is not valid (Phase 1)
 ```
+**Space (time–space frontiers, approved 23 November 2026).** `space.class` is `polynomial` or `exponential`. For exponential space, `space.bound` is the space usage in the bound language, in (some of) the running time's parameters, as the paper states it, e.g. `bound: "O^*(2^{n})"` for Cygan and Pilipczuk's $O^*(5^n)$-time Bandwidth algorithm; without it, the space counts as equal to the running time (rulebook §9b). `space.note` says where the space usage is stated, or how it was guessed (until 23 November 2026 this text was in `space.bound`). The validator rejects a bound for polynomial space and a bound in a variable the running time does not use.
+
 
 - `unverified: true` on a result (18 November 2026): its statement is in no peer-reviewed version of the paper, for example dropped from the journal version (Kociumaka–Pilipczuk's $O^*(3.592^k)$, arXiv v1 only). Such a result is treated like one from an unverified paper: tagged in Details, out of the Overview unless included.
 

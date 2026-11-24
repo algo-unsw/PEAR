@@ -8,8 +8,8 @@ bound:
 properties:
   randomized: false
   space:
-    class: exponential
-    bound: 'TODO(verify): title only; space not stated there.'
+    class: polynomial
+    note: 'Polynomial space, confirmed by Serge Gaspers (23 November 2026).'
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true
@@ -17,8 +17,9 @@ properties:
 source:
   paper: razgon-2007
   statements:
-    conference: { statement: "Title" }
-  note: 'The bound is stated in the title, "Computing Minimum Directed Feedback Vertex Set in O*(1.9977^n)"; no abstract or full text was found (closed; DBLP lists no electronic edition, and the Crossref record of the DOI has no abstract). Entered under the rule of 21 November 2026 that metadata of closed sources are valid data; all properties are TODO(verify).'
+    conference: { statement: 'Title' }
+  confirmed_by: { by: Serge Gaspers, date: 2026-11-23 }
+  note: 'The bound is stated in the title, "Computing Minimum Directed Feedback Vertex Set in O*(1.9977^n)"; no abstract or full text was found (closed; DBLP lists no electronic edition, and the Crossref record of the DOI has no abstract). Entered under the rule of 21 November 2026 that metadata of closed sources are valid data. Serge Gaspers confirmed on 23 November 2026 that the paper states the bound with $O^*$, for unweighted Directed Feedback Vertex Set only, with a deterministic algorithm in polynomial space.'
 formal: { status: informal }
 status: valid
 review: { approved_by: Serge Gaspers, date: 2026-11-22 }

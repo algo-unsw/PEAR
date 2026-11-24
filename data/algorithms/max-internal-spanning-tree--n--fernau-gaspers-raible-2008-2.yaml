@@ -7,7 +7,7 @@ bound:
   parameters: [n]
 properties:
   randomized: false
-  space: { class: exponential, bound: '$O^*(2^n)$ space, as stated in Theorem 1 of the Algorithmica version (dynamic programming over pairs of disjoint vertex sets $(I, L)$, in stages).' }
+  space: { class: exponential, bound: 'O^*(2^{n})', note: '$O^*(2^n)$ space, as stated in Theorem 1 of the Algorithmica version (dynamic programming over pairs of disjoint vertex sets $(I, L)$, in stages).' }
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

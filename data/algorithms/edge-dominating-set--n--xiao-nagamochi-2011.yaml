@@ -8,8 +8,8 @@ bound:
 properties:
   randomized: false
   space:
-    class: exponential
-    bound: 'TODO(verify): abstract only; space not stated there. The abstract describes a branching algorithm analysed by Measure and Conquer (often polynomial space), but the full text was not read.'
+    class: polynomial
+    note: 'Not stated; educated guess: polynomial. A branching algorithm analysed by Measure and Conquer (Sections 3–4) whose leaves are solved in polynomial time; no memoization, dynamic programming or decomposition tables found.'
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true
@@ -17,8 +17,8 @@ properties:
 source:
   paper: xiao-nagamochi-2011
   statements:
-    techreport: { statement: "Abstract" }
-  note: 'Abstract of the technical-report version only; the full text was not read (closed). Entered under the rule of 21 November 2026. The abstract (report abstract page, Kyoto University): "We present an $O^*(1.3160^n)$-time algorithm for the edge dominating set problem", for $n$-vertex graphs. The report PDF could not be fetched from here, and the TAMC 2012 and TCS 2014 versions are paywalled, so whether they state the same bound is not checked. TODO(verify): the abstract does not name the problem version; decision, optimisation and search share bounds here.'
+    journal: { statement: 'Theorem 1' }
+  note: 'Read in the full text (PDF in Serge''s Zotero library, 23 November 2026). Theorem 1 (TCS 2014): "Algorithm EDS(G, A) computes a minimum edge dominating set for an $n$-vertex graph $G$ in $1.3160^n n^{O(1)}$ time" (the optimisation version). The technical-report abstract states the same bound.'
 formal: { status: informal }
 status: valid
 review: { approved_by: Serge Gaspers, date: 2026-11-22 }

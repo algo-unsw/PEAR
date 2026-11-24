@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: exponential
-    bound: 'Stated in the abstract: $O(4.473^n)$ time and space.'
+    note: 'Stated in the abstract: $O(4.473^n)$ time and space. A depth-first search over states that memoizes the visited states (Section 5; the DAM 2012 paper of the same authors, Section 3, describes it so).'
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true
@@ -17,8 +17,8 @@ properties:
 source:
   paper: cygan-pilipczuk-2009-approximate
   statements:
-    icalp: { statement: "Abstract" }
-  note: 'Abstract of the conference (ICALP 2009) version only; the full text was not read (closed). Entered under the rule of 21 November 2026. The abstract (Springer Professional page) improves the best known exact algorithm for arbitrary graphs "with a $O(4.473^n)$ time and space algorithm" (superscript lost on the page; $4.473 \approx \sqrt{20}$, matching the $O^*(20^{n/2})$ that later papers cite). TODO(verify): the abstract does not say whether the ordering is output; entered for the decision version. The TCS 2010 version reportedly states $O(4.383^n)$ time and space (Cygan and Pilipczuk, arXiv 1004.5012, footnote), not entered: its abstract was not found.'
+    icalp: { statement: "Abstract and Section 5" }
+  note: 'Read in the full text of the ICALP 2009 version (PDF in Serge''s Zotero library, 23 November 2026). The abstract: the best known exact algorithm for arbitrary graphs is improved "with a $O(4.473^n)$ time and space algorithm". Section 5: the algorithm "works in $O^*(20^{n/2}) \le O(4.473^n)$ time"; it takes $G$ and $b$, $1 \le b < n$, and "checks if there exists an ordering $\pi$ with $bw(\pi) \le b$" (decision); Theorem 18 bounds the number of states by $O^*(20^{n/2})$. The TCS 2010 version reportedly states $O(4.383^n)$ time and space (Cygan and Pilipczuk, arXiv 1004.5012, footnote 1), not entered: not read.'
 formal: { status: informal }
 status: valid
 review: { approved_by: Serge Gaspers, date: 2026-11-22 }

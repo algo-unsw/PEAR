@@ -16,6 +16,12 @@ Rule: a parameter gets a lower bound $c$ when the problem is polynomial for ever
 - **Edge Clique Cover, $k \ge 3$**: kept as decided, but it does not follow the rule ($k$ is FPT, so every fixed value is polynomial). Serge to confirm.
 - Parameters that got no lower bound because every fixed value is polynomial (solution sizes, widths, terminals of Steiner problems, $k$ of $k$-Cut): no action unless the rule changes.
 
+### Time–space frontiers (rulebook §9b, 23 November 2026)
+
+- **Bandwidth, $O(4.383^n)$ time and space**: footnote 1 of Cygan and Pilipczuk, "Bandwidth and distortion revisited" ([arXiv:1004.5012](https://arxiv.org/abs/1004.5012), DAM 2012), places this analysis of the ICALP 2009 algorithm in its journal version, M. Cygan, M. Pilipczuk, "Exact and approximate bandwidth", TCS 411(40–42):3701–3713, 2010, [doi:10.1016/j.tcs.2010.06.018](https://doi.org/10.1016/j.tcs.2010.06.018). Also check M. Cygan, M. Pilipczuk, "Even faster exact bandwidth", ACM TALG 8(1), 2012, [doi:10.1145/2071379.2071387](https://doi.org/10.1145/2071379.2071387): the Zotero PDF under that entry is the arXiv v1 text ($4.83^n$). Not entered until one is read.
+- **Stated space bounds still in notes**: only records whose notes state a space bound below the time were given `space.bound` (Bandwidth WG 2008 and arXiv 2009, Power Dominating Set Corollary 2, Max Internal Spanning Tree $3^n$/$2^n$, weighted Vertex Cover $1.3803^k$/$1.2599^k$). Domatic Number (Gaspers–Li, $O^*(\binom{n}{n/4})$ QRAM space) is left at "as the time": the bound language has no binomial coefficient.
+- **Feige–Kilian $O^*(10^n)$ in polynomial space** (Bandwidth, SWAT 2000) is not entered: beaten by $O(9.363^n)$ in polynomial space, so not on the frontier; it would belong to the bound history.
+
 ### Definition of O* (bounds §2)
 
 - Rutanen et al., "O-notation in algorithm analysis", [arXiv:1309.3210](https://arxiv.org/abs/1309.3210): full author list and version (marked `TODO(verify)` in bounds.md).

@@ -620,7 +620,7 @@ def test_cli_writes_json(tmp_path):
     out = tmp_path / "derived.json"
     assert main(["derive", "tests/fixtures/valid", "--out", str(out)]) == 0
     payload = json.loads(out.read_text())
-    assert payload["rulebook_version"] == 5
+    assert payload["rulebook_version"] == 6
     chains = [[s["id"] for s in r["chain"]] for r in payload["problems"]["problem-b"]["decision"]]
     assert ["problem-b--to--problem-a"] in chains
 

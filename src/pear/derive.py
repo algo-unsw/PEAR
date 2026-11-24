@@ -26,7 +26,7 @@ from .bounds.numeric import dominates, samples, value
 from .schema import Algorithm, FolkloreSource, Hypothesis, PaperSource, Problem, Reduction, Variant
 from .validate import Dataset, problem_context
 
-RULEBOOK_VERSION = 5
+RULEBOOK_VERSION = 6
 LONG_CHAIN = 3  # rulebook §9: longer chains get a label (they are followed while they improve results)
 FORMAL_ORDER = {"informal": 0, "statement": 1, "proved": 2}
 
@@ -110,6 +110,15 @@ class Result:
     year: int | None = None  # when the bound became known: the latest dated ingredient
     papers: tuple[str, ...] = ()  # papers along the chain: the algorithm's, then each reduction's
     stated_notation: str | None = None  # a direct result's notation field (O, O*, Õ), for display
+    # time–space frontiers (23 November 2026): a space bound strictly below the running time,
+    # in the same variables; None means "as the running time" (exponential space without a
+    # stated bound counts as equal to the time bound) and, for polynomial space, nothing
+    space: Bound | None = None
+
+    @property
+    def space_bound(self) -> Bound:
+        """The space bound that comparisons read (exponential space only)."""
+        return self.space if self.space is not None else self.bound
 
     @property
     def derived(self) -> bool:
@@ -156,6 +165,9 @@ class Derivation:
     # 21 November 2026: pairs of Overview bounds the comparator can neither order nor show
     # incomparable (no proof and no witness, bounds §5); both are kept
     open: list[dict] = field(default_factory=list)
+    # time–space frontiers (23 November 2026): (problem, node) -> points, fastest last, for the
+    # cells whose Overview results trade time for space (at least two points of different space)
+    frontier: dict[tuple[str, str], list[dict]] = field(default_factory=dict)
 
 
 # --- nodes: versions that share bounds ------------------------------------------------
@@ -295,7 +307,11 @@ class Engine:
                 self.preprint(u) for u in used):
             props = replace(props, reviewed=False)
             flags.add("preprint")
-        return Result(problem.id, node, bound, props, alg.id, (), frozenset(flags), year, papers, alg.bound.notation)
+        space = None
+        if p.space.class_ == "exponential" and p.space.bound is not None:
+            space = parse_bound(p.space.bound, problem.symbols())
+        r = Result(problem.id, node, bound, props, alg.id, (), frozenset(flags), year, papers, alg.bound.notation)
+        return self.with_space(r, space)
 
     # -- keeping -----------------------------------------------------------------------
 
@@ -313,6 +329,36 @@ class Engine:
         if key not in self.analysed_ostar:
             self.analysed_ostar[key] = analyse(ostar(r.bound, self.out.contexts[r.problem]))
         return self.analysed_ostar[key]
+
+    def analyse_space_ostar(self, r: Result) -> Analysed:
+        """The O* form of r's space bound (exponential space), analysed."""
+        if r.space is None:
+            return self.analyse_ostar(r)
+        key = r.id + "#space"
+        if key not in self.analysed_ostar:
+            self.analysed_ostar[key] = analyse(ostar(r.space, self.out.contexts[r.problem]))
+        return self.analysed_ostar[key]
+
+    def with_space(self, r: Result, space: Bound | None) -> Result:
+        """r with the space bound `space`, kept only for exponential space and only if it is
+        shown to be strictly below the running time in O* form (otherwise space counts as
+        equal to the time bound, which always holds: time–space frontiers, 23 November 2026)."""
+        if space is None or r.props.poly_space:
+            return replace(r, space=None)
+        ctx = self.out.contexts[r.problem]
+        rel = compare_ostar(analyse(ostar(space, ctx)), analyse(ostar(r.bound, ctx)), ctx, witnesses=False)
+        return replace(r, space=space if rel == Relation.BETTER else None)
+
+    def space_at_most(self, s: Result, r: Result, ctx: Context) -> bool:
+        """s uses at most as much space as r, up to O*: polynomial space is below every
+        exponential bound, and exponential space is compared by its bound (time–space
+        frontiers, 23 November 2026)."""
+        if s.props.poly_space:
+            return True
+        if r.props.poly_space:
+            return False
+        rel = compare_ostar(self.analyse_space_ostar(s), self.analyse_space_ostar(r), ctx, witnesses=False)
+        return rel in (Relation.BETTER, Relation.EQUAL)
 
     def variables(self, r: Result) -> frozenset[str]:
         """The variables of a bound's O* form: what D1 compares."""
@@ -346,10 +392,14 @@ class Engine:
         if not self.variables(s) <= self.variables(r):
             return False
         in_ostar = compare_ostar(self.analyse_ostar(s), self.analyse_ostar(r), ctx, witnesses=False)
+        if in_ostar not in (Relation.BETTER, Relation.EQUAL):
+            return False
+        # time–space frontiers (23 November 2026): a faster result in exponential space does not
+        # make one that uses less space redundant
+        if not r.props.poly_space and (s.space is not None or r.space is not None) and not self.space_at_most(s, r, ctx):
+            return False
         if in_ostar == Relation.BETTER:
             return True
-        if in_ostar != Relation.EQUAL:
-            return False
         # Equal in O*: the Overview cites the earliest, so only an earlier
         # result (or the same algorithm by a shorter route) may replace r.
         if compare(self.analyse(s), self.analyse(r), ctx, witnesses=False) not in (Relation.BETTER, Relation.EQUAL):
@@ -452,13 +502,23 @@ class Engine:
         if any(is_preprint(self.data.papers[p]) for p in red_papers):
             props = replace(props, reviewed=False)
             flags.add("preprint")
-        return Result(
+        out = Result(
             source.id, a_node[1], bound, props, r.origin, chain, frozenset(flags),
             max(years) if years else None, r.papers + red_papers,
         )
+        space = None
+        if r.space is not None and not props.poly_space and red.type != "serf":
+            # the space bound transfers like the running time: an upper bound, since the
+            # reduction's own time and calls made one after another add at most what they add
+            # to the running time
+            space = self.polytime_bound(replace(r, bound=r.space), red, source, target, quiet=True)
+        return self.with_space(out, space)
 
-    def polytime_bound(self, r: Result, red: Reduction, source: Problem, target: Problem) -> Bound | None:
-        """Rulebook §2 and §3: T_A = T_R + calls · f_B(φ(x_A))."""
+    def polytime_bound(self, r: Result, red: Reduction, source: Problem, target: Problem,
+                       quiet: bool = False) -> Bound | None:
+        """Rulebook §2 and §3: T_A = T_R + calls · f_B(φ(x_A)). With quiet, nothing is logged
+        (used for space bounds, which fall back to the running time)."""
+        log = (lambda _m: None) if quiet else self.log
         b = r.bound
         mapping = set(red.parameter_map)
         if not variables(b.expr) <= mapping:
@@ -467,10 +527,10 @@ class Engine:
             b = ostar(b, self.out.contexts[target.id])
             if not variables(b.expr) <= mapping:
                 missing = sorted(variables(b.expr) - mapping)
-                self.log(f"{red.id}: cannot transfer {r.id}, parameter map does not cover {missing} (rulebook §2)")
+                log(f"{red.id}: cannot transfer {r.id}, parameter map does not cover {missing} (rulebook §2)")
                 return None
         if not is_monotone(b):
-            self.log(f"{red.id}: cannot transfer {r.id}, bound not shown to be monotone (rulebook A2)")
+            log(f"{red.id}: cannot transfer {r.id}, bound not shown to be monotone (rulebook A2)")
             return None
         # is_monotone checks the growth estimate, which ignores subtracted terms that a larger
         # term dominates (n(n - 1)/2 - m grows like n^2). Substitution needs the bound itself
@@ -481,7 +541,7 @@ class Engine:
             upper = Bound(b.notation, majorant, b.family)
             ctx_t = self.out.contexts[target.id]
             if compare(analyse(b), analyse(upper), ctx_t, witnesses=False) not in (Relation.BETTER, Relation.EQUAL):
-                self.log(f"{red.id}: cannot transfer {r.id}, no monotone upper bound found (rulebook A2)")
+                log(f"{red.id}: cannot transfer {r.id}, no monotone upper bound found (rulebook A2)")
                 return None
             b = upper
         phi = {v: parse_expr(e, source.symbols()) for v, e in red.parameter_map.items()}
@@ -550,20 +610,22 @@ class Engine:
         ctx = self.out.contexts[r.problem]
         shown = ostar(r.bound, ctx)
         # (label, expression, the bound the comparator checks it against)
-        candidates: list[tuple[str, Node, Bound]] = []
-        bases: list[tuple[Node, Bound]] = []
+        # (label, expression, the bound the comparator checks it against, the substitution for
+        # the space bound: None for dropping subtractions, False when the space bound cannot follow)
+        candidates: list[tuple[str, Node, Bound, dict[str, Node] | None | bool]] = []
+        bases: list[tuple[Node, Bound, bool]] = []
         # only subtracted terms with variables go: (3 \cdot 2^{\omega - 1} + 1)^{tw} keeps its - 1
         base = _monotone_majorant(shown.expr)
         if base != shown.expr:
-            candidates.append(("drop-subtractions", base, r.bound))
-        bases.append((base, r.bound))
+            candidates.append(("drop-subtractions", base, r.bound, None))
+        bases.append((base, r.bound, True))
         composite = self.composite_projection(shown, r.problem)
         if composite is not None:
             # proved, not checked: the comparator cannot follow n - k inside a log
             g = Bound("O*", composite, shown.family)
-            candidates.append(("composite", composite, g))
-            bases.append((composite, g))
-        for base, against in bases:
+            candidates.append(("composite", composite, g, False))
+            bases.append((composite, g, False))
+        for base, against, plain in bases:
             base_vars = sorted(variables(base))
             for y in sorted(self.data.problems[r.problem].symbols()) if base_vars else []:
                 if base_vars == [y]:
@@ -578,10 +640,10 @@ class Engine:
                     # m ≤ n(n - 1)/2 maps m to n^2/2, not n^2 (20 November 2026)
                     mapping[x] = power_of(y, p, ctx.scale(x, y))
                 else:
-                    candidates.append((y, simplify(substitute(base, mapping)), against))
+                    candidates.append((y, simplify(substitute(base, mapping)), against, dict(mapping) if plain else False))
         out = []
         seen: set[Node] = set()
-        for label, expr, against in candidates:
+        for label, expr, against, space_map in candidates:
             if expr in seen:
                 continue
             proj = Bound("O*", expr, shown.family)
@@ -601,8 +663,28 @@ class Engine:
                 # and a deletion set (all vertices) of the trivial size are computable, so a
                 # bound projected to n, m or N needs none given (21 November 2026)
                 flags = frozenset(f for f in flags if not f.startswith("given-"))
-            out.append(replace(r, bound=proj, chain=r.chain + (step,), flags=flags))
+            projected = replace(r, bound=proj, chain=r.chain + (step,), flags=flags)
+            out.append(self.with_space(projected, self.project_space(r, space_map, variables(expr))))
         return out
+
+    def project_space(self, r: Result, space_map: dict[str, Node] | None | bool,
+                      time_vars: frozenset[str] | set[str]) -> Bound | None:
+        """r's space bound projected by the substitution that projected its running time
+        (None: only subtracted terms dropped), if that is provably an upper bound; otherwise
+        None, and the projected result's space counts as its running time."""
+        if r.space is None or r.props.poly_space or space_map is False:
+            return None
+        ctx = self.out.contexts[r.problem]
+        shown = ostar(r.space, ctx)
+        expr = _monotone_majorant(shown.expr)
+        if isinstance(space_map, dict):
+            expr = simplify(substitute(expr, space_map))
+        proj = Bound("O*", expr, shown.family)
+        if not variables(expr) <= time_vars:
+            return None  # in the running time's variables only
+        if compare(analyse(r.space), analyse(proj), ctx, witnesses=False) not in (Relation.BETTER, Relation.EQUAL):
+            return None
+        return proj
 
     def composite_projection(self, shown: Bound, pid: str) -> Node | None:
         """A bound that depends on its variables only through one difference, f(n - k), and
@@ -698,7 +780,7 @@ class Engine:
                             + ("; las-vegas" if kind == "las-vegas" else ""))  # the input base c
                 year = max([y for y in [r.year, *years] if y is not None], default=None)
                 out.append(replace(r, bound=bound, props=props, chain=r.chain + (step,), year=year,
-                                   papers=r.papers + (tech.source.paper,)))  # type: ignore[attr-defined]
+                                   papers=r.papers + (tech.source.paper,), space=None))  # type: ignore[attr-defined]
         return out
 
     def technique_misses(self, r: Result, ap) -> tuple[tuple[float, bool] | None, list[str]]:  # noqa: ANN001
@@ -843,7 +925,72 @@ class Engine:
         self.out.optional = self.optional_overview()
         self.out.undecided = self.undecided()
         self.out.open = self.open_comparisons()
+        self.out.frontier = self.time_space_frontier()
         return self.out
+
+    def time_space_frontier(self) -> dict[tuple[str, str], list[dict]]:
+        """Time–space frontiers (decided 23 November 2026). For each cell and each parameter
+        a bound is listed under (§7), among the results the Overview considers (non-quantum,
+        verified, peer reviewed, published constants): those that no other one beats in both
+        running time and space, compared in O* form. Polynomial space is one class below every
+        exponential bound, and exponential space without a stated bound counts as equal to the
+        running time. Results equal in both are grouped, and the earliest are cited, as in the
+        Overview. A frontier is kept only when it shows more than the polynomial-space filter
+        does: at least three points, or a point whose space bound is stated below its time."""
+        out: dict[tuple[str, str], list[dict]] = {}
+        for key, kept in sorted(self.out.results.items()):
+            ctx = self.out.published[key[0]]
+            cands = [r for r in kept if not r.props.quantum and r.props.verified and r.props.reviewed]
+            if not any(r.space is not None for r in cands):
+                continue  # at most a polynomial-space point and a faster one, as the filter shows
+
+            def time_rel(a: Result, b: Result) -> Relation:
+                return compare_ostar(self.analyse_ostar(a), self.analyse_ostar(b), ctx, witnesses=False)
+
+            def space_rel(a: Result, b: Result) -> Relation:
+                if a.props.poly_space or b.props.poly_space:
+                    if a.props.poly_space and b.props.poly_space:
+                        return Relation.EQUAL
+                    return Relation.BETTER if a.props.poly_space else Relation.WORSE
+                return compare_ostar(self.analyse_space_ostar(a), self.analyse_space_ostar(b), ctx, witnesses=False)
+
+            def beats(a: Result, b: Result) -> bool:
+                t_ab, s_ab = time_rel(a, b), space_rel(a, b)
+                if t_ab not in (Relation.BETTER, Relation.EQUAL) or s_ab not in (Relation.BETTER, Relation.EQUAL):
+                    return False
+                if Relation.BETTER in (t_ab, s_ab):
+                    return True
+                return stronger(a.props, b.props)
+
+            by_parameter: dict[frozenset, list[Result]] = {}
+            for r in cands:
+                by_parameter.setdefault(self.parameters(r), []).append(r)
+            entries: list[dict] = []
+            for params, rs in sorted(by_parameter.items(), key=lambda kv: sorted(p.key for p in kv[0])):
+                points = [r for r in rs if not any(s is not r and beats(s, r) for s in rs)]
+                groups: list[list[Result]] = []
+                for r in points:
+                    for g in groups:
+                        if time_rel(g[0], r) == Relation.EQUAL and space_rel(g[0], r) == Relation.EQUAL:
+                            g.append(r)
+                            break
+                    else:
+                        groups.append([r])
+                if not (len(groups) >= 3 or (len(groups) >= 2 and any(g[0].space is not None for g in groups))):
+                    continue
+                # slowest first: by the number of other points each one is faster than
+                faster = {id(g): sum(time_rel(g[0], h[0]) == Relation.BETTER for h in groups) for g in groups}
+                groups.sort(key=lambda g: faster[id(g)])
+                for g in groups:
+                    dated = [r.year for r in g if r.year is not None]
+                    first = None if any(r.year is None for r in g) or not dated else min(dated)
+                    cite = [r for r in g if r.year == first]
+                    own = [r for r in cite if _own(r)]
+                    entries.append({"parameters": sorted(p.key for p in params), "members": [r.id for r in g],
+                                    "cite": [r.id for r in (own or cite)], "year": first})
+            if entries:
+                out[key] = entries
+        return out
 
     def open_comparisons(self) -> list[dict]:
         """Pairs of Overview bounds (published constants) that the comparator leaves undecided:
@@ -1122,6 +1269,10 @@ def to_json(data: Dataset, d: Derivation) -> dict:
         },
         "superseded": superseded,
         "undecided": d.undecided,
+        "frontier": {
+            pid: {node: e for (p2, node), e in sorted(d.frontier.items()) if p2 == pid}
+            for pid in sorted({p for p, _ in d.frontier})
+        },
         "open_comparisons": d.open,
         "log": d.log,
     }
@@ -1158,6 +1309,10 @@ def _row(r: Result, ctx: Context, beaten_by: list[str], order: list[str] | None 
             "formal": r.props.formal,
             "lean_verified": r.props.lean,
         },
+        # time–space frontiers (23 November 2026): "poly", "time" (exponential, as the running
+        # time) or the space bound in TeX, O* form
+        "space": "poly" if r.props.poly_space else "time" if r.space is None else display(
+            r.space, ctx, derived=r.derived, notation="O*").tex,
         "conditional_on": sorted(r.props.conditional_on),
         "flags": sorted(r.flags | ({"long-chain"} if r.steps > LONG_CHAIN else set())),
         "steps": r.steps,

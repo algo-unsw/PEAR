@@ -15,5 +15,5 @@ def test_verify_list_is_current():
 
 def test_abstract_records_are_listed():
     text = build_list(ROOT / "data")
-    assert "`edge-dominating-set--n--xiao-nagamochi-2011`" in text
+    assert "`exact-satisfiability--m--bjorklund-husfeldt-2006` | abstract" in text
     assert "`directed-feedback-vertex-set--n--razgon-2007` | title" in text

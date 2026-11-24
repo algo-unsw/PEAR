@@ -9,7 +9,8 @@ properties:
   randomized: false
   space:
     class: exponential
-    bound: "Stated: $O(1.2599^{k} n^{O(1)})$ (Theorem 5)."
+    bound: 'O(1.2599^{k} n^{O(1)})'
+    note: "Stated: $O(1.2599^{k} n^{O(1)})$ (Theorem 5)."
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

@@ -1,0 +1,23 @@
+id: induced-matching--n--xiao-tan-2017
+problem: induced-matching
+proved_for: optimisation
+bound:
+  as_stated: "O^*(1.4231^{n})"
+  notation: O*
+  parameters: [n]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    note: "Stated: polynomial space (Theorem 1)."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: xiao-tan-2017
+  statements:
+    journal: { statement: "Theorem 1" }
+  note: "Read in the full text (PDF in Serge's Zotero library, 23 November 2026). Theorem 1: \"A maximum induced matching in an $n$-vertex graph can be computed in $O^*(1.4231^n)$ time and polynomial space\", by a branching algorithm."
+formal: { status: informal }
+status: valid
