@@ -203,12 +203,25 @@ ParameterEntry = Annotated[
 ]
 
 
+class Specialisation(Model):
+    """A special case with a parameter map (rulebook §6, 25 November 2026): on every instance
+    of the special version, each parameter of the general version (a key) is at most its
+    expression in the special version's parameters, e.g. k_w ↦ k for unit weights."""
+
+    version: Id
+    parameter_map: dict[Symbol, Text] = Field(min_length=1)
+
+
 class Version(Model):
     kind: VersionKind
     input: Text
     question: Text | None = None  # decision versions
     goal: Text | None = None  # all other versions
-    generalises: list[Id] = []
+    generalises: list[Id | Specialisation] = []
+
+    def specials(self) -> list[tuple[str, dict[str, str]]]:
+        """The special cases, each with its parameter map (empty: parameters unchanged)."""
+        return [(g, {}) if isinstance(g, str) else (g.version, dict(g.parameter_map)) for g in self.generalises]
 
     @model_validator(mode="after")
     def _question_or_goal(self) -> Version:
@@ -292,10 +305,13 @@ class Problem(Model):
                     raise ValueError(f"version '{v}' is in more than one shared_bounds group")
                 seen.add(v)
         for key, version in self.versions.items():
-            for target in version.generalises:
+            for target, pmap in version.specials():
                 if target not in self.versions:
                     raise ValueError(f"version '{key}' generalises unknown version '{target}'")
-        if _has_cycle({k: v.generalises for k, v in self.versions.items()}):
+                for p in pmap:
+                    if p not in self.symbols():
+                        raise ValueError(f"version '{key}' maps unknown parameter '{p}' for '{target}'")
+        if _has_cycle({k: [t for t, _ in v.specials()] for k, v in self.versions.items()}):
             raise ValueError("generalises forms a cycle")
         return self
 

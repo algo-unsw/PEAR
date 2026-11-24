@@ -95,7 +95,7 @@ def test_parameter_headings(real):
     data, _, _ = real
     short = {p["symbol"]: p["short"] for p in parameter_info(data, data.problems["vertex-cover"])}
     assert short == {"k": "solution size", "n": "number of vertices", "m": "number of edges",
-                     "N": "input size", "tw": "treewidth"}
+                     "N": "input size", "tw": "treewidth", "k_w": "solution weight"}
 
 
 def test_vertex_cover_page(real):
@@ -446,3 +446,16 @@ def test_bounded_degree_versions_use_the_degree_menu(real):
     assert (v3["base"], v3["degree"], v3["tab_label"]) == ("optimisation", 3, "Optimisation")
     node = page["nodes"][v3["node"]]
     assert node["note"].startswith("On graphs of maximum degree at most $3$, the decision, optimisation and search")
+
+
+def test_special_case_step_shows_its_parameter_map(tmp_path):
+    from test_derive import alg, dataset, weighted_problem
+
+    data = dataset(
+        weighted_problem({"k_w": "k"}),
+        alg("a-alg", "a", r"O^*(2^{k_w})", params=("k_w",), version="weighted"),
+    )
+    site = build(data, derive(data), tmp_path)
+    (row,) = site["pages"]["a"]["nodes"]["optimisation"]["rows"]
+    step = row["chain_items"][1]
+    assert step["kind"] == "special-case" and step["map"] == "k_{w} \\mapsto k"

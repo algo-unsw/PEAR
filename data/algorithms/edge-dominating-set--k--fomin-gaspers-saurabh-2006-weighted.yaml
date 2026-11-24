@@ -2,9 +2,9 @@ id: edge-dominating-set--k--fomin-gaspers-saurabh-2006-weighted
 problem: edge-dominating-set
 proved_for: weighted
 bound:
-  as_stated: "2.4181^{k} n^{O(1)}"
+  as_stated: "2.4181^{k_w} n^{O(1)}"
   notation: O
-  parameters: [k, n]
+  parameters: [k_w, n]
 properties:
   randomized: false
   space:
@@ -18,4 +18,4 @@ source:
   paper: fomin-gaspers-saurabh-2006
   statements:
     journal-author-copy: { statement: "Theorem 6" }
-  note: "Weights $\\ge 1$ only: Theorem 6 is proved for k-Weighted Edge Dominating Set with real weights $w(e) \\ge 1$ on every edge and $k \\in \\mathbb{R}^+$ (Section 6.2: find an edge set $D$ of weight at most $k$ such that every edge of $E \\setminus D$ is adjacent to an edge in $D$), so here it holds for integer weights $\\ge 1$; PEAR's weighted version also allows weight 0, which the theorem does not cover (entered with this restriction, as decided by Serge Gaspers, 21 November 2026). Theorem 6: \"k-Weighted Edge Dominating Set, k-Minimum Maximal Matching and k-Matrix Domination can be solved in time $O(2.4181^k n^{O(1)})$\". For the minimum weight $k$: with integer weights $\\ge 1$, trying $k = 1, 2, \\dots$ until a solution is found costs a geometric sum, $O(2.4181^{k} n^{O(1)})$ in total. Only the Algorithmica version is entered (decided by Serge Gaspers, 21 November 2026)."
+  note: "Weights $\\ge 1$ only: Theorem 6 is proved for k-Weighted Edge Dominating Set with real weights $w(e) \\ge 1$ on every edge and $k \\in \\mathbb{R}^+$ (Section 6.2: find an edge set $D$ of weight at most $k$ such that every edge of $E \\setminus D$ is adjacent to an edge in $D$), so here it holds for integer weights $\\ge 1$; PEAR's weighted version also allows weight 0, which the theorem does not cover (entered with this restriction, as decided by Serge Gaspers, 21 November 2026). Theorem 6: \"k-Weighted Edge Dominating Set, k-Minimum Maximal Matching and k-Matrix Domination can be solved in time $O(2.4181^k n^{O(1)})$\". For the minimum weight $k_w$: with integer weights $\\ge 1$, trying $k = 1, 2, \\dots$ until a solution is found costs a geometric sum, $O(2.4181^{k_w} n^{O(1)})$ in total. Only the Algorithmica version is entered (decided by Serge Gaspers, 21 November 2026)."
