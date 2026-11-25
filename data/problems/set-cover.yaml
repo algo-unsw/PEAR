@@ -35,7 +35,7 @@ versions:
     goal: "Find a subfamily $S \\subseteq \\mathcal{F}$ with $|S| \\le k$ such that every element of $U$ is in some set of $S$, or report that none exists."
   weighted:
     kind: optimisation
-    input: "A finite universe $U$, a family $\\mathcal{F}$ of subsets of $U$, and set weights $w \\colon \\mathcal{F} \\to \\mathbb{Z}_{\\ge 0}$."
+    input: "A finite universe $U$, a family $\\mathcal{F}$ of subsets of $U$, and set weights $w \\colon \\mathcal{F} \\to \\mathbb{Z}_{\\ge 1}$."
     goal: "Find the minimum weight $\\sum_{F \\in S} w(F)$ of a subfamily $S \\subseteq \\mathcal{F}$ such that every element of $U$ is in some set of $S$, or report that none exists."
     generalises: [optimisation]
 default_version: decision

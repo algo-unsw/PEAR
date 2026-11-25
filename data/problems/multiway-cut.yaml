@@ -39,7 +39,7 @@ versions:
     goal: "Find a set $S \\subseteq E$ with $|S| \\le k$ such that no two terminals are in the same connected component of $G - S$, or report that none exists."
   weighted-decision:
     kind: decision
-    input: "A graph $G = (V, E)$, a set $T \\subseteq V$ of terminals, edge weights $w \\colon E \\to \\mathbb{Z}_{\\ge 0}$, and an integer $k_w$."
+    input: "A graph $G = (V, E)$, a set $T \\subseteq V$ of terminals, edge weights $w \\colon E \\to \\mathbb{Z}_{\\ge 1}$, and an integer $k_w$."
     question: "Is there a set $S \\subseteq E$ with $\\sum_{e \\in S} w(e) \\le k_w$ such that no two terminals are in the same connected component of $G - S$?"
     generalises: [{ version: decision, parameter_map: { k_w: "k" } }]
 default_version: decision

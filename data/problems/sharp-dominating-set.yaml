@@ -25,7 +25,7 @@ versions:
     generalises: [counting-max-degree-3]
   weighted:
     kind: counting
-    input: "A graph $G = (V, E)$ and vertex weights $w \\colon V \\to \\mathbb{Z}_{\\ge 0}$."
+    input: "A graph $G = (V, E)$ and vertex weights $w \\colon V \\to \\mathbb{Z}_{\\ge 1}$."
     goal: "Find the minimum weight $\\sum_{v \\in S} w(v)$ of a set $S \\subseteq V$ such that every vertex is in $S$ or has a neighbour in $S$, and the number of such sets of that weight."
   counting-max-degree-3:
     kind: counting

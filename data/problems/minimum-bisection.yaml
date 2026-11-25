@@ -37,7 +37,7 @@ versions:
     goal: "Find the minimum number of edges with one endpoint in $A$ and the other in $B$, over all partitions of $V$ into sets $A$ and $B$ with $||A| - |B|| \\le 1$."
   weighted:
     kind: optimisation
-    input: "A graph $G = (V, E)$ and edge weights $w \\colon E \\to \\mathbb{Z}_{\\ge 0}$."
+    input: "A graph $G = (V, E)$ and edge weights $w \\colon E \\to \\mathbb{Z}_{\\ge 1}$."
     goal: "Find the minimum total weight of the edges with one endpoint in $A$ and the other in $B$, over all partitions of $V$ into sets $A$ and $B$ with $||A| - |B|| \\le 1$."
     generalises: [optimisation]
 default_version: decision

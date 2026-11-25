@@ -35,7 +35,7 @@ versions:
     goal: "Find a set $S \\subseteq V$ with $|S| \\ge k$ such that every two vertices of $S$ are adjacent, or report that none exists."
   weighted:
     kind: optimisation
-    input: "A graph $G = (V, E)$ and vertex weights $w \\colon V \\to \\mathbb{Z}_{\\ge 0}$."
+    input: "A graph $G = (V, E)$ and vertex weights $w \\colon V \\to \\mathbb{Z}_{\\ge 1}$."
     goal: "Find the maximum weight $\\sum_{v \\in S} w(v)$ of a set $S \\subseteq V$ such that every two vertices of $S$ are adjacent."
     generalises: [optimisation]
 default_version: decision

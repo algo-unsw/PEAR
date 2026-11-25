@@ -16,15 +16,15 @@ constraints: []
 versions:
   decision:
     kind: decision
-    input: "A complete graph on a vertex set $V$ with edge weights $w \\colon \\binom{V}{2} \\to \\mathbb{Z}_{\\ge 0}$, and an integer $B$."
+    input: "A complete graph on a vertex set $V$ with edge weights $w \\colon \\binom{V}{2} \\to \\mathbb{Z}_{\\ge 1}$, and an integer $B$."
     question: "Is there a Hamiltonian cycle $C$ with $\\sum_{e \\in C} w(e) \\le B$?"
   optimisation:
     kind: optimisation
-    input: "A complete graph on a vertex set $V$ with edge weights $w \\colon \\binom{V}{2} \\to \\mathbb{Z}_{\\ge 0}$."
+    input: "A complete graph on a vertex set $V$ with edge weights $w \\colon \\binom{V}{2} \\to \\mathbb{Z}_{\\ge 1}$."
     goal: "Find the minimum weight $\\sum_{e \\in C} w(e)$ of a Hamiltonian cycle $C$."
   search:
     kind: search
-    input: "A complete graph on a vertex set $V$ with edge weights $w \\colon \\binom{V}{2} \\to \\mathbb{Z}_{\\ge 0}$, and an integer $B$."
+    input: "A complete graph on a vertex set $V$ with edge weights $w \\colon \\binom{V}{2} \\to \\mathbb{Z}_{\\ge 1}$, and an integer $B$."
     goal: "Find a Hamiltonian cycle $C$ with $\\sum_{e \\in C} w(e) \\le B$, or report that none exists."
 default_version: optimisation
 shared_bounds:

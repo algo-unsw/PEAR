@@ -41,7 +41,7 @@ versions:
     goal: "Find a forest $H \\subseteq G$ with at most $k$ edges such that for every pair $\\{s, t\\} \\in D$, the vertices $s$ and $t$ are in the same connected component of $H$, or report that none exists."
   weighted:
     kind: optimisation
-    input: "A graph $G = (V, E)$, a set $D$ of pairs $\\{s, t\\}$ of vertices (demands), and edge weights $w \\colon E \\to \\mathbb{Z}_{\\ge 0}$."
+    input: "A graph $G = (V, E)$, a set $D$ of pairs $\\{s, t\\}$ of vertices (demands), and edge weights $w \\colon E \\to \\mathbb{Z}_{\\ge 1}$."
     goal: "Find the minimum weight $\\sum_{e \\in E(H)} w(e)$ of a forest $H \\subseteq G$ such that for every pair $\\{s, t\\} \\in D$, the vertices $s$ and $t$ are in the same connected component of $H$, or report that none exists."
     generalises: [optimisation]
 default_version: decision
