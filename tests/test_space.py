@@ -99,3 +99,15 @@ def test_validator_checks_space_bounds(space, bound, message):
     raw["algorithms"]["a-alg"] = a
     _, issues = validate_raw(raw)
     assert any(message in str(i) for i in issues), [str(i) for i in issues]
+
+
+def test_a_special_case_maps_the_space_bound_too():
+    # a parameter map on generalises (rulebook §6, 25 November 2026) applies to the space bound
+    from test_derive import weighted_problem
+
+    data = dataset(
+        weighted_problem({"k_w": "k"}),
+        spaced("a-alg", "a", r"O^*(4^{k_w})", r"O^*(2^{k_w})", params=("k_w",), version="weighted"),
+    )
+    (r,) = rows(data, "a", "optimisation")
+    assert r["shown"] == r"O^*(4^{k})" and r["space"] == r"O^*(2^{k})"

@@ -95,7 +95,7 @@ def test_parameter_headings(real):
     data, _, _ = real
     short = {p["symbol"]: p["short"] for p in parameter_info(data, data.problems["vertex-cover"])}
     assert short == {"k": "solution size", "n": "number of vertices", "m": "number of edges",
-                     "N": "input size", "tw": "treewidth"}
+                     "N": "input size", "tw": "treewidth", "k_w": "solution weight"}
 
 
 def test_vertex_cover_page(real):
@@ -352,12 +352,15 @@ def test_reference_names_every_conference_paper_a_paper_is_based_on(real):
 
 def test_vertex_cover_by_m_uses_n_at_most_m(real):
     # decided 18 November 2026: preprocessing (degree 0 and 1) gives n <= m without loss of
-    # generality, so an algorithm in n is one in m and the trivial 2^m is no record
+    # generality, so an algorithm in n is one in m and the trivial 2^m is no record. Since
+    # 25 November 2026 Max 2-CSP's 2^{9m/50 + o(m)} (Gaspers–Sorkin, through Weighted
+    # Independent Set) is one: better than 1.1996^n when m < 1.43 n.
     _, site, _ = real
     for pid in ("vertex-cover", "independent-set"):
         node = site["pages"][pid]["nodes"]["decision+optimisation+search"]
-        assert not any(g["parameters"] == ["m"] and not g["only_optional"] for g in node["overview"])
-        assert [s["base"] for s in node["history"]["m"]["steps"]] == [1.1996]
+        (by_m,) = [g for g in node["overview"] if g["parameters"] == ["m"] and not g["only_optional"]]
+        shown = [c["shown"] for e in by_m["entries"] for c in e["cite"]]
+        assert "O^*(2^{9 m/50 + o(m)})" in shown and "O^*(2^{m})" not in shown
 
 
 # --- one statement per bound (20 November 2026) ---------------------------------------------------
@@ -446,3 +449,16 @@ def test_bounded_degree_versions_use_the_degree_menu(real):
     assert (v3["base"], v3["degree"], v3["tab_label"]) == ("optimisation", 3, "Optimisation")
     node = page["nodes"][v3["node"]]
     assert node["note"].startswith("On graphs of maximum degree at most $3$, the decision, optimisation and search")
+
+
+def test_special_case_step_shows_its_parameter_map(tmp_path):
+    from test_derive import alg, dataset, weighted_problem
+
+    data = dataset(
+        weighted_problem({"k_w": "k"}),
+        alg("a-alg", "a", r"O^*(2^{k_w})", params=("k_w",), version="weighted"),
+    )
+    site = build(data, derive(data), tmp_path)
+    (row,) = site["pages"]["a"]["nodes"]["optimisation"]["rows"]
+    step = row["chain_items"][1]
+    assert step["kind"] == "special-case" and step["map"] == "k_{w} \\mapsto k"

@@ -1,0 +1,27 @@
+id: independent-set--to--max-2-csp
+from: { problem: independent-set, version: weighted }
+to: { problem: max-2-csp, version: optimisation }
+type: polytime-deterministic
+calls: 1
+time: "O(n + m)"
+parameter_map: { n: "n", m: "m", r: "2" }
+variants:
+  - id: weighted-max-degree-3
+    note: "Maximum degree at most 3: the constraint graph is the input graph, so it keeps its maximum degree."
+    from: { problem: independent-set, version: weighted-max-degree-3 }
+    to: { problem: max-2-csp, version: optimisation-max-degree-3 }
+    parameter_map: { n: "n", m: "m", r: "2" }
+    source:
+      folklore: true
+      note: "The same construction; the constraint graph is $G$."
+  - id: weighted-max-degree-4
+    note: "Maximum degree at most 4: the constraint graph is the input graph, so it keeps its maximum degree."
+    from: { problem: independent-set, version: weighted-max-degree-4 }
+    to: { problem: max-2-csp, version: optimisation-max-degree-4 }
+    parameter_map: { n: "n", m: "m", r: "2" }
+    source:
+      folklore: true
+      note: "The same construction; the constraint graph is $G$."
+source:
+  folklore: true
+  note: "Weighted Independent Set is Max 2-CSP with $r = 2$ on the same graph, colour 2 meaning \"in the set\": $s_v(2) = w(v)$ and $s_v(1) = 0$ for every vertex, and $s_{uv}(2, 2) = -(1 + \\sum_{x \\in V} w(x))$ and $s_{uv} = 0$ otherwise for every edge. An assignment whose colour-2 vertices include both ends of an edge scores less than 0, the score of the empty set; any other assignment scores the weight of its colour-2 vertices, an independent set. So the maximum score is the maximum weight of an independent set. The scores are integers with polynomially many bits (added 25 November 2026, at Serge's request for Weighted Vertex Cover by $m$)."

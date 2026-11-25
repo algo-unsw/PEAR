@@ -47,7 +47,7 @@ eleventyComputed:
 {%- elif i.kind == "technique" %}
 <li>{{ i.name }} {{ i.refs | refs | safe }} ({{ i.statement | mathtext | safe }}): {{ i.text | mathtext | safe }}{% if i.because %}<span class="cellnote">{{ i.because | mathtext | safe }}</span>{% endif %}</li>
 {%- elif i.kind == "special-case" %}
-<li>The bound for the {{ i.general }} version also holds for the {{ i.special }} version, a special case</li>
+<li>The bound for the {{ i.general }} version also holds for the {{ i.special }} version, a special case{% if i.map %}, in which {{ i.map | tex | safe }}{% endif %}</li>
 {%- elif i.kind == "projection" %}
 <li>{% if i.text %}{{ i.text }}{% else %}Expressed in {{ i.onto | tex | safe }} alone, using {% for c in i.constraints %}{{ c | tex | safe }}{% if not loop.last %} and {% endif %}{% endfor %}{% endif %}</li>
 {%- elif i.kind == "end" %}

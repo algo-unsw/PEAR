@@ -4,16 +4,16 @@ to: { problem: independent-set, version: decision }
 type: polytime-deterministic
 calls: 1
 time: "O(n^{2})"
-parameter_map: { n: "n", m: "n (n - 1) / 2 - m", k: "k" }
+parameter_map: { n: "n", k: "k" }
 variants:
   - id: weighted
     note: "Weighted versions: the same construction, keeping the weights."
     from: { problem: clique, version: weighted }
     to: { problem: independent-set, version: weighted }
-    parameter_map: { n: "n", m: "n (n - 1) / 2 - m" }
+    parameter_map: { n: "n" }
     source:
       folklore: true
       note: "Vertex weights are kept on the complement graph."
 source:
   folklore: true
-  note: "$S$ is a clique of $G$ if and only if $S$ is an independent set of the complement $\\overline{G}$, so $(G, k) \\mapsto (\\overline{G}, k)$."
+  note: "$S$ is a clique of $G$ if and only if $S$ is an independent set of the complement $\\overline{G}$, so $(G, k) \\mapsto (\\overline{G}, k)$. The number of edges of $\\overline{G}$, $n(n-1)/2 - m$, is not mapped (Serge, 25 November 2026): Clique has no parameter for it, and Independent Set is listed as a related problem."

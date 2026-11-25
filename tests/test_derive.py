@@ -305,6 +305,43 @@ def test_bounds_do_not_flow_from_special_to_general():
     assert rows(data, "a", "weighted") == []
 
 
+
+def weighted_problem(pmap):
+    """Optimisation and weighted versions with a minimum-weight parameter k_w."""
+    out = problem("a", params=("k", "k_w"), versions=("optimisation", "weighted"))
+    out["versions"]["weighted"]["generalises"] = [{"version": "optimisation", "parameter_map": pmap}]
+    return out
+
+
+def test_special_case_maps_a_general_parameter():
+    # 25 November 2026: the minimum weight k_w is the minimum size k with unit weights
+    data = dataset(
+        weighted_problem({"k_w": "k"}),
+        alg("a-alg", "a", r"O^*(2^{k_w})", params=("k_w",), version="weighted"),
+    )
+    (r,) = rows(data, "a", "optimisation")
+    assert r["shown"] == r"O^*(2^{k})" and r["parameters"] == ["k"]
+    assert r["chain"][0]["kind"] == "special-case" and r["chain"][0]["parameter_map"] == {"k_w": "k"}
+    assert rows(data, "a", "weighted")[0]["shown"] == r"O^*(2^{k_{w}})"
+
+
+def test_special_case_map_leaves_other_bounds_unchanged():
+    data = dataset(
+        weighted_problem({"k_w": "k"}),
+        alg("a-alg", "a", r"O^*(1.5^{n})", params=(), version="weighted"),
+    )
+    (r,) = rows(data, "a", "optimisation")
+    assert r["shown"] == r"O^*(1.5^{n})" and r["chain"][0]["parameter_map"] == {}
+
+
+def test_special_case_map_needs_a_monotone_bound():
+    # A1, A2: the map gives an upper bound, so it is substituted into nondecreasing bounds only
+    data = dataset(
+        weighted_problem({"k_w": "k"}),
+        alg("a-alg", "a", r"O^*(2^{n - k_w})", params=("k_w",), version="weighted"),
+    )
+    assert all("k" not in r["parameters"] for r in rows(data, "a", "optimisation"))
+
 # --- §7 composite parameters and projection ------------------------------------------------------
 
 
@@ -620,7 +657,7 @@ def test_cli_writes_json(tmp_path):
     out = tmp_path / "derived.json"
     assert main(["derive", "tests/fixtures/valid", "--out", str(out)]) == 0
     payload = json.loads(out.read_text())
-    assert payload["rulebook_version"] == 6
+    assert payload["rulebook_version"] == 7
     chains = [[s["id"] for s in r["chain"]] for r in payload["problems"]["problem-b"]["decision"]]
     assert ["problem-b--to--problem-a"] in chains
 

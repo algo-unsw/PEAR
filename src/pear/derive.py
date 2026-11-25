@@ -26,7 +26,7 @@ from .bounds.numeric import dominates, samples, value
 from .schema import Algorithm, FolkloreSource, Hypothesis, PaperSource, Problem, Reduction, Variant
 from .validate import Dataset, problem_context
 
-RULEBOOK_VERSION = 6
+RULEBOOK_VERSION = 7
 LONG_CHAIN = 3  # rulebook §9: longer chains get a label (they are followed while they improve results)
 FORMAL_ORDER = {"informal": 0, "statement": 1, "proved": 2}
 
@@ -514,6 +514,29 @@ class Engine:
             space = self.polytime_bound(replace(r, bound=r.space), red, source, target, quiet=True)
         return self.with_space(out, space)
 
+    def monotone_substitution(
+        self, b: Bound, pmap: dict[str, str], symbols: set[str], ctx, what: str, log=None
+    ) -> tuple[Bound, Node] | None:
+        """Rulebook A1, A2: substitute upper bounds for variables of a nondecreasing bound.
+        Returns the nondecreasing form of the bound and the substituted expression."""
+        log = log or self.log
+        if not is_monotone(b):
+            log(f"{what}, bound not shown to be monotone (rulebook A2)")
+            return None
+        # is_monotone checks the growth estimate, which ignores subtracted terms that a larger
+        # term dominates (n(n - 1)/2 - m grows like n^2). Substitution needs the bound itself
+        # to be nondecreasing (A1, A2), so subtracted terms with variables are dropped first:
+        # m ↦ (an upper bound on m) in n(n - 1)/2 - m would give a lower bound.
+        majorant = _monotone_majorant(b.expr)
+        if majorant != b.expr:
+            upper = Bound(b.notation, majorant, b.family)
+            if compare(analyse(b), analyse(upper), ctx, witnesses=False) not in (Relation.BETTER, Relation.EQUAL):
+                log(f"{what}, no monotone upper bound found (rulebook A2)")
+                return None
+            b = upper
+        phi = {v: parse_expr(e, symbols) for v, e in pmap.items()}
+        return b, simplify(substitute(b.expr, phi))
+
     def polytime_bound(self, r: Result, red: Reduction, source: Problem, target: Problem,
                        quiet: bool = False) -> Bound | None:
         """Rulebook §2 and §3: T_A = T_R + calls · f_B(φ(x_A)). With quiet, nothing is logged
@@ -529,23 +552,12 @@ class Engine:
                 missing = sorted(variables(b.expr) - mapping)
                 log(f"{red.id}: cannot transfer {r.id}, parameter map does not cover {missing} (rulebook §2)")
                 return None
-        if not is_monotone(b):
-            log(f"{red.id}: cannot transfer {r.id}, bound not shown to be monotone (rulebook A2)")
+        mapped = self.monotone_substitution(
+            b, red.parameter_map, source.symbols(), self.out.contexts[target.id], f"{red.id}: cannot transfer {r.id}", log
+        )
+        if mapped is None:
             return None
-        # is_monotone checks the growth estimate, which ignores subtracted terms that a larger
-        # term dominates (n(n - 1)/2 - m grows like n^2). Substitution needs the bound itself
-        # to be nondecreasing (A1, A2), so subtracted terms with variables are dropped first:
-        # m ↦ (an upper bound on m) in n(n - 1)/2 - m would give a lower bound.
-        majorant = _monotone_majorant(b.expr)
-        if majorant != b.expr:
-            upper = Bound(b.notation, majorant, b.family)
-            ctx_t = self.out.contexts[target.id]
-            if compare(analyse(b), analyse(upper), ctx_t, witnesses=False) not in (Relation.BETTER, Relation.EQUAL):
-                log(f"{red.id}: cannot transfer {r.id}, no monotone upper bound found (rulebook A2)")
-                return None
-            b = upper
-        phi = {v: parse_expr(e, source.symbols()) for v, e in red.parameter_map.items()}
-        f = simplify(substitute(b.expr, phi))
+        b, f = mapped
         calls: Node | None = None
         if red.calls != 1:
             if isinstance(red.calls, int):
@@ -588,7 +600,7 @@ class Engine:
         out = []
         members = r.node.split("+")
         for vid, version in problem.versions.items():
-            for special in version.generalises:
+            for special, pmap in version.specials():
                 if vid in members:
                     _, special_node = node_key(problem, special)
                     if special_node == r.node:
@@ -596,10 +608,33 @@ class Engine:
                     from_tag = f"{problem.id}:{special_node}"
                     if from_tag in r.nodes():
                         continue
-                    step = Step("special-case", f"special-case:{problem.id}:{vid}>{special}", from_tag, f"{problem.id}:{r.node}")
+                    sid = f"special-case:{problem.id}:{vid}>{special}"
+                    bound, space = r.bound, r.space
+                    # a parameter of the general version is replaced by its value in the special
+                    # case, e.g. the minimum weight k_w by the minimum size k (25 November 2026),
+                    # in the running time and in the space bound
+                    ctx = self.out.contexts[problem.id]
+                    in_time = variables(r.bound.expr)
+                    in_space = variables(r.space.expr) if r.space is not None else set()
+                    used = {v: e for v, e in pmap.items() if v in in_time | in_space}
+                    if used.keys() & in_time:
+                        mapped = self.monotone_substitution(
+                            r.bound, used, problem.symbols(), ctx, f"{sid}: cannot transfer {r.id}"
+                        )
+                        if mapped is None:
+                            continue
+                        b, f = mapped
+                        bound = Bound(b.notation, f, b.family)
+                    if r.space is not None and used.keys() & in_space:
+                        # quiet, as for reductions: a space bound that does not map falls back to
+                        # the running time
+                        mapped = self.monotone_substitution(r.space, used, problem.symbols(), ctx, "", lambda _m: None)
+                        space = Bound(mapped[0].notation, mapped[1], mapped[0].family) if mapped else None
+                    step = Step("special-case", sid, from_tag, f"{problem.id}:{r.node}", parameter_map=tuple(sorted(used.items())))
                     chain = self.extend_chain(r, step)
                     if chain is not None:
-                        out.append(replace(r, node=special_node, chain=chain))
+                        result = replace(r, node=special_node, bound=bound, chain=chain)
+                        out.append(result if space is r.space else self.with_space(result, space))
         return out
 
     def projections(self, r: Result) -> list[Result]:

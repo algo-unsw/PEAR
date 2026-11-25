@@ -583,10 +583,17 @@ def chain_items(data: Dataset, d: Derivation, row: dict[str, Any], refs: Referen
             })
         elif step["kind"] == "special-case":
             general, special = step["id"].rsplit(":", 1)[1].split(">")
+            symbols = problem.symbols()
+            pmap = [f"{render(Var(k))} \\mapsto {render(parse_expr(v, symbols))}" for k, v in step["parameter_map"].items()]
+            current = set().union(*(
+                variables(parse_expr(step["parameter_map"][var], symbols)) if var in step["parameter_map"] else {var}
+                for var in current
+            ))
             items.append({
                 "kind": "special-case",
                 "general": version_label(general).lower(),
                 "special": version_label(special).lower(),
+                "map": ", \\; ".join(pmap),
             })
         elif step["kind"] == "technique":
             _, tid, rule_id = step["id"].split(":")
@@ -900,7 +907,7 @@ def problem_page(data: Dataset, d: Derivation, derived: dict[str, Any], pid: str
                         f"({_sentence_fragment(group.because)}) and share these bounds; "
                         "each result names the version its paper proved.")
         else:
-            specials = [w for v in members if v in problem.versions for w in problem.versions[v].generalises]
+            specials = [w for v in members if v in problem.versions for w, _ in problem.versions[v].specials()]
             if specials:
                 names = _join([version_label(w).lower() for w in specials])
                 note = f"Bounds for this version also hold for its special case ({names}), never the reverse."
