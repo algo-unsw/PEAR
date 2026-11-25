@@ -32,6 +32,12 @@ versions:
     kind: search
     input: "A connected graph $G = (V, E)$ with edge weights $w \\colon E \\to \\mathbb{Z}_{\\ge 1}$, a set $R \\subseteq E$ of required edges, and an integer $B$."
     goal: "Find a closed walk in $G$ that traverses every edge of $R$ and has total weight at most $B$, or report that none exists."
+  decision-nonnegative-weights:
+    kind: decision
+    input: "A connected graph $G = (V, E)$ with edge weights $w \\colon E \\to \\mathbb{Z}_{\\ge 0}$, a set $R \\subseteq E$ of required edges, and an integer $B$."
+    question: "Is there a closed walk in $G$ that traverses every edge of $R$ and has total weight at most $B$?"
+    weights: nonnegative-integers
+    generalises: [decision]
 default_version: optimisation
 shared_bounds:
   - versions: [decision, optimisation, search]

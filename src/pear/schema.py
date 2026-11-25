@@ -9,6 +9,7 @@ Bound strings are stored as text; parsing them is the bound language's job
 from __future__ import annotations
 
 import datetime as dt
+import re
 from typing import Annotated, Any, Literal, Union
 
 from pydantic import (
@@ -212,12 +213,25 @@ class Specialisation(Model):
     parameter_map: dict[Symbol, Text] = Field(min_length=1)
 
 
+# The weights a version allows (Serge, 26 November 2026): positive integers unless the version
+# says otherwise, for example where a reduction needs weight 0. Each kind's domain as written in
+# the input, `$w \colon X \to <domain>$`.
+WeightKind = Literal["positive-integers", "nonnegative-integers", "integers"]
+WEIGHT_DOMAINS: dict[str, str] = {
+    "positive-integers": r"\mathbb{Z}_{\ge 1}",
+    "nonnegative-integers": r"\mathbb{Z}_{\ge 0}",
+    "integers": r"\mathbb{Z}",
+}
+_WEIGHT_FUNCTION = re.compile(r"\$w \\colon [^$]*?\\to (\\mathbb\{Z\}(?:_\{\\ge [01]\})?)\$")
+
+
 class Version(Model):
     kind: VersionKind
     input: Text
     question: Text | None = None  # decision versions
     goal: Text | None = None  # all other versions
     generalises: list[Id | Specialisation] = []
+    weights: WeightKind | None = None  # None: positive integers, if the version has weights
 
     def specials(self) -> list[tuple[str, dict[str, str]]]:
         """The special cases, each with its parameter map (empty: parameters unchanged)."""
@@ -230,6 +244,19 @@ class Version(Model):
                 raise ValueError("a decision version has a question and no goal")
         elif self.goal is None or self.question is not None:
             raise ValueError(f"a {self.kind} version has a goal and no question")
+        return self
+
+    @model_validator(mode="after")
+    def _weights_match_the_input(self) -> Version:
+        """The weight function in the input has the domain of the declared kind."""
+        domains = _WEIGHT_FUNCTION.findall(self.input)
+        if self.weights is not None and not domains:
+            raise ValueError(f"weights: '{self.weights}' declared, but the input has no weight function $w \\colon X \\to D$")
+        expected = WEIGHT_DOMAINS[self.weights or "positive-integers"]
+        for d in domains:
+            if d != expected:
+                kind = self.weights or "positive-integers (the default)"
+                raise ValueError(f"the weights are written {d}, but the version allows {kind}: {expected}")
         return self
 
 
