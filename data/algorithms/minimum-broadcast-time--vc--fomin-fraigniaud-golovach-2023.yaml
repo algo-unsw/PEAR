@@ -1,0 +1,21 @@
+id: minimum-broadcast-time--vc--fomin-fraigniaud-golovach-2023
+problem: minimum-broadcast-time
+proved_for: decision
+bound:
+  as_stated: '2^{O(vc^{3})} n^{O(1)}'
+  notation: O
+  parameters: [vc, n]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Not stated; educated guess from the structure described by Bonnet, Feghali and Vasilakis (arXiv 2607.01770v1, Section 3): guessing the part of the protocol on a vertex cover and solving a matching problem; the journal proof was not read in detail.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: fomin-fraigniaud-golovach-2023
+  statements:
+    journal: { statement: "Theorem 3" }
+  note: 'The journal version (Theoretical Computer Science 2024; read in the authors'' copy) states $2^{O(k^3)} \cdot n^{O(1)}$ for graphs with a vertex cover of size at most $k$. arXiv v1 states the weaker $2^{O(k 2^k)} \cdot n^{O(1)}$ (Theorem 3); the journal bound is stored.'

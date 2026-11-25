@@ -1,0 +1,101 @@
+id: max-internal-spanning-tree
+name: Maximum Internal Spanning Tree
+aliases: [Max Internal Spanning Tree, MIST, k-Internal Spanning Tree, k-IST, p-Internal Spanning Tree, Minimum Leaf Spanning Tree, Minimum Leaf Tree]
+category: networks
+complexity:
+  class: NP-complete
+  source:
+    folklore: true
+    note: "An $n$-vertex graph has a Hamiltonian path if and only if it has a spanning tree with $n - 2$ internal vertices, so Hamiltonian Path (NP-complete) is the special case $k = n - 2$; membership in NP is immediate. Fomin, Gaspers, Saurabh and Thomassé (Section 1) state the equivalence; Li, Wang, Chen and Cao (arXiv 1412.8296v1, Section 1): \"Containing the Hamiltonian path problem as a special case, it is clearly NP-hard.\""
+    reference: { paper: fomin-gaspers-saurabh-2009, version: arxiv-v2, statement: "Section 1" }
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  k: { meaning: "the number of internal vertices (vertices of degree at least 2 in the tree): the integer $k$ in the input (decision, search), or the maximum number of internal vertices of a spanning tree (optimisation)" }
+  tw: { shared: treewidth }
+constraints:
+  - { constraint: "k \\le n", because: "A spanning tree has at most $n - 2$ internal vertices (for $n \\ge 3$); every instance with $k > n - 2$ is a no-instance, answered in polynomial time." }
+  - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
+  - { constraint: "tw \\le n", because: "A single bag containing all vertices is a tree decomposition of width $n - 1$." }
+versions:
+  decision:
+    kind: decision
+    input: "A connected graph $G = (V, E)$ and an integer $k$."
+    question: "Does $G$ have a spanning tree with at least $k$ internal vertices (vertices of degree at least 2 in the tree)?"
+    generalises: [decision-max-degree-6]
+  optimisation:
+    kind: optimisation
+    input: "A connected graph $G = (V, E)$."
+    goal: "Find the maximum number of internal vertices (vertices of degree at least 2 in the tree) of a spanning tree of $G$."
+  search:
+    kind: search
+    input: "A connected graph $G = (V, E)$ and an integer $k$."
+    goal: "Find a spanning tree of $G$ with at least $k$ internal vertices (vertices of degree at least 2 in the tree), or report that none exists."
+  decision-max-degree-3:
+    kind: decision
+    input: "A connected graph $G = (V, E)$ of maximum degree at most $3$ and an integer $k$."
+    question: "Does $G$ have a spanning tree with at least $k$ internal vertices (vertices of degree at least 2 in the tree)?"
+  optimisation-max-degree-3:
+    kind: optimisation
+    input: "A connected graph $G = (V, E)$ of maximum degree at most $3$."
+    goal: "Find the maximum number of internal vertices (vertices of degree at least 2 in the tree) of a spanning tree of $G$."
+  search-max-degree-3:
+    kind: search
+    input: "A connected graph $G = (V, E)$ of maximum degree at most $3$ and an integer $k$."
+    goal: "Find a spanning tree of $G$ with at least $k$ internal vertices (vertices of degree at least 2 in the tree), or report that none exists."
+  decision-max-degree-4:
+    kind: decision
+    input: "A connected graph $G = (V, E)$ of maximum degree at most $4$ and an integer $k$."
+    question: "Does $G$ have a spanning tree with at least $k$ internal vertices (vertices of degree at least 2 in the tree)?"
+    generalises: [decision-max-degree-3]
+  optimisation-max-degree-4:
+    kind: optimisation
+    input: "A connected graph $G = (V, E)$ of maximum degree at most $4$."
+    goal: "Find the maximum number of internal vertices (vertices of degree at least 2 in the tree) of a spanning tree of $G$."
+  search-max-degree-4:
+    kind: search
+    input: "A connected graph $G = (V, E)$ of maximum degree at most $4$ and an integer $k$."
+    goal: "Find a spanning tree of $G$ with at least $k$ internal vertices (vertices of degree at least 2 in the tree), or report that none exists."
+  decision-max-degree-5:
+    kind: decision
+    input: "A connected graph $G = (V, E)$ of maximum degree at most $5$ and an integer $k$."
+    question: "Does $G$ have a spanning tree with at least $k$ internal vertices (vertices of degree at least 2 in the tree)?"
+    generalises: [decision-max-degree-4]
+  optimisation-max-degree-5:
+    kind: optimisation
+    input: "A connected graph $G = (V, E)$ of maximum degree at most $5$."
+    goal: "Find the maximum number of internal vertices (vertices of degree at least 2 in the tree) of a spanning tree of $G$."
+  search-max-degree-5:
+    kind: search
+    input: "A connected graph $G = (V, E)$ of maximum degree at most $5$ and an integer $k$."
+    goal: "Find a spanning tree of $G$ with at least $k$ internal vertices (vertices of degree at least 2 in the tree), or report that none exists."
+  decision-max-degree-6:
+    kind: decision
+    input: "A connected graph $G = (V, E)$ of maximum degree at most $6$ and an integer $k$."
+    question: "Does $G$ have a spanning tree with at least $k$ internal vertices (vertices of degree at least 2 in the tree)?"
+    generalises: [decision-max-degree-5]
+  optimisation-max-degree-6:
+    kind: optimisation
+    input: "A connected graph $G = (V, E)$ of maximum degree at most $6$."
+    goal: "Find the maximum number of internal vertices (vertices of degree at least 2 in the tree) of a spanning tree of $G$."
+  search-max-degree-6:
+    kind: search
+    input: "A connected graph $G = (V, E)$ of maximum degree at most $6$ and an integer $k$."
+    goal: "Find a spanning tree of $G$ with at least $k$ internal vertices (vertices of degree at least 2 in the tree), or report that none exists."
+default_version: decision
+shared_bounds:
+  - versions: [decision, optimisation, search]
+    because: "Binary search on $k$ and self-reducibility."
+  - versions: [decision-max-degree-3, optimisation-max-degree-3, search-max-degree-3]
+    because: "Binary search on $k$ and self-reducibility; the self-reduction only deletes edges that are not bridges, so the maximum degree stays at most $3$ and the graph stays connected."
+  - versions: [decision-max-degree-4, optimisation-max-degree-4, search-max-degree-4]
+    because: "Binary search on $k$ and self-reducibility; the self-reduction only deletes edges that are not bridges, so the maximum degree stays at most $4$ and the graph stays connected."
+  - versions: [decision-max-degree-5, optimisation-max-degree-5, search-max-degree-5]
+    because: "Binary search on $k$ and self-reducibility; the self-reduction only deletes edges that are not bridges, so the maximum degree stays at most $5$ and the graph stays connected."
+  - versions: [decision-max-degree-6, optimisation-max-degree-6, search-max-degree-6]
+    because: "Binary search on $k$ and self-reducibility; the self-reduction only deletes edges that are not bridges, so the maximum degree stays at most $6$ and the graph stays connected."
+related:
+  - { problem: max-leaf-spanning-tree, relation: variant }
+  - { problem: longest-path, relation: variant }

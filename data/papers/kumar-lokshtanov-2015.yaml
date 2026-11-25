@@ -1,0 +1,17 @@
+id: kumar-lokshtanov-2015
+title: "Faster Exact and Parameterized Algorithm for Feedback Vertex Set in Tournaments"
+authors: [Mithilesh Kumar, Daniel Lokshtanov]
+identifiers: { dblp: conf/stacs/KumarL16, openalex: null }
+versions:
+  arxiv-v1:
+    kind: preprint
+    arxiv: "1510.07676v1"
+    year: 2015
+    open_access: true
+  stacs:
+    kind: conference
+    venue: "33rd Symposium on Theoretical Aspects of Computer Science (STACS 2016), LIPIcs 47, pp. 49:1–49:13"
+    year: 2016
+    doi: "10.4230/LIPIcs.STACS.2016.49"
+    url: "https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.STACS.2016.49"
+    open_access: true

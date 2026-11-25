@@ -1,0 +1,25 @@
+id: sharp-4-coloring--n--fomin-gaspers-saurabh-2007
+problem: sharp-4-coloring
+proved_for: counting
+bound:
+  as_stated: '1.9464^{n}'
+  notation: O
+  parameters:
+  - n
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Not stated; educated guess: exponential. When a path decomposition of small width can be computed, the branching stops and a dynamic program over the path decomposition (Lemma 4, $O(k^{\ell} n^{O(1)})$ for width $\ell$) is run on the input graph; its tables are exponential in the width.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: fomin-gaspers-saurabh-2007
+  statements:
+    cocoon-author-copy:
+      statement: Theorem 3
+  note: 'Algorithm enumIS enumerates all independent sets of $G - I - C$ (not only maximal ones), switching to the path decomposition DP of Lemma 4 when the pathwidth is small. The paper says no algorithm faster than $2^n n^{O(1)}$ for #4-Coloring was known before. Theorem number read in the author copy (10 pages); the LNCS version (pp. 65–74) was not opened.'
+status: unrepaired
+status_note: "Marked as flawed by Serge Gaspers, a co-author, on 21 November 2026."

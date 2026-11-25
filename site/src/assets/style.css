@@ -83,7 +83,13 @@ h1 { margin: 0; font-size: 42px; font-weight: 700; line-height: 1.15; }
   border-color: var(--border); border-bottom-color: var(--bg); background: var(--bg);
   color: var(--text); font-weight: 700;
 }
-.views { display: flex; gap: 2px; margin-bottom: 6px; }
+.tabtools { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-bottom: 6px; }
+.degree { font-size: 15px; color: var(--muted); display: flex; align-items: center; gap: 6px; }
+.degree select {
+  font: inherit; font-size: 15px; min-height: 36px; padding: 0 8px; border: 1px solid var(--border);
+  border-radius: 4px; background: var(--bg); color: var(--text);
+}
+.views { display: flex; gap: 2px; }
 .views button {
   font: inherit; font-size: 15px; min-height: 36px; padding: 0 12px; border: 1px solid var(--border);
   border-radius: 4px; background: var(--bg); color: var(--text); cursor: pointer;

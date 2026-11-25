@@ -33,3 +33,4 @@ related:
   - { problem: 3-coloring, relation: special-case }
   - { problem: chromatic-number, relation: special-case }
   - { problem: subgraph-isomorphism, relation: variant }
+  - { problem: csp, relation: generalisation }

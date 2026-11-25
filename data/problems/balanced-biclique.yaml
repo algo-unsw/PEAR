@@ -1,0 +1,47 @@
+id: balanced-biclique
+name: Balanced Biclique
+aliases: [k-Biclique, Balanced Complete Bipartite Subgraph, Maximum Balanced Biclique, Non-Induced Biclique, Bipartite Clique]
+category: graphs
+complexity:
+  class: NP-complete
+  source:
+    paper: garey-johnson-1979
+    attested_by:
+      - "https://www.wisdom.weizmann.ac.il/~feige/TechnicalReports/FeigeKogan.pdf"
+      - "https://arxiv.org/pdf/1705.07339.pdf"
+      - "https://cgi.cse.unsw.edu.au/~sergeg/papers/Ctw2009.pdf"
+    note: "Problem GT24 (Balanced Complete Bipartite Subgraph) in Garey and Johnson, stated for bipartite input graphs; NP-hardness for general graphs follows, since bipartite graphs are a special case. Feige and Kogan (2004): \"The maximum BCBS problem already appears in the book of Gary and Johnson [GJ79] (problem GT24) where it is stated that this problem is NP-hard\"; Zhou and Hao (arXiv 1705.07339): the decision version of the maximum balanced biclique problem is NP-complete (Garey & Johnson, 1979); Fernau et al. (CTW 2009) cite [GT24] in Garey and Johnson. Wikipedia could not be fetched."
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  k: { meaning: "the solution size: the integer $k$ in the input (decision, search), or the maximum $k$ such that $G$ contains $K_{k,k}$ as a subgraph (optimisation)" }
+constraints:
+  - { constraint: "k \\le n / 2", because: "$X$ and $Y$ are disjoint, so every instance with $2k > n$ is a no-instance, answered in polynomial time." }
+  - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
+versions:
+  decision:
+    kind: decision
+    input: "A graph $G = (V, E)$ and an integer $k$."
+    question: "Are there disjoint sets $X, Y \\subseteq V$ with $|X| = |Y| = k$ such that every vertex of $X$ is adjacent to every vertex of $Y$?"
+  optimisation:
+    kind: optimisation
+    input: "A graph $G = (V, E)$."
+    goal: "Find the maximum $k$ such that there are disjoint sets $X, Y \\subseteq V$ with $|X| = |Y| = k$ such that every vertex of $X$ is adjacent to every vertex of $Y$."
+  search:
+    kind: search
+    input: "A graph $G = (V, E)$ and an integer $k$."
+    goal: "Find disjoint sets $X, Y \\subseteq V$ with $|X| = |Y| = k$ such that every vertex of $X$ is adjacent to every vertex of $Y$, or report that none exists."
+  unbalanced:
+    kind: decision
+    input: "A graph $G = (V, E)$ and integers $k_1$ and $k_2$."
+    question: "Are there disjoint sets $X, Y \\subseteq V$ with $|X| = k_1$ and $|Y| = k_2$ such that every vertex of $X$ is adjacent to every vertex of $Y$?"
+    generalises: [decision]
+default_version: decision
+shared_bounds:
+  - versions: [decision, optimisation, search]
+    because: "Binary search on $k$ and self-reducibility."
+related:
+  - { problem: induced-biclique, relation: variant }
+  - { problem: subgraph-isomorphism, relation: generalisation }

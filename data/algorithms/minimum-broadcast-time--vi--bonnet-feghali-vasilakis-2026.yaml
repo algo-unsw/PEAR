@@ -1,0 +1,21 @@
+id: minimum-broadcast-time--vi--bonnet-feghali-vasilakis-2026
+problem: minimum-broadcast-time
+proved_for: decision
+bound:
+  as_stated: 'vi^{O(vi^{2})} n^{O(1)}'
+  notation: O
+  parameters: [vi, n]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Not stated; the broadcast times $b(D, v)$ of the components $D$ of $G - S$ (at most $\mathrm{vi}$ vertices each) are computed with the $3^n n^{O(1)}$-time dynamic programme over subsets, so $2^{O(\mathrm{vi})} n^{O(1)}$ space; the templates are enumerated one at a time and each is checked by a maximum-weight matching (educated guess).'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: bonnet-feghali-vasilakis-2026
+  statements:
+    arxiv-v1: { statement: "The theorem of Section 4 (Vertex Integrity)" }
+  note: 'The abstract states the same bound as $2^{O(\mathrm{vi}^2 \log \mathrm{vi})} n^{O(1)}$. Preprint (July 2026).'

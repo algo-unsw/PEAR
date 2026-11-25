@@ -1,0 +1,19 @@
+id: k-plex--k--folklore
+problem: k-plex
+proved_for: decision
+bound:
+  as_stated: "O(n^{k} k^{2})"
+  notation: O
+  parameters: [n, k]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: "One set $S$ at a time."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  folklore: true
+  note: "Being an $s$-plex is hereditary (a vertex has no more non-neighbours in a subset of $S$ than in $S$), so there is an $s$-plex of size at least $k$ if and only if there is one of size exactly $k$: try all at most $n^k$ sets of $k$ vertices and check each in $O(k^2)$ time (brute force XP baseline; the problem is W[1]-hard by $k$ for every fixed $s$, Komusiewicz et al. 2009, as cited in arXiv 2306.13258, Section 1)."

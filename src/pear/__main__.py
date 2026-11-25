@@ -2,6 +2,7 @@
 
     python -m pear validate [DATA_DIR]
     python -m pear derive [DATA_DIR] [--out build/derived.json]
+    python -m pear verify-list [DATA_DIR] [--out docs/to-verify.md]
     python -m pear site [DATA_DIR] [--out build/site] [--signals prominence/signals.yaml]
     python -m pear prominence fetch [DATA_DIR] [--out prominence/signals.yaml] [--only ID ...]
     python -m pear prominence show [DATA_DIR] [--signals prominence/signals.yaml]
@@ -28,6 +29,9 @@ def main(argv: list[str] | None = None) -> int:
     site = sub.add_parser("site", help="write the page data for the static site")
     site.add_argument("data_dir", nargs="?", default="data", type=Path)
     site.add_argument("--out", type=Path, default=Path("build/site"))
+    todo = sub.add_parser("verify-list", help="write the list of what still needs reading or checking")
+    todo.add_argument("data_dir", nargs="?", default="data", type=Path)
+    todo.add_argument("--out", type=Path, default=Path("docs/to-verify.md"))
     site.add_argument("--signals", type=Path, default=Path("prominence/signals.yaml"))
     prom = sub.add_parser("prominence", help="fetch or show the prominence signals (front page order)")
     prom.add_argument("action", choices=["fetch", "show"])
@@ -47,6 +51,12 @@ def main(argv: list[str] | None = None) -> int:
         return 1
     if args.command == "validate":
         print(f"OK: {counts}.")
+        return 0
+    if args.command == "verify-list":
+        from .verify_list import write_list
+
+        text = write_list(args.data_dir, args.out)
+        print(f"OK: {text.count(chr(10))} lines written to {args.out}.")
         return 0
 
     if args.command == "prominence":

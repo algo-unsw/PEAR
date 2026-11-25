@@ -1,0 +1,24 @@
+id: sharp-independent-set--n--gaspers-2026-pathwidth
+problem: sharp-independent-set
+proved_for: counting
+bound:
+  as_stated: '1.2341^{n}'
+  notation: O
+  parameters:
+  - n
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Polynomial space, as stated.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: gaspers-2026-pathwidth
+  statements:
+    arxiv-v1:
+      statement: 'Theorem C.6(c)'
+      page: 158
+  note: 'Branching with a Separate, Measure and Conquer subroutine for maximum degree 3 (the analysis of Gaspers and Lee rerun with the separator constant $c_3$ in place of $\frac16$, with three corrections described in Appendix C.5); computer-assisted. The same theorem gives $O(1.1304^n)$ for maximum degree 3 and $O(1.2037^n)$ for maximum degree 4, in polynomial space. arXiv v1, 3 November 2026 (read: LaTeX source and the v1 PDF); unrefereed preprint.'

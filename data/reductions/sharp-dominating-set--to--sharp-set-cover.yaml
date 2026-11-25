@@ -1,0 +1,23 @@
+id: sharp-dominating-set--to--sharp-set-cover
+from: { problem: sharp-dominating-set, version: counting }
+to: { problem: sharp-set-cover, version: counting }
+type: polytime-counting
+calls: 1
+time: "O(n + m)"
+parameter_map: { n: "n", m: "n" }
+variants:
+  - id: weighted
+    note: "Minimum-weight counting versions: the same construction, the set $N[v]$ getting the weight of $v$."
+    from: { problem: sharp-dominating-set, version: weighted }
+    to: { problem: sharp-set-cover, version: weighted }
+    parameter_map: { n: "n", m: "n" }
+    source:
+      paper: fomin-gaspers-saurabh-2006
+      statements:
+        journal-author-copy: { statement: "Section 5.1, proof of Corollary 2" }
+      note: "Corollary 2 solves #MWDS through an #MWSC instance of size at most $2n$ (the closed neighbourhoods, weighted by their vertices)."
+source:
+  paper: gaspers-sorkin-2017
+  statements:
+    arxiv-v2: { statement: "Section 5 (introduction and Section 5.2)" }
+  note: "Universe $V$ and the multiset $\\{N[v] : v \\in V\\}$ of closed neighbourhoods (one member per vertex, so true twins give two equal members). Section 5.2: \"there is a cardinality-preserving bijection between dominating sets of the graph and set covers of the instance\", so the counts by size are equal. A counting reduction (rulebook §2a)."

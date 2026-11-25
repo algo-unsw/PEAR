@@ -1,0 +1,12 @@
+id: identifying-code--to--hitting-set
+from: { problem: identifying-code, version: decision }
+to: { problem: hitting-set, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(n^{3})"
+parameter_map: { n: "n", m: "n + n(n - 1)/2", k: "k" }
+source:
+  folklore: true
+  note: "Universe $V$; the sets $N[v]$ for $v \\in V$ and $N[u] \\triangle N[v]$ for every pair of distinct vertices $u, v$. A set $S$ hits $N[v]$ if and only if $N[v] \\cap S \\neq \\emptyset$, and hits $N[u] \\triangle N[v]$ if and only if $N[u] \\cap S \\neq N[v] \\cap S$, so the hitting sets are exactly the identifying codes (closed twins give an empty set, and then neither exists)."
+formal: { status: informal }
+status: valid

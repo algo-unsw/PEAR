@@ -1,0 +1,18 @@
+id: xiao-kou-2015
+title: "Exact algorithms for the maximum dissociation set and minimum 3-path vertex cover problems"
+authors: [Mingyu Xiao, Shaowei Kou]
+identifiers: { dblp: journals/tcs/XiaoK17 }
+versions:
+  conference:
+    kind: conference
+    title: "Faster Computation of the Maximum Dissociation Set and Minimum 3-Path Vertex Cover in Graphs"
+    venue: "Frontiers in Algorithmics (FAW 2015), Lecture Notes in Computer Science"
+    year: 2015
+    doi: "10.1007/978-3-319-19647-3_26"
+    open_access: false
+  journal:
+    kind: journal
+    venue: "Theoretical Computer Science 657, pp. 86–97"
+    year: 2017
+    doi: "10.1016/j.tcs.2016.04.043"
+    open_access: true

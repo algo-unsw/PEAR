@@ -1,0 +1,10 @@
+id: korhonen-thorup-2026
+title: "Connectivity augmentation is fixed-parameter tractable"
+authors: [Tuukka Korhonen, Mikkel Thorup]
+identifiers: { dblp: "journals/corr/abs-2605-11757" }
+versions:
+  arxiv-v1:
+    kind: preprint
+    arxiv: "2605.11757v1"
+    year: 2026
+    open_access: true

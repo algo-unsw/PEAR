@@ -1,0 +1,17 @@
+id: fernau-2006
+title: "ROMAN DOMINATION: A Parameterized Perspective"
+authors: [Henning Fernau]
+identifiers: { dblp: conf/sofsem/Fernau06, openalex: null }
+versions:
+  conference:
+    kind: conference
+    venue: "SOFSEM 2006: Theory and Practice of Computer Science, LNCS 3831, pp. 262–271"
+    year: 2006
+    doi: "10.1007/11611257_24"
+    open_access: false
+  journal:
+    kind: journal
+    venue: "International Journal of Computer Mathematics 85(1), pp. 25–38"
+    year: 2008
+    doi: "10.1080/00207160701374376"
+    open_access: false

@@ -1,0 +1,16 @@
+id: ashok-das-pandey-2024
+title: "(Independent) Roman Domination Parameterized by Distance to Cluster"
+authors: [Pradeesha Ashok, Gautam K. Das, Arti Pandey, Kaustav Paul, Subhabrata Paul]
+identifiers: { dblp: "conf/cocoa/AshokDPPP24" }
+versions:
+  arxiv-v1:
+    kind: preprint
+    arxiv: "2411.13141v1"
+    year: 2024
+    open_access: true
+  cocoa:
+    kind: conference
+    venue: "Combinatorial Optimization and Applications (COCOA 2024), Part II, LNCS 15435, pp. 157–169"
+    year: 2024
+    doi: "10.1007/978-981-96-4448-3_13"
+    open_access: false

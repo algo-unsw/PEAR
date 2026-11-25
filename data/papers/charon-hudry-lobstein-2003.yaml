@@ -1,0 +1,10 @@
+id: charon-hudry-lobstein-2003
+title: "Minimizing the size of an identifying or locating-dominating code in a graph is NP-hard"
+authors: [Irène Charon, Olivier Hudry, Antoine Lobstein]
+versions:
+  journal:
+    kind: journal
+    venue: "Theoretical Computer Science 290(3), pp. 2109–2120"
+    year: 2003
+    doi: "10.1016/S0304-3975(02)00536-4"
+    open_access: false

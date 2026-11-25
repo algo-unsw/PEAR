@@ -1,0 +1,11 @@
+id: aho-garey-ullman-1972
+title: "The Transitive Reduction of a Directed Graph"
+authors: [Alfred V. Aho, Michael R. Garey, Jeffrey D. Ullman]
+identifiers: { dblp: null }
+versions:
+  journal:
+    kind: journal
+    venue: "SIAM Journal on Computing 1(2), pp. 131–137"
+    year: 1972
+    doi: "10.1137/0201008"
+    open_access: false

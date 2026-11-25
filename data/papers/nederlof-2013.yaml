@@ -3,6 +3,13 @@ title: 'Fast polynomial-space algorithms using inclusion-exclusion: improving on
 authors:
 - Jesper Nederlof
 versions:
+  icalp:
+    kind: conference
+    title: 'Fast Polynomial-Space Algorithms Using Möbius Inversion: Improving on Steiner Tree and Related Problems'
+    venue: 'Automata, Languages and Programming (ICALP 2009), Part I, LNCS 5555, pp. 713–725'
+    year: 2009
+    doi: 10.1007/978-3-642-02927-1_59
+    open_access: false
   journal:
     kind: journal
     venue: 'Algorithmica 65(4), pp. 868–884'

@@ -1,0 +1,41 @@
+id: edge-disjoint-paths
+name: Edge-Disjoint Paths
+aliases: [EDP, Edge Disjoint Paths, k-Edge-Disjoint Paths]
+category: networks
+complexity:
+  class: NP-complete
+  source:
+    paper: karp-1975
+    attested_by:
+      - "https://link.springer.com/content/pdf/10.1007/s00453-020-00795-3.pdf"
+      - "https://arxiv.org/pdf/1808.03496"
+      - "https://ar5iv.labs.arxiv.org/html/1711.02076"
+    note: "NP-complete when the number $k$ of terminal pairs is part of the input (Karp 1975): Ganian, Ordyniak and Ramanujan (Algorithmica 2021, open access, Section 1: 'When $k$ is a part of the input, both EDP and NDP are known to be NP-complete [Karp 1975]'); Ganian and Ordyniak (arXiv 1808.03496, Section 1: 'Both EDP and VDP are NP-complete in general [Karp75]'); Fleszar, Mnich and Spoerhase (arXiv 1603.01740, Section 1) say the same. The first and third links are two versions of one paper. NP-complete even on graphs of treewidth 2 (Nishizeki, Vygen and Zhou, DAM 2001, as cited by Ganian, Ordyniak and Ramanujan) and with a vertex cover of size 3 (Fleszar, Mnich and Spoerhase, as cited by Ganian and Ordyniak)."
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  k: { meaning: "the number of terminal pairs $\\{s_i, t_i\\}$ in the input" }
+  tw: { shared: treewidth }
+  d: { meaning: "the maximum degree $\\Delta$ of $G$" }
+constraints:
+  - { constraint: "k \\le m", because: "Each path uses an edge at each of its two terminals, so if some vertex $v$ is a terminal of more than $\\deg(v)$ pairs the instance is a no-instance (answered in polynomial time); otherwise $2k \\le \\sum_v \\deg(v) = 2m$." }
+  - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
+  - { constraint: "tw \\le n", because: "A single bag containing all vertices is a tree decomposition of width $n - 1$." }
+  - { constraint: "d \\le n", because: "A vertex has at most $n - 1$ neighbours." }
+versions:
+  decision:
+    kind: decision
+    input: "A graph $G = (V, E)$ and $k$ pairs $\\{s_1, t_1\\}, \\dots, \\{s_k, t_k\\}$ of distinct vertices."
+    question: "Are there pairwise edge-disjoint paths $P_1, \\dots, P_k$ such that $P_i$ connects $s_i$ and $t_i$ for every $i$?"
+  search:
+    kind: search
+    input: "A graph $G = (V, E)$ and $k$ pairs $\\{s_1, t_1\\}, \\dots, \\{s_k, t_k\\}$ of distinct vertices."
+    goal: "Find pairwise edge-disjoint paths $P_1, \\dots, P_k$ such that $P_i$ connects $s_i$ and $t_i$ for every $i$, or report that none exist."
+default_version: decision
+shared_bounds:
+  - versions: [decision, search]
+    because: "Self-reducibility: delete an edge and test again; the edges that remain once no deletion keeps a yes-instance form the paths."
+related:
+  - { problem: vertex-disjoint-paths, relation: variant }

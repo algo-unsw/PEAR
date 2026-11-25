@@ -1,0 +1,23 @@
+id: hitting-set--n--cochefert-couturier-gaspers-2015-d-6
+problem: hitting-set
+proved_for: optimisation-d-6
+bound:
+  as_stated: 'O^*(1.9779^{n})'
+  notation: O*
+  parameters:
+  - n
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Not stated; educated guess: polynomial. Depth-first branching (rules H1, H2, R1–R3, B1, B2 of Section 5) with a polynomial-time minimality check at each leaf; no memoization, dynamic programming or stored tables found.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: cochefert-couturier-gaspers-2015
+  statements:
+    arxiv-v1:
+      statement: 'Theorem 4 with Table 1 (rank 6: $O(1.9779^n)$); abstract'
+  note: 'Theorem 4 enumerates all minimal transversals of a rank-$k$ hypergraph in time $O(\beta_k^n)$, $\beta_k$ the positive root of $-1+x^{-1}+\sum_{i=3}^{k}(i-2)x^{-i}+\sum_{i=k+1}^{2k-1}(2k-i)x^{-i}=0$; Table 1 gives $O(1.9779^n)$ for rank 6 ($\beta_6 = 1.97785\ldots$, checked numerically). Every minimum hitting set is minimal, so keeping a smallest output (none if the family contains the empty set) solves the optimisation version within a polynomial factor; stored as $O^*$. The abstract states that the enumeration algorithms improve the best known algorithms for computing a minimum transversal in rank $k \ge 6$. For ranks 4 and 5 the same paper gives $O(1.8863^n)$ (Theorem 3) and $O(1.9538^n)$ (Table 1), slower than Fomin et al.''s $1.8704^n$ and $1.9489^n$, so they are not entered.'

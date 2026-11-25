@@ -1,0 +1,23 @@
+id: nor-et-al-2010
+title: "Mod/Resc Parsimony Inference"
+authors: [Igor Nor, Danny Hermelin, Sylvain Charlat, Jan Engelstadter, Max Reuter, Olivier Duron, Marie-France Sagot]
+identifiers: { dblp: "journals/iandc/NorHCERDS12", openalex: null }
+versions:
+  arxiv:
+    kind: preprint
+    year: 2010
+    arxiv: "1002.1292"
+    open_access: true
+  cpm:
+    kind: conference
+    venue: "Combinatorial Pattern Matching, 21st Annual Symposium (CPM 2010), LNCS 6129, pp. 202–213"
+    year: 2010
+    doi: "10.1007/978-3-642-13509-5_19"
+    open_access: false
+  journal:
+    kind: journal
+    title: "Mod/Resc Parsimony Inference: Theory and application"
+    venue: "Information and Computation 213, pp. 23–32"
+    year: 2012
+    doi: "10.1016/j.ic.2011.03.008"
+    open_access: false

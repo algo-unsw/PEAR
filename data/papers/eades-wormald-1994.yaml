@@ -1,0 +1,11 @@
+id: eades-wormald-1994
+title: "Edge Crossings in Drawings of Bipartite Graphs"
+authors: [Peter Eades, Nicholas C. Wormald]
+identifiers: { dblp: null }
+versions:
+  journal:
+    kind: journal
+    venue: "Algorithmica 11(4), pp. 379–403"
+    year: 1994
+    doi: "10.1007/BF01187020"
+    open_access: false

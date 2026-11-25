@@ -1,0 +1,14 @@
+id: independent-set--to--proportional-approval-voting
+from: { problem: independent-set, version: decision }
+to: { problem: proportional-approval-voting, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(n^{2})"
+parameter_map: { n: "n^{2}", m: "n^{2}", d: "n k", k: "k" }
+source:
+  paper: aziz-gaspers-gudmundsson-2014
+  statements:
+    arxiv-v1: { statement: "Theorem 1 (proof)", page: 3 }
+  note: 'For a graph with maximum degree $\Delta \ge 2$: one candidate $C_v$ and $\Delta - \deg(v)$ dummy candidates per vertex $v$; one voter per edge, approving the candidates of its endpoints, and $\Delta - \deg(v)$ voters per vertex $v$, each approving $C_v$ and its own dummy candidate; committee size $k$ and target score $d = \Delta k$. So there are $n + n\Delta - 2m \le n^2$ candidates and $n\Delta - m \le n^2$ voters, and $d \le nk$. Every voter approves two candidates, so the produced instances also have this property. Graphs with $\Delta \le 1$ (and $k > n$) are solved in polynomial time and mapped to a trivial yes- or no-instance. The paper notes (paragraph after the proof and Corollary 1) that this is a parameterized reduction from Independent Set by $k$, so PAV is W[1]-hard by $k$. The committee size equals $k$ (the map $k \mapsto k$ was left out until the comparator rules of 21 November 2026 could compare the bounds it carries back to Vertex Cover).'
+formal: { status: informal }
+status: valid

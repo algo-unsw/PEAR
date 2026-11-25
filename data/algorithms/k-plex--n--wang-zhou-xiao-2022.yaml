@@ -1,0 +1,24 @@
+id: k-plex--n--wang-zhou-xiao-2022
+problem: k-plex
+proved_for: optimisation
+bound:
+  as_stated: "O^*(2^{(1 - \\varepsilon_{s}) n})"
+  notation: O*
+  parameters: [n, s]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: "As for k-plex--degeneracy--wang-zhou-xiao-2022 (educated guess: polynomial)."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+uses: [k-plex--degeneracy--wang-zhou-xiao-2022]
+source:
+  paper: wang-zhou-xiao-2022
+  statements:
+    arxiv-v2: { statement: "Section 3.3 (Complexity analysis), the theorem labelled Thm:R-time" }
+  note: "Written by the site: for every fixed $s$, the theorem's $O(n^{2s} + n(D\\Delta)^{s+1}\\gamma_s^D)$ with $D \\le \\Delta \\le n$ is $O^*(\\gamma_s^n) = O^*(2^{(1 - \\varepsilon_s) n})$, where $1 - \\varepsilon_s = \\log_2 \\gamma_s$ and $\\gamma_s$ is the largest root of $1 = x^{-1} + \\dots + x^{-s-1}$ ($1 - \\varepsilon_1 = 0.69424$, $1 - \\varepsilon_2 = 0.87915$, $1 - \\varepsilon_3 = 0.94678$, $1 - \\varepsilon_4 = 0.97523$; values computed by the site). Xiao, Lin, Dai and Zeng (AAAI 2017, not reachable) state $O^*(\\alpha_s^n)$ with the same bases. Form decided by Serge Gaspers, 21 November 2026."
+formal: { status: informal }
+status: valid

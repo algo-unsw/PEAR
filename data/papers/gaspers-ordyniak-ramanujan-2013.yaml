@@ -1,0 +1,18 @@
+id: gaspers-ordyniak-ramanujan-2013
+title: Backdoors to q-Horn
+authors: [Serge Gaspers, Sebastian Ordyniak, M. S. Ramanujan, Saket Saurabh, Stefan Szeider]
+identifiers: { dblp: journals/algorithmica/GaspersORSS16, openalex: null }
+versions:
+  stacs:
+    kind: conference
+    venue: "30th International Symposium on Theoretical Aspects of Computer Science (STACS 2013), LIPIcs 20, pp. 67–79"
+    year: 2013
+    doi: "10.4230/LIPIcs.STACS.2013.67"
+    url: "https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.STACS.2013.67"
+    open_access: true
+  journal:
+    kind: journal
+    venue: "Algorithmica 74(1), pp. 540–557"
+    year: 2016
+    doi: "10.1007/s00453-014-9958-5"
+    open_access: false

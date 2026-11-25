@@ -1,0 +1,12 @@
+id: hamiltonian-cycle--to--minimum-equivalent-digraph
+from: { problem: hamiltonian-cycle, version: decision }
+to: { problem: minimum-equivalent-digraph, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(n + m)"
+parameter_map: { n: "n", m: "2 m", k: "n" }
+source:
+  folklore: true
+  note: "For $n \\ge 3$: if $G$ is disconnected, output a fixed no-instance (two vertices joined by arcs in both directions, $k = 1$). Otherwise replace each edge by two opposite arcs; the digraph $D$ is strongly connected, so its equivalent subdigraphs are its strongly connected spanning subdigraphs. Such a subdigraph has in- and out-degree at least 1 everywhere, hence at least $n$ arcs, and exactly $n$ arcs only if it is a single directed cycle through all vertices, which is a Hamiltonian cycle of $G$ since $n \\ge 3$. So $G$ is Hamiltonian if and only if $(D, n)$ is a yes-instance. Bang-Jensen and Yeo (Discrete Applied Mathematics 2008, Section 1) note that the strongly connected case generalises the Hamiltonian cycle problem."
+  reference: { paper: bang-jensen-yeo-2008, version: journal-author-copy, statement: "Section 1" }
+status: valid

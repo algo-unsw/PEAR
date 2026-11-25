@@ -1,0 +1,23 @@
+id: graph-burning--mw--kobayashi-otachi-2020
+problem: graph-burning
+proved_for: decision
+bound:
+  as_stated: "f(mw) \\cdot n^{O(1)}"
+  notation: O
+  parameters: [mw, n]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: "Not stated; educated guess: $f(mw) n^{O(1)}$. The algorithm (Theorem 2.3) checks first-order formulas $\\varphi_I$ on each component by MSO$_1$ model checking on bounded clique-width (Courcelle, Makowsky and Rotics; Oum), a dynamic programming over a clique-width expression, then solves Disjoint Sets by colour coding."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: kobayashi-otachi-2020
+  statements:
+    arxiv-v2: { statement: "Corollary 2.4" }
+  note: "Corollary 2.4: \"Graph Burning is fixed-parameter tractable parameterized by modular-width.\" Section 2: every connected component of a graph of modular-width at most $w$ has diameter and clique-width at most $w$, so Theorem 2.3 applies; Theorem 2.3 gives time $g(d_{\\max} + \\mathrm{cw}) \\cdot n^{O(1)}$ for a computable $g$. Holds for possibly disconnected graphs (Section 1.2). No explicit function is given. Numbering read in the arXiv PDF (latest version, v2); not checked in the IPEC 2020 or Algorithmica 2022 versions."
+formal: { status: informal }
+status: valid

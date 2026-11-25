@@ -1,0 +1,24 @@
+id: minimum-equivalent-digraph--n--fomin-lokshtanov-panolan-2013
+problem: minimum-equivalent-digraph
+proved_for: search
+bound:
+  as_stated: "O(2^{4\\omega n} m n)"
+  notation: O
+  parameters: [n, m]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: "Not stated; educated guess: exponential. A dynamic programme over $\\ell$ that stores $q$-representative families $\\widehat{\\mathcal B}^{4\\ell}$ of a uniform matroid on $4n - 4$ elements, of size up to $\\binom{4n-4}{4\\ell}$ (Lemma 5.9 of the journal version)."
+  algebraic: true
+  fast_matrix_multiplication: true
+  constructive: true
+  quantum: false
+source:
+  paper: fomin-lokshtanov-panolan-2013
+  statements:
+    arxiv-v2: { statement: "Section \"Minimal Equivalent Graph of a Strongly Connected Digraph\", the theorem after Lemma lem:msssthm: \"Minimum Equivalent Graph can be solved in time $O(2^{4\\omega n} m n)$\"" }
+    journal-author-copy: { statement: "Theorem 5.11" }
+  note: "The task is to find an equivalent subdigraph with the minimum number of arcs. For a strongly connected digraph (Lemma 5.10 of the journal version), the algorithm maximises the number of common arcs of an out-branching and an in-branching through representative families of a uniform matroid computed with fast matrix multiplication; a general digraph is handled per strongly connected component (Proposition 5.6). The conclusion mentions that Marek Cygan pointed out single-exponential algorithms based on Bodlaender–Cygan–Kratsch–Nederlof and Cygan et al. (no bound stated)."
+formal: { status: informal }
+status: valid

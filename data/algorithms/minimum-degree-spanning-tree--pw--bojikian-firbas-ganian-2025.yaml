@@ -1,0 +1,19 @@
+id: minimum-degree-spanning-tree--pw--bojikian-firbas-ganian-2025
+problem: minimum-degree-spanning-tree
+proved_for: decision
+bound:
+  as_stated: 'O^*((2k)^{pw})'
+  notation: O*
+  parameters: [k, pw]
+properties:
+  randomized: { error: one-sided }
+  space: { class: exponential, bound: 'Not stated; educated guess: exponential. Cut&Count dynamic programming over the given path decomposition, with tables indexed by states of the bag vertices (degrees up to $r$ and sides).' }
+  algebraic: true
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: bojikian-firbas-ganian-2025
+  statements:
+    icalp: { statement: 'Theorem 4.1' }
+  note: 'Theorem 4.1 solves Set of Degrees MST (each vertex $v$ needs $\deg_T(v) \in D(v)$, edge weights polynomially bounded, cost budget $B$) in $O^*((2r)^{pw})$ time, given a path decomposition of width $pw$, where $r$ is the largest number in any $D(v)$. The decision version here is the special case $D(v) = \{1, \dots, k\}$ for all $v$ (so $r = k$), all weights $0$ and $B = 0$. Monte Carlo with false negatives only (Cut&Count with the Isolation Lemma). The path decomposition is part of the input.'

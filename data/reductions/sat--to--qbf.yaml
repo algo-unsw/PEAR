@@ -1,0 +1,10 @@
+id: sat--to--qbf
+from: { problem: sat, version: decision }
+to: { problem: qbf, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(N)"
+parameter_map: { n: "n", m: "m" }
+source:
+  folklore: true
+  note: "Quantify every variable existentially: $\\exists x_1 \\cdots \\exists x_n \\, \\varphi$ is true exactly when $\\varphi$ is satisfiable."

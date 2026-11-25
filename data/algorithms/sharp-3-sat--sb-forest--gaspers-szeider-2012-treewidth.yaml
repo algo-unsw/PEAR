@@ -1,0 +1,22 @@
+id: sharp-3-sat--sb-forest--gaspers-szeider-2012-treewidth
+problem: sharp-3-sat
+proved_for: counting
+bound:
+  as_stated: f(sb_{forest}) N^{3}
+  notation: O
+  parameters: [sb_forest, N]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Not stated; educated guess: when the incidence treewidth is small the algorithm counts models by dynamic programming over a tree decomposition (Samer–Szeider), with tables exponential in the width, which is bounded by a function of the parameter.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: gaspers-szeider-2012-treewidth
+  statements:
+    arxiv-v1:
+      statement: Theorem 2 (with $t = 1$)
+  note: 'Theorem 2: a cubic-time algorithm that, given a CNF formula $F$, computes the number of satisfying assignments of $F$ or concludes that $\mathrm{sb}_t(F) > k$, for any pair of constants $k, t \ge 0$; Section 1 states that #SAT is uniformly FPT for the parameter $(t, \mathrm{sb}_t)$. With $t = 1$, $\mathrm{sb}_1 = sb_{forest}$ (treewidth at most 1 means a forest); running it for $k = 0, 1, 2, \dots$ until it returns a count gives $f(sb_{forest}) N^3$. The algorithm counts the satisfying assignments of any CNF formula, so it applies to 3-CNF formulas, the input of #3-SAT. TODO(verify): that the function of $k$ is computable.'

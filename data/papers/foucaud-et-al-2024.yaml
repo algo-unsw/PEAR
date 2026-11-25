@@ -1,0 +1,22 @@
+id: foucaud-et-al-2024
+title: "Metric Dimension and Geodetic Set Parameterized by Vertex Cover"
+authors: [Florent Foucaud, Esther Galby, Liana Khazaliya, Shaohua Li, Fionn Mc Inerney, Roohani Sharma, Prafullkumar Tale]
+identifiers: { dblp: "conf/stacs/FoucaudGK0IST25" }
+versions:
+  arxiv-v2:
+    kind: preprint
+    arxiv: "2405.01344v2"
+    year: 2025
+    open_access: true
+  stacs:
+    kind: conference
+    venue: "42nd International Symposium on Theoretical Aspects of Computer Science (STACS 2025), LIPIcs 327, paper 33"
+    year: 2025
+    doi: "10.4230/LIPIcs.STACS.2025.33"
+    open_access: true
+  journal:
+    kind: journal
+    venue: "Journal of Computer and System Sciences 164, 103850"
+    year: 2027
+    doi: "10.1016/j.jcss.2026.103850"
+    open_access: false

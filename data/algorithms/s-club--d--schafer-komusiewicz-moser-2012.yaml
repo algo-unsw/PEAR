@@ -1,0 +1,21 @@
+id: s-club--d--schafer-komusiewicz-moser-2012
+problem: s-club
+proved_for: decision
+bound:
+  as_stated: "O(2^{d} n m)"
+  notation: O
+  parameters: [d, n, m]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: "Not stated; educated guess: polynomial. A depth-first search tree that branches on deleting one of two vertices at distance more than $s$; no memoization or tables."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: schafer-komusiewicz-moser-2012
+  statements:
+    author-copy: { statement: "Theorem 5" }
+  note: "Theorem 5: \"$s$-Club can be solved in $O(2^d \\cdot nm)$ time, where $d := n - k$.\" The paper asks for an $s$-club of size exactly $k$; Hartung, Komusiewicz and Nichterlein (JGAA 2015, footnote in Section 1.1) point out that the result in the dual parameter holds only for size at least $k$, which is PEAR's definition. The algorithm only computes distances, so it works with $s$ in the input. Read in the authors' copy (\"To appear in Optimization Letters\", University of Marburg); the published version was not opened."

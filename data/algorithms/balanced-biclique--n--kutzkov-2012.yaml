@@ -1,0 +1,23 @@
+id: balanced-biclique--n--kutzkov-2012
+problem: balanced-biclique
+proved_for: unbalanced
+bound:
+  as_stated: 'O(1.561^{n})'
+  notation: O
+  parameters: [n]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Corollary 2 does not state the space; it applies Theorem 1 ("O(1.2491^n) time and polynomial space") to a bipartite graph on $2n$ vertices, so polynomial space.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: kutzkov-2012
+  statements:
+    journal: { statement: "Corollary 2", page: 6 }
+  note: 'Theorem 1 (page 5): "For a bipartite graph G = (L ∪ R, E) on n vertices the number of (k_l, k_r)-bicliques can be computed in O(1.2491^n) time and polynomial space", where a $(k_l, k_r)$-biclique has sides $L_K \subseteq L$, $R_K \subseteq R$ with $|L_K| \ge k_l$ and $|R_K| \ge k_r$ (page 2). Corollary 2 (page 6): "The number of non-induced bipartite cliques in a graph G = (V, E) on n vertices can be computed in time O(1.561^n)"; the paragraph before it reduces finding a non-induced biclique of a given size in $G$ to finding a biclique in the bipartite double cover $G''$ ($V$ and a copy $V''$, $(u, v'') \in E''$ iff $uv \in E$), which has $2n$ vertices. For the unbalanced version, apply Theorem 1 to $G''$ with $(k_l, k_r) = (k_1, k_2)$: since $G$ has no loops, no vertex lies on both sides of a biclique of $G''$, so these bicliques are exactly the pairs of disjoint sets $X, Y$ of $G$ with all edges between them and $|X| \ge k_1$, $|Y| \ge k_2$; subsets of the sides of a biclique form a biclique, so the answer is yes if and only if this count is positive (simple step). Time $O(1.2491^{2n}) \subseteq O(1.561^n)$, as $1.2491^2 < 1.5603$. Page and statement numbers are from the author''s copy at the URL (TODO(verify) that they match the IPL version).'
+formal: { status: informal }
+status: valid

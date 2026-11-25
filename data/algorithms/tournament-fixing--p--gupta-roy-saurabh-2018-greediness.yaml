@@ -1,0 +1,21 @@
+id: tournament-fixing--p--gupta-roy-saurabh-2018-greediness
+problem: tournament-fixing
+proved_for: decision
+bound:
+  as_stated: "2^{O(p \\log p)} n^{O(1)}"
+  notation: O
+  parameters: [p, n]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: "Not stated; educated guess: polynomial. The algorithm enumerates $k^{O(k)}$ templates one at a time (Observation 2) and checks each in polynomial time (Lemma 4); no exponential-space table was found."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: gupta-roy-saurabh-2018-greediness
+  statements:
+    ijcai: { statement: "Theorem 1" }
+  note: "Stated as $2^{O(k^* \\log k^*)} n^{O(1)}$ with $k^*$ the feedback arc set number. Earlier: $p^{O(p^{2})} n^{O(1)}$ by Ramanujan and Szeider (AAAI 2017) and $2^{O(p^{2} \\log p)} n^{O(1)}$ in polynomial space by Gupta et al. (IJCAI 2018, 'Winning a Tournament by Any Means Necessary', Theorem 6); Zehavi (AAAI 2023) gives the same dependence for the smaller feedback vertex set number (not entered: no open copy reached)."

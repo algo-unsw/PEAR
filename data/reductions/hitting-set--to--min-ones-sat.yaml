@@ -1,0 +1,17 @@
+id: hitting-set--to--min-ones-sat
+from:
+  problem: hitting-set
+  version: decision
+to:
+  problem: min-ones-sat
+  version: decision
+type: polytime-deterministic
+calls: 1
+time: O(N)
+parameter_map:
+  n: n
+  m: m
+  k: k
+source:
+  folklore: true
+  note: Each element becomes a variable and each set $F$ the clause $\bigvee_{u \in F} x_u$ of positive literals; hitting sets of size at most $k$ are exactly the satisfying assignments with at most $k$ true variables. Fomin, Gaspers, Lokshtanov and Saurabh (arXiv 1512.01621, Section 1) note that d-Hitting Set is a special case of Min-Ones d-SAT.

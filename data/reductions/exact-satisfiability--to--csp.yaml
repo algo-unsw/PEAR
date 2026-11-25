@@ -1,0 +1,10 @@
+id: exact-satisfiability--to--csp
+from: { problem: exact-satisfiability, version: decision }
+to: { problem: csp, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(N^{2})"
+parameter_map: { n: "n", m: "m", d: "2", tw: "tw_p" }
+source:
+  folklore: true
+  note: "Domain $\\{0, 1\\}$ and, for every clause with literals on the variables $y_1, \\dots, y_r$, the constraint with scope $(y_1, \\dots, y_r)$ whose relation lists the $r$ tuples that make exactly one literal true (a clause with repeated or complementary literals gives the tuples that satisfy it, at most $r$ of them). The relations have $O(L^2)$ entries in total, and the primal graph is the primal graph of the formula."

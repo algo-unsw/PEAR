@@ -99,6 +99,24 @@ CASES = [
     ("constraint without justification", PA, _set("constraints.0.because", _DELETE), "because: Field required"),
     ("poly_bounded not boolean", PB, _set("parameters.t.poly_bounded", "sometimes"), "poly_bounded"),
     ("generalises cycle", PA, _set("versions.optimisation.generalises", ["weighted"]), "cycle"),
+    (
+        "generalises cycle through a map",
+        PA,
+        _set("versions.optimisation.generalises", [{"version": "weighted", "parameter_map": {"k": "w"}}]),
+        "cycle",
+    ),
+    (
+        "generalises maps an unknown parameter",
+        PA,
+        _set("versions.weighted.generalises", [{"version": "optimisation", "parameter_map": {"z": "k"}}]),
+        "unknown parameter 'z'",
+    ),
+    (
+        "generalises with an empty map",
+        PA,
+        _set("versions.weighted.generalises", [{"version": "optimisation", "parameter_map": {}}]),
+        "parameter_map",
+    ),
     ("review without date", PB, _set("review", {"approved_by": "Serge Gaspers"}), "both approved_by and date"),
     ("review by someone else", PB, _set("review", {"approved_by": "Someone Else", "date": "2026-11-07"}), "review.approved_by"),
     ("reduction type not agreed", RED, _set("type", "parameterized"), "type: Input should be"),
@@ -121,7 +139,6 @@ CASES = [
     ("unknown hypothesis", ALG, _set("conditional_on", ["eth"]), "unknown hypothesis 'eth'"),
     ("unknown paper", ALG, _set("source.paper", "nope"), "unknown paper 'nope'"),
     ("unknown paper version", ALG, _set("source.statements.journal", {"statement": "Theorem 1"}), "has no version 'journal'"),
-    ("no open-access statement", ALG, _set("source.statements", {"conference": {"statement": "Theorem 2"}}), "no statement for an open-access version"),
     ("folklore reference to unknown version", RED, _set("source.reference.version", "journal"), "has no version 'journal'"),
     ("unknown reduction target version", RED, _set("to.version", "weighted-search"), "has no version 'weighted-search'"),
     ("parameter map sets unknown parameter", RED, _set("parameter_map.tw", "k"), "parameter 'tw' is not defined by problem 'problem-a'"),
@@ -291,7 +308,20 @@ def test_attestations_do_not_replace_an_open_version(fixture_raw):
 
 def test_paper_source_needs_statements_or_attestations(fixture_raw):
     issues = with_source(fixture_raw, {"paper": "closed-1970"})
-    assert any("needs statements, or attested_by" in i for i in issues), issues
+    assert any("needs statements, attested_by or confirmed_by" in i for i in issues), issues
+
+
+def test_statement_in_a_closed_version_passes(fixture_raw):
+    # 21 November 2026: a closed version we could read counts, also when an open one exists
+    assert with_source(fixture_raw, {"paper": "closed-1970", "statements": {"journal": {"statement": "Theorem 2"}}}) == []
+    assert with_source(fixture_raw, {"paper": "author-example-2000", "statements": {"conference": {"statement": "Theorem 2"}}}) == []
+
+
+def test_serge_can_confirm_a_closed_source_result(fixture_raw):
+    src = {"paper": "closed-1970", "confirmed_by": {"by": "Serge Gaspers", "date": "2026-11-21"}}
+    assert with_source(fixture_raw, src) == []
+    bad = {"paper": "closed-1970", "confirmed_by": {"by": "Someone Else", "date": "2026-11-21"}}
+    assert with_source(fixture_raw, bad) != []
 
 
 def test_shared_parameter_may_say_which_graph(fixture_raw):

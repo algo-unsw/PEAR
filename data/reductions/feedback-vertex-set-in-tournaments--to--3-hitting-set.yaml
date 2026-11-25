@@ -1,0 +1,12 @@
+id: feedback-vertex-set-in-tournaments--to--3-hitting-set
+from: { problem: feedback-vertex-set-in-tournaments, version: decision }
+to: { problem: 3-hitting-set, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(n^{3})"
+parameter_map: { n: "n", m: "n^{3}", k: "k" }
+source:
+  folklore: true
+  note: "A tournament has a directed cycle if and only if it has a directed triangle, so $T - S$ is acyclic exactly when $S$ meets every directed triangle. Universe $V$ and family of the vertex sets of the directed triangles (at most $n^3$ sets of size 3); the solutions are exactly the hitting sets. Fomin, Gaspers, Lokshtanov and Saurabh use this (\"every directed 3-cycle needs to be hit\") for minimal feedback vertex sets in tournaments."
+  reference: { paper: fomin-gaspers-lokshtanov-saurabh-2015, version: arxiv-v1, statement: "Section 1 (before Table 2)" }
+status: valid

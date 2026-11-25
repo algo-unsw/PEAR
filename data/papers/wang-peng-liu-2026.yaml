@@ -1,0 +1,16 @@
+id: wang-peng-liu-2026
+title: "How Hard Is It to Rig a Tournament When Few Players Can Beat or Be Beaten by the Favorite?"
+authors: [Zhonghao Wang, Junqiang Peng, Yuxi Liu, Mingyu Xiao]
+identifiers: { dblp: conf/aaai/WangPLX26 }
+versions:
+  arxiv-v1:
+    kind: preprint
+    year: 2026
+    arxiv: "2601.08530v1"
+    open_access: true
+  aaai:
+    kind: conference
+    venue: "Fortieth AAAI Conference on Artificial Intelligence (AAAI 2026), pp. 17276–17283"
+    year: 2026
+    doi: "10.1609/aaai.v40i20.38779"
+    open_access: false

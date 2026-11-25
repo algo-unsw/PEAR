@@ -1,0 +1,24 @@
+id: max-cut--m--gaspers-2026-pathwidth
+problem: max-cut
+proved_for: weighted
+bound:
+  as_stated: 'O^*(2^{7m/48 + o(m)})'
+  notation: O*
+  parameters:
+  - m
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Time and space, as stated (dynamic programming over a path decomposition).'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: gaspers-2026-pathwidth
+  statements:
+    arxiv-v1:
+      statement: 'Theorem 11.3(2) with $r = 2$'
+      page: 78
+  note: 'Theorem 11.3(2): Max $(r,2)$-CSP with $m$ constraints (real-valued score functions, Section 11.1) in time and space $O^*(r^{(7/48)m+o(m)})$, by dynamic programming over a path decomposition of width $\frac{7}{48}m + o(m)$ (Corollary 1.4, Theorem 1.5). Max Cut with edge weights $w$ is the case $r = 2$: one variable per vertex and, for each edge $uv$, the score $w(uv)$ when $u$ and $v$ get different values and $0$ otherwise, so $m$ is the number of edges (as in the Max Cut record of Gaspers and Sorkin). arXiv v1, 3 November 2026 (read: LaTeX source and the v1 PDF); unrefereed preprint.'

@@ -1,0 +1,26 @@
+id: feedback-vertex-set-in-tournaments--n--fomin-gaspers-lokshtanov-saurabh-2015
+problem: feedback-vertex-set-in-tournaments
+proved_for: decision
+bound:
+  as_stated: '1.3820^{n} n^{O(1)}'
+  notation: O
+  parameters: [n]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'An additional $2^{o(n)}$ space for the derandomization, as stated (Conclusion of arXiv v1).'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+uses:
+  - feedback-vertex-set-in-tournaments--k--kumar-lokshtanov-2015
+source:
+  paper: fomin-gaspers-lokshtanov-saurabh-2015
+  statements:
+    arxiv-v1:
+      statement: 'Table 1 (Theorem 2 with the $1.6181^k$ algorithm of Kumar and Lokshtanov)'
+  note: 'Theorem 2 (derandomized Monotone Local Search) gives $(2 - 1/1.6181)^{n + o(n)} N^{O(1)}$, base $1.38199\ldots$, so $O^*(1.3820^n)$ as in Table 1 (all bounds there suppress polynomial factors). Feedback Vertex Set in Tournaments is a $\Pi$-Vertex Deletion problem for the hereditary class of acyclic tournaments (Section 1). Theorem 1 gives the same base with a randomized (one-sided error) polynomial-space algorithm; not entered separately (see the notes of batch serge-04: the technique could cover it). STOC 2016; J. ACM 2019.'
+formal: { status: informal }
+status: valid

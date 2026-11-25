@@ -1,0 +1,21 @@
+id: b-coloring--cw--jaffke-lima-lokshtanov-2020
+problem: b-coloring
+proved_for: decision
+bound:
+  as_stated: "n^{2^{O(cw)}}"
+  notation: O
+  parameters: [n, cw]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: "Not stated; educated guess: $n^{2^{O(cw)}}$. Dynamic programming over a rooted branch decomposition with $n^{2^{O(w)}}$ signatures per node."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: jaffke-lima-lokshtanov-2020
+  statements:
+    arxiv-v2: { statement: "Theorem labelled thm:alg:cw (Section 3, \"The Algorithm\")" }
+  note: "The theorem is stated for the module-width $w$ of a given rooted branch decomposition. By Rao's theorem quoted in Section 2 (Theorem 2.1 of the journal version), module-width is at most clique-width and a decomposition of the one is converted into one of the other in $O(n^2)$ time, so the bound holds with $w$ the width of a given clique-width expression. The paper shows that $n^{2^{o(w)}}$ would refute ETH (ETH is claimed refuted, CLAUDE.md rule 7). Read in the arXiv LaTeX source."

@@ -1,0 +1,44 @@
+id: survivable-network-design
+name: Survivable Network Design
+aliases: [SNDP, Survivable Network Design Problem, EC-SNDP, Edge-Connectivity Survivable Network Design, Generalized Steiner Network]
+category: networks
+complexity:
+  class: NP-complete
+  source:
+    folklore: true
+    note: "Steiner Tree, one of Karp's NP-complete problems, is the special case with demand $1$ between every two terminals and $0$ otherwise (reduction steiner-tree--to--survivable-network-design; Feldmann, Mukherjee and van Leeuwen, Section 1: with all demands $1$ the problem becomes Steiner Tree). Membership in NP: the edge-connectivity between two vertices is computed by a maximum-flow computation."
+    reference: { paper: feldmann-mukherjee-van-leeuwen-2021, version: arxiv-v3, statement: "Section 1" }
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  k: { meaning: "the solution size: the integer $k$ in the input (decision, search), the minimum number of edges of a solution (optimisation), or the minimum number of edges of a minimum-cost solution (weighted)" }
+constraints:
+  - { constraint: "k \\le m", because: "A solution is a set of edges, so every instance with $k \\ge m$ is decided by checking whether $F = E$ is a solution." }
+  - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
+versions:
+  decision:
+    kind: decision
+    input: "A graph $G = (V, E)$, demands $r \\colon \\binom{V}{2} \\to \\mathbb{Z}_{\\ge 0}$, and an integer $k$."
+    question: "Is there a set $F \\subseteq E$ with $|F| \\le k$ such that for every pair $\\{s, t\\}$ of vertices, the graph $(V, F)$ has at least $r(s, t)$ edge-disjoint paths between $s$ and $t$?"
+  optimisation:
+    kind: optimisation
+    input: "A graph $G = (V, E)$ and demands $r \\colon \\binom{V}{2} \\to \\mathbb{Z}_{\\ge 0}$."
+    goal: "Find the minimum size of a set $F \\subseteq E$ such that for every pair $\\{s, t\\}$ of vertices, the graph $(V, F)$ has at least $r(s, t)$ edge-disjoint paths between $s$ and $t$, or report that none exists."
+  search:
+    kind: search
+    input: "A graph $G = (V, E)$, demands $r \\colon \\binom{V}{2} \\to \\mathbb{Z}_{\\ge 0}$, and an integer $k$."
+    goal: "Find a set $F \\subseteq E$ with $|F| \\le k$ such that for every pair $\\{s, t\\}$ of vertices, the graph $(V, F)$ has at least $r(s, t)$ edge-disjoint paths between $s$ and $t$, or report that none exists."
+  weighted:
+    kind: optimisation
+    input: "A graph $G = (V, E)$, demands $r \\colon \\binom{V}{2} \\to \\mathbb{Z}_{\\ge 0}$, and edge costs $w \\colon E \\to \\mathbb{Z}_{\\ge 0}$."
+    goal: "Find the minimum cost $\\sum_{e \\in F} w(e)$ of a set $F \\subseteq E$ such that for every pair $\\{s, t\\}$ of vertices, the graph $(V, F)$ has at least $r(s, t)$ edge-disjoint paths between $s$ and $t$, or report that none exists."
+    generalises: [optimisation]
+default_version: decision
+shared_bounds:
+  - versions: [decision, optimisation, search]
+    because: "Binary search on $k$ and self-reducibility (delete an edge and test again)."
+related:
+  - { problem: steiner-tree, relation: special-case }
+  - { problem: steiner-forest, relation: special-case }

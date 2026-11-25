@@ -1,0 +1,51 @@
+id: sparsest-cut
+name: Sparsest Cut
+aliases: [Edge Expansion, Cheeger Constant, Isoperimetric Number, Minimum Quotient Cut, 2-Sparsest Cut]
+category: networks
+complexity:
+  class: NP-complete
+  source:
+    paper: daneshgar-javadi-2010
+    statements:
+      arxiv-v1: { statement: 'Corollary 2 (i), with $k = 2$' }
+    note: 'Corollary 2 (i): for every fixed $k \ge 2$, IPP$_k$ and NCP$_k$ (max and mean versions) are NP-complete for unweighted simple graphs. With $k = 2$ and all weights $1$, NCP$^M_2$ asks whether some partition $\{A, V \setminus A\}$ has $\max\{c(A)/|A|, c(A)/|V \setminus A|\} \le N$, which is the decision version here; the paper (Section 1) notes that this common value $\iota_2$ is the Cheeger constant or edge expansion. The proof unitarizes the weights of Mohar''s NP-completeness result for graphs with multiple edges (Theorem A (i), citing Mohar, JCTB 1989). Wikipedia (Cut (graph theory), section Sparsest cut) defines the problem this way and states that it is NP-hard without citing a source.'
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  tw: { shared: treewidth }
+  vc: { shared: vertex-cover-number }
+constraints:
+  - { constraint: 'm \le n(n - 1)/2', because: 'A simple graph has at most $n(n-1)/2$ edges.' }
+  - { constraint: 'tw \le vc', because: 'For a vertex cover $C$, the bags $C \cup \{v\}$ for $v \notin C$, arranged on a path, form a tree decomposition of width $|C|$.' }
+  - { constraint: 'vc \le n', because: 'A vertex cover is a set of vertices.' }
+  - { constraint: 'tw \le n', because: 'A single bag containing all vertices is a tree decomposition of width $n - 1$.' }
+versions:
+  decision:
+    kind: decision
+    input: 'A graph $G = (V, E)$ and a rational number $\phi \ge 0$.'
+    question: 'Is there a set $S \subseteq V$ with $1 \le |S| \le |V|/2$ such that at most $\phi |S|$ edges have exactly one endpoint in $S$?'
+  optimisation:
+    kind: optimisation
+    input: 'A graph $G = (V, E)$ with at least two vertices.'
+    goal: 'Find the minimum, over all sets $S \subseteq V$ with $1 \le |S| \le |V|/2$, of the number of edges with exactly one endpoint in $S$ divided by $|S|$.'
+  weighted-decision:
+    kind: decision
+    input: 'A graph $G = (V, E)$, edge weights $w \colon E \to \mathbb{Z}_{\ge 0}$ and a rational number $\phi \ge 0$.'
+    question: 'Is there a set $S \subseteq V$ with $1 \le |S| \le |V|/2$ such that the total weight of the edges with exactly one endpoint in $S$ is at most $\phi |S|$?'
+    generalises: [decision]
+  weighted:
+    kind: optimisation
+    input: 'A graph $G = (V, E)$ with at least two vertices and edge weights $w \colon E \to \mathbb{Z}_{\ge 0}$.'
+    goal: 'Find the minimum, over all sets $S \subseteq V$ with $1 \le |S| \le |V|/2$, of the total weight of the edges with exactly one endpoint in $S$ divided by $|S|$.'
+    generalises: [optimisation]
+default_version: decision
+shared_bounds:
+  - versions: [decision, optimisation]
+    because: 'Binary search on $\phi$: the optimum is a fraction $p/q$ with integers $0 \le p \le m$ and $1 \le q \le n/2$, so $O(\log n)$ calls over the $O(mn)$ candidate values suffice.'
+  - versions: [weighted-decision, weighted]
+    because: 'Binary search on $\phi$: the optimum is a fraction $p/q$ with integers $0 \le p \le \sum_e w(e)$ and $1 \le q \le n/2$, and two distinct such fractions differ by at least $4/n^2$, so $O(\log(n \sum_e w(e)))$ calls suffice.'
+related:
+  - { problem: minimum-bisection, relation: variant }
+  - { problem: max-cut, relation: variant }

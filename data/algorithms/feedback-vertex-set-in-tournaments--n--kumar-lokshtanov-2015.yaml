@@ -1,0 +1,24 @@
+id: feedback-vertex-set-in-tournaments--n--kumar-lokshtanov-2015
+problem: feedback-vertex-set-in-tournaments
+proved_for: decision
+bound:
+  as_stated: 'O(1.466^{n})'
+  notation: O
+  parameters: [n]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Not stated for the whole algorithm; educated guess: polynomial. The families of set pairs are enumerated in polynomial space, as stated (arXiv v1, Lemmas 4 and 5); the rest is the kernel of Dom et al., branching, and a divide-and-conquer recursion over balanced edge partitions. No memoization or dynamic programming found.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: kumar-lokshtanov-2015
+  statements:
+    stacs: { statement: "Theorem 14" }
+    arxiv-v1: { statement: "Theorem 1" }
+  note: 'The same theorem gives $O(1.6181^k + n^{O(1)})$ (STACS) and $O(1.618^k + n^{O(1)})$ (arXiv v1). The base comes from the recurrence $f(n) \le f(n-1) + f(n-3)$ (root $1.4656$); Table 1 of Fomin, Gaspers, Lokshtanov and Saurabh (arXiv:1512.01621v1) lists it as $1.4656^n$.'
+formal: { status: informal }
+status: valid

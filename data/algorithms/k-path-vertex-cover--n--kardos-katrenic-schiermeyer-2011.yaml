@@ -1,0 +1,23 @@
+id: k-path-vertex-cover--n--kardos-katrenic-schiermeyer-2011
+problem: k-path-vertex-cover
+proved_for: optimisation-d-3
+bound:
+  as_stated: "O^*(1.5171^{n})"
+  notation: O*
+  parameters: [n]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: "Not stated; educated guess: polynomial. E3PVC is a recursive branch-and-bound algorithm (\"Our algorithm E3PVC for a general graphs uses a branch-and-bound approach\"); no memoization, dynamic programming or tables found."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: kardos-katrenic-schiermeyer-2011
+  statements:
+    hal: { statement: "Abstract; Theorem 3.1 with $X = \\emptyset$ (running time $O^*(1.5171^r)$, $r = |V(G) \\setminus X|$)" }
+  note: "Minimum 3-path vertex cover ($d = 3$). Faster algorithms are cited by Červený and Suchý (arXiv 2111.05896 v3, Section 1): $O(1.4613^n)$ in polynomial space (Chang et al., DAM 2018) and $O(1.3659^n)$ in exponential space (Xiao and Kou, TCS 2017); Xiao and Kou is now entered (k-path-vertex-cover--n--xiao-kou-2015 and its -polyspace companion); Chang et al. is still unreachable."
+formal: { status: informal }
+status: valid

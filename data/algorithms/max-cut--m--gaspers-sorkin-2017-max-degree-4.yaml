@@ -1,0 +1,23 @@
+id: max-cut--m--gaspers-sorkin-2017-max-degree-4
+problem: max-cut
+proved_for: optimisation-max-degree-4
+bound:
+  as_stated: '2^{7m/40 + o(m)}'
+  notation: O
+  parameters:
+  - m
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Polynomial space, as stated.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: gaspers-sorkin-2017
+  statements:
+    arxiv-v2:
+      statement: 'Theorem 3.1 with $r = 2$'
+  note: 'Theorem 3.1: Max 2-CSP in time $r^{7m/40+o(m)}$ and polynomial space if the constraint graph has maximum degree 4; the text after the theorem says that it improves on the fastest known polynomial-space running times for Max Cut on cubic, maximum degree 4 and general graphs (Max Cut is the case $r = 2$, with the same graph). arXiv v2, 17 November 2017 (read: LaTeX source); ICALP 2015; ACM TALG 2017.'

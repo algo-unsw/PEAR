@@ -1,0 +1,16 @@
+id: eppstein-2015
+title: "Metric Dimension Parameterized by Max Leaf Number"
+authors: [David Eppstein]
+identifiers: { dblp: "journals/jgaa/Eppstein15" }
+versions:
+  arxiv-v1:
+    kind: preprint
+    arxiv: "1506.01749v1"
+    year: 2015
+    open_access: true
+  journal:
+    kind: journal
+    venue: "Journal of Graph Algorithms and Applications 19(1), pp. 313–323"
+    year: 2015
+    doi: "10.7155/jgaa.00360"
+    open_access: true

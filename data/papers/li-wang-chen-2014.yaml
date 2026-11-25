@@ -1,0 +1,16 @@
+id: li-wang-chen-2014
+title: "A 2k-Vertex Kernel for Maximum Internal Spanning Tree"
+authors: [Wenjun Li, Jianxin Wang, Jianer Chen, Yixin Cao]
+identifiers: { dblp: "conf/wads/LiWCC15" }
+versions:
+  arxiv-v1:
+    kind: preprint
+    arxiv: "1412.8296v1"
+    year: 2014
+    open_access: true
+  wads:
+    kind: conference
+    venue: "Algorithms and Data Structures (WADS 2015), LNCS 9214, pp. 495–505"
+    year: 2015
+    doi: "10.1007/978-3-319-21840-3_41"
+    open_access: false

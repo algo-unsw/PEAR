@@ -1,0 +1,19 @@
+id: mnich-teutrine-2016
+title: "Improved Bounds for Minimal Feedback Vertex Sets in Tournaments"
+authors: [Matthias Mnich, Eva-Lotta Teutrine]
+identifiers: { dblp: journals/jgt/MnichT18, openalex: null }
+versions:
+  ipec:
+    kind: conference
+    venue: "11th International Symposium on Parameterized and Exact Computation (IPEC 2016), LIPIcs 63, pp. 24:1–24:10"
+    year: 2016
+    doi: "10.4230/LIPIcs.IPEC.2016.24"
+    url: "https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.IPEC.2016.24"
+    open_access: true
+  journal:
+    kind: journal
+    venue: "Journal of Graph Theory 88(3), pp. 482–506"
+    year: 2018
+    doi: "10.1002/jgt.22225"
+    url: "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5969329/"
+    open_access: true

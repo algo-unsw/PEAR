@@ -1,0 +1,24 @@
+id: buchin-et-al-2008
+title: "Drawing (Complete) Binary Tanglegrams: Hardness, Approximation, Fixed-Parameter Tractability"
+authors: [Kevin Buchin, Maike Buchin, Jaroslaw Byrka, Martin Nöllenburg, Yoshio Okamoto, Rodrigo I. Silveira, Alexander Wolff]
+identifiers: { dblp: "journals/algorithmica/BuchinBBNOSW12", openalex: null }
+versions:
+  arxiv:
+    kind: preprint
+    arxiv: "0806.0920"
+    year: 2008
+    open_access: true
+  gd:
+    kind: conference
+    title: "Drawing (Complete) Binary Tanglegrams"
+    venue: "Graph Drawing, 16th International Symposium (GD 2008), LNCS 5417, pp. 324–335"
+    year: 2008
+    doi: "10.1007/978-3-642-00219-9_32"
+    open_access: false
+  journal:
+    kind: journal
+    venue: "Algorithmica 62, pp. 309–332"
+    year: 2012
+    doi: "10.1007/s00453-010-9456-3"
+    url: "https://opus.bibliothek.uni-wuerzburg.de/opus4-wuerzburg/files/12462/art_10.1007_s00453-010-9456-3.pdf"
+    open_access: true

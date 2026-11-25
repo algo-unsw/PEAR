@@ -1,0 +1,10 @@
+id: partition-into-triangles--to--exact-cover
+from: { problem: partition-into-triangles, version: decision }
+to: { problem: exact-cover, version: decision-set-size-3 }
+type: polytime-deterministic
+calls: 1
+time: "O(n^{3})"
+parameter_map: { n: "n", m: "n^{3}" }
+source:
+  folklore: true
+  note: "The universe is $V$ and the family consists of the vertex sets of the triangles of $G$ (at most $n^3$, listed in $O(n^3)$ time); a partition into triangles is exactly an exact cover by these 3-sets."

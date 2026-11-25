@@ -1,0 +1,24 @@
+id: sharp-dominating-set--n--gaspers-2026-pathwidth
+problem: sharp-dominating-set
+proved_for: counting
+bound:
+  as_stated: '1.4815^{n}'
+  notation: O
+  parameters:
+  - n
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Exponential space, as stated (Theorem 13.1: time and space).'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: gaspers-2026-pathwidth
+  statements:
+    arxiv-v1:
+      statement: 'Theorem 13.1'
+      page: 82
+  note: 'Counts the dominating sets of each size in $O(1.4815^n)$ time and space (Theorem 13.1), which also solves Dominating Set. arXiv v1, 3 November 2026; unrefereed preprint.'

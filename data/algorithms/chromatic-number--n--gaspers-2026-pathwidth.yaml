@@ -1,0 +1,24 @@
+id: chromatic-number--n--gaspers-2026-pathwidth
+problem: chromatic-number
+proved_for: optimisation
+bound:
+  as_stated: '2.2341^{n}'
+  notation: O
+  parameters:
+  - n
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Polynomial space, as stated.'
+  algebraic: true
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: gaspers-2026-pathwidth
+  statements:
+    arxiv-v1:
+      statement: 'Theorem C.6(c)'
+      page: 158
+  note: 'Theorem C.6(c): the chromatic number in polynomial space and time $O(2.2341^n)$, from counting independent sets in polynomial space and time $O(1.2341^n)$ (same theorem) with the inclusion–exclusion formula of Björklund, Husfeldt and Koivisto; it reruns the analysis of Gaspers and Lee with the separator constant $c_3 = \frac{3}{4\pi}\arccos\frac{5}{6}$ in place of $\frac16$ and fixes gaps the paper reports in that analysis (Appendix C.5). Computer-assisted. arXiv v1, 3 November 2026 (read: LaTeX source and the v1 PDF); unrefereed preprint.'

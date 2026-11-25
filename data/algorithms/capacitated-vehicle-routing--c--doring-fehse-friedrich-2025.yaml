@@ -1,0 +1,24 @@
+id: capacitated-vehicle-routing--c--doring-fehse-friedrich-2025
+problem: capacitated-vehicle-routing
+proved_for: optimisation
+bound:
+  as_stated: 'c^{O(c)} n^{O(1)}'
+  notation: O
+  parameters:
+  - c
+  - n
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Not stated; educated guess: polynomial. The algorithm enumerates partitions and orderings of the clients one at a time, after an all-pairs shortest-path table; no exponential-space technique.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: doring-fehse-friedrich-2025
+  statements:
+    arxiv:
+      statement: 'Theorem "thm:cvrp-c-fpt", first theorem of Section 4 (Capacitated Vehicle Routing), extending Theorem "thm:vrp-c-fpt" of Section 3'
+  note: 'For Load-CVRP (and Gas-CVRP, Load-Gas-CVRP) an optimal routing is computed in $|C|^{O(|C|)} n^{O(1)}$ steps: enumerate all partitions and orderings of the clients ($|C|^{|C|} |C|!$ iterations), route each block from the best depot through its clients by shortest paths, and keep the routings that respect the capacity. Proved for several depots $D$; the canonical version has one depot. Zero demands are excluded in the paper ($\Lambda \colon C \to \mathbb{N}^+$), as in the canonical definition. Theorem numbers in the arXiv version are not visible in the LaTeX source; labels quoted.'

@@ -1,0 +1,24 @@
+id: sharp-3-coloring--m--gaspers-2026-pathwidth
+problem: sharp-3-coloring
+proved_for: counting
+bound:
+  as_stated: 'O^*(3^{7m/48 + o(m)})'
+  notation: O*
+  parameters:
+  - m
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Time and space, as stated (dynamic programming over a path decomposition, $O(r^{w+1})$ semiring elements kept at a time for width $w$; Lemma 11.1(a)).'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: gaspers-2026-pathwidth
+  statements:
+    arxiv-v1:
+      statement: 'Theorem 11.3(2)'
+      page: 78
+  note: 'Theorem 11.3(2): every semiring version of Max $(r,2)$-CSP is solved in time and space $O^*(r^{(7/48)m+o(m)})$ (semiring operations), via a path decomposition of width $\frac{7}{48}m + o(m)$ of the constraint graph. Section 11.1: counting the solutions of a binary CSP is the semiring $(\mathbb{N}, +, \times)$ with scores in $\{0, 1\}$. Here $r = 3$, the constraint graph is $G$, every vertex score is 1 and $s_{uv}(a, b) = 1$ if and only if $a \ne b$, so $Z$ is the number of 3-colourings; the numbers have $O(n)$ bits, so each operation takes polynomial time (simple specialisation, decided by the worker). Theorem number and page from the v1 PDF as recorded for `max-2-csp--m--gaspers-2026-pathwidth`; statement read in the LaTeX source. arXiv v1, 3 November 2026; unrefereed preprint.'

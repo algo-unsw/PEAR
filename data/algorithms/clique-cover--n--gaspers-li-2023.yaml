@@ -1,0 +1,24 @@
+id: clique-cover--n--gaspers-li-2023
+problem: clique-cover
+proved_for: decision
+bound:
+  as_stated: O(1.8554^{n})
+  notation: O
+  parameters: [n]
+properties:
+  randomized: { error: two-sided }
+  space:
+    class: exponential
+    bound: 'Not stated. Corollary 13 (ICALP numbering) first runs the inclusion–exclusion preprocessing of Theorem 6 for all subsets of size at most about $n/4$ and stores the results in QRAM: exponential space.'
+  algebraic: true
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: true
+source:
+  paper: gaspers-li-2023
+  statements:
+    icalp:
+      statement: Theorem 14
+    arxiv:
+      statement: Theorem 7 (current arXiv version, read 21 November 2026)
+  note: 'Theorem 14: bounded-error quantum algorithms decide, for a graph on $n$ vertices and an integer $k$, whether there is a $k$-packing, $k$-partitioning or $k$-covering of $G$ with maximal cliques in $O(1.8554^n)$ time (Corollary 13 with the $O^*(3^{n/3})$ simple branching enumeration of maximal cliques). A vertex partition into $k$ cliques exists if and only if $V$ can be covered by $k$ (maximal) cliques, since cliques are closed under taking subsets, so this decides Clique Cover. The same paper solves Chromatic Number in $O(1.7956^n)$ (Theorem 15), which carries over to Clique Cover through the complement graph.'

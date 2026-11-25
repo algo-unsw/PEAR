@@ -1,0 +1,60 @@
+id: densest-k-subgraph
+name: Densest k-Subgraph
+aliases: [DkS, DKS, Densest k-Subgraph Problem, Heaviest Unweighted Subgraph, k-Cluster]
+category: graphs
+complexity:
+  class: NP-complete
+  source:
+    folklore: true
+    note: "Clique is the special case $\\ell = k(k-1)/2$ (see the reduction from Clique); membership in NP is clear. Hanaka (arXiv 2207.09803, Section 1): \"Densest $k$-Subgraph is NP-hard due to the NP-hardness of $k$-Clique.\""
+    reference: { paper: hanaka-2022, version: arxiv, statement: "Section 1" }
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  k: { meaning: "the number $k$ of vertices of the subgraph, given in the input (all versions)" }
+  tw: { shared: treewidth }
+  vc: { shared: vertex-cover-number }
+  nd: { shared: neighborhood-diversity }
+  dc: { shared: distance-to-cluster }
+  db: { meaning: "the block deletion number: the minimum number of vertices whose deletion leaves a block graph (a graph whose 2-connected components are cliques)" }
+constraints:
+  - { constraint: "k \\le n", because: "Every instance with $k > n$ has no set $S$ with $|S| = k$ (a no-instance), answered in polynomial time." }
+  - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
+  - { constraint: "tw \\le vc", because: "For a vertex cover $C$, the bags $C \\cup \\{v\\}$, $v \\notin C$, arranged on a path, form a tree decomposition of width $|C|$." }
+  - { constraint: "vc \\le n", because: "$V$ is a vertex cover." }
+  - { constraint: "dc \\le vc", because: "Deleting a vertex cover leaves an edgeless graph, which is a cluster graph." }
+  - { constraint: "db \\le dc", because: "Every cluster graph is a block graph." }
+  - { constraint: "nd \\le n", because: "Each vertex alone is a set of twins, so there are at most $n$ neighbourhood types." }
+versions:
+  decision:
+    kind: decision
+    input: "A graph $G = (V, E)$ and integers $k$ and $\\ell$."
+    question: "Is there a set $S \\subseteq V$ with $|S| = k$ such that $G[S]$ has at least $\\ell$ edges?"
+    generalises: [decision-max-degree-3]
+  optimisation:
+    kind: optimisation
+    input: "A graph $G = (V, E)$ and an integer $k$."
+    goal: "Find the maximum number of edges of $G[S]$ over all sets $S \\subseteq V$ with $|S| = k$."
+    generalises: [optimisation-max-degree-3]
+  search:
+    kind: search
+    input: "A graph $G = (V, E)$ and integers $k$ and $\\ell$."
+    goal: "Find a set $S \\subseteq V$ with $|S| = k$ such that $G[S]$ has at least $\\ell$ edges, or report that none exists."
+  decision-max-degree-3:
+    kind: decision
+    input: "A graph $G = (V, E)$ of maximum degree at most $3$ and integers $k$ and $\\ell$."
+    question: "Is there a set $S \\subseteq V$ with $|S| = k$ such that $G[S]$ has at least $\\ell$ edges?"
+  optimisation-max-degree-3:
+    kind: optimisation
+    input: "A graph $G = (V, E)$ of maximum degree at most $3$ and an integer $k$."
+    goal: "Find the maximum number of edges of $G[S]$ over all sets $S \\subseteq V$ with $|S| = k$."
+default_version: decision
+shared_bounds:
+  - versions: [decision, optimisation, search]
+    because: "Binary search on $\\ell$ and self-reducibility."
+  - versions: [decision-max-degree-3, optimisation-max-degree-3]
+    because: "Binary search on $\\ell$."
+related:
+  - { problem: clique, relation: special-case }

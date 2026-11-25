@@ -1,0 +1,39 @@
+id: induced-biclique
+name: Induced Biclique
+aliases: [Maximum Induced Biclique, Maximum Biclique, Maximum Cardinality Induced Biclique]
+category: graphs
+complexity:
+  class: NP-complete
+  source:
+    folklore: true
+    note: "In NP (guess $X$ and $Y$). NP-hard on general graphs: Gaspers, Kratsch and Liedloff state \"The maximum biclique problem is polynomial for bipartite graphs [7], and NP-hard for general graphs [32]\", with [32] = M. Yannakakis, \"Node- and edge-deletion NP-complete problems\", STOC 1978, pp. 253–264 (not opened); Fernau, Gaspers, Kratsch, Liedloff and Raible (CTW 2009) state that maximum cardinality induced biclique is NP-complete on general graphs, citing Yannakakis. TODO(verify): add a paper file yannakakis-1978 with three attestations (Wikipedia could not be fetched)."
+    reference: { paper: gaspers-kratsch-liedloff-2008, version: journal, statement: "Section 1" }
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  k: { meaning: "the solution size $|X| + |Y|$: the integer $k$ in the input (decision, search), or the maximum of $|X| + |Y|$ (optimisation)" }
+constraints:
+  - { constraint: "k \\le n", because: "Every instance with $k > n$ is a no-instance, answered in polynomial time." }
+  - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
+versions:
+  decision:
+    kind: decision
+    input: "A graph $G = (V, E)$ and an integer $k$."
+    question: "Are there disjoint sets $X, Y \\subseteq V$ with $|X| + |Y| \\ge k$ such that $X$ and $Y$ are independent sets (either may be empty) and every vertex of $X$ is adjacent to every vertex of $Y$?"
+  optimisation:
+    kind: optimisation
+    input: "A graph $G = (V, E)$."
+    goal: "Find the maximum of $|X| + |Y|$ over disjoint sets $X, Y \\subseteq V$ such that $X$ and $Y$ are independent sets (either may be empty) and every vertex of $X$ is adjacent to every vertex of $Y$."
+  search:
+    kind: search
+    input: "A graph $G = (V, E)$ and an integer $k$."
+    goal: "Find disjoint sets $X, Y \\subseteq V$ with $|X| + |Y| \\ge k$ such that $X$ and $Y$ are independent sets (either may be empty) and every vertex of $X$ is adjacent to every vertex of $Y$, or report that none exists."
+default_version: decision
+shared_bounds:
+  - versions: [decision, optimisation, search]
+    because: "Binary search on $k$ and self-reducibility."
+related:
+  - { problem: independent-set, relation: variant }
+  - { problem: balanced-biclique, relation: variant }

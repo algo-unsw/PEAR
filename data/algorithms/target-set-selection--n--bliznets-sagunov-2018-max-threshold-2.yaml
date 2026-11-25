@@ -1,0 +1,23 @@
+id: target-set-selection--n--bliznets-sagunov-2018-max-threshold-2
+problem: target-set-selection
+proved_for: decision-max-threshold-2
+bound:
+  as_stated: "O^*(1.90345^{n})"
+  notation: O*
+  parameters: [n]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: "Not stated; educated guess: polynomial. The algorithm tries all subsets of size at most a fixed fraction of $n$ one at a time, then branches (branching and reduction rules) and tries all assignments of a small set $F$ at the leaves; no dynamic programming or tables are used."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: bliznets-sagunov-2018
+  statements:
+    arxiv: { statement: "Theorem 3" }
+  note: "Theorem 3: \"Perfect Target Set Selection with thresholds being at most two can be solved in\" $O^*(1.90345^n)$ time. Read in the arXiv PDF dated 7 September 2018 (TODO(verify) the arXiv version number and the numbering in the IPEC 2018 and Algorithmica 2023 versions)."
+formal: { status: informal }
+status: valid

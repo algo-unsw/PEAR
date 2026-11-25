@@ -1,0 +1,20 @@
+id: bipartite-dimension--k--folklore
+problem: bipartite-dimension
+proved_for: decision
+bound:
+  as_stated: "O^*(3^{k 3^{k}})"
+  notation: O*
+  parameters: [k]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: "One assignment of vectors to the kernel's vertices at a time."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  folklore: true
+  note: "Kernel, then brute force. Fleischner, Mujuni, Paulusma and Szeider (Theorem 2 of the author copy of the TCS 2009 version) reduce a general graph in polynomial time (deleting isolated vertices and all but one vertex of each class of vertices with the same neighbourhood) to an equivalent instance that, if it is a yes-instance, has at most $3^k$ vertices; larger reduced instances are no-instances. On the kernel, try every assignment of a vector in $\\{0, 1, 2\\}^k$ to each vertex ($3^{k 3^k}$ assignments): set $A_i$ to the vertices with entry 1 in position $i$ and $B_i$ to those with entry 2, and check in time polynomial in $3^k$ that every $(A_i, B_i)$ is a biclique and that every edge is covered. Every cover by $k$ bicliques gives such an assignment, since $A_i$ and $B_i$ are disjoint. Their own running time for this step (Corollary 3) is reported as inaccurate by Nor et al. (CPM 2010) and Chandran et al. (IPEC 2016), so it is not entered."
+  reference: { paper: fleischner-mujuni-paulusma-2007, version: journal, statement: "Theorem 2" }

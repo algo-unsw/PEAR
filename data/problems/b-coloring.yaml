@@ -1,0 +1,52 @@
+id: b-coloring
+name: b-Coloring
+aliases: [b-Colouring, b-Chromatic Number]
+category: graphs
+complexity:
+  class: NP-complete
+  source:
+    paper: irving-manlove-1999
+    statements:
+      author-copy: { statement: "Theorem 3.3" }
+    note: "Theorem 3.3 states that the b-chromatic number problem (Definition 2.5: given $G$ and $K$, is $\\varphi(G) \\ge K$?) is NP-complete; Theorems 4.2 and 4.6 give a polynomial algorithm for trees. Read in the authors' postprint. The exact-$k$ version is NP-complete already for $k = 3$ (Jaffke and Lima, arXiv 1811.03966, abstract), and the at-least version is W[1]-hard parameterized by $k$ (Panolan, Philip and Saurabh, IPEC 2015)."
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  k: { meaning: "the number of colours: the integer $k$ in the input (decision, at-least), or the b-chromatic number $\\chi_b(G)$ (optimisation)" }
+  tw: { shared: treewidth }
+  vc: { shared: vertex-cover-number }
+  fes: { shared: feedback-edge-set-number }
+  nd: { shared: neighborhood-diversity }
+  dcc: { meaning: "the distance to co-cluster: the minimum number of vertices whose deletion leaves a complete multipartite graph (the complement of a disjoint union of cliques)" }
+  cw: { meaning: "the width $w$ of a $w$-expression constructing $G$ (create, disjoint union, join and relabel operations with at most $w$ labels), given with the input; at least the clique-width of $G$" }
+constraints:
+  - { constraint: "k \\le n", because: "A b-colouring has at most $n$ nonempty colour classes; instances with $k > n$ are no-instances." }
+  - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
+  - { constraint: "tw \\le vc", because: "For a vertex cover $S$, the bags $S \\cup \\{v\\}$ for $v \\notin S$, arranged on a path, form a tree decomposition of width $|S|$." }
+  - { constraint: "vc \\le n", because: "$V$ is a vertex cover." }
+  - { constraint: "fes \\le m", because: "Deleting all edges leaves a forest." }
+  - { constraint: "dcc \\le n", because: "Deleting all vertices leaves the empty graph." }
+  - { constraint: "nd \\le n", because: "The partition into single vertices is a partition into twin classes." }
+versions:
+  decision:
+    kind: decision
+    input: "A graph $G = (V, E)$ and an integer $k$."
+    question: "Is there a b-colouring of $G$ with exactly $k$ colours: a map $c$ from $V$ onto $\\{1, \\dots, k\\}$ such that $c(u) \\ne c(v)$ for every edge $uv$ and every colour class contains a vertex that has a neighbour of every other colour?"
+  at-least:
+    kind: decision
+    input: "A graph $G = (V, E)$ and an integer $k$."
+    question: "Is there a b-colouring of $G$ with at least $k$ colours: for some $k' \\ge k$, a map $c$ from $V$ onto $\\{1, \\dots, k'\\}$ such that $c(u) \\ne c(v)$ for every edge $uv$ and every colour class contains a vertex that has a neighbour of every other colour?"
+  optimisation:
+    kind: optimisation
+    input: "A graph $G = (V, E)$."
+    goal: "Find the b-chromatic number $\\chi_b(G)$: the maximum $k'$ such that there is a map $c$ from $V$ onto $\\{1, \\dots, k'\\}$ such that $c(u) \\ne c(v)$ for every edge $uv$ and every colour class contains a vertex that has a neighbour of every other colour."
+default_version: decision
+shared_bounds:
+  - versions: [at-least, optimisation]
+    because: "The optimum is the largest $k \\le n$ for which the at-least version answers yes (binary search), and it answers the at-least version directly."
+related:
+  - { problem: chromatic-number, relation: variant }
+  - { problem: grundy-coloring, relation: variant }
+  - { problem: achromatic-number, relation: variant }

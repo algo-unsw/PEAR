@@ -1,0 +1,35 @@
+id: capacitated-vehicle-routing
+name: Capacitated Vehicle Routing
+aliases: [CVRP, Capacitated Vehicle Routing Problem, Load-Capacitated Vehicle Routing, Load-CVRP]
+category: networks
+complexity:
+  class: NP-complete
+  source:
+    folklore: true
+    note: "Hamiltonian Cycle (Karp 1972) is the special case with unit weights, one vehicle, every other vertex a client of demand $1$, capacity $n$ and $B = n$ (reduction hamiltonian-cycle--to--capacitated-vehicle-routing; Döring et al., Section 1: TSP is the special case of vehicle routing with one vehicle). Membership in NP: some optimal routing consists of at most $|C|$ walks, each a concatenation of at most $|C| + 1$ shortest paths. Döring et al. also show NP-hardness for capacity $3$, from Triangle Packing (Section 4, theorem labelled thm:cvrp-cap-paraNP)."
+    reference: { paper: doring-fehse-friedrich-2025, version: arxiv, statement: "Section 1" }
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  c: { meaning: "the number of clients $|C|$" }
+constraints:
+  - { constraint: "c \\le n", because: "The clients are vertices." }
+  - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
+versions:
+  decision:
+    kind: decision
+    input: "A graph $G = (V, E)$ with edge weights $w \\colon E \\to \\mathbb{Z}_{\\ge 0}$, a depot $d \\in V$, a set $C \\subseteq V$ of clients with demands $\\lambda \\colon C \\to \\mathbb{Z}_{\\ge 1}$, a number $k$ of vehicles, a vehicle capacity $Q$, and an integer $B$."
+    question: "Are there closed walks $W_1, \\dots, W_j$ in $G$ with $j \\le k$, each starting and ending at $d$, and an assignment of every client $v \\in C$ to a walk $W_i$ that visits $v$, such that the clients assigned to each walk have total demand at most $Q$ and $\\sum_{i = 1}^{j} w(W_i) \\le B$?"
+  optimisation:
+    kind: optimisation
+    input: "A graph $G = (V, E)$ with edge weights $w \\colon E \\to \\mathbb{Z}_{\\ge 0}$, a depot $d \\in V$, a set $C \\subseteq V$ of clients with demands $\\lambda \\colon C \\to \\mathbb{Z}_{\\ge 1}$, a number $k$ of vehicles, and a vehicle capacity $Q$."
+    goal: "Find the minimum total weight $\\sum_{i = 1}^{j} w(W_i)$ of closed walks $W_1, \\dots, W_j$ in $G$ with $j \\le k$, each starting and ending at $d$, with an assignment of every client $v \\in C$ to a walk $W_i$ that visits $v$, such that the clients assigned to each walk have total demand at most $Q$, or report that none exist."
+default_version: optimisation
+shared_bounds:
+  - versions: [decision, optimisation]
+    because: "Binary search on $B$: the optimum is an integer at most $c\\,(c + 1)(n - 1) W$, with $W$ the largest weight, since some optimal routing has at most $c$ non-empty walks, each a concatenation of at most $c + 1$ shortest paths."
+related:
+  - { problem: travelling-salesperson, relation: variant }
+  - { problem: hamiltonian-cycle, relation: special-case }

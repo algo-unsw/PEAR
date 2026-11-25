@@ -1,0 +1,24 @@
+id: max-cut--n--gaspers-2026-pathwidth-max-degree-3
+problem: max-cut
+proved_for: weighted-max-degree-3
+bound:
+  as_stated: 'O^*(2^{0.1398222n + o(n)})'
+  notation: O*
+  parameters:
+  - n
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Exponential space, as stated (Theorem 11.3: time and space).'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: gaspers-2026-pathwidth
+  statements:
+    arxiv-v1:
+      statement: 'Theorem 11.3(3) with $r = 2$'
+      page: 78
+  note: 'Theorem 11.3(3): Max $(r,2)$-CSP in time and space $O^*(r^{c_3 n_3+o(n)})$ if the constraint graph has maximum degree at most 3, with $n_3$ its number of degree-3 vertices and $c_3 = \frac{3}{4\pi}\arccos\frac56 < 0.1398222$ (Section 11.1); since $n_3 \le n$, the implied $O^*(2^{0.1398222n+o(n)})$ is stored for $r = 2$ (the bound language has no $\arccos$). Max Cut with edge weights $w$ is the case $r = 2$: one variable per vertex and, for each edge $uv$, the score $w(uv)$ when $u$ and $v$ get different values and $0$ otherwise, so the constraint graph is $G$ itself (same maximum degree) and $m$ is the number of edges (as in `max-cut--m--gaspers-2026-pathwidth`). arXiv v1, 3 November 2026 (read: the LaTeX source of the latest arXiv version, and the v1 PDF for theorem numbers and pages); unrefereed preprint.'

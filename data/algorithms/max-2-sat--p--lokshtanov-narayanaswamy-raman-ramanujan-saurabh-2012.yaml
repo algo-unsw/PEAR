@@ -1,0 +1,23 @@
+id: max-2-sat--p--lokshtanov-narayanaswamy-raman-ramanujan-saurabh-2012
+problem: max-2-sat
+proved_for: decision
+bound:
+  as_stated: 'O^*(2.3146^{p})'
+  notation: O*
+  parameters:
+  - p
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Not stated; educated guess: polynomial. A parameter-preserving reduction to Above Guarantee Vertex Cover, then branching with reduction rules and a polynomial-time LP solver; no memoization found.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: lokshtanov-narayanaswamy-raman-ramanujan-saurabh-2012
+  statements:
+    arxiv-v2:
+      statement: 'Corollary 2 (label cor:manyproblems, Section "Applications")'
+  note: 'The corollary solves Almost 2-SAT (delete at most $k$ clauses of a 2-CNF formula to make it satisfiable; definition in the appendix) in $O^*(2.3146^k)$. A Max 2-SAT instance $(\varphi, k)$ is a yes-instance exactly when $\varphi$ becomes satisfiable after deleting at most $m - k$ clauses, so this is Max 2-SAT parameterized by $p = m - k$. Corollary number inferred from the source: Corollary 1 (cor:compute min vc) is the only corollary before it, and the next one is Corollary 3 (odd cycle transversal, as in `odd-cycle-transversal--k--lokshtanov-narayanaswamy-raman-ramanujan-saurabh-2012`). The STACS 2012 version has the weaker base of its Vertex Cover above LP algorithm. arXiv v2 12 March 2012 (read); ACM TALG 2014.'

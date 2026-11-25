@@ -1,0 +1,24 @@
+id: minimum-equivalent-digraph--n--fomin-lokshtanov-panolan-2013-weighted
+problem: minimum-equivalent-digraph
+proved_for: weighted
+bound:
+  as_stated: "O(2^{4\\omega n} m n \\log W)"
+  notation: O
+  parameters: [n, m, W]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: "Not stated; educated guess: exponential. The same dynamic programme as the unweighted algorithm, with min $q$-representative families of size up to $\\binom{4n-4}{4\\ell}$."
+  algebraic: true
+  fast_matrix_multiplication: true
+  constructive: true
+  quantum: false
+source:
+  paper: fomin-lokshtanov-panolan-2013
+  statements:
+    arxiv-v2: { statement: "Section \"Minimal Equivalent Graph of a Strongly Connected Digraph\", the theorem on Minimum Weight Equivalent Graph: \"can be solved in time $O(2^{4\\omega n} m n \\log W)$\", $W$ the maximum weight of $w \\colon A(D) \\to \\mathbb{N}$" }
+    journal-author-copy: { statement: "Theorem 5.12" }
+  note: "The paper's weights are natural numbers; PEAR's weighted version allows weight $0$. If $0 \\notin \\mathbb{N}$ in the paper, use $w'(a) = (m+1)w(a) + 1 \\ge 1$: a minimum-$w'$ solution is a minimum-$w$ solution (the added cardinality term is below $m + 1$), and $\\log W' = O(\\log W + \\log m)$, so the bound is unchanged."
+formal: { status: informal }
+status: valid

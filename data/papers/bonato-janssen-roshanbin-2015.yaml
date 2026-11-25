@@ -1,0 +1,18 @@
+id: bonato-janssen-roshanbin-2015
+title: "Burning a Graph is Hard"
+authors: [Anthony Bonato, Jeannette Janssen, Elham Roshanbin]
+identifiers: { dblp: "journals/dam/BessyBJRR17" }
+versions:
+  arxiv-v1:
+    kind: preprint
+    arxiv: "1511.06774v1"
+    year: 2015
+    open_access: true
+  journal:
+    kind: journal
+    title: "Burning a graph is hard"
+    authors: [Stéphane Bessy, Anthony Bonato, Jeannette C. M. Janssen, Dieter Rautenbach, Elham Roshanbin]
+    venue: "Discrete Applied Mathematics 232, pp. 73–87"
+    year: 2017
+    doi: "10.1016/j.dam.2017.07.016"
+    open_access: false

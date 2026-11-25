@@ -1,0 +1,21 @@
+id: power-dominating-set--n--folklore
+problem: power-dominating-set
+proved_for: optimisation
+bound:
+  as_stated: "O^*(2^{n})"
+  notation: O*
+  parameters: [n]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: "One set $S$ at a time."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  folklore: true
+  note: "Try all $2^n$ sets $S \\subseteq V$; for each, apply the observation rules exhaustively in polynomial time (the observed set does not depend on the order, Aazami and Stilp, arXiv 0710.2139v1, Section 1). Raible and Fernau (ISAAC 2008; Binkele-Raible and Fernau, Algorithmica 2012) give $O^*(1.7548^n)$, but no open copy was found (unreachable ledger)."
+formal: { status: informal }
+status: valid

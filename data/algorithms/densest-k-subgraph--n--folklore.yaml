@@ -1,0 +1,19 @@
+id: densest-k-subgraph--n--folklore
+problem: densest-k-subgraph
+proved_for: optimisation
+bound:
+  as_stated: "O(2^{n} n^{2})"
+  notation: O
+  parameters: [n]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: "One set $S$ at a time, and the adjacency matrix."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  folklore: true
+  note: "Try all sets $S \\subseteq V$ with $|S| = k$ (at most $2^n$) and count the edges of $G[S]$ with the adjacency matrix in $O(n^2)$ time each (brute force)."

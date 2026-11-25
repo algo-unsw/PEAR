@@ -1,0 +1,21 @@
+id: s-club--vc--hartung-komusiewicz-nichterlein-2012
+problem: s-club
+proved_for: decision
+bound:
+  as_stated: "O(2^{vc} 2^{2^{vc}} n m)"
+  notation: O
+  parameters: [vc, n, m]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: "Not stated; educated guess: polynomial. Judging from the running time, the algorithm guesses the part of a vertex cover in the solution ($2^{vc}$ choices) and a set of twin classes ($2^{2^{vc}}$ choices) and checks each in polynomial time; no dynamic programming table found in the statement. TODO(verify): read the proof of Theorem 5."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: hartung-komusiewicz-nichterlein-2012
+  statements:
+    journal: { statement: "Theorem 5" }
+  note: "Theorem 5: \"$s$-Club is solvable in $O(2^k \\cdot 2^{2^k} \\cdot nm)$ time where $k$ denotes the size of a vertex cover.\" No restriction on $s$. Read in the open-access JGAA version (2015); the IPEC 2012 version was not opened. TODO(verify): whether a minimum vertex cover is computed or assumed given (computing one in $O^*(1.28^{vc})$ time keeps the bound)."

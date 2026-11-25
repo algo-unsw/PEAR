@@ -1,0 +1,23 @@
+id: jaffke-lima-lokshtanov-2020
+title: "b-Coloring Parameterized by Clique-Width"
+authors: [Lars Jaffke, Paloma T. Lima, Daniel Lokshtanov]
+identifiers: { dblp: "journals/mst/JaffkeLL24" }
+versions:
+  arxiv-v2:
+    kind: preprint
+    arxiv: "2003.04254"
+    year: 2020
+    open_access: true
+  conference:
+    kind: conference
+    venue: "STACS 2021, LIPIcs 187"
+    year: 2021
+    doi: "10.4230/LIPIcs.STACS.2021.43"
+    open_access: true
+  journal:
+    kind: journal
+    venue: "Theory of Computing Systems 68(4)"
+    year: 2024
+    doi: "10.1007/s00224-023-10132-0"
+    url: "https://link.springer.com/article/10.1007/s00224-023-10132-0"
+    open_access: true

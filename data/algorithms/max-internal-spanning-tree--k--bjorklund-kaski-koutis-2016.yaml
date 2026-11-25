@@ -1,0 +1,19 @@
+id: max-internal-spanning-tree--k--bjorklund-kaski-koutis-2016
+problem: max-internal-spanning-tree
+proved_for: decision
+bound:
+  as_stated: 'O^*(2^{k})'
+  notation: O*
+  parameters: [k]
+properties:
+  randomized: { error: one-sided }
+  space: { class: polynomial, bound: 'Not stated; educated guess: polynomial. For each root, an arithmetic circuit of polynomial size for the determinant of the punctured symbolic Laplacian (Berkowitz), then randomized multilinear-monomial detection by sieving; no dynamic programming or tables found.' }
+  algebraic: true
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: bjorklund-kaski-koutis-2016
+  statements:
+    icalp: { statement: "Theorem 2" }
+  note: 'Theorem 2: a randomized algorithm solves the $k$-internal out-branching problem ($k$-IOB, directed) in time $O^*(2^k)$, with negligible probability of a false negative (proof in Section 3: Matrix–Tree theorem for the symbolic Laplacian, multilinear monomial detection). Applied to Maximum Internal Spanning Tree: a $k$-IST instance $(G, k)$ is a $k$-IOB instance $(D, k + 1)$ on the symmetric digraph $D$ of $G$: a spanning tree with $i$ internal vertices, rooted at one of its leaves and oriented away from the root, is an out-branching with $i + 1$ vertices of positive out-degree (the root has one child), and conversely only the root of an out-branching can be a leaf of the underlying tree, so an out-branching with at least $k + 1$ vertices of positive out-degree gives a spanning tree with at least $k$ internal vertices ($n \ge 3$). The bound applies with $c^{k+1} = O(c^{k})$. Gutin et al. (arXiv 1706.03698, Section 1) and Li et al. (arXiv 1412.8296v1, Section 1) note that $k$-IOB algorithms solve $k$-IST.'

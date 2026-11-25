@@ -1,0 +1,10 @@
+id: shi-koh-2014
+title: "Counting the Number of Minimum Roman Dominating Functions of a Graph"
+authors: [Zheng Shi, Khee Meng Koh]
+identifiers: { dblp: "journals/corr/ShiK14" }
+versions:
+  arxiv-v2:
+    kind: preprint
+    arxiv: "1403.1019v2"
+    year: 2014
+    open_access: true

@@ -9,3 +9,9 @@ versions:
     year: 2007
     doi: "10.1017/S0963548306007887"
     open_access: false
+  hal:
+    kind: preprint
+    venue: "HAL lirmm-00140321v1 (author copy of the journal article, deposited 14 April 2007)"
+    year: 2007
+    url: "https://hal-lirmm.ccsd.cnrs.fr/lirmm-00140321v1"
+    open_access: true

@@ -1,0 +1,16 @@
+id: crespelle-drange-fomin-2020
+title: "A survey of parameterized algorithms and the complexity of edge modification"
+authors: [Christophe Crespelle, Pål Grønås Drange, Fedor V. Fomin, Petr A. Golovach]
+identifiers: { dblp: "journals/csr/CrespelleDFG23" }
+versions:
+  arxiv:
+    kind: preprint
+    arxiv: "2001.06867"
+    year: 2020
+    open_access: true
+  journal:
+    kind: journal
+    venue: "Computer Science Review 48, Article 100556"
+    year: 2023
+    doi: "10.1016/j.cosrev.2023.100556"
+    open_access: false

@@ -1,0 +1,17 @@
+id: sat--to--min-ones-sat
+from:
+  problem: sat
+  version: decision
+to:
+  problem: min-ones-sat
+  version: decision
+type: polytime-deterministic
+calls: 1
+time: O(N)
+parameter_map:
+  n: n
+  m: m
+  k: n
+source:
+  folklore: true
+  note: 'The same formula with $k = n$: every assignment sets at most $n$ variables to true.'

@@ -1,0 +1,22 @@
+id: set-cover--n--ambainis-balodis-iraids-2018
+problem: set-cover
+proved_for: optimisation
+bound:
+  as_stated: O(\mathrm{poly}(m) \mathrm{poly}(n) 2^{0.788595 n})
+  notation: O
+  parameters: [m, n]
+properties:
+  randomized: { error: two-sided }
+  space:
+    class: exponential
+    bound: 'Not stated in Section 6; Step 4 computes the minimum cover size of every subset of size at most $(1-\alpha)n/4 + d/2$ by classical dynamic programming and the quantum minimum finding of Step 5 looks these values up, so the table needs exponential space (Section 1.1 states that all the algorithms of the paper need exponential space).'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: true
+source:
+  paper: ambainis-balodis-iraids-2018
+  statements:
+    arxiv:
+      statement: Theorem in Section 6 (Set Cover) and the end of its running-time analysis (Section 6.1), read in the current arXiv version
+  note: 'Theorem: "There is a bounded-error quantum algorithm that solves Set Cover in time $O(\mathrm{poly}(m,n) 1.728^n)$." Algorithm MinCover returns the size of a minimum set cover. The analysis at the end of Section 6 gives $O(\mathrm{poly}(m,n) 2^{0.788595n}) = O(\mathrm{poly}(m,n) 1.727391\ldots^n)$; the analysis''s more precise bound is stored (Serge Gaspers, 21 November 2026: always keep the more precise bound instead of the rounded one). Gaspers and Li (ICALP 2024) cite it as $O(1.7274^n |\mathcal{F}|^{O(1)})$.'

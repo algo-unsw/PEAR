@@ -1,0 +1,44 @@
+id: paired-domination
+name: Paired Domination
+aliases: [Paired Dominating Set, Minimum Paired Dominating Set, Paired-Domination, Min-PD, PDS]
+category: graphs
+complexity:
+  class: NP-complete
+  source:
+    paper: haynes-slater-1998
+    attested_by:
+      - "https://dc.etsu.edu/etsu-works/12183"
+      - "https://arxiv.org/abs/2112.05486"
+      - "https://ar5iv.arxiv.org/html/1904.00964"
+    note: "Haynes and Slater, who introduced paired domination: 'We show that the paired-domination problem is NP-complete' (abstract, on the ETSU repository page); Tripathi, Kloks, Pandey, Paul and Wang (arXiv 2112.05486, Section 1) and Henning, Pandey and Tripathi (arXiv 1904.00964, Section 3) cite it for NP-completeness on general graphs. TODO(verify): Wikipedia's choice of source (Wikipedia was not fetched)."
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  k: { meaning: "the solution size: the integer $k$ in the input (decision, search), or the minimum size of a paired dominating set (optimisation)" }
+constraints:
+  - { constraint: "k \\le n", because: "Every instance with $k \\ge n$ is a yes-instance: as no vertex is isolated, the vertex set of a maximal matching is a paired dominating set." }
+  - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
+versions:
+  decision:
+    kind: decision
+    input: "A graph $G = (V, E)$ without isolated vertices and an integer $k$."
+    question: "Is there a set $S \\subseteq V$ with $|S| \\le k$ such that every vertex is in $S$ or has a neighbour in $S$, and $G[S]$ has a perfect matching?"
+  optimisation:
+    kind: optimisation
+    input: "A graph $G = (V, E)$ without isolated vertices."
+    goal: "Find the minimum size of a set $S \\subseteq V$ such that every vertex is in $S$ or has a neighbour in $S$, and $G[S]$ has a perfect matching."
+  search:
+    kind: search
+    input: "A graph $G = (V, E)$ without isolated vertices and an integer $k$."
+    goal: "Find a set $S \\subseteq V$ with $|S| \\le k$ such that every vertex is in $S$ or has a neighbour in $S$, and $G[S]$ has a perfect matching, or report that none exists."
+default_version: decision
+shared_bounds:
+  - versions: [decision, optimisation, search]
+    because: "Binary search on $k$; a solution is found by self-reduction (the constrained version with forced vertices is solved by the same algorithms, e.g. the extension algorithm of Gaspers, arXiv 2611.01774, Lemma 12.9)."
+related:
+  - { problem: dominating-set, relation: variant }
+  - { problem: total-dominating-set, relation: variant }
+  - { problem: connected-dominating-set, relation: variant }
+review: { approved_by: null, date: null }

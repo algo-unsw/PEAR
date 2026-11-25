@@ -1,0 +1,10 @@
+id: set-cover--to--maximum-coverage
+from: { problem: set-cover, version: decision }
+to: { problem: maximum-coverage, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(N)"
+parameter_map: { n: "n", m: "m", k: "k", t: "n" }
+source:
+  folklore: true
+  note: "The same set system, $k$ unchanged and $t = n$: at most $k$ sets cover at least $n$ elements exactly when they cover $U$."

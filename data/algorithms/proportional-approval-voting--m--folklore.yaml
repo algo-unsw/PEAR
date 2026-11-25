@@ -1,0 +1,21 @@
+id: proportional-approval-voting--m--folklore
+problem: proportional-approval-voting
+proved_for: optimisation
+bound:
+  as_stated: O^*(2^{m})
+  notation: O*
+  parameters: [m]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'One committee at a time.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  folklore: true
+  note: 'Brute force: try all $\binom{m}{k} \le 2^m$ committees $W$ of size $k$ and compute the PAV score of each in polynomial time (the score is a sum of $n$ harmonic numbers $H_j$ with $j \le k$, rationals with denominators dividing $\mathrm{lcm}(1, \dots, k)$, so $O(k)$ bits each).'
+formal: { status: informal }
+status: valid

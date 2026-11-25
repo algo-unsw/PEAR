@@ -1,0 +1,12 @@
+id: jana-saha-saurabh-2025
+title: "Parameterized Reunion with Achromatic Number"
+authors: [Satyabrata Jana, Souvik Saha, Saket Saurabh, Anannya Upasana]
+identifiers: { dblp: "conf/isaac/Jana00U25" }
+versions:
+  conference:
+    kind: conference
+    venue: "ISAAC 2025, LIPIcs 359"
+    year: 2025
+    doi: "10.4230/LIPIcs.ISAAC.2025.42"
+    url: "https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.ISAAC.2025.42"
+    open_access: true

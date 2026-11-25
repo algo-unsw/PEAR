@@ -1,0 +1,21 @@
+id: csp--n--beigel-eppstein-2000
+problem: csp
+proved_for: decision-arity-2-domain-3
+bound:
+  as_stated: "O(1.3645^{n})"
+  notation: O
+  parameters: [n]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: "Educated guess: backtracking (depth-first) search over reduced instances with a polynomial-time matching step (proof of Theorem 1); no memoization or dynamic programming found."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: beigel-eppstein-2000
+  statements:
+    arxiv: { statement: "Theorem 1 and Section 1.1" }
+  note: "Theorem 1 states $O(\\lambda(4,4,5,5)^n) \\approx O(1.36443^n)$ for $(3,2)$-CSP, and Section 1.1 states $O(1.3645^n)$, \"independent of the number of constraints\". The work factor $\\lambda(4,4,5,5)$, the largest root of $1 = 2x^{-4} + 2x^{-5}$, is $1.3644301\\ldots$, slightly above $1.36443$, so the bound of Section 1.1 is stored. Beigel and Eppstein's $(3,2)$-CSP gives each variable a list of at most three colours and forbids pairs of (variable, colour) choices; an instance of the arity-2, domain-3 version here becomes one in polynomial time (unary constraints restrict the lists, and each binary constraint forbids the at most nine pairs outside its relation), with the same variables. The algorithm finds a solution if there is one."

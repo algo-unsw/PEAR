@@ -1,0 +1,22 @@
+id: aziz-gaspers-gudmundsson-2014
+title: "Computational Aspects of Multi-Winner Approval Voting"
+authors: [Haris Aziz, Serge Gaspers, Joachim Gudmundsson, Simon Mackenzie, Nicholas Mattei, Toby Walsh]
+identifiers: { dblp: conf/atal/AzizGGMMW15 }
+versions:
+  arxiv-v1:
+    kind: preprint
+    year: 2014
+    arxiv: "1407.3247"
+    open_access: true
+  mpref:
+    kind: workshop
+    venue: "Multidisciplinary Workshop on Advances in Preference Handling (MPREF@AAAI 2014), AAAI Technical Report"
+    year: 2014
+    url: "http://www.aaai.org/ocs/index.php/WS/AAAIW14/paper/view/8760"
+    open_access: false
+  aamas:
+    kind: conference
+    venue: "Proceedings of the 2015 International Conference on Autonomous Agents and Multiagent Systems (AAMAS 2015), ACM, pp. 107–115"
+    year: 2015
+    url: "http://dl.acm.org/citation.cfm?id=2772896"
+    open_access: false

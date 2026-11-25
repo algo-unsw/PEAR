@@ -1,0 +1,25 @@
+id: triangle-packing--tw--van-rooij-et-al-2018
+problem: triangle-packing
+proved_for: decision
+bound:
+  as_stated: "O^*(2^{tw})"
+  notation: O*
+  parameters: [tw]
+given: [tree-decomposition]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: "Not stated; educated guess: $O^*(2^{tw})$, one table entry per 0/1 colouring of a bag and number of cliques (dynamic programming over a tree decomposition with fast subset convolution at join nodes)."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+conditional_on: []
+source:
+  paper: van-rooij-et-al-2018
+  statements:
+    arxiv-v1: { statement: "Theorem 3.17 (labelled thrm:cliqueparttwalg, Section 3, subsection 'Clique Covering, Packing and Partitioning Problems')" }
+  note: "Stated for $\\gamma$-clique packings (here $\\gamma = \\{3\\}$): 'given a tree decomposition of a graph $G$ of width $k$, computes the number of $\\gamma$-clique packings ... using $\\kappa$, $0 \\le \\kappa \\le n$, cliques in $O(n^3 k^2 2^k i_\\times(nk + n\\log(n)))$ time', where $i_\\times(b)$ is the time to multiply $b$-bit numbers; stored as the implied $O^*(2^{tw})$. The decision version asks whether the count for $\\kappa = k$ is nonzero. The Introduction lists Maximum Triangle Packing among these problems. The number 3.17 is inferred from the order of the numbered environments in Section 3 (Corollary 3.6 is the Dominating Set result PEAR already cites)."
+formal: { status: informal }
+status: valid

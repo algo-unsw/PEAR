@@ -1,0 +1,10 @@
+id: clique--to--s-club
+from: { problem: clique, version: decision }
+to: { problem: s-club, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(1)"
+parameter_map: { n: "n", m: "m", k: "k", d: "n - k" }
+source:
+  folklore: true
+  note: "Map $(G, k)$ to $(G, s = 1, k)$: a vertex set induces a subgraph of diameter at most 1 if and only if it is a clique."

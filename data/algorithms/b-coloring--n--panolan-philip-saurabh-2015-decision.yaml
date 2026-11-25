@@ -1,0 +1,21 @@
+id: b-coloring--n--panolan-philip-saurabh-2015-decision
+problem: b-coloring
+proved_for: decision
+bound:
+  as_stated: "O(3^{n} n^{4} \\log n)"
+  notation: O
+  parameters: [n]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: "Not stated; educated guess: $O^*(2^{n-k})$. Polynomials stored as bit strings of length $2^{n-k}$, for one candidate set of $b$-vertices at a time."
+  algebraic: true
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: panolan-philip-saurabh-2015
+  statements:
+    conference: { statement: "Theorem 8" }
+  note: "Stated as $O(\\binom{n}{k} 2^{n-k} n^4 \\log n)$ for deciding whether $G$ has a b-colouring with exactly $k$ colours; the bound language has no binomial coefficients, so the implied $O(3^n n^4 \\log n)$ is stored ($\\binom{n}{k} 2^{n-k}$ is one term of $(1+2)^n$). TODO(verify): store the stated form once the bound language has binomial coefficients. Read in the LIPIcs PDF."

@@ -1,0 +1,10 @@
+id: graph-homomorphism--to--csp
+from: { problem: graph-homomorphism, version: decision }
+to: { problem: csp, version: decision-arity-2 }
+type: polytime-deterministic
+calls: 1
+time: "O(N^{2})"
+parameter_map: { n: "n", m: "m", d: "h", tw: "tw" }
+source:
+  folklore: true
+  note: "Variables $V$, domain $V_H$, and for every edge $uv \\in E$ the constraint with scope $(u, v)$ and relation $\\{(a, b) : ab \\in E_H\\}$ (both orientations of every edge of $H$). An assignment satisfies all constraints exactly when it is a homomorphism from $G$ to $H$, and the primal graph is $G$."

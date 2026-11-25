@@ -1,0 +1,23 @@
+id: metric-dimension--mw--belmonte-fomin-golovach-2015
+problem: metric-dimension
+proved_for: optimisation
+bound:
+  as_stated: "O(mw^{3} 4^{mw} \\cdot n + m)"
+  notation: O
+  parameters: [mw, n, m]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: "Not stated. Guess: polynomial. Dynamic programming over the modular decomposition tree stores only four values $w(H, p, q)$ per node; the $4^{mw}$ choices at a prime node are tried one at a time."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: belmonte-fomin-golovach-2015
+  statements:
+    arxiv-v1: { statement: "Theorem 2" }
+  note: "Stated as $O(t^3 4^t \\cdot n + m)$ for a connected graph of modular-width at most $t$, written $mw$ here; the modular decomposition is computed in linear time (Tedder et al.). The same paper shows FPT by tree-length plus maximum degree (Theorem 1), without an explicit bound in the introduction."
+formal: { status: informal }
+status: valid

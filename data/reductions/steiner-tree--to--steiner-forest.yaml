@@ -4,13 +4,13 @@ to: { problem: steiner-forest, version: decision }
 type: polytime-deterministic
 calls: 1
 time: "O(n + m)"
-parameter_map: { n: "n", m: "m", k: "k", d: "t - 1" }
+parameter_map: { n: "n", m: "m", k: "k", d: "t - 1", p: "t" }
 variants:
   - id: weighted
     note: "Weighted versions: the same construction, keeping the edge weights."
     from: { problem: steiner-tree, version: weighted }
     to: { problem: steiner-forest, version: weighted }
-    parameter_map: { n: "n", m: "m", d: "t - 1" }
+    parameter_map: { n: "n", m: "m", d: "t - 1", p: "t" }
     source:
       folklore: true
       note: "A minimum-weight forest connecting every demand pair has all terminals in one component, a tree spanning $T$."

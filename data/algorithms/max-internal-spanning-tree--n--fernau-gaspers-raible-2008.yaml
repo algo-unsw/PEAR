@@ -1,0 +1,19 @@
+id: max-internal-spanning-tree--n--fernau-gaspers-raible-2008
+problem: max-internal-spanning-tree
+proved_for: optimisation
+bound:
+  as_stated: 'O^*(2^{n})'
+  notation: O*
+  parameters: [n]
+properties:
+  randomized: false
+  space: { class: exponential, bound: '$O^*(2^n)$ space, as stated (fast subset convolution).' }
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: fernau-gaspers-raible-2008
+  statements:
+    journal-author-copy: { statement: "Theorem 2" }
+  note: 'Theorem 2 (Section 2.2, "Speed-up by subset convolution"): computes a spanning tree with a minimum number of leaves in time and space $O^*(2^n)$. Not in the arXiv v3 / WG 2009 version, which gives $O^*(3^n)$. Read in the author copy of the Algorithmica version on Serge Gaspers''s homepage; the paper notes that Nederlof''s $O^*(2^n)$ algorithm needs only polynomial space.'

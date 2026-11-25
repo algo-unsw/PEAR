@@ -114,6 +114,8 @@ Node = Union[Num, Var, Const, Add, Mul, Div, Pow, Sqrt, Log, Asym, Func, Poly, F
 
 # π is a number written \pi: its value is exact to double precision (20 November 2026)
 PI = Num(Fraction(math.pi), "\\pi")
+# Euler's number, written \mathrm{e} so that e stays free as a variable name (21 November 2026)
+EULER = Num(Fraction(math.e), "\\mathrm{e}")
 
 NOTATIONS = ("O", "O*", "Õ")
 
@@ -414,6 +416,8 @@ class _Parser:
         if tok.kind == "named":
             if tok.text == "poly":
                 return Poly(self.group("(", ")"))
+            if tok.text == "e":
+                return EULER  # \mathrm{e}, Euler's number (21 November 2026)
             return Var(tok.text)
         if tok.kind == "cmd":
             return self.command(tok.text)

@@ -1,0 +1,25 @@
+id: min-ones-sat--n--fomin-gaspers-lokshtanov-saurabh-2015
+problem: min-ones-sat
+proved_for: search-max-clause-size-3
+bound:
+  as_stated: O(1.6097^{n})
+  notation: O
+  parameters:
+  - n
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Not stated; educated guess: exponential. Theorem 2 constructs a set-inclusion family of size $2^{o(n)}$ times the number of samples, and the subroutine (Kutzkov–Scheder) may store an exponential covering code.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+uses:
+- min-ones-sat--k--kutzkov-scheder-2010
+source:
+  paper: fomin-gaspers-lokshtanov-saurabh-2015
+  statements:
+    arxiv-v1:
+      statement: Section 1 and Table 1 (Theorem 2 with Kutzkov and Scheder's $2.562^k$ algorithm)
+  note: '''Thus Min-Ones 3-SAT can be solved in time $O(1.6097^n)$'': Theorem 2 (deterministic) applied to the $2.562^k n^{O(1)}$ algorithm, $2 - 1/2.5616 \approx 1.6096$, with the $2^{o(n)}$ factor absorbed by rounding up. Theorem 2 solves the subset problem (finds a solution). Table 1 marks only its first row as randomized. STOC 2016; J. ACM 2019.'

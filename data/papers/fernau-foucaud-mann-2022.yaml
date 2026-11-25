@@ -1,0 +1,23 @@
+id: fernau-foucaud-mann-2022
+title: "Parameterizing Path Partitions"
+authors: [Henning Fernau, Florent Foucaud, Kevin Mann, Utkarsh Padariya, Rajath Rao K. N]
+identifiers: { dblp: "journals/tcs/FernauFMPN25", openalex: null }
+versions:
+  arxiv-v3:
+    kind: preprint
+    year: 2024
+    arxiv: "2212.11653v3"
+    open_access: true
+  ciac:
+    kind: conference
+    venue: "Algorithms and Complexity, 13th International Conference (CIAC 2023), LNCS 13898, pp. 187–201"
+    year: 2023
+    doi: "10.1007/978-3-031-30448-4_14"
+    open_access: false
+  journal:
+    kind: journal
+    title: "Parameterizing path partitions"
+    venue: "Theoretical Computer Science 1028, Article 115029"
+    year: 2025
+    doi: "10.1016/j.tcs.2024.115029"
+    open_access: false

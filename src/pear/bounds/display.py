@@ -98,7 +98,7 @@ def _drop_poly_exponent_terms(f: Node, ctx: Context) -> Node:
 
 
 def hide_constants(node: Node, ctx: Context) -> Node:
-    """Inside O(·) and o(·), write the argument in its simplest form up to constant factors:
+    r"""Inside O(·) and o(·), write the argument in its simplest form up to constant factors:
     2^{O(2n (\log\log(2n))^2/\sqrt{\log(2n)})} becomes 2^{O(n (\log\log n)^2/\sqrt{\log n})}."""
     if isinstance(node, Asym):
         return Asym(node.kind, _theta(node.arg, ctx))
@@ -106,7 +106,46 @@ def hide_constants(node: Node, ctx: Context) -> Node:
         # x^{O(f)} = 2^{O(f log x)}: the base counts only as inside a log, (2n)^{O(1)} = n^{O(1)}
         base = _log_argument(node.base, ctx)
         return Pow(base if base is not None else node.base, hide_constants(node.exp, ctx))
+    if isinstance(node, Add):
+        return _absorb(_map(node, lambda c: hide_constants(c, ctx)), ctx)
     return _map(node, lambda c: hide_constants(c, ctx))
+
+
+def _growth_term(node: Node):
+    try:
+        return bound_terms(Bound("O", node))[0]
+    except (UnsupportedBound, Unspecified):
+        return None
+
+
+def _smaller(a: Node, b: Node, ctx: Context, strictly: bool) -> bool:
+    """a = O(b) or, strictly, a = o(b): the second only for one and the same variable,
+    since with several variables a ≤ b without b ≤ a (n against n k) need not be o(b)."""
+    ga, gb = _growth_term(a), _growth_term(b)
+    if ga is None or gb is None or not term_le(ga, gb, ctx, "exact"):
+        return False
+    if not strictly:
+        return True
+    return len(variables(a) | variables(b)) == 1 and not term_le(gb, ga, ctx, "exact")
+
+
+def _absorb(node: Node, ctx: Context) -> Node:
+    """f + h + O(g) = f + O(g) when h = O(g), and f + h + o(g) = f + o(g) when h = o(g),
+    for added or subtracted h (21 November 2026): (2e)^{k 2^k - k + o(k 2^k - k)} is shown
+    as (2e)^{k 2^k + o(k 2^k)}."""
+    if not isinstance(node, Add):
+        return node
+    asym = [t for _, t in node.terms if isinstance(t, Asym)]
+    if not asym:
+        return node
+    kept = tuple((s, t) for s, t in node.terms
+                 if isinstance(t, Asym) or not _has_var(t)
+                 or not any(_smaller(_theta(t, ctx), a.arg, ctx, a.kind == "o") for a in asym))
+    if len(kept) == len(node.terms):
+        return node
+    if len(kept) == 1 and kept[0][0] > 0:
+        return kept[0][1]
+    return Add(kept)
 
 
 def hide_constants_exact(b: Bound, ctx: Context) -> Bound:
@@ -215,7 +254,11 @@ def _theta_sum(node: Add, ctx: Context) -> Node:
     and dominated terms. A sum that subtracts a term with variables keeps its form, apart
     from subtracted constants (n - 1 = Θ(n))."""
     if any(s < 0 and _has_var(t) for s, t in node.terms):
-        return hide_constants(node, ctx)
+        # a - b = Θ(a) when b = o(a), in one variable: k 2^k - k = Θ(k 2^k) (21 November 2026)
+        pos = [_theta(t, ctx) for s, t in node.terms if s > 0]
+        if not all(any(_smaller(_theta(t, ctx), p, ctx, True) for p in pos)
+                   for s, t in node.terms if s < 0 and _has_var(t)):
+            return hide_constants(node, ctx)
     terms: list[Node] = []
     for s, t in node.terms:
         if s < 0:

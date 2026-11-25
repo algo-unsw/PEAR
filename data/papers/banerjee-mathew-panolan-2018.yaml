@@ -1,0 +1,16 @@
+id: banerjee-mathew-panolan-2018
+title: "Target Set Selection Parameterized by Vertex Cover and More"
+authors: [Suman Banerjee, Rogers Mathew, Fahad Panolan]
+identifiers: { dblp: "journals/mst/BanerjeeMP22" }
+versions:
+  arxiv-v5:
+    kind: preprint
+    arxiv: "1812.01482v5"
+    year: 2021
+    open_access: true
+  journal:
+    kind: journal
+    venue: "Theory of Computing Systems 66(5), pp. 996–1018"
+    year: 2022
+    doi: "10.1007/s00224-022-10100-0"
+    open_access: false

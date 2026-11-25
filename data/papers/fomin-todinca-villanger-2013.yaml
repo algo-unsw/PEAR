@@ -1,0 +1,23 @@
+id: fomin-todinca-villanger-2013
+title: "Large induced subgraphs via triangulations and CMSO"
+authors: [Fedor V. Fomin, Ioan Todinca, Yngve Villanger]
+identifiers: { dblp: "journals/siamcomp/FominTV15" }
+versions:
+  arxiv-v1:
+    kind: preprint
+    arxiv: "1309.1559"
+    year: 2013
+    open_access: true
+  soda:
+    kind: conference
+    venue: "25th Annual ACM-SIAM Symposium on Discrete Algorithms (SODA 2014), pp. 582–583"
+    year: 2014
+    doi: "10.1137/1.9781611973402.44"
+    open_access: false
+  journal:
+    kind: journal
+    title: "Large Induced Subgraphs via Triangulations and CMSO"
+    venue: "SIAM Journal on Computing 44(1), pp. 54–87"
+    year: 2015
+    doi: "10.1137/140964801"
+    open_access: false

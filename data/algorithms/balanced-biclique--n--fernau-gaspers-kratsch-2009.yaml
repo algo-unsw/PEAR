@@ -1,0 +1,23 @@
+id: balanced-biclique--n--fernau-gaspers-kratsch-2009
+problem: balanced-biclique
+proved_for: unbalanced
+bound:
+  as_stated: 'O(1.8899^{n})'
+  notation: O
+  parameters: [n]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Polynomial space, as stated (Theorem 2.1).'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: fernau-gaspers-kratsch-2009
+  statements:
+    ctw: { statement: "Theorem 2.1", page: 3 }
+  note: '"Algorithm NIB3 solves the Non-Induced (k1, k2) Biclique problem in time O(1.8899^n) and polynomial space." NIB3 runs NIB1 (enumerate the sets of size $k_1$) when $k_1 \le \lfloor n/3 \rfloor$ and NIB2 (enumerate the sets of size $k_1 + k_2$) otherwise. Page number from the authors'' copy at the URL (dated 23 February 2009).'
+formal: { status: informal }
+status: valid

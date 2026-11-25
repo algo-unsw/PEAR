@@ -1,0 +1,22 @@
+id: gomes-sau-2019
+title: "Finding Cuts of Bounded Degree: Complexity, FPT and Exact Algorithms, and Kernelization"
+authors: [Guilherme de C. M. Gomes, Ignasi Sau]
+identifiers: { dblp: "journals/algorithmica/GomesS21" }
+versions:
+  arxiv-v1:
+    kind: preprint
+    arxiv: "1905.03134v1"
+    year: 2019
+    open_access: true
+  ipec:
+    kind: conference
+    venue: "14th International Symposium on Parameterized and Exact Computation (IPEC 2019), LIPIcs 148, 19:1–19:15"
+    year: 2019
+    doi: "10.4230/LIPIcs.IPEC.2019.19"
+    open_access: true
+  journal:
+    kind: journal
+    venue: "Algorithmica 83(6), pp. 1677–1706"
+    year: 2021
+    doi: "10.1007/s00453-021-00798-8"
+    open_access: false

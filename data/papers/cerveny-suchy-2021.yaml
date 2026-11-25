@@ -1,0 +1,17 @@
+id: cerveny-suchy-2021
+title: "Generating faster algorithms for d-Path Vertex Cover"
+authors: [Radovan Červený, Ondřej Suchý]
+identifiers: { dblp: "conf/wg/CervenyS23" }
+versions:
+  arxiv-v3:
+    kind: preprint
+    arxiv: "2111.05896"
+    year: 2021
+    open_access: true
+  wg:
+    kind: conference
+    title: "Generating Faster Algorithms for d-Path Vertex Cover"
+    venue: "49th International Workshop on Graph-Theoretic Concepts in Computer Science (WG 2023), LNCS 14093, pp. 157–171"
+    year: 2023
+    doi: "10.1007/978-3-031-43380-1_12"
+    open_access: false

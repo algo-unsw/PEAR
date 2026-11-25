@@ -1,0 +1,21 @@
+id: graph-genus--g--kawarabayashi-mohar-reed-2008
+problem: graph-genus
+proved_for: decision
+bound:
+  as_stated: "O(f(g) n)"
+  notation: O
+  parameters: [g, n]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: "Not stated; educated guess: at most the running time, $O(f(g) n)$, so linear in $n$ but possibly exponential in $g$. The steps found include dynamic programming over tree decompositions of width bounded in $g$ (tables exponential in the width). TODO(verify)."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: kawarabayashi-mohar-reed-2008
+  statements:
+    preprint: { statement: "Theorem 1.1, with the running time stated in Section 6" }
+  note: "Theorem 1.1: for every fixed surface $S$ (orientable or not) there is a linear-time algorithm that returns an embedding of $G$ in $S$ or a minor of $G$ that is minimal non-embeddable in $S$. Section 6: \"Running time: $O(f(g)n)$ for some function $f$\", $g$ the Euler genus of $S$; the abstract says $f$ is single exponential in $g$, whereas Mohar's earlier linear-time algorithm (STOC 1996; SIAM J. Discrete Math. 1999) is doubly exponential. For the orientable surface of genus $g$ (Euler genus $2g$) this is $O(f(2g) n)$, which is $f(g) n$ for another function $f$. Read in the authors' preprint (Ljubljana preprint series, February 2009, file named after FOCS 2008); the FOCS version was not opened. Theorem 1.2 (linear time for graphs of bounded tree-width) is not entered: the uniformity in the tree-width is not stated."

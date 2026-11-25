@@ -1,0 +1,21 @@
+id: densest-k-subgraph--db--hanaka-2022
+problem: densest-k-subgraph
+proved_for: optimisation
+bound:
+  as_stated: "4^{db} n^{O(1)}"
+  notation: O
+  parameters: [db, n]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: "Not stated; educated guess: polynomial. A block vertex deletion set is computed by the $4^{k} n^{O(1)}$ algorithm of Agrawal et al. (iterative compression and branching); then $2^{db}$ guesses, each solved by dynamic programming over the block-cut tree with $O(k^2 n)$ table entries (polynomial)."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: hanaka-2022
+  statements:
+    arxiv: { statement: "Corollary at the end of Section 4 (Block Deletion Number)" }
+  note: "The corollary: Densest $k$-Subgraph can be solved in time $4^{db(G)} n^{O(1)}$, $db(G)$ the block deletion number (the deletion set is computed by Agrawal et al.). Given a block graph deletion set of size $db$, Theorem 2 gives $O(2^{db}((k^3 + db) n + m))$. Read in the arXiv LaTeX source (latest version, 21 November 2026)."

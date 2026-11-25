@@ -1,0 +1,17 @@
+id: fomin-gaspers-saurabh-2007
+title: "Improved Exact Algorithms for Counting 3- and 4-Colorings"
+authors: [Fedor V. Fomin, Serge Gaspers, Saket Saurabh]
+identifiers: { dblp: conf/cocoon/FominGS07 }
+versions:
+  cocoon:
+    kind: conference
+    venue: "Computing and Combinatorics (COCOON 2007), LNCS 4598, pp. 65–74"
+    year: 2007
+    doi: "10.1007/978-3-540-73545-8_9"
+    open_access: false
+  cocoon-author-copy:
+    kind: preprint
+    venue: "Author copy of the COCOON 2007 paper, pages numbered 1–10 (Serge Gaspers's web page)"
+    year: 2007
+    url: "https://cgi.cse.unsw.edu.au/~sergeg/papers/Cocoon2007.pdf"
+    open_access: true

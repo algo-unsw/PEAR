@@ -26,7 +26,7 @@ from .bounds.numeric import dominates, samples, value
 from .schema import Algorithm, FolkloreSource, Hypothesis, PaperSource, Problem, Reduction, Variant
 from .validate import Dataset, problem_context
 
-RULEBOOK_VERSION = 4
+RULEBOOK_VERSION = 6
 LONG_CHAIN = 3  # rulebook §9: longer chains get a label (they are followed while they improve results)
 FORMAL_ORDER = {"informal": 0, "statement": 1, "proved": 2}
 
@@ -197,7 +197,8 @@ class Engine:
     # -- inputs ---------------------------------------------------------------------
 
     def usable(self, status: str) -> bool:
-        return status in ("valid", "fixed")  # rulebook A3
+        # rulebook A3 (version 5): an easily fixable result counts, with its site-written fix
+        return status in ("valid", "fixed", "easily-fixable")
 
     def hypothesis_flags(self, hyps: Iterable[str]) -> tuple[bool, frozenset[str]]:
         """(excluded, flags) for a set of hypotheses (rulebook A3)."""
@@ -283,6 +284,8 @@ class Engine:
         _, node = node_key(problem, alg.proved_for)
         year, papers = self.dated(alg.source)
         flags = set(flags) | {f"given-{g}" for g in alg.given}
+        if alg.status == "easily-fixable" or any(u.status == "easily-fixable" for u in used):
+            flags.add("site-written-fix")  # PLAN, error grades: marked as relying on a site-written fix
         checked = alg.formal.status == "proved" and alg.formal.statement_checked is not None
         if ((alg.unverified or any(self.data.papers[p].unverified for p in papers)) and not checked) or any(
                 self.unverified(u) for u in used):
@@ -432,6 +435,8 @@ class Engine:
         flags = set(r.flags)
         if red.type != "serf" and red.calls != 1 and red.call_sizes is None:
             flags.add("adaptive-sizes")  # rulebook §3: every call assumed to have the largest size
+        if red.status == "easily-fixable":
+            flags.add("site-written-fix")
         red_year, red_papers = self.dated(red.source)
         years = [y for y in (r.year, red_year) if y is not None]
         if variant is not None:
@@ -452,6 +457,28 @@ class Engine:
             max(years) if years else None, r.papers + red_papers,
         )
 
+    def monotone_substitution(
+        self, b: Bound, pmap: dict[str, str], symbols: set[str], ctx, what: str
+    ) -> tuple[Bound, Node] | None:
+        """Rulebook A1, A2: substitute upper bounds for variables of a nondecreasing bound.
+        Returns the nondecreasing form of the bound and the substituted expression."""
+        if not is_monotone(b):
+            self.log(f"{what}, bound not shown to be monotone (rulebook A2)")
+            return None
+        # is_monotone checks the growth estimate, which ignores subtracted terms that a larger
+        # term dominates (n(n - 1)/2 - m grows like n^2). Substitution needs the bound itself
+        # to be nondecreasing (A1, A2), so subtracted terms with variables are dropped first:
+        # m ↦ (an upper bound on m) in n(n - 1)/2 - m would give a lower bound.
+        majorant = _monotone_majorant(b.expr)
+        if majorant != b.expr:
+            upper = Bound(b.notation, majorant, b.family)
+            if compare(analyse(b), analyse(upper), ctx, witnesses=False) not in (Relation.BETTER, Relation.EQUAL):
+                self.log(f"{what}, no monotone upper bound found (rulebook A2)")
+                return None
+            b = upper
+        phi = {v: parse_expr(e, symbols) for v, e in pmap.items()}
+        return b, simplify(substitute(b.expr, phi))
+
     def polytime_bound(self, r: Result, red: Reduction, source: Problem, target: Problem) -> Bound | None:
         """Rulebook §2 and §3: T_A = T_R + calls · f_B(φ(x_A))."""
         b = r.bound
@@ -464,23 +491,12 @@ class Engine:
                 missing = sorted(variables(b.expr) - mapping)
                 self.log(f"{red.id}: cannot transfer {r.id}, parameter map does not cover {missing} (rulebook §2)")
                 return None
-        if not is_monotone(b):
-            self.log(f"{red.id}: cannot transfer {r.id}, bound not shown to be monotone (rulebook A2)")
+        mapped = self.monotone_substitution(
+            b, red.parameter_map, source.symbols(), self.out.contexts[target.id], f"{red.id}: cannot transfer {r.id}"
+        )
+        if mapped is None:
             return None
-        # is_monotone checks the growth estimate, which ignores subtracted terms that a larger
-        # term dominates (n(n - 1)/2 - m grows like n^2). Substitution needs the bound itself
-        # to be nondecreasing (A1, A2), so subtracted terms with variables are dropped first:
-        # m ↦ (an upper bound on m) in n(n - 1)/2 - m would give a lower bound.
-        majorant = _monotone_majorant(b.expr)
-        if majorant != b.expr:
-            upper = Bound(b.notation, majorant, b.family)
-            ctx_t = self.out.contexts[target.id]
-            if compare(analyse(b), analyse(upper), ctx_t, witnesses=False) not in (Relation.BETTER, Relation.EQUAL):
-                self.log(f"{red.id}: cannot transfer {r.id}, no monotone upper bound found (rulebook A2)")
-                return None
-            b = upper
-        phi = {v: parse_expr(e, source.symbols()) for v, e in red.parameter_map.items()}
-        f = simplify(substitute(b.expr, phi))
+        b, f = mapped
         calls: Node | None = None
         if red.calls != 1:
             if isinstance(red.calls, int):
@@ -523,7 +539,7 @@ class Engine:
         out = []
         members = r.node.split("+")
         for vid, version in problem.versions.items():
-            for special in version.generalises:
+            for special, pmap in version.specials():
                 if vid in members:
                     _, special_node = node_key(problem, special)
                     if special_node == r.node:
@@ -531,10 +547,23 @@ class Engine:
                     from_tag = f"{problem.id}:{special_node}"
                     if from_tag in r.nodes():
                         continue
-                    step = Step("special-case", f"special-case:{problem.id}:{vid}>{special}", from_tag, f"{problem.id}:{r.node}")
+                    sid = f"special-case:{problem.id}:{vid}>{special}"
+                    bound = r.bound
+                    # a parameter of the general version is replaced by its value in the special
+                    # case, e.g. the minimum weight k_w by the minimum size k (25 November 2026)
+                    used = {v: e for v, e in pmap.items() if v in variables(r.bound.expr)}
+                    if used:
+                        mapped = self.monotone_substitution(
+                            r.bound, used, problem.symbols(), self.out.contexts[problem.id], f"{sid}: cannot transfer {r.id}"
+                        )
+                        if mapped is None:
+                            continue
+                        b, f = mapped
+                        bound = Bound(b.notation, f, b.family)
+                    step = Step("special-case", sid, from_tag, f"{problem.id}:{r.node}", parameter_map=tuple(sorted(used.items())))
                     chain = self.extend_chain(r, step)
                     if chain is not None:
-                        out.append(replace(r, node=special_node, chain=chain))
+                        out.append(replace(r, node=special_node, bound=bound, chain=chain))
         return out
 
     def projections(self, r: Result) -> list[Result]:
@@ -590,6 +619,12 @@ class Engine:
                 # holding all vertices, so the projected bound needs no given decomposition
                 # (rulebook §7, 20 November 2026)
                 flags = flags - {"given-tree-decomposition"}
+            if label in ("n", "m", "N"):
+                # a path decomposition (one bag), a clique-width expression (one label per
+                # vertex), a linear arrangement (any order), an interval ordering (any order)
+                # and a deletion set (all vertices) of the trivial size are computable, so a
+                # bound projected to n, m or N needs none given (21 November 2026)
+                flags = frozenset(f for f in flags if not f.startswith("given-"))
             out.append(replace(r, bound=proj, chain=r.chain + (step,), flags=flags))
         return out
 
@@ -925,9 +960,16 @@ class Engine:
                 # folklore (undated) counts as earliest, so brute force is cited (20 November 2026)
                 dated = [r.year for r in g if r.year is not None]
                 first = None if any(r.year is None for r in g) or not dated else min(dated)
+                cite = [r for r in g if r.year == first]
+                # the problem's own result is cited, not a derived copy from the same papers (or
+                # from folklore) arriving through a reduction (21 November 2026)
+                own = [r for r in cite if _own(r)]
+                covered = {p for r in own for p in r.papers}
+                if own:
+                    cite = own + [r for r in cite if not _own(r) and not set(r.papers) <= covered]
                 entries.append({
                     "members": [r.id for r in g],
-                    "cite": [r.id for r in g if r.year == first],
+                    "cite": [r.id for r in cite],
                     "year": first,
                 })
             out[key] = entries
@@ -991,6 +1033,12 @@ class Engine:
                     if s is not r and compare(self.analyse(s), self.analyse(r), ctx, witnesses=False) == Relation.BETTER
                 ]
         return out
+
+
+def _own(r: Result) -> bool:
+    """r is the problem's own result: its chain only moves between versions of the problem
+    (special cases) or projects, with no reduction from another problem."""
+    return all(st.kind in ("special-case", "projection") for st in r.chain)
 
 
 def _earlier(s: Result, r: Result) -> bool:

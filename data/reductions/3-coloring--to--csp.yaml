@@ -1,0 +1,11 @@
+id: 3-coloring--to--csp
+from: { problem: 3-coloring, version: decision }
+to: { problem: csp, version: decision-arity-2-domain-3 }
+type: polytime-deterministic
+calls: 1
+time: "O(n + m)"
+parameter_map: { n: "n", m: "m", d: "3", tw: "tw" }
+source:
+  folklore: true
+  note: "Variables $V$, domain $\\{1, 2, 3\\}$, and for every edge $uv$ the constraint with scope $(u, v)$ and relation $\\{(a, b) : a \\ne b\\}$; the primal graph is $G$. Beigel and Eppstein (arXiv cs/0006046, Section 2) describe this translation of 3-colouring into $(3,2)$-CSP."
+  reference: { paper: beigel-eppstein-2000, version: arxiv, statement: "Section 2" }

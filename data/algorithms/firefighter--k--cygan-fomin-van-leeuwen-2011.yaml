@@ -1,0 +1,23 @@
+id: firefighter--k--cygan-fomin-van-leeuwen-2011
+problem: firefighter
+proved_for: decision
+bound:
+  as_stated: "n^{O(k)}"
+  notation: O
+  parameters: [n, k]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: "Not stated; educated guess: polynomial. The proof enumerates the candidate sets of at most $k$ protected vertices one at a time and checks each in linear time (Lemmas 2.4–2.6); no table is stored."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: cygan-fomin-van-leeuwen-2011
+  statements:
+    journal-author-copy: { statement: "Theorem 2.7" }
+  note: "Theorem 2.7 of the merged JCSS version (author copy): \"Saving k-Vertices is solvable in time $n^{O(k)}$\" (for every budget $b$; here $b = 1$). The result comes from the ISAAC 2011 part (Bazgan, Chopin and Fellows); it is not in the arXiv version of the IPEC 2011 paper. Saving $k$ Vertices is W[1]-hard parameterized by $k$, even on bipartite graphs (Theorem 2.1 of the JCSS version; Theorem 2.1 of arXiv 1109.4729v1), so no FPT algorithm is expected."
+formal: { status: informal }
+status: valid

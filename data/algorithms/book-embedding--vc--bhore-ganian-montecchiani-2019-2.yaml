@@ -1,0 +1,25 @@
+id: book-embedding--vc--bhore-ganian-montecchiani-2019-2
+problem: book-embedding
+proved_for: decision
+bound:
+  as_stated: '2^{vc^{O(vc)}} + vc \cdot n'
+  notation: O
+  parameters:
+  - vc
+  - n
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Not stated; educated guess as for Theorem 3: a kernel of size bounded in $vc$, then brute force over orders and page assignments; no dynamic programming tables. Recorded as exponential (in $vc$) to be safe.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: bhore-ganian-montecchiani-2019
+  statements:
+    journal: { statement: "Lemma 5" }
+  note: 'JGAA Lemma 5: an algorithm that takes an $n$-vertex graph $G$ and a positive integer $k$, "runs in time $O(2^{\tau^{O(\tau)}} + \tau \cdot n)$ where $\tau = \tau(G)$ is the vertex cover number of $G$, and decides whether $bt(G) \le k$"; it also outputs a $k$-page book embedding if one exists. The arXiv LaTeX source (latest version) states this theorem with $O(\tau^{\tau^{O(\tau)}} + 2^{\tau} \cdot n)$.'
+formal: { status: informal }
+status: valid

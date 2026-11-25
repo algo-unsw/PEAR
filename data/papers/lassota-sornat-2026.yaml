@@ -1,0 +1,16 @@
+id: lassota-sornat-2026
+title: "Algorithms for Structured Elections under Thiele Voting Rules"
+authors: [Alexandra Lassota, Krzysztof Sornat]
+identifiers: { dblp: conf/aaai/LassotaS26 }
+versions:
+  aaai:
+    kind: conference
+    venue: "Proceedings of the Fortieth AAAI Conference on Artificial Intelligence (AAAI 2026), pp. 17084–17092"
+    year: 2026
+    doi: "10.1609/aaai.v40i20.38757"
+    open_access: true
+  arxiv:
+    kind: preprint
+    year: 2026
+    arxiv: "2607.28575"
+    open_access: true

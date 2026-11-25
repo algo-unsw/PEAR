@@ -1,0 +1,23 @@
+id: feedback-vertex-set--n--fomin-gaspers-pyatkin-2006
+problem: feedback-vertex-set
+proved_for: optimisation
+bound:
+  as_stated: 'O(1.7548^{n})'
+  notation: O
+  parameters: [n]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Not stated; educated guess: polynomial. A branching algorithm (search tree of depth $O(n)$, measure-based analysis) whose only subroutine is Robson''s polynomial-space maximum independent set algorithm (Proposition 4); no memoization or dynamic programming found.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: fomin-gaspers-pyatkin-2006
+  statements:
+    journal: { statement: "Theorem 6" }
+  note: 'Stated as: a maximum induced forest of an $n$-vertex graph can be found in time $O(1.7548^n)$; its complement is a minimum feedback vertex set. Read from the Algorithmica PDF on Fedor Fomin''s page (folk.uib.no); an author copy dated 16 November 2007 is on Serge Gaspers''s page (FVS.pdf) with the same numbering. IWPEC 2006 version (Fomin, Gaspers, Pyatkin) not opened.'
+formal: { status: informal }
+status: valid

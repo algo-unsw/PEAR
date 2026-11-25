@@ -1,0 +1,23 @@
+id: roman-domination--n--shi-koh-2014-exp
+problem: roman-domination
+proved_for: optimisation
+bound:
+  as_stated: "1.5014^{n}"
+  notation: O
+  parameters: [n]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: "Stated: exponential space (Theorem 3.2); the exponential-space version of Nederlof and van Rooij's algorithm CPSC for partial Red-Blue Dominating Set."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: shi-koh-2014
+  statements:
+    arxiv-v2: { statement: "Theorem 3.2" }
+  note: "Theorem 3.2: \"The Roman domination problem can be solved in $\\mathcal{O}(1.5014^n)$ time and exponential space.\" Section 3.2 (Algorithm 2) with the exponential-space version of CPSC (Nederlof and van Rooij, 2010), which counts partial red-blue dominating sets; the algorithm counts the minimum Roman dominating functions and computes $\\gamma_R$ (Algorithm 2, step 5). Read in the arXiv PDF (v2, 10 March 2014). Unrefereed preprint."
+formal: { status: informal }
+status: valid

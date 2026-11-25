@@ -1,0 +1,16 @@
+id: gaspers-szeider-2011-satisfaction
+title: Backdoors to Satisfaction
+authors: [Serge Gaspers, Stefan Szeider]
+identifiers: { dblp: conf/birthday/GaspersS12, openalex: null }
+versions:
+  arxiv:
+    kind: preprint
+    year: 2011
+    arxiv: "1110.6387"
+    open_access: true
+  festschrift:
+    kind: book
+    venue: "The Multivariate Algorithmic Revolution and Beyond: Essays Dedicated to Michael R. Fellows on the Occasion of His 60th Birthday, LNCS 7370, pp. 287–317"
+    year: 2012
+    doi: "10.1007/978-3-642-30891-8_15"
+    open_access: false

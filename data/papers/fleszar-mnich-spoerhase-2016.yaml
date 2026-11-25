@@ -1,0 +1,23 @@
+id: fleszar-mnich-spoerhase-2016
+title: "New Algorithms for Maximum Disjoint Paths Based on Tree-Likeness"
+authors: [Krzysztof Fleszar, Matthias Mnich, Joachim Spoerhase]
+identifiers: { dblp: journals/mp/FleszarMS18 }
+versions:
+  arxiv:
+    kind: preprint
+    year: 2016
+    arxiv: "1603.01740"
+    open_access: true
+  esa:
+    kind: conference
+    venue: "24th European Symposium on Algorithms (ESA 2016), LIPIcs 57, 42:1–42:17"
+    year: 2016
+    doi: "10.4230/LIPIcs.ESA.2016.42"
+    open_access: true
+  journal:
+    kind: journal
+    venue: "Mathematical Programming 171(1–2), pp. 433–461"
+    year: 2018
+    doi: "10.1007/s10107-017-1199-3"
+    url: "https://pure.mpg.de/pubman/item/item_2554144_2/component/file_2554143/s10107-017-1199-3.pdf"
+    open_access: true

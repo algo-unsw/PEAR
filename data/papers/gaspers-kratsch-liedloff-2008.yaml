@@ -1,0 +1,19 @@
+id: gaspers-kratsch-liedloff-2008
+title: "On Independent Sets and Bicliques in Graphs"
+authors: [Serge Gaspers, Dieter Kratsch, Mathieu Liedloff]
+identifiers: { dblp: journals/algorithmica/GaspersKL12, openalex: null }
+versions:
+  wg:
+    kind: workshop
+    venue: "Graph-Theoretic Concepts in Computer Science, 34th International Workshop (WG 2008), Revised Papers, LNCS 5344, pp. 171–182"
+    year: 2008
+    doi: "10.1007/978-3-540-92248-3_16"
+    url: "https://cgi.cse.unsw.edu.au/~sergeg/papers/Wg2008.pdf"
+    open_access: true
+  journal:
+    kind: journal
+    venue: "Algorithmica 62(3–4), pp. 637–658"
+    year: 2012
+    doi: "10.1007/s00453-010-9474-1"
+    url: "https://cgi.cse.unsw.edu.au/~sergeg/papers/InducedBicliques.pdf"
+    open_access: true

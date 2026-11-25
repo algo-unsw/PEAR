@@ -1,0 +1,27 @@
+id: fomin-golovach-stamoulis-2020
+title: "An Algorithmic Meta-Theorem for Graph Modification to Planarity and FOL"
+authors: [Fedor V. Fomin, Petr A. Golovach, Giannos Stamoulis, Dimitrios M. Thilikos]
+identifiers: { dblp: "conf/esa/FominGST20" }
+versions:
+  esa:
+    kind: conference
+    venue: "28th Annual European Symposium on Algorithms (ESA 2020), LIPIcs 173, 51:1–51:17"
+    year: 2020
+    doi: "10.4230/LIPIcs.ESA.2020.51"
+    open_access: true
+  arxiv-v1:
+    kind: preprint
+    arxiv: "2106.03425v1"
+    year: 2021
+    open_access: true
+  arxiv-v2:
+    kind: preprint
+    arxiv: "2106.03425v2"
+    year: 2022
+    open_access: true
+  journal:
+    kind: journal
+    venue: "ACM Transactions on Computation Theory 14(3–4), pp. 1–29"
+    year: 2022
+    doi: "10.1145/3571278"
+    open_access: false

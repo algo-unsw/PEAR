@@ -1,0 +1,72 @@
+id: min-ones-sat
+name: Min-Ones SAT
+aliases:
+- Min Ones SAT
+- Min-Ones
+- Minimum-Ones SAT
+- Min-Ones d-SAT
+category: logic
+complexity:
+  class: NP-complete
+  source:
+    folklore: true
+    note: 'Vertex Cover (Karp 1972, NP-complete) is the special case of formulas whose clauses are $(x_u \vee x_v)$ for the edges $uv$, and SAT (Cook 1971) is the special case $k = n$; membership in NP is clear. The 3-CNF version contains 3-Hitting Set (monotone clauses), as Fomin, Gaspers, Lokshtanov and Saurabh note (arXiv 1512.01621, Section 1: d-Hitting Set is a special case of Min-Ones d-SAT).'
+objects:
+  n: number of variables
+  m: number of clauses
+  N: total encoding length of the input
+parameters:
+  k:
+    meaning: 'the solution size: the integer $k$ in the input (decision, search), or the minimum number of variables set to true by a satisfying assignment (optimisation)'
+  d:
+    meaning: the maximum number of literals in a clause
+constraints:
+- constraint: k \le n
+  because: An instance with $k > n$ is equivalent to the same formula with $k = n$, since every assignment sets at most $n$ variables to true.
+- constraint: d \le n
+  because: A clause containing a literal and its negation is satisfied by every assignment and is removed, and repeated literals are merged; then every clause has at most $n$ literals.
+versions:
+  decision:
+    kind: decision
+    input: A formula $\varphi$ in conjunctive normal form over variables $x_1, \dots, x_n$ and an integer $k$.
+    question: Is there an assignment that satisfies every clause of $\varphi$ and sets at most $k$ variables to true?
+    generalises:
+    - decision-max-clause-size-3
+  optimisation:
+    kind: optimisation
+    input: A formula $\varphi$ in conjunctive normal form over variables $x_1, \dots, x_n$.
+    goal: Find the minimum number of variables set to true by an assignment that satisfies every clause of $\varphi$, or report that none exists.
+  search:
+    kind: search
+    input: A formula $\varphi$ in conjunctive normal form over variables $x_1, \dots, x_n$ and an integer $k$.
+    goal: Find an assignment that satisfies every clause of $\varphi$ and sets at most $k$ variables to true, or report that none exists.
+    generalises:
+    - search-max-clause-size-3
+  decision-max-clause-size-3:
+    kind: decision
+    input: A formula $\varphi$ in conjunctive normal form over variables $x_1, \dots, x_n$ with at most three literals per clause, and an integer $k$.
+    question: Is there an assignment that satisfies every clause of $\varphi$ and sets at most $k$ variables to true?
+  search-max-clause-size-3:
+    kind: search
+    input: A formula $\varphi$ in conjunctive normal form over variables $x_1, \dots, x_n$ with at most three literals per clause, and an integer $k$.
+    goal: Find an assignment that satisfies every clause of $\varphi$ and sets at most $k$ variables to true, or report that none exists.
+default_version: decision
+shared_bounds:
+- versions:
+  - decision
+  - optimisation
+  - search
+  because: 'Binary search on $k$ and self-reducibility: fix variables one at a time (setting a variable removes the satisfied clauses and the false literals, which leaves a CNF formula).'
+- versions:
+  - decision-max-clause-size-3
+  - search-max-clause-size-3
+  because: 'Self-reducibility: fixing a variable leaves a formula with at most three literals per clause.'
+related:
+- problem: sat
+  relation: variant
+- problem: hitting-set
+  relation: special-case
+- problem: 3-hitting-set
+  relation: special-case
+- problem: vertex-cover
+  relation: special-case

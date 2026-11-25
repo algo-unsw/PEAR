@@ -63,12 +63,16 @@ class Edge:
 def _log_domain(ctx) -> tuple[list[str], list[tuple[dict[str, Fraction], Fraction]]]:  # noqa: ANN001
     """The domain in log coordinates u_x = log2 x >= 1: u_x - p u_y <= log2 c for every
     constraint x <= c y^p (bounds B5), a superset of D's image."""
-    names = sorted({v for pair in ctx.le for v in pair})
+    loose = getattr(ctx, "loose", {})
+    names = sorted({v for pair in ctx.le for v in pair} | {v for pair in loose for v in pair})
     rows = []
     for (x, y), p in ctx.le.items():
         c = ctx.scale(x, y)
         off = _log2_up(c)
         rows.append(({x: Fraction(1), y: -p}, off))
+    # constraints with a constant c > 1, such as p <= 2k (bounds §5 rule (6), 22 November 2026)
+    for (x, y), (p, c) in loose.items():
+        rows.append(({x: Fraction(1), y: -p}, _log2_up(c)))
     return names, rows
 
 

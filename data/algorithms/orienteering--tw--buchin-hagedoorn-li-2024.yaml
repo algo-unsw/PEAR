@@ -1,0 +1,26 @@
+id: orienteering--tw--buchin-hagedoorn-li-2024
+problem: orienteering
+proved_for: rooted-unit-profits
+bound:
+  as_stated: 'O(n^{2}) \cdot tw^{O(tw)}'
+  notation: O
+  parameters:
+  - n
+  - tw
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Not stated; educated guess: exponential in $tw$. Dynamic programming over a nice tree decomposition with an entry for every node, subset of the bag, partition of that subset and profit value ($n \cdot tw^{O(tw)}$ entries per node, as the proof counts).'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+given:
+- tree-decomposition
+source:
+  paper: buchin-hagedoorn-li-2024
+  statements:
+    arxiv:
+      statement: 'Lemma "thm:main" in Section 4 (The Orienteering Problem without time windows), the second lemma of that section'
+  note: 'Lemma: the Orienteering Problem with unit vertex profits on a graph of treewidth $k$ is solvable in $O(n^2) \cdot k^{O(k)}$ time. The paper''s Orienteering Problem asks for a walk that starts at $s$ (no end vertex) of cost at most $B$ maximising the profit collected; the proof assumes a nice tree decomposition of width $k$ (Cygan et al.), with $s$ added to every bag. Theorem numbers in the arXiv version are not visible in the LaTeX source; labels quoted.'

@@ -1,0 +1,22 @@
+id: sat--sb-forest--gaspers-szeider-2012-treewidth
+problem: sat
+proved_for: decision
+bound:
+  as_stated: f(sb_{forest}) N^{3}
+  notation: O
+  parameters: [sb_forest, N]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Not stated; educated guess: when the incidence treewidth is small the algorithm counts models by dynamic programming over a tree decomposition (Samer–Szeider), with tables exponential in the width, which is bounded by a function of the parameter.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: gaspers-szeider-2012-treewidth
+  statements:
+    arxiv-v1:
+      statement: Theorem 2 (with $t = 1$)
+  note: 'Theorem 2: a cubic-time algorithm that, given a CNF formula $F$, computes the number of satisfying assignments of $F$ or concludes that $\mathrm{sb}_t(F) > k$, for any pair of constants $k, t \ge 0$, where $\mathrm{sb}_t(F)$ is the size of a smallest strong backdoor set into the formulas of incidence treewidth at most $t$; Section 1 states that this makes #SAT uniformly FPT for the parameter $(t, \mathrm{sb}_t)$. With $t = 1$ the base class is Forest (a graph has treewidth at most 1 exactly when it is a forest), so $\mathrm{sb}_1 = sb_{forest}$; running the algorithm for $k = 0, 1, 2, \dots$ until it returns a count gives time $f(sb_{forest}) N^3$, and $F$ is satisfiable exactly when the count is positive. TODO(verify): that the function of $k$ is computable (needed for the meaning of $f$ in PEAR).'

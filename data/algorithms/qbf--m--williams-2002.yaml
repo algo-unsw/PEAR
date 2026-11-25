@@ -1,0 +1,21 @@
+id: qbf--m--williams-2002
+problem: qbf
+proved_for: decision
+bound:
+  as_stated: "O(1.709^{m})"
+  notation: O
+  parameters: [m]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: "Stated: $O(2^{h(\\delta)m} + \\delta m)$ space (Theorem 4.1); the abstract says $O(1.709^m)$ time and space."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: williams-2002
+  statements:
+    author-copy: { statement: "Abstract and Theorem 4.1 (with $\\delta \\approx 0.7729$)" }
+  note: "Theorem 4.1: for $1/2 < \\delta < n/m$ the algorithm runs in $O(2^{\\delta m} + 2^{h(\\delta) m})$ time within a polynomial factor; with $\\delta = h(\\delta) \\approx 0.7729$ the time is $O(1.709^m)$, \"an improvement when $m/n < 1.294$\". The abstract states \"We solve QBFs in conjunctive normal form (CNF) in $O(1.709^m)$ time and space, where $m$ is the number of clauses.\" For $m/n \\ge 1.294$ the stated bound also follows from exhaustive evaluation, since $2^n \\le 2^{0.7729 m} < 1.709^m$ there. Read in the author copy at people.csail.mit.edu (undated); TODO(verify) that it matches the SODA 2002 version."

@@ -1,0 +1,39 @@
+id: power-dominating-set
+name: Power Dominating Set
+aliases: [Power Domination, Minimum Power Dominating Set, PMU Placement, PDS]
+category: graphs
+complexity:
+  class: NP-complete
+  source:
+    paper: haynes-hedetniemi-hedetniemi-2002
+    attested_by:
+      - "https://dc.etsu.edu/etsu-works/18977"
+      - "https://pure.uj.ac.za/en/publications/domination-in-graphs-applied-to-electric-power-networks/"
+      - "https://www.arxiv.org/pdf/0710.2139"
+    note: "The abstract (two institutional records) states that the problem is \"NP-complete even when restricted to bipartite graphs or chordal graphs\"; Aazami and Stilp (arXiv 0710.2139v1, Section 1.1) cite Haynes et al. for NP-completeness on bipartite graphs. No Wikipedia article was found."
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  k: { meaning: "the solution size: the integer $k$ in the input (decision), or the minimum size of a power dominating set (optimisation)" }
+  tw: { shared: treewidth }
+constraints:
+  - { constraint: "k \\le n", because: "Every instance with $k \\ge n$ is a yes-instance: $S = V$ observes every vertex." }
+  - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
+  - { constraint: "tw \\le n", because: "A single bag containing all vertices is a tree decomposition of width $n - 1$." }
+versions:
+  decision:
+    kind: decision
+    input: "A graph $G = (V, E)$ and an integer $k$."
+    question: "Is there a set $S \\subseteq V$ with $|S| \\le k$ that observes every vertex, where the vertices of $N[S]$ are observed and, repeatedly, an observed vertex with exactly one unobserved neighbour makes that neighbour observed?"
+  optimisation:
+    kind: optimisation
+    input: "A graph $G = (V, E)$."
+    goal: "Find the minimum size of a set $S \\subseteq V$ that observes every vertex, where the vertices of $N[S]$ are observed and, repeatedly, an observed vertex with exactly one unobserved neighbour makes that neighbour observed."
+default_version: decision
+shared_bounds:
+  - versions: [decision, optimisation]
+    because: "Binary search on $k$."
+related:
+  - { problem: dominating-set, relation: variant }

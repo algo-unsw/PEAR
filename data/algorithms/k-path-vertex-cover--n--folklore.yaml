@@ -1,0 +1,19 @@
+id: k-path-vertex-cover--n--folklore
+problem: k-path-vertex-cover
+proved_for: optimisation
+bound:
+  as_stated: "O(2^{n} n^{2})"
+  notation: O
+  parameters: [n]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: "$O(2^n n)$: tables indexed by vertex subsets."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  folklore: true
+  note: "Held–Karp dynamic programming decides, for every $X \\subseteq V$ at once, whether $G[X]$ has a Hamiltonian path, in $O(2^n n^2)$ time. $G[U]$ contains a path on $d$ vertices if and only if some $X \\subseteq U$ with $|X| = d$ does; propagate this flag to supersets in $O(2^n n)$ time. The optimum is $n$ minus the largest $|U|$ whose flag is false."

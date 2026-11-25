@@ -1,0 +1,19 @@
+id: max-internal-spanning-tree--k--bjorklund-kamat-kowalik-2015
+problem: max-internal-spanning-tree
+proved_for: decision
+bound:
+  as_stated: 'O^*(3.455^{k})'
+  notation: O*
+  parameters: [k]
+properties:
+  randomized: { error: one-sided }
+  space: { class: polynomial, bound: 'Polynomial space, as stated.' }
+  algebraic: true
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: bjorklund-kamat-kowalik-2015
+  statements:
+    arxiv-v2: { statement: "Theorem 3.4" }
+  note: 'Stated as an $O^*(\min\{3.455^k, 1.946^n\})$-time Monte-Carlo polynomial-space algorithm for $k$-IST in general graphs; stored as the implied $O^*(3.455^k)$. It searches for a witness tree with $k$ internal vertices and at most $k$ leaves, combining an $O^*(1.66^k 2^{l/2})$ algorithm for $(k,l)$-trees (Theorem 2.12; no false positives) with random bipartitions. Algebraic (polynomial over a field of characteristic two, Schwartz–Zippel).'

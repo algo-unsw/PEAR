@@ -1,0 +1,22 @@
+id: matching-cut--n--komusiewicz-kratsch-le-2018
+problem: matching-cut
+proved_for: decision
+bound:
+  as_stated: 'O^*(1.3071^{n})'
+  notation: O*
+  parameters: [n]
+properties:
+  randomized: true
+  space:
+    class: polynomial
+    bound: 'Not stated; educated guess: polynomial. The algorithm builds $O(n^2)$ 3-CNF formulas with $n$ variables (one per vertex) and runs Hertli''s randomized 3-SAT algorithm (PPSZ) on each; no memoization, dynamic programming or decompositions were found.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: komusiewicz-kratsch-le-2018
+  statements:
+    journal-author-copy: { statement: 'Theorem 4' }
+    journal: { statement: 'Theorem 4' }
+  note: 'SAT-based: Matching Cut reduces in polynomial time to $O(n^2)$ 3-SAT instances with $n$ variables each (clauses $\neg x_v \lor x_u \lor x_w$ for every vertex $v$ and neighbours $u, w$, plus unit clauses fixing two vertices $a$, $b$ on opposite sides), solved with Hertli''s randomized 3-SAT algorithm (SIAM J. Comput. 2014). The paper does not state the error type; PPSZ-type algorithms have one-sided error (they never accept a formula without a satisfying assignment they found). Journal only: the IPEC 2018 version has no SAT-based algorithm. Read in the accepted manuscript (journal-author-copy).'

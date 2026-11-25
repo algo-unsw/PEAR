@@ -1,0 +1,19 @@
+id: max-internal-spanning-tree--n--bjorklund-kamat-kowalik-2015
+problem: max-internal-spanning-tree
+proved_for: decision
+bound:
+  as_stated: 'O^*(1.946^{n})'
+  notation: O*
+  parameters: [n]
+properties:
+  randomized: { error: one-sided }
+  space: { class: polynomial, bound: 'Polynomial space, as stated.' }
+  algebraic: true
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: bjorklund-kamat-kowalik-2015
+  statements:
+    arxiv-v2: { statement: "Theorem 3.4" }
+  note: 'Stated as an $O^*(\min\{3.455^k, 1.946^n\})$-time Monte-Carlo polynomial-space algorithm for $k$-IST in general graphs; stored as the implied $O^*(1.946^n)$ (worst case $k = n/(1+\alpha)$ with $\alpha = 0.8627$, Section 3). The tree-finding subroutine (Theorem 2.12) never reports a false positive. Algebraic: a multivariate polynomial over a field of characteristic two is evaluated at random points (Schwartz–Zippel).'

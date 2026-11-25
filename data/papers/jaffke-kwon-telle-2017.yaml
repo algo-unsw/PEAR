@@ -1,0 +1,23 @@
+id: jaffke-kwon-telle-2017
+title: "Polynomial-Time Algorithms for the Longest Induced Path and Induced Disjoint Paths Problems on Graphs of Bounded Mim-Width"
+authors: [Lars Jaffke, O-joung Kwon, Jan Arne Telle]
+identifiers: { dblp: "conf/iwpec/JaffkeKT17" }
+versions:
+  arxiv:
+    kind: preprint
+    arxiv: "1708.04536"
+    year: 2017
+    open_access: true
+  ipec:
+    kind: conference
+    venue: "12th International Symposium on Parameterized and Exact Computation (IPEC 2017), LIPIcs 89, 21:1–21:13"
+    year: 2017
+    doi: "10.4230/LIPIcs.IPEC.2017.21"
+    open_access: true
+  journal:
+    kind: journal
+    title: "Mim-Width I. Induced path problems"
+    venue: "Discrete Applied Mathematics 278, pp. 153–168"
+    year: 2020
+    doi: "10.1016/j.dam.2019.06.026"
+    open_access: false

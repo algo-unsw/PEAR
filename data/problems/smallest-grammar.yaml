@@ -1,0 +1,28 @@
+id: smallest-grammar
+name: Smallest Grammar
+aliases: [Smallest Grammar Problem, SGP, Shortest Grammar Problem, Grammar-Based Compression, Smallest Straight-Line Program]
+category: storage
+complexity:
+  class: NP-complete
+  source:
+    paper: casel-fernau-gaspers-2016
+    statements:
+      journal: { statement: "Corollary 1 (Section 3.4)" }
+    note: "NP-complete even for a fixed alphabet of size 17 (journal; size 24 in the ICALP version). For unbounded alphabets, NP-completeness is by a reduction from Vertex Cover due to Storer and Szymanski and to Charikar et al. ('The smallest grammar problem', IEEE Trans. Inf. Theory 2005), as recalled in Sections 1.3 and 3 of the journal version. TODO(verify): Wikipedia's choice of source was not checked."
+objects:
+  n: length of the word $w$
+  N: total encoding length of the input
+parameters: {}
+versions:
+  decision:
+    kind: decision
+    input: "A word $w$ over an alphabet $\\Sigma$ and an integer $k$."
+    question: "Is there a grammar $G$ for $w$ with $|G| \\le k$, where a grammar for $w$ is a context-free grammar with exactly one rule per nonterminal and no cyclic dependencies between nonterminals (a straight-line program) that derives $w$, and $|G|$ is the sum of the lengths of the right-hand sides of its rules?"
+  optimisation:
+    kind: optimisation
+    input: "A word $w$ over an alphabet $\\Sigma$."
+    goal: "Find the minimum size $|G|$ of a grammar $G$ for $w$, where a grammar for $w$ is a context-free grammar with exactly one rule per nonterminal and no cyclic dependencies between nonterminals (a straight-line program) that derives $w$, and $|G|$ is the sum of the lengths of the right-hand sides of its rules."
+default_version: decision
+shared_bounds:
+  - versions: [decision, optimisation]
+    because: "Binary search on $k$, with $k \\le n$ (the grammar with the single rule $S \\to w$)."

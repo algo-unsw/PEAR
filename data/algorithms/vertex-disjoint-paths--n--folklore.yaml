@@ -1,0 +1,21 @@
+id: vertex-disjoint-paths--n--folklore
+problem: vertex-disjoint-paths
+proved_for: search
+bound:
+  as_stated: "O^*((k + 1)^{n})"
+  notation: O*
+  parameters: [k, n]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: "One labelling at a time."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  folklore: true
+  note: "Try all $(k + 1)^n$ labellings $\\ell \\colon V \\to \\{0, 1, \\dots, k\\}$ and accept if, for every $i$, $s_i$ and $t_i$ are labelled $i$ and connected in $G[\\ell^{-1}(i)]$; a path inside each $G[\\ell^{-1}(i)]$ is then found by search, and the paths are vertex-disjoint because the label classes are. Conversely the vertex sets of a solution give such a labelling (brute force baseline: PEAR's derived bounds in $n$ alone were worse)."
+formal: { status: informal }
+status: valid

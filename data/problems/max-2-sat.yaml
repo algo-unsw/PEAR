@@ -1,0 +1,45 @@
+id: max-2-sat
+name: Max 2-SAT
+aliases: [MAX-2-SAT, Max-2-Sat, MAX2SAT, Maximum 2-Satisfiability, 2-MAXSAT]
+category: logic
+complexity:
+  class: NP-complete
+  source:
+    paper: garey-johnson-stockmeyer-1974
+    attested_by:
+      - "https://people.csail.mit.edu/rrw/williams-max2sat-encyc.pdf"
+      - "https://www.csie.ntu.edu.tw/~lyuu/complexity/2008b/20081028.pdf"
+      - "https://arxiv.org/pdf/2404.00006"
+    note: "The decision version is NP-complete by Garey, Johnson and Stockmeyer (STOC 1974; Theoretical Computer Science 1976). The three sources (Williams's encyclopedia entry on Max 2-SAT, Lyuu's lecture notes, and a 2024 arXiv critique of a claimed polynomial algorithm) credit it to that paper. Wikipedia's Maximum satisfiability article gives no source for Max 2-SAT (checked 21 November 2026)."
+objects:
+  n: number of variables
+  m: number of clauses
+  N: total encoding length of the input
+parameters:
+  k: { meaning: "the number of satisfied clauses: the integer $k$ in the input (decision, search), or the maximum number of clauses satisfied by an assignment (optimisation)" }
+  p: { meaning: "the number of clauses left unsatisfied, $m - k$ (the dual parameter; deciding whether $p \\le m - k$ for the input $k$ is Almost 2-SAT: delete at most $p$ clauses to make the formula satisfiable)" }
+constraints:
+  - { constraint: "k \\le m", because: "At most $m$ clauses can be satisfied; an instance with $k > m$ is a no-instance." }
+  - { constraint: "p \\le m", because: "At most $m$ clauses are left unsatisfied." }
+  - { constraint: "n \\le 2m", because: "Each clause has at most two variables; variables that occur in no clause can be removed." }
+versions:
+  decision:
+    kind: decision
+    input: "A formula $\\varphi$ in conjunctive normal form over variables $x_1, \\dots, x_n$, with at most two literals per clause (a set of clauses: no clause repeats), and an integer $k$."
+    question: "Is there an assignment of the variables that satisfies at least $k$ clauses of $\\varphi$?"
+  optimisation:
+    kind: optimisation
+    input: "A formula $\\varphi$ in conjunctive normal form over variables $x_1, \\dots, x_n$, with at most two literals per clause (a set of clauses: no clause repeats)."
+    goal: "Find the maximum number of clauses of $\\varphi$ satisfied by an assignment of the variables."
+  search:
+    kind: search
+    input: "A formula $\\varphi$ in conjunctive normal form over variables $x_1, \\dots, x_n$, with at most two literals per clause (a set of clauses: no clause repeats), and an integer $k$."
+    goal: "Find an assignment of the variables that satisfies at least $k$ clauses of $\\varphi$, or report that none exists."
+default_version: decision
+shared_bounds:
+  - versions: [decision, optimisation, search]
+    because: "Binary search on $k$ and self-reducibility: fix variables one at a time."
+related:
+  - { problem: max-2-csp, relation: generalisation }
+  - { problem: sat, relation: variant }
+  - { problem: max-sat, relation: generalisation }

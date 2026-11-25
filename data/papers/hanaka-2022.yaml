@@ -1,0 +1,16 @@
+id: hanaka-2022
+title: "Computing Densest k-Subgraph with Structural Parameters"
+authors: [Tesshu Hanaka]
+identifiers: { dblp: journals/jco/Hanaka23 }
+versions:
+  arxiv:
+    kind: preprint
+    year: 2022
+    arxiv: "2207.09803"
+    open_access: true
+  journal:
+    kind: journal
+    venue: "Journal of Combinatorial Optimization 45(1), Article 39"
+    year: 2023
+    doi: "10.1007/s10878-022-00927-1"
+    open_access: false

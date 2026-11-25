@@ -1,0 +1,24 @@
+id: max-2-sat--m--gaspers-sorkin-2009
+problem: max-2-sat
+proved_for: optimisation
+bound:
+  as_stated: 'O^*(2^{0.15819 m})'
+  notation: O*
+  parameters:
+  - m
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'Stated: polynomial space (abstract; Section 1.2).'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: gaspers-sorkin-2009
+  statements:
+    arxiv-v1:
+      statement: 'Theorem 4 with Table 2 ($p = 0$, $\Delta(F) \ge 6$)'
+      page: 11
+  note: 'Theorem 4 bounds the time of the hybrid Max 2-CSP algorithm by $O^*(2^{m((1-p)w_e + p w_h)})$ for the pairs $(w_e, w_h)$ of Table 2; a Max 2-SAT instance has $p = 0$, and Table 2 gives $w = 0.15819$. Section 12 and the abstract state the weaker $O^*(2^{0.1582 m})$ and $O^*(2^{m/6.321})$; all three are correct and the strongest is stored (Serge Gaspers, 21 November 2026). In the paper $m$ counts the 2-variable clauses (unit clauses are monadic score functions), so the bound also holds with $m$ the number of all clauses. The algorithm returns an optimal assignment. arXiv v1 18 June 2009 (read); SODA 2009; J. Comput. Syst. Sci. 2012.'

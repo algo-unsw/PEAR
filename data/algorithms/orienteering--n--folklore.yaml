@@ -1,0 +1,20 @@
+id: orienteering--n--folklore
+problem: orienteering
+proved_for: optimisation
+bound:
+  as_stated: 'O(2^{n} n^{2} + n^{3})'
+  notation: O
+  parameters:
+  - n
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'A table entry for every set of vertices and end vertex (Held–Karp dynamic programming).'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  folklore: true
+  note: 'Compute all shortest-path distances $d$ ($O(n^3)$). The Held–Karp recurrence $D(S, v) = \min_{u \in S \setminus \{v\}} D(S \setminus \{v\}, u) + d(u, v)$, with $D(\{s\}, s) = 0$, gives for every set $S \ni s$ and $v \in S$ the minimum cost of a walk from $s$ that visits every vertex of $S$ and ends at $v$, in $O(2^n n^2)$ time; the answer is the maximum profit of a set $S$ with $D(S, v) + d(v, t) \le B$ for some $v \in S$ (a walk visits exactly the vertices of the shortest paths it uses, which only adds profit). As for TSP (Held and Karp; Bellman).'

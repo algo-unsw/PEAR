@@ -1,0 +1,23 @@
+id: capacitated-dominating-set--nd--gavenciak-knop-koutecky-2017
+problem: capacitated-dominating-set
+proved_for: decision
+bound:
+  as_stated: "nd^{O(nd)} n^{O(1)}"
+  notation: O
+  parameters: [nd, n]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: "Not stated for part (c); educated guess: exponential in $nd$ only. Part (c) solves the convex model of part (a), which part (a) solves in time and space $nd^{O(nd^2)} \\log n$, with a proximity argument; part (b) (an ILP model, time $nd^{O(nd^2)} \\mathrm{poly}(n)$) states space $\\mathrm{poly}(nd, n)$."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: gavenciak-knop-koutecky-2017
+  statements:
+    arxiv-v3: { statement: "Section 1.1, the theorem labelled thm:cds, part (c): \"Can be solved in time $k^{O(k)} \\mathrm{poly}(|G|)$ using model (a) and a proximity argument\", $k$ the neighbourhood diversity and $|G|$ the number of vertices" }
+  note: "The paper assumes the neighbourhood-diversity partition as input; it can be computed in polynomial time (Lampis), so the bound holds without it. Dom et al. (IWPEC 2008) show W[1]-hardness parameterized by treewidth, as cited in Section 1.2."
+formal: { status: informal }
+status: valid

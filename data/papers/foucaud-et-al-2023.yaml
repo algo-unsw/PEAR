@@ -1,0 +1,16 @@
+id: foucaud-et-al-2023
+title: "Problems in NP Can Admit Double-Exponential Lower Bounds When Parameterized by Treewidth or Vertex Cover"
+authors: [Florent Foucaud, Esther Galby, Liana Khazaliya, Shaohua Li, Fionn Mc Inerney, Roohani Sharma, Prafullkumar Tale]
+identifiers: { dblp: "conf/icalp/FoucaudGK0IST24" }
+versions:
+  arxiv-v5:
+    kind: preprint
+    arxiv: "2307.08149v5"
+    year: 2025
+    open_access: true
+  icalp:
+    kind: conference
+    venue: "51st International Colloquium on Automata, Languages, and Programming (ICALP 2024), LIPIcs 297, pp. 66:1–66:19"
+    year: 2024
+    doi: "10.4230/LIPIcs.ICALP.2024.66"
+    open_access: true

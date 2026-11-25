@@ -1,0 +1,22 @@
+id: fomin-gaspers-saurabh-2009
+title: "A Linear Vertex Kernel for Maximum Internal Spanning Tree"
+authors: [Fedor V. Fomin, Serge Gaspers, Saket Saurabh, Stéphan Thomassé]
+identifiers: { dblp: "journals/jcss/FominGST13" }
+versions:
+  arxiv-v2:
+    kind: preprint
+    arxiv: "0907.3208v2"
+    year: 2012
+    open_access: true
+  isaac:
+    kind: conference
+    venue: "Algorithms and Computation (ISAAC 2009), LNCS 5878, pp. 275–282"
+    year: 2009
+    doi: "10.1007/978-3-642-10631-6_29"
+    open_access: false
+  journal:
+    kind: journal
+    venue: "Journal of Computer and System Sciences 79(1), pp. 1–6"
+    year: 2013
+    doi: "10.1016/j.jcss.2012.03.004"
+    open_access: false

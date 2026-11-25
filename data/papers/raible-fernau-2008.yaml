@@ -1,0 +1,19 @@
+id: raible-fernau-2008
+title: "An Exact Exponential Time Algorithm for Power Dominating Set"
+authors: [Daniel Binkele-Raible, Henning Fernau]
+identifiers: { dblp: journals/algorithmica/Binkele-RaibleF12 }
+versions:
+  conference:
+    kind: conference
+    title: "Power Domination in $O^*(1.7548^n)$ Using Reference Search Trees"
+    authors: [Daniel Raible, Henning Fernau]
+    venue: "19th International Symposium on Algorithms and Computation (ISAAC 2008), Lecture Notes in Computer Science 5369, pp. 136–147"
+    year: 2008
+    doi: "10.1007/978-3-540-92182-0_15"
+    open_access: false
+  journal:
+    kind: journal
+    venue: "Algorithmica 63(1–2), pp. 323–346"
+    year: 2012
+    doi: "10.1007/s00453-011-9533-2"
+    open_access: false

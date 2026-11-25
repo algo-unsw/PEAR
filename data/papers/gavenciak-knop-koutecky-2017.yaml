@@ -1,0 +1,24 @@
+id: gavenciak-knop-koutecky-2017
+title: "Integer Programming in Parameterized Complexity: Three Miniatures"
+authors: [Tomáš Gavenčiak, Dušan Knop, Martin Koutecký]
+identifiers: { dblp: "conf/iwpec/GavenciakKK18" }
+versions:
+  arxiv-v3:
+    kind: preprint
+    arxiv: "1711.02032"
+    year: 2017
+    open_access: true
+  ipec:
+    kind: conference
+    venue: "13th International Symposium on Parameterized and Exact Computation (IPEC 2018), LIPIcs 115, 21:1–21:16"
+    year: 2018
+    doi: "10.4230/LIPIcs.IPEC.2018.21"
+    open_access: true
+  journal:
+    kind: journal
+    title: "Integer programming in parameterized complexity: Five miniatures"
+    authors: [Tomáš Gavenčiak, Martin Koutecký, Dušan Knop]
+    venue: "Discrete Optimization 44, article 100596"
+    year: 2022
+    doi: "10.1016/j.disopt.2020.100596"
+    open_access: false

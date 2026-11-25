@@ -1,0 +1,44 @@
+id: bipartite-dimension
+name: Bipartite Dimension
+aliases: [Biclique Cover, Minimum Biclique Cover, Biclique Edge Cover, Biclique Cover Number, Covering by Complete Bipartite Subgraphs, Bipartite Biclique Edge Cover]
+category: graphs
+complexity:
+  class: NP-complete
+  source:
+    paper: garey-johnson-1979
+    attested_by:
+      - "https://en.wikipedia.org/wiki/Bipartite_dimension"
+      - "https://arxiv.org/pdf/1811.03396"
+      - "https://drops.dagstuhl.de/opus/volltexte/2017/6929/pdf/LIPIcs-IPEC-2016-11.pdf"
+    note: "Problem GT18 (Covering by Complete Bipartite Subgraphs) in Garey and Johnson, as on Wikipedia, which credits NP-completeness, even for bipartite graphs, to Orlin (1977). \"The biclique covering number of grids\" (arXiv 1811.03396, Introduction) cites GT18; Chandran, Issac and Karrenbauer (IPEC 2016, Introduction) cite Orlin (1977)."
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  k: { meaning: "the number of bicliques: the integer $k$ in the input (decision), or the minimum number of bicliques covering all edges, the bipartite dimension of $G$ (optimisation)" }
+constraints:
+  - { constraint: "k \\le n", because: "The stars centred at the vertices cover every edge, so every instance with $k \\ge n$ is a yes-instance, answered in polynomial time." }
+  - { constraint: "k \\le m", because: "Every edge is a biclique, so every instance with $k \\ge m$ is a yes-instance, answered in polynomial time." }
+  - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
+versions:
+  decision:
+    kind: decision
+    input: "A graph $G = (V, E)$ and an integer $k$."
+    question: "Are there at most $k$ bicliques $(A_1, B_1), \\dots, (A_\\ell, B_\\ell)$ of $G$, that is, pairs of disjoint sets $A_i, B_i \\subseteq V$ such that every vertex of $A_i$ is adjacent to every vertex of $B_i$, such that every edge of $G$ has one endpoint in $A_i$ and the other in $B_i$ for some $i$?"
+    generalises: [decision-bipartite]
+  optimisation:
+    kind: optimisation
+    input: "A graph $G = (V, E)$."
+    goal: "Find the minimum number of bicliques $(A_1, B_1), \\dots, (A_\\ell, B_\\ell)$ of $G$, that is, pairs of disjoint sets $A_i, B_i \\subseteq V$ such that every vertex of $A_i$ is adjacent to every vertex of $B_i$, such that every edge of $G$ has one endpoint in $A_i$ and the other in $B_i$ for some $i$."
+  decision-bipartite:
+    kind: decision
+    input: "A bipartite graph $G = (V, E)$ and an integer $k$."
+    question: "Are there at most $k$ bicliques $(A_1, B_1), \\dots, (A_\\ell, B_\\ell)$ of $G$, that is, pairs of disjoint sets $A_i, B_i \\subseteq V$ such that every vertex of $A_i$ is adjacent to every vertex of $B_i$, such that every edge of $G$ has one endpoint in $A_i$ and the other in $B_i$ for some $i$?"
+default_version: decision
+shared_bounds:
+  - versions: [decision, optimisation]
+    because: "Binary search on $k \\le n$."
+related:
+  - { problem: edge-clique-cover, relation: variant }
+  - { problem: balanced-biclique, relation: variant }

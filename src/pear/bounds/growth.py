@@ -350,7 +350,12 @@ def log_growth(node: Node, upper: bool) -> Growth:
         e = value_growth(node.exp)
         base = _base_log(node.base, upper if e.all_nonnegative() else not upper)
         if not e.all_nonnegative() and not _is_constant(base):
-            raise UnsupportedBound("a growing base with a decreasing exponent")
+            # an exponent with subtracted parts, such as n^{n - k}: exact when the base's
+            # logarithm is the same from above and below (a variable or a product of
+            # variables), since then e · log(base) needs no estimate (21 November 2026)
+            if _base_log(node.base, not upper) != base or any(
+                    c.kind != "exact" for cs in base.terms.values() for c in cs):
+                raise UnsupportedBound("a growing base with a decreasing exponent")
         return e * base
     if isinstance(node, Log):  # log2 of log_b(arg)^p = p · log2(log2 arg) + constant
         return _log_of(log_growth(node.arg, upper)).scale(exact(_log_power(node)))

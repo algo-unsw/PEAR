@@ -1,0 +1,23 @@
+id: firefighter--dt--das-enduri-misra-2017
+problem: firefighter
+proved_for: optimisation
+bound:
+  as_stated: "(2^{dt + 1} + dt)^{2 dt + 2} (n + m)"
+  notation: O
+  parameters: [dt, n, m]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: "Not stated; educated guess: polynomial. The algorithm enumerates the at most $(2^{k+1}+k)^{2k+2}$ defending sequences over vertex types one at a time and checks each by breadth-first search (Lemma on strategy checking); no tables."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: das-enduri-misra-2017
+  statements:
+    arxiv-v1: { statement: "Section 3.1, theorem on distance to threshold graphs" }
+  note: "Section 3.1 (Parameterization by Distance to Threshold Graphs): \"The Firefighting problem can be solved in $O((2^{k+1}+k)^{2k+2} (n+m))$ time when parameterized by size of modulator to threshold graphs\" ($k$ written $dt$ here), computing a strategy that saves the maximum number of vertices. The modulator is assumed given; Section 1 says this is without loss of generality since modulators can be computed in FPT time (threshold graphs are the $(2K_2, C_4, P_4)$-free graphs, so a modulator of size $dt$ is found by branching in $O^*(4^{dt})$ time, which the stated bound dominates). Read through the arXiv LaTeX source of v1; the printed theorem number was not seen (TODO(verify)). The merged TCS 2019 version (7 authors) was not checked and may contain improved results."
+formal: { status: informal }
+status: valid

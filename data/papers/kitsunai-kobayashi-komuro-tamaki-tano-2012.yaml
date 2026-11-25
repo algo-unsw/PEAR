@@ -1,0 +1,17 @@
+id: kitsunai-kobayashi-komuro-tamaki-tano-2012
+title: "Computing Directed Pathwidth in $O(1.89^{n})$ Time"
+authors: [Kenta Kitsunai, Yasuaki Kobayashi, Keita Komuro, Hisao Tamaki, Toshihiro Tano]
+identifiers: { dblp: journals/algorithmica/KitsunaiKKTT16 }
+versions:
+  ipec:
+    kind: conference
+    venue: "Parameterized and Exact Computation (IPEC 2012), LNCS 7535, pp. 182–193"
+    year: 2012
+    doi: "10.1007/978-3-642-33293-7_18"
+    open_access: false
+  journal:
+    kind: journal
+    venue: "Algorithmica 75(1), pp. 138–157"
+    year: 2016
+    doi: "10.1007/s00453-015-0015-9"
+    open_access: false

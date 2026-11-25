@@ -1,0 +1,21 @@
+id: s-club--ce--hartung-komusiewicz-nichterlein-2012
+problem: s-club
+proved_for: decision-s-at-least-2
+bound:
+  as_stated: "O(6.86^{ce} ce^{3} + n + m)"
+  notation: O
+  parameters: [ce, n, m]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: "Not stated; educated guess: polynomial. A linear-time kernel with $4 ce$ vertices (Theorem 2), then the search tree algorithm analysed in $n$ ($\\alpha^4 < 6.86$ for the golden ratio $\\alpha$); no tables."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: hartung-komusiewicz-nichterlein-2012
+  statements:
+    journal: { statement: "Corollary 1" }
+  note: "Corollary 1: \"(Weighted) $s$-Club for $s \\ge 2$ parameterized by the size $k$ of a cluster editing set can be solved in $O(6.86^k \\cdot k^3 + n + m)$ time.\" Read in the open-access JGAA version (2015). TODO(verify): whether a minimum cluster editing set must be given or computed (the kernel of Theorem 2 is computed in $O(n + m)$ time)."

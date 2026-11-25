@@ -1,0 +1,8 @@
+# Definition as in Komusiewicz, Kratsch and Le (IPEC 2018, LIPIcs 115, Section 2): "a distance to P set of a graph G
+# is a subset U of V such that G - U has the property P"; distance to cluster is the case where P is the class of
+# cluster graphs, the vertex-disjoint unions of cliques.
+id: distance-to-cluster
+name: Distance to Cluster
+symbol: dc
+aliases: [Cluster Vertex Deletion Number, Cluster Deletion Number]
+definition: 'The minimum size of a set $U \subseteq V$ such that $G - U$ is a cluster graph (a vertex-disjoint union of cliques).'

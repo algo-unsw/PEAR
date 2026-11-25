@@ -1,0 +1,23 @@
+id: das-enduri-misra-2017
+title: "On Structural Parameterizations of Firefighting"
+authors: [Bireswar Das, Murali Krishna Enduri, Neeldhara Misra, I. Vinod Reddy]
+identifiers: { dblp: "conf/caldam/DasEMR18" }
+versions:
+  arxiv-v1:
+    kind: preprint
+    arxiv: "1711.10227v1"
+    year: 2017
+    open_access: true
+  caldam:
+    kind: conference
+    venue: "Algorithms and Discrete Applied Mathematics (CALDAM 2018), LNCS 10743, pp. 221–234"
+    year: 2018
+    doi: "10.1007/978-3-319-74180-2_19"
+    open_access: false
+  journal:
+    kind: journal
+    authors: [Bireswar Das, Murali Krishna Enduri, Masashi Kiyomi, Neeldhara Misra, Yota Otachi, I. Vinod Reddy, Shunya Yoshimura]
+    venue: "Theoretical Computer Science 782, pp. 79–90"
+    year: 2019
+    doi: "10.1016/j.tcs.2019.02.032"
+    open_access: false

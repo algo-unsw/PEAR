@@ -1,0 +1,40 @@
+id: cycle-packing
+name: Cycle Packing
+aliases: [Vertex-Disjoint Cycle Packing, Disjoint Cycles, k-Disjoint Cycles, Vertex-Disjoint Cycles]
+category: graphs
+complexity:
+  class: NP-complete
+  source:
+    folklore: true
+    note: "Partition into Triangles (Garey and Johnson, problem GT11, NP-complete; GT11 as given by the Compendium of NP Optimization Problems, https://www.csc.kth.se/tcs/compendium/node22.html) is the special case $n = 3k$: every cycle has at least three vertices, so $k$ vertex-disjoint cycles in a graph with $3k$ vertices are triangles covering $V$. Membership in NP is immediate."
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  k: { meaning: "the solution size: the integer $k$ in the input (decision, search), or the maximum number of vertex-disjoint cycles (optimisation)" }
+  tw: { shared: treewidth }
+constraints:
+  - { constraint: "k \\le n / 3", because: "Every cycle has at least three vertices, so an instance with $k > n/3$ is a no-instance (answered in polynomial time)." }
+  - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
+  - { constraint: "tw \\le n", because: "A single bag containing all vertices is a tree decomposition of width $n - 1$." }
+versions:
+  decision:
+    kind: decision
+    input: "A graph $G = (V, E)$ and an integer $k$."
+    question: "Are there $k$ pairwise vertex-disjoint cycles in $G$?"
+  optimisation:
+    kind: optimisation
+    input: "A graph $G = (V, E)$."
+    goal: "Find the maximum number of pairwise vertex-disjoint cycles in $G$."
+  search:
+    kind: search
+    input: "A graph $G = (V, E)$ and an integer $k$."
+    goal: "Find $k$ pairwise vertex-disjoint cycles in $G$, or report that none exist."
+default_version: decision
+shared_bounds:
+  - versions: [decision, optimisation, search]
+    because: "Binary search on $k$ and self-reducibility (delete a vertex or an edge and test again)."
+related:
+  - { problem: feedback-vertex-set, relation: dual }
+  - { problem: triangle-packing, relation: variant }

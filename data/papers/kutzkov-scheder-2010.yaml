@@ -1,0 +1,14 @@
+id: kutzkov-scheder-2010
+title: Using CSP To Improve Deterministic 3-SAT
+authors:
+- Konstantin Kutzkov
+- Dominik Scheder
+identifiers:
+  dblp: journals/corr/abs-1007-1166
+  openalex: null
+versions:
+  arxiv:
+    kind: preprint
+    year: 2010
+    arxiv: '1007.1166'
+    open_access: true

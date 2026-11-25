@@ -1,0 +1,10 @@
+id: csp--to--max-2-csp
+from: { problem: csp, version: decision-arity-2 }
+to: { problem: max-2-csp, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(N)"
+parameter_map: { n: "n", m: "m", r: "d", k: "m" }
+source:
+  folklore: true
+  note: "Identify $D$ with $[d]$. For every pair of variables $u, v$ that share a binary constraint, $s_{uv}(a, b)$ is the number of binary constraints on $u, v$ whose relation contains the corresponding pair, and $s_v(a)$ is the number of unary constraints on $v$ whose relation contains $a$; set $k = m$. An assignment scores at least $m$ exactly when it satisfies every constraint, and the constraint graph has at most $m$ edges. A constraint whose scope repeats a variable is unary. Instances with $d = 1$ are decided directly (Max 2-CSP needs $r \\ge 2$)."

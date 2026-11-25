@@ -1,0 +1,21 @@
+id: edge-dominating-set--k--fomin-gaspers-saurabh-2006
+problem: edge-dominating-set
+proved_for: search
+bound:
+  as_stated: "2.4181^{k} n^{O(1)}"
+  notation: O
+  parameters: [k, n]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: "Not stated; educated guess: exponential. The proof branches to build a partial vertex cover $C$ and, once $|C|$ is small enough, runs a dynamic program over a path decomposition of width $\ell$ in $O(3^{\ell} n^{O(1)})$ time (\"similar to the algorithm of Theorem 3\"), whose tables are exponential in the width."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: fomin-gaspers-saurabh-2006
+  statements:
+    journal-author-copy: { statement: "Theorem 6" }
+  note: "Theorem 6: \"k-Weighted Edge Dominating Set, k-Minimum Maximal Matching and k-Matrix Domination can be solved in time $O(2.4181^k n^{O(1)})$\". k-WEDS asks for an edge set of weight at most $k$ dominating every other edge, under real weights $w(e) \\ge 1$; with all weights 1 it is Edge Dominating Set. The weighted statement is not entered: PEAR's Edge Dominating Set has no weighted version yet. Only the Algorithmica version is entered (decided by Serge Gaspers, 21 November 2026). Beaten by Iwaide and Nagamochi, $O^*(2.2351^k)$."

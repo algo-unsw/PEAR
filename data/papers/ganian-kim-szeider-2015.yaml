@@ -1,0 +1,22 @@
+id: ganian-kim-szeider-2015
+title: "Algorithmic Applications of Tree-Cut Width"
+authors: [Robert Ganian, Eun Jung Kim, Stefan Szeider]
+identifiers: { dblp: "journals/siamdm/GanianKS22" }
+versions:
+  mfcs:
+    kind: conference
+    venue: "40th International Symposium on Mathematical Foundations of Computer Science (MFCS 2015), Part II, LNCS 9235, pp. 348–360"
+    year: 2015
+    doi: "10.1007/978-3-662-48054-0_29"
+    open_access: false
+  arxiv:
+    kind: preprint
+    arxiv: "2206.00752"
+    year: 2022
+    open_access: true
+  journal:
+    kind: journal
+    venue: "SIAM Journal on Discrete Mathematics 36(4), pp. 2635–2666"
+    year: 2022
+    doi: "10.1137/20M137478X"
+    open_access: false

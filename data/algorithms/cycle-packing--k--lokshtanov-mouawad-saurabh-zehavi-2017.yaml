@@ -1,0 +1,25 @@
+id: cycle-packing--k--lokshtanov-mouawad-saurabh-zehavi-2017
+problem: cycle-packing
+proved_for: search
+bound:
+  as_stated: "2^{O(k (\\log k)^{2} / \\log \\log k)} n"
+  notation: O
+  parameters: [k, n]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: "Stated: polynomial space (Theorem 1; the final dynamic programming uses inclusion–exclusion to keep the space polynomial)."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+conditional_on: []
+source:
+  paper: lokshtanov-mouawad-saurabh-zehavi-2017
+  statements:
+    arxiv: { statement: "Theorem 1 (Section 1, labelled thm:main)" }
+    icalp: { statement: "Theorem 1" }
+  note: "'There exists a (deterministic) polynomial-space algorithm that solves Cycle Packing in time $2^{O(\\frac{k\\log^2k}{\\log\\log k})}\\cdot|V|$. In case a solution exists, it also outputs a solution.' Improves Bodlaender's $2^{O(k^2)} |V|$ (1994) and the textbook $2^{O(k \\log^2 k)} |V|$ algorithm from the Erdős–Pósa theorem."
+formal: { status: informal }
+status: valid

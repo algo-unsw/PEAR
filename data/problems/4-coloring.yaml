@@ -1,0 +1,42 @@
+id: 4-coloring
+name: 4-Coloring
+aliases: [4-Colouring, 4-Colorability, 4-COL]
+category: graphs
+complexity:
+  class: NP-complete
+  source:
+    paper: garey-johnson-stockmeyer-1974
+    attested_by:
+      - "https://en.wikipedia.org/wiki/Graph_coloring"
+      - "https://sites.ualberta.ca/~mrs/courses/lectures/lecture34.pdf"
+      - "https://arxiv.org/abs/2611.03115"
+    note: "As on Wikipedia (Graph coloring: deciding $k$-colourability is NP-complete for every $k$ except $k \\in \\{0, 1, 2\\}$), which cites Garey, Johnson and Stockmeyer (1974) and Garey and Johnson (1979). NP-hardness follows from 3-Coloring by adding a vertex adjacent to all others (Alberta lecture notes, slide 12: \"4-Coloring is NP-complete\"); Yamano and Shibuya (arXiv:2611.03115v1, Section 1) state NP-hardness for every fixed $k \\ge 3$, citing Lovász (1973)."
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  tw: { shared: treewidth }
+  pw: { shared: pathwidth }
+constraints:
+  - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
+  - { constraint: "tw \\le pw", because: "Every path decomposition is a tree decomposition." }
+  - { constraint: "pw \\le n", because: "A single bag containing all vertices is a path decomposition of width $n - 1$." }
+  - { constraint: "tw \\le n", because: "A single bag containing all vertices is a tree decomposition of width $n - 1$." }
+versions:
+  decision:
+    kind: decision
+    input: "A graph $G = (V, E)$."
+    question: "Is there a map $c \\colon V \\to \\{1, 2, 3, 4\\}$ such that $c(u) \\ne c(v)$ for every edge $uv$?"
+  search:
+    kind: search
+    input: "A graph $G = (V, E)$."
+    goal: "Find a map $c \\colon V \\to \\{1, 2, 3, 4\\}$ such that $c(u) \\ne c(v)$ for every edge $uv$, or report that none exists."
+default_version: decision
+shared_bounds:
+  - versions: [decision, search]
+    because: "Self-reducibility: merge two non-adjacent vertices or add an edge, and test again."
+related:
+  - { problem: chromatic-number, relation: generalisation }
+  - { problem: graph-homomorphism, relation: generalisation }
+  - { problem: 3-coloring, relation: variant }

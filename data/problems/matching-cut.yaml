@@ -1,0 +1,46 @@
+id: matching-cut
+name: Matching Cut
+aliases: [Decomposable Graph Recognition, Decomposable Graph]
+category: graphs
+complexity:
+  class: NP-complete
+  source:
+    paper: chvatal-1984
+    attested_by:
+      - "https://arxiv.org/abs/1905.03134"
+      - "https://ris.utwente.nl/ws/files/5111792/1655.pdf"
+      - "https://link.springer.com/article/10.1007/s00453-020-00782-8"
+    note: 'Chvátal (1984) proved that recognising graphs with a matching cut (decomposable graphs) is NP-complete, already for graphs of maximum degree 4. Attested by Gomes and Sau (arXiv 1905.03134v1, Sections 1 and 3.1), Bonsma (University of Twente Memorandum 1655) and Chen, Hsieh, Le, Le and Peng (Algorithmica 83(5), 2021, Section 1.1). Membership in NP is immediate. Wikipedia has no article on Matching Cut, so there was no Wikipedia choice of source to mirror.'
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  k: { meaning: 'the largest allowed number of crossing edges: the integer $k$ in the input (minimum-decision version)' }
+  tw: { shared: treewidth }
+  dc: { shared: distance-to-cluster }
+  dcc: { meaning: 'the distance to co-cluster: the minimum size of a set $U \subseteq V$ such that $G - U$ is a co-cluster graph (a complete multipartite graph, the complement of a cluster graph), as in Komusiewicz, Kratsch and Le (IPEC 2018, Section 2)' }
+  vc: { shared: vertex-cover-number }
+  nd: { meaning: 'the neighbourhood diversity of $G$ (Lampis): the minimum number of classes of a partition of $V$ in which any two vertices $u, v$ of the same class satisfy $N(u) \setminus \{v\} = N(v) \setminus \{u\}$' }
+constraints:
+  - { constraint: 'k \le n', because: 'A matching cut is a matching, so it has at most $n/2$ edges; an instance with $k > n/2$ has the same answer with $k = \lfloor n/2 \rfloor$.' }
+  - { constraint: 'm \le n(n - 1)/2', because: 'A simple graph has at most $n(n-1)/2$ edges.' }
+  - { constraint: 'tw \le vc', because: 'For a vertex cover $C$, the bags $C \cup \{v\}$ for $v \notin C$, arranged on a path, form a tree decomposition of width $|C|$.' }
+  - { constraint: 'dc \le vc', because: 'Deleting a vertex cover leaves an edgeless graph, which is a cluster graph (of single-vertex cliques).' }
+  - { constraint: 'dcc \le n', because: 'Deleting all vertices leaves the empty graph, a co-cluster graph.' }
+  - { constraint: 'vc \le n', because: 'A vertex cover is a set of vertices.' }
+  - { constraint: 'nd \le n', because: 'The partition into single vertices satisfies the condition.' }
+  - { constraint: 'tw \le n', because: 'A single bag containing all vertices is a tree decomposition of width $n - 1$.' }
+versions:
+  decision:
+    kind: decision
+    input: 'A graph $G = (V, E)$.'
+    question: 'Is there a partition of $V$ into nonempty sets $A$ and $B$ such that the edges with one endpoint in $A$ and the other in $B$ form a matching (every vertex has at most one neighbour on the other side)?'
+  minimum-decision:
+    kind: decision
+    input: 'A graph $G = (V, E)$ and an integer $k$.'
+    question: 'Is there a partition of $V$ into nonempty sets $A$ and $B$ such that the edges with one endpoint in $A$ and the other in $B$ form a matching (every vertex has at most one neighbour on the other side) with at most $k$ edges?'
+default_version: decision
+related:
+  - { problem: max-cut, relation: variant }
+  - { problem: minimum-bisection, relation: variant }

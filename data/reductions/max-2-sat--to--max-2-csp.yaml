@@ -1,0 +1,10 @@
+id: max-2-sat--to--max-2-csp
+from: { problem: max-2-sat, version: decision }
+to: { problem: max-2-csp, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(N)"
+parameter_map: { n: "n", m: "m", r: "2", k: "k" }
+source:
+  folklore: true
+  note: "Domain $[2]$ (true, false); each clause on two variables $x, y$ adds to the score function $s_{xy}$ the indicator that the clause is satisfied, and each clause on one variable adds to $s_x$. The score of an assignment is the number of satisfied clauses, and the constraint graph has at most $m$ edges. Gaspers and Sorkin (arXiv 0906.3527v1, Section 2) treat Max 2-SAT as a special case of integer-valued Max 2-CSP in this way."

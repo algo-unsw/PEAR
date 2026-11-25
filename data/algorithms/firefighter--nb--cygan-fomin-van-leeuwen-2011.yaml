@@ -1,0 +1,24 @@
+id: firefighter--nb--cygan-fomin-van-leeuwen-2011
+problem: firefighter
+proved_for: decision
+bound:
+  as_stated: "3^{nb} n"
+  notation: O
+  parameters: [nb, n]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: "Stated: polynomial space (Corollary 3.4)."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: cygan-fomin-van-leeuwen-2011
+  statements:
+    arxiv-v1: { statement: "Corollary 3.4" }
+    journal-author-copy: { statement: "Corollary 3.6" }
+  note: "arXiv v1, Corollary 3.4: \"There is an $O(3^k n)$-time and polynomial-space algorithm for the Saving All But $k$ Vertices problem on general graphs\", where $k$ (written $nb$ here) is the number of vertices allowed to burn; a branching algorithm on the relaxed model in which any vertex adjacent to the fire may be protected as long as at most $i$ vertices are protected after $i$ rounds (equivalent by the preceding lemma). The JCSS author copy states it for budget $b$ as $O((2^{b+1} - 1)^{k+b-1} n)$ (Corollary 3.6), which is $O(3^k n)$ for $b = 1$; exponent read from a PDF-to-text extraction (TODO(verify) the exact typeset form)."
+formal: { status: informal }
+status: valid

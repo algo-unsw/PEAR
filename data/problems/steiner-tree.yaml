@@ -21,6 +21,7 @@ parameters:
   tw: { shared: treewidth }
 constraints:
   - { constraint: "t \\le n", because: "The terminals are vertices." }
+  - { constraint: "t \\le k + 1", because: "A tree with $k$ edges has $k + 1$ vertices and contains every terminal, so every instance with $t > k + 1$ is a no-instance (decision, search); for optimisation $k$ is the optimum (added 21 November 2026)." }
   - { constraint: "k \\le n", because: "A tree has fewer edges than vertices, so every instance with $k \\ge n$ is decided by checking whether $T$ lies in one connected component." }
   - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
   - { constraint: "tw \\le n", because: "A single bag containing all vertices is a tree decomposition of width $n - 1$." }
@@ -29,6 +30,7 @@ versions:
     kind: decision
     input: "A graph $G = (V, E)$, a set $T \\subseteq V$ of terminals, and an integer $k$."
     question: "Is there a tree $H \\subseteq G$ with at most $k$ edges that contains every vertex of $T$?"
+    generalises: [decision-max-degree-4]
   optimisation:
     kind: optimisation
     input: "A graph $G = (V, E)$ and a set $T \\subseteq V$ of terminals."
@@ -42,9 +44,38 @@ versions:
     input: "A graph $G = (V, E)$, a set $T \\subseteq V$ of terminals, and edge weights $w \\colon E \\to \\mathbb{Z}_{\\ge 0}$."
     goal: "Find the minimum weight $\\sum_{e \\in E(H)} w(e)$ of a tree $H \\subseteq G$ that contains every vertex of $T$, or report that none exists."
     generalises: [optimisation]
+  decision-max-degree-3:
+    kind: decision
+    input: "A graph $G = (V, E)$ of maximum degree at most $3$, a set $T \\subseteq V$ of terminals, and an integer $k$."
+    question: "Is there a tree $H \\subseteq G$ with at most $k$ edges that contains every vertex of $T$?"
+  optimisation-max-degree-3:
+    kind: optimisation
+    input: "A graph $G = (V, E)$ of maximum degree at most $3$ and a set $T \\subseteq V$ of terminals."
+    goal: "Find the minimum number of edges of a tree $H \\subseteq G$ that contains every vertex of $T$, or report that none exists."
+  search-max-degree-3:
+    kind: search
+    input: "A graph $G = (V, E)$ of maximum degree at most $3$, a set $T \\subseteq V$ of terminals, and an integer $k$."
+    goal: "Find a tree $H \\subseteq G$ with at most $k$ edges that contains every vertex of $T$, or report that none exists."
+  decision-max-degree-4:
+    kind: decision
+    input: "A graph $G = (V, E)$ of maximum degree at most $4$, a set $T \\subseteq V$ of terminals, and an integer $k$."
+    question: "Is there a tree $H \\subseteq G$ with at most $k$ edges that contains every vertex of $T$?"
+    generalises: [decision-max-degree-3]
+  optimisation-max-degree-4:
+    kind: optimisation
+    input: "A graph $G = (V, E)$ of maximum degree at most $4$ and a set $T \\subseteq V$ of terminals."
+    goal: "Find the minimum number of edges of a tree $H \\subseteq G$ that contains every vertex of $T$, or report that none exists."
+  search-max-degree-4:
+    kind: search
+    input: "A graph $G = (V, E)$ of maximum degree at most $4$, a set $T \\subseteq V$ of terminals, and an integer $k$."
+    goal: "Find a tree $H \\subseteq G$ with at most $k$ edges that contains every vertex of $T$, or report that none exists."
 default_version: decision
 shared_bounds:
   - versions: [decision, optimisation, search]
     because: "Binary search on $k$ and self-reducibility (delete an edge and test again)."
+  - versions: [decision-max-degree-3, optimisation-max-degree-3, search-max-degree-3]
+    because: "Binary search on $k$ and self-reducibility; the self-reduction only deletes edges, so the maximum degree stays at most $3$."
+  - versions: [decision-max-degree-4, optimisation-max-degree-4, search-max-degree-4]
+    because: "Binary search on $k$ and self-reducibility; the self-reduction only deletes edges, so the maximum degree stays at most $4$."
 related:
   - { problem: connected-dominating-set, relation: variant }

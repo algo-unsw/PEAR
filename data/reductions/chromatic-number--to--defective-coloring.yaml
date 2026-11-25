@@ -1,0 +1,11 @@
+id: chromatic-number--to--defective-coloring
+from: { problem: chromatic-number, version: decision }
+to: { problem: defective-coloring, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(n + m)"
+parameter_map: { n: "n", m: "m", k: "k", d: "0", tw: "tw" }
+source:
+  folklore: true
+  note: "Special case: a proper $k$-colouring is exactly a map to $\\{1, \\dots, k\\}$ in which every vertex has at most $0$ neighbours of its own colour, so the instance is kept and $d = 0$ is added."
+  reference: { paper: belmonte-lampis-mitsou-2018, version: arxiv, statement: "Section 2" }

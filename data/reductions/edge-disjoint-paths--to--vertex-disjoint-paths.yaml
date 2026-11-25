@@ -1,0 +1,17 @@
+id: edge-disjoint-paths--to--vertex-disjoint-paths
+from: { problem: edge-disjoint-paths, version: decision }
+to: { problem: vertex-disjoint-paths, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(d n + d m)"
+parameter_map:
+  n: "d n + m"
+  m: "2 d m"
+  k: "k"
+  tw: "d tw + 1"
+source:
+  paper: ganian-ordyniak-2018
+  statements:
+    arxiv: { statement: "Proposition in Section 2 (Preliminaries, subsection Edge Disjoint Path Problem) labelled pro:edpvdp, with its proof" }
+  note: "Subdivide every edge and replace every original vertex $v$ by $d$ false twins $v_1, \\dots, v_d$ ($d$ the maximum degree); each pair $\\{v, w\\}$ gets fresh copies of $v$ and $w$ as terminals (a vertex in more than $d$ pairs gives a no-instance). The output has $d n + m$ vertices and $2 d m$ edges (each subdivision vertex is adjacent to the $2d$ copies of its edge's endpoints), the same $k$, and treewidth at most $tw \\cdot d + 1$ (Proposition: 'if the input graph has treewidth $k$ and maximum degree $d$, then the output graph has treewidth at most $k \\cdot d + 1$'). The proposition says linear time; the time stored is the output size."
+status: valid

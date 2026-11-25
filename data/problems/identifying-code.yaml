@@ -1,0 +1,39 @@
+id: identifying-code
+name: Identifying Code
+aliases: [Minimum Identifying Code, Identifying Code Problem, IC]
+category: graphs
+complexity:
+  class: NP-complete
+  source:
+    paper: charon-hudry-lobstein-2003
+    attested_by:
+      - "https://www.lri.fr/~lobstein/cmplexity1.html"
+      - "https://researchportal.ip-paris.fr/en/publications/minimizing-the-size-of-an-identifying-or-locating-dominating-code/"
+      - "https://arxiv.org/abs/1405.2424"
+    note: "The abstract (author page and institutional record) states that deciding whether a graph has an $r$-identifying code of size at most $k$ is NP-complete for every $r$; $r = 1$ is this problem. Foucaud, Mertzios, Naserasr, Parreau and Valicov (arXiv 1405.2424, Introduction) cite an earlier proof by Charon, Hudry, Lobstein and Zémor (2001) and Charon, Hudry and Lobstein (2003) for bipartite graphs. No Wikipedia article was found."
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  k: { meaning: "the solution size: the integer $k$ in the input (decision), or the minimum size of an identifying code (optimisation)" }
+constraints:
+  - { constraint: "k \\le n", because: "Every instance with $k \\ge n$ is decided in polynomial time: $G$ has an identifying code if and only if $V$ is one, that is, if no two vertices have the same closed neighbourhood." }
+  - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
+versions:
+  decision:
+    kind: decision
+    input: "A graph $G = (V, E)$ and an integer $k$."
+    question: "Is there a set $S \\subseteq V$ with $|S| \\le k$ such that the sets $N[v] \\cap S$, for $v \\in V$, are nonempty and pairwise distinct?"
+  optimisation:
+    kind: optimisation
+    input: "A graph $G = (V, E)$."
+    goal: "Find the minimum size of a set $S \\subseteq V$ such that the sets $N[v] \\cap S$, for $v \\in V$, are nonempty and pairwise distinct, or report that none exists."
+default_version: decision
+shared_bounds:
+  - versions: [decision, optimisation]
+    because: "Binary search on $k$."
+related:
+  - { problem: locating-dominating-set, relation: variant }
+  - { problem: dominating-set, relation: variant }
+  - { problem: hitting-set, relation: generalisation }

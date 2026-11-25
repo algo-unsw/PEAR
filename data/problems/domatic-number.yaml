@@ -1,0 +1,37 @@
+id: domatic-number
+name: Domatic Number
+aliases: [Domatic Partition, Domatic Number Problem, Maximum Domatic Partition]
+category: graphs
+complexity:
+  class: NP-complete
+  source:
+    paper: garey-johnson-1979
+    attested_by:
+      - "https://en.wikipedia.org/wiki/Domatic_number"
+      - "https://arxiv.org/pdf/cs/0603060"
+      - "https://eccc.weizmann.ac.il/report/2002/068/revision/1/download"
+    note: "Problem GT3 in Garey and Johnson (listed in Wikipedia's references). Wikipedia states that the decision problem is NP-complete; Riege, Rothe, Spakowski and Yamamoto (arXiv cs/0603060) state that deciding whether the domatic number is at least $k$ is NP-complete for every fixed $k \\ge 3$, and Riege and Rothe (ECCC TR02-068) that the domatic number problem is NP-complete, both citing Garey and Johnson (1979)."
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  k: { meaning: "the number of dominating sets: the integer $k$ in the input (decision), or the domatic number of $G$ (optimisation)" }
+constraints:
+  - { constraint: "k \\le n", because: "The sets of a partition of $V$ into dominating sets are nonempty, so every instance with $k > n$ is a no-instance, answered in polynomial time." }
+  - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
+versions:
+  decision:
+    kind: decision
+    input: "A graph $G = (V, E)$ and an integer $k$."
+    question: "Is there a partition of $V$ into $k$ sets $D_1, \\dots, D_k$ such that for each $i$, every vertex is in $D_i$ or has a neighbour in $D_i$?"
+  optimisation:
+    kind: optimisation
+    input: "A graph $G = (V, E)$."
+    goal: "Find the domatic number of $G$: the maximum $k$ such that there is a partition of $V$ into $k$ sets $D_1, \\dots, D_k$ such that for each $i$, every vertex is in $D_i$ or has a neighbour in $D_i$."
+default_version: decision
+shared_bounds:
+  - versions: [decision, optimisation]
+    because: "Binary search on $k \\le n$; the union of two dominating sets is dominating, so a partition into more than $k$ dominating sets gives one into exactly $k$, and the optimum answers the decision version."
+related:
+  - { problem: dominating-set, relation: variant }

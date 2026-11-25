@@ -1,0 +1,14 @@
+id: dominating-set--to--power-dominating-set
+from: { problem: dominating-set, version: decision }
+to: { problem: power-dominating-set, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(n + m)"
+parameter_map: { n: "2n", m: "m + n", k: "k", tw: "tw + 1" }
+source:
+  paper: aazami-stilp-2007
+  statements:
+    arxiv-v1: { statement: "Section 1.1" }
+  note: "Add a new vertex $v'$ and the edge $vv'$ for every vertex $v$. Aazami and Stilp (Section 1.1) state, citing Kneis, Mölle, Richter and Rossmanith (IPL 2006), that a set is an optimal dominating set of $G$ if and only if it is an optimal power dominating set of the new graph, so both optima are equal. Adding pendant vertices gives a graph of treewidth at most $\\max(tw, 1) \\le tw + 1$."
+formal: { status: informal }
+status: valid

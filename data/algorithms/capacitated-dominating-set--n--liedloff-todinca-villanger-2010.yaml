@@ -1,0 +1,25 @@
+id: capacitated-dominating-set--n--liedloff-todinca-villanger-2010
+problem: capacitated-dominating-set
+proved_for: optimisation
+bound:
+  as_stated: "O^*(1.8463^{n})"
+  notation: O*
+  parameters: [n]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: "Stated: exponential space (Corollary 13, for the same algorithm with $\\gamma = 31/100$, $\\beta = 15$). Step 2 is Koivisto's dynamic programming over families $R_i$ of vertex subsets."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+  impractical_constants: "With $\\gamma = 0.30275$ and $\\beta = 40000$ the hidden polynomial factor has order $n^5 \\cdot n^{40000}$ (Table 2)."
+source:
+  paper: liedloff-todinca-villanger-2010
+  statements:
+    journal: { statement: "Abstract; Theorem 12 with $\\gamma = 0.30275$ and $\\beta = 40000$ (Section 3.3.3, Table 2)" }
+  note: "Algorithm minCDS returns the size of a minimum capacitated dominating set; Remark 1 says it is straightforward to make it return the set. Corollary 13 states $O(n^{20} 1.8573^n)$ and exponential space for $\\gamma = 31/100$, $\\beta = 15$; Table 2 lists the trade-off between the base and the polynomial factor, from $O^*(1.8844^n)$ with an $n^9$ factor to $O^*(1.8463^n)$. Read in the journal version (Zotero copy of the publisher PDF). Open access: Discrete Applied Mathematics is in Elsevier's open archive, which opens articles 4 years after publication (elsevier.com, 'free access to archived articles', mathematics list, read 21 November 2026); Zotero's Unpaywall lookup also linked an open PDF for this DOI."
+formal: { status: informal }
+status: valid
+review: { approved_by: Serge Gaspers, date: 2026-11-21 }

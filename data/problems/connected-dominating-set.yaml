@@ -27,6 +27,7 @@ versions:
     kind: decision
     input: "A connected graph $G = (V, E)$ and an integer $k$."
     question: "Is there a set $S \\subseteq V$ with $|S| \\le k$ such that $G[S]$ is connected and every vertex is in $S$ or has a neighbour in $S$?"
+    generalises: [decision-max-degree-5]
   optimisation:
     kind: optimisation
     input: "A connected graph $G = (V, E)$."
@@ -35,10 +36,42 @@ versions:
     kind: search
     input: "A connected graph $G = (V, E)$ and an integer $k$."
     goal: "Find a set $S \\subseteq V$ with $|S| \\le k$ such that $G[S]$ is connected and every vertex is in $S$ or has a neighbour in $S$, or report that none exists."
+  decision-max-degree-3:
+    kind: decision
+    input: "A connected graph $G = (V, E)$ of maximum degree at most $3$ and an integer $k$."
+    question: "Is there a set $S \\subseteq V$ with $|S| \\le k$ such that $G[S]$ is connected and every vertex is in $S$ or has a neighbour in $S$?"
+  optimisation-max-degree-3:
+    kind: optimisation
+    input: "A connected graph $G = (V, E)$ of maximum degree at most $3$."
+    goal: "Find the minimum size of a set $S \\subseteq V$ such that $G[S]$ is connected and every vertex is in $S$ or has a neighbour in $S$."
+  decision-max-degree-4:
+    kind: decision
+    input: "A connected graph $G = (V, E)$ of maximum degree at most $4$ and an integer $k$."
+    question: "Is there a set $S \\subseteq V$ with $|S| \\le k$ such that $G[S]$ is connected and every vertex is in $S$ or has a neighbour in $S$?"
+    generalises: [decision-max-degree-3]
+  optimisation-max-degree-4:
+    kind: optimisation
+    input: "A connected graph $G = (V, E)$ of maximum degree at most $4$."
+    goal: "Find the minimum size of a set $S \\subseteq V$ such that $G[S]$ is connected and every vertex is in $S$ or has a neighbour in $S$."
+  decision-max-degree-5:
+    kind: decision
+    input: "A connected graph $G = (V, E)$ of maximum degree at most $5$ and an integer $k$."
+    question: "Is there a set $S \\subseteq V$ with $|S| \\le k$ such that $G[S]$ is connected and every vertex is in $S$ or has a neighbour in $S$?"
+    generalises: [decision-max-degree-4]
+  optimisation-max-degree-5:
+    kind: optimisation
+    input: "A connected graph $G = (V, E)$ of maximum degree at most $5$."
+    goal: "Find the minimum size of a set $S \\subseteq V$ such that $G[S]$ is connected and every vertex is in $S$ or has a neighbour in $S$."
 default_version: decision
 shared_bounds:
   - versions: [decision, optimisation, search]
     because: "Binary search on $k$ and self-reducibility."
+  - versions: [decision-max-degree-3, optimisation-max-degree-3]
+    because: "Binary search on $k$."
+  - versions: [decision-max-degree-4, optimisation-max-degree-4]
+    because: "Binary search on $k$."
+  - versions: [decision-max-degree-5, optimisation-max-degree-5]
+    because: "Binary search on $k$."
 related:
   - { problem: dominating-set, relation: variant }
 implementations:

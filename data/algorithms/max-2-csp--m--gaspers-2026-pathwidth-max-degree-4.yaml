@@ -1,0 +1,25 @@
+id: max-2-csp--m--gaspers-2026-pathwidth-max-degree-4
+problem: max-2-csp
+proved_for: optimisation-max-degree-4
+bound:
+  as_stated: 'O^*(r^{0.12429m + o(m)})'
+  notation: O*
+  parameters:
+  - r
+  - m
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Exponential space, as stated (Theorem 11.3: time and space).'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: gaspers-2026-pathwidth
+  statements:
+    arxiv-v1:
+      statement: 'Theorem 11.3(3)'
+      page: 78
+  note: 'Stated as $O^*(r^{3F_4m/(2+16F_4)+o(m)})$ in time and space if the constraint graph has maximum degree at most 4; the paper states $\frac{3F_4}{2+16F_4} < 0.12429$, so the implied $O^*(r^{0.12429m+o(m)})$ is stored ($F_4$ is not expressible in the bound language). arXiv v1, 3 November 2026 (read: the LaTeX source of the latest arXiv version, and the v1 PDF for theorem numbers and pages); unrefereed preprint.'

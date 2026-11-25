@@ -1,0 +1,44 @@
+id: locating-dominating-set
+name: Locating-Dominating Set
+aliases: [Locating Dominating Set, Locating-Dominating Code, Minimum Locating-Dominating Set, Location-Domination, LD, LDS]
+category: graphs
+complexity:
+  class: NP-complete
+  source:
+    paper: charon-hudry-lobstein-2003
+    attested_by:
+      - "https://www.lri.fr/~lobstein/cmplexity1.html"
+      - "https://researchportal.ip-paris.fr/en/publications/minimizing-the-size-of-an-identifying-or-locating-dominating-code/"
+      - "https://arxiv.org/abs/1405.2424"
+    note: "The abstract (author page and institutional record) states that deciding whether a graph has an $r$-locating-dominating code of size at most $k$ is NP-complete for every $r$; $r = 1$ is this problem. The first NP-completeness proof is by Colbourn, Slater and Stewart, Congressus Numerantium 56 (1987), as cited by Foucaud et al. (arXiv 1405.2424, Introduction) and Chakraborty et al. (arXiv 2402.08346, Introduction); no open copy of it was found. No Wikipedia article was found."
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  k: { meaning: "the solution size: the integer $k$ in the input (decision), or the minimum size of a locating-dominating set (optimisation)" }
+  tw: { shared: treewidth }
+  vc: { shared: vertex-cover-number }
+constraints:
+  - { constraint: "k \\le n", because: "Every instance with $k \\ge n$ is a yes-instance: $S = V$ is a locating-dominating set." }
+  - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
+  - { constraint: "vc \\le n", because: "The whole vertex set is a vertex cover." }
+  - { constraint: "tw \\le vc", because: "For a vertex cover $C$, the bags $C \\cup \\{v\\}$ for $v \\notin C$, arranged on a path, form a tree decomposition of width $|C|$." }
+versions:
+  decision:
+    kind: decision
+    input: "A graph $G = (V, E)$ and an integer $k$."
+    question: "Is there a set $S \\subseteq V$ with $|S| \\le k$ such that the sets $N(v) \\cap S$, for $v \\in V \\setminus S$, are nonempty and pairwise distinct?"
+  optimisation:
+    kind: optimisation
+    input: "A graph $G = (V, E)$."
+    goal: "Find the minimum size of a set $S \\subseteq V$ such that the sets $N(v) \\cap S$, for $v \\in V \\setminus S$, are nonempty and pairwise distinct."
+default_version: decision
+shared_bounds:
+  - versions: [decision, optimisation]
+    because: "Binary search on $k$."
+related:
+  - { problem: dominating-set, relation: variant }
+  - { problem: identifying-code, relation: variant }
+  - { problem: metric-dimension, relation: variant }
+  - { problem: hitting-set, relation: generalisation }

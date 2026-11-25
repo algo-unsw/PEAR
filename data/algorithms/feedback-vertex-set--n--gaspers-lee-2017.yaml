@@ -1,0 +1,24 @@
+id: feedback-vertex-set--n--gaspers-lee-2017
+problem: feedback-vertex-set
+proved_for: search
+bound:
+  as_stated: '1.7117^{n}'
+  notation: O
+  parameters:
+  - n
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'Not stated. Educated guess: the derandomization (Theorem 2) loops over an $(n,k,t)$-set inclusion family built with Theorem 6 of Fomin, Gaspers, Lokshtanov and Saurabh, which, as in their deterministic algorithm, needs $2^{o(n)}$ additional space; the extension algorithm (branching with measure and conquer, maximum independent set at the leaves) uses polynomial space.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: gaspers-lee-2017
+  statements:
+    icalp:
+      statement: 'Theorem 14'
+      page: 11
+  note: 'Theorem 14 (ICALP 2017, LIPIcs, open access): "a minimal feedback vertex set in $G$ can be found in time $O(1.7117^n)$", meaning a minimum one (Section 1: "a deterministic $O(1.7117^n)$ time algorithm for Feedback Vertex Set"). Multivariate subroutine $O(1.5422^{n-|X|} \cdot 1.2041^{k})$ for Feedback Vertex Set Extension, combined with the derandomized Theorem 2, $(1 + b - 1/c)^{n+o(n)}$. The same section is in arXiv:1704.07982 (the theorem number there was not checked).'

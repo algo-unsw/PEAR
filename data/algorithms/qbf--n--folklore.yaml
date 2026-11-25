@@ -1,0 +1,19 @@
+id: qbf--n--folklore
+problem: qbf
+proved_for: decision
+bound:
+  as_stated: "2^{n} N"
+  notation: O
+  parameters: [n, N]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: "A recursion stack of depth $n$."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  folklore: true
+  note: "Evaluate the prefix recursively: for $Q_1 x_1$, evaluate the formula with $x_1$ false and with $x_1$ true, and combine the two answers by $\\vee$ for $\\exists$ and $\\wedge$ for $\\forall$. The recursion tree has $2^n$ leaves, each evaluating the matrix in $O(N)$ time."

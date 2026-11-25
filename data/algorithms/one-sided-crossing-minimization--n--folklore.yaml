@@ -1,0 +1,22 @@
+id: one-sided-crossing-minimization--n--folklore
+problem: one-sided-crossing-minimization
+proved_for: optimisation
+bound:
+  as_stated: 'O^*(2^{n})'
+  notation: O*
+  parameters:
+  - n
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'A table indexed by the subsets of $Y$: $O^*(2^{n})$.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  folklore: true
+  note: 'Dynamic programming over subsets of the free layer $Y$: the number of crossings of an order is $\sum c(u, v)$ over pairs with $u <_Y v$, where $c(u, v)$ is the number of crossing pairs of edges at $u$ and at $v$ when $u$ comes first; so $f(S) = \min_{v \in S} \big(f(S \setminus \{v\}) + \sum_{u \in S \setminus \{v\}} c(u, v)\big)$ with $f(\emptyset) = 0$ gives the optimum $f(Y)$ in time $O^*(2^{|Y|}) \le O^*(2^n)$ (Held–Karp style; folklore baseline, brute force over orderings being $n!$).'
+formal: { status: informal }
+status: valid

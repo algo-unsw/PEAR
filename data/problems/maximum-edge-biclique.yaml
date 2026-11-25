@@ -1,0 +1,49 @@
+id: maximum-edge-biclique
+name: Maximum Edge Biclique
+aliases: [Edge Biclique, Maximum-Edge Biclique, Maximum Edge Biclique Problem, MBP]
+category: graphs
+complexity:
+  class: NP-complete
+  source:
+    paper: peeters-2000
+    statements:
+      journal: { statement: "Theorem 1" }
+    note: "Peeters proves NP-completeness for bipartite graphs (Theorem 1, by a reduction from Clique) and notes that it follows for general graphs. Binkele-Raible, Fernau, Gaspers and Liedloff (IPL 2010, Section 1) cite Peeters for the NP-hardness of finding a non-induced biclique with a maximum number of edges."
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  k: { meaning: "the number of edges of the biclique, $|X| \\cdot |Y|$: the integer $k$ in the input (decision), or the maximum of $|X| \\cdot |Y|$ (optimisation)" }
+constraints:
+  - { constraint: "k \\le m", because: "A biclique $(X, Y)$ has $|X| \\cdot |Y|$ distinct edges of $G$, so every instance with $k > m$ is a no-instance, answered in polynomial time." }
+  - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
+versions:
+  decision:
+    kind: decision
+    input: "A graph $G = (V, E)$ and an integer $k$."
+    question: "Are there disjoint sets $X, Y \\subseteq V$ with $|X| \\cdot |Y| \\ge k$ such that every vertex of $X$ is adjacent to every vertex of $Y$?"
+    generalises: [decision-bipartite]
+  optimisation:
+    kind: optimisation
+    input: "A graph $G = (V, E)$."
+    goal: "Find the maximum of $|X| \\cdot |Y|$ over disjoint sets $X, Y \\subseteq V$ such that every vertex of $X$ is adjacent to every vertex of $Y$."
+    generalises: [optimisation-bipartite]
+  decision-bipartite:
+    kind: decision
+    input: "A bipartite graph $G = (V, E)$ and an integer $k$."
+    question: "Are there disjoint sets $X, Y \\subseteq V$ with $|X| \\cdot |Y| \\ge k$ such that every vertex of $X$ is adjacent to every vertex of $Y$?"
+  optimisation-bipartite:
+    kind: optimisation
+    input: "A bipartite graph $G = (V, E)$."
+    goal: "Find the maximum of $|X| \\cdot |Y|$ over disjoint sets $X, Y \\subseteq V$ such that every vertex of $X$ is adjacent to every vertex of $Y$."
+default_version: decision
+shared_bounds:
+  - versions: [decision, optimisation]
+    because: "Binary search on $k \\le m$."
+  - versions: [decision-bipartite, optimisation-bipartite]
+    because: "Binary search on $k \\le m$."
+related:
+  - { problem: balanced-biclique, relation: variant }
+  - { problem: induced-biclique, relation: variant }
+  - { problem: bipartite-dimension, relation: variant }

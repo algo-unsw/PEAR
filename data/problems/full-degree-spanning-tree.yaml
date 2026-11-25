@@ -1,0 +1,77 @@
+id: full-degree-spanning-tree
+name: Full Degree Spanning Tree
+aliases: [FDST, Maximum Full Degree Spanning Tree, Full-Degree Spanning Tree, Degree-Preserving Spanning Tree, Degree Preserving Spanning Tree]
+category: networks
+complexity:
+  class: NP-complete
+  source:
+    paper: bhatia-khuller-pless-1998
+    statements:
+      tech-report: { statement: "Theorem 1" }
+    note: "Theorem 1: the problem is NP-complete even when restricted to planar graphs (reduction from Independent Set on planar graphs). Read in the open copy at CORE (https://core.ac.uk/download/56097422.pdf). Wikipedia's choice of source was not checked."
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  k: { meaning: "the number of full-degree vertices (vertices $v$ with $\\deg_T(v) = \\deg_G(v)$): the integer $k$ in the input (decision, search), or the maximum number of full-degree vertices of a spanning tree $T$ (optimisation)" }
+  d: { meaning: "the dual parameter $n - k$: the number of vertices that may lose degree in the spanning tree (reduced-degree vertices, $\\deg_T(v) < \\deg_G(v)$); in the optimisation version, $n$ minus the optimum" }
+  tw: { shared: treewidth }
+constraints:
+  - { constraint: "k \\le n", because: "At most $n$ vertices have full degree; every instance with $k > n$ is a no-instance." }
+  - { constraint: "d \\le n", because: "$d = n - k$ with $k \\ge 0$." }
+  - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
+  - { constraint: "tw \\le n", because: "A single bag containing all vertices is a tree decomposition of width $n - 1$." }
+versions:
+  decision:
+    kind: decision
+    input: "A connected graph $G = (V, E)$ and an integer $k$."
+    question: "Does $G$ have a spanning tree $T$ with at least $k$ vertices $v$ such that $\\deg_T(v) = \\deg_G(v)$?"
+    generalises: [decision-max-degree-5]
+  optimisation:
+    kind: optimisation
+    input: "A connected graph $G = (V, E)$."
+    goal: "Find the maximum number of vertices $v$ such that $\\deg_T(v) = \\deg_G(v)$, over spanning trees $T$ of $G$."
+  search:
+    kind: search
+    input: "A connected graph $G = (V, E)$ and an integer $k$."
+    goal: "Find a spanning tree $T$ of $G$ with at least $k$ vertices $v$ such that $\\deg_T(v) = \\deg_G(v)$, or report that none exists."
+  decision-max-degree-3:
+    kind: decision
+    input: "A connected graph $G = (V, E)$ of maximum degree at most $3$ and an integer $k$."
+    question: "Does $G$ have a spanning tree $T$ with at least $k$ vertices $v$ such that $\\deg_T(v) = \\deg_G(v)$?"
+  optimisation-max-degree-3:
+    kind: optimisation
+    input: "A connected graph $G = (V, E)$ of maximum degree at most $3$."
+    goal: "Find the maximum number of vertices $v$ such that $\\deg_T(v) = \\deg_G(v)$, over spanning trees $T$ of $G$."
+  decision-max-degree-4:
+    kind: decision
+    input: "A connected graph $G = (V, E)$ of maximum degree at most $4$ and an integer $k$."
+    question: "Does $G$ have a spanning tree $T$ with at least $k$ vertices $v$ such that $\\deg_T(v) = \\deg_G(v)$?"
+    generalises: [decision-max-degree-3]
+  optimisation-max-degree-4:
+    kind: optimisation
+    input: "A connected graph $G = (V, E)$ of maximum degree at most $4$."
+    goal: "Find the maximum number of vertices $v$ such that $\\deg_T(v) = \\deg_G(v)$, over spanning trees $T$ of $G$."
+  decision-max-degree-5:
+    kind: decision
+    input: "A connected graph $G = (V, E)$ of maximum degree at most $5$ and an integer $k$."
+    question: "Does $G$ have a spanning tree $T$ with at least $k$ vertices $v$ such that $\\deg_T(v) = \\deg_G(v)$?"
+    generalises: [decision-max-degree-4]
+  optimisation-max-degree-5:
+    kind: optimisation
+    input: "A connected graph $G = (V, E)$ of maximum degree at most $5$."
+    goal: "Find the maximum number of vertices $v$ such that $\\deg_T(v) = \\deg_G(v)$, over spanning trees $T$ of $G$."
+default_version: decision
+shared_bounds:
+  - versions: [decision, optimisation, search]
+    because: "Binary search on $k$ and self-reducibility."
+  - versions: [decision-max-degree-3, optimisation-max-degree-3]
+    because: "Binary search on $k$."
+  - versions: [decision-max-degree-4, optimisation-max-degree-4]
+    because: "Binary search on $k$."
+  - versions: [decision-max-degree-5, optimisation-max-degree-5]
+    because: "Binary search on $k$."
+related:
+  - { problem: max-leaf-spanning-tree, relation: variant }
+  - { problem: max-internal-spanning-tree, relation: variant }

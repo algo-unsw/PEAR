@@ -1,0 +1,21 @@
+id: target-set-selection--k--folklore
+problem: target-set-selection
+proved_for: decision
+bound:
+  as_stated: "n^{k} (n + m)"
+  notation: O
+  parameters: [n, k, m]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: "Polynomial: one candidate set at a time."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  folklore: true
+  note: "Try all sets of exactly $\\min(k, n)$ vertices (supersets of a target set are target sets), at most $n^k$, simulating the activation process in $O(n + m)$ time for each. The problem is W[P]-complete parameterized by $k$ even for constant thresholds (Abrahamson et al.; Bazgan et al., as listed in Table 1 of Bliznets and Sagunov, arXiv 1807.10789), so no FPT algorithm is expected."
+formal: { status: informal }
+status: valid

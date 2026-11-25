@@ -1,0 +1,55 @@
+id: target-set-selection
+name: Target Set Selection
+aliases: [TSS, Perfect Target Set Selection, Minimum Target Set, Monotone Dynamic Monopoly, Irreversible Conversion Set]
+category: graphs
+complexity:
+  class: NP-complete
+  source:
+    paper: bliznets-sagunov-2018
+    statements:
+      arxiv: { statement: "Section 1 (Introduction)" }
+    note: "The introduction states that Centeno et al. (2011) showed Perfect Target Set Selection NP-hard even when all thresholds equal two; membership in NP is clear (simulate the activation process). The folklore reduction from Vertex Cover with thresholds $\\mathrm{thr}(v) = \\deg(v)$ (`vertex-cover--to--target-set-selection`) also shows NP-hardness. TODO(verify): Serge to choose the source to cite (Chen, SIAM J. Discrete Math. 2009, or Centeno et al., Theoret. Comput. Sci. 2011; neither opened here); no Wikipedia article on the problem was found."
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  k: { meaning: "the solution size: the integer $k$ in the input (decision, search), or the minimum size of a target set (optimisation)" }
+  t: { meaning: "the maximum threshold $\\max_{v \\in V} \\mathrm{thr}(v)$" }
+  tw: { shared: treewidth }
+  vc: { shared: vertex-cover-number }
+constraints:
+  - { constraint: "k \\le n", because: "Every instance with $k \\ge n$ is a yes-instance ($S = V$), answered in polynomial time." }
+  - { constraint: "t \\le n", because: "A threshold above $\\deg(v)$ can be lowered to $\\deg(v) + 1 \\le n$ without changing which sets activate every vertex (such a vertex must be in $S$)." }
+  - { constraint: "tw \\le n", because: "A single bag containing all vertices is a tree decomposition of width $n - 1$." }
+  - { constraint: "vc \\le n", because: "$V$ is a vertex cover." }
+  - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
+versions:
+  decision:
+    kind: decision
+    input: "A graph $G = (V, E)$, thresholds $\\mathrm{thr} \\colon V \\to \\mathbb{Z}_{\\ge 0}$ and an integer $k$."
+    question: "Is there a set $S \\subseteq V$ with $|S| \\le k$ that activates every vertex? (Initially the vertices of $S$ are active; repeatedly, every vertex $v$ with at least $\\mathrm{thr}(v)$ active neighbours becomes active.)"
+    generalises: [decision-max-threshold-3]
+  optimisation:
+    kind: optimisation
+    input: "A graph $G = (V, E)$ and thresholds $\\mathrm{thr} \\colon V \\to \\mathbb{Z}_{\\ge 0}$."
+    goal: "Find the minimum size of a set $S \\subseteq V$ that activates every vertex. (Initially the vertices of $S$ are active; repeatedly, every vertex $v$ with at least $\\mathrm{thr}(v)$ active neighbours becomes active.)"
+  search:
+    kind: search
+    input: "A graph $G = (V, E)$, thresholds $\\mathrm{thr} \\colon V \\to \\mathbb{Z}_{\\ge 0}$ and an integer $k$."
+    goal: "Find a set $S \\subseteq V$ with $|S| \\le k$ that activates every vertex, or report that none exists. (Initially the vertices of $S$ are active; repeatedly, every vertex $v$ with at least $\\mathrm{thr}(v)$ active neighbours becomes active.)"
+  decision-max-threshold-3:
+    kind: decision
+    input: "A graph $G = (V, E)$, thresholds $\\mathrm{thr} \\colon V \\to \\{0, 1, 2, 3\\}$ and an integer $k$."
+    question: "Is there a set $S \\subseteq V$ with $|S| \\le k$ that activates every vertex? (Initially the vertices of $S$ are active; repeatedly, every vertex $v$ with at least $\\mathrm{thr}(v)$ active neighbours becomes active.)"
+    generalises: [decision-max-threshold-2]
+  decision-max-threshold-2:
+    kind: decision
+    input: "A graph $G = (V, E)$, thresholds $\\mathrm{thr} \\colon V \\to \\{0, 1, 2\\}$ and an integer $k$."
+    question: "Is there a set $S \\subseteq V$ with $|S| \\le k$ that activates every vertex? (Initially the vertices of $S$ are active; repeatedly, every vertex $v$ with at least $\\mathrm{thr}(v)$ active neighbours becomes active.)"
+default_version: decision
+shared_bounds:
+  - versions: [decision, optimisation]
+    because: "Binary search on $k$ (at most $\\log_2 n$ calls, since $k \\le n$)."
+related:
+  - { problem: vertex-cover, relation: special-case }

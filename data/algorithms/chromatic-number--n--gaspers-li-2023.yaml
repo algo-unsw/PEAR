@@ -1,0 +1,24 @@
+id: chromatic-number--n--gaspers-li-2023
+problem: chromatic-number
+proved_for: optimisation
+bound:
+  as_stated: O(1.7956^{n})
+  notation: O
+  parameters: [n]
+properties:
+  randomized: { error: two-sided }
+  space:
+    class: exponential
+    bound: 'Not stated. The algorithm first runs the inclusion–exclusion preprocessing of Theorem 6 (ICALP numbering) with $\alpha = 0.27$ and stores the chromatic number of every vertex subset of size at most $0.27n$ in QRAM, which takes $O^*(\binom{n}{0.27n}) = O^*(1.79187^n)$ space.'
+  algebraic: true
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: true
+source:
+  paper: gaspers-li-2023
+  statements:
+    icalp:
+      statement: Theorem 15
+    arxiv:
+      statement: Theorem 8 (current arXiv version, read 21 November 2026)
+  note: 'Theorem 15 (ICALP 2024): "There is a bounded-error quantum algorithm, which for a graph on $n$ vertices, computes the chromatic number in $O(1.7956^n)$ time." It combines an inclusion–exclusion preprocessing of small vertex subsets (zeta and Möbius transforms restricted to subsets of size at most $0.27n$, stored in QRAM) with Grover search over two levels of divide and conquer, and uses the quantum 5- and 6-colouring algorithms of Shimizu and Mori (Algorithmica 2022) and a new 7-colouring subroutine. Theorem 14 of the same paper gives the weaker $O(1.8554^n)$. The previous best quantum bound was $O(1.9140^n)$ (Shimizu and Mori). The ICALP version defers the proof of Lemma 17 and part of the analysis to the full (arXiv) version.'

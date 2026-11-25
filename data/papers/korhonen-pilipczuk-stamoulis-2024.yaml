@@ -1,0 +1,16 @@
+id: korhonen-pilipczuk-stamoulis-2024
+title: "Minor Containment and Disjoint Paths in Almost-Linear Time"
+authors: [Tuukka Korhonen, Michał Pilipczuk, Giannos Stamoulis]
+identifiers: { dblp: conf/focs/KorhonenPS24 }
+versions:
+  arxiv:
+    kind: preprint
+    year: 2024
+    arxiv: "2404.03958"
+    open_access: true
+  focs:
+    kind: conference
+    venue: "65th IEEE Symposium on Foundations of Computer Science (FOCS 2024), pp. 53–61"
+    year: 2024
+    doi: "10.1109/FOCS61266.2024.00014"
+    open_access: false

@@ -1,0 +1,16 @@
+id: gaspers-li-2023
+title: "Quantum Algorithms for Graph Coloring and Other Partitioning, Covering, and Packing Problems"
+authors: [Serge Gaspers, Jerry Zirui Li]
+identifiers: { dblp: conf/icalp/GaspersL24 }
+versions:
+  arxiv:
+    kind: preprint
+    arxiv: "2311.08042"
+    year: 2023
+    open_access: true
+  icalp:
+    kind: conference
+    venue: "51st International Colloquium on Automata, Languages, and Programming (ICALP 2024), LIPIcs 297, pp. 69:1–69:20"
+    year: 2024
+    doi: "10.4230/LIPIcs.ICALP.2024.69"
+    open_access: true

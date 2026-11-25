@@ -1,0 +1,40 @@
+id: achromatic-number
+name: Achromatic Number
+aliases: [Complete Coloring, Complete Colouring]
+category: graphs
+complexity:
+  class: NP-complete
+  source:
+    paper: yannakakis-gavril-1980
+    attested_by:
+      - "https://en.wikipedia.org/wiki/Complete_coloring"
+      - "https://www.osti.gov/biblio/471713"
+      - "https://drops.dagstuhl.de/storage/00lipics/lipics-vol359-isaac2025/LIPIcs.ISAAC.2025.42/LIPIcs.ISAAC.2025.42.pdf"
+    note: "Shown NP-complete by Yannakakis and Gavril by a transformation from Minimum Maximal Matching, as on Wikipedia (Garey–Johnson GT5). Chaudhary and Vishwanathan's abstract (OSTI) and Jana, Saha, Saurabh and Upasana (ISAAC 2025, citing Corollary 2 of Yannakakis and Gavril) confirm it. NP-complete even for trees (Manlove and McDiarmid 1995), so treewidth and feedback vertex set number are not useful parameters unless P = NP."
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  k: { meaning: "the number of colours: the integer $k$ in the input (decision), or the achromatic number $\\psi(G)$ (optimisation)" }
+  vc: { shared: vertex-cover-number }
+constraints:
+  - { constraint: "k \\le n", because: "A complete colouring has at most $n$ nonempty colour classes; instances with $k > n$ are no-instances." }
+  - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
+  - { constraint: "vc \\le n", because: "$V$ is a vertex cover." }
+versions:
+  decision:
+    kind: decision
+    input: "A graph $G = (V, E)$ and an integer $k$."
+    question: "Is there a map $c \\colon V \\to \\{1, \\dots, k'\\}$ with $k' \\ge k$, onto $\\{1, \\dots, k'\\}$, such that $c(u) \\ne c(v)$ for every edge $uv$ and for every two colours $i \\ne j$ some edge $uv$ has $c(u) = i$ and $c(v) = j$?"
+  optimisation:
+    kind: optimisation
+    input: "A graph $G = (V, E)$."
+    goal: "Find the achromatic number $\\psi(G)$: the maximum $k'$ such that there is a map $c \\colon V \\to \\{1, \\dots, k'\\}$, onto $\\{1, \\dots, k'\\}$, such that $c(u) \\ne c(v)$ for every edge $uv$ and for every two colours $i \\ne j$ some edge $uv$ has $c(u) = i$ and $c(v) = j$."
+default_version: decision
+shared_bounds:
+  - versions: [decision, optimisation]
+    because: "The optimum is the largest $k \\le n$ for which the decision version answers yes (at most $n$ calls), and it answers the decision version directly."
+related:
+  - { problem: chromatic-number, relation: variant }
+  - { problem: grundy-coloring, relation: variant }

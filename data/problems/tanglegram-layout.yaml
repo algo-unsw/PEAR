@@ -1,0 +1,42 @@
+id: tanglegram-layout
+name: Tanglegram Layout
+aliases: [Binary Tanglegram Layout, Binary TL, TL, Tanglegram Crossing Minimization, Two-Tree Crossing Minimization]
+category: graphs
+complexity:
+  class: NP-complete
+  source:
+    paper: fernau-kaufmann-poths-2005
+    attested_by:
+      - "https://arxiv.org/abs/0806.0920"
+      - "https://opus.bibliothek.uni-wuerzburg.de/opus4-wuerzburg/files/12462/art_10.1007_s00453-010-9456-3.pdf"
+      - "https://i11www.iti.kit.edu/extra/publications/nvwh-dbtae-09.pdf"
+    note: 'Fernau, Kaufmann and Poths (FSTTCS 2005; J. Comput. Syst. Sci. 2010) proved binary TL NP-hard by a reduction from Max Cut. Buchin et al. (arXiv 0806.0920; Algorithmica 2012, Section 1, open-access copy at Würzburg) and Nöllenburg, Völker, Wolff and Holten (ALENEX 2009, Sections 1 and 2) credit the result to them; Buchin et al. show NP-completeness even for complete binary trees (Algorithmica, Theorem 2.2). Wikipedia was not consulted (blocked).'
+objects:
+  n: number of leaves of each tree (the number of labels)
+  N: total encoding length of the input
+parameters:
+  k: { meaning: 'the number of crossings: the integer $k$ in the input (decision), or the minimum number of crossings of a tanglegram of $S$ and $T$ (optimisation)' }
+constraints:
+  - { constraint: 'k \le n(n - 1)/2', because: 'Two inter-tree edges cross at most once, so every tanglegram has at most $n(n-1)/2$ crossings, and an instance with a larger $k$ is a yes-instance.' }
+versions:
+  decision:
+    kind: decision
+    input: 'Two rooted binary trees $S$ and $T$ whose leaves are labelled bijectively with the same $n$ labels, and an integer $k$.'
+    question: 'Can the order of the two children be chosen at every internal node of $S$ and of $T$ so that at most $k$ pairs of labels appear in opposite orders in the resulting left-to-right leaf orders of $S$ and $T$ (that is, so that the tanglegram, which draws $S$ and $T$ without crossings facing each other and joins equally labelled leaves by straight inter-tree edges, has at most $k$ crossings)?'
+    generalises: [decision-complete]
+  optimisation:
+    kind: optimisation
+    input: 'Two rooted binary trees $S$ and $T$ whose leaves are labelled bijectively with the same $n$ labels.'
+    goal: 'Find the minimum, over all choices of the order of the two children at every internal node of $S$ and of $T$, of the number of pairs of labels that appear in opposite orders in the resulting left-to-right leaf orders of $S$ and $T$ (the number of crossings of inter-tree edges in the tanglegram).'
+  decision-complete:
+    kind: decision
+    input: 'Two complete rooted binary trees $S$ and $T$ (all leaves at the same depth) whose leaves are labelled bijectively with the same $n$ labels, and an integer $k$.'
+    question: 'Can the order of the two children be chosen at every internal node of $S$ and of $T$ so that at most $k$ pairs of labels appear in opposite orders in the resulting left-to-right leaf orders of $S$ and $T$ (that is, so that the tanglegram, which draws $S$ and $T$ without crossings facing each other and joins equally labelled leaves by straight inter-tree edges, has at most $k$ crossings)?'
+default_version: decision
+shared_bounds:
+  - versions: [decision, optimisation]
+    because: 'Linear search over $k = 0, 1, 2, \dots$ until the answer is yes: every query has $k$ at most the optimum.'
+related:
+  - { problem: one-sided-crossing-minimization, relation: variant }
+lean: { status: none }
+review: { approved_by: null, date: null }

@@ -1,0 +1,10 @@
+id: tale-2024
+title: "Double Exponential Lower Bound for Telephone Broadcast"
+authors: [Prafullkumar Tale]
+identifiers: { dblp: "journals/corr/abs-2403-03501", openalex: null }
+versions:
+  arxiv-v1:
+    kind: preprint
+    arxiv: 2403.03501v1
+    year: 2024
+    open_access: true

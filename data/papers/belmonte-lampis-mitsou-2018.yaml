@@ -1,0 +1,22 @@
+id: belmonte-lampis-mitsou-2018
+title: "Parameterized (Approximate) Defective Coloring"
+authors: [Rémy Belmonte, Michael Lampis, Valia Mitsou]
+identifiers: { dblp: "journals/siamdm/BelmonteLM20" }
+versions:
+  arxiv:
+    kind: preprint
+    arxiv: "1801.03879"
+    year: 2018
+    open_access: true
+  conference:
+    kind: conference
+    venue: "STACS 2018, LIPIcs 96"
+    year: 2018
+    doi: "10.4230/LIPIcs.STACS.2018.10"
+    open_access: true
+  journal:
+    kind: journal
+    venue: "SIAM Journal on Discrete Mathematics 34(2)"
+    year: 2020
+    doi: "10.1137/18M1223666"
+    open_access: false

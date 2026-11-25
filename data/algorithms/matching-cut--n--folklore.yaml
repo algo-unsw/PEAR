@@ -1,0 +1,19 @@
+id: matching-cut--n--folklore
+problem: matching-cut
+proved_for: minimum-decision
+bound:
+  as_stated: 'O(2^{n} n^{2})'
+  notation: O
+  parameters: [n]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: 'One set $A$ at a time.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  folklore: true
+  note: 'Try all $2^n$ sets $A \subseteq V$; for each with $\emptyset \ne A \ne V$, list the edges with exactly one endpoint in $A$ and check in $O(n^2)$ time that they form a matching with at most $k$ edges (brute force baseline).'

@@ -1,0 +1,24 @@
+id: max-sat--l--brilliantov-alferov-bliznets-2023
+problem: max-sat
+proved_for: decision
+bound:
+  as_stated: 'O^*(1.0911^{L})'
+  notation: O*
+  parameters: [L]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'TODO(verify): abstract only; space not stated there.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: brilliantov-alferov-bliznets-2023
+  statements:
+    aaai: { statement: "Abstract" }
+  note: 'Abstract of the AAAI 2023 version only; the full text was not read (the AAAI page blocks automated access). Entered under the rule of 21 November 2026. The abstract (Zotero item IL8C3T6Q): "O*(1.0911^L) algorithm for the MAXSAT where L is a length of the input formula". Decision version assumed (TODO(verify)). It improves the $O(1.0927^L)$ of Alferov and Bliznets (AAAI 2021, abstract). The same abstract gives $O^*(1.1749^n)$ and $O^*(1.3803^n)$ for (n,3)- and (n,4)-MaxSAT (variables occurring at most 3 or 4 times), not entered: PEAR has no bounded-occurrence versions of Max SAT yet.'
+formal: { status: informal }
+status: valid
+review: { approved_by: Serge Gaspers, date: 2026-11-22 }

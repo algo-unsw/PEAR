@@ -1,0 +1,43 @@
+id: triangle-packing
+name: Triangle Packing
+aliases: [Vertex-Disjoint Triangle Packing, K3-Packing, Maximum Triangle Packing, Disjoint Triangles]
+category: graphs
+complexity:
+  class: NP-complete
+  source:
+    folklore: true
+    note: "Partition into Triangles (Garey and Johnson, problem GT11, NP-complete) is the special case $k = n/3$, as Bojikian, Chekan and Kratsch note ('There is a trivial reduction from Partition Into Triangles to Triangle Packing', arXiv 2502.15884, Section 1). The Compendium of NP Optimization Problems lists Maximum Triangle Packing under Garey–Johnson GT11 (https://www.csc.kth.se/tcs/compendium/node22.html); Björklund, Husfeldt, Kaski and Koivisto (arXiv 1007.1161, Section 1.2) state that packing vertex-disjoint copies of a connected graph $H$ with more than two vertices is NP-complete (Hell and Kirkpatrick)."
+    reference: { paper: bojikian-chekan-kratsch-2025, version: arxiv, statement: "Section 1" }
+objects:
+  n: number of vertices
+  m: number of edges
+  N: total encoding length of the input
+parameters:
+  k: { meaning: "the solution size: the integer $k$ in the input (decision, search), or the maximum number of vertex-disjoint triangles (optimisation)" }
+  tw: { shared: treewidth }
+  ctw: { shared: cutwidth }
+constraints:
+  - { constraint: "k \\le n / 3", because: "Vertex-disjoint triangles use $3k$ distinct vertices, so an instance with $k > n/3$ is a no-instance (answered in polynomial time)." }
+  - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
+  - { constraint: "tw \\le n", because: "A single bag containing all vertices is a tree decomposition of width $n - 1$." }
+  - { constraint: "tw \\le ctw", because: "Cutwidth upper-bounds pathwidth, hence treewidth (Bojikian, Chekan and Kratsch, arXiv 2502.15884, Section 1)." }
+versions:
+  decision:
+    kind: decision
+    input: "A graph $G = (V, E)$ and an integer $k$."
+    question: "Are there $k$ pairwise vertex-disjoint triangles in $G$?"
+  optimisation:
+    kind: optimisation
+    input: "A graph $G = (V, E)$."
+    goal: "Find the maximum number of pairwise vertex-disjoint triangles in $G$."
+  search:
+    kind: search
+    input: "A graph $G = (V, E)$ and an integer $k$."
+    goal: "Find $k$ pairwise vertex-disjoint triangles in $G$, or report that none exist."
+default_version: decision
+shared_bounds:
+  - versions: [decision, optimisation, search]
+    because: "Binary search on $k$ and self-reducibility (delete a vertex and test again)."
+related:
+  - { problem: cycle-packing, relation: variant }
+  - { problem: subgraph-isomorphism, relation: special-case }

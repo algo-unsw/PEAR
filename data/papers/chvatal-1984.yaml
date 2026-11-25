@@ -1,0 +1,11 @@
+id: chvatal-1984
+title: Recognizing decomposable graphs
+authors: [Vašek Chvátal]
+identifiers: { dblp: "journals/jgt/Chvatal84" }
+versions:
+  journal:
+    kind: journal
+    venue: "Journal of Graph Theory 8(1), pp. 51–53"
+    year: 1984
+    doi: "10.1002/jgt.3190080106"
+    open_access: false

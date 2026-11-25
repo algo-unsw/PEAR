@@ -1,0 +1,24 @@
+id: cluster-vertex-deletion--k--tian-xiao-yang-2023
+problem: cluster-vertex-deletion
+proved_for: decision
+bound:
+  as_stated: 'O^*(1.7549^{k})'
+  notation: O*
+  parameters: [k]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'TODO(verify): abstract only; space not stated there. The abstract describes branching (core branching processing, automated generation of search trees), which is often polynomial space, but the full text was not read.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: tian-xiao-yang-2023
+  statements:
+    journal: { statement: "Abstract" }
+  note: 'Abstract of the journal version only; the full text was not read (closed). Entered under the rule of 21 November 2026. The abstract (Crossref metadata, via Zotero): "Cluster Vertex Deletion can be solved in $O^*(1.7549^k)$ time", improving $O^*(1.811^k)$; it defines the problem with $G$ and $k$ given (decision). It also states $O^*(1.7485^k)$ for graphs of maximum degree at most 4 (not entered: no such version here). The COCOON 2023 version was not checked.'
+formal: { status: informal }
+status: valid
+review: { approved_by: Serge Gaspers, date: 2026-11-22 }

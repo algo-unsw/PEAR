@@ -18,4 +18,4 @@ source:
   paper: suchan-villanger-2009
   statements:
     preproceedings: { statement: "Theorem 3" }
-  note: 'Theorem 3: "There exists an algorithm that verifies if the pathwidth of a graph G on n vertices is at most k in $O^*(1.9657^n)$ time." The abstract of the LNCS version (publisher page) states the same base, $c = 1.9657$. Read in the IWPEC 2009 pre-proceedings copy. Kitsunai et al. (Algorithmica 2016) claim $O(1.89^n)$ for directed pathwidth, which covers pathwidth; no open copy was found. Theorem 3 decides; it does not explicitly promise a path decomposition.'
+  note: 'Theorem 3: "There exists an algorithm that verifies if the pathwidth of a graph G on n vertices is at most k in $O^*(1.9657^n)$ time." The abstract of the LNCS version (publisher page) states the same base, $c = 1.9657$. Read in the IWPEC 2009 pre-proceedings copy. Kitsunai et al. (Algorithmica 2016) state $O(1.89^n)$ for directed pathwidth, which covers pathwidth, entered from their abstract: pathwidth--n--kitsunai-kobayashi-komuro-tamaki-tano-2012. Theorem 3 decides; it does not explicitly promise a path decomposition.'

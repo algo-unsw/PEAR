@@ -1,0 +1,12 @@
+id: zehavi-2023
+title: "Tournament Fixing Parameterized by Feedback Vertex Set Number Is FPT"
+authors: [Meirav Zehavi]
+identifiers: { dblp: conf/aaai/Zehavi23 }
+versions:
+  aaai:
+    kind: conference
+    venue: "Thirty-Seventh AAAI Conference on Artificial Intelligence (AAAI 2023), pp. 5876–5883"
+    year: 2023
+    doi: "10.1609/aaai.v37i5.25728"
+    url: "https://ojs.aaai.org/index.php/AAAI/article/view/25728"
+    open_access: true

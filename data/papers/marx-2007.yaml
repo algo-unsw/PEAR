@@ -1,0 +1,19 @@
+id: marx-2007
+title: Can You Beat Treewidth?
+authors:
+- Dániel Marx
+identifiers: { dblp: journals/toc/Marx10 }
+versions:
+  focs:
+    kind: conference
+    venue: "48th Annual IEEE Symposium on Foundations of Computer Science (FOCS 2007), pp. 169–179"
+    year: 2007
+    doi: 10.1109/FOCS.2007.27
+    open_access: false
+  journal:
+    kind: journal
+    venue: "Theory of Computing 6(1), pp. 85–112"
+    year: 2010
+    doi: 10.4086/toc.2010.v006a005
+    url: 'https://theoryofcomputing.org/articles/v006a005'
+    open_access: true

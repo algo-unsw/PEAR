@@ -60,6 +60,7 @@ REDUCTION_TYPES = {
     "polytime-deterministic": "deterministic polynomial time",
     "polytime-randomized": "randomized polynomial time",
     "serf": "subexponential reduction family (SERF)",
+    "polytime-counting": "counting reduction (polynomial time; the counts of the source are computed from those of the target)",
 }
 NUMBER_WORDS = {1: "one call", 2: "two calls", 3: "three calls"}
 
@@ -80,6 +81,20 @@ def _sentence_fragment(text: str) -> str:
 
 
 def version_label(vid: str) -> str:
+    """Restricted-input versions (21 November 2026; definitions.md §3) are labelled from their id:
+    "Optimisation, max degree 3", "Decision, d = 3", "Decision, d ≥ 3", "Decision, arity 2, domain 3"."""
+    m = re.fullmatch(r"(decision|optimisation|search|weighted|counting)-(.+)", vid)
+    if m and m.group(2) not in VERSION_LABELS:
+        parts = re.findall(r"((?:[a-z]+-)*?)(at-least-)?(\d+)(?:-|$)", m.group(2))
+        if parts and "".join(w + a + d + "-" for w, a, d in parts).rstrip("-") == m.group(2):
+            out = []
+            for words, at_least, d in parts:
+                name = words.rstrip("-").replace("-", " ")
+                if len(name) == 1:  # an input integer: "d = 3", "s ≥ 2"
+                    out.append(f"{name} {'≥' if at_least else '='} {d}")
+                else:
+                    out.append(f"{name} {'at least ' if at_least else ''}{d}")
+            return f"{version_label(m.group(1))}, {', '.join(out)}"
     return VERSION_LABELS.get(vid, vid.replace("-", " ").capitalize())
 
 
@@ -324,10 +339,16 @@ FLAG_TEXT = {
     "unverified": "from an unrefereed source; in the Overview only when the reader includes it",
     "preprint": "from a preprint; in the Overview only when the reader includes preprints and unverified results",
     "given-tree-decomposition": "a tree decomposition of width $tw$ is given with the input",
+    "given-path-decomposition": "a path decomposition of width $pw$ is given with the input",
+    "given-clique-width-expression": "a clique-width expression with the stated number of labels is given with the input",
+    "given-linear-arrangement": "a linear arrangement (vertex ordering) of the stated width is given with the input",
+    "given-interval-ordering": "an ordering witnessing the interval parameter is given with the input",
+    "given-deletion-set": "a deletion set (modulator) of the stated size is given with the input",
     "long-chain": "long derivation chain",
     "adaptive-sizes": "Turing reduction: every call assumed to have the largest size",
     "claimed-refuted-hypothesis": "conditional on a hypothesis claimed to be refuted",
     "site-written-variant": "uses a reduction variant written by the site",
+    "site-written-fix": "relies on a fix of the paper written by the site and approved by a human (see the result's status note)",
 }
 
 
@@ -562,10 +583,17 @@ def chain_items(data: Dataset, d: Derivation, row: dict[str, Any], refs: Referen
             })
         elif step["kind"] == "special-case":
             general, special = step["id"].rsplit(":", 1)[1].split(">")
+            symbols = problem.symbols()
+            pmap = [f"{render(Var(k))} \\mapsto {render(parse_expr(v, symbols))}" for k, v in step["parameter_map"].items()]
+            current = set().union(*(
+                variables(parse_expr(step["parameter_map"][var], symbols)) if var in step["parameter_map"] else {var}
+                for var in current
+            ))
             items.append({
                 "kind": "special-case",
                 "general": version_label(general).lower(),
                 "special": version_label(special).lower(),
+                "map": ", \\; ".join(pmap),
             })
         elif step["kind"] == "technique":
             _, tid, rule_id = step["id"].split(":")
@@ -713,7 +741,8 @@ def problem_page(data: Dataset, d: Derivation, derived: dict[str, Any], pid: str
         return out
 
     def sort_key(r: dict[str, Any]) -> tuple:
-        return (r["param_order"], r["origin"] != "direct", -(r["year"] or 0))
+        # the problem's own results first, then direct before derived, newest first
+        return (r["param_order"], r.get("from_problem") is not None, r["origin"] != "direct", -(r["year"] or 0))
 
     # Overview first, so its citations get the low numbers.
     nodes = {}
@@ -826,11 +855,22 @@ def problem_page(data: Dataset, d: Derivation, derived: dict[str, Any], pid: str
         note = None
         if group is not None:
             names = _join([version_label(v).lower() for v in problem.versions if v in members])
-            note = (f"The {names} versions are equivalent up to polynomial factors "
-                    f"({_sentence_fragment(group.because)}) and share these bounds; "
-                    "each result names the version its paper proved.")
+            degs = {re.fullmatch(r".+-max-degree-(\d+)", v) for v in members}
+            if None not in degs and len({m.group(1) for m in degs}) == 1:
+                # "On graphs of maximum degree at most 3, the decision, optimisation and search
+                # versions are equivalent …" rather than repeating "max degree 3" per version
+                deg = next(iter(degs)).group(1)
+                names = _join([version_label(v.rsplit("-max-degree-", 1)[0]).lower()
+                               for v in problem.versions if v in members])
+                note = (f"On graphs of maximum degree at most ${deg}$, the {names} versions are equivalent "
+                        f"up to polynomial factors ({_sentence_fragment(group.because)}) and share these "
+                        "bounds; each result names the version its paper proved.")
+            if note is None:
+                note = (f"The {names} versions are equivalent up to polynomial factors "
+                        f"({_sentence_fragment(group.because)}) and share these bounds; "
+                        "each result names the version its paper proved.")
         else:
-            specials = [w for v in members if v in problem.versions for w in problem.versions[v].generalises]
+            specials = [w for v in members if v in problem.versions for w, _ in problem.versions[v].specials()]
             if specials:
                 names = _join([version_label(w).lower() for w in specials])
                 note = f"Bounds for this version also hold for its special case ({names}), never the reverse."
@@ -853,9 +893,16 @@ def problem_page(data: Dataset, d: Derivation, derived: dict[str, Any], pid: str
 
     versions = []
     for vid, v in problem.versions.items():
+        # a bounded-degree version is chosen with the "Maximum degree" menu next to the tab of
+        # its general version, not with a tab of its own (21 November 2026)
+        m = re.fullmatch(r"(.+)-max-degree-(\d+)", vid)
+        base, degree = (m.group(1), int(m.group(2))) if m and m.group(1) in problem.versions else (vid, None)
         versions.append({
             "id": vid,
+            "base": base,
+            "degree": degree,
             "label": version_label(vid),
+            "tab_label": version_label(base),
             "kind": v.kind,
             "input": v.input,
             "question": v.question,
@@ -863,6 +910,8 @@ def problem_page(data: Dataset, d: Derivation, derived: dict[str, Any], pid: str
             "node": node_key(problem, vid)[1],
             "default": vid == problem.default_version,
         })
+
+    degrees = sorted({v["degree"] for v in versions if v["degree"] is not None})
 
     complexity_src = refs.source(problem.complexity.source)
     reductions = reduction_lists(data, problem, refs)
@@ -888,6 +937,7 @@ def problem_page(data: Dataset, d: Derivation, derived: dict[str, Any], pid: str
         "parameters": params,
         "constraints": [{"tex": c.constraint, "because": c.because} for c in problem.constraints],
         "versions": versions,
+        "degrees": degrees,
         "default_version": problem.default_version,
         "nodes": nodes,
         "reductions": reductions,

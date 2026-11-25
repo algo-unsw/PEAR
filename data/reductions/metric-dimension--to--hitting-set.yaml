@@ -1,0 +1,12 @@
+id: metric-dimension--to--hitting-set
+from: { problem: metric-dimension, version: decision }
+to: { problem: hitting-set, version: decision }
+type: polytime-deterministic
+calls: 1
+time: "O(n^{3})"
+parameter_map: { n: "n", m: "n(n - 1)/2", k: "k" }
+source:
+  folklore: true
+  note: "Universe $V$; for every pair of distinct vertices $u, v$ the set $R(u, v) = \\{w \\in V : d(w, u) \\ne d(w, v)\\}$ of vertices resolving them. A set $S$ is resolving if and only if it hits every $R(u, v)$ (this is the definition). Distances by breadth-first search in $O(nm)$ time; the $n(n-1)/2$ sets in $O(n^3)$ time."
+formal: { status: informal }
+status: valid

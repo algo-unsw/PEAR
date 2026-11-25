@@ -1,0 +1,21 @@
+id: b-coloring--n--panolan-philip-saurabh-2015
+problem: b-coloring
+proved_for: optimisation
+bound:
+  as_stated: "O(3^{n} n^{4} \\log n)"
+  notation: O
+  parameters: [n]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: "Not stated; educated guess: $O^*(2^{n})$. For each candidate set $D$ of $b$-vertices the algorithm multiplies polynomials stored as bit strings of length $2^{n-k}$ (Hamming projections and fast multiplication)."
+  algebraic: true
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: panolan-philip-saurabh-2015
+  statements:
+    conference: { statement: "Theorem 7" }
+  note: "Theorem 7 finds the b-chromatic number by running the exact-$k$ test of Theorem 8 for $k = n, n-1, \\dots, 1$; $\\sum_k \\binom{n}{k} 2^{n-k} = 3^n$. Read in the LIPIcs PDF. `algebraic` because the test works with polynomials over subsets (Hamming projections, polynomial multiplication)."

@@ -1,0 +1,24 @@
+id: moser-niedermeier-sorge-2009
+title: "Exact combinatorial algorithms and experiments for finding maximum k-plexes"
+authors: [Hannes Moser, Rolf Niedermeier, Manuel Sorge]
+identifiers: { dblp: "journals/jco/MoserNS12" }
+versions:
+  sea:
+    kind: conference
+    title: "Algorithms and Experiments for Clique Relaxations—Finding Maximum s-Plexes"
+    venue: "8th International Symposium on Experimental Algorithms (SEA 2009), LNCS 5526, pp. 233–244"
+    year: 2009
+    doi: "10.1007/978-3-642-02011-7_22"
+    open_access: false
+  journal:
+    kind: journal
+    venue: "Journal of Combinatorial Optimization 24(3), pp. 347–373"
+    year: 2012
+    doi: "10.1007/s10878-011-9391-5"
+    open_access: false
+  journal-preprint:
+    kind: preprint
+    venue: "Authors' manuscript of the Journal of Combinatorial Optimization article (TU Berlin, Algorithmics and Computational Complexity group)"
+    year: 2011
+    url: "https://fpt.akt.tu-berlin.de/publications/combinatorial-algorithms-experiments-for-maximum-kplex.pdf"
+    open_access: true

@@ -1,0 +1,12 @@
+id: bounded-degree-vertex-deletion--to--k-path-vertex-cover
+from: { problem: bounded-degree-vertex-deletion, version: decision-d-1 }
+to: { problem: k-path-vertex-cover, version: decision-d-3 }
+type: polytime-deterministic
+calls: 1
+time: "O(n + m)"
+parameter_map: { n: "n", m: "m", k: "k", d: "3" }
+source:
+  folklore: true
+  note: "A graph has maximum degree at most 1 if and only if it has no path on 3 vertices as a subgraph, so $(G, 1, k) \\mapsto (G, 3, k)$ (the converse of the reduction from 3-Path Vertex Cover). Xiao (arXiv 1601.00163, Section 1) calls the case $d = 1$ the $P_3$ vertex cover problem."
+  reference: { paper: xiao-2016, version: arxiv, statement: "Section 1" }
+status: valid

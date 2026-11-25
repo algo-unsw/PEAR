@@ -1,0 +1,19 @@
+id: densest-k-subgraph--k--folklore
+problem: densest-k-subgraph
+proved_for: optimisation
+bound:
+  as_stated: "O(n^{k} k^{2} + n^{2})"
+  notation: O
+  parameters: [n, k]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    bound: "One set $S$ at a time, and the adjacency matrix."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  folklore: true
+  note: "Build the adjacency matrix in $O(n^2)$ time, then try all $\\binom{n}{k} \\le n^k$ sets of $k$ vertices and count the edges of $G[S]$ in $O(k^2)$ time each (brute force)."

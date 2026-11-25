@@ -15,10 +15,14 @@ objects:
 parameters:
   k: { meaning: "the solution size: the integer $k$ in the input (decision, search), or the minimum number of edges of a Steiner forest (optimisation)" }
   d: { meaning: "the number of demand pairs $|D|$" }
+  p: { meaning: "the number of terminals: the vertices that lie in at least one demand pair" }
   vc: { shared: vertex-cover-number }
   fes: { shared: feedback-edge-set-number }
 constraints:
   - { constraint: "k \\le n", because: "A forest has fewer edges than vertices, so every instance with $k \\ge n$ is decided by checking whether every demand pair lies in one connected component of $G$." }
+  - { constraint: "p \\le 2k", because: "Both vertices of a demand pair $\\{s, t\\}$ ($s \\ne t$) are endpoints of edges of the forest, and a forest with at most $k$ edges has at most $2k$ endpoints, so every instance with $p > 2k$ is a no-instance (decision, search); for optimisation $k$ is the optimum (added 21 November 2026)." }
+  - { constraint: "p \\le 2d", because: "Every demand pair has two vertices." }
+  - { constraint: "p \\le n", because: "The terminals are vertices." }
   - { constraint: "m \\le n(n - 1)/2", because: "A simple graph has at most $n(n-1)/2$ edges." }
   - { constraint: "vc \\le n", because: "A vertex cover is a set of vertices." }
   - { constraint: "fes \\le m", because: "A feedback edge set is a set of edges." }

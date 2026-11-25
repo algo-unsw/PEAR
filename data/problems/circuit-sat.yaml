@@ -1,0 +1,39 @@
+id: circuit-sat
+name: Circuit Satisfiability
+aliases:
+- Circuit SAT
+- Circuit-SAT
+- CircuitSAT
+- CSAT
+category: logic
+complexity:
+  class: NP-complete
+  source:
+    folklore: true
+    note: SAT (Cook 1971, NP-complete) is the special case of circuits of depth 2 (OR gates for the clauses, an AND of the clauses, NOT gates for negative literals); a satisfying input is checked by evaluating the circuit, so the problem is in NP. The IITG lecture notes list CIRCUIT-SAT among the NP-complete satisfiability problems (https://www.iitg.ac.in/rinkulu/note/npprobs-note.pdf).
+objects:
+  n: number of input variables
+  m: number of gates (AND and OR gates of fan-in two and NOT gates; inputs are not counted)
+  N: total encoding length of the input
+parameters: {}
+constraints:
+- constraint: n \le 2 m + 1
+  because: Inputs that feed no gate can be removed (unless the output is an input), and each gate has at most two inputs.
+versions:
+  decision:
+    kind: decision
+    input: A Boolean circuit $C$ with inputs $x_1, \dots, x_n$, $m$ gates (AND and OR of fan-in two, NOT of fan-in one) and one output gate.
+    question: Is there an assignment of the inputs on which $C$ outputs true?
+  search:
+    kind: search
+    input: A Boolean circuit $C$ with inputs $x_1, \dots, x_n$, $m$ gates (AND and OR of fan-in two, NOT of fan-in one) and one output gate.
+    goal: Find an assignment of the inputs on which $C$ outputs true, or report that none exists.
+default_version: decision
+shared_bounds:
+- versions:
+  - decision
+  - search
+  because: 'Self-reducibility: fix inputs to constants one at a time and propagate the constants through the gates.'
+related:
+- problem: sat
+  relation: special-case

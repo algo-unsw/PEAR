@@ -1,0 +1,23 @@
+id: ramanujan-saurabh-2013
+title: Linear Time Parameterized Algorithms via Skew-Symmetric Multicuts
+authors: [M. S. Ramanujan, Saket Saurabh]
+identifiers: { dblp: journals/talg/RamanujanS17, openalex: null }
+versions:
+  arxiv:
+    kind: preprint
+    year: 2013
+    arxiv: "1304.7505"
+    open_access: true
+  soda:
+    kind: conference
+    venue: "25th ACM-SIAM Symposium on Discrete Algorithms (SODA 2014), pp. 1739–1748"
+    year: 2014
+    doi: "10.1137/1.9781611973402.126"
+    open_access: false
+  journal:
+    kind: journal
+    title: "Linear-Time Parameterized Algorithms via Skew-Symmetric Multicuts"
+    venue: "ACM Transactions on Algorithms 13(4), 46:1–46:25"
+    year: 2017
+    doi: "10.1145/3128600"
+    open_access: false

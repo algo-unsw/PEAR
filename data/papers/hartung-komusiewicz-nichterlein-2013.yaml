@@ -1,0 +1,23 @@
+id: hartung-komusiewicz-nichterlein-2013
+title: "On Structural Parameterizations for the 2-Club Problem"
+authors: [Sepp Hartung, Christian Komusiewicz, André Nichterlein, Ondřej Suchý]
+identifiers: { dblp: journals/dam/HartungKNS15 }
+versions:
+  sofsem:
+    kind: conference
+    authors: [Sepp Hartung, Christian Komusiewicz, André Nichterlein]
+    venue: "SOFSEM 2013: Theory and Practice of Computer Science, LNCS 7741, pp. 233–243"
+    year: 2013
+    doi: "10.1007/978-3-642-35843-2_21"
+    open_access: false
+  arxiv:
+    kind: preprint
+    year: 2013
+    arxiv: "1305.3735"
+    open_access: true
+  journal:
+    kind: journal
+    venue: "Discrete Applied Mathematics 185, pp. 79–92"
+    year: 2015
+    doi: "10.1016/j.dam.2014.11.026"
+    open_access: false

@@ -1,0 +1,19 @@
+id: max-internal-spanning-tree--k--fomin-gaspers-saurabh-2009
+problem: max-internal-spanning-tree
+proved_for: decision
+bound:
+  as_stated: '8^{k} n^{O(1)}'
+  notation: O
+  parameters: [k, n]
+properties:
+  randomized: false
+  space: { class: polynomial, bound: 'Not stated; educated guess: polynomial. A polynomial-time $3k$-vertex kernel, then Nederlof''s polynomial-space $2^n n^{O(1)}$ algorithm on the kernel; no memoization or dynamic programming found.' }
+  algebraic: true
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: fomin-gaspers-saurabh-2009
+  statements:
+    arxiv-v2: { statement: "Corollary 6" }
+  note: 'The $3k$-vertex kernel (Theorem 5) followed by Nederlof''s $2^n n^{O(1)}$ algorithm (ICALP 2009). Deterministic. `algebraic` follows the existing records of Nederlof''s inclusion–exclusion algorithms.'

@@ -1,0 +1,10 @@
+id: kumabe-2026
+title: "Single-Exponential FPT Algorithms for Minimum Bisection and Matching Cut via a New Unbreakable Decomposition"
+authors: [Soh Kumabe]
+identifiers: { dblp: null }
+versions:
+  arxiv-v1:
+    kind: preprint
+    arxiv: "2611.05982v1"
+    year: 2026
+    open_access: true
