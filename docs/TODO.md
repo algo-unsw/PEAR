@@ -30,3 +30,9 @@ Rule: a parameter gets a lower bound $c$ when the problem is polynomial for ever
 - **Z3 version**: `z3-solver>=4.12` is not pinned; a different version could prove more or less under the same resource limit. No current comparison needs Z3, so nothing depends on it yet; pin it if one does.
 - **Certificates on the site**: the certificate of each "beaten by" and the witness of each "incomparable" could be exported to `build/derived.json` for readers; not done.
 - **Sage cross-check** (`tools/sage_crosscheck.py`): run by hand before each PR that changes running times; last run 22 November 2026, 0 errors.
+
+### Missing algorithms (25 November 2026)
+
+- **Independent Set on graphs of maximum degree 3, by $n$**: no degree-specific algorithm is entered, so the Overview shows $O^*(2^{n/5 + o(n)})$ (Gaspers–Sorkin's cubic Max 2-CSP, through `independent-set--to--max-2-csp`). Faster dedicated algorithms are known; find and read them before entering any.
+- **Weighted Independent Set and Weighted Vertex Cover, by $n$**: only the trivial $O^*(2^{n})$ is derived. Algorithms for maximum-weight independent sets (for example through counting maximum-weight 2-SAT solutions) are not entered; find and read them first.
+- **Pathwidth by $m$ as a constraint**: the bound $pw \le 7m/48 + o(m)$ (Gaspers 2026, an unrefereed preprint) would let every problem with a $2^{O(pw)}$ algorithm project onto $m$. Constraints carry no source, so an unverified constraint would bring unverified bounds into the Overview untagged; it needs a sourced constraint (schema) first. For Weighted Vertex Cover the same bound comes through Max 2-CSP instead (25 November 2026).
