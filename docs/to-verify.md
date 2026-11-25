@@ -38,7 +38,7 @@ Shown in Details only, never in the Overview.
 - paper `yamano-shibuya-2026`: Faster Exact Algorithms for 3- and 4-Coloring: Deterministic Improvements and Further Randomized Speedups
 - paper `zamir-2026`: k-Coloring is Faster than Computing the Chromatic Number
 
-## 4. `TODO(verify)` markers (130)
+## 4. `TODO(verify)` markers (129)
 
 | Record | Field | Text |
 | --- | --- | --- |
@@ -104,7 +104,6 @@ Shown in Details only, never in the Overview.
 | `multicut--k--chu-liu-lokshtanov-2026` | `source.note` | …splitters (Section 1). Preprint (arXiv v1, February 2026, the only version on 20 November 2026), read 20 November 2026; TODO(verify) the printed theorem number. |
 | `multicut--k--marx-razgon-2010` | `source.note` | …ed fixed-parameter tractability independently. Read in arXiv v3 of 1010.3633 (the current version on 20 November 2026); TODO(verify) the printed theorem number. STOC 2011; SIAM J. Comput. 2014. |
 | `multicut--k-p--cygan-komosa-lokshtanov-2018` | `source.note` | …f Bringmann, Hermelin, Mnich and van Leeuwen. Read in arXiv v3 of 1810.06864 (the current version on 20 November 2026); TODO(verify) the printed theorem number. |
-| `multiway-cut--k--cao-chen-fan-2013` | `source.note` | …formation Processing Letters 2014; arXiv v1 (posted 2017, the only version on 20 November 2026), read 20 November 2026 (TODO(verify) the printed theorem number). |
 | `nae-sat--n--liu-2018` | `properties.space.note` | … with a generalized covering code (Liu, ICALP 2018); no memoization, dynamic programming or decomposition tables found. TODO(verify): whether the covering code is enumerated block by block or stored. |
 | `one-sided-crossing-minimization--k--kobayashi-tamaki-2012` | `source.note` | …is sorted in the order $<$. Read in the open-access Algorithmica version (CC BY); the ESA 2012 version was not checked. TODO(verify): whether the dynamic programming also outputs an optimal order (search version). |
 | `planar-vertex-deletion--k--jansen-lokshtanov-saurabh-2014` | `source.note` | …ctober 2013 (via a PDF-to-text extraction); the theorem number in the SODA 2014 version was not checked (no open copy). TODO(verify): Serge to confirm the theorem number and that the result is deterministic. |
