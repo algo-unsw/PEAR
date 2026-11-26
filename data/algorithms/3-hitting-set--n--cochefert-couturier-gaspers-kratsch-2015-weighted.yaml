@@ -1,0 +1,26 @@
+id: 3-hitting-set--n--cochefert-couturier-gaspers-kratsch-2015-weighted
+problem: 3-hitting-set
+proved_for: weighted
+bound:
+  as_stated: O^*(1.6755^{n})
+  notation: O*
+  parameters:
+  - n
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    note: 'Not stated; educated guess: polynomial. Depth-first branching analysed with Measure and Conquer, checking minimality at each leaf; no memoization, dynamic programming or stored tables found.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: cochefert-couturier-gaspers-2015
+  statements:
+    arxiv-v1:
+      statement: 'Theorem 1: "The described algorithm enumerates all minimal transversals of an $n$-vertex hypergraph of rank 3 in time $O(1.6755^n)$."'
+  note: With positive weights every minimum-weight hitting set is minimal (dropping an element that is not needed lowers the weight), so keeping a lightest output (none if the family contains the empty set) solves the weighted version within a polynomial factor (simple step, added at Serge's request, 27 November 2026; Table 1 of Fomin, Gaspers, Lokshtanov and Saurabh cites this paper for Weighted 3-Hitting Set in $1.6755^n$). Deterministic. Read in arXiv v1.
+formal:
+  status: informal
+status: valid

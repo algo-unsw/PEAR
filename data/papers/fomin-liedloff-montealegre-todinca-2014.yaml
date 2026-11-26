@@ -1,0 +1,25 @@
+id: fomin-liedloff-montealegre-todinca-2014
+title: Algorithms Parameterized by Vertex Cover and Modular Width, Through Potential Maximal Cliques
+authors:
+- Fedor V. Fomin
+- Mathieu Liedloff
+- Pedro Montealegre
+- Ioan Todinca
+versions:
+  arxiv-v1:
+    kind: preprint
+    year: 2014
+    arxiv: 1404.3882v1
+    open_access: true
+  swat:
+    kind: conference
+    venue: Algorithm Theory (SWAT 2014), LNCS 8503, pp. 182–193
+    year: 2014
+    doi: 10.1007/978-3-319-08404-6_16
+    open_access: false
+  journal:
+    kind: journal
+    venue: Algorithmica 80(4), pp. 1146–1169
+    year: 2018
+    doi: 10.1007/s00453-017-0297-1
+    open_access: false

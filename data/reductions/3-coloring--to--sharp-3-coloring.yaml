@@ -1,0 +1,12 @@
+id: 3-coloring--to--sharp-3-coloring
+from: { problem: 3-coloring, version: decision }
+to: { problem: sharp-3-coloring, version: counting }
+type: polytime-deterministic
+calls: 1
+time: "O(1)"
+parameter_map: { n: "n", m: "m", tw: "tw" }
+source:
+  folklore: true
+  note: "A counting algorithm answers the decision version (rulebook §2b, approved by Serge on 27 November 2026): the graph is 3-colourable exactly when its number of proper 3-colourings is nonzero."
+formal: { status: informal }
+status: valid

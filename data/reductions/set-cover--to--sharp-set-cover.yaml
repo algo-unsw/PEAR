@@ -1,0 +1,29 @@
+id: set-cover--to--sharp-set-cover
+from: { problem: set-cover, version: optimisation }
+to: { problem: sharp-set-cover, version: counting }
+type: polytime-deterministic
+calls: 1
+time: "O(m)"
+parameter_map: { n: "n", m: "m" }
+variants:
+  - id: decision
+    note: "Decision: the answer is yes exactly when some size at most $k$ has a nonzero count."
+    from: { problem: set-cover, version: decision }
+    to: { problem: sharp-set-cover, version: counting }
+    parameter_map: { n: "n", m: "m" }
+    source:
+      folklore: true
+      note: "The same instance; the answer is read off the counts."
+  - id: weighted
+    note: "Weighted: the minimum-weight counting version outputs the minimum weight itself."
+    from: { problem: set-cover, version: weighted }
+    to: { problem: sharp-set-cover, version: weighted }
+    parameter_map: { n: "n", m: "m" }
+    source:
+      folklore: true
+      note: "The same instance; the counting version outputs the minimum weight of a cover and the number of covers of that weight (no cover: none exists)."
+source:
+  folklore: true
+  note: "A counting algorithm answers the optimisation version (rulebook §2b, approved by Serge on 27 November 2026): on the same instance, the counting version gives the number of covers with $k$ sets for every $k$, and the minimum size of a cover is the smallest $k$ with a nonzero count (none if all counts are zero)."
+formal: { status: informal }
+status: valid

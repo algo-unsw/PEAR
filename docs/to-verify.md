@@ -37,10 +37,11 @@ Shown in Details only, never in the Overview.
 - paper `yamano-shibuya-2026`: Faster Exact Algorithms for 3- and 4-Coloring: Deterministic Improvements and Further Randomized Speedups
 - paper `zamir-2026`: k-Coloring is Faster than Computing the Chromatic Number
 
-## 4. `TODO(verify)` markers (130)
+## 4. `TODO(verify)` markers (132)
 
 | Record | Field | Text |
 | --- | --- | --- |
+| `3-hitting-set--n--fomin-gaspers-lokshtanov-saurabh-2015-weighted` | `source.note` | …ks only its first row as randomized, so this one is taken as deterministic. Added at Serge's request, 27 November 2026. TODO(verify): the Shachnai–Zehavi algorithm (not opened) and the J. ACM version of the table. |
 | `b-coloring--n--panolan-philip-saurabh-2015-decision` | `source.note` | … binomial coefficients, so the implied $O(3^n n^4 \log n)$ is stored ($\binom{n}{k} 2^{n-k}$ is one term of $(1+2)^n$). TODO(verify): store the stated form once the bound language has binomial coefficients. Read in the LIPIcs PDF. |
 | `balanced-biclique--k--folklore` | `source.note` | …arXiv 1406.3700) shows that the problem is W[1]-hard parameterized by $k$, so no $f(k) n^{O(1)}$ algorithm is expected. TODO(verify): Serge to approve this XP baseline. |
 | `balanced-biclique--n--binkele-raible-fernau-gaspers-2010` | `source.note` | …rtex Cover). Statement and page numbers from the authors' preprint (submitted to Elsevier, 25 October 2010) at the URL; TODO(verify) that they match the published version. |
@@ -122,6 +123,8 @@ Shown in Details only, never in the Overview.
 | `sat--db-qhorn--ramanujan-saurabh-2013` | `source.note` | …nt arXiv version of 1304.7505; the numbers Theorem 6 and Corollary 1 come from the rendered PDF as reported by a fetch, TODO(verify). SODA 2014 and TALG 2017 versions not read. |
 | `sat--sb-forest--gaspers-szeider-2012-treewidth` | `source.note` | …s$ until it returns a count gives time $f(sb_{forest}) N^3$, and $F$ is satisfiable exactly when the count is positive. TODO(verify): that the function of $k$ is computable (needed for the meaning of $f$ in PEAR). |
 | `sharp-3-sat--sb-forest--gaspers-szeider-2012-treewidth` | `source.note` | …e algorithm counts the satisfying assignments of any CNF formula, so it applies to 3-CNF formulas, the input of #3-SAT. TODO(verify): that the function of $k$ is computable. |
+| `sharp-independent-set--n--gaspers-lee-2016-max-degree-3` | `source.note` | …his subcubic subroutine (see `sharp-independent-set--n--gaspers-lee-2016`). Added at Serge's request, 27 November 2026. TODO(verify): Serge to decide whether this result gets an error flag (high risk, CLAUDE.md rule 6). Read in arXiv v2 (13… |
+| `sharp-independent-set--n--gaspers-lee-2016-max-degree-4` | `source.note` | …ndix C.5) reports a gap (see `sharp-independent-set--n--gaspers-lee-2016`). Added at Serge's request, 27 November 2026. TODO(verify): Serge to decide whether this result gets an error flag (high risk, CLAUDE.md rule 6). Read in arXiv v2 (13… |
 | `sharp-independent-set--n--gaspers-lee-2016` | `source.note` | …roved branching vectors in Lemma 8 for degrees 5 and 6) and reproves a bound of $O(1.2341^n)$ for a modified algorithm. TODO(verify): Serge to decide whether this result gets an error flag (high risk, CLAUDE.md rule 6). arXiv v2, 13 October… |
 | `sharp-independent-set--n--junosza-szaniawski-tuczynski-2015-max-degree-3` | `source.note` | …ich the entered general bound beats. Read in arXiv v1 (28 March 2015), 27 November 2026; unrefereed preprint. TODO(verify): whether it has been published. |
 | `sparsest-cut--tw--javadi-nikabadi-2019` | `source.note` | …since 26 November 2026). The stated time presumably counts arithmetic on weights as unit cost (the paper does not say). TODO(verify): the join-node recurrence as printed in arXiv v2 reads $A_j$ twice where one would expect the tables of bot… |
@@ -131,7 +134,6 @@ Shown in Details only, never in the Overview.
 | `subset-sum--t--jin-vyas-williams-2021` | `source.note` | …ection 1 also mentions a search version with an extra factor $n$. Read in arXiv v1 (7 November 2020), 27 November 2026. TODO(verify): the theorem number in the SODA 2021 version. |
 | `total-dominating-set--n--van-rooij-2011` | `source.note` | Section 5.5 (Additional Results on Related Problems); Remark 5.1 notes that the analysis applies to Set Cover instances with at most $n$ sets and at most $n$ elements. TODO(verify): proved_for; the thesis says "solves Total Dominating Set". |
 | `tournament-fixing--s--liu-peng-xiao-2026` | `properties.space.note` | Not stated; TODO(verify): the proof was not read, polynomial space is a guess. |
-| `treewidth--n--fomin-villanger-2008` | `source.note` | Read in the authors' copy of the Combinatorica version. TODO(verify): the potential maximal cliques can be listed in $O(1.734601^n)$ time (Fomin and Villanger, STACS 2010), which with Theorem 5.21 of Fomin, Kratsch, Todinca and Villanger (2… |
 | `omega` | `bounds[0].sources[1].note` | Constructive proof. Theorem number not yet recorded: TODO(verify). |
 | `book-embedding` | `complexity.source.note` | …): by Bernhart and Kainen, book thickness at most 2 means subhamiltonian, and deciding subhamiltonicity is NP-complete. TODO(verify): Serge to choose whether to cite Chung–Leighton–Rosenberg directly (no open copy checked; it would need thr… |
 | `chordal-vertex-deletion` | `complexity.source.note` | …hnamoorthy and Deo (1979) and Lewis and Yannakakis (1980). Membership in NP: chordality is testable in polynomial time. TODO(verify): Serge to choose whether to cite Krishnamoorthy–Deo or Lewis–Yannakakis directly (no open copy checked; Wik… |

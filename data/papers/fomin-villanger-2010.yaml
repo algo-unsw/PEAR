@@ -1,0 +1,12 @@
+id: fomin-villanger-2010
+title: Finding Induced Subgraphs via Minimal Triangulations
+authors:
+- Fedor V. Fomin
+- Yngve Villanger
+versions:
+  stacs:
+    kind: conference
+    venue: 27th International Symposium on Theoretical Aspects of Computer Science (STACS 2010), LIPIcs 5, pp. 383–394
+    year: 2010
+    doi: 10.4230/LIPIcs.STACS.2010.2470
+    open_access: true

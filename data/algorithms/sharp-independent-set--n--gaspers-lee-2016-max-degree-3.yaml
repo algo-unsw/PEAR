@@ -1,0 +1,26 @@
+id: sharp-independent-set--n--gaspers-lee-2016-max-degree-3
+problem: sharp-independent-set
+proved_for: counting-max-degree-3
+bound:
+  as_stated: O(1.1389^{n})
+  notation: O
+  parameters:
+  - n
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    note: 'Stated in Lemma 5: "uses polynomial space".'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: gaspers-lee-2016
+  statements:
+    arxiv-v2:
+      statement: 'Lemma 5: "Algorithm #IS applied to a graph $G$ with $d(G) \le 3$ has running time $O(1.1389^n)$ and uses polynomial space."'
+  note: '$d(G)$ is the average degree (Section 2), so the lemma covers maximum degree 3. Deterministic branching with the Separate, Measure and Conquer subroutine #3IS. Gaspers (arXiv:2611.05146v1, Appendix C.5) reports a missing condition (30) of Gaspers and Sorkin in exactly this subcubic subroutine (see `sharp-independent-set--n--gaspers-lee-2016`). Added at Serge''s request, 27 November 2026. TODO(verify): Serge to decide whether this result gets an error flag (high risk, CLAUDE.md rule 6). Read in arXiv v2 (13 October 2016).'
+formal:
+  status: informal
+status: valid
