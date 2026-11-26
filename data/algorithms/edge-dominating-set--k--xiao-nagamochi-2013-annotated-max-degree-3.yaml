@@ -1,0 +1,26 @@
+id: edge-dominating-set--k--xiao-nagamochi-2013-annotated-max-degree-3
+problem: edge-dominating-set
+proved_for: decision-max-degree-3
+bound:
+  as_stated: O^*(2.2306^{k})
+  notation: O*
+  parameters:
+  - k
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    note: 'Stated: polynomial space (Theorem 14).'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: xiao-nagamochi-2013-annotated-eds
+  statements:
+    journal:
+      statement: Theorem 14 (page 417)
+  note: 'Theorem 14: "There is an $O^*(2.2306^k)$-time and polynomial-space [algorithm] that decides whether a graph with maximum degree 3 has an annotated edge dominating set of size $k$ or not", with requirement 0 on every vertex for Edge Dominating Set. Deterministic. Read in the open-access IEICE version.'
+formal:
+  status: informal
+status: valid

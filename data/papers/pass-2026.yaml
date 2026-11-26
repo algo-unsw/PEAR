@@ -7,4 +7,10 @@ versions:
     arxiv: "2610.28627"
     year: 2026
     open_access: true
+  arxiv-v2:
+    kind: preprint
+    title: "Matrix Multiplication from Polynomial Packings: A Constructive Proof of $\\omega \\le 9/4$"
+    arxiv: "2610.28627v2"
+    year: 2026
+    open_access: true
 review: { approved_by: Serge Gaspers, date: 2026-11-08 }

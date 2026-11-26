@@ -13,8 +13,8 @@ bounds:
       - paper: openai-2026
         statements: { preprint: { statement: "Theorem 1.1", page: 1 } }
       - paper: pass-2026
-        statements: { arxiv-v1: { statement: "Abstract" } }
-        note: "Constructive proof. Theorem number not yet recorded: TODO(verify)."
+        statements: { arxiv-v2: { statement: "Theorem 1.1", page: 2 } }
+        note: "Constructive proof. Theorem 1.1 (arXiv v2, 30 October 2026): \"For every $\\gamma > 0$, there is an explicit recursive algorithm that, for every positive integer $n$, multiplies two $n \\times n$ integer matrices with $O(n^{9/4+\\gamma})$ integer arithmetic operations. In particular, $\\omega \\le 9/4$.\" Entered on 8 November 2026 from the arXiv v1 abstract."
   - relation: le
     value: "2.371339"
     status: established
@@ -27,8 +27,8 @@ bounds:
     status: claimed
     sources:
       - paper: alman-duan-vassilevska-williams-xu-xu-zhou-2024
-        statements: { arxiv-v3: { statement: "Abstract" } }
-        note: "arXiv v3 (19 August 2026), with the numerical optimization of Dupont et al. (arXiv:2608.16884); not yet published."
+        statements: { arxiv-v3: { statement: "Section 1 and Table 1", page: 2 } }
+        note: "arXiv v3 (19 August 2026), Section 1: \"A recent work [DEK+ 26] further improves the bound derived from our method to $\\omega < 2.371177$\", from parameters found by Dupont et al. (arXiv:2608.16884) for the eighth power of the CW tensor, \"based on the same algorithm and analysis as in this paper\" (also Section 8, page 42); the fourth power gives $\\omega < 2.371339$. Not yet published."
   - relation: ge
     value: "2"
     sources:

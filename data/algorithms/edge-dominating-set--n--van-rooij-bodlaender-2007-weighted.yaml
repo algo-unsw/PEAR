@@ -1,0 +1,26 @@
+id: edge-dominating-set--n--van-rooij-bodlaender-2007-weighted
+problem: edge-dominating-set
+proved_for: weighted
+bound:
+  as_stated: O(1.3226^{n})
+  notation: O
+  parameters:
+  - n
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    note: 'Stated: polynomial space (Theorem 5).'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: van-rooij-bodlaender-2007
+  statements:
+    techreport:
+      statement: Theorem 5
+  note: 'Theorem 5: "Algorithm 5 solves the minimum weight edge dominating set problem in $O(1.3226^n)$ time and polynomial space", with edge weights $w \colon E \to \mathbb{R}_{\ge 0}$ (Section 1), which cover PEAR''s positive integers. Deterministic. Read in the technical report; the Algorithmica 2012 version was not compared.'
+formal:
+  status: informal
+status: valid

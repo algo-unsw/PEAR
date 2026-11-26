@@ -1,0 +1,26 @@
+id: set-packing--k--zehavi-2015
+problem: set-packing
+proved_for: decision-max-set-size-3
+bound:
+  as_stated: O^*(8.097^{k})
+  notation: O*
+  parameters:
+  - k
+properties:
+  randomized: false
+  space:
+    class: exponential
+    note: 'Not stated. Educated guess: the algorithm computes representative sets (Strategy IV, mixing representative sets with divide-and-color and "balanced cutting"), which are stored families of partial solutions of exponential size. TODO(verify) by Serge.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: zehavi-2015-mixing
+  statements:
+    arxiv-v3:
+      statement: 'Theorem 7 (page 8): "Relying on Strategy IV, $(3, k)$-WSP is solvable in deterministic time $O^*(8.097^k)$."'
+  note: Proved for Weighted 3-Set $k$-Packing, where every set has size exactly 3 and the packing must have weight at least $W$ (Section 1). Sets of size at most 3 are padded to size 3 with new elements, one set of new elements per set, and all weights are set to 1 with $W = k$, which gives the version stored here. The paper says this improves the previous best deterministic $O^*(12.155^k)$.
+formal:
+  status: informal
+status: valid

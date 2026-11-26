@@ -1,0 +1,24 @@
+id: bandwidth--n--cygan-pilipczuk-2009-approximate-journal
+problem: bandwidth
+proved_for: decision
+bound:
+  as_stated: 'O(4.383^{n})'
+  notation: O
+  parameters: [n]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: 'O(4.383^{n})'
+    note: 'Stated in the abstract: "an $O(4.383^n)$ time and space algorithm". The same depth-first search over states, memoizing the visited states, as the ICALP 2009 version (`bandwidth--n--cygan-pilipczuk-2009-approximate`).'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: cygan-pilipczuk-2009-approximate
+  statements:
+    journal: { statement: "Abstract" }
+  note: 'The abstract of the TCS 2010 version: "we improve the currently best known exact algorithm for arbitrary graphs with an $O(4.383^n)$ time and space algorithm". Footnote 1 of Cygan and Pilipczuk, "Bandwidth and distortion revisited" (arXiv 1004.5012), says the same: the analysis of the ICALP 2009 algorithm in the journal version gives $O(4.383^n)$ time and space. The ICALP 2009 version states $O(4.473^n)$ for the decision version (given $b$, is there an ordering of bandwidth at most $b$); the problem version is assumed unchanged. The journal version is in the Elsevier open archive, but its page and PDF refuse automated access. TODO(verify): read the journal version (theorem number, problem version).'
+formal: { status: informal }
+status: valid

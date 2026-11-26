@@ -150,6 +150,25 @@ def derived(data, pid, node="decision"):
 # --- §2 many-one reductions --------------------------------------------------------------
 
 
+def test_constant_below_domain_minimum_is_raised():
+    # bounds §2: variables are at least 2 (or a declared lower bound), so a parameter map that
+    # sets d = 0 substitutes 2 instead; (kd)^{O(tw)} must not become 0 (27 November 2026)
+    data = dataset(
+        problem("a", params=("k",)), problem("b", params=("k", "d")),
+        alg("b-alg", "b", r"O^*((k d)^{k})", params=("k", "d")),
+        red("a-to-b", "a", "b", {"k": "k", "d": "0"}),
+    )
+    (r,) = derived(data, "a")
+    assert r["exact"] == r"O^*(n + m + (2 k)^{k})"
+    data = dataset(
+        problem("a", params=("k",)), problem("b", params=("k", "h"), constraints=(r"h \ge 3",)),
+        alg("b-alg", "b", r"O^*(h^{k})", params=("k", "h")),
+        red("a-to-b", "a", "b", {"k": "k", "h": "1"}),
+    )
+    (r,) = derived(data, "a")
+    assert "3^{k}" in r["exact"]
+
+
 def test_many_one_substitutes_and_folds():
     data = dataset(
         problem("a"), problem("b"),
@@ -657,7 +676,7 @@ def test_cli_writes_json(tmp_path):
     out = tmp_path / "derived.json"
     assert main(["derive", "tests/fixtures/valid", "--out", str(out)]) == 0
     payload = json.loads(out.read_text())
-    assert payload["rulebook_version"] == 8
+    assert payload["rulebook_version"] == 9
     chains = [[s["id"] for s in r["chain"]] for r in payload["problems"]["problem-b"]["decision"]]
     assert ["problem-b--to--problem-a"] in chains
 

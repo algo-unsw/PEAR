@@ -1,0 +1,27 @@
+id: fomin-kaski-lokshtanov-panolan-saurabh-2015
+title: Parameterized Single-Exponential Time Polynomial Space Algorithm for Steiner Tree
+authors:
+- Fedor V. Fomin
+- Petteri Kaski
+- Daniel Lokshtanov
+- Fahad Panolan
+- Saket Saurabh
+versions:
+  icalp:
+    kind: conference
+    venue: Automata, Languages, and Programming (ICALP 2015), LNCS, pp. 494–505
+    year: 2015
+    doi: 10.1007/978-3-662-47672-7_40
+    open_access: false
+  journal:
+    kind: journal
+    venue: SIAM Journal on Discrete Mathematics 33(1), pp. 327–345
+    year: 2019
+    doi: 10.1137/17M1140030
+    open_access: false
+  journal-author-copy:
+    kind: preprint
+    venue: Author copy of the SIAM Journal on Discrete Mathematics article on Daniel Lokshtanov's page
+    year: 2019
+    url: https://cs.ucsb.edu/~daniello/papers/SteinerTreeSIDMA19.pdf
+    open_access: true

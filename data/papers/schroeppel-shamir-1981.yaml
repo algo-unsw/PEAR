@@ -1,0 +1,12 @@
+id: schroeppel-shamir-1981
+title: A T = O(2^{n/2}), S = O(2^{n/4}) Algorithm for Certain NP-Complete Problems
+authors:
+- Richard Schroeppel
+- Adi Shamir
+versions:
+  journal:
+    kind: journal
+    venue: SIAM Journal on Computing 10(3), pp. 456–464
+    year: 1981
+    doi: 10.1137/0210033
+    open_access: false

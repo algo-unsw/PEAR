@@ -5,15 +5,14 @@ Generated from `data/` by `python -m pear verify-list`; do not edit by hand (a t
 Papers we tried and failed to read, and that have no record yet, are listed in the research notes (`unreachable/` ledger), not here.
 
 
-## 1. Entered from an abstract or title only (3)
+## 1. Entered from an abstract or title only (2)
 
 Read the paper; record the theorem; check the bound, the problem version, randomness and space; drop the `TODO(verify)` markers.
 
 | Record | Based on | Paper | Approval |
 | --- | --- | --- | --- |
+| `bandwidth--n--cygan-pilipczuk-2009-approximate-journal` | abstract | Exact and Approximate Bandwidth ([Automata, Languages and Programming (ICALP 2009), Part I, LNCS 5555, pp. 304–315](https://doi.org/10.1007/978-3-642-02927-1_26); [Theoretical Computer Science 411(40–42), pp. 3701–3713](https://doi.org/10.1016/j.tcs.2010.06.018)) | not yet approved |
 | `directed-feedback-vertex-set--n--razgon-2007` | title | Computing Minimum Directed Feedback Vertex Set in O*(1.9977^n) ([Theoretical Computer Science, 10th Italian Conference (ICTCS 2007), World Scientific, pp. 70–81](https://doi.org/10.1142/9789812770998_0010)) | approved 2026-11-22 |
-| `omega` (bounds[0].sources[1]) | abstract | Matrix Multiplication from Polynomial Packings: A Constructive and Elementary Proof of $\omega \le 9/4$ ([arXiv:2610.28627](https://arxiv.org/abs/2610.28627)) | approved 2026-11-07 |
-| `omega` (bounds[2].sources[0]) | abstract | More Asymmetry Yields Faster Matrix Multiplication ([arXiv:2404.16349v2](https://arxiv.org/abs/2404.16349v2); [Proceedings of the 2025 ACM-SIAM Symposium on Discrete Algorithms (SODA 2025), pp. 2005–2039](https://doi.org/10.1137/1.9781611978322.63); [arXiv:2404.16349v3](https://arxiv.org/abs/2404.16349v3)) | approved 2026-11-07 |
 
 ## 2. Entered on Serge's confirmation, paper not read (0)
 
@@ -37,14 +36,15 @@ Shown in Details only, never in the Overview.
 - paper `yamano-shibuya-2026`: Faster Exact Algorithms for 3- and 4-Coloring: Deterministic Improvements and Further Randomized Speedups
 - paper `zamir-2026`: k-Coloring is Faster than Computing the Chromatic Number
 
-## 4. `TODO(verify)` markers (129)
+## 4. `TODO(verify)` markers (133)
 
 | Record | Field | Text |
 | --- | --- | --- |
-| `3-hitting-set--n--fomin-gaspers-lokshtanov-saurabh-2015-weighted` | `source.note` | …ks only its first row as randomized, so this one is taken as deterministic. Added at Serge's request, 27 November 2026. TODO(verify): the Shachnai–Zehavi algorithm (not opened) and the J. ACM version of the table. |
+| `3-hitting-set--n--fomin-gaspers-lokshtanov-saurabh-2015-weighted` | `source.note` | …ks only its first row as randomized, so this one is taken as deterministic. Added at Serge's request, 27 November 2026. TODO(verify): the J. ACM version of the table. |
 | `b-coloring--n--panolan-philip-saurabh-2015-decision` | `source.note` | … binomial coefficients, so the implied $O(3^n n^4 \log n)$ is stored ($\binom{n}{k} 2^{n-k}$ is one term of $(1+2)^n$). TODO(verify): store the stated form once the bound language has binomial coefficients. Read in the LIPIcs PDF. |
 | `balanced-biclique--k--folklore` | `source.note` | …arXiv 1406.3700) shows that the problem is W[1]-hard parameterized by $k$, so no $f(k) n^{O(1)}$ algorithm is expected. TODO(verify): Serge to approve this XP baseline. |
 | `balanced-biclique--n--binkele-raible-fernau-gaspers-2010` | `source.note` | …rtex Cover). Statement and page numbers from the authors' preprint (submitted to Elsevier, 25 October 2010) at the URL; TODO(verify) that they match the published version. |
+| `bandwidth--n--cygan-pilipczuk-2009-approximate-journal` | `source.note` | …s assumed unchanged. The journal version is in the Elsevier open archive, but its page and PDF refuse automated access. TODO(verify): read the journal version (theorem number, problem version). |
 | `capacitated-dominating-set--tcw--ganian-kim-szeider-2015` | `source.note` | …e of width at most twice the optimum, removes this condition, but its running time is not included in the stated bound (TODO(verify)). Capacitated Dominating Set is W[1]-hard parameterized by treewidth and solution size together (Dom, Loksh… |
 | `chordal-vertex-deletion--k--cao-marx-2014` | `source.note` | …oblem as constructing a chordal editing set or reporting that none exists, so the algorithm also constructs a solution. TODO(verify): the theorem number in the arXiv v1 LaTeX (first theorem, label thm:alg-chordal-editing) and in the Algorit… |
 | `chordal-vertex-deletion--tw--wlodarczyk-2023` | `source.note` | … 2023 version (open access, CC BY 4.0) states it as Theorem 1.1 and defers the dynamic programming to the full version. TODO(verify): the theorem number in the arXiv version (presumably also 1.1); algebraic set because fast matrix multiplic… |
@@ -56,6 +56,7 @@ Shown in Details only, never in the Overview.
 | `cycle-packing--n--lokshtanov-mouawad-saurabh-zehavi-2017` | `source.note` | …f), and holds for any instance with $\|V\|$ vertices. Read in arXiv v1 (4 July 2017, the only version), 27 November 2026. TODO(verify): the lemma number in the ICALP 2017 and SIAM J. Discrete Math. versions. Improves the folklore $O^*(3^n)$ i… |
 | `cycle-packing--tw--folklore` | `source.note` | … of the bag). Optimal under ETH: no $2^{o(tw \log tw)} \|V\|^{O(1)}$ algorithm (Cygan et al., Cut&Count, as cited there). TODO(verify): the textbook location was not opened. |
 | `densest-k-subgraph--nd--hanaka-2022` | `properties.space.note` | …nov's FPT algorithm for Integer Quadratic Programming; no memoization or dynamic programming found in the paper's part. TODO(verify): the space of the IQP algorithm. |
+| `domatic-number--n--nederlof-van-rooij-van-dijk-2014-polyspace` | `source.note` | … of each size (Algorithm 1, reanalysed with new weights, $\alpha = 1.099437$). It computes the number, not a partition. TODO(verify): first published at CIAC 2010 (van Rooij, LNCS 6078); that version was not read. Beats the $O(2.8718^n)$ po… |
 | `edge-dominating-set--pw--van-rooij-2011` | `source.note` | …give the same base for Minimum Maximal Matching. No Edge Dominating Set algorithm parameterized by treewidth was found. TODO(verify): proved_for. |
 | `firefighter--dt--das-enduri-misra-2017` | `source.note` | … which the stated bound dominates). Read through the arXiv LaTeX source of v1; the printed theorem number was not seen (TODO(verify)). The merged TCS 2019 version (7 authors) was not checked and may contain improved results. |
 | `firefighter--nb--cygan-fomin-van-leeuwen-2011` | `source.note` | …2^{b+1} - 1)^{k+b-1} n)$ (Corollary 3.6), which is $O(3^k n)$ for $b = 1$; exponent read from a PDF-to-text extraction (TODO(verify) the exact typeset form). |
@@ -115,6 +116,7 @@ Shown in Details only, never in the Overview.
 | `proportional-approval-voting--k--folklore` | `source.note` | …s two candidates, so that "a factor $m^k$ in the running time seems unavoidable" ($m$ = number of candidates, as here). TODO(verify): Serge to approve this XP baseline. |
 | `proportional-approval-voting--n--yang-wang-2018` | `source.note` | …ead from the LaTeX source of the latest arXiv version (theorems are numbered consecutively; this is the first theorem); TODO(verify) the arXiv version number and the numbering in the AAMAS 2018 and journal (2023) versions. |
 | `proportional-approval-voting--vc--yang-wang-2018` | `source.note` | …latest arXiv version (thirteenth theorem; theorems are numbered consecutively, separately from lemmas and corollaries); TODO(verify) the arXiv version number and the journal numbering. |
+| `red-blue-dominating-set--n--van-rooij-2011-exp` | `source.note` | …e thesis says it improves the polynomial-space $O(1.2279^n)$ of Corollary 5.5 "at the cost of using exponential space". TODO(verify): proved_for, as for red-blue-dominating-set--n--van-rooij-2011. |
 | `red-blue-dominating-set--n--van-rooij-2011` | `source.note` | Section 5.5: the proof uses $\|\mathcal{S}\| + \|\mathcal{U}\| = n$ for the corresponding Set Cover instance. TODO(verify): proved_for; the thesis says "solves Red-Blue Dominating Set". |
 | `s-club--ce--hartung-komusiewicz-nichterlein-2012` | `source.note` | … cluster editing set can be solved in $O(6.86^k \cdot k^3 + n + m)$ time." Read in the open-access JGAA version (2015). TODO(verify): whether a minimum cluster editing set must be given or computed (the kernel of Theorem 2 is computed in $O… |
 | `s-club--k--schafer-komusiewicz-moser-2012` | `source.note` | …xt extracted from the theorem statement reads "$O((k-2)^k \cdot k! \cdot kn + nm)$", which may have lost a superscript (TODO(verify): the polynomial factor in Theorem 4). The stored form is implied by either reading. The paper asks for size… |
@@ -122,16 +124,17 @@ Shown in Details only, never in the Overview.
 | `s-club--vc--hartung-komusiewicz-nichterlein-2012` | `source.note` | …ertex cover." No restriction on $s$. Read in the open-access JGAA version (2015); the IPEC 2012 version was not opened. TODO(verify): whether a minimum vertex cover is computed or assumed given (computing one in $O^*(1.28^{vc})$ time keeps … |
 | `sat--db-qhorn--ramanujan-saurabh-2013` | `source.note` | …nt arXiv version of 1304.7505; the numbers Theorem 6 and Corollary 1 come from the rendered PDF as reported by a fetch, TODO(verify). SODA 2014 and TALG 2017 versions not read. |
 | `sat--sb-forest--gaspers-szeider-2012-treewidth` | `source.note` | …s$ until it returns a count gives time $f(sb_{forest}) N^3$, and $F$ is satisfiable exactly when the count is positive. TODO(verify): that the function of $k$ is computable (needed for the meaning of $f$ in PEAR). |
+| `set-packing--k--zehavi-2015` | `properties.space.note` | …sets with divide-and-color and "balanced cutting"), which are stored families of partial solutions of exponential size. TODO(verify) by Serge. |
 | `sharp-3-sat--sb-forest--gaspers-szeider-2012-treewidth` | `source.note` | …e algorithm counts the satisfying assignments of any CNF formula, so it applies to 3-CNF formulas, the input of #3-SAT. TODO(verify): that the function of $k$ is computable. |
 | `sharp-independent-set--n--junosza-szaniawski-tuczynski-2015-max-degree-3` | `source.note` | …graphs, which the entered general bound beats. Read in arXiv v1 (28 March 2015), 27 November 2026; unrefereed preprint. TODO(verify): whether it has been published. |
 | `sparsest-cut--tw--javadi-nikabadi-2019` | `source.note` | …since 26 November 2026). The stated time presumably counts arithmetic on weights as unit cost (the paper does not say). TODO(verify): the join-node recurrence as printed in arXiv v2 reads $A_j$ twice where one would expect the tables of bot… |
 | `subgraph-isomorphism--k-tw--fomin-lokshtanov-raman-2009` | `source.note` | …proof starts from a nice tree decomposition of $F$ (computable for a $k$-vertex graph by an exact treewidth algorithm). TODO(verify): read Theorem 1 in the PDF (only read through a text extraction). |
+| `subset-feedback-vertex-set--n--fomin-heggernes-kratsch-papadopoulos-villanger-2012` | `properties.space.note` | …ching tree; Corollary 5.1 keeps the lightest one. No memoization, dynamic programming or exponential tables were found. TODO(verify) by Serge. |
 | `subset-feedback-vertex-set--tw--jacob-et-al-2021` | `source.note` | … even in the weighted setting; Section 2 works from a given tree decomposition of width $k$ ($k$ is written $tw$ here). TODO(verify): whether a decomposition must be given; it is recorded as given. Improves the polynomial factor of Bergougn… |
 | `subset-sum--t--jin-vyas-williams-2021-deterministic` | `source.note` | Decision only. Read in arXiv v1 (7 November 2020), 27 November 2026. TODO(verify): the theorem number in the SODA 2021 version. |
 | `subset-sum--t--jin-vyas-williams-2021` | `source.note` | …ection 1 also mentions a search version with an extra factor $n$. Read in arXiv v1 (7 November 2020), 27 November 2026. TODO(verify): the theorem number in the SODA 2021 version. |
 | `total-dominating-set--n--van-rooij-2011` | `source.note` | Section 5.5 (Additional Results on Related Problems); Remark 5.1 notes that the analysis applies to Set Cover instances with at most $n$ sets and at most $n$ elements. TODO(verify): proved_for; the thesis says "solves Total Dominating Set". |
 | `tournament-fixing--s--liu-peng-xiao-2026` | `properties.space.note` | Not stated; TODO(verify): the proof was not read, polynomial space is a guess. |
-| `omega` | `bounds[0].sources[1].note` | Constructive proof. Theorem number not yet recorded: TODO(verify). |
 | `book-embedding` | `complexity.source.note` | …): by Bernhart and Kainen, book thickness at most 2 means subhamiltonian, and deciding subhamiltonicity is NP-complete. TODO(verify): Serge to choose whether to cite Chung–Leighton–Rosenberg directly (no open copy checked; it would need thr… |
 | `chordal-vertex-deletion` | `complexity.source.note` | …hnamoorthy and Deo (1979) and Lewis and Yannakakis (1980). Membership in NP: chordality is testable in polynomial time. TODO(verify): Serge to choose whether to cite Krishnamoorthy–Deo or Lewis–Yannakakis directly (no open copy checked; Wik… |
 | `cluster-deletion` | `complexity.source.note` | …iv 1904.09470, Section 1) state NP-hardness on general graphs. Wikipedia (Cluster graph) does not mention this problem. TODO(verify): no open copy of Shamir–Sharan–Tsur was found. |
@@ -171,7 +174,7 @@ Shown in Details only, never in the Overview.
 | `target-set-selection` | `complexity.source.note` | …ex Cover with thresholds $\mathrm{thr}(v) = \deg(v)$ (`vertex-cover--to--target-set-selection`) also shows NP-hardness. TODO(verify): Serge to choose the source to cite (Chen, SIAM J. Discrete Math. 2009, or Centeno et al., Theoret. Comput.… |
 | `treedepth` | `complexity.source.note` | …13]") cite the same report. Wikipedia and Kobayashi and Tamaki give the report number as CS-88-13, Trimble as CS 88-16 (TODO(verify)). No open copy was found. |
 
-## 5. Classic results accepted from attestations (82)
+## 5. Classic results accepted from attestations (83)
 
 Rule 2 accepts these without reading the paper (at least three independent sources each). Listed for completeness.
 
@@ -181,6 +184,7 @@ Rule 2 accepts these without reading the paper (at least three independent sourc
 - `hamiltonian-cycle--n--held-karp-1962`: 3 attestations; A Dynamic Programming Approach to Sequencing Problems ([Journal of the Society for Industrial and Applied Mathematics 10(1), pp. 196–210](https://doi.org/10.1137/0110015))
 - `hamiltonian-cycle--n--karp-1982`: 3 attestations; Dynamic programming meets the principle of inclusion and exclusion ([Operations Research Letters 1(2), pp. 49–51](https://doi.org/10.1016/0167-6377(82)90044-X))
 - `subset-sum--n--horowitz-sahni-1974`: 3 attestations; Computing Partitions with Applications to the Knapsack Problem ([Journal of the ACM 21(2), pp. 277–292](https://doi.org/10.1145/321812.321823))
+- `subset-sum--n--schroeppel-shamir-1981`: 4 attestations; A T = O(2^{n/2}), S = O(2^{n/4}) Algorithm for Certain NP-Complete Problems ([SIAM Journal on Computing 10(3), pp. 456–464](https://doi.org/10.1137/0210033))
 - `travelling-salesperson--n--held-karp-1962`: 3 attestations; A Dynamic Programming Approach to Sequencing Problems ([Journal of the Society for Industrial and Applied Mathematics 10(1), pp. 196–210](https://doi.org/10.1137/0110015))
 - `vertex-cover--k--chen-kanj-xia-2006`: 3 attestations; Improved Parameterized Upper Bounds for Vertex Cover ([Mathematical Foundations of Computer Science 2006 (MFCS 2006), LNCS 4162, pp. 238–249](https://doi.org/10.1007/11821069_21); [Theoretical Computer Science 411(40–42), pp. 3736–3756](https://doi.org/10.1016/j.tcs.2010.06.026))
 - `vertex-disjoint-paths--tw--scheffler-1994`: 3 attestations; A Practical Linear Time Algorithm for Disjoint Paths in Graphs with Bounded Tree-width ([Technical Report 396/1994, Fachbereich 3 Mathematik, Technische Universität Berlin](https://page.math.tu-berlin.de/~combi/coga-old/publications/techreports/1994/Report-396-1994.html))

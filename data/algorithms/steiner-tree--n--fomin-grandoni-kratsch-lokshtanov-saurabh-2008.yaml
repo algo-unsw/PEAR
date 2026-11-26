@@ -1,0 +1,26 @@
+id: steiner-tree--n--fomin-grandoni-kratsch-lokshtanov-saurabh-2008
+problem: steiner-tree
+proved_for: optimisation
+bound:
+  as_stated: O(1.3533^{n})
+  notation: O
+  parameters:
+  - n
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    note: 'Stated: polynomial space (Theorem 5).'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: fomin-grandoni-kratsch-lokshtanov-saurabh-2008
+  statements:
+    journal-author-copy:
+      statement: Theorem 5 (PDF page 17)
+  note: 'Theorem 5: "There is an algorithm which solves the cardinality Steiner tree problem in time $O(1.3533^n)$ and polynomial space"; it uses Nederlof''s $O^*(2^k)$ polynomial-space algorithm inside the branching algorithm of Section 5. Deterministic. Beats the $1.36^n n^{O(1)}$ of Nederlof (`steiner-tree--n--nederlof-2013`). Read in the authors'' copy of the Algorithmica version.'
+formal:
+  status: informal
+status: valid

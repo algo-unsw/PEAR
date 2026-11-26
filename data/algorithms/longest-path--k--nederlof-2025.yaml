@@ -1,0 +1,28 @@
+id: longest-path--k--nederlof-2025
+problem: longest-path
+proved_for: decision
+bound:
+  as_stated: 2^{k + O(\sqrt{k} \log^{2} k)} (n + m) \log n
+  notation: O
+  parameters:
+  - k
+  - n
+  - m
+properties:
+  randomized: false
+  space:
+    class: exponential
+    note: 'Not stated; educated guess: exponential. Dynamic programming over paths with the dynamic representative set data structure, whose preprocessing takes $2^{k+O(\sqrt{k}\log^2 k)} n \log n$ time (abstract); no polynomial-space claim.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: nederlof-2025
+  statements:
+    arxiv-v1:
+      statement: Theorem 1.1 (page 2)
+  note: 'Theorem 1.1: "There is a deterministic algorithm for the Weighted Directed k-path problem that runs in $2^{k+O(\sqrt{k}\log^2 k)}(n + m)\log n$ time on the word RAM model, where each weight fits into a word." Weighted Directed $k$-Path asks for the minimum weight of a simple path on $k$ vertices (PEAR''s $k$); an undirected unweighted graph is handled with both orientations of each edge and unit weights. Deterministic; beats Tsur''s deterministic $2.554^k n^{O(1)}$. The algorithm outputs the minimum weight; finding a path by self-reduction is not stated (constructive assumed). arXiv v1 (9 December 2025), whose comment says "to appear at FOCS 2025"; no proceedings version read.'
+formal:
+  status: informal
+status: valid

@@ -20,4 +20,6 @@ source:
   statements:
     arxiv-v1:
       statement: Theorem at the end of Section 3 (Time and space analysis)
-  note: 'The theorem: an algorithm solves Bandwidth in $O(4.83^n)$ time and $O^*(4^n)$ space; the measure-and-conquer analysis gives $\kappa \approx 4.828485 < 4.83$. The input contains $b$ and the algorithm decides whether a $b$-ordering exists and, if so, finds it (Section 1). Earlier: Feige and Kilian $O^*(10^n)$, polynomial space; Cygan and Pilipczuk (WG 2008) $O^*(5^n)$ time and $O^*(2^n)$ space.'
+    journal:
+      statement: Theorem 5.6 (page 8:13)
+  note: 'The theorem (Theorem 5.6 of the journal version, with the same bounds): an algorithm solves Bandwidth in $O(4.83^n)$ time and $O^*(4^n)$ space; the measure-and-conquer analysis gives $\kappa \approx 4.828485 < 4.83$. The input contains $b$ and the algorithm decides whether a $b$-ordering exists and, if so, finds it (Section 1). Earlier: Feige and Kilian $O^*(10^n)$, polynomial space; Cygan and Pilipczuk (WG 2008) $O^*(5^n)$ time and $O^*(2^n)$ space.'

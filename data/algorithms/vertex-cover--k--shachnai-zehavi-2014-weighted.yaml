@@ -1,0 +1,27 @@
+id: vertex-cover--k--shachnai-zehavi-2014-weighted
+problem: vertex-cover
+proved_for: weighted
+bound:
+  as_stated: O^*(1.347^{k_w})
+  notation: O*
+  parameters:
+  - k_w
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: O^*(1.347^{k_w})
+    note: 'Stated: "$O^*(1.347^W)$ time and space" (Theorem 4); memoization (the refined memorization technique of Section 3).'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: shachnai-zehavi-2014
+  statements:
+    arxiv-v2:
+      statement: Theorem 4 (second part; proof in Appendix A.2)
+  note: 'Theorem 4: "k-WVC can be solved in $O^*(1.363^k)$ time and space. Moreover, WVC can be solved in $O^*(1.347^W)$ time and space." WVC asks for a vertex cover of weight at most $W$, with weights and $W$ at least 1 (Section 2), so it covers PEAR''s integer weights $\ge 1$; trying $W = 1, 2, \dots$ until a cover is found gives the minimum weight $k_w$ within $O^*(1.347^{k_w})$ in total. Beats the $O(1.3803^{k_w} n^{O(1)})$ time of Fomin, Gaspers and Saurabh, whose space $O(1.2599^{k_w} n^{O(1)})$ is smaller. Read in arXiv v2 (22 February 2015); the ESA 2015 and JCSS 2017 versions were not compared.'
+formal:
+  status: informal
+status: valid

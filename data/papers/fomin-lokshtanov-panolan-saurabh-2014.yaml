@@ -1,0 +1,22 @@
+id: fomin-lokshtanov-panolan-saurabh-2014
+title: "Representative Sets of Product Families"
+authors: [Fedor V. Fomin, Daniel Lokshtanov, Fahad Panolan, Saket Saurabh]
+versions:
+  arxiv-v1:
+    kind: preprint
+    arxiv: "1402.3909v1"
+    year: 2014
+    open_access: true
+  esa:
+    kind: conference
+    venue: "Algorithms – ESA 2014, LNCS, pp. 443–454"
+    year: 2014
+    doi: "10.1007/978-3-662-44777-2_37"
+    open_access: false
+  journal:
+    kind: journal
+    title: "Representative Families of Product Families"
+    venue: "ACM Transactions on Algorithms 13(3), pp. 1–29"
+    year: 2017
+    doi: "10.1145/3039243"
+    open_access: false

@@ -1,0 +1,26 @@
+id: partition-into-triangles--n--koivisto-2009
+problem: partition-into-triangles
+proved_for: decision
+bound:
+  as_stated: O^*(1.769^{n})
+  notation: O*
+  parameters:
+  - n
+properties:
+  randomized: false
+  space:
+    class: exponential
+    note: 'Not stated; educated guess: exponential. Dynamic programming over the "relevant" subsets $R_j$ (Section 2); footnote 1 notes that only inclusion–exclusion, which is slower here, gives polynomial space.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: koivisto-2009
+  statements:
+    iwpec-preproceedings:
+      statement: 'Theorem 1 and the remark after Theorem 2 (r = 3: c = 1.769)'
+  note: 'Theorem 1: "Given an $n$-element universe $N$, a number $k$, and a family $\mathcal{F}$ of subsets of $N$, each of cardinality at most $r$, the partitions of $N$ into $k$ members of $\mathcal{F}$ can be counted in time $O^*(|\mathcal{F}| 2^{n\lambda_r})$"; for $r = 3$ this is $O^*(|\mathcal{F}| 1.769^n)$ ("for $r = 3, 4, 5$, and 6, Theorem 1 gives the bounds $O^*(|\mathcal{F}| c^n)$ with $c = 1.769, 1.827, 1.862$, and $1.885$"). With $\mathcal{F}$ the triangles of $G$ ($|\mathcal{F}| \le n^3$) and $k = n/3$, counting the partitions decides the problem (a simple step). Deterministic; the faster entered bound is randomized. Read in the pre-proceedings copy of IWPEC 2009.'
+formal:
+  status: informal
+status: valid

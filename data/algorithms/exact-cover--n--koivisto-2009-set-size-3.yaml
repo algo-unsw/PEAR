@@ -1,0 +1,26 @@
+id: exact-cover--n--koivisto-2009-set-size-3
+problem: exact-cover
+proved_for: decision-set-size-3
+bound:
+  as_stated: O^*(1.769^{n})
+  notation: O*
+  parameters:
+  - n
+properties:
+  randomized: false
+  space:
+    class: exponential
+    note: 'Not stated; educated guess: exponential. Dynamic programming over the "relevant" subsets $R_j$ (Section 2).'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: koivisto-2009
+  statements:
+    iwpec-preproceedings:
+      statement: 'Theorem 1 and the remark after Theorem 2 (r = 3: c = 1.769)'
+  note: Theorem 1 counts the partitions of an $n$-element universe into $k$ members of a family of sets of size at most $r$ in $O^*(|\mathcal{F}| 2^{n\lambda_r})$, which for $r = 3$ is $O^*(|\mathcal{F}| 1.769^n)$. With sets of size exactly 3, $|\mathcal{F}| \le n^3$ and $k = n/3$, so counting decides the problem (a simple step). Deterministic. Read in the pre-proceedings copy of IWPEC 2009.
+formal:
+  status: informal
+status: valid

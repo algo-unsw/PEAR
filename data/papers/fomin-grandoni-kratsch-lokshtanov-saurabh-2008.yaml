@@ -1,0 +1,21 @@
+id: fomin-grandoni-kratsch-lokshtanov-saurabh-2008
+title: Computing Optimal Steiner Trees in Polynomial Space
+authors:
+- Fedor V. Fomin
+- Fabrizio Grandoni
+- Dieter Kratsch
+- Daniel Lokshtanov
+- Saket Saurabh
+versions:
+  journal:
+    kind: journal
+    venue: Algorithmica 65(3), pp. 584–604
+    year: 2013
+    doi: 10.1007/s00453-012-9612-z
+    open_access: false
+  journal-author-copy:
+    kind: preprint
+    venue: Author copy of the Algorithmica article (PDF dated January 2012) on Daniel Lokshtanov's page
+    year: 2012
+    url: https://cs.ucsb.edu/~daniello/papers/steinerPolySpace.pdf
+    open_access: true
