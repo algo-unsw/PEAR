@@ -23,6 +23,20 @@ Rule: a parameter gets a lower bound $c$ when the problem is polynomial for ever
 
 ## To do
 
+### Papers to read (Serge, 26 November 2026)
+
+Preprints flagged by Serge. The notes come from the arXiv abstracts only. Read each paper, and check which arXiv version a bound comes from, before entering anything.
+
+- [arXiv:2611.28948](https://arxiv.org/abs/2611.28948), Guillemot, *Towards a faster parameterized algorithm for Chordal Vertex Deletion*. For the disjoint compression version, where $G - X$ is chordal with longest chordless path of length $L$. Chordal Vertex Deletion is in the catalogue; the compression version is not.
+- [arXiv:2611.27956](https://arxiv.org/abs/2611.27956), Firbas and Sorge, *Cluster Editing in Subexponential Fixed-Parameter Time*. Transfers 3-SAT running times to Cluster Editing (sparsification theorem), giving $2^{o(k)} n^{O(1)}$ from the 3-SAT algorithms that refute ETH. Bears on the ETH status (CLAUDE.md rule 7) and on any ETH lower bound recorded for Cluster Editing. Cluster Editing is in the catalogue.
+- [arXiv:2611.27841](https://arxiv.org/abs/2611.27841), Nguyen, *Kidney Exchange in Deterministic $O^*(4^{t+o(t)})$ Time*. Parameter $t$, the number of transplants. Kidney Exchange is not in the catalogue.
+- [arXiv:2611.32605](https://arxiv.org/abs/2611.32605), Aggarwal and Morolia, *How to Round Spiky Balls into Submission – And Faster Algorithms For The Closest Vector Problem*. Single-exponential exact CVP in $\ell_p$, $1 < p < 2$; SVP in $\ell_p$, $p \in [1, 2)$. Lattice problems are not in the catalogue.
+- [arXiv:2611.31738](https://arxiv.org/abs/2611.31738), Xiao, *Solving (Vertex-Weighted) Directed Multiway Cut Faster Than $2^n$*. Directed (node) Multiway Cut by $n$, and a positive-weight version. Only undirected Multiway Cut is in the catalogue.
+- [arXiv:2611.25305](https://arxiv.org/abs/2611.25305), Tan, *Subexponential Algorithms for Continuous Euclidean $k$-Means in Subpolylogarithmic Dimension*. $O^*(2^{o(n)})$, polynomial space, for $d = (\log n)^{o(1)}$. $k$-Means is not in the catalogue.
+- [arXiv:2611.24211](https://arxiv.org/abs/2611.24211), Vatshelle, Langedal and Grossmann, *Expand & Reduce: a Framework Bridging Branch-and-Reduce and Dynamic Programming*. Maximum Weighted Independent Set; the abstract claims exact and FPT algorithms with running times matching branching and DP methods, but states no new bound. Check for one: by $n$, the Overview derives only $O^*(2^n)$ for Weighted Independent Set, since the one entry below it, `independent-set--n--fomin-gaspers-saurabh-2006` ($O(1.2431^n)$), is marked flawed (`status: unrepaired`) and is not used (rulebook A3).
+- [arXiv:2611.23653](https://arxiv.org/abs/2611.23653), Kozma and Tan, *Faster polynomial-space algorithms for poset problems*. Counting linear extensions and Jump Number in polynomial space, $n$ elements. Neither problem is in the catalogue.
+- [arXiv:2611.24750](https://arxiv.org/abs/2611.24750), Ameli, Mohrin and Nederlof, *Counting $6$-Cliques in $O(n^{5.97})$ time and $O(\log n)$ space*. The abstract says it implies a polynomial-space Max Cut algorithm faster than $2^n$ through known reductions. Max Cut and Clique are in the catalogue; the derivation may give the Max Cut bound once the 6-Clique counting result and the reduction are entered.
+
 ### Comparator (bounds §5, 21 November 2026)
 
 - **Open comparisons**: 13 pairs of Overview bounds are undecided (`open_comparisons` in `build/derived.json`). Causes: bounds outside the supported class ($2^{2^{O(k)}}$, $\log$ of a difference, $n^{\omega(n-k)/3}$), loose estimates of Bell numbers ($B_n$ against $\mathit{cvd}^{\mathit{cvd}}$ or $p^n$), and variables that are not polynomially bounded (Subset Sum's $t$), for which no witness slices are tried. Each could get a rule or a better estimate.
