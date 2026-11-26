@@ -13,9 +13,12 @@ permissions:
 jobs:
   claude-review:
     # Draft PRs wait until they are marked ready. The comment trigger fires on every comment, but
-    # a job skipped by this condition uses no runner time.
+    # a job skipped by this condition uses no runner time. Pull requests from forks are not
+    # reviewed: their pull_request runs get no secrets, and the agent can only check out
+    # branches of this repository (a /review comment on one is skipped in the step below).
     if: >-
-      (github.event_name == 'pull_request' && !github.event.pull_request.draft) ||
+      (github.event_name == 'pull_request' && !github.event.pull_request.draft &&
+       github.event.pull_request.head.repo.full_name == github.repository) ||
       (github.event_name == 'issue_comment' && github.event.issue.pull_request &&
        startsWith(github.event.comment.body, '/review') &&
        contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR"]'), github.event.comment.author_association))
@@ -45,8 +48,12 @@ jobs:
           HEADERS=(-K "$CFG")
 
           # Look the head up here: an issue_comment event does not carry it.
-          read -r HEAD_REF HEAD_SHA < <(gh api "repos/$REPO/pulls/$PR_NUMBER" --jq '"\(.head.ref) \(.head.sha)"') || true
+          read -r HEAD_REF HEAD_SHA HEAD_REPO < <(gh api "repos/$REPO/pulls/$PR_NUMBER" --jq '"\(.head.ref) \(.head.sha) \(.head.repo.full_name // "a-deleted-fork")"') || true
           [ -n "${HEAD_SHA:-}" ] || { echo "Could not look up the head of PR #$PR_NUMBER"; exit 1; }
+          if [ "${HEAD_REPO:-}" != "$REPO" ]; then
+            echo "PR #$PR_NUMBER comes from ${HEAD_REPO:-an unknown repository}; reviews run only on branches of $REPO."
+            exit 0
+          fi
 
           # Mount the PR branch for the agent. The token never enters the sandbox: Anthropic's
           # git proxy injects it into git and GitHub REST calls for this repository. jq reads
