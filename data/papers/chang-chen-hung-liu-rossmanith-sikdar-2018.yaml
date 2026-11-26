@@ -1,0 +1,16 @@
+id: chang-chen-hung-liu-rossmanith-sikdar-2018
+title: Moderately exponential time algorithms for the maximum bounded-degree-1 set problem
+authors:
+- Maw-Shang Chang
+- Li-Hsuan Chen
+- Ling-Ju Hung
+- Yi-Zhi Liu
+- Peter Rossmanith
+- Somnath Sikdar
+versions:
+  journal:
+    kind: journal
+    venue: Discrete Applied Mathematics 251, pp. 114–125
+    year: 2018
+    doi: 10.1016/j.dam.2018.05.032
+    open_access: false

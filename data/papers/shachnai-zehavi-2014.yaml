@@ -1,0 +1,24 @@
+id: shachnai-zehavi-2014
+title: A Multivariate Framework for Weighted FPT Algorithms
+authors:
+- Hadas Shachnai
+- Meirav Zehavi
+versions:
+  arxiv-v2:
+    kind: preprint
+    arxiv: 1407.2033v2
+    year: 2015
+    open_access: true
+  esa:
+    kind: conference
+    title: A Multivariate Approach for Weighted FPT Algorithms
+    venue: Algorithms – ESA 2015, LNCS, pp. 965–976
+    year: 2015
+    doi: 10.1007/978-3-662-48350-3_80
+    open_access: false
+  journal:
+    kind: journal
+    venue: Journal of Computer and System Sciences 89, pp. 157–189
+    year: 2017
+    doi: 10.1016/j.jcss.2017.05.003
+    open_access: false

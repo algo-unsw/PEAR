@@ -18,7 +18,7 @@ source:
   paper: cygan-pilipczuk-2009-approximate
   statements:
     icalp: { statement: "Abstract and Section 5" }
-  note: 'The abstract: the best known exact algorithm for arbitrary graphs is improved "with a $O(4.473^n)$ time and space algorithm". Section 5: the algorithm "works in $O^*(20^{n/2}) \le O(4.473^n)$ time"; it takes $G$ and $b$, $1 \le b < n$, and "checks if there exists an ordering $\pi$ with $bw(\pi) \le b$" (decision); Theorem 18 bounds the number of states by $O^*(20^{n/2})$. The TCS 2010 version reportedly states $O(4.383^n)$ time and space (Cygan and Pilipczuk, arXiv 1004.5012, footnote 1), not entered: not read.'
+  note: 'The abstract: the best known exact algorithm for arbitrary graphs is improved "with a $O(4.473^n)$ time and space algorithm". Section 5: the algorithm "works in $O^*(20^{n/2}) \le O(4.473^n)$ time"; it takes $G$ and $b$, $1 \le b < n$, and "checks if there exists an ordering $\pi$ with $bw(\pi) \le b$" (decision); Theorem 18 bounds the number of states by $O^*(20^{n/2})$. The TCS 2010 version states $O(4.383^n)$ time and space in its abstract (`bandwidth--n--cygan-pilipczuk-2009-approximate-journal`).'
 formal: { status: informal }
 status: valid
 review: { approved_by: Serge Gaspers, date: 2026-11-22 }

@@ -1,0 +1,26 @@
+id: edge-dominating-set--k--shachnai-zehavi-2014-weighted
+problem: edge-dominating-set
+proved_for: weighted
+bound:
+  as_stated: O^*(2.315^{k_w})
+  notation: O*
+  parameters:
+  - k_w
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    note: 'Stated: polynomial space (Theorem 17).'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: shachnai-zehavi-2014
+  statements:
+    arxiv-v2:
+      statement: Theorem 17 and Corollary 18
+  note: 'Theorem 17: "k-WEDS can be solved in $O^*(2.315^k)$ time and polynomial space"; Corollary 18: WEDS (an edge dominating set of weight at most $W$, edge weights and $W$ at least 1) in $O^*(2.315^s)$ time and polynomial space, where $s \le W$ is the minimum size of an edge dominating set of weight at most $W$. Trying $W = 1, 2, \dots$ gives the minimum weight $k_w$ in $O^*(2.315^{k_w})$. The algorithm adapts the enumeration of vertex covers of Xiao and Nagamochi to a $2k$-representation (Appendix). Beats the exponential-space $O(2.4181^{k_w} n^{O(1)})$ of Fomin, Gaspers and Saurabh. Read in arXiv v2 (22 February 2015).'
+formal:
+  status: informal
+status: valid

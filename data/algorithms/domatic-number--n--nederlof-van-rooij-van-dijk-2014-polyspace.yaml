@@ -1,0 +1,24 @@
+id: domatic-number--n--nederlof-van-rooij-van-dijk-2014-polyspace
+problem: domatic-number
+proved_for: optimisation
+bound:
+  as_stated: 'O(2.7139^{n})'
+  notation: O
+  parameters: [n]
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    note: 'Stated: polynomial space (Theorem 14); the $2^n$ calls to the counting algorithm are made one at a time and their contributions summed.'
+  algebraic: true
+  fast_matrix_multiplication: false
+  constructive: false
+  quantum: false
+source:
+  paper: nederlof-van-rooij-van-dijk-2014
+  statements:
+    journal:
+      statement: Theorem 14 (page 708)
+  note: 'Theorem 14: "The domatic number of a graph can be computed in $O(2.7139^n)$ time and polynomial space." The proof applies the inclusion–exclusion formula of Björklund, Husfeldt and Koivisto for $k = 3, 4, \dots$, computing each term with the polynomial-space algorithm that counts dominating sets of each size (Algorithm 1, reanalysed with new weights, $\alpha = 1.099437$). It computes the number, not a partition. First published at CIAC 2010 (van Rooij, LNCS 6078, Theorem 2). Beats the $O(2.8718^n)$ polynomial-space algorithm of Björklund, Husfeldt and Koivisto (Proposition 8).'
+formal: { status: informal }
+status: valid

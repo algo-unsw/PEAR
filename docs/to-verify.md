@@ -5,12 +5,13 @@ Generated from `data/` by `python -m pear verify-list`; do not edit by hand (a t
 Papers we tried and failed to read, and that have no record yet, are listed in the research notes (`unreachable/` ledger), not here.
 
 
-## 1. Entered from an abstract or title only (3)
+## 1. Entered from an abstract or title only (4)
 
 Read the paper; record the theorem; check the bound, the problem version, randomness and space; drop the `TODO(verify)` markers.
 
 | Record | Based on | Paper | Approval |
 | --- | --- | --- | --- |
+| `bandwidth--n--cygan-pilipczuk-2009-approximate-journal` | abstract | Exact and Approximate Bandwidth ([Automata, Languages and Programming (ICALP 2009), Part I, LNCS 5555, pp. 304–315](https://doi.org/10.1007/978-3-642-02927-1_26); [Theoretical Computer Science 411(40–42), pp. 3701–3713](https://doi.org/10.1016/j.tcs.2010.06.018)) | not yet approved |
 | `directed-feedback-vertex-set--n--razgon-2007` | title | Computing Minimum Directed Feedback Vertex Set in O*(1.9977^n) ([Theoretical Computer Science, 10th Italian Conference (ICTCS 2007), World Scientific, pp. 70–81](https://doi.org/10.1142/9789812770998_0010)) | approved 2026-11-22 |
 | `omega` (bounds[0].sources[1]) | abstract | Matrix Multiplication from Polynomial Packings: A Constructive and Elementary Proof of $\omega \le 9/4$ ([arXiv:2610.28627](https://arxiv.org/abs/2610.28627)) | approved 2026-11-07 |
 | `omega` (bounds[2].sources[0]) | abstract | More Asymmetry Yields Faster Matrix Multiplication ([arXiv:2404.16349v2](https://arxiv.org/abs/2404.16349v2); [Proceedings of the 2025 ACM-SIAM Symposium on Discrete Algorithms (SODA 2025), pp. 2005–2039](https://doi.org/10.1137/1.9781611978322.63); [arXiv:2404.16349v3](https://arxiv.org/abs/2404.16349v3)) | approved 2026-11-07 |
@@ -37,7 +38,7 @@ Shown in Details only, never in the Overview.
 - paper `yamano-shibuya-2026`: Faster Exact Algorithms for 3- and 4-Coloring: Deterministic Improvements and Further Randomized Speedups
 - paper `zamir-2026`: k-Coloring is Faster than Computing the Chromatic Number
 
-## 4. `TODO(verify)` markers (129)
+## 4. `TODO(verify)` markers (130)
 
 | Record | Field | Text |
 | --- | --- | --- |
@@ -45,6 +46,7 @@ Shown in Details only, never in the Overview.
 | `b-coloring--n--panolan-philip-saurabh-2015-decision` | `source.note` | … binomial coefficients, so the implied $O(3^n n^4 \log n)$ is stored ($\binom{n}{k} 2^{n-k}$ is one term of $(1+2)^n$). TODO(verify): store the stated form once the bound language has binomial coefficients. Read in the LIPIcs PDF. |
 | `balanced-biclique--k--folklore` | `source.note` | …arXiv 1406.3700) shows that the problem is W[1]-hard parameterized by $k$, so no $f(k) n^{O(1)}$ algorithm is expected. TODO(verify): Serge to approve this XP baseline. |
 | `balanced-biclique--n--binkele-raible-fernau-gaspers-2010` | `source.note` | …rtex Cover). Statement and page numbers from the authors' preprint (submitted to Elsevier, 25 October 2010) at the URL; TODO(verify) that they match the published version. |
+| `bandwidth--n--cygan-pilipczuk-2009-approximate-journal` | `source.note` | …s assumed unchanged. The journal version is in the Elsevier open archive, but its page and PDF refuse automated access. TODO(verify): read the journal version (theorem number, problem version). |
 | `capacitated-dominating-set--tcw--ganian-kim-szeider-2015` | `source.note` | …e of width at most twice the optimum, removes this condition, but its running time is not included in the stated bound (TODO(verify)). Capacitated Dominating Set is W[1]-hard parameterized by treewidth and solution size together (Dom, Loksh… |
 | `chordal-vertex-deletion--k--cao-marx-2014` | `source.note` | …oblem as constructing a chordal editing set or reporting that none exists, so the algorithm also constructs a solution. TODO(verify): the theorem number in the arXiv v1 LaTeX (first theorem, label thm:alg-chordal-editing) and in the Algorit… |
 | `chordal-vertex-deletion--tw--wlodarczyk-2023` | `source.note` | … 2023 version (open access, CC BY 4.0) states it as Theorem 1.1 and defers the dynamic programming to the full version. TODO(verify): the theorem number in the arXiv version (presumably also 1.1); algebraic set because fast matrix multiplic… |
@@ -171,7 +173,7 @@ Shown in Details only, never in the Overview.
 | `target-set-selection` | `complexity.source.note` | …ex Cover with thresholds $\mathrm{thr}(v) = \deg(v)$ (`vertex-cover--to--target-set-selection`) also shows NP-hardness. TODO(verify): Serge to choose the source to cite (Chen, SIAM J. Discrete Math. 2009, or Centeno et al., Theoret. Comput.… |
 | `treedepth` | `complexity.source.note` | …13]") cite the same report. Wikipedia and Kobayashi and Tamaki give the report number as CS-88-13, Trimble as CS 88-16 (TODO(verify)). No open copy was found. |
 
-## 5. Classic results accepted from attestations (82)
+## 5. Classic results accepted from attestations (83)
 
 Rule 2 accepts these without reading the paper (at least three independent sources each). Listed for completeness.
 
@@ -181,6 +183,7 @@ Rule 2 accepts these without reading the paper (at least three independent sourc
 - `hamiltonian-cycle--n--held-karp-1962`: 3 attestations; A Dynamic Programming Approach to Sequencing Problems ([Journal of the Society for Industrial and Applied Mathematics 10(1), pp. 196–210](https://doi.org/10.1137/0110015))
 - `hamiltonian-cycle--n--karp-1982`: 3 attestations; Dynamic programming meets the principle of inclusion and exclusion ([Operations Research Letters 1(2), pp. 49–51](https://doi.org/10.1016/0167-6377(82)90044-X))
 - `subset-sum--n--horowitz-sahni-1974`: 3 attestations; Computing Partitions with Applications to the Knapsack Problem ([Journal of the ACM 21(2), pp. 277–292](https://doi.org/10.1145/321812.321823))
+- `subset-sum--n--schroeppel-shamir-1981`: 4 attestations; A T = O(2^{n/2}), S = O(2^{n/4}) Algorithm for Certain NP-Complete Problems ([SIAM Journal on Computing 10(3), pp. 456–464](https://doi.org/10.1137/0210033))
 - `travelling-salesperson--n--held-karp-1962`: 3 attestations; A Dynamic Programming Approach to Sequencing Problems ([Journal of the Society for Industrial and Applied Mathematics 10(1), pp. 196–210](https://doi.org/10.1137/0110015))
 - `vertex-cover--k--chen-kanj-xia-2006`: 3 attestations; Improved Parameterized Upper Bounds for Vertex Cover ([Mathematical Foundations of Computer Science 2006 (MFCS 2006), LNCS 4162, pp. 238–249](https://doi.org/10.1007/11821069_21); [Theoretical Computer Science 411(40–42), pp. 3736–3756](https://doi.org/10.1016/j.tcs.2010.06.026))
 - `vertex-disjoint-paths--tw--scheffler-1994`: 3 attestations; A Practical Linear Time Algorithm for Disjoint Paths in Graphs with Bounded Tree-width ([Technical Report 396/1994, Fachbereich 3 Mathematik, Technische Universität Berlin](https://page.math.tu-berlin.de/~combi/coga-old/publications/techreports/1994/Report-396-1994.html))

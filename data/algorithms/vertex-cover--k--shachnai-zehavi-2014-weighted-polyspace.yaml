@@ -1,0 +1,26 @@
+id: vertex-cover--k--shachnai-zehavi-2014-weighted-polyspace
+problem: vertex-cover
+proved_for: weighted
+bound:
+  as_stated: O^*(1.381^{k_w})
+  notation: O*
+  parameters:
+  - k_w
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    note: 'Stated: polynomial space (Theorem 1).'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: shachnai-zehavi-2014
+  statements:
+    arxiv-v2:
+      statement: Theorem 1 and Corollary 2
+  note: 'Theorem 1: "WVC-Alg solves k-WVC in $O^*(1.381^k)$ time and polynomial space", where k-WVC also bounds the number of vertices of the cover by $k$; Corollary 2: WVC in $O^*(1.381^s)$ time and polynomial space, where $s \le W$ is the minimum size of a vertex cover of weight at most $W$. Weights and $W$ are at least 1 (Section 2), so $s \le W$, and trying $W = 1, 2, \dots$ gives the minimum weight $k_w$ in $O^*(1.381^{k_w})$. A polynomial-space bound next to the exponential-space $O(1.3803^{k_w} n^{O(1)})$ of Fomin, Gaspers and Saurabh and $O^*(1.347^{k_w})$ of Theorem 4. Read in arXiv v2 (22 February 2015).'
+formal:
+  status: informal
+status: valid

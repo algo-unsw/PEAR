@@ -1,0 +1,17 @@
+id: nederlof-wegrzycki-2021
+title: Improving Schroeppel and Shamir's Algorithm for Subset Sum via Orthogonal Vectors
+authors:
+- Jesper Nederlof
+- Karol Węgrzycki
+versions:
+  arxiv-v2:
+    kind: preprint
+    arxiv: 2010.08576v2
+    year: 2021
+    open_access: true
+  stoc:
+    kind: conference
+    venue: 53rd ACM Symposium on Theory of Computing (STOC 2021), pp. 1670–1683
+    year: 2021
+    doi: 10.1145/3406325.3451024
+    open_access: false
