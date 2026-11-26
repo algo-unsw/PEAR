@@ -20,6 +20,6 @@ source:
   paper: fernau-2006
   statements:
     conference: { statement: "Theorem 5" }
-  note: "Stated as $O(5^{tw(G)}|V(G)|)$ for minimum Roman domination, given a nice tree decomposition (Section 5 of the SOFSEM 2006 version; the join nodes use the monotonicity trick of Alber et al. instead of the naive $O(16^{tw})$ combination). Read in Serge's Zotero copy of the SOFSEM version (closed; entered under the rule of 21 November 2026). Also stated, citing it, in the introduction of arXiv:2509.23615v1."
+  note: "Stated as $O(5^{tw(G)}|V(G)|)$ for minimum Roman domination, given a nice tree decomposition (Section 5 of the SOFSEM 2006 version; the join nodes use the monotonicity trick of Alber et al. instead of the naive $O(16^{tw})$ combination). Also stated, citing it, in the introduction of arXiv:2509.23615v1."
 formal: { status: informal }
 status: valid

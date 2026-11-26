@@ -19,6 +19,6 @@ source:
   paper: cygan-pilipczuk-2008
   statements:
     wg: { statement: "Theorem 13" }
-  note: "Read in the full text (PDF in Serge's Zotero library, 23 November 2026). Theorem 13 (WG 2008): \"For arbitrary $b$, $1 \\le b < n$ we can find a $b$-ordering or state that it does not exist in $O^*(5^n)$ time and $O^*(2^n)$ space.\" Section 3 has faster algorithms for large $b$ (e.g. $O^*(2^{2n-b})$ time and $O(2^{n-b})$ space for $b \\ge n/2$, Theorem 3), not entered: they depend on $b$. Earlier: Feige and Kilian, $O^*(10^n)$ in polynomial space (SWAT 2000), not entered: beaten by Cygan and Pilipczuk's $O(9.363^n)$ in polynomial space."
+  note: "Theorem 13 (WG 2008): \"For arbitrary $b$, $1 \\le b < n$ we can find a $b$-ordering or state that it does not exist in $O^*(5^n)$ time and $O^*(2^n)$ space.\" Section 3 has faster algorithms for large $b$ (e.g. $O^*(2^{2n-b})$ time and $O(2^{n-b})$ space for $b \\ge n/2$, Theorem 3), not entered: they depend on $b$. Earlier: Feige and Kilian, $O^*(10^n)$ in polynomial space (SWAT 2000), not entered: beaten by Cygan and Pilipczuk's $O(9.363^n)$ in polynomial space."
 formal: { status: informal }
 status: valid

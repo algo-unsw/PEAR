@@ -1,0 +1,26 @@
+id: minimum-fill-in--n--fomin-villanger-2010
+problem: minimum-fill-in
+proved_for: optimisation
+bound:
+  as_stated: O^*(1.734601^{n})
+  notation: O*
+  parameters:
+  - n
+properties:
+  randomized: false
+  space:
+    class: exponential
+    note: 'Not stated; educated guess: exponential. The algorithm stores the list of potential maximal cliques and runs a dynamic programme over it.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: fomin-villanger-2010
+  statements:
+    stacs:
+      statement: 'Theorem 5.5: "All potential maximal cliques of an $n$-vertex graph can be enumerated in time $O(1.734601^n)$."'
+  note: 'Combines two read statements (added at Serge''s request, 27 November 2026): the potential maximal cliques $\Pi_G$ are enumerated in $O(1.734601^n)$ (Theorem 5.5), and (Weighted) Minimum Fill-In is solved in $O^*(|\Pi_G|)$ time when $\Pi_G$ is given (Proposition 8 of Fomin, Liedloff, Montealegre and Todinca, arXiv 1404.3882v1). Corollary 1 of Bergé, Limouzy and Schivre (arXiv 2610.19850v3) also solves treewidth and minimum fill-in in $\tilde O(|\Pi_G|)$. Deterministic; outputs a minimum triangulation. Improves `minimum-fill-in--n--fomin-villanger-2008` ($O(1.7549^n)$).'
+formal:
+  status: informal
+status: valid

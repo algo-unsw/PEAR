@@ -15,5 +15,7 @@ def test_verify_list_is_current():
 
 def test_abstract_records_are_listed():
     text = build_list(ROOT / "data")
-    assert "`exact-satisfiability--m--bjorklund-husfeldt-2006` | abstract" in text
+    assert "`omega` (bounds[0].sources[1]) | abstract" in text
+    # read in full on 27 November 2026, so no longer listed
+    assert "`exact-satisfiability--m--bjorklund-husfeldt-2006` | abstract" not in text
     assert "`directed-feedback-vertex-set--n--razgon-2007` | title" in text

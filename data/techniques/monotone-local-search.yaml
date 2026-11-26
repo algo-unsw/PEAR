@@ -180,7 +180,97 @@ applies_to:
     extension:
       statement: "Section 1 of arXiv v1 ($\\Pi$-Vertex Deletion)"
       because: "An algorithm for $\\Pi$-Vertex Deletion gives the same running time for its extension version, since the vertices in $X$ can simply be deleted."
+  - problem: bounded-degree-vertex-deletion
+    version: decision-d-2
+    universe: n
+    budget: k
+    setting:
+      statement: "Section 1 of arXiv v1 ($\\Pi$-Vertex Deletion)"
+      because: "Vertex deletion into graphs of maximum degree at most 2, a hereditary class: $U_I = V(G)$ and $\\mathcal{F}_I$ is the family of sets $S$ of at most $k$ vertices with $G - S$ a graph of maximum degree at most 2. Added 27 November 2026 at Serge Gaspers's request."
+    extension:
+      statement: "Section 1 of arXiv v1 ($\\Pi$-Vertex Deletion)"
+      because: "Deleting the vertices in $X$ solves the extension version with the same running time, and $G - X$ is again an instance of this version."
+  - problem: bounded-degree-vertex-deletion
+    version: decision-d-1
+    universe: n
+    budget: k
+    setting:
+      statement: "Section 1 of arXiv v1 ($\\Pi$-Vertex Deletion)"
+      because: "Vertex deletion into graphs of maximum degree at most 1, a hereditary class: $U_I = V(G)$ and $\\mathcal{F}_I$ is the family of sets $S$ of at most $k$ vertices with $G - S$ a graph of maximum degree at most 1. Added 27 November 2026 at Serge Gaspers's request."
+    extension:
+      statement: "Section 1 of arXiv v1 ($\\Pi$-Vertex Deletion)"
+      because: "Deleting the vertices in $X$ solves the extension version with the same running time, and $G - X$ is again an instance of this version."
+  - problem: k-path-vertex-cover
+    version: decision-d-3
+    universe: n
+    budget: k
+    setting:
+      statement: "Section 1 of arXiv v1 ($\\Pi$-Vertex Deletion)"
+      because: "Vertex deletion into graphs with no path on 3 vertices, a hereditary class: $U_I = V(G)$ and $\\mathcal{F}_I$ is the family of sets $S$ of at most $k$ vertices with $G - S$ a graph with no path on 3 vertices. Added 27 November 2026 at Serge Gaspers's request."
+    extension:
+      statement: "Section 1 of arXiv v1 ($\\Pi$-Vertex Deletion)"
+      because: "Deleting the vertices in $X$ solves the extension version with the same running time, and $G - X$ is again an instance of this version."
+  - problem: k-path-vertex-cover
+    version: decision-d-4
+    universe: n
+    budget: k
+    setting:
+      statement: "Section 1 of arXiv v1 ($\\Pi$-Vertex Deletion)"
+      because: "Vertex deletion into graphs with no path on 4 vertices, a hereditary class: $U_I = V(G)$ and $\\mathcal{F}_I$ is the family of sets $S$ of at most $k$ vertices with $G - S$ a graph with no path on 4 vertices. Added 27 November 2026 at Serge Gaspers's request."
+    extension:
+      statement: "Section 1 of arXiv v1 ($\\Pi$-Vertex Deletion)"
+      because: "Deleting the vertices in $X$ solves the extension version with the same running time, and $G - X$ is again an instance of this version."
+  - problem: k-path-vertex-cover
+    version: decision-d-5
+    universe: n
+    budget: k
+    setting:
+      statement: "Section 1 of arXiv v1 ($\\Pi$-Vertex Deletion)"
+      because: "Vertex deletion into graphs with no path on 5 vertices, a hereditary class: $U_I = V(G)$ and $\\mathcal{F}_I$ is the family of sets $S$ of at most $k$ vertices with $G - S$ a graph with no path on 5 vertices. Added 27 November 2026 at Serge Gaspers's request."
+    extension:
+      statement: "Section 1 of arXiv v1 ($\\Pi$-Vertex Deletion)"
+      because: "Deleting the vertices in $X$ solves the extension version with the same running time, and $G - X$ is again an instance of this version."
+  - problem: k-path-vertex-cover
+    version: decision-d-6
+    universe: n
+    budget: k
+    setting:
+      statement: "Section 1 of arXiv v1 ($\\Pi$-Vertex Deletion)"
+      because: "Vertex deletion into graphs with no path on 6 vertices, a hereditary class: $U_I = V(G)$ and $\\mathcal{F}_I$ is the family of sets $S$ of at most $k$ vertices with $G - S$ a graph with no path on 6 vertices. Added 27 November 2026 at Serge Gaspers's request."
+    extension:
+      statement: "Section 1 of arXiv v1 ($\\Pi$-Vertex Deletion)"
+      because: "Deleting the vertices in $X$ solves the extension version with the same running time, and $G - X$ is again an instance of this version."
+  - problem: k-path-vertex-cover
+    version: decision-d-7
+    universe: n
+    budget: k
+    setting:
+      statement: "Section 1 of arXiv v1 ($\\Pi$-Vertex Deletion)"
+      because: "Vertex deletion into graphs with no path on 7 vertices, a hereditary class: $U_I = V(G)$ and $\\mathcal{F}_I$ is the family of sets $S$ of at most $k$ vertices with $G - S$ a graph with no path on 7 vertices. Added 27 November 2026 at Serge Gaspers's request."
+    extension:
+      statement: "Section 1 of arXiv v1 ($\\Pi$-Vertex Deletion)"
+      because: "Deleting the vertices in $X$ solves the extension version with the same running time, and $G - X$ is again an instance of this version."
+  - problem: k-path-vertex-cover
+    version: decision-d-8
+    universe: n
+    budget: k
+    setting:
+      statement: "Section 1 of arXiv v1 ($\\Pi$-Vertex Deletion)"
+      because: "Vertex deletion into graphs with no path on 8 vertices, a hereditary class: $U_I = V(G)$ and $\\mathcal{F}_I$ is the family of sets $S$ of at most $k$ vertices with $G - S$ a graph with no path on 8 vertices. Added 27 November 2026 at Serge Gaspers's request."
+    extension:
+      statement: "Section 1 of arXiv v1 ($\\Pi$-Vertex Deletion)"
+      because: "Deleting the vertices in $X$ solves the extension version with the same running time, and $G - X$ is again an instance of this version."
+  - problem: feedback-vertex-set-in-tournaments
+    version: decision
+    universe: n
+    budget: k
+    setting:
+      statement: "Section 1 of arXiv v1 ($\\Pi$-Vertex Deletion)"
+      because: "Vertex deletion into acyclic tournaments, a hereditary class: $U_I = V(G)$ and $\\mathcal{F}_I$ is the family of sets $S$ of at most $k$ vertices with $G - S$ acyclic. A tournament minus any set of vertices is a tournament. Added 27 November 2026 at Serge Gaspers's request."
+    extension:
+      statement: "Section 1 of arXiv v1 ($\\Pi$-Vertex Deletion)"
+      because: "Deleting the vertices in $X$ solves the extension version with the same running time, and $G - X$ is again an instance of this version."
 status: valid
 review:
   approved_by: Serge Gaspers
-  date: 2026-11-22
+  date: 2026-11-27  # entries for Bounded-Degree Vertex Deletion, d-Path Vertex Cover and FVS in Tournaments (27 November 2026); earlier ones 22 November 2026

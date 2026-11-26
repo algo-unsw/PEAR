@@ -1,0 +1,27 @@
+id: travelling-salesperson--n-w--lokshtanov-nederlof-2010
+problem: travelling-salesperson
+proved_for: decision
+bound:
+  as_stated: O^*(2^{n} W)
+  notation: O*
+  parameters:
+  - n
+  - W
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    note: 'Stated in Theorem 6.2: "polynomial space".'
+  algebraic: true
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: lokshtanov-nederlof-2010
+  statements:
+    stoc:
+      statement: 'Theorem 6.2: "The Traveling Salesman problem can be solved in $O^*(2^n d)$ time and polynomial space."'
+  note: 'The paper''s TSP (Section 6) asks for a Hamiltonian path from a given vertex $s$ of weight at most $t$, with weights $\varphi \colon V \times V \to \{1, \dots, d\}$; $d$ is $W$ here. For a Hamiltonian cycle: for each vertex $v \ne s$, add a new vertex $s''$ adjacent only to $v$ with weight $w(v, s)$; a Hamiltonian path from $s$ must end in $s''$ after $v$, so the cheapest cycle is the cheapest of these $n - 1$ paths, each on $n + 1$ vertices (simple step, not stated in the paper). Deterministic: the algebraization (Theorem 6.1) uses no randomness. The optimisation version follows by binary search over $B \le nW$, and a tour by self-reduction, both at a polynomial cost (Section 6). Read in the authors'' copy at the URL, 27 November 2026. It cites Karp (1982) for $O^*(2^n d)$ time and $O^*(d)$ space (not entered: not read).'
+formal:
+  status: informal
+status: valid

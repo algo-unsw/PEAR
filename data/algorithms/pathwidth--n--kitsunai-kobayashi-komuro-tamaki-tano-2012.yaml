@@ -18,7 +18,7 @@ source:
   paper: kitsunai-kobayashi-komuro-tamaki-tano-2012
   statements:
     journal: { statement: 'Theorem 1' }
-  note: 'Read in the full text (PDF in Serge''s Zotero library, 23 November 2026). Theorem 1 (Algorithmica 2016): "The directed pathwidth of a digraph with $n$ vertices can be computed in $O(1.89^n)$ time." Section 1: for an undirected graph $G$, replacing each edge by two opposite arcs gives a digraph whose directed path-decompositions are exactly the path-decompositions of $G$, so pathwidth is a special case (the abstract says so too). Entered for (undirected) pathwidth, as computing the width (optimisation). The IPEC 2012 version was not checked.'
+  note: 'Theorem 1 (Algorithmica 2016): "The directed pathwidth of a digraph with $n$ vertices can be computed in $O(1.89^n)$ time." Section 1: for an undirected graph $G$, replacing each edge by two opposite arcs gives a digraph whose directed path-decompositions are exactly the path-decompositions of $G$, so pathwidth is a special case (the abstract says so too). Entered for (undirected) pathwidth, as computing the width (optimisation). The IPEC 2012 version was not checked.'
 formal: { status: informal }
 status: valid
 review: { approved_by: Serge Gaspers, date: 2026-11-22 }

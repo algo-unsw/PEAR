@@ -20,4 +20,4 @@ source:
   statements:
     arxiv-v3:
       statement: Theorem 8
-  note: 'Piecewise analysis of the #3-Coloring algorithm of Fomin, Gaspers and Saurabh (COCOON 2007), whose original analysis gave $O(1.6262^n)$. Theorem 8 (Section 5.2) of the latest arXiv version (v3, 29 June 2024; read: arXiv PDF and the Zotero copy). Zhu, Wu and Shao (Discrete Appl. Math. 322, 2022) improve it to $O(1.588^n)$: sharp-3-coloring--n--zhu-wu-shao-2022.'
+  note: 'Piecewise analysis of the #3-Coloring algorithm of Fomin, Gaspers and Saurabh (COCOON 2007), whose original analysis gave $O(1.6262^n)$. Theorem 8 (Section 5.2) of the latest arXiv version (v3, 29 June 2024; read: arXiv PDF). Zhu, Wu and Shao (Discrete Appl. Math. 322, 2022) improve it to $O(1.588^n)$: sharp-3-coloring--n--zhu-wu-shao-2022.'

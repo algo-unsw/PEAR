@@ -1,0 +1,37 @@
+id: dominating-set--to--sharp-dominating-set
+from: { problem: dominating-set, version: optimisation }
+to: { problem: sharp-dominating-set, version: counting }
+type: polytime-deterministic
+calls: 1
+time: "O(n)"
+parameter_map: { n: "n", m: "m" }
+variants:
+  - id: decision
+    note: "Decision: the answer is yes exactly when some size at most $k$ has a nonzero count."
+    from: { problem: dominating-set, version: decision }
+    to: { problem: sharp-dominating-set, version: counting }
+    parameter_map: { n: "n", m: "m" }
+    source:
+      folklore: true
+      note: "The same instance; the answer is read off the counts."
+  - id: max-degree-3
+    note: "Maximum degree at most 3: the same instance is one of the counting version for maximum degree 3."
+    from: { problem: dominating-set, version: optimisation-max-degree-3 }
+    to: { problem: sharp-dominating-set, version: counting-max-degree-3 }
+    parameter_map: { n: "n", m: "m" }
+    source:
+      folklore: true
+      note: "The same instance; the minimum size is the smallest size with a nonzero count."
+  - id: weighted
+    note: "Weighted: the minimum-weight counting version outputs the minimum weight itself."
+    from: { problem: dominating-set, version: weighted }
+    to: { problem: sharp-dominating-set, version: weighted }
+    parameter_map: { n: "n", m: "m" }
+    source:
+      folklore: true
+      note: "The same instance; the counting version outputs the minimum weight of a dominating set and the number of dominating sets of that weight, so its first output is the answer."
+source:
+  folklore: true
+  note: "A counting algorithm answers the optimisation version (rulebook §2b, approved by Serge on 27 November 2026): on the same graph, the counting version gives the number of dominating sets of every size $k$, and the minimum size of a dominating set is the smallest $k$ with a nonzero count."
+formal: { status: informal }
+status: valid

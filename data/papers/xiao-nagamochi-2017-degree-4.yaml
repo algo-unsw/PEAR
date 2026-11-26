@@ -1,0 +1,16 @@
+id: xiao-nagamochi-2017-degree-4
+title: "A Refined Algorithm for Maximum Independent Set in Degree-4 Graphs"
+authors: [Mingyu Xiao, Hiroshi Nagamochi]
+versions:
+  techreport:
+    kind: technical-report
+    venue: "Technical Report 2013-002, Department of Applied Mathematics and Physics, Kyoto University (8 April 2013)"
+    year: 2013
+    url: "http://www.amp.i.kyoto-u.ac.jp/tecrep/ps_file/2013/2013-002.pdf"
+    open_access: true
+  journal:
+    kind: journal
+    venue: "Journal of Combinatorial Optimization 34(3), pp. 830–873"
+    year: 2017
+    doi: "10.1007/s10878-017-0115-3"
+    open_access: false

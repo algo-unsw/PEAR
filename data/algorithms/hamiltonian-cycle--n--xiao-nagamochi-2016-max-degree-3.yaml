@@ -1,0 +1,26 @@
+id: hamiltonian-cycle--n--xiao-nagamochi-2016-max-degree-3
+problem: hamiltonian-cycle
+proved_for: search-max-degree-3
+bound:
+  as_stated: O^*(1.2312^{n})
+  notation: O*
+  parameters:
+  - n
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    note: 'Stated in Theorem 1: "polynomial space".'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: xiao-nagamochi-2016-tsp-degree-3
+  statements:
+    arxiv-v1:
+      statement: 'Theorem 1: "TSP in an $n$-vertex graph $G$ with maximum degree 3 can be solved in $O^*(1.2312^n)$ time and polynomial space."'
+  note: 'TSP here is to find a minimum-weight Hamiltonian cycle of an edge-weighted graph (Section 1); with all weights 1 it finds a Hamiltonian cycle of a graph of maximum degree 3 or reports that none exists (simple step). Deterministic branching. Read in arXiv v1, 27 November 2026. TODO(verify): the theorem number in the Algorithmica 2016 version.'
+formal:
+  status: informal
+status: valid

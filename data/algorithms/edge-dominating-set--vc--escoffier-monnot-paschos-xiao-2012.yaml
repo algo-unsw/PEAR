@@ -18,7 +18,7 @@ source:
   paper: escoffier-monnot-paschos-xiao-2012
   statements:
     journal: { statement: 'Theorem 3' }
-  note: 'Read in the full text (PDF in Serge''s Zotero library, 23 November 2026). Theorem 3 (Theory Comput. Syst. 2015): "FPTτ(G) computes a minimum edge dominate set in $O^*(1.821^\tau)$ time", $\tau$ the size of a minimum vertex cover. No vertex cover is given: Step 1 computes a minimum one in $O^*(1.2738^\tau)$ time (Section 5).'
+  note: 'Theorem 3 (Theory Comput. Syst. 2015): "FPTτ(G) computes a minimum edge dominate set in $O^*(1.821^\tau)$ time", $\tau$ the size of a minimum vertex cover. No vertex cover is given: Step 1 computes a minimum one in $O^*(1.2738^\tau)$ time (Section 5).'
 formal: { status: informal }
 status: valid
 review: { approved_by: Serge Gaspers, date: 2026-11-22 }

@@ -20,7 +20,7 @@ source:
   statements:
     journal:
       statement: Theorem 1
-  note: 'Theorem 1: for any $n$-vertex graph, #3-Coloring can be solved in time $O(1.588^n)$. Read in Serge''s Zotero copy of the DAM version (closed; entered under the rule of 21 November 2026).'
+  note: 'Theorem 1: for any $n$-vertex graph, #3-Coloring can be solved in time $O(1.588^n)$.'
 formal: { status: informal }
 status: valid
 review: { approved_by: Serge Gaspers, date: 2026-11-21 }

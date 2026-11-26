@@ -1,0 +1,16 @@
+id: andreev-bliznets-kundu-saurabh-tripathi-verma-2024
+title: Parameterized Complexity of Paired Domination
+authors:
+- Nikita Andreev
+- Ivan Bliznets
+- Madhumita Kundu
+- Saket Saurabh
+- Vikash Tripathi
+- Shaily Verma
+versions:
+  iwoca:
+    kind: conference
+    venue: Combinatorial Algorithms (IWOCA 2024), LNCS 14764, pp. 523–536
+    year: 2024
+    doi: 10.1007/978-3-031-63021-7_40
+    open_access: false

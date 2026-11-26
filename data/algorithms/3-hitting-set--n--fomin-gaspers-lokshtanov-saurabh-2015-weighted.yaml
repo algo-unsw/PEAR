@@ -1,0 +1,26 @@
+id: 3-hitting-set--n--fomin-gaspers-lokshtanov-saurabh-2015-weighted
+problem: 3-hitting-set
+proved_for: weighted
+bound:
+  as_stated: O^*(1.5388^{n})
+  notation: O*
+  parameters:
+  - n
+properties:
+  randomized: false
+  space:
+    class: exponential
+    note: Not stated for this row. Theorem 2 (deterministic) needs $2^{o(n)}$ space (Conclusion of arXiv v1); the space of the permissive extension algorithm it calls (Shachnai and Zehavi, ESA 2015) was not checked.
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: fomin-gaspers-lokshtanov-saurabh-2015
+  statements:
+    arxiv-v1:
+      statement: 'Table 1, row "Weighted 3-Hitting Set": $2.168^k$ [39], $1.5388^n$'
+  note: 'The paper''s Weighted $d$-Hitting Set asks for a hitting set of size at most $k$ and weight at most $W$, with $w \colon U \to \mathbb{N}$ (Section 1); with $k = n$ and binary search over $W$ it gives the minimum weight here. The bound comes from monotone local search with Shachnai and Zehavi''s $2.168^k$ algorithm for a permissive version of the extension problem (Section 2.3); $2 - 1/2.168 = 1.53875\ldots$, and rounding up to $1.5388$ absorbs the $2^{o(n)}$ factor of the deterministic Theorem 2. Table 1 marks only its first row as randomized, so this one is taken as deterministic. Added at Serge''s request, 27 November 2026. TODO(verify): the Shachnai–Zehavi algorithm (not opened) and the J. ACM version of the table.'
+formal:
+  status: informal
+status: valid

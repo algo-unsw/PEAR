@@ -1,0 +1,23 @@
+id: xiao-nagamochi-2016-tsp-degree-3
+title: An Exact Algorithm for TSP in Degree-3 Graphs via Circuit Procedure and Amortization on Connectivity Structure
+authors:
+- Mingyu Xiao
+- Hiroshi Nagamochi
+versions:
+  arxiv-v1:
+    kind: preprint
+    year: 2012
+    arxiv: 1212.6831v1
+    open_access: true
+  tamc:
+    kind: conference
+    venue: Theory and Applications of Models of Computation (TAMC 2013), LNCS 7876, pp. 96–107
+    year: 2013
+    doi: 10.1007/978-3-642-38236-9_10
+    open_access: false
+  journal:
+    kind: journal
+    venue: Algorithmica 74(2), pp. 713–741
+    year: 2016
+    doi: 10.1007/s00453-015-9970-4
+    open_access: false

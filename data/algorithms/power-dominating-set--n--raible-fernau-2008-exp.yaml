@@ -18,7 +18,7 @@ source:
   paper: raible-fernau-2008
   statements:
     journal: { statement: "Corollary 3" }
-  note: "Read in the full text (PDF in Serge's Zotero library, 23 November 2026). Corollary 3 (Algorithmica 2012, Section 5, Speed-Up with Exponential Space): \"On general graphs, Power Dominating Set can be solved in time and space $O^*(1.6849^n)$ and in time and space $O^*(1.5754^n)$ on cubic graphs.\" The polynomial-space algorithm of Theorem 2 with memoization: optimal solutions for all induced subgraphs of small measure are precomputed. The cubic-graph bound is not entered (no such version here)."
+  note: "Corollary 3 (Algorithmica 2012, Section 5, Speed-Up with Exponential Space): \"On general graphs, Power Dominating Set can be solved in time and space $O^*(1.6849^n)$ and in time and space $O^*(1.5754^n)$ on cubic graphs.\" The polynomial-space algorithm of Theorem 2 with memoization: optimal solutions for all induced subgraphs of small measure are precomputed. The cubic-graph bound is not entered (no such version here)."
 formal: { status: informal }
 status: valid
 review: { approved_by: Serge Gaspers, date: 2026-11-24 }

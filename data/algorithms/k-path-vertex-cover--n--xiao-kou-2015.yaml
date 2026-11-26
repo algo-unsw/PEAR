@@ -18,7 +18,7 @@ source:
   paper: xiao-kou-2015
   statements:
     journal: { statement: "Theorem 2" }
-  note: "Stated for Maximum Dissociation Set: \"A maximum dissociation set in an $n$-vertex graph can be found in $O^*(1.3659^n)$ time and space.\" A vertex set $D$ is a dissociation set if and only if $V \\setminus D$ is a 3-path vertex cover (abstract), so the same algorithm outputs a minimum 3-path vertex cover. Read in the journal version (Zotero copy of the publisher PDF). Open access: Theoretical Computer Science is in Elsevier's open archive, which opens articles 4 years after publication (elsevier.com, 'free access to archived articles', mathematics list, read 21 November 2026); Zotero's Unpaywall lookup also linked an open PDF for this DOI."
+  note: "Stated for Maximum Dissociation Set: \"A maximum dissociation set in an $n$-vertex graph can be found in $O^*(1.3659^n)$ time and space.\" A vertex set $D$ is a dissociation set if and only if $V \\setminus D$ is a 3-path vertex cover (abstract), so the same algorithm outputs a minimum 3-path vertex cover. Read in the journal version, which is open access: Theoretical Computer Science is in Elsevier's open archive, which opens articles 4 years after publication (elsevier.com, 'free access to archived articles', mathematics list, read 21 November 2026); Unpaywall also lists an open copy for this DOI."
 formal: { status: informal }
 status: valid
 review: { approved_by: Serge Gaspers, date: 2026-11-21 }

@@ -1,0 +1,13 @@
+id: nederlof-van-rooij-van-dijk-2014
+title: Inclusion/Exclusion Meets Measure and Conquer
+authors:
+- Jesper Nederlof
+- Johan M. M. van Rooij
+- Thomas C. van Dijk
+versions:
+  journal:
+    kind: journal
+    venue: Algorithmica 69(3), pp. 685–740
+    year: 2014
+    doi: 10.1007/s00453-013-9759-2
+    open_access: false

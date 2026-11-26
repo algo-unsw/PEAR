@@ -1,0 +1,27 @@
+id: independent-set--n--wahlstrom-2008
+problem: independent-set
+proved_for: weighted
+bound:
+  as_stated: O^*(1.2377^{n})
+  notation: O*
+  parameters:
+  - n
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    note: 'Not stated; educated guess: polynomial. Recursive branching with propagation, splitting into components and multiplier reduction (recursive calls on subformulas); no memoization or dynamic programming found.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: wahlstrom-2008
+  statements:
+    iwpec:
+      statement: 'Theorem 1: "The algorithm C counts the number of max-weight models for a formula $F$ in time $O^*(1.2377^n)$."'
+      page: 211
+  note: 'Theorem 1 is for #2SAT$_w$: a 2-CNF formula with a weight $w(\tilde v)$ and a cardinality on each literal; the algorithm returns the maximum weight of a model and the number of models of that weight (Section 4). The degree $d(x)$ of a variable is the number of clauses it occurs in, and $n$ is the number of variables (Section 2). Maximum Weight Independent Set is the special case with one variable per vertex, a clause $(\bar u \vee \bar v)$ per edge, $w(v)$ the vertex weight and $w(\bar v) = 0$ (vertices without edges are added to the solution directly); then a variable has the degree of its vertex, so $n$ and the maximum degree carry over (simple step, not stated in the paper). The paper does not restrict the weights; it only adds and compares them. It outputs the maximum weight, which is the goal of this version; a maximum-weight set follows by self-reduction. Improves Fürer and Kasiviswanathan (AAIM 2007, $O(1.2461^n)$) and Dahllöf, Jonsson and Wahlström (TCS 2005, $O(1.2561^n)$), as reported by the literature search (not entered).'
+formal:
+  status: informal
+status: valid

@@ -18,7 +18,7 @@ source:
   paper: tian-xiao-yang-2023
   statements:
     journal: { statement: 'Theorem 2' }
-  note: 'Read in the full text (PDF in Serge''s Zotero library, 23 November 2026). Theorem 2 (Theory Comput. Syst. 2025): "For any graph, Cluster Vertex Deletion can be solved in $O^*(1.7549^k)$ time and polynomial space"; the problem is defined with $G$ and $k$ given (decision). Theorem 1 gives $O^*(1.7485^k)$ for maximum degree at most 4 (not entered: no such version here). The COCOON 2023 version was not checked.'
+  note: 'Theorem 2 (Theory Comput. Syst. 2025): "For any graph, Cluster Vertex Deletion can be solved in $O^*(1.7549^k)$ time and polynomial space"; the problem is defined with $G$ and $k$ given (decision). Theorem 1 gives $O^*(1.7485^k)$ for maximum degree at most 4 (not entered: no such version here). The COCOON 2023 version was not checked.'
 formal: { status: informal }
 status: valid
 review: { approved_by: Serge Gaspers, date: 2026-11-22 }

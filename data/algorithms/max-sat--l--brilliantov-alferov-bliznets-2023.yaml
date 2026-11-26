@@ -18,7 +18,7 @@ source:
   paper: brilliantov-alferov-bliznets-2023
   statements:
     aaai: { statement: 'Abstract and Section 5' }
-  note: 'Read in the full text (PDF in Serge''s Zotero library, 23 November 2026). The abstract and the conclusion: an $O^*(1.0911^L)$ algorithm for MAXSAT, $L$ the length of the formula, improving the $O^*(1.0927^L)$ of Alferov and Bliznets (AAAI 2021, Theorem 2); the end of Section 5 derives it from the $O^*(1.0911^d)$ bound. MAXSAT is defined as finding the maximum number of simultaneously satisfiable clauses (abstract): the optimisation version. The paper also gives $O^*(1.1749^n)$ and $O^*(1.3803^n)$ for (n,3)- and (n,4)-MaxSAT (variables occurring at most 3 or 4 times), and $O^*(1.1554^k)$ and $O^*(1.2989^k)$ for them (Theorem 2), not entered: PEAR has no bounded-occurrence versions of Max SAT yet.'
+  note: 'The abstract and the conclusion: an $O^*(1.0911^L)$ algorithm for MAXSAT, $L$ the length of the formula, improving the $O^*(1.0927^L)$ of Alferov and Bliznets (AAAI 2021, Theorem 2); the end of Section 5 derives it from the $O^*(1.0911^d)$ bound. MAXSAT is defined as finding the maximum number of simultaneously satisfiable clauses (abstract): the optimisation version. The paper also gives $O^*(1.1749^n)$ and $O^*(1.3803^n)$ for (n,3)- and (n,4)-MaxSAT (variables occurring at most 3 or 4 times), and $O^*(1.1554^k)$ and $O^*(1.2989^k)$ for them (Theorem 2), not entered: PEAR has no bounded-occurrence versions of Max SAT yet.'
 formal: { status: informal }
 status: valid
 review: { approved_by: Serge Gaspers, date: 2026-11-22 }

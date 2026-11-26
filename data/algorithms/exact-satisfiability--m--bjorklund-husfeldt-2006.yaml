@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: polynomial
-    note: "Stated in the abstract: \"and polynomial space\"."
+    note: "Stated in Proposition 4(3) of the journal version: \"in polynomial space\"."
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true
@@ -18,8 +18,8 @@ source:
   paper: bjorklund-husfeldt-2006
   statements:
     conference: { statement: "Abstract" }
-    journal: { statement: "Abstract" }
-  note: "Abstracts of the conference (ICALP 2006) and journal (Algorithmica 2008) versions only; the full text was not read (closed). Entered under the rule of 21 November 2026. Both abstracts (Springer chapter page; Lund University LUP record 1249695 of the journal version): Exact Satisfiability with $m$ clauses and size $l$ \"can be solved in time 2^m l^{O(1)} and polynomial space\" (superscripts flattened on both pages), by inclusion–exclusion; the same bounds hold for counting the solutions. The abstract's $l$ (the size of the formula) is written $N$ here; any polynomial in one is polynomial in the other. TODO(verify): deterministic assumed; whether an assignment is output (constructive) is not stated in the abstract, though self-reducibility gives one within the same bound."
+    journal: { statement: "Proposition 4(3)" }
+  note: "The conference version (ICALP 2006) is recorded from its abstract only. Proposition 4(3), p. 235: \"Exact Satisfiability with $n$ variables and $m$ clauses and total size $l$ can be solved in polynomial space and time $2^m l^{O(1)}$\" ($l$ is written $N$ here). Proof (p. 236): Theorem 2, inclusion–exclusion over the $2^m$ subsets of clauses (the clauses are the universe after removing negations, Section 3.2), with a small dynamic programme per term; deterministic. It decides by checking that the sum is nonzero; an exactly satisfying assignment follows by self-reduction within the same bound (not stated in the paper). The same count gives the number of solutions (abstract). Proposition 2 also gives $4^m l^{O(\\log m)}$ in polynomial space, which this bound beats."
 formal: { status: informal }
 status: valid
 review: { approved_by: Serge Gaspers, date: 2026-11-22 }

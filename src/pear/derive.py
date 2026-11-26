@@ -26,7 +26,7 @@ from .bounds.numeric import dominates, samples, value
 from .schema import Algorithm, FolkloreSource, Hypothesis, PaperSource, Problem, Reduction, Variant
 from .validate import Dataset, problem_context
 
-RULEBOOK_VERSION = 7
+RULEBOOK_VERSION = 8
 LONG_CHAIN = 3  # rulebook §9: longer chains get a label (they are followed while they improve results)
 FORMAL_ORDER = {"informal": 0, "statement": 1, "proved": 2}
 

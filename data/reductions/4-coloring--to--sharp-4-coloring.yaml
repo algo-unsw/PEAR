@@ -1,0 +1,12 @@
+id: 4-coloring--to--sharp-4-coloring
+from: { problem: 4-coloring, version: decision }
+to: { problem: sharp-4-coloring, version: counting }
+type: polytime-deterministic
+calls: 1
+time: "O(1)"
+parameter_map: { n: "n", m: "m", pw: "pw" }
+source:
+  folklore: true
+  note: "A counting algorithm answers the decision version (rulebook §2b, approved by Serge on 27 November 2026): the graph is 4-colourable exactly when its number of proper 4-colourings is nonzero."
+formal: { status: informal }
+status: valid

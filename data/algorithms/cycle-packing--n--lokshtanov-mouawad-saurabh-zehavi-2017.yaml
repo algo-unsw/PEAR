@@ -1,0 +1,26 @@
+id: cycle-packing--n--lokshtanov-mouawad-saurabh-zehavi-2017
+problem: cycle-packing
+proved_for: search
+bound:
+  as_stated: O^*(2^{n})
+  notation: O*
+  parameters:
+  - n
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    note: 'Stated in Lemma 11: "polynomial-space".'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: lokshtanov-mouawad-saurabh-zehavi-2017
+  statements:
+    arxiv:
+      statement: 'Lemma 11: "There exists a (deterministic) polynomial-space algorithm that in time $O(2^{|V|} \cdot \mathrm{poly}(|V|))$ solves Cycle Packing. In case a solution exists, it also outputs a solution."'
+  note: 'Lemma 11 is the last step of the $k$ algorithm, proved in Appendix E by dynamic programming with inclusion–exclusion (after Nederlof), and holds for any instance with $|V|$ vertices. Read in arXiv v1 (4 July 2017, the only version), 27 November 2026. TODO(verify): the lemma number in the ICALP 2017 and SIAM J. Discrete Math. versions. Improves the folklore $O^*(3^n)$ in exponential space.'
+formal:
+  status: informal
+status: valid

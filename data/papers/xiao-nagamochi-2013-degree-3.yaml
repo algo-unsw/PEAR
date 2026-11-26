@@ -1,0 +1,16 @@
+id: xiao-nagamochi-2013-degree-3
+title: "Confining Sets and Avoiding Bottleneck Cases: A Simple Maximum Independent Set Algorithm in Degree-3 Graphs"
+authors: [Mingyu Xiao, Hiroshi Nagamochi]
+versions:
+  techreport:
+    kind: technical-report
+    venue: "Technical Report 2012-002, Department of Applied Mathematics and Physics, Kyoto University (8 May 2012)"
+    year: 2012
+    url: "http://www.amp.i.kyoto-u.ac.jp/tecrep/ps_file/2012/2012-002.pdf"
+    open_access: true
+  journal:
+    kind: journal
+    venue: "Theoretical Computer Science 469, pp. 92–104"
+    year: 2013
+    doi: "10.1016/j.tcs.2012.09.022"
+    open_access: false

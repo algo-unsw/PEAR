@@ -1,0 +1,28 @@
+id: cluster-editing--k--firbas-sorge-2026
+problem: cluster-editing
+proved_for: decision
+bound:
+  as_stated: '2^{O(k (\log \log \log k)^{3/2} / \sqrt{\log \log k})} n^{O(1)}'
+  notation: O
+  parameters:
+  - k
+  - n
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    note: 'Not stated; educated guess: polynomial. A search tree of sparsification branching (Theorem 1.5) whose leaves are turned into 3-CNF formulas and passed to the 3-SAT algorithm; no memoization or dynamic programming over subsets found, and the 3-SAT algorithm used is entered with polynomial space.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+uses:
+- sharp-3-sat--m--anthropic-2026
+source:
+  paper: firbas-sorge-2026
+  statements:
+    arxiv-v1:
+      statement: 'Corollary 1.4: "Cluster Editing can be solved in time $2^{O(k/s(k))} \cdot n^{O(1)}$, where $s(k) := \sqrt{\log\log k}/(\log\log\log k)^{3/2}$ for $k \ge 2^{16}$"'
+  note: 'Corollary 1.4 combines the transfer theorem (Theorem 1.3: if 3-SAT with $m$ clauses is decided in time $T(m)$, Cluster Editing is decided in $2^{O((k\log r)/r)} \cdot T(c_r k) \cdot n^{O(1)}$ for $2 \le r \le k^{1/3}$, $c_r = 2^{O(r^2\log r)}$) with Anthropic''s 3-SAT bound $2^{a m/\sqrt{\log m}}$ (their Theorem 1.2, citing Theorem 1 of the Anthropic paper) and $r = \lfloor \sqrt{\log\log k/(C \log\log\log k)} \rfloor$; it gives $2^{o(k)} n^{O(1)}$ and $c^k n^{O(1)}$ for every $c > 1$. Deterministic ("algorithms are deterministic", Section 1). It decides; a solution follows by self-reduction (flip one vertex pair, decrease $k$, keep the flip if the answer stays yes; polynomially many calls; not stated in the paper). The paper notes $c_2 > 2^{6000}$, so the bound is asymptotic only. Read in arXiv v1 (20 November 2026), 27 November 2026; unrefereed preprint, and it relies on the unrefereed Anthropic 3-SAT algorithm.'
+formal: { status: informal }
+status: valid
