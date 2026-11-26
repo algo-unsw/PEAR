@@ -1,0 +1,28 @@
+id: sharp-independent-set--n--gaspers-lee-2016-exp
+problem: sharp-independent-set
+proved_for: counting
+bound:
+  as_stated: O^*(1.2330^{n})
+  notation: O*
+  parameters:
+  - n
+properties:
+  randomized: false
+  space:
+    class: exponential
+    note: 'Exponential space, as stated ("the following exponential-space result"): the pathwidth-based subroutine for maximum degree 3 is a dynamic programme over a path decomposition.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: gaspers-lee-2016
+  statements:
+    arxiv-v2:
+      statement: 'Theorem 2 (page 10): "#IS can be solved in time $O^*(1.2330^n)$."'
+    journal:
+      statement: Theorem 2 (page 607), same statement.
+  note: 'The polynomial-space algorithm of Theorem 1 with a pathwidth-based subroutine for graphs of maximum degree 3 (Section 1, Our Results, and the sentence before Theorem 2). Theorem 2 reuses the analysis above degree 3, where Gaspers (arXiv:2611.05146v1, Appendix C.5) reports gaps; see sharp-independent-set--n--gaspers-lee-2016. Serge Gaspers, 27 November 2026: no error flag for now.'
+formal:
+  status: informal
+status: valid

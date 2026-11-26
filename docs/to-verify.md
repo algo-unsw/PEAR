@@ -36,7 +36,7 @@ Shown in Details only, never in the Overview.
 - paper `yamano-shibuya-2026`: Faster Exact Algorithms for 3- and 4-Coloring: Deterministic Improvements and Further Randomized Speedups
 - paper `zamir-2026`: k-Coloring is Faster than Computing the Chromatic Number
 
-## 4. `TODO(verify)` markers (129)
+## 4. `TODO(verify)` markers (132)
 
 | Record | Field | Text |
 | --- | --- | --- |
@@ -115,6 +115,7 @@ Shown in Details only, never in the Overview.
 | `proportional-approval-voting--k--folklore` | `source.note` | …s two candidates, so that "a factor $m^k$ in the running time seems unavoidable" ($m$ = number of candidates, as here). TODO(verify): Serge to approve this XP baseline. |
 | `proportional-approval-voting--n--yang-wang-2018` | `source.note` | …ead from the LaTeX source of the latest arXiv version (theorems are numbered consecutively; this is the first theorem); TODO(verify) the arXiv version number and the numbering in the AAMAS 2018 and journal (2023) versions. |
 | `proportional-approval-voting--vc--yang-wang-2018` | `source.note` | …latest arXiv version (thirteenth theorem; theorems are numbered consecutively, separately from lemmas and corollaries); TODO(verify) the arXiv version number and the journal numbering. |
+| `red-blue-dominating-set--n--van-rooij-2011-exp` | `source.note` | …e thesis says it improves the polynomial-space $O(1.2279^n)$ of Corollary 5.5 "at the cost of using exponential space". TODO(verify): proved_for, as for red-blue-dominating-set--n--van-rooij-2011. |
 | `red-blue-dominating-set--n--van-rooij-2011` | `source.note` | Section 5.5: the proof uses $\|\mathcal{S}\| + \|\mathcal{U}\| = n$ for the corresponding Set Cover instance. TODO(verify): proved_for; the thesis says "solves Red-Blue Dominating Set". |
 | `s-club--ce--hartung-komusiewicz-nichterlein-2012` | `source.note` | … cluster editing set can be solved in $O(6.86^k \cdot k^3 + n + m)$ time." Read in the open-access JGAA version (2015). TODO(verify): whether a minimum cluster editing set must be given or computed (the kernel of Theorem 2 is computed in $O… |
 | `s-club--k--schafer-komusiewicz-moser-2012` | `source.note` | …xt extracted from the theorem statement reads "$O((k-2)^k \cdot k! \cdot kn + nm)$", which may have lost a superscript (TODO(verify): the polynomial factor in Theorem 4). The stored form is implied by either reading. The paper asks for size… |
@@ -122,10 +123,12 @@ Shown in Details only, never in the Overview.
 | `s-club--vc--hartung-komusiewicz-nichterlein-2012` | `source.note` | …ertex cover." No restriction on $s$. Read in the open-access JGAA version (2015); the IPEC 2012 version was not opened. TODO(verify): whether a minimum vertex cover is computed or assumed given (computing one in $O^*(1.28^{vc})$ time keeps … |
 | `sat--db-qhorn--ramanujan-saurabh-2013` | `source.note` | …nt arXiv version of 1304.7505; the numbers Theorem 6 and Corollary 1 come from the rendered PDF as reported by a fetch, TODO(verify). SODA 2014 and TALG 2017 versions not read. |
 | `sat--sb-forest--gaspers-szeider-2012-treewidth` | `source.note` | …s$ until it returns a count gives time $f(sb_{forest}) N^3$, and $F$ is satisfiable exactly when the count is positive. TODO(verify): that the function of $k$ is computable (needed for the meaning of $f$ in PEAR). |
+| `set-packing--k--zehavi-2015` | `properties.space.note` | …sets with divide-and-color and "balanced cutting"), which are stored families of partial solutions of exponential size. TODO(verify) by Serge. |
 | `sharp-3-sat--sb-forest--gaspers-szeider-2012-treewidth` | `source.note` | …e algorithm counts the satisfying assignments of any CNF formula, so it applies to 3-CNF formulas, the input of #3-SAT. TODO(verify): that the function of $k$ is computable. |
 | `sharp-independent-set--n--junosza-szaniawski-tuczynski-2015-max-degree-3` | `source.note` | …graphs, which the entered general bound beats. Read in arXiv v1 (28 March 2015), 27 November 2026; unrefereed preprint. TODO(verify): whether it has been published. |
 | `sparsest-cut--tw--javadi-nikabadi-2019` | `source.note` | …since 26 November 2026). The stated time presumably counts arithmetic on weights as unit cost (the paper does not say). TODO(verify): the join-node recurrence as printed in arXiv v2 reads $A_j$ twice where one would expect the tables of bot… |
 | `subgraph-isomorphism--k-tw--fomin-lokshtanov-raman-2009` | `source.note` | …proof starts from a nice tree decomposition of $F$ (computable for a $k$-vertex graph by an exact treewidth algorithm). TODO(verify): read Theorem 1 in the PDF (only read through a text extraction). |
+| `subset-feedback-vertex-set--n--fomin-heggernes-kratsch-papadopoulos-villanger-2012` | `properties.space.note` | …ching tree; Corollary 5.1 keeps the lightest one. No memoization, dynamic programming or exponential tables were found. TODO(verify) by Serge. |
 | `subset-feedback-vertex-set--tw--jacob-et-al-2021` | `source.note` | … even in the weighted setting; Section 2 works from a given tree decomposition of width $k$ ($k$ is written $tw$ here). TODO(verify): whether a decomposition must be given; it is recorded as given. Improves the polynomial factor of Bergougn… |
 | `subset-sum--t--jin-vyas-williams-2021-deterministic` | `source.note` | Decision only. Read in arXiv v1 (7 November 2020), 27 November 2026. TODO(verify): the theorem number in the SODA 2021 version. |
 | `subset-sum--t--jin-vyas-williams-2021` | `source.note` | …ection 1 also mentions a search version with an extra factor $n$. Read in arXiv v1 (7 November 2020), 27 November 2026. TODO(verify): the theorem number in the SODA 2021 version. |

@@ -1,0 +1,27 @@
+id: red-blue-dominating-set--n--van-rooij-2011-exp
+problem: red-blue-dominating-set
+proved_for: optimisation
+bound:
+  as_stated: O(1.2252^{n})
+  notation: O
+  parameters:
+  - n
+properties:
+  randomized: false
+  space:
+    class: exponential
+    bound: O(1.2252^{n})
+    note: 'Stated: "in $O(1.2252^n)$ time and space" (Corollary 8.15); the subproblems of small pathwidth are solved by dynamic programming on path decompositions.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: van-rooij-2011
+  statements:
+    thesis:
+      statement: 'Corollary 8.15 (page 155): "There exists an algorithm that solves Red-Blue Dominating Set in $O(1.2252^n)$ time and space."'
+  note: 'Inclusion/exclusion-based branching (Algorithm 8.2) with new weights, switching to dynamic programming on path decompositions (proof of Corollary 8.15); the proof uses $|\mathcal{S}| + |\mathcal{U}| = n$ for the corresponding Set Cover instance, as for Corollary 5.5. The thesis says it improves the polynomial-space $O(1.2279^n)$ of Corollary 5.5 "at the cost of using exponential space". TODO(verify): proved_for, as for red-blue-dominating-set--n--van-rooij-2011.'
+formal:
+  status: informal
+status: valid
