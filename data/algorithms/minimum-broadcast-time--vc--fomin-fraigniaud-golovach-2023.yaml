@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: polynomial
-    bound: 'Not stated; educated guess from the structure described by Bonnet, Feghali and Vasilakis (arXiv 2607.01770v1, Section 3): guessing the part of the protocol on a vertex cover and solving a matching problem; the journal proof was not read in detail.'
+    note: 'Not stated; educated guess from the structure described by Bonnet, Feghali and Vasilakis (arXiv 2607.01770v1, Section 3): guessing the part of the protocol on a vertex cover and solving a matching problem; the journal proof was not read in detail.'
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: exponential
-    bound: "Not stated; educated guess: $2^{O(k^{2})}$. The kernel (Theorem 2, at most $4k(k+1) + 2k$ vertices, computed in $O(nm)$ time) is solved with the configuration-graph algorithm of Theorem 1, which builds the configuration graph explicitly."
+    note: "Not stated; educated guess: $2^{O(k^{2})}$. The kernel (Theorem 2, at most $4k(k+1) + 2k$ vertices, computed in $O(nm)$ time) is solved with the configuration-graph algorithm of Theorem 1, which builds the configuration graph explicitly."
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

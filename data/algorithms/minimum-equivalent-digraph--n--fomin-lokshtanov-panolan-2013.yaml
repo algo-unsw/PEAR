@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: exponential
-    bound: "Not stated; educated guess: exponential. A dynamic programme over $\\ell$ that stores $q$-representative families $\\widehat{\\mathcal B}^{4\\ell}$ of a uniform matroid on $4n - 4$ elements, of size up to $\\binom{4n-4}{4\\ell}$ (Lemma 5.9 of the journal version)."
+    note: "Not stated; educated guess: exponential. A dynamic programme over $\\ell$ that stores $q$-representative families $\\widehat{\\mathcal B}^{4\\ell}$ of a uniform matroid on $4n - 4$ elements, of size up to $\\binom{4n-4}{4\\ell}$ (Lemma 5.9 of the journal version)."
   algebraic: true
   fast_matrix_multiplication: true
   constructive: true

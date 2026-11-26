@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: exponential
-    bound: "$O(2^n n)$: tables indexed by vertex subsets."
+    note: "$O(2^n n)$: tables indexed by vertex subsets."
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

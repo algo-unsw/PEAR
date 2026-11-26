@@ -10,7 +10,7 @@ properties:
   randomized: false
   space:
     class: exponential
-    bound: 'Time and space, as stated (dynamic programming over a path decomposition).'
+    note: 'Time and space, as stated (dynamic programming over a path decomposition).'
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

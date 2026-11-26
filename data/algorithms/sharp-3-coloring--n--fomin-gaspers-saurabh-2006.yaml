@@ -10,7 +10,7 @@ properties:
   randomized: false
   space:
     class: exponential
-    bound: 'Not stated; educated guess: exponential. When the maximum degree of the uncoloured part is small, the algorithm outputs a path decomposition and runs the dynamic program of Lemma 5 ($O(3^{\ell} n^{O(1)})$ for width $\ell$), whose tables are exponential in the width.'
+    note: 'Not stated; educated guess: exponential. When the maximum degree of the uncoloured part is small, the algorithm outputs a path decomposition and runs the dynamic program of Lemma 5 ($O(3^{\ell} n^{O(1)})$ for width $\ell$), whose tables are exponential in the width.'
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

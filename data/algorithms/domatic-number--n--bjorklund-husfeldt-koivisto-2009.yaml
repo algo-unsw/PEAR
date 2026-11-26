@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: exponential
-    bound: 'Exponential: Theorem 2 builds, with the fast zeta transform, a table with an entry for every subset of $V$ (Section 3.2); Section 5 replaces this table to get polynomial space at the cost of $O^*(3^n)$ time.'
+    note: 'Exponential: Theorem 2 builds, with the fast zeta transform, a table with an entry for every subset of $V$ (Section 3.2); Section 5 replaces this table to get polynomial space at the cost of $O^*(3^n)$ time.'
   algebraic: true
   fast_matrix_multiplication: false
   constructive: true

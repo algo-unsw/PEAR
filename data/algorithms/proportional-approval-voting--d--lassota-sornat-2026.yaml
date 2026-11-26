@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: exponential
-    bound: 'Not stated; educated guess: $2^{d^{O(d)}} N^{O(1)}$. The algorithm reduces to $p$-partial set cover with $p \le d \cdot d! \cdot \Delta_C$ and uses Bläser''s $2^{O(p)} s t$-time algorithm (colour coding with dynamic programming over subsets of colours); when there are fewer voters than $k$, it calls an integer-programming algorithm for Thiele rules parameterized by the number of voters (Faliszewski et al.).'
+    note: 'Not stated; educated guess: $2^{d^{O(d)}} N^{O(1)}$. The algorithm reduces to $p$-partial set cover with $p \le d \cdot d! \cdot \Delta_C$ and uses Bläser''s $2^{O(p)} s t$-time algorithm (colour coding with dynamic programming over subsets of colours); when there are fewer voters than $k$, it calls an integer-programming algorithm for Thiele rules parameterized by the number of voters (Faliszewski et al.).'
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true
@@ -17,8 +17,9 @@ properties:
 source:
   paper: lassota-sornat-2026
   statements:
+    aaai: { statement: "Proposition 15" }
     arxiv: { statement: "Proposition 15" }
-  note: 'Stated for every Thiele sequence $w$ with $w_1 = 1$, so for PAV ($w_j = 1/j$): "$w$-Thiele can be solved in time $2^{d^{O(d)}} \cdot n m^{O(1)}$", where $d$ is the total score of an optimal committee and $n$ is the number of voters, $m$ the number of candidates, as here. The colour coding is derandomized with splitters (Naor, Schulman and Srinivasan), so the algorithm is deterministic. The decision version with target $d$ reduces to it with the same parameter, by the argument of the proof: every represented voter contributes at least $w_1 = 1$, so if a candidate is approved by at least $d$ voters, or a greedy committee (each new candidate represents a new voter while possible) represents at least $d$ voters, the answer is yes; otherwise either fewer than $d$ voters approve any candidate, and the first case of the proof (FPT by the number of voters) applies, or $k < d$ and every candidate has fewer than $d$ approvals, and Theorem 14 (FPT in $k + \Delta_C$) computes the optimum. Numbering read from the LaTeX source of the arXiv version (theorems, lemmas, propositions and definitions share one counter); TODO(verify) whether the AAAI 2026 version contains this proposition and its number there; marked unverified until then (the arXiv version, July 2026, is later than the AAAI paper, January 2026).'
-unverified: true
+  note: 'Stated for every Thiele sequence $w$ with $w_1 = 1$, so for PAV ($w_j = 1/j$): "$w$-Thiele can be solved in time $2^{d^{O(d)}} \cdot n m^{O(1)}$", where $d$ is the total score of an optimal committee and $n$ is the number of voters, $m$ the number of candidates, as here. The colour coding is derandomized with splitters (Naor, Schulman and Srinivasan), so the algorithm is deterministic. The decision version with target $d$ reduces to it with the same parameter, by the argument of the proof: every represented voter contributes at least $w_1 = 1$, so if a candidate is approved by at least $d$ voters, or a greedy committee (each new candidate represents a new voter while possible) represents at least $d$ voters, the answer is yes; otherwise either fewer than $d$ voters approve any candidate, and the first case of the proof (FPT by the number of voters) applies, or $k < d$ and every candidate has fewer than $d$ approvals, and Theorem 14 (FPT in $k + \Delta_C$) computes the optimum. Numbering read from the LaTeX source of the arXiv version (theorems, lemmas, propositions and definitions share one counter). The AAAI 2026 version (PDF in Serge''s Zotero library, read 23 November 2026) contains the same statement as Proposition 15, in Section 5.2; its exponent, flattened in the text extraction, was confirmed as $2^{d^{O(d)}} \cdot n m^{O(1)}$ by Serge Gaspers from the PDF (23 November 2026).'
 formal: { status: informal }
 status: valid
+review: { approved_by: Serge Gaspers, date: 2026-11-24 }

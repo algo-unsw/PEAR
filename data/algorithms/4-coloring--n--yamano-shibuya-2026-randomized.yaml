@@ -11,7 +11,7 @@ properties:
     error: one-sided
   space:
     class: exponential
-    bound: 'Not stated; educated guess: exponential. The 3-coloring subroutine (Theorem 1.2) and the terminal algorithms use dynamic programming over tree decompositions (Telle and Proskurowski, $O^*(k^{tw})$; Section 3), whose tables are exponential in the width; this version also uses the randomized path decomposition algorithm of Jansen and Nederlof (Section 5.6).'
+    note: 'Not stated; educated guess: exponential. The 3-coloring subroutine (Theorem 1.2) and the terminal algorithms use dynamic programming over tree decompositions (Telle and Proskurowski, $O^*(k^{tw})$; Section 3), whose tables are exponential in the width; this version also uses the randomized path decomposition algorithm of Jansen and Nederlof (Section 5.6).'
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

@@ -7,7 +7,7 @@ bound:
   parameters: [dcl]
 properties:
   randomized: true
-  space: { class: exponential, bound: "$O^*(2^{dcl})$, as stated in the proof of Theorem 2." }
+  space: { class: exponential, note: "$O^*(2^{dcl})$, as stated in the proof of Theorem 2." }
   algebraic: true
   fast_matrix_multiplication: false
   constructive: true

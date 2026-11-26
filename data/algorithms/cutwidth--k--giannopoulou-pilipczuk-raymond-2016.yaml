@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: exponential
-    bound: 'Not stated; educated guess: $2^{O(k^2 \log k)} \cdot n$. The algorithm runs a dynamic programming procedure over the prefixes of an approximate ordering whose states are sets of bucket interfaces (Section 5), and a recursion that removes a large fraction of the edges at each step.'
+    note: 'Not stated; educated guess: $2^{O(k^2 \log k)} \cdot n$. The algorithm runs a dynamic programming procedure over the prefixes of an approximate ordering whose states are sets of bucket interfaces (Section 5), and a recursion that removes a large fraction of the edges at each step.'
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

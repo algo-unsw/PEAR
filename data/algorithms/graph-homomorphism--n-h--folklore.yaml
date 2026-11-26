@@ -7,7 +7,7 @@ bound:
   parameters: [h, n]
 properties:
   randomized: false
-  space: { class: polynomial, bound: "Enumerates the maps one at a time." }
+  space: { class: polynomial, note: "Enumerates the maps one at a time." }
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

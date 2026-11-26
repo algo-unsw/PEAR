@@ -7,7 +7,7 @@ bound:
   parameters: [k]
 properties:
   randomized: { error: one-sided }
-  space: { class: polynomial, bound: 'Not stated; educated guess: polynomial. For each root, an arithmetic circuit of polynomial size for the determinant of the punctured symbolic Laplacian (Berkowitz), then randomized multilinear-monomial detection by sieving; no dynamic programming or tables found.' }
+  space: { class: polynomial, note: 'Not stated; educated guess: polynomial. For each root, an arithmetic circuit of polynomial size for the determinant of the punctured symbolic Laplacian (Berkowitz), then randomized multilinear-monomial detection by sieving; no dynamic programming or tables found.' }
   algebraic: true
   fast_matrix_multiplication: false
   constructive: true

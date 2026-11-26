@@ -20,6 +20,19 @@ eleventyComputed:
 {%- for f in r.flags %}{% if f == "given-tree-decomposition" %} <span class="tag" title="A tree decomposition of width tw is given with the input.">tree decomposition given</span>{% elif f == "unverified" %} <span class="tag warn" title="From an unrefereed source; in the Overview only when you include preprints and unverified results, or this result in Details (Origin column).">unverified</span>{% elif f == "preprint" %}{% if "unverified" not in r.flags %} <span class="tag warn" title="From a preprint (no peer-reviewed version yet); in the Overview only when you include preprints and unverified results.">preprint</span>{% endif %}{% elif f == "long-chain" %} <span class="tag warn" title="The derivation chain is long; check each step.">long chain</span>{% else %} <span class="tag warn" title="{{ f }}">{{ f }}</span>{% endif %}{% endfor -%}
 {%- if not r.properties.constructive %} <span class="tag" title="The paper proves that an algorithm exists but gives no way to write it down.">non-constructive</span>{% endif -%}
 {%- endmacro -%}
+{%- macro tradeoffTable(tb) -%}
+{#- time–space frontier (decided 23 November 2026): slowest first; space up to polynomial factors #}
+<div class="tablewrap">
+<table class="results tradeoffs">
+<thead><tr><th>Time</th><th>Space</th><th>Source</th></tr></thead>
+<tbody>
+{%- for pt in tb.points %}
+<tr><td class="nowrap">{{ bound(pt.row) }}</td><td class="nowrap">{% if pt.space == "poly" %}polynomial{% elif pt.space == "time" %}exp{% else %}{{ pt.space_tex | tex | safe }}{% endif %}</td><td>{{ pt.refs | refs | safe }}{% if pt.derived %} <span class="tag" title="Obtained by combining an algorithm with reductions or other derivation steps.">derived</span>{% endif %}</td></tr>
+{%- endfor %}
+</tbody>
+</table>
+</div>
+{%- endmacro -%}
 {%- macro chain(r, cid) -%}
 <button type="button" class="disclose chain" aria-expanded="false" aria-controls="{{ cid }}">{{ tri | safe }}Where this bound comes from</button>
 {{ chainList(r, cid, true) }}
@@ -107,6 +120,13 @@ eleventyComputed:
 {%- for l in e.lines %}{% for c in l.rows %}{% if c.chain_items.length %}{{ chain(c, "chain-" + v.id + "-" + c.id) }}{% endif %}{% endfor %}{% endfor %}
 </div>
 {%- endfor %}
+{%- if g.tradeoffs %}{% set tid = "tradeoffs-" + v.id + "-" + (g.parameters | join("-")) %}
+<button type="button" class="disclose small" aria-expanded="false" aria-controls="{{ tid }}">{{ tri | safe }}Time–space trade-offs ({{ g.tradeoffs.points.length }})</button>
+<div id="{{ tid }}" hidden>
+{{ tradeoffTable(g.tradeoffs) }}
+<p class="small muted">Algorithms that no other one beats in both time and space, up to polynomial factors. “exp”: exponential space with no stated bound, compared as equal to the running time.</p>
+</div>
+{%- endif %}
 </div>
 {%- endfor %}
 </div>
@@ -148,6 +168,14 @@ eleventyComputed:
 </table>
 </div>
 <p class="small muted" style="margin-top: 6px" data-filter-empty hidden>No result matches these filters.</p>
+{%- endif %}
+{%- if node.tradeoffs.length %}
+<h3>Time–space trade-offs</h3>
+<p class="note">Algorithms that no other one beats in both time and space, up to polynomial factors. Polynomial space is one class; “exp” is exponential space with no stated bound, compared as equal to the running time.</p>
+{%- for tb in node.tradeoffs %}
+<p class="small" style="margin-bottom: 2px">By {{ tb.param_tex | tex | safe }}</p>
+{{ tradeoffTable(tb) }}
+{%- endfor %}
 {%- endif %}
 {%- if node.flagged.length %}
 <h3>Flagged results</h3>

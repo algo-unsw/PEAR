@@ -7,7 +7,7 @@ bound:
   parameters: [k, pw]
 properties:
   randomized: { error: one-sided }
-  space: { class: exponential, bound: 'Not stated; educated guess: exponential. Cut&Count dynamic programming over the given path decomposition, with tables indexed by states of the bag vertices (degrees up to $r$ and sides).' }
+  space: { class: exponential, note: 'Not stated; educated guess: exponential. Cut&Count dynamic programming over the given path decomposition, with tables indexed by states of the bag vertices (degrees up to $r$ and sides).' }
   algebraic: true
   fast_matrix_multiplication: false
   constructive: true

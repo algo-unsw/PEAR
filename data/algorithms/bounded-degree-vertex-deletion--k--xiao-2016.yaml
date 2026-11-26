@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: polynomial
-    bound: "Not stated; educated guess: polynomial. A recursive branch-and-search algorithm (seven branching steps on high-degree vertices, dominations, pairs, triples and quadruples of degree-$(d+1)$ vertices); no memoization, dynamic programming or tables found."
+    note: "Not stated; educated guess: polynomial. A recursive branch-and-search algorithm (seven branching steps on high-degree vertices, dominations, pairs, triples and quadruples of degree-$(d+1)$ vertices); no memoization, dynamic programming or tables found."
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

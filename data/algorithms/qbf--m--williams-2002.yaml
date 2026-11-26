@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: exponential
-    bound: "Stated: $O(2^{h(\\delta)m} + \\delta m)$ space (Theorem 4.1); the abstract says $O(1.709^m)$ time and space."
+    note: "Stated: $O(2^{h(\\delta)m} + \\delta m)$ space (Theorem 4.1); the abstract says $O(1.709^m)$ time and space."
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

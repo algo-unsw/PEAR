@@ -10,7 +10,7 @@ properties:
   randomized: false
   space:
     class: polynomial
-    bound: 'Stated in the introduction: the recursive algorithm takes polynomial space.'
+    note: 'Stated in the introduction: the recursive algorithm takes polynomial space.'
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

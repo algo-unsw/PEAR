@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: polynomial
-    bound: "Not stated; educated guess: polynomial. Computes a minimum co-cluster modulator (Boral et al.), then tries the $2^{2^{O(dcc)}}$ signatures and candidate sets one at a time, each checked in polynomial time."
+    note: "Not stated; educated guess: polynomial. Computes a minimum co-cluster modulator (Boral et al.), then tries the $2^{2^{O(dcc)}}$ signatures and candidate sets one at a time, each checked in polynomial time."
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

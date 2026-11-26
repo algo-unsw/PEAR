@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: polynomial
-    bound: "Not stated. Guess: polynomial. The algorithm enumerates $2^{O(\\ell^6 \\log \\ell)}$ combinatorial choices one at a time and solves an integer linear program with $O(\\ell^2)$ variables for each (Lenstra/Kannan-type algorithms); no dynamic programming or memoization is used."
+    note: "Not stated. Guess: polynomial. The algorithm enumerates $2^{O(\\ell^6 \\log \\ell)}$ combinatorial choices one at a time and solves an integer linear program with $O(\\ell^2)$ variables for each (Lenstra/Kannan-type algorithms); no dynamic programming or memoization is used."
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

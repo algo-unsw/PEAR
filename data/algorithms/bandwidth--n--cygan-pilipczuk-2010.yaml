@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: polynomial
-    bound: 'Stated: polynomial space (abstract and Section 3); the states on a path are guessed with a divide-and-conquer recursion instead of being memoized.'
+    note: 'Stated: polynomial space (abstract and Section 3); the states on a path are guessed with a divide-and-conquer recursion instead of being memoized.'
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

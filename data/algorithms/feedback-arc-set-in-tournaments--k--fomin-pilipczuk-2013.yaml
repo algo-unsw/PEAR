@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: exponential
-    bound: 'Not stated; educated guess: $2^{O(\sqrt{k})} n^{O(1)}$. The proof enumerates all $k$-cuts of the tournament (at most $A \exp(C\sqrt{2k})(n+1)$) and stores them as the vertices of an auxiliary digraph searched with Dijkstra''s algorithm.'
+    note: 'Not stated; educated guess: $2^{O(\sqrt{k})} n^{O(1)}$. The proof enumerates all $k$-cuts of the tournament (at most $A \exp(C\sqrt{2k})(n+1)$) and stores them as the vertices of an auxiliary digraph searched with Dijkstra''s algorithm.'
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

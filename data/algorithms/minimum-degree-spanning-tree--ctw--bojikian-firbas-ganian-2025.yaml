@@ -7,7 +7,7 @@ bound:
   parameters: [ctw]
 properties:
   randomized: { error: one-sided }
-  space: { class: exponential, bound: 'Not stated; educated guess: exponential. Cut&Count dynamic programming along the given linear arrangement, with tables indexed by states of the cut edges.' }
+  space: { class: exponential, note: 'Not stated; educated guess: exponential. Cut&Count dynamic programming along the given linear arrangement, with tables indexed by states of the cut edges.' }
   algebraic: true
   fast_matrix_multiplication: false
   constructive: true

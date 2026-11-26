@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: polynomial
-    bound: "Not stated; educated guess: polynomial. The proof enumerates the candidate sets of at most $k$ protected vertices one at a time and checks each in linear time (Lemmas 2.4–2.6); no table is stored."
+    note: "Not stated; educated guess: polynomial. The proof enumerates the candidate sets of at most $k$ protected vertices one at a time and checks each in linear time (Lemmas 2.4–2.6); no table is stored."
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

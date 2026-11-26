@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: exponential
-    bound: 'Not stated; dynamic programming over a nice tree decomposition, storing for each bag vertex a subset of $[t]$ and an information time (Section 4.3, overview), so tables of size $2^{O(t \cdot tw)}$ (educated guess).'
+    note: 'Not stated; dynamic programming over a nice tree decomposition, storing for each bag vertex a subset of $[t]$ and an information time (Section 4.3, overview), so tables of size $2^{O(t \cdot tw)}$ (educated guess).'
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

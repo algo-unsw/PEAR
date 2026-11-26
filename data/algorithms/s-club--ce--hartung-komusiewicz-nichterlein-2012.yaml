@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: polynomial
-    bound: "Not stated; educated guess: polynomial. A linear-time kernel with $4 ce$ vertices (Theorem 2), then the search tree algorithm analysed in $n$ ($\\alpha^4 < 6.86$ for the golden ratio $\\alpha$); no tables."
+    note: "Not stated; educated guess: polynomial. A linear-time kernel with $4 ce$ vertices (Theorem 2), then the search tree algorithm analysed in $n$ ($\\alpha^4 < 6.86$ for the golden ratio $\\alpha$); no tables."
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

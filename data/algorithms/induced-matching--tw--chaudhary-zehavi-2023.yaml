@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: exponential
-    bound: "Not stated; educated guess: $3^{tw} n^{O(1)}$. Dynamic programming over a nice tree decomposition (with the deferred edge property), with fast subset convolution at join nodes; tables indexed by states of the bag vertices."
+    note: "Not stated; educated guess: $3^{tw} n^{O(1)}$. Dynamic programming over a nice tree decomposition (with the deferred edge property), with fast subset convolution at join nodes; tables indexed by states of the bag vertices."
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

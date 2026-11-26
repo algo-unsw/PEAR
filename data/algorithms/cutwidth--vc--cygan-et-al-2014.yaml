@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: exponential
-    bound: "Not stated; educated guess: exponential, about $2^{vc}$. The paper calls it a dynamic programming algorithm over a given vertex cover $C$, with $2^{|C|}$ running time; such a table is indexed by subsets of $C$."
+    note: "Not stated; educated guess: exponential, about $2^{vc}$. The paper calls it a dynamic programming algorithm over a given vertex cover $C$, with $2^{|C|}$ running time; such a table is indexed by subsets of $C$."
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

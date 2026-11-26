@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: exponential
-    bound: 'Not stated; educated guess: when the incidence treewidth is small the algorithm counts models by dynamic programming over a tree decomposition (Samer–Szeider), with tables exponential in the width, which is bounded by a function of the parameter.'
+    note: 'Not stated; educated guess: when the incidence treewidth is small the algorithm counts models by dynamic programming over a tree decomposition (Samer–Szeider), with tables exponential in the width, which is bounded by a function of the parameter.'
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

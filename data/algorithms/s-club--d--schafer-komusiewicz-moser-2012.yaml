@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: polynomial
-    bound: "Not stated; educated guess: polynomial. A depth-first search tree that branches on deleting one of two vertices at distance more than $s$; no memoization or tables."
+    note: "Not stated; educated guess: polynomial. A depth-first search tree that branches on deleting one of two vertices at distance more than $s$; no memoization or tables."
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

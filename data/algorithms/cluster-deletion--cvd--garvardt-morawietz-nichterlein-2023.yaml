@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: exponential
-    bound: "Not stated; educated guess: exponential. Dynamic programming with tables indexed by subsets of the clusters of $G[M]$ (Lemma 3.4, Claim 3.5: $3^{|C_M|}$ entries per bag), $M$ a minimum cluster modulator."
+    note: "Not stated; educated guess: exponential. Dynamic programming with tables indexed by subsets of the clusters of $G[M]$ (Lemma 3.4, Claim 3.5: $3^{|C_M|}$ entries per bag), $M$ a minimum cluster modulator."
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

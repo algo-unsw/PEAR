@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: polynomial
-    bound: "Stated: polynomial space (Theorem 5)."
+    note: "Stated: polynomial space (Theorem 5)."
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

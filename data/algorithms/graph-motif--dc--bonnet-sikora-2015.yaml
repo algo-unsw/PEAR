@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: exponential
-    bound: "Not stated; educated guess: $O^*(2^{dc})$. After guessing the part $S'$ of the solution in the modulator, the algorithm solves an instance of Colored Set Cover with Thresholds over a universe of at most $dc$ elements by dynamic programming over subsets (a table $T[U, j]$ for all subsets $U$ of the universe, lemma before the theorem)."
+    note: "Not stated; educated guess: $O^*(2^{dc})$. After guessing the part $S'$ of the solution in the modulator, the algorithm solves an instance of Colored Set Cover with Thresholds over a universe of at most $dc$ elements by dynamic programming over subsets (a table $T[U, j]$ for all subsets $U$ of the universe, lemma before the theorem)."
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

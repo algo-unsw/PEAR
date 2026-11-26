@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: exponential
-    bound: "Not stated. Guess: exponential, $2^{diam^{O(tw)}} n^{O(1)}$: dynamic programming over a nice tree decomposition whose table entries are sets of distance vectors in $[diam]^{|X_i|}$ for each bag $X_i$."
+    note: "Not stated. Guess: exponential, $2^{diam^{O(tw)}} n^{O(1)}$: dynamic programming over a nice tree decomposition whose table entries are sets of distance vectors in $[diam]^{|X_i|}$ for each bag $X_i$."
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

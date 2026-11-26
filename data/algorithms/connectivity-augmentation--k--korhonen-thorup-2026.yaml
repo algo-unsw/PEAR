@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: polynomial
-    bound: "Not stated; educated guess: polynomial. Irrelevant links are removed in polynomial time until $O(k)$ relevant links remain, one of which is in some solution, followed by branching on them; no dynamic programming or memoization found in the outline (Section 1)."
+    note: "Not stated; educated guess: polynomial. Irrelevant links are removed in polynomial time until $O(k)$ relevant links remain, one of which is in some solution, followed by branching on them; no dynamic programming or memoization found in the outline (Section 1)."
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

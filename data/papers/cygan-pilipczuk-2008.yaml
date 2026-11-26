@@ -1,0 +1,10 @@
+id: cygan-pilipczuk-2008
+title: "Faster Exact Bandwidth"
+authors: [Marek Cygan, Marcin Pilipczuk]
+versions:
+  wg:
+    kind: conference
+    venue: "Graph-Theoretic Concepts in Computer Science (WG 2008), Lecture Notes in Computer Science 5344, pp. 101–109"
+    year: 2008
+    doi: "10.1007/978-3-540-92248-3_10"
+    open_access: false

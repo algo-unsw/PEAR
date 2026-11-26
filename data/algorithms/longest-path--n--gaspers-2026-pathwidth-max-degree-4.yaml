@@ -11,7 +11,7 @@ properties:
     error: one-sided
   space:
     class: exponential
-    bound: 'Exponential space, as stated (Theorem 14.1: all algorithms of the theorem use exponential space).'
+    note: 'Exponential space, as stated (Theorem 14.1: all algorithms of the theorem use exponential space).'
   algebraic: true
   fast_matrix_multiplication: false
   constructive: true

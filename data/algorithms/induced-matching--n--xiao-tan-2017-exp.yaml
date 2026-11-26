@@ -1,0 +1,24 @@
+id: induced-matching--n--xiao-tan-2017-exp
+problem: induced-matching
+proved_for: optimisation
+bound:
+  as_stated: "O^*(1.3752^{n})"
+  notation: O*
+  parameters: [n]
+properties:
+  randomized: false
+  space:
+    class: exponential
+    note: "Stated: time and space $O^*(1.3752^n)$ (Theorem 2); solutions of all small instances are precomputed by dynamic programming and looked up at the leaves of the search tree."
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: xiao-tan-2017
+  statements:
+    journal: { statement: "Theorem 2" }
+  note: "Read in the full text (PDF in Serge's Zotero library, 23 November 2026). Theorem 2: \"A maximum induced matching in an $n$-vertex graph can be computed in $O^*(1.3752^n)$ time and space\": the branching algorithm of Theorem 1 with a database of solutions for instances of size at most $\\eta n$, $\\eta = 0.09705$."
+formal: { status: informal }
+status: valid
+review: { approved_by: Serge Gaspers, date: 2026-11-24 }

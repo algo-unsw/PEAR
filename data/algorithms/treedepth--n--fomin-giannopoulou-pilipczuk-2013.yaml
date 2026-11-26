@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: exponential
-    bound: 'Not stated; educated guess: exponential, about $O^*(1.9602^n)$. The pruned dynamic programming stores a value for every set of the family $\mathcal{S}_\varepsilon$ (kept in a trie), and the remaining branches run the naive dynamic programming on subsets.'
+    note: 'Not stated; educated guess: exponential, about $O^*(1.9602^n)$. The pruned dynamic programming stores a value for every set of the family $\mathcal{S}_\varepsilon$ (kept in a trie), and the remaining branches run the naive dynamic programming on subsets.'
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

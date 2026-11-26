@@ -440,6 +440,19 @@ def check_expressions(data: Dataset) -> list[Issue]:
     for aid, alg in data.entries["algorithms"].items():
         assert isinstance(alg, Algorithm)
         bound(f"algorithms/{aid}.yaml: bound", data.problems.get(alg.problem), alg.bound)
+        space, problem = alg.properties.space, data.problems.get(alg.problem)
+        if space.bound is not None and problem is not None:
+            # time–space frontiers (23 November 2026): in the bound language, in (some of) the
+            # running time's parameters
+            where = f"algorithms/{aid}.yaml: properties.space.bound"
+            try:
+                parsed = parse_bound(space.bound, problem.symbols())
+            except BoundSyntaxError as exc:
+                issues.append(Issue(where, str(exc)))
+            else:
+                extra = variables(parsed.expr) - set(alg.bound.parameters)
+                if extra:
+                    issues.append(Issue(where, f"uses {sorted(extra)}, which the running time does not"))
 
     for lid, lb in data.entries["lower-bounds"].items():
         assert isinstance(lb, LowerBound)

@@ -7,7 +7,7 @@ bound:
   parameters: [n, tw_H]
 properties:
   randomized: false
-  space: { class: exponential, bound: "Not stated; educated guess: exponential. Dynamic programming along the tree decomposition of $H$, storing sets of 'characteristics' of partial maps (up to $(tw_H + 3)^n$ of them) in search trees." }
+  space: { class: exponential, note: "Not stated; educated guess: exponential. Dynamic programming along the tree decomposition of $H$, storing sets of 'characteristics' of partial maps (up to $(tw_H + 3)^n$ of them) in search trees." }
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

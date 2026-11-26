@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: exponential
-    bound: "Not stated; educated guess: exponential. Adaptive consistency along the k-tree ordering records new constraints on up to $k+1$ variables, with up to $d^{k+1}$ tuples each."
+    note: "Not stated; educated guess: exponential. Adaptive consistency along the k-tree ordering records new constraints on up to $k+1$ variables, with up to $d^{k+1}$ tuples each."
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

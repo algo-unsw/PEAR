@@ -10,7 +10,7 @@ properties:
   randomized: false
   space:
     class: exponential
-    bound: 'A table entry for every set of vertices and end vertex (Held–Karp dynamic programming).'
+    note: 'A table entry for every set of vertices and end vertex (Held–Karp dynamic programming).'
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

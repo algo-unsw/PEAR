@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: exponential
-    bound: "Not stated. The algorithm kernelizes to at most $2^k$ vertices (Fleischner et al.), lists all inclusion-wise maximal bicliques of the kernel (up to $2^{2^{k-1}}$) and tries all $k$-subsets of that list; storing the list takes space exponential in $k$ (guess)."
+    note: "Not stated. The algorithm kernelizes to at most $2^k$ vertices (Fleischner et al.), lists all inclusion-wise maximal bicliques of the kernel (up to $2^{2^{k-1}}$) and tries all $k$-subsets of that list; storing the list takes space exponential in $k$ (guess)."
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

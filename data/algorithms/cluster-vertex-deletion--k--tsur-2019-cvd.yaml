@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: polynomial
-    bound: "Not stated; educated guess: polynomial. A branching algorithm (branching on twins and on a family of vertex covers of the auxiliary graph $H_v$, found by a vertex-cover branching subroutine) built on the algorithm of Boral, Cygan, Kociumaka and Pilipczuk, whose main theorem (Section 1 of arXiv 1306.3877) states polynomial space; no memoization or dynamic programming found."
+    note: "Not stated; educated guess: polynomial. A branching algorithm (branching on twins and on a family of vertex covers of the auxiliary graph $H_v$, found by a vertex-cover branching subroutine) built on the algorithm of Boral, Cygan, Kociumaka and Pilipczuk, whose main theorem (Section 1 of arXiv 1306.3877) states polynomial space; no memoization or dynamic programming found."
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

@@ -11,7 +11,7 @@ properties:
   randomized: false
   space:
     class: polynomial
-    bound: 'Polynomial space, as stated.'
+    note: 'Polynomial space, as stated.'
   algebraic: true
   fast_matrix_multiplication: false
   constructive: true
