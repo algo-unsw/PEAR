@@ -1,0 +1,26 @@
+id: steiner-tree--t--fomin-kaski-lokshtanov-panolan-saurabh-2015-weighted
+problem: steiner-tree
+proved_for: weighted
+bound:
+  as_stated: O^*(6.751^{t})
+  notation: O*
+  parameters:
+  - t
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    note: 'Stated: polynomial space (Theorem 1.2).'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: fomin-kaski-lokshtanov-panolan-saurabh-2015
+  statements:
+    journal-author-copy:
+      statement: Theorem 1.2 (PDF page 4)
+  note: 'Theorem 1.2: "There exists a polynomial-space algorithm for Steiner Tree running in $O(6.751^k n^{O(1)} \log W)$ time", for a connected graph with edge weights in $\{1, \dots, W\}$ and $k$ terminals (PEAR''s $t$); $\log W$ is polynomial in the input size, and a disconnected graph is reduced to the component of the terminals (or rejected). Theorem 1.1 gives $O(7.97^k n^4 \log(nW))$ time in $O(n^3 \log(nW) \log k)$ space. Deterministic. Read in the authors'' copy of the SIAM J. Discrete Math. version.'
+formal:
+  status: informal
+status: valid

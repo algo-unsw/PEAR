@@ -1,0 +1,21 @@
+id: fomin-heggernes-kratsch-papadopoulos-villanger-2012
+title: Enumerating Minimal Subset Feedback Vertex Sets
+authors:
+- Fedor V. Fomin
+- Pinar Heggernes
+- Dieter Kratsch
+- Charis Papadopoulos
+- Yngve Villanger
+versions:
+  wads:
+    kind: conference
+    venue: Algorithms and Data Structures (WADS 2011), LNCS 6844, pp. 399–410
+    year: 2011
+    doi: 10.1007/978-3-642-22300-6_34
+    open_access: false
+  journal:
+    kind: journal
+    venue: Algorithmica 69(1), pp. 216–231
+    year: 2014
+    doi: 10.1007/s00453-012-9731-6
+    open_access: false

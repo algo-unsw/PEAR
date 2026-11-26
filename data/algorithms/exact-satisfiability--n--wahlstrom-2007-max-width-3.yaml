@@ -1,0 +1,26 @@
+id: exact-satisfiability--n--wahlstrom-2007-max-width-3
+problem: exact-satisfiability
+proved_for: decision-max-width-3
+bound:
+  as_stated: O^*(1.0984^{n})
+  notation: O*
+  parameters:
+  - n
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    note: 'Not stated; educated guess: polynomial. DPLL-style branching (algorithm XShort) with a final enumeration of assignments of "light" instances; no memoization, tables or decompositions found.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: wahlstrom-2007-thesis
+  statements:
+    thesis:
+      statement: Theorem 57 (Chapter 5, PDF page 158)
+  note: 'Theorem 57: "The algorithm XShort decides the satisfiability of an Xsat instance $F$ in time $O^*(1.0984^{n+\lambda})$ where $n$ is the number of variables in $F$ and $\lambda$ is the length bonus. For an X3sat instance, XShort has a running time in $O^*(1.0984^n)$." Deterministic. The thesis says it improves the $O^*(1.1003^n)$ of Byskov, Madsen and Skjernaa.'
+formal:
+  status: informal
+status: valid

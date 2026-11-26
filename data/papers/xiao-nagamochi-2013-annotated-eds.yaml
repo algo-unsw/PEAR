@@ -1,0 +1,20 @@
+id: xiao-nagamochi-2013-annotated-eds
+title: Exact Algorithms for Annotated Edge Dominating Set in Graphs with Degree Bounded by 3
+authors:
+- Mingyu Xiao
+- Hiroshi Nagamochi
+versions:
+  cocoa:
+    kind: conference
+    title: Exact and Parameterized Algorithms for Edge Dominating Set in 3-Degree Graphs
+    venue: Combinatorial Optimization and Applications (COCOA 2010), LNCS, pp. 387–400
+    year: 2010
+    doi: 10.1007/978-3-642-17461-2_31
+    open_access: false
+  journal:
+    kind: journal
+    venue: IEICE Transactions on Information and Systems E96-D(3), pp. 408–418
+    year: 2013
+    doi: 10.1587/transinf.E96.D.408
+    url: https://www.jstage.jst.go.jp/article/transinf/E96.D/3/E96.D_408/_pdf
+    open_access: true

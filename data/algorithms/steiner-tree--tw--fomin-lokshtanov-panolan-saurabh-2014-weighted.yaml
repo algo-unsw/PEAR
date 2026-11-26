@@ -1,0 +1,28 @@
+id: steiner-tree--tw--fomin-lokshtanov-panolan-saurabh-2014-weighted
+problem: steiner-tree
+proved_for: weighted
+bound:
+  as_stated: '(1 + 3 \cdot 2^{\omega - 1})^{tw} tw^{O(1)} n'
+  notation: O
+  parameters:
+  - tw
+  - n
+properties:
+  randomized: false
+  space:
+    class: exponential
+    note: 'Not stated; educated guess: exponential. Dynamic programming over the given tree decomposition that stores representative families of partial solutions at each node.'
+  algebraic: true
+  fast_matrix_multiplication: true
+  constructive: true
+  quantum: false
+given:
+- tree-decomposition
+source:
+  paper: fomin-lokshtanov-panolan-saurabh-2014
+  statements:
+    arxiv-v1:
+      statement: Theorem 6.1 (page 32)
+  note: 'Theorem 6.1: "Let $G$ be an $n$-vertex graph given together with its tree decomposition of width $tw$. Then Steiner Tree on $G$ can be solved in time $O((1 + 2^{\omega-1} \cdot 3)^{tw} tw^{O(1)} n)$", for edge weights $w \colon E(G) \to \mathbb{N}$ (Section 6.2). Deterministic (representative sets of product families for graphic matroids). Beats the $(1 + 2^{\omega+1})^{tw}$ of Bodlaender, Cygan, Kratsch and Nederlof. Read in arXiv v1 (17 February 2014); the TALG version was not compared.'
+formal: { status: informal }
+status: valid

@@ -1,0 +1,26 @@
+id: vertex-cover--k--harris-narayanaswamy-2022-max-degree-6
+problem: vertex-cover
+proved_for: decision-max-degree-6
+bound:
+  as_stated: O^*(1.25214^{k})
+  notation: O*
+  parameters:
+  - k
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    note: 'Stated: polynomial space (Theorem 1).'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: harris-narayanaswamy-2022
+  statements:
+    stacs:
+      statement: Theorem 1 (page 40:2)
+  note: 'Theorem 1: "If maxdeg(G) $\le 6$, we get runtime $O^*(1.25214^k)$ ... All of these algorithms use polynomial space and are deterministic." The same in arXiv v5 (Theorem 1). Deterministic, unlike the faster randomized bound of Clinch, Gaspers and He for this degree.'
+formal:
+  status: informal
+status: valid

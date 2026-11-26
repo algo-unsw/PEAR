@@ -1,0 +1,10 @@
+id: wahlstrom-2007-thesis
+title: Algorithms, Measures and Upper Bounds for Satisfiability and Related Problems
+authors:
+- Magnus Wahlström
+versions:
+  thesis:
+    kind: thesis
+    venue: PhD thesis, Linköping Studies in Science and Technology, Dissertation No. 1079, Linköping University (ISBN 978-91-85715-55-8)
+    year: 2007
+    open_access: false
