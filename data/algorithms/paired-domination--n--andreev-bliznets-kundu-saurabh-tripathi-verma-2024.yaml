@@ -1,0 +1,26 @@
+id: paired-domination--n--andreev-bliznets-kundu-saurabh-tripathi-verma-2024
+problem: paired-domination
+proved_for: optimisation
+bound:
+  as_stated: O(1.7159^{n})
+  notation: O
+  parameters:
+  - n
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    note: 'Not stated; educated guess: polynomial. It enumerates the minimal dominating sets one at a time with the branching algorithm of Fomin, Grandoni, Pyatkin and Stepanov and runs a maximum-matching subroutine on each; no tables found. TODO(verify): that the enumeration it calls uses polynomial space.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: andreev-bliznets-kundu-saurabh-tripathi-verma-2024
+  statements:
+    iwoca:
+      statement: 'Theorem 2: "For a graph $G$ on $n$ vertices, Paired Domination can be solved in time $O(1.7159^n)$."'
+  note: 'Section 2: enumerate all minimal dominating sets in $O(1.7159^n)$ and complete each one to a paired dominating set with a maximum-matching subroutine; it computes a minimum paired dominating set. Deterministic. The same paper gives $O(4^{\mathit{tw}} n^{O(1)})$ (Theorem 3) and $O^*(4^d)$ for distance $d$ to a cluster graph (Theorem 5); not entered, as this problem defines neither parameter.'
+formal:
+  status: informal
+status: valid

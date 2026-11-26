@@ -1,0 +1,24 @@
+id: cygan-kratsch-nederlof-2013
+title: Fast Hamiltonicity Checking via Bases of Perfect Matchings
+authors:
+- Marek Cygan
+- Stefan Kratsch
+- Jesper Nederlof
+versions:
+  arxiv-v1:
+    kind: preprint
+    year: 2012
+    arxiv: 1211.1506v1
+    open_access: true
+  stoc:
+    kind: conference
+    venue: 45th ACM Symposium on Theory of Computing (STOC 2013), pp. 301–310
+    year: 2013
+    doi: 10.1145/2488608.2488646
+    open_access: false
+  journal:
+    kind: journal
+    venue: Journal of the ACM 65(3), 12:1–12:46
+    year: 2018
+    doi: 10.1145/3148227
+    open_access: false

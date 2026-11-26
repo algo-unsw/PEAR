@@ -1,0 +1,26 @@
+id: independent-set--n--xiao-nagamochi-2013-max-degree-3
+problem: independent-set
+proved_for: optimisation-max-degree-3
+bound:
+  as_stated: 'O^*(1.0836^{n})'
+  notation: O*
+  parameters:
+  - n
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    note: 'Stated in the authors'' degree-4 report (Technical Report 2013-002, p. 1): "MIS3 can be solved in $O^*(1.0836^n)$ time and polynomial space [18]". A branch-and-reduce algorithm; no memoization or dynamic programming found.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: xiao-nagamochi-2013-degree-3
+  statements:
+    techreport:
+      statement: 'Theorem 14: "A maximum independent set in a graph with maximum degree 3 can be found in $O^*(1.0836^n)$ time."'
+      page: 17
+  note: 'Read in Kyoto University Technical Report 2012-002 (8 May 2012), 27 November 2026; the TCS 2013 version was not read (TODO(verify): its theorem number and constant; a later paper, arXiv 2205.08022, cites the journal bound as $O^*(1.083506^n)$). Deterministic branching; outputs a maximum independent set. Improves the $O^*(2^{n/5+o(n)})$ derived through cubic Max 2-CSP.'
+formal: { status: informal }
+status: valid

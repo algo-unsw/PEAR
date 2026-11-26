@@ -1,0 +1,13 @@
+id: abu-khzam-mouawad-liedloff-2011
+title: An exact algorithm for connected red–blue dominating set
+authors:
+- Faisal N. Abu-Khzam
+- Amer E. Mouawad
+- Mathieu Liedloff
+versions:
+  journal:
+    kind: journal
+    venue: Journal of Discrete Algorithms 9(3), pp. 252–262
+    year: 2011
+    doi: 10.1016/j.jda.2011.03.006
+    open_access: false

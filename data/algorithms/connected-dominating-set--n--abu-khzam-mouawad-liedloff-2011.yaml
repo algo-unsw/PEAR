@@ -1,0 +1,26 @@
+id: connected-dominating-set--n--abu-khzam-mouawad-liedloff-2011
+problem: connected-dominating-set
+proved_for: optimisation
+bound:
+  as_stated: O^*(1.8619^{n})
+  notation: O*
+  parameters:
+  - n
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    note: 'Stated in Theorem 5: "uses polynomial space".'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: abu-khzam-mouawad-liedloff-2011
+  statements:
+    journal:
+      statement: 'Theorem 5: "Connected Dominating Set can be solved exactly by an algorithm whose running time is in $O^*(1.8619^n)$ and uses polynomial space."'
+  note: Reduces Connected Dominating Set on $G$ to Connected Red–Blue Dominating Set on a graph with $2|V|$ vertices (proof of Theorem 5) and solves that in $O^*(1.3645^{n})$ (Theorem 4) by branching and a reduction to Steiner Tree, solved with Nederlof's polynomial-space $O^*(2^k)$ algorithm; $1.3645^2 < 1.8619$. Deterministic. A minimum connected dominating set follows by self-reduction (the Steiner tree subroutine computes values; not stated).
+formal:
+  status: informal
+status: valid

@@ -1,0 +1,26 @@
+id: independent-set--n--xiao-nagamochi-2017-max-degree-4
+problem: independent-set
+proved_for: optimisation-max-degree-4
+bound:
+  as_stated: 'O^*(1.1376^{n})'
+  notation: O*
+  parameters:
+  - n
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    note: 'Stated in the abstract of Technical Report 2013-002: "solved in $O^*(1.1376^n)$ time and polynomial space".'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: xiao-nagamochi-2017-degree-4
+  statements:
+    techreport:
+      statement: 'Theorem 11: "A maximum independent set in a degree-4 graph of $n$ vertices can be found in $O^*(1.1376^n)$ time."'
+      page: 10
+  note: 'Read in Kyoto University Technical Report 2013-002 (8 April 2013), 27 November 2026; the Journal of Combinatorial Optimization 2017 version was not read (TODO(verify): its theorem number and constant; arXiv 2205.08022 cites the journal bound as $O^*(1.137595^n)$). Deterministic branching; outputs a maximum independent set. Improves the general $O^*(1.1996^n)$ of Xiao and Nagamochi on graphs of maximum degree 4.'
+formal: { status: informal }
+status: valid

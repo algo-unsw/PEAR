@@ -1,0 +1,18 @@
+id: jin-vyas-williams-2021
+title: Fast Low-Space Algorithms for Subset Sum
+authors:
+- Ce Jin
+- Nikhil Vyas
+- Ryan Williams
+versions:
+  arxiv-v1:
+    kind: preprint
+    year: 2020
+    arxiv: 2011.03819v1
+    open_access: true
+  soda:
+    kind: conference
+    venue: Proceedings of the 2021 ACM-SIAM Symposium on Discrete Algorithms (SODA 2021), pp. 1757–1776
+    year: 2021
+    doi: 10.1137/1.9781611976465.106
+    open_access: false

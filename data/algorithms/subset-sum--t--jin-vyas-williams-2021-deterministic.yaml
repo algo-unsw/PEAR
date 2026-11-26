@@ -1,0 +1,27 @@
+id: subset-sum--t--jin-vyas-williams-2021-deterministic
+problem: subset-sum
+proved_for: decision
+bound:
+  as_stated: \tilde{O}(n^{2} t)
+  notation: Õ
+  parameters:
+  - n
+  - t
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    note: 'Stated in Theorem 1.2: $O(\log t \cdot \log^3 n)$ space.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: jin-vyas-williams-2021
+  statements:
+    arxiv-v1:
+      statement: 'Theorem 1.2: "Subset Sum can be solved deterministically in $\tilde{O}(n^2 t)$ time and $O(\log t \cdot \log^3 n)$ space."'
+  note: 'Decision only. Read in arXiv v1 (7 November 2020), 27 November 2026. TODO(verify): the theorem number in the SODA 2021 version.'
+formal:
+  status: informal
+status: valid

@@ -1,0 +1,28 @@
+id: subset-sum--t--jin-vyas-williams-2021
+problem: subset-sum
+proved_for: decision
+bound:
+  as_stated: \tilde{O}(n t)
+  notation: Õ
+  parameters:
+  - n
+  - t
+properties:
+  randomized:
+    error: one-sided
+  space:
+    class: polynomial
+    note: 'Stated in Theorem 1.1(1): $O(\log(nt))$ space, with read-only access to the input and to $O(\log n \log\log n)$ random bits.'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: jin-vyas-williams-2021
+  statements:
+    arxiv-v1:
+      statement: 'Theorem 1.1(1): "$\tilde{O}(nt)$ time and $O(\log(nt))$ space, and read-only random access to $O(\log n \log\log n)$ random bits"'
+  note: 'Monte Carlo: the algorithms "always answer NO if there is no solution, and answer YES with probability at least 99% if there is a solution" (Section 1). Decision only; Section 1 also mentions a search version with an extra factor $n$. Read in arXiv v1 (7 November 2020), 27 November 2026. TODO(verify): the theorem number in the SODA 2021 version.'
+formal:
+  status: informal
+status: valid

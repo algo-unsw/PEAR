@@ -1,0 +1,25 @@
+id: odd-cycle-transversal--to--independent-set
+from: { problem: odd-cycle-transversal, version: weighted }
+to: { problem: independent-set, version: weighted }
+type: polytime-deterministic
+calls: 1
+time: "O(n + m)"
+parameter_map: { n: "2 n", m: "2 m + n", tw: "2 tw + 1" }
+variants:
+  - id: unweighted
+    note: "Unit weights: the minimum size of an odd cycle transversal is $n$ minus the maximum size of an independent set of $G \\square K_2$."
+    from: { problem: odd-cycle-transversal, version: optimisation }
+    to: { problem: independent-set, version: optimisation }
+    parameter_map: { n: "2 n", m: "2 m + n", tw: "2 tw + 1" }
+    source:
+      paper: takazawa-mizuno-2018
+      statements:
+        arxiv-v1: { statement: "Theorem 1, with all weights equal (as in Corollary 2)" }
+      note: "The same construction with unit weights; Corollary 2 of the paper applies it to unweighted graphs."
+source:
+  paper: takazawa-mizuno-2018
+  statements:
+    arxiv-v1: { statement: "Theorem 1" }
+  note: "Theorem 1: $H(G) = G \\square K_2$ has two copies $v_i^1, v_i^2$ of every vertex, the edges of $G$ inside each copy, an edge $v_i^1 v_i^2$ for every $i$, and $w(v_i^1) = w(v_i^2) = w(v_i)$; independent sets of $H(G)$ correspond to vertex sets $W$ of $G$ with $G[W]$ bipartite, of the same weight (one colour class in each copy). \"The number of the nodes increase by 2 times and the maximum degree increases by 1.\" So the minimum weight of an odd cycle transversal is $w(V)$ minus the maximum weight of an independent set of $H(G)$. $H(G)$ has $2n$ vertices and $2m + n$ edges, and a tree decomposition of $G$ of width $\\mathit{tw}$ gives one of $H(G)$ of width $2\\mathit{tw} + 1$ (both copies of every bag; simple step, not stated in the paper). The proof of the converse defines $W_2^I$ from $W_1^B$, a typo for $W_2^B$. Read in arXiv v1 (25 July 2018), 27 November 2026; unrefereed preprint."
+formal: { status: informal }
+status: valid

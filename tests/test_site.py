@@ -393,8 +393,9 @@ def test_max_cut_brute_force_and_composite_parameter(real):
     _, site, _ = real
     node = site["pages"]["max-cut"]["nodes"]["decision+optimisation+search"]
     by_n = [r for r in node["rows"] if r["parameters"] == ["n"]]
-    # nothing slower than brute force, and brute force instead of equal derived bounds
-    assert {r["shown"] for r in by_n} == {r"O^*(2^{\omega n/3})", r"O^*(2^{n})"}
+    # nothing slower than brute force, and brute force instead of equal derived bounds;
+    # 1.994^n (Ameli, Mohrin and Nederlof, a preprint) is the polynomial-space row
+    assert {r["shown"] for r in by_n} == {r"O^*(2^{\omega n/3})", r"O^*(2^{n})", r"O^*(1.994^{n})"}
     assert next(r for r in by_n if r["shown"] == r"O^*(2^{n})")["algorithm"] == "max-cut--n--folklore"
     # 1.977^{m-k} (Edge Bipartization) is listed by m - k, not by k and m
     pw = next(r for r in node["rows"] if r["shown"] == r"O^*(1.977^{m - k})")

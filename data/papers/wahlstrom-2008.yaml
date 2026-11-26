@@ -1,0 +1,10 @@
+id: wahlstrom-2008
+title: "A Tighter Bound for Counting Max-Weight Solutions to 2SAT Instances"
+authors: [Magnus Wahlström]
+versions:
+  iwpec:
+    kind: conference
+    venue: "Parameterized and Exact Computation, Third International Workshop (IWPEC 2008), LNCS 5018, pp. 202–213"
+    year: 2008
+    doi: "10.1007/978-3-540-79723-4_19"
+    open_access: false

@@ -1,0 +1,11 @@
+id: takazawa-mizuno-2018
+title: On a reduction of the weighted induced bipartite subgraph problem to the weighted independent set problem
+authors:
+- Yotaro Takazawa
+- Shinji Mizuno
+versions:
+  arxiv-v1:
+    kind: preprint
+    year: 2018
+    arxiv: 1807.10277v1
+    open_access: true

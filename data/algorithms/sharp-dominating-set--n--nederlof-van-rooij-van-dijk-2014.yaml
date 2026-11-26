@@ -1,0 +1,27 @@
+id: sharp-dominating-set--n--nederlof-van-rooij-van-dijk-2014
+problem: sharp-dominating-set
+proved_for: counting
+bound:
+  as_stated: O(1.5002^{n})
+  notation: O
+  parameters:
+  - n
+properties:
+  randomized: false
+  space:
+    class: exponential
+    note: 'Stated in Theorem 31: "time and space". Dynamic programming over tree decompositions of sparse instances (Lemma 30).'
+  algebraic: false
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: nederlof-van-rooij-van-dijk-2014
+  statements:
+    journal:
+      statement: 'Theorem 31: "There exists an algorithm that solves #Dominating Set in $O(1.5002^n)$ time and space."'
+      page: 731
+  note: The proof counts the red–blue dominating sets "of size $\kappa$, for each value of $\kappa$", which is the counting version here. Deterministic. Theorem 11 of the same paper gives $O(1.5673^n)$ in polynomial space, which the entered polynomial-space bound beats.
+formal:
+  status: informal
+status: valid
