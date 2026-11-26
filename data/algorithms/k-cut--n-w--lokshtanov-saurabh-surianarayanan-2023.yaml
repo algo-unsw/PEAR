@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: polynomial
-    bound: "Not stated; educated guess: polynomial (see the unweighted result of the same paper). TODO(verify)."
+    note: "Not stated; educated guess: polynomial (see the unweighted result of the same paper). TODO(verify)."
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

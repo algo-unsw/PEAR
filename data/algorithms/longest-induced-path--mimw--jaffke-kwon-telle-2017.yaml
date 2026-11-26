@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: exponential
-    bound: "Not stated; educated guess: exponential in $mimw$, $n^{O(mimw)}$ table entries per node of the branch decomposition (dynamic programming over the decomposition; Proposition prop:lip:table:size)."
+    note: "Not stated; educated guess: exponential in $mimw$, $n^{O(mimw)}$ table entries per node of the branch decomposition (dynamic programming over the decomposition; Proposition prop:lip:table:size)."
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

@@ -10,7 +10,7 @@ properties:
   randomized: false
   space:
     class: polynomial
-    bound: 'Educated guess: polynomial. The paper does not state the space; its tables are procedures evaluated when queried, not arrays (Section 8), and the recursion depth is constant for fixed parameters; no memoization or dynamic programming found.'
+    note: 'Educated guess: polynomial. The paper does not state the space; its tables are procedures evaluated when queried, not arrays (Section 8), and the recursion depth is constant for fixed parameters; no memoization or dynamic programming found.'
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

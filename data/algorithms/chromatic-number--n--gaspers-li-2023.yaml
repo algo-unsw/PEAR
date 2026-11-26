@@ -9,7 +9,7 @@ properties:
   randomized: { error: two-sided }
   space:
     class: exponential
-    bound: 'Not stated. The algorithm first runs the inclusion–exclusion preprocessing of Theorem 6 (ICALP numbering) with $\alpha = 0.27$ and stores the chromatic number of every vertex subset of size at most $0.27n$ in QRAM, which takes $O^*(\binom{n}{0.27n}) = O^*(1.79187^n)$ space.'
+    note: 'Not stated. The algorithm first runs the inclusion–exclusion preprocessing of Theorem 6 (ICALP numbering) with $\alpha = 0.27$ and stores the chromatic number of every vertex subset of size at most $0.27n$ in QRAM, which takes $O^*(\binom{n}{0.27n}) = O^*(1.79187^n)$ space.'
   algebraic: true
   fast_matrix_multiplication: false
   constructive: true

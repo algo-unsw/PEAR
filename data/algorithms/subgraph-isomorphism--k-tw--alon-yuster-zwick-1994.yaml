@@ -7,7 +7,7 @@ bound:
   parameters: [k, n, tw]
 properties:
   randomized: false
-  space: { class: exponential, bound: "Not stated; educated guess: $2^{O(k)} n^{tw + 1}$ (polynomial for fixed $k$ and $tw$). Colour-coding with dynamic programming over a tree decomposition of $H$, storing for each bag and each map of the bag into $V$ the feasible colour sets; derandomized with families of perfect hash functions (Section 4)." }
+  space: { class: exponential, note: "Not stated; educated guess: $2^{O(k)} n^{tw + 1}$ (polynomial for fixed $k$ and $tw$). Colour-coding with dynamic programming over a tree decomposition of $H$, storing for each bag and each map of the bag into $V$ the feasible colour sets; derandomized with families of perfect hash functions (Section 4)." }
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

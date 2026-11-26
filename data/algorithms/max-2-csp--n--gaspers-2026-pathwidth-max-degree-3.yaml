@@ -11,7 +11,7 @@ properties:
   randomized: false
   space:
     class: exponential
-    bound: 'Exponential space, as stated (Theorem 11.3: time and space).'
+    note: 'Exponential space, as stated (Theorem 11.3: time and space).'
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: polynomial
-    bound: "Not stated; educated guess: polynomial. The algorithm enumerates the at most $(2^{k+1}+k)^{2k+2}$ defending sequences over vertex types one at a time and checks each by breadth-first search (Lemma on strategy checking); no tables."
+    note: "Not stated; educated guess: polynomial. The algorithm enumerates the at most $(2^{k+1}+k)^{2k+2}$ defending sequences over vertex types one at a time and checks each by breadth-first search (Lemma on strategy checking); no tables."
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

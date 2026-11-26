@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: polynomial
-    bound: 'Not stated; educated guess: polynomial. A branching algorithm on partial assignments of vertices to the two sides, run for each of the $O(n^2)$ pairs $(a, b)$; no memoization or dynamic programming.'
+    note: 'Not stated; educated guess: polynomial. A branching algorithm on partial assignments of vertices to the two sides, run for each of the $O(n^2)$ pairs $(a, b)$; no memoization or dynamic programming.'
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

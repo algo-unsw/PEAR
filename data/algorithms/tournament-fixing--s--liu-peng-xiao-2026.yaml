@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: polynomial
-    bound: "Not stated; TODO(verify): the proof was not read, polynomial space is a guess."
+    note: "Not stated; TODO(verify): the proof was not read, polynomial space is a guess."
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

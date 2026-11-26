@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: polynomial
-    bound: 'Not stated; educated guess: polynomial. Tries all $2^{dcc}$ partitions of a minimum distance-to-co-cluster set and decides each in polynomial time (Lemma 8 of the IPEC version); no tables are kept.'
+    note: 'Not stated; educated guess: polynomial. Tries all $2^{dcc}$ partitions of a minimum distance-to-co-cluster set and decides each in polynomial time (Lemma 8 of the IPEC version); no tables are kept.'
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

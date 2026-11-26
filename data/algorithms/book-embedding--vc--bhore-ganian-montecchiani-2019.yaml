@@ -11,7 +11,7 @@ properties:
   randomized: false
   space:
     class: exponential
-    bound: 'Not stated; educated guess: polynomial space suffices for the brute force over orders and page assignments of the kernel (one candidate at a time), so the space is dominated by the kernel, of size bounded in $vc$; recorded as exponential (in $vc$) to be safe. No memoization or dynamic programming tables are used.'
+    note: 'Not stated; educated guess: polynomial space suffices for the brute force over orders and page assignments of the kernel (one candidate at a time), so the space is dominated by the kernel, of size bounded in $vc$; recorded as exponential (in $vc$) to be safe. No memoization or dynamic programming tables are used.'
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

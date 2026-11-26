@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: exponential
-    bound: 'TODO(verify): abstract only; space not stated there.'
+    note: 'Not stated; educated guess: exponential. The algorithm is Bellman–Held–Karp style dynamic programming over feasible vertex subsets (Section 1).'
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true
@@ -17,8 +17,8 @@ properties:
 source:
   paper: kitsunai-kobayashi-komuro-tamaki-tano-2012
   statements:
-    journal: { statement: "Abstract" }
-  note: 'Abstract of the journal version only; the full text was not read (closed). Entered under the rule of 21 November 2026. The abstract (Crossref metadata, via Zotero) states $O(1.89^n)$ time for the directed pathwidth of an $n$-vertex digraph, and "As a special case, it computes the pathwidth of an undirected graph" in the same time, improving Suchan and Villanger''s $O(1.9657^n)$. Entered for (undirected) pathwidth, as computing the width (optimisation). The IPEC 2012 version was not checked.'
+    journal: { statement: 'Theorem 1' }
+  note: 'Read in the full text (PDF in Serge''s Zotero library, 23 November 2026). Theorem 1 (Algorithmica 2016): "The directed pathwidth of a digraph with $n$ vertices can be computed in $O(1.89^n)$ time." Section 1: for an undirected graph $G$, replacing each edge by two opposite arcs gives a digraph whose directed path-decompositions are exactly the path-decompositions of $G$, so pathwidth is a special case (the abstract says so too). Entered for (undirected) pathwidth, as computing the width (optimisation). The IPEC 2012 version was not checked.'
 formal: { status: informal }
 status: valid
 review: { approved_by: Serge Gaspers, date: 2026-11-22 }

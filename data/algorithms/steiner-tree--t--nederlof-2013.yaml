@@ -11,7 +11,7 @@ properties:
   randomized: false
   space:
     class: polynomial
-    bound: '$O^*(c)$ space, as stated; polynomial for unit weights.'
+    note: '$O^*(c)$ space, as stated; polynomial for unit weights.'
   algebraic: true
   fast_matrix_multiplication: false
   constructive: true

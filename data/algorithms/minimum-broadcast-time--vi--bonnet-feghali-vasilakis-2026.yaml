@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: exponential
-    bound: 'Not stated; the broadcast times $b(D, v)$ of the components $D$ of $G - S$ (at most $\mathrm{vi}$ vertices each) are computed with the $3^n n^{O(1)}$-time dynamic programme over subsets, so $2^{O(\mathrm{vi})} n^{O(1)}$ space; the templates are enumerated one at a time and each is checked by a maximum-weight matching (educated guess).'
+    note: 'Not stated; the broadcast times $b(D, v)$ of the components $D$ of $G - S$ (at most $\mathrm{vi}$ vertices each) are computed with the $3^n n^{O(1)}$-time dynamic programme over subsets, so $2^{O(\mathrm{vi})} n^{O(1)}$ space; the templates are enumerated one at a time and each is checked by a maximum-weight matching (educated guess).'
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

@@ -1,0 +1,92 @@
+name: Claude PR Review
+# A review runs when a PR is opened or marked ready for review, and again whenever someone with
+# write access comments "/review" on the PR. Pushes alone do not start one: reviewing every push
+# used hundreds of runner minutes a week, mostly on reviews a newer push then cancelled.
+on:
+  pull_request:
+    types: [opened, ready_for_review, reopened]
+  issue_comment:
+    types: [created]
+permissions:
+  contents: read
+  pull-requests: read
+jobs:
+  claude-review:
+    # Draft PRs wait until they are marked ready. The comment trigger fires on every comment, but
+    # a job skipped by this condition uses no runner time. Pull requests from forks are not
+    # reviewed: their pull_request runs get no secrets, and the agent can only check out
+    # branches of this repository (a /review comment on one is skipped in the step below).
+    if: >-
+      (github.event_name == 'pull_request' && !github.event.pull_request.draft &&
+       github.event.pull_request.head.repo.full_name == github.repository) ||
+      (github.event_name == 'issue_comment' && github.event.issue.pull_request &&
+       startsWith(github.event.comment.body, '/review') &&
+       contains(fromJSON('["OWNER", "MEMBER", "COLLABORATOR"]'), github.event.comment.author_association))
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Start Managed Agent session and trigger review
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          REVIEWER_TOKEN: ${{ secrets.CLAUDE_TCS_PR_REVIEWER }}
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number || github.event.issue.number }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          API=https://api.anthropic.com/v1
+          # Managed Agents endpoints are in beta: without the beta header they return not_found.
+          # Headers go in a private curl config file so the API key stays out of argv.
+          CFG=$(mktemp)  # created with mode 600
+          trap 'rm -f "$CFG"' EXIT
+          cat > "$CFG" <<CFG
+          header = "x-api-key: $ANTHROPIC_API_KEY"
+          header = "anthropic-version: 2023-06-01"
+          header = "anthropic-beta: managed-agents-2026-04-01"
+          header = "content-type: application/json"
+          CFG
+          HEADERS=(-K "$CFG")
+
+          # Look the head up here: an issue_comment event does not carry it.
+          read -r HEAD_REF HEAD_SHA HEAD_REPO < <(gh api "repos/$REPO/pulls/$PR_NUMBER" --jq '"\(.head.ref) \(.head.sha) \(.head.repo.full_name // "a-deleted-fork")"') || true
+          [ -n "${HEAD_SHA:-}" ] || { echo "Could not look up the head of PR #$PR_NUMBER"; exit 1; }
+          if [ "${HEAD_REPO:-}" != "$REPO" ]; then
+            echo "PR #$PR_NUMBER comes from ${HEAD_REPO:-an unknown repository}; reviews run only on branches of $REPO."
+            exit 0
+          fi
+
+          # Mount the PR branch for the agent. The token never enters the sandbox: Anthropic's
+          # git proxy injects it into git and GitHub REST calls for this repository. jq reads
+          # the token from the environment and the body reaches curl on stdin, so the token
+          # never appears in a process's argv.
+          : "${REVIEWER_TOKEN:?CLAUDE_TCS_PR_REVIEWER secret is not set}"
+          SESSION=$(jq -n --arg repo "https://github.com/$REPO" --arg ref "$HEAD_REF" '{
+                agent: "agent_01UoCZzx2z6byjEmrDbVenV7",
+                environment_id: "env_01Szzs3Aoa88qF8uuMvBuiYd",
+                vault_ids: ["vlt_011CgHRB83PiyHj8DcoMvKwH"],
+                resources: [{
+                  type: "github_repository",
+                  url: $repo,
+                  authorization_token: $ENV.REVIEWER_TOKEN,
+                  checkout: {type: "branch", name: $ref}
+                }]
+              }' | curl -sS "$API/sessions" "${HEADERS[@]}" -d @-)
+          SESSION_ID=$(jq -r '.id // empty' <<<"$SESSION" 2>/dev/null || true)
+          if [ -z "$SESSION_ID" ]; then
+            echo "Session creation failed: $SESSION"
+            exit 1
+          fi
+          echo "Session: $SESSION_ID"
+          echo "Trace: https://platform.claude.com/workspaces/default/sessions/$SESSION_ID"
+
+          # Events are sent wrapped in an "events" array.
+          # Ask for one review of the current state that does not repeat earlier rounds.
+          TEXT="Please review PR #$PR_NUMBER in $REPO at commit $HEAD_SHA. First read the PR description, its comments and your earlier reviews of this PR. Do not repeat a finding from an earlier review unless the lines it concerns have changed since; if one is still unaddressed, mention it once, in one line. Do not raise points that the description or the author's replies say are intentional or out of scope. If nothing at Medium or above remains, say \"No requested changes.\" If the PR's head has moved past $HEAD_SHA by the time you post, say at the top of the review which commit you reviewed."
+          jq -n --arg text "$TEXT" \
+            '{events: [{type: "user.message", content: [{type: "text", text: $text}]}]}' \
+            | curl -sS --fail-with-body "$API/sessions/$SESSION_ID/events" "${HEADERS[@]}" -d @- > send.json \
+            || { echo "Sending the message failed: $(cat send.json)"; exit 1; }
+
+          # The review runs on Anthropic's side and the agent posts it to the PR itself, so the
+          # job ends here instead of keeping a runner waiting for it. Follow it at the trace link.
+          echo "Review requested for $HEAD_SHA."

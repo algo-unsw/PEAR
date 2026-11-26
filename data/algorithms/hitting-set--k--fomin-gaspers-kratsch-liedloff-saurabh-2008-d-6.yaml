@@ -11,7 +11,7 @@ properties:
   randomized: false
   space:
     class: polynomial
-    bound: 'Not stated; educated guess: polynomial. Iterative compression: for each subset of the current solution, one call to a branching algorithm for the rank-$(d-1)$ problem, down to Wahlström''s branching algorithm for 3-Hitting Set; no memoization or stored tables found.'
+    note: 'Not stated; educated guess: polynomial. Iterative compression: for each subset of the current solution, one call to a branching algorithm for the rank-$(d-1)$ problem, down to Wahlström''s branching algorithm for 3-Hitting Set; no memoization or stored tables found.'
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

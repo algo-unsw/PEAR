@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: polynomial
-    bound: "Not stated; educated guess: polynomial. Iterative compression, then branching on a bounded number of canonical separators that break a shortest hole, using clique trees of $G - M$; no exponential-space technique (memoization, dynamic programming over subsets or decompositions) is described in Section 1, but the later sections were not read."
+    note: "Not stated; educated guess: polynomial. Iterative compression, then branching on a bounded number of canonical separators that break a shortest hole, using clique trees of $G - M$; no exponential-space technique (memoization, dynamic programming over subsets or decompositions) is described in Section 1, but the later sections were not read."
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

@@ -7,7 +7,7 @@ bound:
   parameters: [n, N]
 properties:
   randomized: false
-  space: { class: polynomial, bound: 'One set $S$ at a time.' }
+  space: { class: polynomial, note: 'One set $S$ at a time.' }
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: polynomial
-    bound: "Not stated; educated guess: polynomial, if the representations are generated one at a time from endpoint orderings (the paper's argument); no tables."
+    note: "Not stated; educated guess: polynomial, if the representations are generated one at a time from endpoint orderings (the paper's argument); no tables."
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

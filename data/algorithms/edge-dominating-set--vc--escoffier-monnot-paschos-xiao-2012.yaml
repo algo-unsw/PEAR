@@ -8,8 +8,8 @@ bound:
 properties:
   randomized: false
   space:
-    class: exponential
-    bound: 'TODO(verify): abstract only; space not stated there.'
+    class: polynomial
+    note: 'Not stated; educated guess: polynomial. Algorithm FPTτ (Section 5) computes a minimum vertex cover by a branching algorithm, calls a branching algorithm for $k$-Edge Dominating Set, and enumerates subsets of the vertex cover one at a time; no memoization, dynamic programming or decomposition tables found.'
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true
@@ -17,8 +17,8 @@ properties:
 source:
   paper: escoffier-monnot-paschos-xiao-2012
   statements:
-    journal: { statement: "Abstract" }
-  note: 'Abstract of the journal (Theory Comput. Syst. 2015) version only; the full text was not read (closed; the HAL record hal-01926689 blocks automated access). Entered under the rule of 21 November 2026. The abstract (Zotero item RGMYAM8T, from Crossref): "an $O^*(1.821^\tau)$-time exact algorithm where τ is the size of a minimum vertex cover". Whether a minimum vertex cover must be given is not said there: TODO(verify).'
+    journal: { statement: 'Theorem 3' }
+  note: 'Read in the full text (PDF in Serge''s Zotero library, 23 November 2026). Theorem 3 (Theory Comput. Syst. 2015): "FPTτ(G) computes a minimum edge dominate set in $O^*(1.821^\tau)$ time", $\tau$ the size of a minimum vertex cover. No vertex cover is given: Step 1 computes a minimum one in $O^*(1.2738^\tau)$ time (Section 5).'
 formal: { status: informal }
 status: valid
 review: { approved_by: Serge Gaspers, date: 2026-11-22 }

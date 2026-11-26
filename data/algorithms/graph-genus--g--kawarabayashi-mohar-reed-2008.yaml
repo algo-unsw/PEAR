@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: exponential
-    bound: "Not stated; educated guess: at most the running time, $O(f(g) n)$, so linear in $n$ but possibly exponential in $g$. The steps found include dynamic programming over tree decompositions of width bounded in $g$ (tables exponential in the width). TODO(verify)."
+    note: "Not stated; educated guess: at most the running time, $O(f(g) n)$, so linear in $n$ but possibly exponential in $g$. The steps found include dynamic programming over tree decompositions of width bounded in $g$ (tables exponential in the width). TODO(verify)."
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

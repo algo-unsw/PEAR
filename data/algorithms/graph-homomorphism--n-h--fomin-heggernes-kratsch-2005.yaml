@@ -7,7 +7,7 @@ bound:
   parameters: [h, n]
 properties:
   randomized: false
-  space: { class: exponential, bound: "Not stated; educated guess: exponential. Williams' 2-CSP algorithm builds a graph on $O(d^{n/3})$ vertices (domain size $d = h$) and counts triangles by fast matrix multiplication." }
+  space: { class: exponential, note: "Not stated; educated guess: exponential. Williams' 2-CSP algorithm builds a graph on $O(d^{n/3})$ vertices (domain size $d = h$) and counts triangles by fast matrix multiplication." }
   algebraic: true
   fast_matrix_multiplication: true
   constructive: true

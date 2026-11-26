@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: exponential
-    bound: "Not stated; educated guess: $O^*(2^n)$. The proof goes through Theorem 4 (Max Weighted Partition), which reduces to Sum Weighted Partitions; Theorem 3 and Lemma 6 use the fast zeta transform over all subsets of the vertex set, a table with $2^n$ entries."
+    note: "Not stated; educated guess: $O^*(2^n)$. The proof goes through Theorem 4 (Max Weighted Partition), which reduces to Sum Weighted Partitions; Theorem 3 and Lemma 6 use the fast zeta transform over all subsets of the vertex set, a table with $2^n$ entries."
   algebraic: true
   fast_matrix_multiplication: false
   constructive: true

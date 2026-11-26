@@ -12,7 +12,7 @@ properties:
   randomized: false
   space:
     class: exponential
-    bound: 'Not stated; educated guess: exponential. Dynamic programming over subsets of terminals with fast subset convolution.'
+    note: 'Not stated; educated guess: exponential. Dynamic programming over subsets of terminals with fast subset convolution.'
   algebraic: true
   fast_matrix_multiplication: false
   constructive: true

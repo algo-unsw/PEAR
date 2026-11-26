@@ -11,7 +11,7 @@ properties:
   randomized: false
   space:
     class: exponential
-    bound: 'Not stated; educated guess: exponential. Dynamic programming with a table $T[i, Q, U, I, B, \mathcal{A}]$ over subsets $Q$ of the terminals and bags $U$ of a tree decomposition of the solution: $2^{O(k + \tau\omega\log\omega)} n^{O(\omega)}$ entries (Section 4 of the arXiv version).'
+    note: 'Not stated; educated guess: exponential. Dynamic programming with a table $T[i, Q, U, I, B, \mathcal{A}]$ over subsets $Q$ of the terminals and bags $U$ of a tree decomposition of the solution: $2^{O(k + \tau\omega\log\omega)} n^{O(\omega)}$ entries (Section 4 of the arXiv version).'
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

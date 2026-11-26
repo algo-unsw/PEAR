@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: polynomial
-    bound: "Stated in the abstract: \"using polynomial space only\"."
+    note: 'Stated: polynomial space (abstract and Section 6 of the journal version).'
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true
@@ -17,8 +17,8 @@ properties:
 source:
   paper: raible-fernau-2008
   statements:
-    journal: { statement: "Abstract" }
-  note: "Abstract of the journal (Algorithmica 2012) version only; the full text was not read (closed). Entered under the rule of 21 November 2026. The abstract (Zotero item Q4IQJNLP, from the publisher's metadata): \"solving this problem in time $\\mathcal{O}^{*}(1.7548^{n})$ on general graphs, using polynomial space only\", based on reference search trees. The title of the ISAAC 2008 version states the same bound. TODO(verify): the abstract does not say whether the decision or the minimisation version is solved; the two share bounds (binary search on $k$). Deterministic and constructive assumed."
+    journal: { statement: 'Theorem 2' }
+  note: 'Read in the full text (PDF in Serge''s Zotero library, 23 November 2026). Theorem 2 (Algorithmica 2012): "Power Dominating Set can be solved in time $O^*(1.7548^n)$", using polynomial space (abstract, conclusion); a deterministic branching algorithm with reference search trees that finds a minimum power dominating set (optimisation). Section 5 trades space for time; see power-dominating-set--n--raible-fernau-2008-exp. The title of the ISAAC 2008 version states the same bound.'
 formal: { status: informal }
 status: valid
 review: { approved_by: Serge Gaspers, date: 2026-11-22 }

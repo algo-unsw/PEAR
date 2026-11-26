@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: polynomial
-    bound: "Not stated; educated guess: polynomial. A bounded search for the backdoor set (hitting set by branching), then the at most $2^k$ assignments to it are tried one at a time, each leaving a polynomial-time Q2CNF formula; no memoization or dynamic programming found."
+    note: "Not stated; educated guess: polynomial. A bounded search for the backdoor set (hitting set by branching), then the at most $2^k$ assignments to it are tried one at a time, each leaving a polynomial-time Q2CNF formula; no memoization or dynamic programming found."
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

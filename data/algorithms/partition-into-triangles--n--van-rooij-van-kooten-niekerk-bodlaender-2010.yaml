@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: polynomial
-    bound: 'Linear space, as stated (Theorem 5).'
+    note: 'Linear space, as stated (Theorem 5).'
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

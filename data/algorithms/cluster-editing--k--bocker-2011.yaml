@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: polynomial
-    bound: "Not stated; educated guess: polynomial. A search tree (branching vector $(2,1)$ or better) on an integer-weighted instance with polynomial-time reduction rules and minimum-cut computations; no memoization or dynamic programming over subsets found."
+    note: "Not stated; educated guess: polynomial. A search tree (branching vector $(2,1)$ or better) on an integer-weighted instance with polynomial-time reduction rules and minimum-cut computations; no memoization or dynamic programming over subsets found."
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

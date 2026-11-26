@@ -1,0 +1,10 @@
+id: xiao-tan-2017
+title: "Exact algorithms for Maximum Induced Matching"
+authors: [Mingyu Xiao, Huan Tan]
+versions:
+  journal:
+    kind: journal
+    venue: "Information and Computation 256, pp. 196–211"
+    year: 2017
+    doi: "10.1016/j.ic.2017.07.006"
+    open_access: false

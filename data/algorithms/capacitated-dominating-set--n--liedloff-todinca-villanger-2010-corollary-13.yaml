@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: exponential
-    bound: "Stated: exponential space (Corollary 13). Step 2 is Koivisto's dynamic programming over families $R_i$ of vertex subsets."
+    note: "Stated: exponential space (Corollary 13). Step 2 is Koivisto's dynamic programming over families $R_i$ of vertex subsets."
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

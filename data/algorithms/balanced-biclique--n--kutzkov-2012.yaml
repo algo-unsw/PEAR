@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: polynomial
-    bound: 'Corollary 2 does not state the space; it applies Theorem 1 ("O(1.2491^n) time and polynomial space") to a bipartite graph on $2n$ vertices, so polynomial space.'
+    note: 'Corollary 2 does not state the space; it applies Theorem 1 ("O(1.2491^n) time and polynomial space") to a bipartite graph on $2n$ vertices, so polynomial space.'
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

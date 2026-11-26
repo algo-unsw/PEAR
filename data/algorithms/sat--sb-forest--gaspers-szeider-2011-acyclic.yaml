@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: exponential
-    bound: 'Not stated; educated guess: the algorithm uses Courcelle-type model checking for monadic second-order logic on graphs of bounded treewidth (dynamic programming over a tree decomposition, tables whose size depends on the parameter), so space $f(k) N^{O(1)}$.'
+    note: 'Not stated; educated guess: the algorithm uses Courcelle-type model checking for monadic second-order logic on graphs of bounded treewidth (dynamic programming over a tree decomposition, tables whose size depends on the parameter), so space $f(k) N^{O(1)}$.'
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

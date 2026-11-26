@@ -16,12 +16,32 @@ Rule: a parameter gets a lower bound $c$ when the problem is polynomial for ever
 - **Edge Clique Cover, $k \ge 3$**: kept as decided, but it does not follow the rule ($k$ is FPT, so every fixed value is polynomial). Serge to confirm.
 - Parameters that got no lower bound because every fixed value is polynomial (solution sizes, widths, terminals of Steiner problems, $k$ of $k$-Cut): no action unless the rule changes.
 
+### Time–space frontiers (rulebook §9b, 23 November 2026)
+
+- **Bandwidth, $O(4.383^n)$ time and space**: footnote 1 of Cygan and Pilipczuk, "Bandwidth and distortion revisited" ([arXiv:1004.5012](https://arxiv.org/abs/1004.5012), DAM 2012), places this analysis of the ICALP 2009 algorithm in its journal version, M. Cygan, M. Pilipczuk, "Exact and approximate bandwidth", TCS 411(40–42):3701–3713, 2010, [doi:10.1016/j.tcs.2010.06.018](https://doi.org/10.1016/j.tcs.2010.06.018). Also check M. Cygan, M. Pilipczuk, "Even faster exact bandwidth", ACM TALG 8(1), 2012, [doi:10.1145/2071379.2071387](https://doi.org/10.1145/2071379.2071387): the Zotero PDF under that entry is the arXiv v1 text ($4.83^n$). Not entered until one is read.
+- **Stated space bounds still in notes**: only records whose notes state a space bound below the time were given `space.bound` (Bandwidth WG 2008 and arXiv 2009, Power Dominating Set Corollary 2, Max Internal Spanning Tree $3^n$/$2^n$, weighted Vertex Cover $1.3803^k$/$1.2599^k$). Domatic Number (Gaspers–Li, $O^*(\binom{n}{n/4})$ QRAM space) is left at "exp" (equal to the running time): the bound language has no binomial coefficient.
+- **Feige–Kilian $O^*(10^n)$ in polynomial space** (Bandwidth, SWAT 2000) is not entered: beaten by $O(9.363^n)$ in polynomial space, so not on the frontier; it would belong to the bound history.
+
 ### Definition of O* (bounds §2)
 
 - Rutanen et al., "O-notation in algorithm analysis", [arXiv:1309.3210](https://arxiv.org/abs/1309.3210): full author list and version (marked `TODO(verify)` in bounds.md).
 - R. R. Howell, "On Asymptotic Notation with Multiple Variables", Technical Report 2007-4, Kansas State University: date and the exact statements used (not opened by Claude).
 
 ## To do
+
+### Papers to read (Serge, 26 November 2026)
+
+Preprints flagged by Serge. The notes come from the arXiv abstracts only. Read each paper, and check which arXiv version a bound comes from, before entering anything.
+
+- [arXiv:2611.28948](https://arxiv.org/abs/2611.28948), Guillemot, *Towards a faster parameterized algorithm for Chordal Vertex Deletion*. For the disjoint compression version, where $G - X$ is chordal with longest chordless path of length $L$. Chordal Vertex Deletion is in the catalogue; the compression version is not.
+- [arXiv:2611.27956](https://arxiv.org/abs/2611.27956), Firbas and Sorge, *Cluster Editing in Subexponential Fixed-Parameter Time*. Transfers 3-SAT running times to Cluster Editing (sparsification theorem), giving $2^{o(k)} n^{O(1)}$ from the 3-SAT algorithms that refute ETH. Bears on the ETH status (CLAUDE.md rule 7) and on any ETH lower bound recorded for Cluster Editing. Cluster Editing is in the catalogue.
+- [arXiv:2611.27841](https://arxiv.org/abs/2611.27841), Nguyen, *Kidney Exchange in Deterministic $O^*(4^{t+o(t)})$ Time*. Parameter $t$, the number of transplants. Kidney Exchange is not in the catalogue.
+- [arXiv:2611.32605](https://arxiv.org/abs/2611.32605), Aggarwal and Morolia, *How to Round Spiky Balls into Submission – And Faster Algorithms For The Closest Vector Problem*. Single-exponential exact CVP in $\ell_p$, $1 < p < 2$; SVP in $\ell_p$, $p \in [1, 2)$. Lattice problems are not in the catalogue.
+- [arXiv:2611.31738](https://arxiv.org/abs/2611.31738), Xiao, *Solving (Vertex-Weighted) Directed Multiway Cut Faster Than $2^n$*. Directed (node) Multiway Cut by $n$, and a positive-weight version. Only undirected Multiway Cut is in the catalogue.
+- [arXiv:2611.25305](https://arxiv.org/abs/2611.25305), Tan, *Subexponential Algorithms for Continuous Euclidean $k$-Means in Subpolylogarithmic Dimension*. $O^*(2^{o(n)})$, polynomial space, for $d = (\log n)^{o(1)}$. $k$-Means is not in the catalogue.
+- [arXiv:2611.24211](https://arxiv.org/abs/2611.24211), Vatshelle, Langedal and Grossmann, *Expand & Reduce: a Framework Bridging Branch-and-Reduce and Dynamic Programming*. Maximum Weighted Independent Set; the abstract claims exact and FPT algorithms with running times matching branching and DP methods, but states no new bound. Check for one: by $n$, the Overview derives only $O^*(2^n)$ for Weighted Independent Set, since the one entry below it, `independent-set--n--fomin-gaspers-saurabh-2006` ($O(1.2431^n)$), is marked flawed (`status: unrepaired`) and is not used (rulebook A3).
+- [arXiv:2611.23653](https://arxiv.org/abs/2611.23653), Kozma and Tan, *Faster polynomial-space algorithms for poset problems*. Counting linear extensions and Jump Number in polynomial space, $n$ elements. Neither problem is in the catalogue.
+- [arXiv:2611.24750](https://arxiv.org/abs/2611.24750), Ameli, Mohrin and Nederlof, *Counting $6$-Cliques in $O(n^{5.97})$ time and $O(\log n)$ space*. The abstract says it implies a polynomial-space Max Cut algorithm faster than $2^n$ through known reductions. Max Cut and Clique are in the catalogue; the derivation may give the Max Cut bound once the 6-Clique counting result and the reduction are entered.
 
 ### Comparator (bounds §5, 21 November 2026)
 

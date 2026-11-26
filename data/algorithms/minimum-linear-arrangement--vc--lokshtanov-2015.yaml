@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: polynomial
-    bound: 'Not stated; educated guess: polynomial in $n$ for fixed $vc$ (the $vc!$ orders of the vertex cover are tried one at a time, each giving an integer quadratic program with at most $2^{vc}(vc + 1)$ variables); the space of the integer quadratic programming algorithm (Theorem 1) was not checked. No memoization or dynamic programming over subsets found in Section 4.'
+    note: 'Not stated; educated guess: polynomial in $n$ for fixed $vc$ (the $vc!$ orders of the vertex cover are tried one at a time, each giving an integer quadratic program with at most $2^{vc}(vc + 1)$ variables); the space of the integer quadratic programming algorithm (Theorem 1) was not checked. No memoization or dynamic programming over subsets found in Section 4.'
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

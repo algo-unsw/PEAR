@@ -9,7 +9,7 @@ properties:
   randomized: { error: two-sided }
   space:
     class: exponential
-    bound: 'Not stated. Corollary 13 (ICALP numbering) first runs the inclusion–exclusion preprocessing of Theorem 6 for all subsets of size at most about $n/4$ and stores the results in QRAM: exponential space.'
+    note: 'Not stated. Corollary 13 (ICALP numbering) first runs the inclusion–exclusion preprocessing of Theorem 6 for all subsets of size at most about $n/4$ and stores the results in QRAM: exponential space.'
   algebraic: true
   fast_matrix_multiplication: false
   constructive: true

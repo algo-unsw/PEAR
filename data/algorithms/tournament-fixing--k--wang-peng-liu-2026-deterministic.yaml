@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: polynomial
-    bound: "Not stated; educated guess: polynomial. The random colouring is replaced by enumerating a family of $e^{t + o(t)} \\log n$ colourings (Naor, Schulman and Srinivasan), which can be generated one at a time; the rest is as in the randomized version (Lemma 1's routine uses polynomial space)."
+    note: "Not stated; educated guess: polynomial. The random colouring is replaced by enumerating a family of $e^{t + o(t)} \\log n$ colourings (Naor, Schulman and Srinivasan), which can be generated one at a time; the rest is as in the randomized version (Lemma 1's routine uses polynomial space)."
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

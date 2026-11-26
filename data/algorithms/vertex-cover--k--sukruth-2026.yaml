@@ -11,7 +11,7 @@ properties:
   randomized: false
   space:
     class: polynomial
-    bound: 'Educated guess: polynomial. Polynomial-time kernelization, then one call to the counting algorithm on a CNF with $O(k)$ variables; no memoization or dynamic programming found.'
+    note: 'Educated guess: polynomial. Polynomial-time kernelization, then one call to the counting algorithm on a CNF with $O(k)$ variables; no memoization or dynamic programming found.'
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

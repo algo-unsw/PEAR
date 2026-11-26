@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: exponential
-    bound: 'Not stated; educated guess: $2^{O(\sqrt{k}\log k)}$ beyond the polynomial kernelization. After a kernel with $O(k^2)$ vertices (Proposition 2.8), branching produces $2^{O(\sqrt{k}\log k)}$ instances, each solved by dynamic programming over its $2^{O(\sqrt{k}\log k)}$ listed vital potential maximal cliques (Section 6, Steps B2 and C), which keeps a table over them.'
+    note: 'Not stated; educated guess: $2^{O(\sqrt{k}\log k)}$ beyond the polynomial kernelization. After a kernel with $O(k^2)$ vertices (Proposition 2.8), branching produces $2^{O(\sqrt{k}\log k)}$ instances, each solved by dynamic programming over its $2^{O(\sqrt{k}\log k)}$ listed vital potential maximal cliques (Section 6, Steps B2 and C), which keeps a table over them.'
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

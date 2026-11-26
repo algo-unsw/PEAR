@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: polynomial
-    bound: 'Not stated; educated guess: polynomial. Bounded search tree with measure-based analysis, using maximum-volume minimum cuts and isolating cuts computed by flows; no memoization or dynamic programming found.'
+    note: 'Not stated; educated guess: polynomial. Bounded search tree with measure-based analysis, using maximum-volume minimum cuts and isolating cuts computed by flows; no memoization or dynamic programming found.'
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true
@@ -17,5 +17,5 @@ properties:
 source:
   paper: cao-chen-fan-2013
   statements:
-    arxiv: { statement: "Theorem thm:main (Section 1)" }
-  note: 'Stated for integer edge weights and total weight at most $k$ (PEAR''s $k_w$). The same paper gives $1.36^k n^{O(1)}$ for three terminals and $1.84^{(p-2)k/(p-1)} n^{O(1)}$ for $p$ terminals (Theorem thm:p-terminal). FCT 2013; Information Processing Letters 2014; arXiv v1 (posted 2017, the only version on 20 November 2026), read 20 November 2026 (TODO(verify) the printed theorem number).'
+    arxiv: { statement: "Theorem 1.1", page: 2 }
+  note: 'Theorem 1.1: "The MULTITERMINAL CUT problem can be solved in $1.84^k \cdot n^{O(1)}$ time", where (Section 2, page 3) each edge is "weighted by a positive integer w(e)" and $k$ bounds the total weight of the crossing edges (PEAR''s $k_w$). PEAR''s weighted version also allows weight 0: deleting the edges of weight 0 first gives the same answer with the same budget, since adding them to a multiway cut costs nothing and removing them from a multiway cut of $G$ leaves one of $G$ minus those edges (simple step, as for Vertex Cover and Edge Dominating Set; review of PR 30, 25 November 2026). The same paper gives $1.36^k n^{O(1)}$ for three terminals and $1.84^{(p-2)k/(p-1)} n^{O(1)}$ for $p$ terminals (Theorem 1.2). FCT 2013; Information Processing Letters 2014; arXiv v1 (posted 2017, the only version on 20 November 2026), read 20 November 2026; theorem and page numbers checked in the v1 PDF on 25 November 2026.'

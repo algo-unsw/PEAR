@@ -11,7 +11,7 @@ properties:
   randomized: false
   space:
     class: exponential
-    bound: 'Not stated; educated guess: exponential. The algorithm lists the $2^{n/3}$ partial assignments of each third of the variables and counts triangles with matrix multiplication.'
+    note: 'Not stated; educated guess: exponential. The algorithm lists the $2^{n/3}$ partial assignments of each third of the variables and counts triangles with matrix multiplication.'
   algebraic: true
   fast_matrix_multiplication: true
   constructive: true

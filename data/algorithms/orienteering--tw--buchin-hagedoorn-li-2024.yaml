@@ -11,7 +11,7 @@ properties:
   randomized: false
   space:
     class: exponential
-    bound: 'Not stated; educated guess: exponential in $tw$. Dynamic programming over a nice tree decomposition with an entry for every node, subset of the bag, partition of that subset and profit value ($n \cdot tw^{O(tw)}$ entries per node, as the proof counts).'
+    note: 'Not stated; educated guess: exponential in $tw$. Dynamic programming over a nice tree decomposition with an entry for every node, subset of the bag, partition of that subset and profit value ($n \cdot tw^{O(tw)}$ entries per node, as the proof counts).'
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

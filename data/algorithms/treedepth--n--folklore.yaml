@@ -11,7 +11,7 @@ properties:
   randomized: false
   space:
     class: polynomial
-    bound: 'Recursion of depth at most $n$.'
+    note: 'Recursion of depth at most $n$.'
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

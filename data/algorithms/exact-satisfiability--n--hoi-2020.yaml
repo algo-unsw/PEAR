@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: polynomial
-    bound: "Polynomial space (stated in Section 1); a DPLL-style branching algorithm."
+    note: "Polynomial space (stated in Section 1); a DPLL-style branching algorithm."
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

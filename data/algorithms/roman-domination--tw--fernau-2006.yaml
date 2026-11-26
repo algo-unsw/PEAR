@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: exponential
-    bound: "Not stated; educated guess: exponential, $O(4^{tw})$ table entries per node: dynamic programming over a nice tree decomposition with four states per bag vertex ($0$, $\\hat{0}$, $1$, $2$)."
+    note: "Not stated; educated guess: exponential, $O(4^{tw})$ table entries per node: dynamic programming over a nice tree decomposition with four states per bag vertex ($0$, $\\hat{0}$, $1$, $2$)."
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

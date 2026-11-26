@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: exponential
-    bound: "Not stated; educated guess: $2^{2^{O(k)}}$. Set Cover-like dynamic programming over subsets of the edge set of the kernel, which has at most $2^k$ vertices (exponential-size table)."
+    note: "Not stated; educated guess: $2^{2^{O(k)}}$. Set Cover-like dynamic programming over subsets of the edge set of the kernel, which has at most $2^k$ vertices (exponential-size table)."
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

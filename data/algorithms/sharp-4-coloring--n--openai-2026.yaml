@@ -10,7 +10,7 @@ properties:
   randomized: false
   space:
     class: polynomial
-    bound: 'Stated: $\mathrm{poly}_q(v, e)$ space (Corollary 1.3).'
+    note: 'Stated: $\mathrm{poly}_q(v, e)$ space (Corollary 1.3).'
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

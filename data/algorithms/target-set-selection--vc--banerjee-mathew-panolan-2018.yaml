@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: exponential
-    bound: "Not stated; educated guess: exponential in $vc$. Guesses activation time stamps for the cover vertices ($2^{O(t \\log t)}$ guesses, Theorem 1) and solves Multi-Hitting Set instances by dynamic programming (Theorem 2)."
+    note: "Not stated; educated guess: exponential in $vc$. Guesses activation time stamps for the cover vertices ($2^{O(t \\log t)}$ guesses, Theorem 1) and solves Multi-Hitting Set instances by dynamic programming (Theorem 2)."
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

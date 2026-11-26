@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: exponential
-    bound: "Not stated; educated guess: exponential in $q$. A table with one Boolean entry per index $(i, f, g, h)$, where $f, g, h$ are functions on the $O(q)$ nodes and arcs of a guessed annotated structure (Definitions 9–13), is filled by dynamic programming; $q^{O(q)} n^{O(1)}$ entries (Lemma 2)."
+    note: "Not stated; educated guess: exponential in $q$. A table with one Boolean entry per index $(i, f, g, h)$, where $f, g, h$ are functions on the $O(q)$ nodes and arcs of a guessed annotated structure (Definitions 9–13), is filled by dynamic programming; $q^{O(q)} n^{O(1)}$ entries (Lemma 2)."
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

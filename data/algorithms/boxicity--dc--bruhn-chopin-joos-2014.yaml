@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: polynomial
-    bound: "Not stated; educated guess: polynomial in $n$. A polynomial-time kernel with $dc^{2^{O(dc)}}$ vertices (twin removal and deletion of equivalent clusters), then any exact algorithm on the kernel; no tables over the whole input."
+    note: "Not stated; educated guess: polynomial in $n$. A polynomial-time kernel with $dc^{2^{O(dc)}}$ vertices (twin removal and deletion of equivalent clusters), then any exact algorithm on the kernel; no tables over the whole input."
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

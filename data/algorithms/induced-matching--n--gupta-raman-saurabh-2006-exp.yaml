@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: exponential
-    bound: "Stated: space exponential in $n$ (Theorem 7(b)); the space bound itself is not given in the statement."
+    note: "Stated: space exponential in $n$ (Theorem 7(b)); the space bound itself is not given in the statement."
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

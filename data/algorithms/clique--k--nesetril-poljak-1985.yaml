@@ -11,7 +11,7 @@ properties:
   randomized: false
   space:
     class: polynomial
-    bound: 'The auxiliary graph has $O(n^{\ell})$ vertices: polynomial for each fixed $k$, $n^{O(k)}$ in general.'
+    note: 'The auxiliary graph has $O(n^{\ell})$ vertices: polynomial for each fixed $k$, $n^{O(k)}$ in general.'
   algebraic: true
   fast_matrix_multiplication: true
   constructive: true

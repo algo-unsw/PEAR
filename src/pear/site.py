@@ -705,6 +705,41 @@ def flagged_rows(data: Dataset, d: Derivation, problem: Problem, node: str, refs
     return out
 
 
+def space_tex(space: str) -> str | None:
+    """A row's space as shown in a time–space frontier: None for polynomial space (shown in
+    words), the running time's O* form for exponential space without a stated bound."""
+    return None if space in ("poly", "time") else space
+
+
+def frontier_tables(entries: list[dict[str, Any]], rows: dict[str, dict[str, Any]],
+                    by_symbol: dict[str, dict[str, Any]]) -> list[dict[str, Any]]:
+    """Time–space frontiers (decided 23 November 2026), one table per parameter, slowest
+    first: each point's running time, its space and the cited results."""
+    tables: dict[tuple[str, ...], dict[str, Any]] = {}
+    for e in entries:
+        key = tuple(e["parameters"])
+        table = tables.setdefault(key, {
+            "parameters": list(key),
+            "param_tex": ", ".join(by_symbol[p]["tex"] if p in by_symbol else p for p in key),
+            "points": [],
+        })
+        cited = [rows[i] for i in e["cite"] if i in rows]
+        if not cited:
+            continue
+        first = cited[0]
+        refs = []
+        for r in cited:
+            refs += [x for x in r["refs"] if x not in refs]
+        table["points"].append({
+            "row": first,
+            "space": first["space"],
+            "space_tex": space_tex(first["space"]),
+            "refs": refs,
+            "derived": any(r["origin"] == "derived" for r in cited),
+        })
+    return [tb for tb in tables.values() if len(tb["points"]) >= 2]
+
+
 def problem_page(data: Dataset, d: Derivation, derived: dict[str, Any], pid: str) -> dict[str, Any]:
     problem = data.problems[pid]
     refs = References(data)
@@ -810,6 +845,7 @@ def problem_page(data: Dataset, d: Derivation, derived: dict[str, Any], pid: str
             for e in groups[key]:
                 e["lines"] = merged_lines(e["cite"])
         detail_rows = grouped_rows(sorted(enriched_by_id.values(), key=sort_key))
+        tradeoffs = frontier_tables(derived.get("frontier", {}).get(pid, {}).get(node, []), enriched_by_id, by_symbol)
         ordered_groups = sorted(groups.items(), key=lambda kv: [order.get(p, 99) for p in kv[0]])
         overview_out = []
         for key, entries in ordered_groups:
@@ -821,6 +857,7 @@ def problem_page(data: Dataset, d: Derivation, derived: dict[str, Any], pid: str
                 "heading": ("By " + _join(names)) if names else "By",
                 "symbols_tex": [by_symbol[p]["tex"] if p in by_symbol else p for p in key],
                 "entries": entries,
+                "tradeoffs": next((tb for tb in tradeoffs if tuple(tb["parameters"]) == key), None),
             })
         # bases with ω at its best published value, and at its best claimed value for the
         # history with preprints and unverified results included (18 November 2026)
@@ -879,6 +916,7 @@ def problem_page(data: Dataset, d: Derivation, derived: dict[str, Any], pid: str
             "has_optional": any(e.get("optional") or e.get("only_all") or not e.get("in_all")
                                 for g in overview_out for e in g["entries"]),
             "rows": detail_rows,
+            "tradeoffs": sorted(tradeoffs, key=lambda tb: [order.get(p, 99) for p in tb["parameters"]]),
             "flagged": flagged_rows(data, d, problem, node, refs),
             "note": note,
             "history": {

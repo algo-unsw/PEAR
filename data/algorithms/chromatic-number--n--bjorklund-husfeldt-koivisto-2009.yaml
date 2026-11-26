@@ -10,7 +10,7 @@ properties:
   randomized: false
   space:
     class: exponential
-    bound: '$O(2^n n)$ space, as stated.'
+    note: '$O(2^n n)$ space, as stated.'
   algebraic: true
   fast_matrix_multiplication: false
   constructive: true

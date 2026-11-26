@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: polynomial
-    bound: 'Educated guess: a branching algorithm on skew-symmetric multicuts (flow computations) followed by one linear-time q-Horn check per assignment of the backdoor; no memoization, dynamic programming or decomposition-based techniques found.'
+    note: 'Educated guess: a branching algorithm on skew-symmetric multicuts (flow computations) followed by one linear-time q-Horn check per assignment of the backdoor; no memoization, dynamic programming or decomposition-based techniques found.'
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

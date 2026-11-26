@@ -10,7 +10,7 @@ properties:
   randomized: false
   space:
     class: exponential
-    bound: "Not stated; educated guess: $O^*(2^{tw})$, one table entry per 0/1 colouring of a bag and number of cliques (dynamic programming over a tree decomposition with fast subset convolution at join nodes)."
+    note: "Not stated; educated guess: $O^*(2^{tw})$, one table entry per 0/1 colouring of a bag and number of cliques (dynamic programming over a tree decomposition with fast subset convolution at join nodes)."
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

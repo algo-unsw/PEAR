@@ -11,7 +11,7 @@ properties:
   randomized: false
   space:
     class: polynomial
-    bound: 'Not stated; educated guess: polynomial. The algorithm enumerates partitions and orderings of the clients one at a time, after an all-pairs shortest-path table; no exponential-space technique.'
+    note: 'Not stated; educated guess: polynomial. The algorithm enumerates partitions and orderings of the clients one at a time, after an all-pairs shortest-path table; no exponential-space technique.'
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

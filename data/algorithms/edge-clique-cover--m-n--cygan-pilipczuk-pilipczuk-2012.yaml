@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: exponential
-    bound: "Not stated; educated guess: $2^{O(m + n)}$. Dynamic programming for a covering problem, with a table over subsets of the edge set."
+    note: "Not stated; educated guess: $2^{O(m + n)}$. Dynamic programming for a covering problem, with a table over subsets of the edge set."
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

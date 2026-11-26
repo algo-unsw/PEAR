@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: exponential
-    bound: 'Not stated; educated guess: exponential in $k$, polynomial in $n$. Iterative compression, shadow removal that lists all important separators of size at most $k$ (at most $4^k$ per vertex, Lemma lem:impsep) and $2^{O(k^3)} \log^2 n$ derandomized candidate sets, then branching and Almost 2SAT.'
+    note: 'Not stated; educated guess: exponential in $k$, polynomial in $n$. Iterative compression, shadow removal that lists all important separators of size at most $k$ (at most $4^k$ per vertex, Lemma lem:impsep) and $2^{O(k^3)} \log^2 n$ derandomized candidate sets, then branching and Almost 2SAT.'
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

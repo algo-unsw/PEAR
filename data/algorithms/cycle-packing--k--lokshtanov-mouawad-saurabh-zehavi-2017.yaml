@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: polynomial
-    bound: "Stated: polynomial space (Theorem 1; the final dynamic programming uses inclusion–exclusion to keep the space polynomial)."
+    note: "Stated: polynomial space (Theorem 1; the final dynamic programming uses inclusion–exclusion to keep the space polynomial)."
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

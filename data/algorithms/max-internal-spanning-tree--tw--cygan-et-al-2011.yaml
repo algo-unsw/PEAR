@@ -7,7 +7,7 @@ bound:
   parameters: [tw, n]
 properties:
   randomized: { error: one-sided }
-  space: { class: exponential, bound: 'Not stated; educated guess: exponential. Dynamic programming over the given tree decomposition keeps tables exponential in the width (with fast subset convolution at join bags).' }
+  space: { class: exponential, note: 'Not stated; educated guess: exponential. Dynamic programming over the given tree decomposition keeps tables exponential in the width (with fast subset convolution at join bags).' }
   algebraic: true
   fast_matrix_multiplication: false
   constructive: true

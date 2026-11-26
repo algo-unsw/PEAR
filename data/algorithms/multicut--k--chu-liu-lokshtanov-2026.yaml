@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: exponential
-    bound: 'Not stated; educated guess: exponential in $k$, polynomial in $n$. Iterative compression, shadow removal with important separators, and branching into $k^{O(k)}$ bipedal instances solved through Almost 2SAT; no table exponential in $n$.'
+    note: 'Not stated; educated guess: exponential in $k$, polynomial in $n$. Iterative compression, shadow removal with important separators, and branching into $k^{O(k)}$ bipedal instances solved through Almost 2SAT; no table exponential in $n$.'
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

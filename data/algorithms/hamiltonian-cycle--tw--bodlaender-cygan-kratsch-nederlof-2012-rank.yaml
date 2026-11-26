@@ -11,7 +11,7 @@ properties:
   randomized: false
   space:
     class: exponential
-    bound: 'Educated guess: exponential; dynamic programming over the tree decomposition with tables of representative sets (rank-based approach) or determinant computations; the paper does not state the space.'
+    note: 'Educated guess: exponential; dynamic programming over the tree decomposition with tables of representative sets (rank-based approach) or determinant computations; the paper does not state the space.'
   algebraic: true
   fast_matrix_multiplication: true
   constructive: true

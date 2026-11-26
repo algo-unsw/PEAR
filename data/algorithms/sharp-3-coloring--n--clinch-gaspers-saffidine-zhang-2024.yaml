@@ -10,7 +10,7 @@ properties:
   randomized: false
   space:
     class: exponential
-    bound: 'Not stated; educated guess: exponential. The paper reanalyses the algorithm of Fomin, Gaspers and Saurabh (COCOON 2007), which switches from enumerating independent sets to a dynamic program over a path decomposition ($O^*(c^w)$ for width $w$), whose tables are exponential in the width.'
+    note: 'Not stated; educated guess: exponential. The paper reanalyses the algorithm of Fomin, Gaspers and Saurabh (COCOON 2007), which switches from enumerating independent sets to a dynamic program over a path decomposition ($O^*(c^w)$ for width $w$), whose tables are exponential in the width.'
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

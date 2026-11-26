@@ -9,7 +9,7 @@ properties:
   randomized: { error: two-sided }
   space:
     class: exponential
-    bound: 'Not stated. The algorithm of Theorem 8 (ICALP numbering), on which the corollary relies, first runs the inclusion–exclusion preprocessing of Theorem 6 for all subsets of size at most $n/4$ and stores the results in QRAM: $O^*(\binom{n}{n/4})$ space.'
+    note: 'Not stated. The algorithm of Theorem 8 (ICALP numbering), on which the corollary relies, first runs the inclusion–exclusion preprocessing of Theorem 6 for all subsets of size at most $n/4$ and stores the results in QRAM: $O^*(\binom{n}{n/4})$ space.'
   algebraic: true
   fast_matrix_multiplication: false
   constructive: true

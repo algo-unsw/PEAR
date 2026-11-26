@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: exponential
-    bound: "Not stated; educated guess: $O^*(2^{n-k})$. Polynomials stored as bit strings of length $2^{n-k}$, for one candidate set of $b$-vertices at a time."
+    note: "Not stated; educated guess: $O^*(2^{n-k})$. Polynomials stored as bit strings of length $2^{n-k}$, for one candidate set of $b$-vertices at a time."
   algebraic: true
   fast_matrix_multiplication: false
   constructive: true

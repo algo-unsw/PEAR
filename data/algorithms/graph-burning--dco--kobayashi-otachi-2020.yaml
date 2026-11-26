@@ -9,7 +9,7 @@ properties:
   randomized: false
   space:
     class: exponential
-    bound: "Not stated; educated guess: $f(dco) n^{O(1)}$. The algorithm (Theorem 2.3) checks first-order formulas $\\varphi_I$ on each component by MSO$_1$ model checking on bounded clique-width (Courcelle, Makowsky and Rotics; Oum), a dynamic programming over a clique-width expression, then solves Disjoint Sets by colour coding."
+    note: "Not stated; educated guess: $f(dco) n^{O(1)}$. The algorithm (Theorem 2.3) checks first-order formulas $\\varphi_I$ on each component by MSO$_1$ model checking on bounded clique-width (Courcelle, Makowsky and Rotics; Oum), a dynamic programming over a clique-width expression, then solves Disjoint Sets by colour coding."
   algebraic: false
   fast_matrix_multiplication: false
   constructive: true

@@ -2,7 +2,7 @@
 
 > **Status: agreed with Serge on 7 November 2026** (HANDOFF step 4; decisions R1–R7 at the end). Expands `docs/PLAN.md` → Rules for chaining reductions. The SERF definition in §5 was checked against the original paper on 7 November 2026.
 >
-> **Rulebook version: 6** (version 1: 7 November 2026; version 2, the same day: long chains are followed while they improve results, and polynomial factors transfer in O\* form; version 3, 10 November 2026: beaten direct results leave the Details list and stay in the bound history; version 4, 21 November 2026: a bound projected through constraints is not transferred, see §7; version 5, 21 November 2026, approved by Serge: counting reductions, §2a, and easily fixable results count with their site-written fix, A3; version 6, 25 November 2026, approved by Serge: `generalises` with a parameter map, §6). Every derived bound records the rulebook version it was computed under. Changing an agreed rule is high risk (CLAUDE.md rule 6) and bumps the version, which recomputes all derived bounds.
+> **Rulebook version: 7** (version 1: 7 November 2026; version 2, the same day: long chains are followed while they improve results, and polynomial factors transfer in O\* form; version 3, 10 November 2026: beaten direct results leave the Details list and stay in the bound history; version 4, 21 November 2026: a bound projected through constraints is not transferred, see §7; version 5, 21 November 2026, approved by Serge: counting reductions, §2a, and easily fixable results count with their site-written fix, A3; version 6, 25 November 2026, approved by Serge: `generalises` with a parameter map, §6; version 7, approved by Serge on 23 November 2026 and numbered after version 6 when the two pull requests were merged: time–space frontiers, §8 and §9b). Every derived bound records the rulebook version it was computed under. Changing an agreed rule is high risk (CLAUDE.md rule 6) and bumps the version, which recomputes all derived bounds.
 
 The rulebook decides when an algorithm for a problem B, together with a reduction from A to B, gives a **derived bound** for A. Bounds use the language in `bounds.md`; reductions use the fields in `schema.md` §6.
 
@@ -84,6 +84,7 @@ A derived bound is:
 | --- | --- |
 | deterministic | only if every reduction and the final algorithm are deterministic |
 | polynomial space | only if the algorithm is, every reduction runs in polynomial space, and calls are made one after another (their space is reused) |
+| space bound (exponential space, version 7) | the algorithm's stated space bound, substituted along each polynomial-time reduction exactly like the running time (an upper bound: the reduction's own time, and calls made one after another, add at most what they add to the time) and projected with the substitution that projects the running time; it is kept only if the comparator shows it strictly below the derived running time in O\* form. A SERF, a technique, or a step the space bound cannot follow leaves it equal to the running time |
 | constructive | only if every step is |
 | algebraic / uses fast matrix multiplication | if the algorithm is |
 | quantum | if the algorithm is (quantum bounds are filtered out of the start page anyway) |
@@ -119,6 +120,15 @@ Serge approved this on condition that a technique is applied **only when all its
 - The result is derived: its chain ends with a technique step, it is dated by the later of the input and the technique's paper, and it inherits the input's flags (unverified, preprint, hypotheses). It is in the problem's `universe` symbol.
 - A candidate (a kept result in the budget, for a listed problem) that fails a prerequisite is logged with the reason in `build/derived.json`.
 - Results the paper states with the technique (e.g. Table 1 of Fomin et al.) stay as direct results.
+
+## 9b. Time–space frontiers (version 7, 23 November 2026)
+
+Approved by Serge on 23 November 2026, for problems where several algorithms trade time for exponential space (Bandwidth: $9.363^n$ in polynomial space, $5^n$ time with $2^n$ space, $4.83^n$ with $4^n$, $4.473^n$ time and space).
+
+- **Space of a result.** Polynomial space is one class, with no finer detail. Exponential space has a bound in the bound language (schema §5, `properties.space.bound`); without one, it counts as equal to the running time, which always holds (an algorithm never uses more space than time). An unstated space usage is decided as before: exponential (space = time) if the algorithm or a subroutine uses an exponential-space technique such as memoization, dynamic programming over exponentially many states or inclusion–exclusion tables; otherwise polynomial, with a note why (CLAUDE.md).
+- **Keeping (changes §9).** Among results in exponential space, a result drops another only if it is also at least as good in space, in O\* form. A slower algorithm that needs less space stays.
+- **Frontier.** For each node and each parameter a bound is listed under (§7), among the results the Overview considers, the points that no other result beats in both time and space (up to O\*; polynomial space below every exponential bound; equal points grouped, the earliest cited). A frontier is shown only when it shows more than the polynomial-space filter: at least three points, or a point with a stated space bound below its time. It is exported as `frontier` in `build/derived.json`.
+- **Continuous trade-offs.** A paper that states a family (for every $s$ in an interval, time $T(s)^n$ and space $S(s)^n$) is entered as up to four records, at space polynomial, $T^{1/4}$, $T^{1/2}$ and $T$: the value of $s$ is found numerically, both bases are rounded up at the stored precision (so each record remains an upper bound), a point is sampled only if the family reaches it, and coinciding points are entered once. Each record's note gives the family as stated (theorem, range of $s$) and how the point was sampled.
 
 ## 10. Not covered yet
 
