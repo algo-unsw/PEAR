@@ -32,7 +32,7 @@ versions:
     goal: "Find an out-tree $H \\subseteq D$ rooted at $r$ with at most $k$ arcs that contains every vertex of $T$, or report that none exists."
   weighted:
     kind: optimisation
-    input: "A directed graph $D = (V, A)$, a root $r \\in V$, a set $T \\subseteq V \\setminus \\{r\\}$ of terminals, and arc weights $w \\colon A \\to \\mathbb{Z}_{\\ge 0}$."
+    input: "A directed graph $D = (V, A)$, a root $r \\in V$, a set $T \\subseteq V \\setminus \\{r\\}$ of terminals, and arc weights $w \\colon A \\to \\mathbb{Z}_{\\ge 1}$."
     goal: "Find the minimum weight $\\sum_{a \\in A(H)} w(a)$ of an out-tree $H \\subseteq D$ rooted at $r$ that contains every vertex of $T$, or report that none exists."
     generalises: [optimisation]
 default_version: decision

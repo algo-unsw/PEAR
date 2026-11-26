@@ -1,6 +1,6 @@
 id: hamiltonian-cycle--to--rural-postman
 from: { problem: hamiltonian-cycle, version: decision }
-to: { problem: rural-postman, version: decision }
+to: { problem: rural-postman, version: decision-nonnegative-weights }
 type: polytime-deterministic
 calls: 1
 time: "O(n + m)"
@@ -9,4 +9,4 @@ source:
   paper: lenstra-rinnooy-kan-1974
   statements:
     report: { statement: "Theorem in Section 2, proof of the undirected case" }
-  note: "For $H = (V, E)$ with $|V| \\ge 3$: vertices $V \\times \\{0, 1\\}$, a required edge $\\{(s, 0), (s, 1)\\}$ of weight $0$ for every $s \\in V$, an edge $\\{(s, 0), (t, 0)\\}$ of weight $1$ for every edge $st \\in E$, and $B = |V|$; $H$ has a Hamiltonian circuit if and only if the new graph has a postman tour of weight at most $B$. If $H$ is disconnected (no Hamiltonian cycle; the new graph would be disconnected), output a fixed no-instance instead (a site-written detail)."
+  note: "For $H = (V, E)$ with $|V| \\ge 3$: vertices $V \\times \\{0, 1\\}$, a required edge $\\{(s, 0), (s, 1)\\}$ of weight $0$ for every $s \\in V$, an edge $\\{(s, 0), (t, 0)\\}$ of weight $1$ for every edge $st \\in E$, and $B = |V|$; $H$ has a Hamiltonian circuit if and only if the new graph has a postman tour of weight at most $B$. If $H$ is disconnected (no Hamiltonian cycle; the new graph would be disconnected), output a fixed no-instance instead (a site-written detail). The required edges have weight 0, so the target is the version with nonnegative weights (26 November 2026)."

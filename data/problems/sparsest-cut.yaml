@@ -32,12 +32,12 @@ versions:
     goal: 'Find the minimum, over all sets $S \subseteq V$ with $1 \le |S| \le |V|/2$, of the number of edges with exactly one endpoint in $S$ divided by $|S|$.'
   weighted-decision:
     kind: decision
-    input: 'A graph $G = (V, E)$, edge weights $w \colon E \to \mathbb{Z}_{\ge 0}$ and a rational number $\phi \ge 0$.'
+    input: 'A graph $G = (V, E)$, edge weights $w \colon E \to \mathbb{Z}_{\ge 1}$ and a rational number $\phi \ge 0$.'
     question: 'Is there a set $S \subseteq V$ with $1 \le |S| \le |V|/2$ such that the total weight of the edges with exactly one endpoint in $S$ is at most $\phi |S|$?'
     generalises: [decision]
   weighted:
     kind: optimisation
-    input: 'A graph $G = (V, E)$ with at least two vertices and edge weights $w \colon E \to \mathbb{Z}_{\ge 0}$.'
+    input: 'A graph $G = (V, E)$ with at least two vertices and edge weights $w \colon E \to \mathbb{Z}_{\ge 1}$.'
     goal: 'Find the minimum, over all sets $S \subseteq V$ with $1 \le |S| \le |V|/2$, of the total weight of the edges with exactly one endpoint in $S$ divided by $|S|$.'
     generalises: [optimisation]
 default_version: decision

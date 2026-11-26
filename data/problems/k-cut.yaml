@@ -38,7 +38,7 @@ versions:
     goal: "Find a partition of $V$ into $k$ nonempty sets $V_1, \\dots, V_k$ such that at most $s$ edges have their endpoints in different sets, or report that none exists."
   weighted:
     kind: optimisation
-    input: "A graph $G = (V, E)$, edge weights $w \\colon E \\to \\mathbb{Z}_{\\ge 0}$ and an integer $k$."
+    input: "A graph $G = (V, E)$, edge weights $w \\colon E \\to \\mathbb{Z}_{\\ge 1}$ and an integer $k$."
     goal: "Find the minimum total weight of the edges with endpoints in different sets, over all partitions of $V$ into $k$ nonempty sets $V_1, \\dots, V_k$."
     generalises: [optimisation]
 default_version: optimisation

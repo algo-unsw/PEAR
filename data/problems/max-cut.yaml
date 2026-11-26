@@ -38,7 +38,7 @@ versions:
     goal: "Find a set $S \\subseteq V$ such that at least $k$ edges have exactly one endpoint in $S$, or report that none exists."
   weighted:
     kind: optimisation
-    input: "A graph $G = (V, E)$ and edge weights $w \\colon E \\to \\mathbb{Z}_{\\ge 0}$."
+    input: "A graph $G = (V, E)$ and edge weights $w \\colon E \\to \\mathbb{Z}_{\\ge 1}$."
     goal: "Find the maximum total weight of the edges with exactly one endpoint in $S$, over all sets $S \\subseteq V$."
     generalises: [optimisation, weighted-max-degree-4]
   decision-max-degree-3:
@@ -51,7 +51,7 @@ versions:
     goal: "Find the maximum number of edges with exactly one endpoint in $S$, over all sets $S \\subseteq V$."
   weighted-max-degree-3:
     kind: optimisation
-    input: "A graph $G = (V, E)$ of maximum degree at most $3$ and edge weights $w \\colon E \\to \\mathbb{Z}_{\\ge 0}$."
+    input: "A graph $G = (V, E)$ of maximum degree at most $3$ and edge weights $w \\colon E \\to \\mathbb{Z}_{\\ge 1}$."
     goal: "Find the maximum total weight of the edges with exactly one endpoint in $S$, over all sets $S \\subseteq V$."
     generalises: [optimisation-max-degree-3]
   decision-max-degree-4:
@@ -65,7 +65,7 @@ versions:
     goal: "Find the maximum number of edges with exactly one endpoint in $S$, over all sets $S \\subseteq V$."
   weighted-max-degree-4:
     kind: optimisation
-    input: "A graph $G = (V, E)$ of maximum degree at most $4$ and edge weights $w \\colon E \\to \\mathbb{Z}_{\\ge 0}$."
+    input: "A graph $G = (V, E)$ of maximum degree at most $4$ and edge weights $w \\colon E \\to \\mathbb{Z}_{\\ge 1}$."
     goal: "Find the maximum total weight of the edges with exactly one endpoint in $S$, over all sets $S \\subseteq V$."
     generalises: [optimisation-max-degree-4, weighted-max-degree-3]
 default_version: decision

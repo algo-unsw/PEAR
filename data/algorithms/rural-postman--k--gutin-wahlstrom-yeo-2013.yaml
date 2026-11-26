@@ -1,6 +1,6 @@
 id: rural-postman--k--gutin-wahlstrom-yeo-2013
 problem: rural-postman
-proved_for: decision
+proved_for: decision-nonnegative-weights  # the paper allows weight 0 (26 November 2026)
 bound:
   as_stated: '2^{k} (n + B)^{O(1)}'
   notation: O

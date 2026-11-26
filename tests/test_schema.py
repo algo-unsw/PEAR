@@ -117,6 +117,22 @@ CASES = [
         _set("versions.weighted.generalises", [{"version": "optimisation", "parameter_map": {}}]),
         "parameter_map",
     ),
+    # weights are positive integers unless the version says otherwise (26 November 2026)
+    (
+        "weight 0 without a declaration",
+        PA,
+        _set("versions.weighted.input", r"A graph $G$ with vertex weights $w \colon V \to \mathbb{Z}_{\ge 0}$."),
+        "allows positive-integers (the default)",
+    ),
+    (
+        "declared weights differ from the input",
+        PA,
+        _set("versions.weighted", {"kind": "optimisation", "input": r"A graph $G$ with vertex weights $w \colon V \to \mathbb{Z}_{\ge 1}$.",
+                                   "goal": "Find the minimum weight of property A in $G$.", "weights": "nonnegative-integers"}),
+        "allows nonnegative-integers",
+    ),
+    ("weights declared without a weight function", PA, _set("versions.weighted.weights", "integers"), "no weight function"),
+    ("unknown weight kind", PA, _set("versions.weighted.weights", "reals"), "weights"),
     ("review without date", PB, _set("review", {"approved_by": "Serge Gaspers"}), "both approved_by and date"),
     ("review by someone else", PB, _set("review", {"approved_by": "Someone Else", "date": "2026-11-07"}), "review.approved_by"),
     ("reduction type not agreed", RED, _set("type", "parameterized"), "type: Input should be"),
@@ -364,3 +380,16 @@ def test_uses_must_resolve_and_be_acyclic():
     _, issues = validate_raw(raw)
     text = " ".join(str(i) for i in issues)
     assert "cycle" in text and "missing" in text
+
+
+@pytest.mark.parametrize(("weights", "domain"), [
+    (None, r"\mathbb{Z}_{\ge 1}"),
+    ("nonnegative-integers", r"\mathbb{Z}_{\ge 0}"),
+    ("integers", r"\mathbb{Z}"),
+])
+def test_declared_weights_match_the_input(weights, domain):
+    from pear.schema import Version
+
+    v = Version(kind="optimisation", input=rf"A graph and weights $w \colon V \to {domain}$.", goal="Optimise.",
+                weights=weights)
+    assert v.weights == weights

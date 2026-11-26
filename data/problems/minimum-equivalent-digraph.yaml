@@ -37,7 +37,7 @@ versions:
     goal: "Find a set $A' \\subseteq A$ with $|A'| \\le k$ such that for all $u, v \\in V$, $(V, A')$ has a directed path from $u$ to $v$ if and only if $D$ has one, or report that none exists."
   weighted:
     kind: optimisation
-    input: "A digraph $D = (V, A)$ without loops or parallel arcs and arc weights $w \\colon A \\to \\mathbb{Z}_{\\ge 0}$."
+    input: "A digraph $D = (V, A)$ without loops or parallel arcs and arc weights $w \\colon A \\to \\mathbb{Z}_{\\ge 1}$."
     goal: "Find the minimum weight $\\sum_{a \\in A'} w(a)$ of a set $A' \\subseteq A$ such that for all $u, v \\in V$, $(V, A')$ has a directed path from $u$ to $v$ if and only if $D$ has one."
     generalises: [optimisation]
 default_version: decision

@@ -32,7 +32,7 @@ versions:
     goal: "Find a set $F \\subseteq E$ with $|F| \\le k$ such that for every pair $\\{s, t\\}$ of vertices, the graph $(V, F)$ has at least $r(s, t)$ edge-disjoint paths between $s$ and $t$, or report that none exists."
   weighted:
     kind: optimisation
-    input: "A graph $G = (V, E)$, demands $r \\colon \\binom{V}{2} \\to \\mathbb{Z}_{\\ge 0}$, and edge costs $w \\colon E \\to \\mathbb{Z}_{\\ge 0}$."
+    input: "A graph $G = (V, E)$, demands $r \\colon \\binom{V}{2} \\to \\mathbb{Z}_{\\ge 0}$, and edge costs $w \\colon E \\to \\mathbb{Z}_{\\ge 1}$."
     goal: "Find the minimum cost $\\sum_{e \\in F} w(e)$ of a set $F \\subseteq E$ such that for every pair $\\{s, t\\}$ of vertices, the graph $(V, F)$ has at least $r(s, t)$ edge-disjoint paths between $s$ and $t$, or report that none exists."
     generalises: [optimisation]
 default_version: decision
