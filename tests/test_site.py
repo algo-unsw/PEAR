@@ -354,7 +354,7 @@ def test_vertex_cover_by_m_uses_n_at_most_m(real):
     # decided 18 November 2026: preprocessing (degree 0 and 1) gives n <= m without loss of
     # generality, so an algorithm in n is one in m and the trivial 2^m is no record. Since
     # 25 November 2026 Max 2-CSP's 2^{9m/50 + o(m)} (Gaspers–Sorkin, through Weighted
-    # Independent Set) is one: better than 1.1996^n when m < 1.43 n.
+    # Independent Set) is one: better than 1.1996^n when m < (50/9) log2(1.1996) n ≈ 1.46 n.
     _, site, _ = real
     for pid in ("vertex-cover", "independent-set"):
         node = site["pages"][pid]["nodes"]["decision+optimisation+search"]
