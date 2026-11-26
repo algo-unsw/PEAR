@@ -352,12 +352,15 @@ def test_reference_names_every_conference_paper_a_paper_is_based_on(real):
 
 def test_vertex_cover_by_m_uses_n_at_most_m(real):
     # decided 18 November 2026: preprocessing (degree 0 and 1) gives n <= m without loss of
-    # generality, so an algorithm in n is one in m and the trivial 2^m is no record
+    # generality, so an algorithm in n is one in m and the trivial 2^m is no record. Since
+    # 25 November 2026 Max 2-CSP's 2^{9m/50 + o(m)} (Gaspers–Sorkin, through Weighted
+    # Independent Set) is one: better than 1.1996^n when m < (50/9) log2(1.1996) n ≈ 1.46 n.
     _, site, _ = real
     for pid in ("vertex-cover", "independent-set"):
         node = site["pages"][pid]["nodes"]["decision+optimisation+search"]
-        assert not any(g["parameters"] == ["m"] and not g["only_optional"] for g in node["overview"])
-        assert [s["base"] for s in node["history"]["m"]["steps"]] == [1.1996]
+        (by_m,) = [g for g in node["overview"] if g["parameters"] == ["m"] and not g["only_optional"]]
+        shown = [c["shown"] for e in by_m["entries"] for c in e["cite"]]
+        assert "O^*(2^{9 m/50 + o(m)})" in shown and "O^*(2^{m})" not in shown
 
 
 # --- one statement per bound (20 November 2026) ---------------------------------------------------
