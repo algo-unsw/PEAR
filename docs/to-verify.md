@@ -36,7 +36,7 @@ Shown in Details only, never in the Overview.
 - paper `yamano-shibuya-2026`: Faster Exact Algorithms for 3- and 4-Coloring: Deterministic Improvements and Further Randomized Speedups
 - paper `zamir-2026`: k-Coloring is Faster than Computing the Chromatic Number
 
-## 4. `TODO(verify)` markers (132)
+## 4. `TODO(verify)` markers (133)
 
 | Record | Field | Text |
 | --- | --- | --- |
@@ -56,6 +56,7 @@ Shown in Details only, never in the Overview.
 | `cycle-packing--n--lokshtanov-mouawad-saurabh-zehavi-2017` | `source.note` | …f), and holds for any instance with $\|V\|$ vertices. Read in arXiv v1 (4 July 2017, the only version), 27 November 2026. TODO(verify): the lemma number in the ICALP 2017 and SIAM J. Discrete Math. versions. Improves the folklore $O^*(3^n)$ i… |
 | `cycle-packing--tw--folklore` | `source.note` | … of the bag). Optimal under ETH: no $2^{o(tw \log tw)} \|V\|^{O(1)}$ algorithm (Cygan et al., Cut&Count, as cited there). TODO(verify): the textbook location was not opened. |
 | `densest-k-subgraph--nd--hanaka-2022` | `properties.space.note` | …nov's FPT algorithm for Integer Quadratic Programming; no memoization or dynamic programming found in the paper's part. TODO(verify): the space of the IQP algorithm. |
+| `domatic-number--n--nederlof-van-rooij-van-dijk-2014-polyspace` | `source.note` | … of each size (Algorithm 1, reanalysed with new weights, $\alpha = 1.099437$). It computes the number, not a partition. TODO(verify): first published at CIAC 2010 (van Rooij, LNCS 6078); that version was not read. Beats the $O(2.8718^n)$ po… |
 | `edge-dominating-set--pw--van-rooij-2011` | `source.note` | …give the same base for Minimum Maximal Matching. No Edge Dominating Set algorithm parameterized by treewidth was found. TODO(verify): proved_for. |
 | `firefighter--dt--das-enduri-misra-2017` | `source.note` | … which the stated bound dominates). Read through the arXiv LaTeX source of v1; the printed theorem number was not seen (TODO(verify)). The merged TCS 2019 version (7 authors) was not checked and may contain improved results. |
 | `firefighter--nb--cygan-fomin-van-leeuwen-2011` | `source.note` | …2^{b+1} - 1)^{k+b-1} n)$ (Corollary 3.6), which is $O(3^k n)$ for $b = 1$; exponent read from a PDF-to-text extraction (TODO(verify) the exact typeset form). |

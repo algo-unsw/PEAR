@@ -20,7 +20,7 @@ source:
   statements:
     stacs:
       statement: Theorem 1 (page 40:2)
-  note: 'Theorem 1: "If maxdeg(G) $\le 3$, we get runtime $O^*(1.14416^k)$ ... All of these algorithms use polynomial space and are deterministic." The same in arXiv v5 (Theorem 1). Deterministic, unlike the faster randomized bound of Clinch, Gaspers and He for this degree.'
+  note: 'Theorem 1: "If maxdeg(G) $\le 3$, we get runtime $O^*(1.14416^k)$ ... All of these algorithms use polynomial space and are deterministic." Deterministic, unlike the faster randomized bound of Clinch, Gaspers and He for this degree.'
 formal:
   status: informal
 status: valid

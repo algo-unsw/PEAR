@@ -23,6 +23,6 @@ source:
   - https://arxiv.org/abs/2010.08576
   - https://arxiv.org/abs/2402.13170
   - https://lacker.io/complexity/problems/subset-sum-below-2-n-over-2.html
-  note: 'Time $O^*(2^{n/2})$ and space $O^*(2^{n/4})$, deterministic: Horowitz and Sahni''s meet in the middle, with the elements split into four quarters and the subset sums of each half generated in sorted order from two quarters with a min-heap instead of being stored (Wikipedia). The abstracts of Nederlof and Węgrzycki (STOC 2021) and of Belova, Chukhin, Kulikov and Mihajlin (arXiv 2402.13170) both describe it as the $O^*(2^{0.5n})$-time, $O^*(2^{0.25n})$-space algorithm for Subset Sum; Wikipedia and lacker.io give the same bounds. FOCS 1979 version first. No open copy found.'
+  note: 'Time $O^*(2^{n/2})$ and space $O^*(2^{n/4})$, deterministic: Horowitz and Sahni''s meet in the middle, with the elements split into four quarters and the subset sums of each half generated in sorted order from two quarters with a min-heap instead of being stored (Wikipedia). The abstracts of Nederlof and Węgrzycki (STOC 2021) and of Belova, Chukhin, Kulikov and Mihajlin (arXiv 2402.13170) both describe it as the $O^*(2^{0.5n})$-time, $O^*(2^{0.25n})$-space algorithm for Subset Sum; Wikipedia and lacker.io give the same bounds. No open copy found.'
 formal: { status: informal }
 status: valid
