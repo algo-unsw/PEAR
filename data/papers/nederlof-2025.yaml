@@ -1,0 +1,10 @@
+id: nederlof-2025
+title: Weighted k-Path and Other Problems in Almost O*(2^k) Deterministic Time via Dynamic Representative Sets
+authors:
+- Jesper Nederlof
+versions:
+  arxiv-v1:
+    kind: preprint
+    arxiv: 2512.08583v1
+    year: 2025
+    open_access: true

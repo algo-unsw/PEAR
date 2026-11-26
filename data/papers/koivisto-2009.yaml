@@ -1,0 +1,17 @@
+id: koivisto-2009
+title: Partitioning into Sets of Bounded Cardinality
+authors:
+- Mikko Koivisto
+versions:
+  iwpec-preproceedings:
+    kind: preprint
+    venue: IWPEC 2009 pre-proceedings (workshop copy)
+    year: 2009
+    url: https://people.engr.tamu.edu/j-chen3/iwpec2009/images/20.pdf
+    open_access: true
+  iwpec:
+    kind: conference
+    venue: Parameterized and Exact Computation (IWPEC 2009), LNCS 5917, pp. 258–263
+    year: 2009
+    doi: 10.1007/978-3-642-11269-0_21
+    open_access: false

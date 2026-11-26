@@ -5,7 +5,7 @@ Generated from `data/` by `python -m pear verify-list`; do not edit by hand (a t
 Papers we tried and failed to read, and that have no record yet, are listed in the research notes (`unreachable/` ledger), not here.
 
 
-## 1. Entered from an abstract or title only (4)
+## 1. Entered from an abstract or title only (2)
 
 Read the paper; record the theorem; check the bound, the problem version, randomness and space; drop the `TODO(verify)` markers.
 
@@ -13,8 +13,6 @@ Read the paper; record the theorem; check the bound, the problem version, random
 | --- | --- | --- | --- |
 | `bandwidth--n--cygan-pilipczuk-2009-approximate-journal` | abstract | Exact and Approximate Bandwidth ([Automata, Languages and Programming (ICALP 2009), Part I, LNCS 5555, pp. 304–315](https://doi.org/10.1007/978-3-642-02927-1_26); [Theoretical Computer Science 411(40–42), pp. 3701–3713](https://doi.org/10.1016/j.tcs.2010.06.018)) | not yet approved |
 | `directed-feedback-vertex-set--n--razgon-2007` | title | Computing Minimum Directed Feedback Vertex Set in O*(1.9977^n) ([Theoretical Computer Science, 10th Italian Conference (ICTCS 2007), World Scientific, pp. 70–81](https://doi.org/10.1142/9789812770998_0010)) | approved 2026-11-22 |
-| `omega` (bounds[0].sources[1]) | abstract | Matrix Multiplication from Polynomial Packings: A Constructive and Elementary Proof of $\omega \le 9/4$ ([arXiv:2610.28627](https://arxiv.org/abs/2610.28627)) | approved 2026-11-07 |
-| `omega` (bounds[2].sources[0]) | abstract | More Asymmetry Yields Faster Matrix Multiplication ([arXiv:2404.16349v2](https://arxiv.org/abs/2404.16349v2); [Proceedings of the 2025 ACM-SIAM Symposium on Discrete Algorithms (SODA 2025), pp. 2005–2039](https://doi.org/10.1137/1.9781611978322.63); [arXiv:2404.16349v3](https://arxiv.org/abs/2404.16349v3)) | approved 2026-11-07 |
 
 ## 2. Entered on Serge's confirmation, paper not read (0)
 
@@ -38,7 +36,7 @@ Shown in Details only, never in the Overview.
 - paper `yamano-shibuya-2026`: Faster Exact Algorithms for 3- and 4-Coloring: Deterministic Improvements and Further Randomized Speedups
 - paper `zamir-2026`: k-Coloring is Faster than Computing the Chromatic Number
 
-## 4. `TODO(verify)` markers (130)
+## 4. `TODO(verify)` markers (129)
 
 | Record | Field | Text |
 | --- | --- | --- |
@@ -133,7 +131,6 @@ Shown in Details only, never in the Overview.
 | `subset-sum--t--jin-vyas-williams-2021` | `source.note` | …ection 1 also mentions a search version with an extra factor $n$. Read in arXiv v1 (7 November 2020), 27 November 2026. TODO(verify): the theorem number in the SODA 2021 version. |
 | `total-dominating-set--n--van-rooij-2011` | `source.note` | Section 5.5 (Additional Results on Related Problems); Remark 5.1 notes that the analysis applies to Set Cover instances with at most $n$ sets and at most $n$ elements. TODO(verify): proved_for; the thesis says "solves Total Dominating Set". |
 | `tournament-fixing--s--liu-peng-xiao-2026` | `properties.space.note` | Not stated; TODO(verify): the proof was not read, polynomial space is a guess. |
-| `omega` | `bounds[0].sources[1].note` | Constructive proof. Theorem number not yet recorded: TODO(verify). |
 | `book-embedding` | `complexity.source.note` | …): by Bernhart and Kainen, book thickness at most 2 means subhamiltonian, and deciding subhamiltonicity is NP-complete. TODO(verify): Serge to choose whether to cite Chung–Leighton–Rosenberg directly (no open copy checked; it would need thr… |
 | `chordal-vertex-deletion` | `complexity.source.note` | …hnamoorthy and Deo (1979) and Lewis and Yannakakis (1980). Membership in NP: chordality is testable in polynomial time. TODO(verify): Serge to choose whether to cite Krishnamoorthy–Deo or Lewis–Yannakakis directly (no open copy checked; Wik… |
 | `cluster-deletion` | `complexity.source.note` | …iv 1904.09470, Section 1) state NP-hardness on general graphs. Wikipedia (Cluster graph) does not mention this problem. TODO(verify): no open copy of Shamir–Sharan–Tsur was found. |
