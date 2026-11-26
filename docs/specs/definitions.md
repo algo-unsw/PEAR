@@ -10,7 +10,7 @@ Every problem has exactly one canonical definition, because small differences qu
 - **Set systems** are a finite universe $U$ and a family $\mathcal{F}$ of subsets of $U$: $n = |U|$, $m = |\mathcal{F}|$.
 - **Formulas** are in conjunctive normal form over variables $x_1, \dots, x_n$, with $m$ clauses.
 - **Numbers** in the input are integers given in binary (F6).
-- **Weights** are nonnegative integers in binary by default, with $W$ (maximum weight) as a parameter where results need it (`poly_bounded: false`). A problem may define its weights differently (real, negative, unary, …); its definition then says so explicitly (F6).
+- **Weights** are positive integers in binary by default (since 26 November 2026; a version may declare `weights: nonnegative-integers` or `integers`, see `schema.md`), with $W$ (maximum weight) as a parameter where results need it (`poly_bounded: false`). A problem may define its weights differently (real, negative, unary, …); its definition then says so explicitly (F6).
 
 ## 2. Sizes
 
@@ -55,5 +55,5 @@ Every problem has exactly one canonical definition, because small differences qu
 - **F3** The optimisation version outputs the optimum value.
 - **F4** $k$ is the input integer in decision and search, and the optimum in optimisation, under one symbol.
 - **F5** A shared-parameter reference may say which graph or object it is measured on (`of`, schema §2).
-- **F6** Weights are nonnegative integers in binary by default; a problem may define them differently.
+- **F6** Weights are positive integers in binary by default; a version may declare `weights: nonnegative-integers` or `integers` (schema), and a problem may define other weights (real, unary, …) explicitly.
 - **F7** Constraints may rely on trivial polynomial-time preprocessing. A classic result whose paper is not open access (Karp 1972) is cited as such. It needs no reading of the paper when a web search finds independent sources that confirm it: at least three, on different sites, recorded in `attested_by` (schema §4; CLAUDE.md rule 2).
