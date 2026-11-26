@@ -15,7 +15,9 @@ def test_verify_list_is_current():
 
 def test_abstract_records_are_listed():
     text = build_list(ROOT / "data")
-    assert "`omega` (bounds[0].sources[1]) | abstract" in text
+    assert "`bandwidth--n--cygan-pilipczuk-2009-approximate-journal` | abstract" in text
+    # read on 27 November 2026 (Pass arXiv v2; Alman et al. arXiv v3), so no longer listed
+    assert "`omega`" not in text
     # read in full on 27 November 2026, so no longer listed
     assert "`exact-satisfiability--m--bjorklund-husfeldt-2006` | abstract" not in text
     assert "`directed-feedback-vertex-set--n--razgon-2007` | title" in text

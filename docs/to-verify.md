@@ -40,7 +40,7 @@ Shown in Details only, never in the Overview.
 
 | Record | Field | Text |
 | --- | --- | --- |
-| `3-hitting-set--n--fomin-gaspers-lokshtanov-saurabh-2015-weighted` | `source.note` | …ks only its first row as randomized, so this one is taken as deterministic. Added at Serge's request, 27 November 2026. TODO(verify): the Shachnai–Zehavi algorithm (not opened) and the J. ACM version of the table. |
+| `3-hitting-set--n--fomin-gaspers-lokshtanov-saurabh-2015-weighted` | `source.note` | …ks only its first row as randomized, so this one is taken as deterministic. Added at Serge's request, 27 November 2026. TODO(verify): the J. ACM version of the table. |
 | `b-coloring--n--panolan-philip-saurabh-2015-decision` | `source.note` | … binomial coefficients, so the implied $O(3^n n^4 \log n)$ is stored ($\binom{n}{k} 2^{n-k}$ is one term of $(1+2)^n$). TODO(verify): store the stated form once the bound language has binomial coefficients. Read in the LIPIcs PDF. |
 | `balanced-biclique--k--folklore` | `source.note` | …arXiv 1406.3700) shows that the problem is W[1]-hard parameterized by $k$, so no $f(k) n^{O(1)}$ algorithm is expected. TODO(verify): Serge to approve this XP baseline. |
 | `balanced-biclique--n--binkele-raible-fernau-gaspers-2010` | `source.note` | …rtex Cover). Statement and page numbers from the authors' preprint (submitted to Elsevier, 25 October 2010) at the URL; TODO(verify) that they match the published version. |

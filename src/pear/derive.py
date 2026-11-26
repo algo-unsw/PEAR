@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import itertools
 import math
+import re
 from dataclasses import dataclass, field, replace
 from fractions import Fraction
 from typing import Iterable
@@ -52,6 +53,17 @@ def at_least_as_strong(a: "Props", b: "Props") -> bool:
 
 def stronger(a: "Props", b: "Props") -> bool:
     return at_least_as_strong(a, b) and (a.deterministic, a.poly_space) != (b.deterministic, b.poly_space)
+
+
+def domain_minima(problem: Problem) -> dict[str, int]:
+    """Bounds §2: every variable is at least 2, or more when the problem declares a lower
+    bound as a constraint of the form `x \\ge c`."""
+    out: dict[str, int] = {}
+    for c in problem.constraints:
+        m = re.fullmatch(r"\s*([A-Za-z_][A-Za-z0-9_]*)\s*\\ge\s*(\d+)\s*", c.constraint)
+        if m:
+            out[m.group(1)] = max(2, int(m.group(2)), out.get(m.group(1), 2))
+    return out
 
 
 @dataclass(frozen=True)
@@ -515,10 +527,16 @@ class Engine:
         return self.with_space(out, space)
 
     def monotone_substitution(
-        self, b: Bound, pmap: dict[str, str], symbols: set[str], ctx, what: str, log=None
+        self, b: Bound, pmap: dict[str, str], symbols: set[str], ctx, what: str, log=None,
+        target: Problem | None = None,
     ) -> tuple[Bound, Node] | None:
         """Rulebook A1, A2: substitute upper bounds for variables of a nondecreasing bound.
-        Returns the nondecreasing form of the bound and the substituted expression."""
+        Returns the nondecreasing form of the bound and the substituted expression.
+
+        A constant below the domain minimum of the target's variable (bounds §2: at least 2,
+        or a declared lower bound such as k >= 3) is raised to that minimum: the bound is only
+        claimed on the domain, the raised constant is still an upper bound (A1), and the bound
+        is nondecreasing (A2). Otherwise d = 0 in (kd)^{O(tw)} would give 0 (27 November 2026)."""
         log = log or self.log
         if not is_monotone(b):
             log(f"{what}, bound not shown to be monotone (rulebook A2)")
@@ -535,6 +553,12 @@ class Engine:
                 return None
             b = upper
         phi = {v: parse_expr(e, symbols) for v, e in pmap.items()}
+        if target is not None:
+            minima = domain_minima(target)
+            for v, e in phi.items():
+                low = minima.get(v, 2)
+                if isinstance(e, Num) and e.value < low:
+                    phi[v] = Num(Fraction(low), str(low))
         return b, simplify(substitute(b.expr, phi))
 
     def polytime_bound(self, r: Result, red: Reduction, source: Problem, target: Problem,
@@ -553,7 +577,8 @@ class Engine:
                 log(f"{red.id}: cannot transfer {r.id}, parameter map does not cover {missing} (rulebook §2)")
                 return None
         mapped = self.monotone_substitution(
-            b, red.parameter_map, source.symbols(), self.out.contexts[target.id], f"{red.id}: cannot transfer {r.id}", log
+            b, red.parameter_map, source.symbols(), self.out.contexts[target.id], f"{red.id}: cannot transfer {r.id}", log,
+            target,
         )
         if mapped is None:
             return None
@@ -619,7 +644,8 @@ class Engine:
                     used = {v: e for v, e in pmap.items() if v in in_time | in_space}
                     if used.keys() & in_time:
                         mapped = self.monotone_substitution(
-                            r.bound, used, problem.symbols(), ctx, f"{sid}: cannot transfer {r.id}"
+                            r.bound, used, problem.symbols(), ctx, f"{sid}: cannot transfer {r.id}",
+                            target=problem,
                         )
                         if mapped is None:
                             continue
@@ -628,7 +654,8 @@ class Engine:
                     if r.space is not None and used.keys() & in_space:
                         # quiet, as for reductions: a space bound that does not map falls back to
                         # the running time
-                        mapped = self.monotone_substitution(r.space, used, problem.symbols(), ctx, "", lambda _m: None)
+                        mapped = self.monotone_substitution(r.space, used, problem.symbols(), ctx, "", lambda _m: None,
+                                                            problem)
                         space = Bound(mapped[0].notation, mapped[1], mapped[0].family) if mapped else None
                     step = Step("special-case", sid, from_tag, f"{problem.id}:{r.node}", parameter_map=tuple(sorted(used.items())))
                     chain = self.extend_chain(r, step)
