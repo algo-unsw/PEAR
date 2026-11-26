@@ -1,0 +1,12 @@
+id: ameli-mohrin-nederlof-2026
+title: "Counting $6$-Cliques in $O(n^{5.97})$ time and $O(\\log n)$ space"
+authors:
+- Afrouz Jabal Ameli
+- Niklas Mohrin
+- Jesper Nederlof
+versions:
+  arxiv-v1:
+    kind: preprint
+    year: 2026
+    arxiv: 2611.24750v1
+    open_access: true

@@ -18,7 +18,7 @@ source:
   paper: xiao-nagamochi-2011
   statements:
     journal: { statement: 'Theorem 1' }
-  note: 'Read in the full text (PDF in Serge''s Zotero library, 23 November 2026). Theorem 1 (TCS 2014): "Algorithm EDS(G, A) computes a minimum edge dominating set for an $n$-vertex graph $G$ in $1.3160^n n^{O(1)}$ time" (the optimisation version). The technical-report abstract states the same bound.'
+  note: 'Theorem 1 (TCS 2014): "Algorithm EDS(G, A) computes a minimum edge dominating set for an $n$-vertex graph $G$ in $1.3160^n n^{O(1)}$ time" (the optimisation version). The technical-report abstract states the same bound.'
 formal: { status: informal }
 status: valid
 review: { approved_by: Serge Gaspers, date: 2026-11-22 }

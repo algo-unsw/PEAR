@@ -1,0 +1,11 @@
+id: firbas-sorge-2026
+title: "Cluster Editing in Subexponential Fixed-Parameter Time"
+authors:
+- Alexander Firbas
+- Manuel Sorge
+versions:
+  arxiv-v1:
+    kind: preprint
+    year: 2026
+    arxiv: 2611.27956v1
+    open_access: true

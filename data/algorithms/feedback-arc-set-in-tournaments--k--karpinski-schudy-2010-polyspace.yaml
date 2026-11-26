@@ -19,4 +19,4 @@ source:
   statements:
     arxiv-v1:
       statement: 'Theorem 1 (LaTeX label thm:exactFAST), second sentence (variant)'
-  note: 'Stated for weighted FAST parameterized by $OPT$: a variant of the algorithm runs in $OPT^{O(\sqrt{OPT})} + n^{O(1)}$ time and $n^{O(1)}$ space. A tournament is the case of 0/1 weights. ISAAC 2010 version not opened. TODO(verify): constructive assumed, as for the main algorithm.'
+  note: 'Stated for weighted FAST parameterized by $OPT$: a variant of the algorithm runs in $OPT^{O(\sqrt{OPT})} + n^{O(1)}$ time and $n^{O(1)}$ space. A tournament is the case of 0/1 weights. Constructive: line 3 of Algorithm 1 uses "dynamic programming or divide-and-conquer (Details: Lemma 9) to find the optimal ranking", and Lemma 9 gives the divide-and-conquer variant ($|V|^{O(\psi)}$ time, $|V|^{O(1)}$ space); arXiv v1. ISAAC 2010 version not opened.'

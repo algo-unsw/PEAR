@@ -22,4 +22,4 @@ source:
     arxiv-v1:
       statement: 'Lemma 16'
       page: 15
-  note: '"There exist randomized algorithms for Vertex Cover on subcubic graphs running in $O^*(1.07625^n)$ time and $O^*(1.13132^k)$ time, respectively." Automatically generated branching rules analysed with randomized Measure & Conquer (measure $0.106 n_3$). Read in the Zotero PDF of arXiv:2510.09027 (24 pages, Table 1 on page 3, Section 5 on page 15; the PDF carries no version stamp, the same copy as for the approved `vertex-cover--k--clinch-gaspers-he-2025`). One-sided error as in that record: no-instances always get No.'
+  note: '"There exist randomized algorithms for Vertex Cover on subcubic graphs running in $O^*(1.07625^n)$ time and $O^*(1.13132^k)$ time, respectively." Automatically generated branching rules analysed with randomized Measure & Conquer (measure $0.106 n_3$). Read in the PDF of arXiv:2510.09027 (24 pages, Table 1 on page 3, Section 5 on page 15; the PDF carries no version stamp, the same copy as for the approved `vertex-cover--k--clinch-gaspers-he-2025`). One-sided error as in that record: no-instances always get No.'

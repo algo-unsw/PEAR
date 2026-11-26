@@ -18,7 +18,7 @@ source:
   paper: fomin-todinca-villanger-2011
   statements:
     conference: { statement: 'Theorem 1' }
-  note: 'Read in the full text (PDF in Serge''s Zotero library, 23 November 2026). Theorem 1 (ESA 2011): "Maximum Induced Planar Subgraph on $n$-vertex graphs is solvable in time $O(1.7347^n)$." $V \setminus S$ induces a planar graph if and only if $G - S$ is planar, so a maximum induced planar subgraph gives a minimum planar deletion set (the optimisation version). Deterministic; the algorithm constructs the subgraph (Section 4).'
+  note: 'Theorem 1 (ESA 2011): "Maximum Induced Planar Subgraph on $n$-vertex graphs is solvable in time $O(1.7347^n)$." $V \setminus S$ induces a planar graph if and only if $G - S$ is planar, so a maximum induced planar subgraph gives a minimum planar deletion set (the optimisation version). Deterministic; the algorithm constructs the subgraph (Section 4).'
 formal: { status: informal }
 status: valid
 review: { approved_by: Serge Gaspers, date: 2026-11-22 }

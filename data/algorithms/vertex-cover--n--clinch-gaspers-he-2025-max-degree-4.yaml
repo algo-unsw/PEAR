@@ -22,4 +22,4 @@ source:
     arxiv-v1:
       statement: 'Lemma 17'
       page: 15
-  note: '"There is a randomized $O^*(1.13735^n)$-time algorithm for Vertex Cover on degree-4 graphs" (maximum degree 4): the subcubic algorithm of Lemma 16 used inside the degree-4 algorithm of Xiao and Nagamochi. Read in the Zotero PDF of arXiv:2510.09027 (24 pages, Table 1 on page 3, Section 5 on page 15; the PDF carries no version stamp, the same copy as for the approved `vertex-cover--k--clinch-gaspers-he-2025`). One-sided error as in that record: no-instances always get No.'
+  note: '"There is a randomized $O^*(1.13735^n)$-time algorithm for Vertex Cover on degree-4 graphs" (maximum degree 4): the subcubic algorithm of Lemma 16 used inside the degree-4 algorithm of Xiao and Nagamochi. Read in the PDF of arXiv:2510.09027 (24 pages, Table 1 on page 3, Section 5 on page 15; the PDF carries no version stamp, the same copy as for the approved `vertex-cover--k--clinch-gaspers-he-2025`). One-sided error as in that record: no-instances always get No.'

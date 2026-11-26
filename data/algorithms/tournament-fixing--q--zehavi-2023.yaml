@@ -18,6 +18,6 @@ source:
   paper: zehavi-2023
   statements:
     aaai: { statement: "Theorem 1" }
-  note: "Stated with $k$ for the feedback vertex set number of the input tournament $D$ (written $q$ here). A minimum feedback vertex set is computed first in $3^k n^{O(1)}$ time (Proposition 4). By backtracking, the algorithm can also return the seeding (Introduction). Read in the AAAI version (Zotero copy of the OJS PDF; the OJS page is gold open access but bot-blocked for automated fetches)."
+  note: "Stated with $k$ for the feedback vertex set number of the input tournament $D$ (written $q$ here). A minimum feedback vertex set is computed first in $3^k n^{O(1)}$ time (Proposition 4). By backtracking, the algorithm can also return the seeding (Introduction). Read in the AAAI version (gold open access on the OJS page)."
 formal: { status: informal }
 status: valid

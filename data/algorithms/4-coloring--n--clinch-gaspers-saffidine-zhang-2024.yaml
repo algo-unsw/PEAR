@@ -20,4 +20,4 @@ source:
   statements:
     arxiv-v3:
       statement: Theorem 6
-  note: 'Piecewise analysis of the 4-Coloring algorithm of Fomin, Gaspers and Saurabh (COCOON 2007), whose original analysis gave $O(1.7272^n)$. Theorem 6 of the latest arXiv version (v3, 29 June 2024; read: arXiv PDF and the Zotero copy, five authors); v2 has the same abstract bounds. Wu et al. (ESA 2024) cite an arXiv version of this work with $O(1.7215^n)$, presumably v1 (not opened). Theorem 18 states $O(1.7146^n)$ if the $O(1.3217^n)$ 3-Coloring algorithm claimed by Meijer is used as subroutine; not entered, since that claim is flagged.'
+  note: 'Piecewise analysis of the 4-Coloring algorithm of Fomin, Gaspers and Saurabh (COCOON 2007), whose original analysis gave $O(1.7272^n)$. Theorem 6 of the latest arXiv version (v3, 29 June 2024; read: arXiv PDF, five authors); v2 has the same abstract bounds. Wu et al. (ESA 2024) cite an arXiv version of this work with $O(1.7215^n)$, presumably v1 (not opened). Theorem 18 states $O(1.7146^n)$ if the $O(1.3217^n)$ 3-Coloring algorithm claimed by Meijer is used as subroutine; not entered, since that claim is flagged.'

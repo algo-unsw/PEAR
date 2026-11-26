@@ -18,6 +18,8 @@ source:
   paper: bliznets-sagunov-2018
   statements:
     arxiv: { statement: "Theorem 3" }
-  note: "Theorem 3: \"Perfect Target Set Selection with thresholds being at most two can be solved in\" $O^*(1.90345^n)$ time. Read in the arXiv PDF dated 7 September 2018 (TODO(verify) the arXiv version number and the numbering in the IPEC 2018 and Algorithmica 2023 versions)."
+    ipec: { statement: "Theorem 5" }
+    journal: { statement: "Theorem 3" }
+  note: "Theorem 3: \"Perfect Target Set Selection with thresholds being at most two can be solved in\" $O^*(1.90345^n)$ time. Read in arXiv v2 (6 September 2018); the same statement is Theorem 5 of the IPEC 2018 version and Theorem 3 of the Algorithmica 2023 version."
 formal: { status: informal }
 status: valid

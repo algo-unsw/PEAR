@@ -1,0 +1,25 @@
+id: max-cut--n--ameli-mohrin-nederlof-2026
+problem: max-cut
+proved_for: optimisation
+bound:
+  as_stated: '1.994^{n}'
+  notation: O
+  parameters:
+  - n
+properties:
+  randomized: false
+  space:
+    class: polynomial
+    note: 'Stated in Corollary 2: "polynomial space".'
+  algebraic: true
+  fast_matrix_multiplication: false
+  constructive: true
+  quantum: false
+source:
+  paper: ameli-mohrin-nederlof-2026
+  statements:
+    arxiv-v1:
+      statement: 'Corollary 2: "Max Cut on $n$-vertex graphs can be solved in $O(1.994^n)$ time and polynomial space"'
+  note: 'Unweighted Max Cut. Williams''s reduction (ICALP 2004, Section 3) with six parts instead of three reduces it to polynomially many 6-clique counting instances on $O(2^{n/6})$ vertices, represented implicitly; Theorem 1 counts 6-cliques in $O(n^{5.97})$ time and $O(\log n)$ space with read-only access to the adjacency matrix (Section 1, "Application to Max Cut"). The counting uses an algebraic decomposition of an equality indicator, not fast matrix multiplication; no randomness is used. Read in arXiv v1 (18 November 2026), 27 November 2026; unrefereed preprint. A maximum cut, not only its size, follows by self-reduction (not stated). The paper presents it as resolving the qualitative form of Woeginger''s Open Problem 4.7(b), a polynomial-space $O((2-\varepsilon)^n)$ algorithm.'
+formal: { status: informal }
+status: valid

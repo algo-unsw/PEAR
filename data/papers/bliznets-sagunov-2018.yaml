@@ -5,7 +5,7 @@ identifiers: { dblp: "journals/algorithmica/BliznetsS23" }
 versions:
   arxiv:
     kind: preprint
-    arxiv: "1807.10789"
+    arxiv: "1807.10789v2"
     year: 2018
     open_access: true
   ipec:

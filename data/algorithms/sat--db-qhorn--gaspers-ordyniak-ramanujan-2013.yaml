@@ -19,4 +19,4 @@ source:
   statements:
     stacs:
       statement: Corollary 16
-  note: 'Corollary 16: an algorithm that, given a formula $F$ of length $\ell$ with $n$ variables, runs in time $2^{O(k^2)} \ell n$ and decides the satisfiability of $F$, where $k$ is the size of a smallest deletion q-Horn-backdoor set of $F$. It uses the FPT-approximation of Theorem 1 (time $O(6^k k \ell n)$, a deletion q-Horn-backdoor set of size at most $k^2 + k$). Read in the STACS 2013 LIPIcs version (Zotero PDF, and the author copy on the UNSW page in the same format). The Algorithmica 2016 version was not read.'
+  note: 'Corollary 16: an algorithm that, given a formula $F$ of length $\ell$ with $n$ variables, runs in time $2^{O(k^2)} \ell n$ and decides the satisfiability of $F$, where $k$ is the size of a smallest deletion q-Horn-backdoor set of $F$. It uses the FPT-approximation of Theorem 1 (time $O(6^k k \ell n)$, a deletion q-Horn-backdoor set of size at most $k^2 + k$). Read in the STACS 2013 LIPIcs version (open access) and the author copy on the UNSW page. The Algorithmica 2016 version was not read.'

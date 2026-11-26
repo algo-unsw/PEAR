@@ -22,4 +22,4 @@ source:
     arxiv-v1:
       statement: 'Lemma 18'
       page: 15
-  note: 'Lemma 18: randomized $O^*(1.25281^k)$ on general graphs and, "for bounded maximum degree: degree-4: $O^*(1.21103^k)$"; the algorithms of Harris and Narayanaswamy with the bounds of Lemmas 16 and 17. Read in the Zotero PDF of arXiv:2510.09027 (24 pages, Table 1 on page 3, Section 5 on page 15; the PDF carries no version stamp, the same copy as for the approved `vertex-cover--k--clinch-gaspers-he-2025`). One-sided error as in that record: no-instances always get No.'
+  note: 'Lemma 18: randomized $O^*(1.25281^k)$ on general graphs and, "for bounded maximum degree: degree-4: $O^*(1.21103^k)$"; the algorithms of Harris and Narayanaswamy with the bounds of Lemmas 16 and 17. Read in the PDF of arXiv:2510.09027 (24 pages, Table 1 on page 3, Section 5 on page 15; the PDF carries no version stamp, the same copy as for the approved `vertex-cover--k--clinch-gaspers-he-2025`). One-sided error as in that record: no-instances always get No.'
